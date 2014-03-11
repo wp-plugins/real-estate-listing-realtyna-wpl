@@ -3,7 +3,7 @@ Contributors: realtyna
 Donate link: http://wpl.realtyna.com/
 Tags: Real estate, Listing, Vertical Market, MLS, Property listing, RETS
 Requires at least: 3.0.1
-Tested up to: 3.8
+Tested up to: 3.8.1
 Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -13,11 +13,13 @@ WPL (WordPress Property Listing) is an amazing plugin for Real estate and vertic
 == Description ==
 
 Run your real estate website using WPL. WPL has lot's of features and addons.
+Demo website: http://wpl28.realtyna.com
 
 WPL addons:
 
 *   "MLS Addon" is for integrating MLS/IDX/RETS servers into WPL.
 *   "PRO Addon" has some advanced features such as membership manager, location text search and radius search
+*	"Multisite Addon" is for supporting WordPress multisite feature.
 
 == Installation ==
 
@@ -39,7 +41,12 @@ Feel free to contact us: http://support.realtyna.com
 
 == Screenshots ==
 
-1. 
+1. Data Structure Manager
+2. Add/Edit listing
+3. Manage Profile
+4. Map view
+5. Agent listing
+6. List view
 
 == Changelog ==
 
@@ -54,7 +61,3 @@ Feel free to contact us: http://support.realtyna.com
 
 = 1.0.1 =
 Some isseus fixed. Also WPL activity manager is added to the WPL core.
-
-== Support&Customization ==
-
-Please go to http://support.realtyna.com to buying support key for having premium support service. Also you can order any customization and new exclusive developments.
