@@ -18,13 +18,14 @@ define('_WPLEXEC', 1);
 if(!defined('DS')) define('DS', DIRECTORY_SEPARATOR);
 
 /** WPL ABS PATH **/
-define('WPL_ABSPATH', ABSPATH .'wp-content' .DS. 'plugins' .DS. 'WPL' .DS);
+define('WPL_ABSPATH', dirname(__FILE__) .DS);
+define('WPL_BASENAME', basename(__DIR__));
 define('WPL_UP_ABSPATH', ABSPATH .'wp-content' .DS. 'uploads' .DS. 'WPL' .DS);
 
 define('WPL_TEXTDOMAIN', 'wpl'); /** WPL textdomain for language **/
 define('WPL_VERSION', '1.0.0'); /** WPL version **/
 
-require WPL_ABSPATH .DS. 'config.php';
+require WPL_ABSPATH.'config.php';
 	
 _wpl_import('global');
 _wpl_import('libraries.request');

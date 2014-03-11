@@ -12,9 +12,11 @@ if ($type == 'upload' and !$done_this)
 		<label for="wpl_st_form_element<?php echo $setting_record->id; ?>"><?php echo $setting_title; ?><span class="wpl_st_citation">:</span></label>
 		<?php wpl_global::import_activity('ajax_file_upload', '', $params); ?>
 		<span class="ajax-inline-save" id="wpl_ajax_loader_<?php echo $setting_record->id; ?>"></span>
+        <?php if($setting_record->setting_value): ?>
 		<div class="image-wp">
 			<img id="wpl_watermark_image" src=<?php echo $src; ?> height="auto" width="200px" />
 		</div>
+        <?php endif; ?>
 	</div>
 </div>
 <?php

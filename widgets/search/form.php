@@ -20,7 +20,7 @@ include _wpl_import("widgets.search.scripts.js_backend", true, true);
         </select>
 
         <button id="btn-search-<?php echo $this->number ?>" data-is-init="false" data-item-id="<?php echo $this->number ?>"
-                data-fancy-id="wpl_view_fields_<?php echo $this->number; ?>" class="wpl-button button-1"
+                data-fancy-id="wpl_view_fields_<?php echo $this->number; ?>" class="wpl-button button-1 fancybox"
                 href="#wpl_view_fields_<?php echo $this->number ?>"><?php _e('View Fields', WPL_TEXTDOMAIN); ?></button>
         <span class="page-must-reload"><?php _e(' Must be reload page before open the dialog ', WPL_TEXTDOMAIN); ?></span>
 </div>

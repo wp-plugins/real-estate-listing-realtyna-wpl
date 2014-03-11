@@ -186,7 +186,7 @@ class wpl_global
 		elseif($type == 'content') $url = content_url().'/';
 		elseif($type == 'plugin') $url = plugins_url().'/';
 		elseif($type == 'include') $url = includes_url();
-		elseif($type == 'wpl') $url = plugins_url().'/WPL/';
+		elseif($type == 'wpl') $url = plugins_url().'/'.WPL_BASENAME.'/';
 		elseif($type == 'upload') $url = get_site_url().'/wp-content/uploads/WPL/';
 		
 		return $url;

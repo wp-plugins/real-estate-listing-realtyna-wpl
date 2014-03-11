@@ -154,7 +154,7 @@ function wpl_select_radio<?php echo $widget_id; ?>(value, checked, table_column)
 ?>
 wplj(document).ready(function(){
 	wplj("select").chosen();
-    wplj('input[type="checkbox"]:not(.yesno)').checkbox({cls: 'jquery-safari-checkbox',empty:'<?php echo plugins_url();?>/WPL/assets/img/empty.png'});
-    wplj('input.yesno[type="checkbox"]').checkbox({empty:'<?php echo plugins_url();?>/WPL/assets/img/empty.png'});
+    wplj('input[type="checkbox"]:not(.yesno)').checkbox({cls: 'jquery-safari-checkbox',empty:'<?php echo wpl_global::get_wpl_asset_url('img/empty.png'); ?>'});
+    wplj('input.yesno[type="checkbox"]').checkbox({empty:'<?php echo wpl_global::get_wpl_asset_url('img/empty.png'); ?>'});
 })
 </script>

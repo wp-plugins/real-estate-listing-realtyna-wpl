@@ -699,7 +699,7 @@ Array.prototype.unique = function () {
                         '</div>',
 
                 inline: '<a title="Close" class="fancybox-item fancybox-close pp_close"></a>' +
-                        '<div class="pp_inline pp_details fancybox-inner" id="{cID}">{content}</div>',
+                        '<div class="pp_inline pp_details fancybox-inner" id="{cID}"></div>',
 
                 inlineSample : '<div class="fanc-content size-width-1">' +
                                     '<div class="fanc-body">' +

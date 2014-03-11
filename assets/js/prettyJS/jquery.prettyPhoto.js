@@ -370,15 +370,16 @@
 
                         var __el = $(pp_images[set_position]),
                             __elID = __el.attr('id'),
-                            __elContent = __el.html(),
+                            __elContent = __el.clone(true,true),
                             __isInline = __el.hasClass('wpl_inline_lightbox');
 
                         // Remove Old content for AjaxBoxes
                         if(!__isInline && $.active >= 1)
                             __elContent = settings.inline_sample_markup;
 
-                        toInject = settings.inline_markup.replace(/{content}/g,__elContent)
-                                        .replace(/{cID}/g,__elID);
+                        toInject = $(settings.inline_markup);
+                        toInject =  toInject.find('.fancybox-inner').append(__elContent);//.replace(/{cID}/g,__elID);
+
                         __el.empty();
                         __el.removeAttr('id').attr('data-libo-content',__elID);
 
@@ -388,7 +389,7 @@
 				};
 
 				if(!imgPreloader && !skipInjection){
-					$pp_pic_holder.find('#pp_full_res')[0].innerHTML = toInject;
+					$pp_pic_holder.find('#pp_full_res')[0].append(toInject);
                     if($.active >= 1){
                         $(document).ajaxComplete(function(event, XMLHttpRequest, ajaxOptions){
                             if($.active === 1){
@@ -501,13 +502,13 @@
 			
 			$('div.pp_pic_holder,div.ppt,.pp_fade').fadeOut(settings.animation_speed,function(){
                 var __el = $(this).find('.fancybox-inner'),
-                    __elContent = __el.html(),
+                    __elContent = __el.clone(true,true),
                     __elLiboID = __el.attr('id'),
                     __mainEl = $('[data-libo-content="' + __elLiboID + '"]');
 
                 pp_oldContent = __elContent;
 
-                __mainEl.html(__elContent).removeAttr('data-libo-content').attr({'id':__elLiboID});
+                __mainEl.empty().append(__elContent).removeAttr('data-libo-content').attr({'id':__elLiboID});
                 $(this).remove();
             });
 			

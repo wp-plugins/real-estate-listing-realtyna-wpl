@@ -294,8 +294,6 @@ var wplSearchWidget<?php echo $this->number ?> = (function (codeId) {
         rta.config.searchModule.isChanged = value;
     }
 
-
-
     _j(function () {
 
 
