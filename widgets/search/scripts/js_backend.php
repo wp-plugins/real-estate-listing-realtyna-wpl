@@ -58,6 +58,32 @@ function selectChange(element, type) {
 
 }
 
+function showLiBo<?php echo $this->number ?>(){
+    _j.LiBo.open('#wpl_view_fields_<?php echo $this->number ?>',{
+        horizontal_padding: rta.config.liBo.horizontal_padding,
+        default_width: rta.config.liBo.default_width,
+        default_height: rta.config.liBo.default_height,
+        social_tools: '',
+        markup: rta.config.liBo.tmpl.wrap.replaceAll('${sample}',rta.config.liBo.tmpl.sample),
+        inline_markup: rta.config.liBo.tmpl.inline,
+        inline_sample_markup: rta.config.liBo.tmpl.inlineSample,
+        ajaxcallback: function(){
+            var __callerID = _j('#wpl_view_fields_<?php echo $this->number ?>'),
+                __specConfig = (rta.config.fancySpecificOptions.hasOwnProperty(__callerID)) ? rta.config.fancySpecificOptions[__callerID] : null;
+
+            if (__specConfig !== null && typeof (__specConfig.afterShowMore) !== undefined) {
+                for (var func in __specConfig.afterShowMore) {
+                    if (_j.isFunction(__specConfig.afterShowMore[func])) {
+                        __specConfig.afterShowMore[func].call();
+                        rta.util.log(func + ' fucntion has been call after show fancy.');
+                    }
+                }
+            }
+        }
+    });
+    return false;
+}
+
 var wplSearchWidget<?php echo $this->number ?> = (function (codeId) {
 
 
@@ -114,7 +140,6 @@ var wplSearchWidget<?php echo $this->number ?> = (function (codeId) {
     rta.config.fancySpecificOptions['wpl_view_fields_<?php echo $this->number ?>'] = {
         afterShowMore: {
             'initCheck': function () {
-                console.log(_j('#wpl_view_fields_<?php echo $this->number ?>').attr('data-is-init'));
                 if (_j('#wpl_view_fields_<?php echo $this->number ?>').attr('data-is-init') == false)
                     location.reload();
             },

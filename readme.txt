@@ -1,5 +1,5 @@
-=== Plugin Name ===
-Contributors: realtyna 
+== WPL Basic Version ==
+Contributors: realtyna
 Donate link: http://www.realtyna.com/
 Tags: Real estate, Listing, Vertical Market, MLS, Property listing, RETS
 Requires at least: 3.0.1
@@ -8,23 +8,30 @@ Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-WPL (WordPress Property Listing) is an amazing and flexible plugin for Real estate and vertical markets.The system designed in a way that database management is fully flexible. This means you can add/remove/change the fields without custom changing the database.
+Manage property listings, RETS / IDX / VOW options and scalable features and database structure. Support for all RETS based MLS providers in North America
 
 == Description ==
 
 Run your real estate website using WPL. WPL has lot's of features and addons.
 Demo website: http://wpl28.realtyna.com
 
-WPL Expansion possibilities:
+WPL (WordPress Property Listing) is an amazing flexible plugin for Real estate and vertical markets.The system designed in a way that database management is fully flexible. This means you can add/remove/change the fields without custom changing the database. Sequentially, the property search function in WPL is flexible as well allowing the admin to set the desired search parameters from the administration panel.
 
-*   Have necessary database fields for further MLS Integration (integrating MLS/IDX/RETS servers into WPL - Wordpress directly) - Extra customization may needed.
+WPL Expansion options:
+
+*   Have necessary database fields for further MLS Integration (integrating MLS / IDX/ RETS / VOW  servers into WPL - Wordpress directly) - Extra customization may be needed. http://rpl.realtyna.com/Add-ons/MLS-IDX-Integration
+*   Native Custom Brand Mobile App http://rpl.realtyna.com/add-ons/real-estate-iphone/android-app
+*   Demographic Package http://rpl.realtyna.com/add-ons/real-estate-demographic-information-add-ons
+*   Cloud Hosting (Starting from $24.95 per month) http://hosting.realtyna.com
+*   Option for Multisite Franchise Solution : http://rpl.realtyna.com/add-ons/multi-website-solution-for-real-estate-franchises
+*   Support for Responsive Templates : http://rpl.realtyna.com/design
 
 == Installation ==
 
 For installing WPL please follow below steps:
 
 1. Install WPL package using WordPress plugin installer.
-2. Activate the plugin through the 'Plugins' menu in WordPress
+2. Activate the plugin through the 'Plugins' menu in WordPress.
 3. Add your listings from WPL backend and place [WPL] shortcode into your page/post content.
 
 == Frequently Asked Questions ==
@@ -33,20 +40,20 @@ For installing WPL please follow below steps:
 
 WPL (WordPress Property Listing) is a great plugin for real estate agents and agencies. Also it can be used for vertical markets.
 
-= How can I order some customizations and exlusive developments? =
+= How can I ask about custom developments? =
 
 Feel free to contact us: http://support.realtyna.com
 
 == Screenshots ==
 
 1. Data Structure Manager
-2. Add/Edit listing
-3. Manage Profile
-4. Map view
-5. Agent listing
-6. List view
+2. Manage Profile
+3. Add/Edit listing
+4. External Responsive Template: Map view
+5. External Responsive Template: List view
+6. External Responsive Template: Agent listing
 
-== Changelog ==
+== Change-log ==
 
 = 1.0.0 =
 * Flex add-on is added.

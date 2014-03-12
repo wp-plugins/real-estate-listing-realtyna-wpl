@@ -425,7 +425,7 @@ Array.prototype.unique = function () {
 
     // Config
     rta.config = {
-        debug: true,
+        debug: false,
         backend: {
             pageLeftTabs: '.side-tabs-wp',
             pageLeftTabsTrigger: 'click'
@@ -1309,7 +1309,20 @@ Array.prototype.unique = function () {
             social_tools: '',
             markup: rta.config.liBo.tmpl.wrap.replaceAll('${sample}',rta.config.liBo.tmpl.sample),
             inline_markup: rta.config.liBo.tmpl.inline,
-            inline_sample_markup: rta.config.liBo.tmpl.inlineSample
+            inline_sample_markup: rta.config.liBo.tmpl.inlineSample,
+            ajaxcallback: function(){
+                var __callerID = $('.fancybox-inner').attr('id'),
+                    __specConfig = (rta.config.fancySpecificOptions.hasOwnProperty(__callerID)) ? rta.config.fancySpecificOptions[__callerID] : null;
+
+                if (__specConfig !== null && typeof (__specConfig.afterShowMore) !== undefined) {
+                    for (var func in __specConfig.afterShowMore) {
+                        if ($.isFunction(__specConfig.afterShowMore[func])) {
+                            __specConfig.afterShowMore[func].call();
+                            rta.util.log(func + ' fucntion has been call after show fancy.');
+                        }
+                    }
+                }
+            }
         });
 
         /*$( document ).ajaxComplete(function( event,request, settings ) {
@@ -1382,6 +1395,10 @@ Array.prototype.unique = function () {
     $(function () {
         // Initialized
         rta.init();
+    });
+
+    $(window).ready(function(){
+
     });
 
 })(window, document, jQuery);

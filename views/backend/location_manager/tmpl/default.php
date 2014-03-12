@@ -10,7 +10,7 @@ _wpl_import($this->tpl_path . '.scripts.css');
         <div id="icon-location" class="icon48">
         </div>
         <h2><?php echo __('Locations', WPL_TEXTDOMAIN); ?></h2>
-        <!--<a href="#wpl_location_settings_lightbox" class="action-btn icon-gear fancybox"><?php echo __('Settings', WPL_TEXTDOMAIN); ?></a>-->
+        <a href="#wpl_location_settings_lightbox" class="action-btn icon-gear fancybox"><?php echo __('Settings', WPL_TEXTDOMAIN); ?></a>
     </header>
     <div class="sidebar-wp">
         <div class="side-15">
@@ -104,10 +104,10 @@ _wpl_import($this->tpl_path . '.scripts.css');
                 <?php echo $this->pagination->show(); ?>
             </div>
             <div id="wpl_location_fancybox_cnt" class="fanc-box-wp wpl_lightbox wpl_hidden_element"></div>
-            <div id="wpl_location_settings_lightbox" class="fanc-box-wp fanc-settings wpl_lightbox wpl_hidden_element">
-                <div class="fanc-content size-width-1">
+            <div id="wpl_location_settings_lightbox" class="fanc-box-wp wpl_lightbox wpl_hidden_element">
+                <div class="fanc-content size-width-1 fanc-settings">
                     <h2><?php echo __('Location Settings', WPL_TEXTDOMAIN); ?></h2>
-                    <div class="fanc-body">
+                    <div class="fanc-body label-x2">
 					<?php
 						$setting_records = wpl_settings::get_settings(3, 1, true);
 						wpl_settings::generate_setting_forms($setting_records);

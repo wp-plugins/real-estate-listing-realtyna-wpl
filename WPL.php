@@ -23,7 +23,7 @@ define('WPL_BASENAME', basename(__DIR__));
 define('WPL_UP_ABSPATH', ABSPATH .'wp-content' .DS. 'uploads' .DS. 'WPL' .DS);
 
 define('WPL_TEXTDOMAIN', 'wpl'); /** WPL textdomain for language **/
-define('WPL_VERSION', '1.0.0'); /** WPL version **/
+define('WPL_VERSION', '1.0.1'); /** WPL version **/
 
 require WPL_ABSPATH.'config.php';
 	
