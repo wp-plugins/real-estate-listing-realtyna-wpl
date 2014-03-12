@@ -462,6 +462,7 @@ class wpl_extensions
 	{
 		echo '<script type="text/javascript">';
 		echo 'wpl_baseUrl="'.wpl_global::get_wp_site_url().'";';
+		echo 'wpl_baseName="'.WPL_BASENAME.'";';
 		echo '</script>';
 	}
 	

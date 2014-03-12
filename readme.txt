@@ -4,12 +4,11 @@ Donate link: http://www.realtyna.com/
 Tags: Real estate, Listing, Vertical Market, MLS, Property listing, RETS
 Requires at least: 3.0.1
 Tested up to: 3.8.1
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Manage property listings, RETS / IDX / VOW options and scalable features. 
-Support for all RETS based MLS providers in North America
+Manage property listings, RETS / IDX / VOW options and scalable features. Support for all RETS based MLS providers in North America.
 
 == Description ==
 
@@ -63,7 +62,13 @@ Feel free to contact us: http://support.realtyna.com
 * Search widget and carousel widget are added.
 * WPL SEF service is added.
 
+= 1.0.1 =
+* Lightbox issue is fixed.
+
+= 1.0.2 =
+* Some minor issues are fixed.
+
 == Upgrade Notice ==
 
-= 1.0.1 =
-Some lightbox issues fixed.
+= 1.0.2 =
+Some minor issues are fixed.

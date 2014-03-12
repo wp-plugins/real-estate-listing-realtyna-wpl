@@ -10,7 +10,7 @@ var _j = wplj = jQuery.noConflict();
 // Global variables
 var _rta_app_dirs = {js: 'js/', libs: 'libs/'},
     _rta_baseUrl = wpl_baseUrl,
-    _rta_urlAssets = 'wp-content/plugins/WPL/assets/',
+    _rta_urlAssets = 'wp-content/plugins/'+wpl_baseName+'/assets/',
     _rta_urlJs = _rta_baseUrl + _rta_urlAssets + _rta_app_dirs.js,
     _rta_urlJsLibs = _rta_baseUrl + _rta_urlAssets + _rta_app_dirs.js + ((_rta_app_dirs.js == _rta_app_dirs.libs) ? '' : _rta_app_dirs.libs),
     _rta_frontViews = {},
