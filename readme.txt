@@ -66,4 +66,4 @@ Feel free to contact us: http://support.realtyna.com
 == Upgrade Notice ==
 
 = 1.0.1 =
-Some issues fixed. Also WPL activity manager is added to the WPL core.
+Some lightbox issues fixed.
