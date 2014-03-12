@@ -5,7 +5,7 @@
 	Description: This is a professional WordPress real estate plugin created by Realtyna.
 	Author: Realtyna Softwares
 	Project Manager: howard@realtyna.com
-	Version: 1.0.0
+	Version: 1.0.1
 	Author URI: http://wpl.realtyna.com
 **/
 
