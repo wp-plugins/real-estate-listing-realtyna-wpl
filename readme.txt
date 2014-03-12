@@ -1,4 +1,4 @@
-== WPL Basic Version ==
+=== WPL Basic Version ===
 Contributors: realtyna
 Donate link: http://www.realtyna.com/
 Tags: Real estate, Listing, Vertical Market, MLS, Property listing, RETS
@@ -8,7 +8,8 @@ Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Manage property listings, RETS / IDX / VOW options and scalable features and database structure. Support for all RETS based MLS providers in North America
+Manage property listings, RETS / IDX / VOW options and scalable features. 
+Support for all RETS based MLS providers in North America
 
 == Description ==
 
@@ -53,7 +54,7 @@ Feel free to contact us: http://support.realtyna.com
 5. External Responsive Template: List view
 6. External Responsive Template: Agent listing
 
-== Change-log ==
+== Changelog ==
 
 = 1.0.0 =
 * Flex add-on is added.
