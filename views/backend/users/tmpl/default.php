@@ -51,13 +51,13 @@ _wpl_import($this->tpl_path . '.scripts.css');
                     <tr id="item_row<?php echo $wp_user->ID; ?>">
                         <td class="size-1"><?php echo $wp_user->ID; ?></td>
                         <td><?php echo $wp_user->user_login; ?></td>
-                        <td><?php echo $wpl_data->first_name . ' ' . $wpl_data->last_name; ?></td>
+                        <td><?php echo (is_object($wpl_data) ? $wpl_data->first_name.' '.$wpl_data->last_name : ''); ?></td>
                         <?php if(wpl_global::check_addon('pro')): ?>
                         <td>
                             <select data-without-chosen name="membership_id_<?php echo $wp_user->ID; ?>" id="membership_id_<?php echo $wp_user->ID; ?>" onChange="wpl_change_membership(<?php echo $wp_user->ID; ?>);" autocomplete="off">
                                 <option value=""><?php echo __('None', WPL_TEXTDOMAIN); ?></option>
                                 <?php foreach ($this->memberships as $membership): ?>
-                                    <option value="<?php echo $membership->id; ?>"  <?php if ($membership->id == $wpl_data->membership_id) echo 'selected="selected"'; ?>><?php echo __($membership->membership_name, WPL_TEXTDOMAIN); ?></option>
+                                    <option value="<?php echo $membership->id; ?>"  <?php if (is_object($wpl_data) and $membership->id == $wpl_data->membership_id) echo 'selected="selected"'; ?>><?php echo __($membership->membership_name, WPL_TEXTDOMAIN); ?></option>
                                 <?php endforeach; ?>
                             </select>
                             <span id="wpl_ajax_loader_membership_<?php echo $wp_user->ID; ?>"></span>

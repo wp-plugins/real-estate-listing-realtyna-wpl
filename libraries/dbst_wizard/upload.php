@@ -14,7 +14,7 @@ if($type == 'upload' and !$done_this)
     $upload_params['request_str'] = str_replace('[html_element_id]', $upload_params['html_element_id'], $upload_params['request_str']);
     $upload_params['request_str'] = str_replace('[item_id]', $item_id, $upload_params['request_str']);
 
-    $activity_layout = $options['layout'] ? $options['layout'] : 'default';
+    $activity_layout = isset($options['layout']) ? $options['layout'] : 'default';
 ?>
 <label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($field->name, WPL_TEXTDOMAIN); ?><?php if (in_array($field->mandatory, array(1, 2))): ?><span class="wpl_red_star">*</span><?php endif; ?></label>
 <?php wpl_global::import_activity('ajax_file_upload:' . $activity_layout, '', $upload_params); ?>

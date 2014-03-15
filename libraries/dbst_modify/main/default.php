@@ -14,9 +14,9 @@ $done_this = true;
                 <?php echo __('General Options', WPL_TEXTDOMAIN); ?>
             </div>
             <?php
-            /** include main file **/
-            $path = _wpl_import('libraries.dbst_modify.main.main', true, true);
-            include $path;
+				/** include main file **/
+				$path = _wpl_import('libraries.dbst_modify.main.main', true, true);
+				include $path;
             ?>
         </div>
         <div class="col-fanc-right">
@@ -24,9 +24,9 @@ $done_this = true;
                 <?php echo __('Specific Options', WPL_TEXTDOMAIN); ?>
             </div>
             <?php
-            /** include specific file **/
-            $path = _wpl_import('libraries.dbst_modify.main.specific', true, true);
-            include $path;
+				/** include specific file **/
+				$path = _wpl_import('libraries.dbst_modify.main.specific', true, true);
+				include $path;
             ?>
         </div>
     </div>

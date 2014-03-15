@@ -190,12 +190,12 @@ class wpl_flex
 	{
 		/** first validation **/
 		if(!$dbst_type) return;
-		$dbst_data = $dbst_id != 0 ? self::get_field($dbst_id) : array();
+		$dbst_data = $dbst_id != 0 ? self::get_field($dbst_id) : new stdClass();
 		
 		$done_this = false;
 		$type = $dbst_type;
 		$values = $dbst_data;
-		$options = $values ? json_decode($values->options, true) : array();
+		$options = isset($values->options) ? json_decode($values->options, true) : array();
 		
 		$__prefix = 'wpl_flex_modify';
 		

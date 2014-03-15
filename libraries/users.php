@@ -193,7 +193,7 @@ class wpl_users
 	public function get_wpl_data($user_id = '')
 	{
 		if(trim($user_id) == '') $user_id = self::get_cur_user_id();
-		return $results = wpl_db::get('*', 'wpl_users', 'id', $user_id);
+		return wpl_db::get('*', 'wpl_users', 'id', $user_id);
 	}
 	
 	/**

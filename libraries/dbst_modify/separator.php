@@ -11,9 +11,9 @@ if($type == 'separator' and !$done_this)
 		<span id="wpl_dbst_modify_ajax_loader"></span>
 	</div>
 	<?php
-	/** include main file **/
-	$path = _wpl_import('libraries.dbst_modify.main.main', true, true);
-	include $path;
+		/** include main file **/
+		$path = _wpl_import('libraries.dbst_modify.main.main', true, true);
+		include $path;
 	?>
 </div>
 <?php

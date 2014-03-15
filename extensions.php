@@ -309,7 +309,7 @@ class wpl_extensions
 	{
 		register_activation_hook(WPL_ABSPATH.'WPL.php', array($this, 'activate_wpl'));
 		register_deactivation_hook(WPL_ABSPATH.'WPL.php', array($this, 'deactivate_wpl'));
-		register_uninstall_hook(WPL_ABSPATH.'WPL.php', array($this, 'uninstall_wpl'));
+		register_uninstall_hook(WPL_ABSPATH.'WPL.php', array('wpl_extensions', 'uninstall_wpl'));
     }
 	
 	/**

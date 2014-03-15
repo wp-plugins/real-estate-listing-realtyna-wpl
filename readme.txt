@@ -4,7 +4,7 @@ Donate link: http://www.realtyna.com/
 Tags: Real estate, Listing, Vertical Market, MLS, Property listing, RETS
 Requires at least: 3.0.1
 Tested up to: 3.8.1
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -55,18 +55,22 @@ Feel free to contact us: http://support.realtyna.com
 
 == Changelog ==
 
+= 1.0.3 =
+* Fixed some PHP notices.
+* Fixed an issue on shortcode wizard.
+
+= 1.0.2 =
+* Some minor issues are fixed.
+
+= 1.0.1 =
+* Lightbox issue is fixed.
+
 = 1.0.0 =
 * Flex add-on is added.
 * Location system is added.
 * Property Listing, Property Show, Profile/Agent Listing and Profile/Agent Show short-codes is added.
 * Search widget and carousel widget are added.
 * WPL SEF service is added.
-
-= 1.0.1 =
-* Lightbox issue is fixed.
-
-= 1.0.2 =
-* Some minor issues are fixed.
 
 == Upgrade Notice ==
 

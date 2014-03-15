@@ -4,6 +4,10 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.0.3 (<span class="wpl_log_date">3/15/2014</span> <span class="wpl_log_revision">revision 482</span>)</h4>
+        -- Fixed some PHP notices.
+        -- Fixed an issue on shortcode wizard.
+        
         <h4>WPL1.0.2 (<span class="wpl_log_date">3/12/2014</span> <span class="wpl_log_revision">revision 476</span>)</h4>
         -- Fixed some minor issues.
         

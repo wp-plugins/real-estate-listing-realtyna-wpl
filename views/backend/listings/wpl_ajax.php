@@ -69,6 +69,7 @@ class wpl_listings_controller extends wpl_controller
 			{
 				/** confirm property **/
 		        $res = wpl_property::confirm($pid, $value, true);
+				$message = __("Operation was successful.", WPL_TEXTDOMAIN);
 			}
 			else
 			{

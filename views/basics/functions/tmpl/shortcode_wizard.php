@@ -128,6 +128,7 @@ function insert_shortcode()
 
 	wplj("#wpl_shortcode_wizard_container .pr_" + view + " input:text, #wpl_shortcode_wizard_container .pr_" + view + " input[type='hidden'], #wpl_shortcode_wizard_container .pr_" + view + " select").each(function(ind, elm)
 	{
+		if(elm.name == '') return;
 		shortcode += ' ' + elm.name + '="' + wplj(elm).val() + '"';
 	});
 
