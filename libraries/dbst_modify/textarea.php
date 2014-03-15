@@ -36,8 +36,8 @@ if($type == 'textarea' and !$done_this)
 			<div class="fanc-row">
 				<label for="<?php echo $__prefix; ?>opt_advanced_editor"><?php echo __('Advanced Editor', WPL_TEXTDOMAIN); ?></label>
 				<select name="<?php echo $__prefix; ?>opt_advanced_editor" id="<?php echo $__prefix; ?>opt_advanced_editor">
-					<option value="1" <?php if ($options['advanced_editor'] == 1) echo 'selected="selected"'; ?>><?php echo __('Yes', WPL_TEXTDOMAIN); ?></option>
-					<option value="0" <?php if ($options['advanced_editor'] == 0) echo 'selected="selected"'; ?>><?php echo __('No', WPL_TEXTDOMAIN); ?></option>
+					<option value="1" <?php if (isset($options['advanced_editor']) and $options['advanced_editor'] == 1) echo 'selected="selected"'; ?>><?php echo __('Yes', WPL_TEXTDOMAIN); ?></option>
+					<option value="0" <?php if (isset($options['advanced_editor']) and $options['advanced_editor'] == 0) echo 'selected="selected"'; ?>><?php echo __('No', WPL_TEXTDOMAIN); ?></option>
 				</select>
 			</div>
 			<div class="fanc-row">

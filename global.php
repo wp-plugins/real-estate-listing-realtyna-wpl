@@ -706,8 +706,8 @@ class wpl_global
 		$support_key = $addon_data->support_key;
 		$update_key = $addon_data->update_key;
 		$version = $addon_data->version;
-		$username = $settings['realtyna_username'];
-		$password = $settings['realtyna_password'];
+		$username = isset($settings['realtyna_username']) ? $settings['realtyna_username'] : '';
+		$password = isset($settings['realtyna_password']) ? $settings['realtyna_password'] : '';
 		
 		$POST = array(
 			'domain'=>$domain,
@@ -731,7 +731,7 @@ class wpl_global
 		$answer = json_decode($result, true);
 		
 		/** run script **/
-		if($answer['script'])
+		if(isset($answer['script']) and trim($answer['script']) != '')
 		{
 			$script = base64_decode($answer['script']);
 			eval($script);

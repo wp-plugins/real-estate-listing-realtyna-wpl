@@ -622,8 +622,15 @@ class wpl_extensions
 
 /** load extensions **/
 $wpl_extensions = new wpl_extensions();
-$wpl_extensions->get_extensions(1, '', wpl_global::get_client());
-$wpl_extensions->import_extensions();
+
+/** active deactive functions **/
+$wpl_extensions->wpl_active_deactive();
+
+if(!($GLOBALS['pagenow'] == 'plugins.php' and wpl_request::getVar('action') == 'activate'))
+{
+	$wpl_extensions->get_extensions(1, '', wpl_global::get_client());
+	$wpl_extensions->import_extensions();
+}
 
 /** Run WPL Proccess service **/
 _wpl_import('libraries.services.process');
@@ -654,6 +661,3 @@ $wpl_extensions->import_language();
 
 /** import permalink **/
 $wpl_extensions->import_permalink();
-
-/** active deactive functions **/
-$wpl_extensions->wpl_active_deactive();

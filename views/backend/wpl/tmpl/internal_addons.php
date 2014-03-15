@@ -9,10 +9,10 @@ defined('_WPLEXEC') or die('Restricted access');
         <div class="panel-body">
             <div class="wpl-addons-install-wp wpl_install_addons_container">
                 <div class="wpl_realtyna_credentials_container">
-                	<input type="text" name="realtyna_username" id="realtyna_username" value="<?php echo $this->settings['realtyna_username']; ?>" placeholder="<?php echo __('Billing username', WPL_TEXTDOMAIN); ?>" />
-                    <input type="password" name="realtyna_password" id="realtyna_password" value="<?php echo $this->settings['realtyna_password']; ?>" placeholder="<?php echo __('Billing password', WPL_TEXTDOMAIN); ?>" />
+                	<input type="text" name="realtyna_username" id="realtyna_username" value="<?php if(isset($this->settings['realtyna_username'])) echo $this->settings['realtyna_username']; ?>" placeholder="<?php echo __('Billing username', WPL_TEXTDOMAIN); ?>" />
+                    <input type="password" name="realtyna_password" id="realtyna_password" value="<?php if(isset($this->settings['realtyna_password'])) echo $this->settings['realtyna_password']; ?>" placeholder="<?php echo __('Billing password', WPL_TEXTDOMAIN); ?>" />
                     <input class="wpl-button button-1" type="button" onclick="save_realtyna_credentials();" value="<?php echo __('Save', WPL_TEXTDOMAIN); ?>" />
-                    &nbsp;<span id="wpl_realtyna_credentials_check"><span class="action-btn <?php echo ($this->settings['realtyna_verified'] ? 'icon-enabled' : 'icon-disabled'); ?>"></span></span>
+                    &nbsp;<span id="wpl_realtyna_credentials_check"><span class="action-btn <?php echo ((isset($this->settings['realtyna_verified']) and $this->settings['realtyna_verified']) ? 'icon-enabled' : 'icon-disabled'); ?>"></span></span>
                     <br />
                     <span class="wpl_realtyna_credentials_tip"><?php echo __('For updating the addons and premium support having realtyna billing credentials is mandatory!', WPL_TEXTDOMAIN); ?></span>
                 </div>
