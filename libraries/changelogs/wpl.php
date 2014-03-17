@@ -4,6 +4,10 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.0.5 (<span class="wpl_log_date">3/17/2014</span> <span class="wpl_log_revision">revision 488</span>)</h4>
+        -- Fixed some issues on image uploader.
+        -- Fixed a security issue.
+        
         <h4>WPL1.0.4 (<span class="wpl_log_date">3/15/2014</span> <span class="wpl_log_revision">revision 483</span>)</h4>
         -- Fixed some PHP notices.
         

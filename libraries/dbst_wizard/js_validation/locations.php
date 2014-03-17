@@ -15,14 +15,6 @@ if($field->type == 'locations')
 		}
 	});
 	
-	wplj("#wpl_listing_all_location_container'.$field->id.' input.wpl_location_indicator_textbox:text").each(function(ind, elm)
-	{
-		if((wplj.trim(elm.value) <= 0) && wplj("#wpl_listing_all_location_container'.$field->id.'").css("display") != "none")
-		{
-			location_temp = false;
-		}
-	});
-	
 	if(!location_temp)
 	{
 		wpl_alert("'.__('Location data is mandatory', WPL_TEXTDOMAIN).'!");

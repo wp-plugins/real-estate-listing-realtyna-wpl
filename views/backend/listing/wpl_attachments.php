@@ -34,6 +34,8 @@ class wpl_listing_controller extends wpl_controller
 		$params['accept_ext'] = wpl_flex::get_field_options(301);
 		
 		$extentions = explode(',', $params['accept_ext']['ext_file']);
+		$ext_str = '';
+		
 		foreach($extentions as $extention) $ext_str .= $extention .'|';
 		
 		// remove last |

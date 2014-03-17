@@ -49,7 +49,7 @@ if($type == 'gallery' and !$done_this)
         <?php
         // get uploaded images and show them
         $gall_items = wpl_items::get_items($item_id, 'gallery', $this->kind, '', '');
-
+		
         $image_folder = wpl_items::get_folder($item_id, $this->kind);
         $image_categories = wpl_items::get_item_categories('gallery', $this->kind);
         $max_img_index = 0;
@@ -78,11 +78,11 @@ if($type == 'gallery' and !$done_this)
                     <div class="info-wp">
                         <div class="row">
                             <label for=""><?php echo __('Image Title', WPL_TEXTDOMAIN) ?>:</label>
-                            <input type="text" class="gal_title" value="<?php echo $image->item_extra1; ?>" onblur="ajax_gallery_title_update('<?php echo $image->item_name; ?>\\', this.value);" size="20"/>    
+                            <input type="text" class="gal_title" value="<?php echo $image->item_extra1; ?>" onchange="ajax_gallery_title_update('<?php echo $image->item_name; ?>', this.value);" size="20" />
                         </div>
                         <div class="row">
                             <label for=""><?php echo __('Image Description', WPL_TEXTDOMAIN); ?>:</label>
-                            <input type="text" class="gal_desc" value="<?php $image->item_extra2 ?>" onblur="ajax_gallery_desc_update('<?php echo $image->item_name ?> ', this.value);" size="50"/>
+                            <input type="text" class="gal_desc" value="<?php echo $image->item_extra2; ?>" onchange="ajax_gallery_desc_update('<?php echo $image->item_name; ?>', this.value);" size="50" />
                         </div>
                         <div class="row">
                             <label for=""><?php echo __('Image Category', WPL_TEXTDOMAIN); ?>:</label>

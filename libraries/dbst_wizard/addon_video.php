@@ -142,20 +142,15 @@ if(wpl_settings::get('video_uploader'))
 						<div class="info-wp">
 							<div class="row">
 								<label for=""><?php echo __('Video Title', WPL_TEXTDOMAIN); ?>:</label>
-								<input type="text" class="vid_title" value="<?php $video->item_extra1; ?>"
-									   onblur="ajax_video_title_update('<?php echo $video->item_name; ?>', this.value);"
-									   size="20"/>
+								<input type="text" class="vid_title" value="<?php echo $video->item_extra1; ?>" onchange="ajax_video_title_update('<?php echo $video->item_name; ?>', this.value);" size="20" />
 							</div>
 							<div class="row">
 								<label for=""><?php echo __('Video Description', WPL_TEXTDOMAIN); ?>:</label>
-								<input type="text" class="vid_desc" value="<?php echo $video->item_extra2; ?>"
-									   onblur="ajax_video_desc_update('<?php echo $video->item_name; ?>', this.value);"
-									   size="50"/>
+								<input type="text" class="vid_desc" value="<?php echo $video->item_extra2; ?>" onchange="ajax_video_desc_update('<?php echo $video->item_name; ?>', this.value);" size="50" />
 							</div>
 							<div class="row">
 								<label for=""><?php echo __('Video Category', WPL_TEXTDOMAIN); ?>:</label>
-								<select name="vid_cat" class="vid_cat"
-										onchange="ajax_video_cat_update('<?php echo $video->item_name; ?>', this.value);">
+								<select name="vid_cat" class="vid_cat" onchange="ajax_video_cat_update('<?php echo $video->item_name; ?>', this.value);">
 									<?php
 									foreach ($video_categories as $vid_cat)
 									{

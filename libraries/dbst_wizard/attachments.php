@@ -34,12 +34,6 @@ if($type == 'attachments' and !$done_this)
 	</div>
 </div>
 
-<!--<span class="btn btn-success fileinput-button">
-<i class="icon-plus icon-white"></i>
-<span><?php /*echo __('Select files', WPL_TEXTDOMAIN); */?></span>
-<input id="attachment_upload" type="file" name="files[]" multiple>
-</span>-->
-
 <!-- The global progress bar -->
 <div id="progress_att">
 	<div id="progress" class="progress progress-success progress-striped">
@@ -75,21 +69,16 @@ if($type == 'attachments' and !$done_this)
                 </div>
                 <div class="info-wp">
                     <div class="row">
-                        <label for=""><?php _e('Attachment Title', WPL_TEXTDOMAIN) ?>:</label>
-                        <input type="text" class="att_title" value="<?php echo $attachment->item_extra1; ?>"
-                               onblur="ajax_attachment_title_update('<?php echo $image->item_name; ?>', this.value);"
-                               size="20"/>
+                        <label for=""><?php echo __('Attachment Title', WPL_TEXTDOMAIN) ?>:</label>
+                        <input type="text" class="att_title" value="<?php echo $attachment->item_extra1; ?>" onchange="ajax_attachment_title_update('<?php echo $image->item_name; ?>', this.value);" size="20" />
                     </div>
                     <div class="row">
-                        <label for=""><?php _e('Attachment Description', WPL_TEXTDOMAIN) ?>:</label>
-                        <input type="text" class="att_desc" value="<?php echo $attachment->item_extra2; ?>"
-                               onblur="ajax_attachment_desc_update('<?php echo $attachment->item_name; ?>', this.value);"
-                               size="50"/>
+                        <label for=""><?php echo __('Attachment Description', WPL_TEXTDOMAIN) ?>:</label>
+                        <input type="text" class="att_desc" value="<?php echo $attachment->item_extra2; ?>" onchange="ajax_attachment_desc_update('<?php echo $attachment->item_name; ?>', this.value);" size="50" />
                     </div>
                     <div class="row">
-                        <label for=""><?php _e('Attachment Category', WPL_TEXTDOMAIN) ?>:</label>
-                        <select name="att_cat" class="att_cat"
-                                onchange="ajax_attachment_cat_update('<?php echo $attachment->item_name; ?>', this.value);">
+                        <label for=""><?php echo __('Attachment Category', WPL_TEXTDOMAIN) ?>:</label>
+                        <select name="att_cat" class="att_cat" onchange="ajax_attachment_cat_update('<?php echo $attachment->item_name; ?>', this.value);">
                             <?php
                             foreach ($attachment_categories as $att_cat)
                             {

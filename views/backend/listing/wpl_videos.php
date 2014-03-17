@@ -49,11 +49,13 @@ class wpl_listing_controller extends wpl_controller
 		$params['accept_ext'] = wpl_flex::get_field_options(567);
 		
 		$extentions = explode(',',$params['accept_ext']['ext_file']);
+		$ext_str = '';
+		
 		foreach($extentions as $extention) $ext_str .= $extention .'|';
 		
 		// remove last |
-		$ext_str = substr($ext_str,0,-1);
-		$ext_str = rtrim ($ext_str , ';');
+		$ext_str = substr($ext_str, 0, -1);
+		$ext_str = rtrim($ext_str, ';');
 		$custom_op = array(
             'upload_dir' => wpl_global::get_upload_base_path(),
             'upload_url' => wpl_global::get_wpl_upload_url(),

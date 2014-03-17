@@ -1,6 +1,9 @@
 <?php
+/** no direct access **/
+defined('_WPLEXEC') or die('Restricted access');
+
 /*
- * wplj File Upload Plugin PHP Class 6.8.0
+ * jQuery File Upload Plugin PHP Class 6.8.0
  * https://github.com/blueimp/wplj-File-Upload
  *
  * Copyright 2010, Sebastian Tschan

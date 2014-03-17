@@ -204,6 +204,7 @@ class wpl_items
 		foreach($values as $key=>$value) $q .= "`$key`='$value', ";
 		
 		$q = trim($q, ", ");
+		$file_name = trim($file_name);
 		
 		$query = "UPDATE `#__wpl_items` SET ".$q." WHERE `parent_id`='$parent_id' AND `item_name`='$file_name'";
 		$affected_rows = wpl_db::q($query, 'update');

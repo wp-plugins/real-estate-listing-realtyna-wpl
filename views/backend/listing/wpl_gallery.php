@@ -15,12 +15,12 @@ class wpl_listing_controller extends wpl_controller
 		$function = wpl_request::getVar('wpl_function');
 		
 		if($function == 'upload') self::upload();
-		elseif($function == 'title_update') wpl_items::update_file(wpl_request::getVar('image'), wpl_request::getVar('pid'),  array('item_extra1'=>wpl_request::getVar('value')));
-		elseif($function == 'desc_update') wpl_items::update_file(wpl_request::getVar('image'), wpl_request::getVar('pid'),  array('item_extra2'=>wpl_request::getVar('value')));
-		elseif($function == 'cat_update') wpl_items::update_file(wpl_request::getVar('image'), wpl_request::getVar('pid'),  array('item_cat'=>wpl_request::getVar('value')));
+		elseif($function == 'title_update') wpl_items::update_file(wpl_request::getVar('image'), wpl_request::getVar('pid'), array('item_extra1'=>wpl_request::getVar('value')));
+		elseif($function == 'desc_update') wpl_items::update_file(wpl_request::getVar('image'), wpl_request::getVar('pid'), array('item_extra2'=>wpl_request::getVar('value')));
+		elseif($function == 'cat_update') wpl_items::update_file(wpl_request::getVar('image'), wpl_request::getVar('pid'), array('item_cat'=>wpl_request::getVar('value')));
 		elseif($function == 'delete_image') wpl_items::delete_file(wpl_request::getVar('image'), wpl_request::getVar('pid'));
 		elseif($function == 'sort_images') wpl_items::sort_items(wpl_request::getVar('pid'), wpl_request::getVar('order'));
-		elseif($function == 'change_status') wpl_items::update_file(wpl_request::getVar('image'), wpl_request::getVar('pid'),  array('enabled'=>wpl_request::getVar('enabled')));
+		elseif($function == 'change_status') wpl_items::update_file(wpl_request::getVar('image'), wpl_request::getVar('pid'), array('enabled'=>wpl_request::getVar('enabled')));
 	}
 	
 	public function upload()
@@ -33,6 +33,8 @@ class wpl_listing_controller extends wpl_controller
 		$params['accept_ext'] = wpl_flex::get_field_options(300);
 		
 		$extentions = explode(',',$params['accept_ext']['ext_file']);
+		$ext_str = '';
+		
 		foreach($extentions as $extention) $ext_str .= $extention .'|';
 		
 		// remove last |

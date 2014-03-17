@@ -626,7 +626,7 @@ $wpl_extensions = new wpl_extensions();
 /** active deactive functions **/
 $wpl_extensions->wpl_active_deactive();
 
-if(!($GLOBALS['pagenow'] == 'plugins.php' and wpl_request::getVar('action') == 'activate'))
+if(!($GLOBALS['pagenow'] == 'plugins.php' and wpl_request::getVar('action') == 'activate') and !(wpl_request::getVar('tgmpa-activate') == 'activate-plugin'))
 {
 	$wpl_extensions->get_extensions(1, '', wpl_global::get_client());
 	$wpl_extensions->import_extensions();
