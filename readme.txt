@@ -24,11 +24,8 @@ WPL (WordPress Property Listing) is an amazing flexible plugin for Real estate a
 *   Native Custom Brand Mobile App http://rpl.realtyna.com/add-ons/real-estate-iphone/android-app
 *   Demographic Package http://rpl.realtyna.com/add-ons/real-estate-demographic-information-add-ons
 *   Cloud Hosting (Starting from $24.95 per month) http://hosting.realtyna.com
-*   Option for Multisite Franchise Solution : http://rpl.realtyna.com/add-ons/multi-website-solution-for-real-estate-franchises
-*   Support for Responsive Templates : http://rpl.realtyna.com/design
-
-**Support**
-[Submit a support ticket](https://support.realtyna.com/index.php?/Tickets/Submit/RenderForm/18)
+*   Option for Multisite Franchise Solution http://rpl.realtyna.com/add-ons/multi-website-solution-for-real-estate-franchises
+*   Support for Responsive Templates http://rpl.realtyna.com/design
 
 == Installation ==
 
@@ -47,6 +44,10 @@ WPL (WordPress Property Listing) is a great plugin for real estate agents and ag
 = How can I ask about custom developments? =
 
 Feel free to contact us: https://support.realtyna.com/index.php?/Tickets/Submit/RenderForm/18
+
+= How can I report issues? =
+
+Submit a support ticket on Realtyna ticketing system: https://support.realtyna.com/index.php?/Tickets/Submit/RenderForm/18
 
 == Screenshots ==
 
