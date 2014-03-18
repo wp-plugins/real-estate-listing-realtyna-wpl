@@ -1,18 +1,18 @@
 <?php
+/** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 
 include _wpl_import("widgets.carousel.scripts.js", true, true);
 
 /** add Layout js **/
 $js[] = (object) array('param1'=>'elastic.slideshow', 'param2'=>'js/elastic_slideshow/jquery.eislideshow.js');
-foreach ($js as $javascript)
-    wpl_extensions::import_javascript($javascript);
+foreach($js as $javascript) wpl_extensions::import_javascript($javascript);
 
 $larg_images = $thumbnail = NULL;
-foreach ($wpl_properties as $key => $gallery) {
-
-	if($gallery["items"]["gallery"][0]){
-		
+foreach($wpl_properties as $key=>$gallery)
+{
+	if(isset($gallery["items"]["gallery"][0]))
+	{
 		$params = array();
         $params['image_name'] 		= $gallery["items"]["gallery"][0]->item_name;
         $params['image_parentid'] 	= $gallery["items"]["gallery"][0]->parent_id;
@@ -23,12 +23,12 @@ foreach ($wpl_properties as $key => $gallery) {
         else $image_title = $gallery['rendered'][3]['value'] .' '.$gallery['rendered'][2]['value'];
 		
 		$image_description	= $gallery["items"]["gallery"][0]->item_extra2;
-        $image_url 			= wpl_images::create_gallary_image(1920, 558, $params, $watermark, $rewrite);
-        $thumbnail_url 		= wpl_images::create_gallary_image(150, 60, $params, $watermark, $rewrite);
+        $image_url 			= wpl_images::create_gallary_image(1920, 558, $params);
+        $thumbnail_url 		= wpl_images::create_gallary_image(150, 60, $params);
 
 		$larg_images .= '
 		<li>
-            <img src="'.$image_url.'" alt="'.$image_title.'" />
+            <img src="'.$image_url.'" alt="'.$image_title.'" width="1920" height="558" />
             <div class="ei-title">
                 <h2>'.$gallery["rendered"][3]["value"].' '.$gallery["rendered"][2]["value"].'</h2>
                 <h3>'.$gallery["rendered"][10]["value"].' - '.$gallery["location_text"].'</h3>
@@ -36,19 +36,21 @@ foreach ($wpl_properties as $key => $gallery) {
             </div>
         </li>';
 
-        $thumbnail	.='<li><a href="#">'.$image_title.'</a><img src="'.$thumbnail_url.'" alt="'.$image_title.'" /></li>';
+        $thumbnail	.='<li><a href="#">'.$image_title.'</a><img src="'.$thumbnail_url.'" alt="'.$image_title.'" width="150" height="60" /></li>';
 	}
 }
 ?>
 <script type="text/javascript">
-    wplj(function() {
-        wplj('#ei-slider').eislideshow({
-			animation			: 'center',
-			autoplay			: true,
-			slideshow_interval	: 3000,
-			titlesFactor		: 0
-        });
-    });
+wplj(function()
+{
+	wplj('#ei-slider').eislideshow(
+	{
+		animation			: 'center',
+		autoplay			: true,
+		slideshow_interval	: 3000,
+		titlesFactor		: 0
+	});
+});
 </script>
 <div class="wpl_carousel_container">
 	<div id="ei-slider" class="ei-slider">

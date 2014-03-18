@@ -1541,3 +1541,5 @@ CREATE TABLE IF NOT EXISTS `#__wpl_user_group_types` (
 INSERT INTO `#__wpl_user_group_types` (`id`, `name`) VALUES
 (1, 'Agents'),
 (2, 'Owners');
+
+ALTER TABLE `#__wpl_properties` CHANGE `mls_id` `mls_id` VARCHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;

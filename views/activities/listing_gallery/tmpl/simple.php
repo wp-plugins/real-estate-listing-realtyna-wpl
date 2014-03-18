@@ -49,7 +49,7 @@ $gallery = wpl_items::render_gallery($raw_gallery);
             $image_url = wpl_images::create_gallary_image($image_width, $image_height, $params, $watermark, $rewrite);
         }
         
-        echo '<img id="wpl_gallery_image'.$property_id .'_'.$i.'" src="'.$image_url.'" class="wpl_gallery_image '.$image_class.'" alt="'.$params['image_name'].'" />';
+        echo '<img id="wpl_gallery_image'.$property_id .'" src="'.$image_url.'" class="wpl_gallery_image '.$image_class.'" alt="'.$params['image_name'].'" width="'.$image_width.'" height="'.$image_height.'" />';
     } 
     /* Property tags */
     echo $features.$hot_offer.$open_house.$forclosure;

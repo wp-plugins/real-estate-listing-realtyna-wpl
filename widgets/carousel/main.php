@@ -49,6 +49,7 @@ class wpl_carousel_widget extends wpl_widget
 		$query = self::query($instance);
 		$properties = wpl_property::search($query);
 		
+		$plisting_fields = wpl_property::get_plisting_fields();
 		$wpl_properties = array();
 		foreach($properties as $property)
 		{
@@ -125,7 +126,7 @@ class wpl_carousel_widget extends wpl_widget
 		if(trim($data['only_openhouse'])) $this->where .= " AND p.`sp_openhouse`='1'";
 		if(trim($data['only_forclosure'])) $this->where .= " AND p.`sp_forclosure`='1'";
 		
-		if(trim($data['random']) and trim($data['property_ids']) == '')
+		if(isset($data['random']) and trim($data['random']) and trim($data['property_ids']) == '')
 		{
 			$query_rand = "SELECT p.`id` FROM `#__wpl_properties` AS p WHERE 1 ".$this->where." ORDER BY RAND() LIMIT ".$this->limit;
 			$results = wpl_db::select($query_rand);

@@ -10,7 +10,9 @@ defined('_WPLEXEC') or die('Restricted access');
 .wpl_ni_addon_container{margin: 15px 0;}
 .wpl_ni_addon_subject .wpl_ni_addons_addon_name{font-weight: bold !important;}
 .wpl_ni_addon_subject .readmore_link{font-size: 13px; font-style: italic; margin-left: 15px;}
-.side-ni-addons{width: 99% !important;}
+.side-ni-addons{margin-right: 1%;}
+.side-support{width: 50% !important;}
+.side-changes{width: 29% !important; margin-left: 1% !important;}
 .wpl_realtyna_credentials_container{padding: 0 0 20px 40px;}
 .wpl_realtyna_credentials_container .wpl_realtyna_credentials_tip{font-style: italic !important; color: #999999;}
 #wpl_realtyna_credentials_check span.action-btn{cursor: default;}

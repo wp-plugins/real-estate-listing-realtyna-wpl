@@ -4,6 +4,12 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.0.7 (<span class="wpl_log_date">3/18/2014</span> <span class="wpl_log_revision">revision 498</span>)</h4>
+        -- Added requirements and maintenance view on settings menu.<br />
+        -- Added documentation and support section into WPL dashboard.<br />
+        -- Fixed some PHP notices.<br />
+        -- Fixed an issue in PHP5.2!
+        
         <h4>WPL1.0.5 (<span class="wpl_log_date">3/17/2014</span> <span class="wpl_log_revision">revision 488</span>)</h4>
         -- Fixed some issues on image uploader.<br />
         -- Fixed a security issue.

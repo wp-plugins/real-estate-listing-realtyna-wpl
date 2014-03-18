@@ -70,7 +70,7 @@ if($show == 'simple_location_database' and !$done_this)
 	
 	for($i=1; $i<=7; $i++)
 	{
-		if(!trim($current_values['location'.($i-1).'_id']) and $i != 1) continue;
+		if($i != 1 and !trim($current_values['location'.($i-1).'_id'])) continue;
 		
 		$parent = $i != 1 ? $current_values['location'.($i-1).'_id'] : '';
 		$current_location_id = $current_values['location'.$i.'_id'];

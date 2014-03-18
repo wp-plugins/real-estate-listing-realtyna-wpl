@@ -29,4 +29,12 @@ class wpl_settings_controller extends wpl_controller
 		/** import tpl **/
 		parent::display($this->tpl_path, $tpl);
 	}
+	
+	protected function generate_internal($layout_name)
+	{
+		$tpl = 'internal_'.$layout_name;
+		
+		/** import tpl **/
+		parent::display($this->tpl_path, $tpl);
+	}
 }

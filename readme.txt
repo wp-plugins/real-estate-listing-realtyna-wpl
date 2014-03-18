@@ -4,7 +4,7 @@ Donate link: http://www.realtyna.com/
 Tags: Real estate, Listing, Vertical Market, MLS, Property listing, RETS
 Requires at least: 3.0.1
 Tested up to: 3.8.1
-Stable tag: 1.0.5
+Stable tag: 1.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,9 +12,9 @@ Manage property listings, RETS / IDX / VOW options and scalable features. Suppor
 
 == Description ==
 
-Run your real estate website using WPL. WPL has lot's of features and addons.
+Run your real estate website using WPL. WPL has lot's of features and addons. Check WPL demo website: http://wpl28.realtyna.com
 
-Demo website: http://wpl28.realtyna.com
+Download [WPL manual](http://wpl.realtyna.com/wassets/wpl-manual.pdf) and check [WPL knowledge base](https://support.realtyna.com/index.php?/Default/Knowledgebase/List/Index/28/wpl---wordpress-property-listing). If you couldn't find your question in WPL manual and knowledge base feel free to [open a support ticket!](https://support.realtyna.com/index.php?/Tickets/Submit/RenderForm/18)
 
 WPL (WordPress Property Listing) is an amazing flexible plugin for Real estate and vertical markets.The system designed in a way that database management is fully flexible. This means you can add/remove/change the fields without custom changing the database. Sequentially, the property search function in WPL is flexible as well allowing the admin to set the desired search parameters from the administration panel.
 
@@ -59,6 +59,12 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 6. External Responsive Template: Agent listing
 
 == Changelog ==
+
+= 1.0.7 =
+* Added requirements and maintenance view on settings menu.
+* Added documentation and support section into WPL dashboard.
+* Fixed some PHP notices.
+* Fixed an issue in PHP5.2!
 
 = 1.0.5 =
 * Fixed some issues.

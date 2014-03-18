@@ -34,6 +34,9 @@ _wpl_import('libraries.activities');
 
                 <!-- Generating not installed extensions -->
                 <?php $this->not_installed_addons(); ?>
+                
+                <!-- Generating support section -->
+                <?php $this->support(); ?>
 
                 <!-- Generating addons -->
                 <?php $this->generate_addons(); ?>

@@ -218,7 +218,7 @@ class wpl_search_widget extends wpl_widget
 				$rendered[$field_id]['id'] = $field_id;
 				$rendered[$field_id]['field_data'] = $field_data;
 				$rendered[$field_id]['field_options'] = json_decode($field_data['options'], true);
-				$rendered[$field_id]['search_options'] = $field['extoption'];
+				$rendered[$field_id]['search_options'] = isset($field['extoption']) ? $field['extoption'] : NULL;
 				$rendered[$field_id]['html'] = $html;
 				$rendered[$field_id]['display'] = $display;
 				
@@ -242,7 +242,7 @@ class wpl_search_widget extends wpl_widget
 			$rendered[$field_id]['id'] = $field_id;
 			$rendered[$field_id]['field_data'] = $field_data;
 			$rendered[$field_id]['field_options'] = json_decode($field_data['options'], true);
-			$rendered[$field_id]['search_options'] = $field['extoption'];
+			$rendered[$field_id]['search_options'] = isset($field['extoption']) ? $field['extoption'] : NULL;
 			$rendered[$field_id]['html'] = $html;
 			$rendered[$field_id]['display'] = $display;
 		}

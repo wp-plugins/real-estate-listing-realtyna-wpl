@@ -218,4 +218,24 @@ class wpl_settings
 			self::generate_setting_form($setting_record);
 		}
 	}
+	
+	/**
+		@input string cache_type
+		@return void
+		@description use this function for removing WPL caches
+	**/
+	public function clear_cache($cache_type = 'All')
+	{
+		/** first validation **/
+		$cache_type = strtolower($cache_type);
+		if(trim($cache_type) == '') return false;
+		
+		if($cache_type == 'properties_cached_data' or $cache_type == 'all')
+		{
+			$query = "UPDATE `#__wpl_properties` SET `location_text`='', `rendered`=''";
+			wpl_db::q($query);
+		}
+		
+		return true;
+	}
 }

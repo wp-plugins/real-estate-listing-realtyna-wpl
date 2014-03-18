@@ -31,6 +31,26 @@ _wpl_import($this->tpl_path.'.scripts.css');
                 </div>
             <?php endforeach; ?>
         </div>
+        
+        <div class="wpl-bottom-nav">
+        	
+            <div class="side-10 side-maintenance">
+                <div class="panel-wp">
+                    <h3><?php echo __('Maintenance', WPL_TEXTDOMAIN); ?></h3>
+                    <div class="panel-body">
+	                    <?php $this->generate_internal('maintenance'); ?>
+                    </div>
+                </div>
+            </div>
+            <div class="side-4 side-requirements">
+                <div class="panel-wp">
+                    <h3><?php echo __('Requirements', WPL_TEXTDOMAIN); ?></h3>
+                    <div class="panel-body">
+                    	<?php $this->generate_internal('requirements'); ?>
+                    </div>
+                </div>
+            </div>
+		</div>
     </div>
     <footer>
         <div class="logo"></div>

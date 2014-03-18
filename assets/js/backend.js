@@ -1464,6 +1464,7 @@ function wpl_remove_message(html_element) {
         return;
     wplj(html_element).removeClass(wpl_show_messages_cur_class);
     wplj(html_element).html('');
+	wplj(html_element).hide();
     wpl_show_messages_cur_class = '';
 }
 

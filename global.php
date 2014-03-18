@@ -527,6 +527,16 @@ class wpl_global
 	
 	/**
 		@input void
+		@return wpl version
+		@author Howard
+	**/
+	public function php_version()
+	{
+		return phpversion();
+	}
+	
+	/**
+		@input void
 		@return tmp full path
 		@author Howard
 	**/

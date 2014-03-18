@@ -38,8 +38,10 @@ _wpl_import($this->tpl_path.'.scripts.js');
 
             <div class="wpl_profile_container_title">
                 <?php
-                echo '<div class="title">'.$profile['rendered'][900]['value'].' '.$profile['rendered'][901]['value'].'</div>';
-                if($profile['main_email_url']) echo '<img src="'.$profile["main_email_url"].'" />';
+                $agent_name = (isset($profile['rendered'][900]['value']) ? $profile['rendered'][900]['value'] : '') ;
+                $agent_l_name = (isset($profile['rendered'][901]['value']) ? $profile['rendered'][901]['value'] : '');
+                echo '<div class="title">'.$agent_name.' '.$agent_l_name.'</div>';
+                if(isset($profile['main_email_url'])) echo '<img src="'.$profile["main_email_url"].'" />';
                 ?>
             </div>
             <ul>

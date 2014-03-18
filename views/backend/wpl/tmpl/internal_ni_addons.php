@@ -7,7 +7,7 @@ $addons[0] = array('name'=>'WPL PRO', 'id'=>'3', 'addon_name'=>'pro', 'descripti
 $addons[1] = array('name'=>'MLS addon', 'id'=>'1', 'addon_name'=>'mls', 'description'=>'MLS/IDX/RETS Integration', 'readmore_link'=>'http://wpl.realtyna.com/redirect.php?action=download&item=mls', 'button_text'=>'Download');
 $addons[2] = array('name'=>'Multisite addon', 'id'=>'4', 'addon_name'=>'multisite', 'description'=>'Multisite support for WPL', 'readmore_link'=>'http://wpl.realtyna.com/redirect.php?action=download&item=multisite', 'button_text'=>'Download');
 ?>
-<div class="side-14 side-ni-addons">
+<div class="side-7 side-ni-addons">
     <div class="panel-wp">
         <h3><?php echo __('Optional Addons', WPL_TEXTDOMAIN); ?></h3>
 

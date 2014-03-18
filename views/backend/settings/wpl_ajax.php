@@ -28,6 +28,7 @@ class wpl_settings_controller extends wpl_controller
 			$file = $_FILES['wpl_watermark_uploader'];
 			self::save_watermark_image($file);
 		}
+		elseif($function == 'clear_cache') $this->clear_cache();
 	}
 	
 	private function save($setting_name, $setting_value, $setting_category)
@@ -41,7 +42,7 @@ class wpl_settings_controller extends wpl_controller
 		$response = array('success'=>$res, 'message'=>$message, 'data'=>$data);
 		
 		echo json_encode($response);
-		return json_encode($response);
+		exit;
 	}
         
         
@@ -82,6 +83,21 @@ class wpl_settings_controller extends wpl_controller
 
 		$response = array('error'=>$error, 'message'=>$message);
 
+		echo json_encode($response);
+		exit;
+	}
+	
+	private function clear_cache()
+	{
+		$cache_type = wpl_request::getVar('cache_type', NULL);
+		$res = wpl_settings::clear_cache($cache_type);
+		
+		$res = (int) $res;
+		$message = $res ? __('Operation was successful.', WPL_TEXTDOMAIN) : __('Error Occured.', WPL_TEXTDOMAIN);
+		$data = NULL;
+		
+		$response = array('success'=>$res, 'message'=>$message, 'data'=>$data);
+		
 		echo json_encode($response);
 		exit;
 	}

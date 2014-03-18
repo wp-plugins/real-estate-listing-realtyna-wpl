@@ -34,4 +34,12 @@ class wpl_wpl_controller extends wpl_controller
 		/** import tpl **/
 		parent::display($this->tpl_path, $tpl);
 	}
+	
+	public function support()
+	{
+		$tpl = 'internal_support';
+		
+		/** import tpl **/
+		parent::display($this->tpl_path, $tpl);
+	}
 }
