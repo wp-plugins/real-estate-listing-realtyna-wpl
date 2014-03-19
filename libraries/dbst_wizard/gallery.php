@@ -70,7 +70,7 @@ if($type == 'gallery' and !$done_this)
             ?>
 
             <li class="ui-state-default" id="ajax_gallery<?php echo $image->index; ?>" >
-                <input type="hidden" id="gal_name" value="<?php $image->item_name ?>"/>
+                <input type="hidden" class="gal_name" value="<?php echo $image->item_name; ?>" />
                 <div class="image-box-wp">
                     <div class="image-wp">
                         <img src="<?php echo $image_thumbnail_url; ?>" />
@@ -134,7 +134,7 @@ wplj(document).ready(function()
 		stop: function(event, ui)
 		{
 			sort_str = "";
-			wplj("#ajax_gal_sortable #gal_name").each(function(ind, elm) {
+			wplj("#ajax_gal_sortable .gal_name").each(function(ind, elm) {
 				sort_str += elm.value + ",";
 			});
 	

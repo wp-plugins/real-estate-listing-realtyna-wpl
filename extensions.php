@@ -391,10 +391,6 @@ class wpl_extensions
 			{
 				switch_to_blog($blog->blog_id);
 				
-				/** update version in database **/
-				if(!wpl_global::get_wp_option('wpl_version')) add_option('wpl_version', WPL_VERSION);
-				else update_option('wpl_version', WPL_VERSION);
-				
 				/** create propertylisting page **/
 				$pages = array('Properties'=>'[WPL]', 'For Sale'=>'[WPL sf_select_listing="9"]', 'For Rent'=>'[WPL sf_select_listing="10"]', 'Vacation rental'=>'[WPL sf_select_listing="12"]');
 				foreach($pages as $title=>$content)
@@ -413,10 +409,6 @@ class wpl_extensions
 		}
 		else
 		{
-			/** update version in database **/
-			if(!wpl_global::get_wp_option('wpl_version')) add_option('wpl_version', WPL_VERSION);
-			else update_option('wpl_version', WPL_VERSION);
-			
 			/** create propertylisting page **/
 			$pages = array('Properties'=>'[WPL]', 'For Sale'=>'[WPL sf_select_listing="9"]', 'For Rent'=>'[WPL sf_select_listing="10"]', 'Vacation rental'=>'[WPL sf_select_listing="12"]');
 			foreach($pages as $title=>$content)
@@ -430,6 +422,82 @@ class wpl_extensions
 			/** Add admin user to WPL **/
 			wpl_users::add_user_to_wpl(1);
 		}
+		
+		/** upgrade WPL **/
+		self::upgrade_wpl();
+    }
+	
+	/**
+		@inputs void
+		@returns void
+		@description Running necesarry queries and functions for upgrading
+		@author Howard
+	**/
+	public function upgrade_wpl()
+	{
+		if(wpl_folder::exists(WPL_ABSPATH. 'assets' .DS. 'upgrade' .DS. 'files'))
+		{
+			/** copy files **/
+			$res = wpl_folder::copy(WPL_ABSPATH. 'assets' .DS. 'upgrade' .DS. 'files', ABSPATH, '', true);
+	
+			/** delete files **/
+			wpl_folder::delete(WPL_ABSPATH. 'assets' .DS. 'upgrade' .DS. 'files');
+		}
+		
+		/** run queries **/
+		$query_file = WPL_ABSPATH. 'assets' .DS. 'upgrade' .DS. 'queries.sql';
+		if(wpl_file::exists($query_file))
+		{
+			$queries = file_get_contents($query_file);
+			$queries = str_replace(";\r\n", "-=++=-", $queries);
+			$queries = str_replace(";\r", "-=++=-", $queries);
+			$queries = str_replace(";\n", "-=++=-", $queries);
+			$sqls = explode("-=++=-", $queries);
+			
+			if(function_exists('is_multisite') && is_multisite())
+			{
+				$original_blog_id = wpl_global::get_current_blog_id();
+				
+				// Get all blogs
+				$blogs = wpl_db::select("SELECT `blog_id` FROM `#__blogs`", 'loadColumn');
+				
+				foreach($blogs as $blog)
+				{
+					switch_to_blog($blog->blog_id);
+					foreach($sqls as $sql)
+					{
+						try{wpl_db::q($sql);} catch (Exception $e){}
+					}
+				}
+				
+				/** delete query file **/
+				wpl_file::delete($query_file);
+				switch_to_blog($original_blog_id);
+			}
+			else
+			{
+				foreach($sqls as $sql)
+				{
+					try{wpl_db::q($sql);} catch (Exception $e){}
+				}
+				
+				/** delete query file **/
+				wpl_file::delete($query_file);
+			}
+		}
+		
+		/** run script **/
+		$script_file = WPL_ABSPATH. 'assets' .DS. 'upgrade' .DS. 'script.php';
+		if(wpl_file::exists($script_file))
+		{
+			include $script_file;
+			
+			/** delete script file **/
+			wpl_file::delete($query_file);
+		}
+		
+		/** update WPL version in db **/
+		update_option('wpl_version', WPL_VERSION);
     }
 	
 	/**
@@ -630,6 +698,12 @@ if(!($GLOBALS['pagenow'] == 'plugins.php' and wpl_request::getVar('action') == '
 {
 	$wpl_extensions->get_extensions(1, '', wpl_global::get_client());
 	$wpl_extensions->import_extensions();
+	
+	if(version_compare(wpl_global::get_wp_option('wpl_version'), wpl_global::wpl_version(), '<'))
+	{
+		/** upgrading WPL **/
+		$wpl_extensions->upgrade_wpl();
+	}
 }
 
 /** Run WPL Proccess service **/

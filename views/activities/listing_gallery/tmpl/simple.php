@@ -28,13 +28,13 @@ if(isset($wpl_properties['current']['rendered'][403]) and $wpl_properties['curre
 $raw_gallery = isset($wpl_properties['current']['items']['gallery']) ? $wpl_properties['current']['items']['gallery'] : array();
 $gallery = wpl_items::render_gallery($raw_gallery);
 ?>
-<div class="wpl_gallery_container" id="wpl_gallery_container<?php echo $property_id; ?>" >
-    <?php 
-    if(!count($gallery)) 
+<div class="wpl_gallery_container" id="wpl_gallery_container<?php echo $property_id; ?>">
+    <?php
+    if(!count($gallery))
     {
         echo '<div class="no_image_box"></div>';
     }
-    else 
+    else
     {
         if($image_width and $image_height)
         {
@@ -50,7 +50,8 @@ $gallery = wpl_items::render_gallery($raw_gallery);
         }
         
         echo '<img id="wpl_gallery_image'.$property_id .'" src="'.$image_url.'" class="wpl_gallery_image '.$image_class.'" alt="'.$params['image_name'].'" width="'.$image_width.'" height="'.$image_height.'" />';
-    } 
+    }
+	
     /* Property tags */
     echo $features.$hot_offer.$open_house.$forclosure;
     ?>

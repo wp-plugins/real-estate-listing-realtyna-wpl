@@ -6,12 +6,11 @@ if($type == 'addon_video' and !$done_this)
 {
     _wpl_import('libraries.items');
 
-    $style[] = (object)array('param1' => 'ajax-fileupload-style', 'param2' => 'js/ajax_uploader/css/style.css');
-    $style[] = (object)array('param1' => 'ajax-fileupload-ui', 'param2' => 'js/ajax_uploader/css/jquery.fileupload-ui.css');
+    $style[] = (object) array('param1'=>'ajax-fileupload-style', 'param2'=>'js/ajax_uploader/css/style.css');
+    $style[] = (object) array('param1'=>'ajax-fileupload-ui', 'param2'=>'js/ajax_uploader/css/jquery.fileupload-ui.css');
 
     /** import styles and javascripts * */
-    foreach ($style as $css)
-        wpl_extensions::import_style($css);
+    foreach ($style as $css) wpl_extensions::import_style($css);
 
     $ext_str = trim(str_replace(',', '|', $options['ext_file']), '|,; ');
     $max_size = $options['file_size'];
@@ -95,7 +94,6 @@ function video_select_tab(id)
 	wplj('.video-content-wp').find('> div').hide().filter(_this.attr('href')).fadeIn(600);
 }
 </script>
-
 <?php
 if(wpl_settings::get('video_uploader'))
 {
@@ -136,7 +134,7 @@ if(wpl_settings::get('video_uploader'))
 					$max_index_vid = $video->index;
 				?>
 				<li class="ui-state-default" id="ajax_video<?php echo $video->index; ?>">
-					<input type="hidden" id="vid_name" value="<?php echo $video->item_name; ?>"/>
+					<input type="hidden" class="vid_name" value="<?php echo $video->item_name; ?>"/>
 
 					<div class="image-box-wp">
 						<div class="info-wp">
@@ -177,8 +175,7 @@ if(wpl_settings::get('video_uploader'))
 							else
 								echo '<div class="action-gal-btn" id="active_video_tag_' . $video->index . '" onclick="wpl_video_enabled(\'' . $video->item_name . '\',' . $video->index . ');"><i class="action-btn icon-disabled"></i></div>';
 							?>
-							<input type="hidden" id="enabled_video_field_<?php echo $video->index; ?>"
-								   value="<?php echo $video->enabled; ?>"/>
+							<input type="hidden" id="enabled_video_field_<?php echo $video->index; ?>" value="<?php echo $video->enabled; ?>" />
 						</div>
 					</div>
 				</li>
@@ -198,26 +195,31 @@ if(wpl_settings::get('video_uploader'))
 <script type="text/javascript">
 wplj(document).ready(function()
 {
-	wplj("#ajax_vid_sortable").sortable({
+	wplj("#ajax_vid_sortable").sortable(
+	{
 		placeholder: "ui-state-highlight",
-		stop: function (event, ui) {
+		stop: function (event, ui)
+		{
 			sort_str = "";
-			wplj("#ajax_vid_sortable #vid_name").each(function (ind, elm) {
+			wplj("#ajax_vid_sortable .vid_name").each(function (ind, elm)
+			{
 				sort_str += elm.value + ",";
 			});
 	
-			wplj.post("<?php echo wpl_global::get_full_url(); ?>", "&wpl_format=b:listing:videos&wpl_function=sort_videos&pid=' . $item_id . '&order=" + sort_str, function (data) {
+			wplj.post("<?php echo wpl_global::get_full_url(); ?>", "&wpl_format=b:listing:videos&wpl_function=sort_videos&pid=' . $item_id . '&order=" + sort_str, function (data)
+			{
 			});
 		}
 	});
 });
 
 var vid_counter = parseInt(<?php echo $max_index_vid; ?>) + 1;
-wplj(function () {
+wplj(function ()
+{
 	var url = '<?php echo wpl_global::get_full_url(); ?>&wpl_format=b:listing:videos&wpl_function=upload&pid=' + <?php echo $item_id; ?> +'&kind=<?php echo $this->kind; ?>&type=video';
 
-	require([rta.config.JSes.fileUpload], function () {
-
+	require([rta.config.JSes.fileUpload], function ()
+	{
 		wplj('#video_upload').fileupload({
 			url: url,
 			acceptFileTypes: /(<?php echo $ext_str; ?>)$/i,
@@ -280,10 +282,13 @@ function ajax_video_cat_update(video, value)
 
 function ajax_video_delete(video, id)
 {
-	if (confirm('<?php _e('Are you sure?', WPL_TEXTDOMAIN) ?>')) {
+	if (confirm('<?php echo __('Are you sure?', WPL_TEXTDOMAIN) ?>'))
+	{
 		ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', "wpl_format=b:listing:videos&wpl_function=delete_video&pid=<?php echo $item_id; ?>&video=" + encodeURIComponent(video));
-		ajax.success(function (data) {
-			wplj("#" + id).fadeOut(function () {
+		ajax.success(function (data)
+		{
+			wplj("#" + id).fadeOut(function ()
+			{
 				wplj(this).remove();
 			});
 		});

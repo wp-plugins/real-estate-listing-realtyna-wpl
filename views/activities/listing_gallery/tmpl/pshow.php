@@ -21,8 +21,10 @@ $js[] = (object) array('param1'=>'jquery.bxslider', 'param2'=>'js/jquery.bxslide
 foreach($js as $javascript) wpl_extensions::import_javascript($javascript);
 ?>
 <script type="text/javascript">
-wplj(document).ready(function(){
-    wplj('#bxslider_<?php echo $property_id; ?>').bxSlider({
+wplj(document).ready(function()
+{
+    wplj('#bxslider_<?php echo $property_id; ?>').bxSlider(
+	{
         mode: 'fade',
         auto : true,
         captions: false,
@@ -30,7 +32,6 @@ wplj(document).ready(function(){
         pagerCustom: '#bx-pager'
     });
 });
-
 </script>
 <div class="wpl_gallery_container" id="wpl_gallery_container<?php echo $property_id; ?>">
     <?php
@@ -43,6 +44,7 @@ wplj(document).ready(function(){
         echo '<ul class="bxslider" id="bxslider_'.$property_id.'">';
         $i = 0;
         $pager_box = '';
+		
         foreach($gallery as $image)
         {
             if($image_width and $image_height)
@@ -60,8 +62,8 @@ wplj(document).ready(function(){
             }
             
             /** start loading images **/
-            echo '<li><img src="'.$image_url.'" title="" class="wpl_gallery_image '.$image_class.'" id="wpl_gallery_image'.$image['raw']['id'].'" /></li>';
-            $pager_box .='<a data-slide-index="'.$i.'" href=""><img src="'.$image_thumbnail_url.'" /></a>';
+            echo '<li><img src="'.$image_url.'" title="" class="wpl_gallery_image '.$image_class.'" id="wpl_gallery_image'.$image['raw']['id'].'" width="'.$image_width.'" height="'.$image_height.'" /></li>';
+            $pager_box .= '<a data-slide-index="'.$i.'" href=""><img src="'.$image_thumbnail_url.'" width="100" height="80"/></a>';
         	$i++;
         }
 		

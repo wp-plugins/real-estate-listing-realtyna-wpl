@@ -61,7 +61,7 @@ if($type == 'attachments' and !$done_this)
         if($max_index_att < $attachment->index) $max_index_att = $attachment->index;
         ?>
         <li class="ui-state-default" id="ajax_attachment<?php echo $attachment->index; ?>">
-            <input type="hidden" id="att_name" value="<?php $attachment->item_name ?>"/>
+            <input type="hidden" class="att_name" value="<?php echo $attachment->item_name ?>"/>
 
             <div class="image-box-wp">
                 <div class="icon-wp">
@@ -126,7 +126,7 @@ wplj(document).ready(function()
 		placeholder: "ui-state-highlight",
 		stop: function (event, ui) {
 			sort_str = "";
-			wplj("#ajax_att_sortable #att_name").each(function (ind, elm) {
+			wplj("#ajax_att_sortable .att_name").each(function (ind, elm) {
 				sort_str += elm.value + ",";
 			});
 

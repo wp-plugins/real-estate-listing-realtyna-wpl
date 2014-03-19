@@ -4,6 +4,10 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.0.8 (<span class="wpl_log_date">3/19/2014</span> <span class="wpl_log_revision">revision 502</span>)</h4>
+        -- Fixed sort image/attachments/video issue on Add/Edit listing.<br />
+        -- Fixed some upgrade issues.
+        
         <h4>WPL1.0.7 (<span class="wpl_log_date">3/18/2014</span> <span class="wpl_log_revision">revision 498</span>)</h4>
         -- Added requirements and maintenance view on settings menu.<br />
         -- Added documentation and support section into WPL dashboard.<br />
