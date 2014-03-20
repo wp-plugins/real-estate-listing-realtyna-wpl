@@ -44,7 +44,7 @@ _wpl_import($this->tpl_path.'.scripts.css');
             </div>
             <div class="side-4 side-requirements">
                 <div class="panel-wp">
-                    <h3><?php echo __('Requirements', WPL_TEXTDOMAIN); ?></h3>
+                    <h3><?php echo __('Server requirements', WPL_TEXTDOMAIN); ?></h3>
                     <div class="panel-body">
                     	<?php $this->generate_internal('requirements'); ?>
                     </div>
