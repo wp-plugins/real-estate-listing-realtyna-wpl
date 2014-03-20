@@ -18,6 +18,11 @@ Download [WPL manual](http://wpl.realtyna.com/wassets/wpl-manual.pdf) and check 
 
 WPL (WordPress Property Listing) is an amazing flexible plugin for Real estate and vertical markets.The system designed in a way that database management is fully flexible. This means you can add/remove/change the fields without custom changing the database. Sequentially, the property search function in WPL is flexible as well allowing the admin to set the desired search parameters from the administration panel.
 
+**Best host providers for WPL**
+
+* [cloud real estate web hosting](http://hosting.realtyna.com/)
+* [Bluehost WordPress](http://bluehost.com/track/realtyna)
+
 **WPL Expansion options**
 
 *   Have necessary database fields for further MLS Integration (integrating MLS / IDX/ RETS / VOW  servers into WPL - Wordpress directly) - Extra customization may be needed. http://rpl.realtyna.com/Add-ons/MLS-IDX-Integration

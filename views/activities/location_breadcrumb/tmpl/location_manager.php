@@ -32,5 +32,5 @@ foreach($location_tree as $branch)
 <div class="<?php echo $element_class; ?>" id="<?php echo $html_element_id; ?>">
 	<a href="<?php echo $root_url; ?>"><?php echo __('All countries', WPL_TEXTDOMAIN); ?></a>
     <?php echo $breadcrumb_str; ?>
-    <span class="wpl_create_new fancybox action-btn icon-plus" href="#wpl_location_fancybox_cnt" onclick="wpl_generate_modify_page('<?php echo (!$load_zipcodes ? $location_level : 'zips'); ?>','<?php echo $location_id; ?>')" title="<?php echo __('Add location', WPL_TEXTDOMAIN); ?>"></span>
+    <span class="wpl_create_new fancybox action-btn icon-plus" id="wpl_add_location_item" href="#wpl_location_fancybox_cnt" onclick="wpl_generate_modify_page('<?php echo (!$load_zipcodes ? $location_level : 'zips'); ?>','<?php echo $location_id; ?>')" title="<?php echo __('Add location', WPL_TEXTDOMAIN); ?>"></span>
 </div>

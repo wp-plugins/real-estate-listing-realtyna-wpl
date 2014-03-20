@@ -54,5 +54,10 @@ $php_version = wpl_global::php_version();
             	<i class="icon-<?php echo $safe_mode ? 'confirm' : 'warning'; ?>"></i>
             </span>
 		</li>
+        <!-- Server providers offers -->
+        <li class="wpl_server_offers">
+        	<a href="http://hosting.realtyna.com/" target="_blank">Cloud real estate web hosting</a><br />
+            <a href="http://bluehost.com/track/realtyna" target="_blank">Bluehost WordPress</a>
+		</li>
     </ul>
 </div>

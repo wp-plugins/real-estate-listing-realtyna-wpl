@@ -78,7 +78,9 @@ function wpl_generate_modify_page(level, parent, location_id)
 		{
 			wpl_show_messages('<?php echo __('Error Occured.', WPL_TEXTDOMAIN); ?>', '.wpl_location_list .wpl_show_message', 'wpl_red_msg');
 			
-			fancybox_reload = false;
+			/** reload after fancybox **/
+			rta.config.fancybox.reloadAfterClose = false;
+			
 			wplj.fancybox.close();
 		}
 	});
@@ -109,7 +111,9 @@ function wpl_generate_params_page(level, location_id)
 		{
 			wpl_show_messages('<?php echo __('Error Occured.', WPL_TEXTDOMAIN); ?>', '.wpl_location_list .wpl_show_message', 'wpl_red_msg');
 			
-			fancybox_reload = false;
+			/** reload after fancybox **/
+			rta.config.fancybox.reloadAfterClose = false;
+			
 			wplj.fancybox.close();
 		}
 	});
@@ -138,7 +142,9 @@ function wpl_ajax_modify_location(name, level, parent, location_id)
 			wpl_show_messages(data.message, '.wpl_show_message_location', 'wpl_green_msg');
 			wplj(ajax_loader_element).html('');
 			
-			fancybox_reload = true;
+			/** reload after fancybox **/
+			rta.config.fancybox.reloadAfterClose = true;
+			
 			wplj.fancybox.close();
 		}
 		else if(data.success != 1)

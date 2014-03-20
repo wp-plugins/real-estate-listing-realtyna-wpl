@@ -17,4 +17,5 @@ defined('_WPLEXEC') or die('Restricted access');
 .wpl-requirements-container ul li span.wpl-requirement-current{width: 90px;}
 .wpl-requirements-container ul li span.wpl-requirement-status{width: 40px;}
 .wpl_maintenance .wpl_show_message{margin-bottom: 15px;}
+.wpl_server_offers{margin-top: 10px; text-align: center;}
 </style>
