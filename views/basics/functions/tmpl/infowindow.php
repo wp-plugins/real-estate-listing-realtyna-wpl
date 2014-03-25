@@ -41,7 +41,7 @@ foreach($this->wpl_properties as $key => $property)
 	                /** resize image if does not exist **/
 	                $image_url = wpl_images::create_gallary_image(180, 125, $params);
 
-					echo '<img id="wpl_gallery_image'.$property_id .'_'.$i.'" src="'.$image_url.'" class="wpl_gallery_image '.$class.' '.$image_class.'" onclick="wpl_Plisting_slider('.$i.','.$images_total.','.$property_id.');" />';
+					echo '<img id="wpl_gallery_image'.$property_id .'_'.$i.'" src="'.$image_url.'" class="wpl_gallery_image" onclick="wpl_Plisting_slider('.$i.','.$images_total.','.$property_id.');" />';
 					$i++;	
 				}
 			}

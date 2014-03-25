@@ -21,7 +21,7 @@ class wpl_request
 	/**
 	 * get a variable
 	 */
-	public static function getVar($name, $default = null, $hash = 'default')
+	public static function getVar($name, $default = null, $hash = 'default', $clean = false)
 	{
 		// Ensure hash and type are uppercase
 		$hash = strtoupper($hash);
@@ -59,6 +59,10 @@ class wpl_request
 		}
 
 		$var = isset($input[$name]) ? $input[$name] : $default;
+		
+		/** clean **/
+		if($clean) $var = wpl_global::clean($var);
+		
 		return $var;
 	}
 

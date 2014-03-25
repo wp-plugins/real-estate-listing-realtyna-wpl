@@ -9,7 +9,7 @@ defined('_WPLEXEC') or die('Restricted access');
             <i class="icon-trash"></i>
             <span class="wpl_ajax_loader" id="wpl_properties_cached_ajax_loader"></span>
             <span class="title">
-                <?php echo __("Clear listings' cached data", WPL_TEXTDOMAIN); ?>
+                <?php echo __('Clear listings cached data', WPL_TEXTDOMAIN); ?>
             </span>
         </li>
     </ul>

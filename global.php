@@ -11,6 +11,34 @@ class wpl_global
 {
 	/**
 		Developed by : Howard
+		Inputs : {parameter}
+		Outputs : cleaned parameter
+		Date : 2014-03-20
+		Description : use this function for cleaning any variable
+     **/
+    public static function clean($parameter)
+    {
+		$return_data = '';
+		
+        if(is_array($parameter)) // Added by Kevin for Escape Array Items
+        {
+			$return_data = array();
+			
+            foreach($parameter as $key=>$value)
+            {
+                $return_data[$key] = strip_tags($value);
+            }
+        }
+        else
+		{
+            $return_data = strip_tags($parameter);
+		}
+
+        return wpl_db::escape($return_data);
+    }
+	
+	/**
+		Developed by : Howard
 		Inputs : string $view, string $query_string
 		Outputs : void
 		Date : 2013-08-14
@@ -941,5 +969,60 @@ class wpl_global
 			if(!wpl_folder::exists($path)) wpl_folder::create($path);
 			return get_site_url().'/wp-content/uploads/WPL'.$blog_id.'/';
 		}
+	}
+	
+	/**
+		Developed by : Howard
+		Inputs : array instance
+		Outputs : void
+		Date : 2014-03-20
+		Description : This is a function for loading any view on frontend
+	**/
+	public function load_view($function, $instance = array())
+	{
+		if(trim($function) == '') return false;
+		
+		/** generate pages object **/
+		$controller = new wpl_controller();
+		
+		ob_start();
+		call_user_func(array($controller, $function), $instance);
+		return $output = ob_get_clean();
+	}
+	
+	/**
+		Developed by : Howard
+		Inputs : array instance
+		Outputs : void
+		Date : 2014-03-20
+		Description : This is a function for loading profile wizard by shortcode
+	**/
+	public function load_profile_wizard($instance = array())
+	{
+		return wpl_global::load_view('b:users:profile', $instance);
+	}
+	
+	/**
+		Developed by : Howard
+		Inputs : array instance
+		Outputs : void
+		Date : 2014-03-25
+		Description : This is a function for loading property wizard by shortcode
+	**/
+	public function load_add_edit_listing($instance = array())
+	{
+		return wpl_global::load_view('b:listing:wizard', $instance);
+	}
+	
+	/**
+		Developed by : Howard
+		Inputs : array instance
+		Outputs : void
+		Date : 2014-03-25
+		Description : This is a function for loading property manager by shortcode
+	**/
+	public function load_listing_manager($instance = array())
+	{
+		return wpl_global::load_view('b:listings:manager', $instance);
 	}
 }

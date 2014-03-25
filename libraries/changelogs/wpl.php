@@ -4,6 +4,10 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.0.9 (<span class="wpl_log_date">3/25/2014</span> <span class="wpl_log_revision">revision 508</span>)</h4>
+        -- Fixed some tiny issues.<br />
+        -- Fixed some PHP notices.
+        
         <h4>WPL1.0.8 (<span class="wpl_log_date">3/19/2014</span> <span class="wpl_log_revision">revision 502</span>)</h4>
         -- Fixed sort image/attachments/video issue on Add/Edit listing.<br />
         -- Fixed some upgrade issues.
@@ -26,7 +30,7 @@ defined('_WPLEXEC') or die('Restricted access');
         -- Fixed an issue on shortcode wizard.
         
         <h4>WPL1.0.2 (<span class="wpl_log_date">3/12/2014</span> <span class="wpl_log_revision">revision 476</span>)</h4>
-        -- Fixed some minor issues.
+        -- Fixed some tiny issues.
         
         <h4>WPL1.0.1 (<span class="wpl_log_date">3/11/2014</span> <span class="wpl_log_revision">revision 474</span>)</h4>
         -- Fixed search widget lightbox issue.<br />

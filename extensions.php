@@ -339,7 +339,7 @@ class wpl_extensions
 			$queries = str_replace(";\n", "-=++=-", $queries);
 			$sqls = explode("-=++=-", $queries);
 			
-			if(function_exists('is_multisite') && is_multisite())
+			if(function_exists('is_multisite') and is_multisite() and wpl_global::check_addon('multisite'))
 			{
 				$original_blog_id = wpl_global::get_current_blog_id();
 				
@@ -381,7 +381,7 @@ class wpl_extensions
 			wpl_file::delete($query_file);
 		}
 		
-		if(function_exists('is_multisite') && is_multisite())
+		if(function_exists('is_multisite') and is_multisite() and wpl_global::check_addon('multisite'))
 		{
 			$original_blog_id = wpl_global::get_current_blog_id();
 			
@@ -392,7 +392,7 @@ class wpl_extensions
 				switch_to_blog($blog->blog_id);
 				
 				/** create propertylisting page **/
-				$pages = array('Properties'=>'[WPL]', 'For Sale'=>'[WPL sf_select_listing="9"]', 'For Rent'=>'[WPL sf_select_listing="10"]', 'Vacation rental'=>'[WPL sf_select_listing="12"]');
+				$pages = array('Properties'=>'[WPL]', 'For Sale'=>'[WPL sf_select_listing="9"]', 'For Rent'=>'[WPL sf_select_listing="10"]', 'Vacation Rental'=>'[WPL sf_select_listing="12"]');
 				foreach($pages as $title=>$content)
 				{
 					if(wpl_db::select("SELECT COUNT(post_content) FROM `#__posts` WHERE `post_content` LIKE '%$content%' AND `post_status` IN ('publish', 'private')", 'loadResult') != 0) continue;
@@ -410,7 +410,7 @@ class wpl_extensions
 		else
 		{
 			/** create propertylisting page **/
-			$pages = array('Properties'=>'[WPL]', 'For Sale'=>'[WPL sf_select_listing="9"]', 'For Rent'=>'[WPL sf_select_listing="10"]', 'Vacation rental'=>'[WPL sf_select_listing="12"]');
+			$pages = array('Properties'=>'[WPL]', 'For Sale'=>'[WPL sf_select_listing="9"]', 'For Rent'=>'[WPL sf_select_listing="10"]', 'Vacation Rental'=>'[WPL sf_select_listing="12"]');
 			foreach($pages as $title=>$content)
 			{
 				if(wpl_db::select("SELECT COUNT(post_content) FROM `#__posts` WHERE `post_content` LIKE '%$content%' AND `post_status` IN ('publish', 'private')", 'loadResult') != 0) continue;
@@ -454,7 +454,7 @@ class wpl_extensions
 			$queries = str_replace(";\n", "-=++=-", $queries);
 			$sqls = explode("-=++=-", $queries);
 			
-			if(function_exists('is_multisite') && is_multisite())
+			if(function_exists('is_multisite') and is_multisite() and wpl_global::check_addon('multisite'))
 			{
 				$original_blog_id = wpl_global::get_current_blog_id();
 				
@@ -662,7 +662,7 @@ class wpl_extensions
 			return $title.' -- '.__('Page', WPL_TEXTDOMAIN).' '.$wplpage;
 		}
 		
-		return $title;
+		return wpl_global::clean($title);
 	}
 	
 	/**

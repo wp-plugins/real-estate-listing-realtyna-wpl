@@ -748,12 +748,12 @@ class wpl_users
 		
 		foreach($rendered as $data)
 		{
-			if(!trim($data['type']) or !trim($data['value'])) continue;
+			if((isset($data['type']) and !trim($data['type'])) or (isset($data['value']) and !trim($data['value']))) continue;
 			
 			/** default value **/
-			$value = $data['value'];
+			$value = isset($data['value']) ? $data['value'] : '';
 			$value2 = '';
-			$type = $data['type'];
+			$type = isset($data['type']) ? $data['type'] : '';
 			
 			if($type == 'text' or $type == 'textarea')
 			{

@@ -24,11 +24,11 @@ class wpl_profile_listing_controller extends wpl_controller
 		$settings = wpl_settings::get_settings();
 		
 		/** listing settings **/
-		$this->page_number = wpl_request::getVar('wplpage', 1);
-		$limit = wpl_request::getVar('limit', $settings['default_profile_page_size']);
-		$start = wpl_request::getVar('start', (($this->page_number-1)*$limit));
-		$orderby = wpl_request::getVar('wplorderby', $settings['default_profile_orderby']);
-		$order = wpl_request::getVar('wplorder', $settings['default_profile_order']);
+		$this->page_number = wpl_request::getVar('wplpage', 1, '', true);
+		$limit = wpl_request::getVar('limit', $settings['default_profile_page_size'], '', true);
+		$start = wpl_request::getVar('start', (($this->page_number-1)*$limit), '', true);
+		$orderby = wpl_request::getVar('wplorderby', $settings['default_profile_orderby'], '', true);
+		$order = wpl_request::getVar('wplorder', $settings['default_profile_order'], '', true);
 		
 		/** set page if start var passed **/
 		$this->page_number = ($start/$limit)+1;

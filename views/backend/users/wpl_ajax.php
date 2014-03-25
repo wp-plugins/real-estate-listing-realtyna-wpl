@@ -287,7 +287,7 @@ class wpl_users_controller extends wpl_controller
 		{
 			// check the extention
 			$extention = strtolower(wpl_file::getExt($file['name']));
-
+			
 			if(!in_array($extention, $ext_array))
 			{
 				$error = __('File extention should be jpg, png or gif.', WPL_TEXTDOMAIN);

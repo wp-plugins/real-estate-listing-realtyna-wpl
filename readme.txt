@@ -4,7 +4,7 @@ Donate link: http://www.realtyna.com/
 Tags: Real estate, Listing, Vertical Market, MLS, Property listing, RETS
 Requires at least: 3.0.1
 Tested up to: 3.8.1
-Stable tag: 1.0.8
+Stable tag: 1.0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,11 +16,11 @@ Run your real estate website using WPL. WPL has lot's of features and addons. Ch
 
 Download [WPL manual](http://wpl.realtyna.com/wassets/wpl-manual.pdf) and check [WPL knowledge base](https://support.realtyna.com/index.php?/Default/Knowledgebase/List/Index/28/wpl---wordpress-property-listing). If you couldn't find your question in WPL manual and knowledge base feel free to [open a support ticket!](https://support.realtyna.com/index.php?/Tickets/Submit/RenderForm/18)
 
-WPL (WordPress Property Listing) is an amazing flexible plugin for Real estate and vertical markets.The system designed in a way that database management is fully flexible. This means you can add/remove/change the fields without custom changing the database. Sequentially, the property search function in WPL is flexible as well allowing the admin to set the desired search parameters from the administration panel.
+WPL (WordPress Property Listing) is an amazing flexible plugin for Real estate and vertical markets. The system is designed in such a way that database management is fully flexible. This means you can add/remove/change the fields without custom changing the database. Sequentially, the property search function in WPL is flexible as well allowing the admin to set the desired search parameters from the administration panel.
 
 **WPL Expansion options**
 
-*   Have necessary database fields for further MLS Integration (integrating MLS / IDX/ RETS / VOW  servers into WPL - Wordpress directly) - Extra customization may be needed. http://rpl.realtyna.com/Add-ons/MLS-IDX-Integration
+*   Have necessary database fields for further MLS Integration (integrating MLS / IDX / RETS / VOW  servers into WPL - Wordpress directly) - Extra customization may be needed. http://rpl.realtyna.com/Add-ons/MLS-IDX-Integration
 *   Native Custom Brand Mobile App http://rpl.realtyna.com/add-ons/real-estate-iphone/android-app
 *   Demographic Package http://rpl.realtyna.com/add-ons/real-estate-demographic-information-add-ons
 *   Cloud Hosting (Starting from $24.95 per month) http://hosting.realtyna.com
@@ -59,6 +59,10 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 6. External Responsive Template: Agent listing
 
 == Changelog ==
+
+= 1.0.9 =
+* Fixed some tiny issues.
+* Fixed some PHP notices.
 
 = 1.0.8 =
 * Fixed sort image/attachments/video issue on Add/Edit listing.

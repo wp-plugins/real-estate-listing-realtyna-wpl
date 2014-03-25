@@ -29,7 +29,7 @@ if($type == 'gallery' and !$done_this)
         <input id="fileupload" type="file" name="files[]" multiple="multiple" />
     </div>
     <div class="field-desc">
-        <?php echo __('Please choose all image you want. Just click on the "Select files" button.', WPL_TEXTDOMAIN); ?>
+        <?php echo __('To select images click on the "Select files" button.', WPL_TEXTDOMAIN); ?>
     </div>
 </div>
 

@@ -4,7 +4,7 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div class="side-10 side-addons">
     <div class="panel-wp">
-        <h3><?php echo __('WPL Addons', WPL_TEXTDOMAIN); ?></h3>
+        <h3><?php echo __('WPL Add Ons', WPL_TEXTDOMAIN); ?></h3>
 
         <div class="panel-body">
             <div class="wpl-addons-install-wp wpl_install_addons_container">
@@ -14,9 +14,9 @@ defined('_WPLEXEC') or die('Restricted access');
                     <input class="wpl-button button-1" type="button" onclick="save_realtyna_credentials();" value="<?php echo __('Save', WPL_TEXTDOMAIN); ?>" />
                     &nbsp;<span id="wpl_realtyna_credentials_check"><span class="action-btn <?php echo ((isset($this->settings['realtyna_verified']) and $this->settings['realtyna_verified']) ? 'icon-enabled' : 'icon-disabled'); ?>"></span></span>
                     <br />
-                    <span class="wpl_realtyna_credentials_tip"><?php echo __('For updating the addons and premium support having realtyna billing credentials is mandatory!', WPL_TEXTDOMAIN); ?></span>
+                    <span class="wpl_realtyna_credentials_tip"><?php echo __('Mandatory Realtyna Billing Credentials are necessary for Premium Support and Add On Updates!', WPL_TEXTDOMAIN); ?></span>
                 </div>
-                <label for="wpl_addon_file"><?php echo __('Install add-on', WPL_TEXTDOMAIN); ?> : </label>
+                <label for="wpl_addon_file"><?php echo __('Install Add On', WPL_TEXTDOMAIN); ?> : </label>
                 <?php
 					$params = array('html_element_id' => 'wpl_addon_file', 'html_path_message' => '.wpl_addons_message .wpl_show_message', 'html_ajax_loader' => '#wpl_install_addon_ajax_loader', 'request_str' => 'admin.php?wpl_format=b:wpl:ajax&wpl_function=install_package', 'valid_extensions' => array('zip'));
 					wpl_global::import_activity('ajax_file_upload:default', '', $params);

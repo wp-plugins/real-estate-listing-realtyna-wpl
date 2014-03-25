@@ -14,22 +14,32 @@ $price              = isset($this->wpl_properties['current']['rendered_raw'][6][
 $price_type         = isset($this->wpl_properties['current']['rendered_raw'][14]['value']) ? $this->wpl_properties['current']['rendered_raw'][14]['value'] : '';
 $location_string 	= isset($this->wpl_properties['current']['location_text']) ? $this->wpl_properties['current']['location_text'] : '';
 
+$pshow_gallery_activities = count(wpl_activity::get_activities('pshow_gallery', 1));
+$pshow_googlemap_activities = count(wpl_activity::get_activities('pshow_googlemap', 1));
 ?>
 <div class="wpl_prp_show_container" id="wpl_prp_show_container">
     <div class="wpl_prp_container" id="wpl_prp_container<?php echo $this->pid; ?>">
         <div class="wpl_prp_show_tabs">
             <div class="tabs_container">
+            	<?php if($pshow_gallery_activities): ?>
                 <div id="tabs-1" class="tabs_contents">
                     <?php /** load position gallery **/ wpl_activity::load_position('pshow_gallery', array('wpl_properties'=>$this->wpl_properties)); ?>
                 </div>
+                <?php endif; ?>
+                <?php if($pshow_googlemap_activities): ?>
                 <div id="tabs-2" class="tabs_contents">
                     <?php /** load position googlemap **/ wpl_activity::load_position('pshow_googlemap', array('wpl_properties'=>$this->wpl_properties)); ?>
                 </div>
+                <?php endif; ?>
             </div>
             <div class="tabs_box container">
                 <ul class="tabs container">
+                	<?php if($pshow_gallery_activities): ?>
                     <li><a href="#tabs-1"><?php echo __('Pictures', WPL_TEXTDOMAIN) ?></a></li>
+                    <?php endif; ?>
+                    <?php if($pshow_googlemap_activities): ?>
                     <li><a href="#tabs-2"><?php echo __('Google Map', WPL_TEXTDOMAIN) ?></a></li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>

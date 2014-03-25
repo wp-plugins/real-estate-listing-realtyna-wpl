@@ -22,6 +22,7 @@ $this->_wpl_import($this->tpl_path . '.scripts.css');
                 </div>
                 <div class="text-left finilize-btn">
                     <button class="wpl-button button-1" onclick="wpl_profile_finalize(<?php echo $this->user_data['id']; ?>);" id="wpl_profile_finalize_button" type="button" class="button button-primary"><?php echo __('Finalize', WPL_TEXTDOMAIN); ?></button>
+                    <span id="wpl_profile_wizard_ajax_loader"></span>
                 </div>
             </div>
         </div>
@@ -35,10 +36,12 @@ $this->_wpl_import($this->tpl_path . '.scripts.css');
 function wpl_profile_finalize(item_id)
 {
 	/** validate form **/
-	if (!wpl_validation_check())
-		return;
-
+	if (!wpl_validation_check()) return;
+	
+	ajax_loader_element = '#wpl_profile_wizard_ajax_loader';
+	wplj(ajax_loader_element).html('<img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader3.gif'); ?>" />');
 	wplj("#wpl_profile_finalize_button").attr("disabled", "disabled");
+	
 	request_str = 'wpl_format=b:users:ajax&wpl_function=finalize&item_id=' + item_id;
 
 	/** run ajax query **/
@@ -46,7 +49,8 @@ function wpl_profile_finalize(item_id)
 	ajax.success(function(data)
 	{
 		wplj("#wpl_profile_finalize_button").removeAttr("disabled");
-
+		wplj(ajax_loader_element).html('');
+		
 		if (data.success == 1)
 		{
 		}

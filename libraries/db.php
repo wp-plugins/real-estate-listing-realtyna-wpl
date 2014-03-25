@@ -75,6 +75,9 @@ class wpl_db
 			$vars = array_merge(wpl_request::get('POST'), wpl_request::get('GET'));
 		}
 		
+		/** clean vars **/
+		$vars = wpl_global::clean($vars);
+		
 		$query = '';
 		
 		/** this is to include any customized and special form fields conditions **/
@@ -261,11 +264,11 @@ class wpl_db
 	}
 	
 	/**
-      Developed by : Howard
-      Inputs : {parameter}
-      Outputs : escaped parameter
-      Date : 2013-05-07
-      Description : use this function for escaping any variable
+		Developed by : Howard
+		Inputs : {parameter}
+		Outputs : escaped parameter
+		Date : 2013-05-07
+		Description : use this function for escaping any variable
      **/
     public static function escape($parameter)
     {
@@ -276,6 +279,8 @@ class wpl_db
 		
         if(is_array($parameter)) // Added by Kevin for Escape Array Items
         {
+			$return_data = array();
+			
             foreach($parameter as $key=>$value)
             {
                 $return_data[$key] = self::escape($value);
@@ -320,4 +325,5 @@ class wpl_db
 		global $wpdb;
 		return $wpdb;
 	}
+	
 }

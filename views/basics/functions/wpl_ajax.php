@@ -71,6 +71,9 @@ class wpl_functions_controller extends wpl_controller
 		$query = "SELECT ".$select." FROM `#__wpl_properties` AS p WHERE 1 AND p.`deleted`='0' AND p.`finalized`='1' AND p.`confirmed`='1' AND p.`id` IN (".$property_ids.")";
 		$properties = wpl_property::search($query);
 		
+		/** plisting fields **/
+		$plisting_fields = wpl_property::get_plisting_fields();
+		
 		$this->wpl_properties = array();
 		foreach($properties as $property)
 		{

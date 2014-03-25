@@ -6,7 +6,7 @@ $this->_wpl_import($this->tpl_path.'.scripts.internal_listing_types_js');
 <table class="widefat page">
     <thead>
         <tr>
-        	<th scope="col" class="size-1 manage-column" colspan="2"><?php echo __('Listing types', WPL_TEXTDOMAIN); ?></th>
+        	<th scope="col" class="size-1 manage-column" colspan="2"><?php echo __('Listing Types', WPL_TEXTDOMAIN); ?></th>
             <th colspan="5">
                 <div class="actions-wp">
                     <span class="fancybox action-btn icon-plus" href="#wpl_data_structure_edit_div" onclick="wpl_generate_new_page_listing_type()"></span>

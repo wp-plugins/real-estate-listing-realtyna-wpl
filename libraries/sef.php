@@ -271,6 +271,9 @@ class wpl_sef
 			if(strpos($post_content, '[wpl_profile_listing') !== false) $wplview = 'profile_listing';
 			elseif(strpos($post_content, '[wpl_property_listings') !== false or strpos($post_content, '[WPL') !== false) $wplview = 'property_listing';
 			elseif(strpos($post_content, '[wpl_property_show') !== false) $wplview = 'property_show';
+			elseif(strpos($post_content, '[wpl_my_profile') !== false) $wplview = 'profile_wizard';
+			elseif(strpos($post_content, '[wpl_add_edit_listing') !== false) $wplview = 'property_wizard';
+			elseif(strpos($post_content, '[wpl_listing_manager') !== false) $wplview = 'property_manager';
 			
 			/** set view **/
 			if(trim($wplview) != '') wpl_request::setVar('wplview', $wplview);
