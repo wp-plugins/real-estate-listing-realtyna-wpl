@@ -1,0 +1,3037 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: wpl\n"
+"POT-Creation-Date: 2014-03-08 17:07+0330\n"
+"PO-Revision-Date: 2014-03-08 17:08+0330\n"
+"Last-Translator: Howard <howard@realtyna.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-KeywordsList: _;__;_e\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: wpl\n"
+
+#: extensions.php:483
+msgid "WPL Listing"
+msgstr ""
+
+#: extensions.php:593
+msgid "Page"
+msgstr ""
+
+#: global.php:280
+msgid "You don't have access to this page!"
+msgstr ""
+
+#: global.php:586 views/backend/data_structure/wpl_ajax_listing_types.php:70
+msgid "An error occurred uploading your file!"
+msgstr ""
+
+#: global.php:594
+msgid "File extention is not valid."
+msgstr ""
+
+#: global.php:602
+msgid "File size is not valid!"
+msgstr ""
+
+#: global.php:700
+msgid "Error: #U200, Addon is not valid!"
+msgstr ""
+
+#: global.php:701
+msgid "Error: #U201, Addon is not updatable for this domain or update key!"
+msgstr ""
+
+#: global.php:745
+msgid "A new update found. please wait ..."
+msgstr ""
+
+#: global.php:745
+msgid "Your addon is up to date!"
+msgstr ""
+
+#: global.php:789
+msgid "Credentials verified."
+msgstr ""
+
+#: global.php:789
+msgid "Invalid credentials!"
+msgstr ""
+
+#: libraries/activities.php:76
+msgid "Activity not found!"
+msgstr ""
+
+#: libraries/pagination.php:130 libraries/pagination.php:154
+msgid "results returned."
+msgstr ""
+
+#: libraries/pagination.php:136 libraries/pagination.php:160
+msgid "Per Page "
+msgstr ""
+
+#: libraries/pagination.php:321
+msgid "Next"
+msgstr ""
+
+#: libraries/pagination.php:322
+msgid "Previous"
+msgstr ""
+
+#: libraries/property.php:531
+msgid "MINUTES"
+msgstr ""
+
+#: libraries/property.php:531
+msgid "BY"
+msgstr ""
+
+#: libraries/property.php:647 libraries/property.php:686
+msgid "Room"
+msgstr ""
+
+#: libraries/property.php:648 libraries/property.php:687
+#: views/frontend/property_show/tmpl/default.php:123
+msgid "Bedroom"
+msgstr ""
+
+#: libraries/property.php:649 libraries/property.php:688
+#: views/frontend/property_show/tmpl/default.php:124
+msgid "Bathroom"
+msgstr ""
+
+#: libraries/property.php:690
+msgid "Price"
+msgstr ""
+
+#: libraries/dbst_modify/addon_video.php:10
+#: libraries/dbst_modify/attachments.php:10 libraries/dbst_modify/date.php:9
+#: libraries/dbst_modify/gallery.php:9 libraries/dbst_modify/select.php:42
+#: libraries/dbst_modify/separator.php:10 libraries/dbst_modify/text.php:9
+#: libraries/dbst_modify/textarea.php:9
+#: libraries/dbst_modify/main/default.php:8
+#: views/activities/params/tmpl/default.php:24
+#: views/backend/activity_manager/tmpl/internal_modify.php:12
+#: views/backend/addon_mls/tmpl/internal_mapping.php:17
+#: views/backend/addon_mls/tmpl/internal_modify_mls.php:13
+#: views/backend/addon_mls/tmpl/internal_modify_query.php:21
+#: views/backend/location_manager/tmpl/edit.php:16
+#: views/backend/location_manager/tmpl/edit.php:18
+#: views/backend/membership/tmpl/internal_edit_membership.php:13
+#: views/backend/notifications/tmpl/modify.php:20
+#: views/backend/users/tmpl/edit.php:14
+#: views/backend/wpl/tmpl/internal_addons.php:14
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/internal_mapping.php:17
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/internal_modify_mls.php:13
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/internal_modify_query.php:21
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/internal_edit_membership.php:13
+msgid "Save"
+msgstr ""
+
+#: libraries/dbst_modify/addon_video.php:16
+#: libraries/dbst_modify/attachments.php:16 libraries/dbst_modify/date.php:15
+#: libraries/dbst_modify/gallery.php:15 libraries/dbst_modify/select.php:48
+#: libraries/dbst_modify/text.php:15 libraries/dbst_modify/textarea.php:15
+#: libraries/dbst_modify/main/default.php:14
+#: views/backend/flex/tmpl/internal_modify.php:7
+msgid "General Options"
+msgstr ""
+
+#: libraries/dbst_modify/addon_video.php:26
+#: libraries/dbst_modify/attachments.php:26 libraries/dbst_modify/date.php:26
+#: libraries/dbst_modify/gallery.php:26 libraries/dbst_modify/select.php:58
+#: libraries/dbst_modify/text.php:26 libraries/dbst_modify/textarea.php:25
+#: libraries/dbst_modify/main/default.php:24
+msgid "Specific Options"
+msgstr ""
+
+#: libraries/dbst_modify/addon_video.php:34
+#: libraries/dbst_modify/attachments.php:34
+#: libraries/dbst_modify/gallery.php:34
+msgid "Valid file type"
+msgstr ""
+
+#: libraries/dbst_modify/addon_video.php:38
+#: libraries/dbst_modify/attachments.php:38
+#: libraries/dbst_modify/gallery.php:38
+msgid "Maximum file size"
+msgstr ""
+
+#: libraries/dbst_modify/date.php:34
+msgid "Date Range"
+msgstr ""
+
+#: libraries/dbst_modify/date.php:37
+msgid "Min date"
+msgstr ""
+
+#: libraries/dbst_modify/date.php:41
+msgid "Max date"
+msgstr ""
+
+#: libraries/dbst_modify/select.php:67
+msgid "Params"
+msgstr ""
+
+#: libraries/dbst_modify/textarea.php:33
+msgid "Editor Settings"
+msgstr ""
+
+#: libraries/dbst_modify/textarea.php:36
+msgid "Advanced Editor"
+msgstr ""
+
+#: libraries/dbst_modify/textarea.php:38
+#: libraries/dbst_modify/main/main.php:33
+#: libraries/widget_search/frontend/feature.php:40
+#: libraries/widget_search/frontend/neighborhood.php:40
+#: views/activities/listing_gallery/form.php:21
+#: views/activities/listing_gallery/form.php:28
+#: views/backend/activity_manager/tmpl/internal_modify.php:39
+#: views/backend/activity_manager/tmpl/scripts/js.php:117
+#: views/backend/addon_mls/wpl_ajax.php:296
+#: views/backend/addon_mls/tmpl/scripts/js.php:89
+#: views/backend/addon_mls/tmpl/scripts/js_query.php:205
+#: views/backend/data_structure/tmpl/scripts/internal_listing_types_js.php:57
+#: views/backend/data_structure/tmpl/scripts/internal_listing_types_js.php:224
+#: views/backend/data_structure/tmpl/scripts/internal_property_types_js.php:56
+#: views/backend/data_structure/tmpl/scripts/internal_room_types_js.php:109
+#: views/backend/flex/tmpl/scripts/js.php:266
+#: views/backend/location_manager/tmpl/scripts/js.php:182
+#: views/backend/membership/tmpl/internal_setting_advanced.php:26
+#: views/backend/membership/tmpl/internal_setting_advanced.php:48
+#: views/backend/membership/tmpl/scripts/js.php:73
+#: views/backend/users/tmpl/internal_setting_advanced.php:26
+#: views/backend/users/tmpl/internal_setting_advanced.php:48
+#: views/backend/users/tmpl/scripts/js.php:76
+#: views/basics/functions/tmpl/shortcode_wizard.php:52
+#: views/basics/functions/tmpl/shortcode_wizard.php:61
+#: widgets/carousel/form.php:59 widgets/carousel/form.php:67
+#: widgets/carousel/form.php:75 widgets/carousel/form.php:83
+#: widgets/favorites/form.php:33 widgets/favorites/form.php:40
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/wpl_ajax.php:296
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js.php:89
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js_query.php:205
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/internal_setting_advanced.php:26
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/internal_setting_advanced.php:48
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/scripts/js.php:73
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/users/tmpl/internal_setting_advanced.php:26
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/users/tmpl/internal_setting_advanced.php:48
+#: _ADDONS/PRO/wp-content/plugins/WPL/widgets/favorites/form.php:33
+#: _ADDONS/PRO/wp-content/plugins/WPL/widgets/favorites/form.php:40
+msgid "Yes"
+msgstr ""
+
+#: libraries/dbst_modify/textarea.php:39
+#: libraries/dbst_modify/main/main.php:34
+#: libraries/dbst_modify/main/specific.php:11
+#: libraries/widget_search/frontend/feature.php:41
+#: libraries/widget_search/frontend/neighborhood.php:41
+#: views/activities/listing_gallery/form.php:20
+#: views/activities/listing_gallery/form.php:27
+#: views/backend/activity_manager/tmpl/internal_modify.php:40
+#: views/backend/activity_manager/tmpl/scripts/js.php:117
+#: views/backend/addon_mls/wpl_ajax.php:297
+#: views/backend/addon_mls/tmpl/scripts/js.php:89
+#: views/backend/addon_mls/tmpl/scripts/js_query.php:205
+#: views/backend/data_structure/tmpl/scripts/internal_listing_types_js.php:57
+#: views/backend/data_structure/tmpl/scripts/internal_listing_types_js.php:224
+#: views/backend/data_structure/tmpl/scripts/internal_property_types_js.php:56
+#: views/backend/data_structure/tmpl/scripts/internal_room_types_js.php:109
+#: views/backend/flex/tmpl/scripts/js.php:266
+#: views/backend/location_manager/tmpl/scripts/js.php:182
+#: views/backend/membership/tmpl/internal_setting_advanced.php:25
+#: views/backend/membership/tmpl/internal_setting_advanced.php:47
+#: views/backend/membership/tmpl/scripts/js.php:73
+#: views/backend/users/tmpl/internal_setting_advanced.php:25
+#: views/backend/users/tmpl/internal_setting_advanced.php:47
+#: views/backend/users/tmpl/scripts/js.php:76
+#: views/basics/functions/tmpl/shortcode_wizard.php:51
+#: views/basics/functions/tmpl/shortcode_wizard.php:60
+#: widgets/carousel/form.php:58 widgets/carousel/form.php:66
+#: widgets/carousel/form.php:74 widgets/carousel/form.php:82
+#: widgets/favorites/form.php:34 widgets/favorites/form.php:41
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/wpl_ajax.php:297
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js.php:89
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js_query.php:205
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/internal_setting_advanced.php:25
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/internal_setting_advanced.php:47
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/scripts/js.php:73
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/users/tmpl/internal_setting_advanced.php:25
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/users/tmpl/internal_setting_advanced.php:47
+#: _ADDONS/PRO/wp-content/plugins/WPL/widgets/favorites/form.php:34
+#: _ADDONS/PRO/wp-content/plugins/WPL/widgets/favorites/form.php:41
+msgid "No"
+msgstr ""
+
+#: libraries/dbst_modify/textarea.php:43 libraries/dbst_modify/textarea.php:47
+msgid "Column width"
+msgstr ""
+
+#: libraries/dbst_modify/textarea.php:51
+msgid "Row width"
+msgstr ""
+
+#: libraries/dbst_modify/main/main.php:7
+msgid "Data category"
+msgstr ""
+
+#: libraries/dbst_modify/main/main.php:19
+#: views/backend/addon_mls/tmpl/default.php:27
+#: views/backend/addon_mls/tmpl/internal_modify_mls.php:25
+#: views/backend/addon_mls/tmpl/mapping.php:50
+#: views/backend/data_structure/tmpl/internal_edit_listing_types.php:9
+#: views/backend/data_structure/tmpl/internal_edit_property_types.php:9
+#: views/backend/data_structure/tmpl/internal_room_types.php:12
+#: views/backend/data_structure/tmpl/internal_sort_options.php:10
+#: views/backend/data_structure/tmpl/internal_unit_manager_currency.php:10
+#: views/backend/data_structure/tmpl/internal_unit_manager_general.php:10
+#: views/backend/flex/tmpl/internal_slide.php:9
+#: views/backend/location_manager/tmpl/default.php:46
+#: views/backend/location_manager/tmpl/default.php:55
+#: views/backend/location_manager/tmpl/edit.php:9
+#: views/backend/membership/tmpl/default.php:30
+#: views/backend/membership/tmpl/default.php:42
+#: views/backend/membership/tmpl/internal_edit_membership.php:32
+#: views/backend/users/tmpl/default.php:28
+#: views/backend/users/tmpl/default.php:39
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/default.php:27
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/internal_modify_mls.php:25
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/mapping.php:50
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/default.php:30
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/default.php:42
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/internal_edit_membership.php:32
+msgid "Name"
+msgstr ""
+
+#: libraries/dbst_modify/main/main.php:23
+msgid "CSS Class"
+msgstr ""
+
+#: libraries/dbst_modify/main/main.php:27
+msgid "CSS Style"
+msgstr ""
+
+#: libraries/dbst_modify/main/main.php:31
+msgid "Text Search"
+msgstr ""
+
+#: libraries/dbst_modify/main/specific.php:9
+msgid "Specificable"
+msgstr ""
+
+#: libraries/dbst_modify/main/specific.php:12
+msgid "Listing specific"
+msgstr ""
+
+#: libraries/dbst_modify/main/specific.php:13
+msgid "Property type specific"
+msgstr ""
+
+#: libraries/dbst_modify/main/specific.php:18
+#: libraries/dbst_modify/main/specific.php:34
+#: views/backend/membership/tmpl/internal_edit_membership.php:53
+#: views/backend/users/tmpl/edit.php:32
+#: views/basics/functions/tmpl/shortcode_wizard.php:29
+#: views/basics/functions/tmpl/shortcode_wizard.php:40
+#: widgets/carousel/form.php:27 widgets/carousel/form.php:38
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/internal_edit_membership.php:53
+msgid "All"
+msgstr ""
+
+#: libraries/dbst_show/neighborhood.php:17
+#: libraries/dbst_wizard/neighborhood.php:23
+msgid "Walk"
+msgstr ""
+
+#: libraries/dbst_show/neighborhood.php:18
+#: libraries/dbst_wizard/neighborhood.php:29
+msgid "Car"
+msgstr ""
+
+#: libraries/dbst_show/neighborhood.php:19
+#: libraries/dbst_wizard/neighborhood.php:35
+msgid "Train"
+msgstr ""
+
+#: libraries/dbst_wizard/addon_video.php:24
+msgid "Embed code"
+msgstr ""
+
+#: libraries/dbst_wizard/addon_video.php:26
+msgid "Video uploader"
+msgstr ""
+
+#: libraries/dbst_wizard/addon_video.php:32
+msgid "Add video"
+msgstr ""
+
+#: libraries/dbst_wizard/addon_video.php:36
+#: libraries/dbst_wizard/addon_video.php:58
+msgid "Video title"
+msgstr ""
+
+#: libraries/dbst_wizard/addon_video.php:40
+#: libraries/dbst_wizard/addon_video.php:59
+msgid "Video description"
+msgstr ""
+
+#: libraries/dbst_wizard/addon_video.php:44
+#: libraries/dbst_wizard/addon_video.php:60
+msgid "Video embed code"
+msgstr ""
+
+#: libraries/dbst_wizard/addon_video.php:81
+#: libraries/dbst_wizard/addon_video.php:288
+#: libraries/dbst_wizard/attachments.php:231
+#: libraries/dbst_wizard/gallery.php:223
+msgid "Are you sure?"
+msgstr ""
+
+#: libraries/dbst_wizard/addon_video.php:106
+msgid "Select Files"
+msgstr ""
+
+#: libraries/dbst_wizard/addon_video.php:110
+msgid ""
+"Please choose all videos you want. Just click on the \"Select Files\" button."
+msgstr ""
+
+#: libraries/dbst_wizard/addon_video.php:144
+#: libraries/dbst_wizard/addon_video.php:239
+msgid "Video Title"
+msgstr ""
+
+#: libraries/dbst_wizard/addon_video.php:150
+#: libraries/dbst_wizard/addon_video.php:240
+#: libraries/dbst_wizard/attachments.php:183
+msgid "Video Description"
+msgstr ""
+
+#: libraries/dbst_wizard/addon_video.php:156
+#: libraries/dbst_wizard/addon_video.php:241
+#: libraries/dbst_wizard/attachments.php:184
+msgid "Video Category"
+msgstr ""
+
+#: libraries/dbst_wizard/addon_video.php:262
+#: libraries/dbst_wizard/attachments.php:207
+#: libraries/dbst_wizard/gallery.php:199
+msgid "Error occured"
+msgstr ""
+
+#: libraries/dbst_wizard/attachments.php:28
+#: libraries/dbst_wizard/gallery.php:27
+msgid "Select files"
+msgstr ""
+
+#: libraries/dbst_wizard/attachments.php:33
+msgid ""
+"Please choose all attachment files you want. Just click on the \"Select files"
+"\" button."
+msgstr ""
+
+#: libraries/dbst_wizard/attachments.php:78
+#: libraries/dbst_wizard/attachments.php:169
+#: libraries/dbst_wizard/attachments.php:182
+msgid "Attachment Title"
+msgstr ""
+
+#: libraries/dbst_wizard/attachments.php:84
+#: libraries/dbst_wizard/attachments.php:170
+msgid "Attachment Description"
+msgstr ""
+
+#: libraries/dbst_wizard/attachments.php:90
+#: libraries/dbst_wizard/attachments.php:171
+msgid "Attachment Category"
+msgstr ""
+
+#: libraries/dbst_wizard/date.php:37
+#: libraries/widget_search/frontend/date.php:45
+#: libraries/widget_search/frontend/date.php:60
+msgid "SU"
+msgstr ""
+
+#: libraries/dbst_wizard/date.php:37
+#: libraries/widget_search/frontend/date.php:45
+#: libraries/widget_search/frontend/date.php:60
+msgid "MO"
+msgstr ""
+
+#: libraries/dbst_wizard/date.php:37
+#: libraries/widget_search/frontend/date.php:45
+#: libraries/widget_search/frontend/date.php:60
+msgid "TU"
+msgstr ""
+
+#: libraries/dbst_wizard/date.php:37
+#: libraries/widget_search/frontend/date.php:45
+#: libraries/widget_search/frontend/date.php:60
+msgid "WE"
+msgstr ""
+
+#: libraries/dbst_wizard/date.php:37
+#: libraries/widget_search/frontend/date.php:45
+#: libraries/widget_search/frontend/date.php:60
+msgid "TH"
+msgstr ""
+
+#: libraries/dbst_wizard/date.php:37
+#: libraries/widget_search/frontend/date.php:45
+#: libraries/widget_search/frontend/date.php:60
+msgid "FR"
+msgstr ""
+
+#: libraries/dbst_wizard/date.php:37
+#: libraries/widget_search/frontend/date.php:45
+#: libraries/widget_search/frontend/date.php:60
+msgid "SA"
+msgstr ""
+
+#: libraries/dbst_wizard/date.php:38
+#: libraries/widget_search/frontend/date.php:46
+#: libraries/widget_search/frontend/date.php:61
+msgid "Sunday"
+msgstr ""
+
+#: libraries/dbst_wizard/date.php:38
+#: libraries/widget_search/frontend/date.php:46
+#: libraries/widget_search/frontend/date.php:61
+msgid "Monday"
+msgstr ""
+
+#: libraries/dbst_wizard/date.php:38
+#: libraries/widget_search/frontend/date.php:46
+#: libraries/widget_search/frontend/date.php:61
+msgid "Tuesday"
+msgstr ""
+
+#: libraries/dbst_wizard/date.php:38
+#: libraries/widget_search/frontend/date.php:46
+#: libraries/widget_search/frontend/date.php:61
+msgid "Wednesday"
+msgstr ""
+
+#: libraries/dbst_wizard/date.php:38
+#: libraries/widget_search/frontend/date.php:46
+#: libraries/widget_search/frontend/date.php:61
+msgid "Thursday"
+msgstr ""
+
+#: libraries/dbst_wizard/date.php:38
+#: libraries/widget_search/frontend/date.php:46
+#: libraries/widget_search/frontend/date.php:61
+msgid "Friday"
+msgstr ""
+
+#: libraries/dbst_wizard/date.php:38
+#: libraries/widget_search/frontend/date.php:46
+#: libraries/widget_search/frontend/date.php:61
+msgid "Saturday"
+msgstr ""
+
+#: libraries/dbst_wizard/date.php:39
+#: libraries/widget_search/frontend/date.php:47
+#: libraries/widget_search/frontend/date.php:62
+msgid "January"
+msgstr ""
+
+#: libraries/dbst_wizard/date.php:39
+#: libraries/widget_search/frontend/date.php:47
+#: libraries/widget_search/frontend/date.php:62
+msgid "February"
+msgstr ""
+
+#: libraries/dbst_wizard/date.php:39
+#: libraries/widget_search/frontend/date.php:47
+#: libraries/widget_search/frontend/date.php:62
+msgid "March"
+msgstr ""
+
+#: libraries/dbst_wizard/date.php:39
+#: libraries/widget_search/frontend/date.php:47
+#: libraries/widget_search/frontend/date.php:62
+msgid "April"
+msgstr ""
+
+#: libraries/dbst_wizard/date.php:39
+#: libraries/widget_search/frontend/date.php:47
+#: libraries/widget_search/frontend/date.php:62
+msgid "May"
+msgstr ""
+
+#: libraries/dbst_wizard/date.php:39
+#: libraries/widget_search/frontend/date.php:47
+#: libraries/widget_search/frontend/date.php:62
+msgid "June"
+msgstr ""
+
+#: libraries/dbst_wizard/date.php:39
+#: libraries/widget_search/frontend/date.php:47
+#: libraries/widget_search/frontend/date.php:62
+msgid "July"
+msgstr ""
+
+#: libraries/dbst_wizard/date.php:39
+#: libraries/widget_search/frontend/date.php:47
+#: libraries/widget_search/frontend/date.php:62
+msgid "August"
+msgstr ""
+
+#: libraries/dbst_wizard/date.php:39
+#: libraries/widget_search/frontend/date.php:47
+#: libraries/widget_search/frontend/date.php:62
+msgid "September"
+msgstr ""
+
+#: libraries/dbst_wizard/date.php:39
+#: libraries/widget_search/frontend/date.php:47
+#: libraries/widget_search/frontend/date.php:62
+msgid "October"
+msgstr ""
+
+#: libraries/dbst_wizard/date.php:39
+#: libraries/widget_search/frontend/date.php:47
+#: libraries/widget_search/frontend/date.php:62
+msgid "November"
+msgstr ""
+
+#: libraries/dbst_wizard/date.php:39
+#: libraries/widget_search/frontend/date.php:47
+#: libraries/widget_search/frontend/date.php:62
+msgid "December"
+msgstr ""
+
+#: libraries/dbst_wizard/features.php:23
+#: libraries/dbst_wizard/listing_type.php:14
+#: libraries/dbst_wizard/locations.php:36
+#: libraries/dbst_wizard/locations.php:68
+#: libraries/dbst_wizard/property_type.php:14
+#: libraries/dbst_wizard/select.php:10
+#: libraries/widget_search/frontend/location_items/simple_location_database.php:98
+#: libraries/widget_search/frontend/location_items/simple_location_database.php:121
+#: libraries/widget_search/frontend/location_items/simple_location_text.php:89
+#: views/backend/listing/wpl_ajax.php:121
+#: views/frontend/property_listing/wpl_ajax.php:52
+msgid "Select"
+msgstr ""
+
+#: libraries/dbst_wizard/gallery.php:32
+msgid ""
+"Please choose all image you want. Just click on the \"Select files\" button."
+msgstr ""
+
+#: libraries/dbst_wizard/gallery.php:80 libraries/dbst_wizard/gallery.php:174
+msgid "Image Title"
+msgstr ""
+
+#: libraries/dbst_wizard/gallery.php:84 libraries/dbst_wizard/gallery.php:175
+msgid "Image Description"
+msgstr ""
+
+#: libraries/dbst_wizard/gallery.php:88 libraries/dbst_wizard/gallery.php:176
+msgid "Image Category"
+msgstr ""
+
+#: libraries/dbst_wizard/googlemap.php:114
+msgid "Geocode was not successful for the following reason"
+msgstr ""
+
+#: libraries/dbst_wizard/googlemap.php:201
+msgid "Address"
+msgstr ""
+
+#: libraries/dbst_wizard/googlemap.php:203
+msgid "Go"
+msgstr ""
+
+#: libraries/dbst_wizard/meta_desc.php:59
+#: libraries/dbst_wizard/meta_key.php:59
+msgid "Bedrooms"
+msgstr ""
+
+#: libraries/dbst_wizard/meta_desc.php:67
+#: libraries/dbst_wizard/meta_key.php:67
+msgid "Rooms"
+msgstr ""
+
+#: libraries/dbst_wizard/meta_desc.php:107
+msgid "On the"
+msgstr ""
+
+#: libraries/dbst_wizard/meta_desc.php:107
+#: libraries/dbst_wizard/meta_key.php:107
+msgid "Floor"
+msgstr ""
+
+#: libraries/dbst_wizard/meta_desc.php:115
+msgid "With"
+msgstr ""
+
+#: libraries/dbst_wizard/meta_desc.php:115
+#: libraries/dbst_wizard/meta_key.php:115
+msgid "Bathrooms"
+msgstr ""
+
+#: libraries/dbst_wizard/meta_desc.php:120
+msgid "In"
+msgstr ""
+
+#: libraries/dbst_wizard/meta_desc.php:126
+#: libraries/dbst_wizard/meta_key.php:123
+#: views/frontend/property_show/tmpl/default.php:122
+msgid "Listing ID"
+msgstr ""
+
+#: libraries/dbst_wizard/neighborhood.php:18
+#: views/basics/features/tmpl/pdf.php:55
+#: views/frontend/property_show/tmpl/default.php:71
+msgid "Minutes"
+msgstr ""
+
+#: libraries/dbst_wizard/neighborhood.php:18
+msgid "By"
+msgstr ""
+
+#: libraries/dbst_wizard/rooms.php:56
+msgid "Width"
+msgstr ""
+
+#: libraries/dbst_wizard/rooms.php:57
+msgid "Height"
+msgstr ""
+
+#: libraries/dbst_wizard/rooms.php:58
+msgid "Add room"
+msgstr ""
+
+#: libraries/dbst_wizard/js_validation/area.php:12
+#: libraries/dbst_wizard/js_validation/date.php:13
+#: libraries/dbst_wizard/js_validation/lenght.php:12
+#: libraries/dbst_wizard/js_validation/listings.php:11
+#: libraries/dbst_wizard/js_validation/mmarea.php:14
+#: libraries/dbst_wizard/js_validation/mmlength.php:14
+#: libraries/dbst_wizard/js_validation/mmnumber.php:14
+#: libraries/dbst_wizard/js_validation/mmprice.php:14
+#: libraries/dbst_wizard/js_validation/mmvolume.php:14
+#: libraries/dbst_wizard/js_validation/number.php:12
+#: libraries/dbst_wizard/js_validation/price.php:12
+#: libraries/dbst_wizard/js_validation/property_types.php:11
+#: libraries/dbst_wizard/js_validation/select.php:11
+#: libraries/dbst_wizard/js_validation/text.php:11
+#: libraries/dbst_wizard/js_validation/textarea.php:11
+#: libraries/dbst_wizard/js_validation/volume.php:12
+msgid "Enter a valid"
+msgstr ""
+
+#: libraries/dbst_wizard/js_validation/locations.php:28
+msgid "Location data is mandatory"
+msgstr ""
+
+#: libraries/services/process.php:38
+msgid ""
+"Your membership limit reached. contact to administrator if you want to "
+"upgrade!"
+msgstr ""
+
+#: libraries/services/sef.php:102
+msgid "Listings of"
+msgstr ""
+
+#: libraries/services/sef.php:125
+msgid "Listings"
+msgstr ""
+
+#: libraries/services/sef.php:127
+msgid "which is located in"
+msgstr ""
+
+#: libraries/settings_form/select.php:22
+#: libraries/settings_form/sort_option.php:23
+#: libraries/settings_form/text.php:15
+msgid "Shortcode"
+msgstr ""
+
+#: libraries/widget_search/backend/date.php:26
+msgid "Datepicker"
+msgstr ""
+
+#: libraries/widget_search/backend/feature.php:27
+#: libraries/widget_search/backend/neighborhood.php:27
+msgid "Check box"
+msgstr ""
+
+#: libraries/widget_search/backend/feature.php:28
+#: libraries/widget_search/backend/neighborhood.php:28
+msgid "Any/Yes"
+msgstr ""
+
+#: libraries/widget_search/backend/feature.php:29
+#: libraries/widget_search/backend/listings.php:27
+#: libraries/widget_search/backend/neighborhood.php:29
+#: libraries/widget_search/backend/property_types.php:27
+#: libraries/widget_search/backend/select.php:26
+msgid "Select box"
+msgstr ""
+
+#: libraries/widget_search/backend/gallery.php:26
+#: libraries/widget_search/backend/separator.php:27
+#: libraries/widget_search/backend/textarea.php:26
+msgid "No Option Available"
+msgstr ""
+
+#: libraries/widget_search/backend/listings.php:28
+#: libraries/widget_search/backend/property_types.php:28
+#: libraries/widget_search/backend/select.php:27
+msgid "Multiple SelectBox"
+msgstr ""
+
+#: libraries/widget_search/backend/listings.php:29
+#: libraries/widget_search/backend/property_types.php:29
+#: libraries/widget_search/backend/select.php:30
+msgid "Check boxes"
+msgstr ""
+
+#: libraries/widget_search/backend/listings.php:30
+#: libraries/widget_search/backend/property_types.php:30
+#: libraries/widget_search/backend/select.php:28
+msgid "Radio Buttons"
+msgstr ""
+
+#: libraries/widget_search/backend/listings.php:31
+#: libraries/widget_search/backend/property_types.php:31
+#: libraries/widget_search/backend/select.php:29
+msgid "Radio buttons with any"
+msgstr ""
+
+#: libraries/widget_search/backend/listings.php:32
+#: libraries/widget_search/backend/property_types.php:32
+#: libraries/widget_search/backend/select.php:31
+msgid "Predefined"
+msgstr ""
+
+#: libraries/widget_search/backend/listings.php:33
+#: libraries/widget_search/backend/property_types.php:33
+msgid "Select Box from predefined items"
+msgstr ""
+
+#: libraries/widget_search/backend/locations.php:16
+msgid "simple"
+msgstr ""
+
+#: libraries/widget_search/backend/locations.php:17
+msgid "Location textsearch"
+msgstr ""
+
+#: libraries/widget_search/backend/locations.php:19
+msgid "Radius Search"
+msgstr ""
+
+#: libraries/widget_search/backend/number.php:36
+#: libraries/widget_search/backend/text.php:27
+msgid "Text"
+msgstr ""
+
+#: libraries/widget_search/backend/number.php:38
+msgid "Exact Text"
+msgstr ""
+
+#: libraries/widget_search/backend/number.php:40
+#: libraries/widget_search/backend/units.php:35
+msgid "Min/Max textbox"
+msgstr ""
+
+#: libraries/widget_search/backend/number.php:42
+#: libraries/widget_search/backend/units.php:37
+msgid "Min/Max Slider"
+msgstr ""
+
+#: libraries/widget_search/backend/number.php:44
+#: libraries/widget_search/backend/units.php:39
+msgid "Min/Max SelectBox"
+msgstr ""
+
+#: libraries/widget_search/backend/number.php:46
+#: libraries/widget_search/backend/units.php:41
+msgid "Min/Max SelectBox+"
+msgstr ""
+
+#: libraries/widget_search/backend/number.php:53
+#: libraries/widget_search/backend/number.php:54
+#: libraries/widget_search/backend/units.php:48
+#: libraries/widget_search/backend/units.php:49
+msgid "min,max,increment like 0,10,1"
+msgstr ""
+
+#: libraries/widget_search/backend/separator.php:12
+#: libraries/widget_search/backend/separator.php:21
+msgid "Separator"
+msgstr ""
+
+#: libraries/widget_search/backend/text.php:28
+msgid "Exact text"
+msgstr ""
+
+#: libraries/widget_search/backend/textsearch.php:27
+msgid "Textbox"
+msgstr ""
+
+#: libraries/widget_search/backend/textsearch.php:28
+msgid "Textarea"
+msgstr ""
+
+#: libraries/widget_search/frontend/date.php:36
+msgid "FROM"
+msgstr ""
+
+#: libraries/widget_search/frontend/date.php:37
+msgid "TO"
+msgstr ""
+
+#: libraries/widget_search/frontend/feature.php:39
+#: libraries/widget_search/frontend/listings.php:87
+#: libraries/widget_search/frontend/listings.php:125
+#: libraries/widget_search/frontend/listings.php:143
+#: libraries/widget_search/frontend/neighborhood.php:39
+#: libraries/widget_search/frontend/property_types.php:88
+#: libraries/widget_search/frontend/property_types.php:126
+#: libraries/widget_search/frontend/property_types.php:144
+#: libraries/widget_search/frontend/select.php:75
+#: libraries/widget_search/frontend/select.php:113
+#: views/basics/functions/tmpl/shortcode_wizard.php:50
+#: views/basics/functions/tmpl/shortcode_wizard.php:59
+msgid "Any"
+msgstr ""
+
+#: libraries/widget_search/frontend/listings.php:88
+#: libraries/widget_search/frontend/property_types.php:89
+#: libraries/widget_search/frontend/select.php:76
+msgid "Check All"
+msgstr ""
+
+#: libraries/widget_search/frontend/listings.php:89
+#: libraries/widget_search/frontend/property_types.php:90
+#: libraries/widget_search/frontend/select.php:77
+msgid "Uncheck All"
+msgstr ""
+
+#: libraries/widget_search/frontend/number.php:65
+#: libraries/widget_search/frontend/number.php:134
+#: libraries/widget_search/frontend/units.php:86
+#: libraries/widget_search/frontend/units.php:155
+msgid "From"
+msgstr ""
+
+#: libraries/widget_search/frontend/number.php:68
+#: libraries/widget_search/frontend/number.php:155
+#: libraries/widget_search/frontend/units.php:89
+#: libraries/widget_search/frontend/units.php:176
+msgid "To"
+msgstr ""
+
+#: libraries/widget_search/frontend/location_items/locationtext_search.php:14
+#: libraries/widget_search/frontend/location_items/radius_search.php:43
+#: libraries/widget_search/frontend/location_items/simple_location_text.php:103
+msgid "Zip-code, City, County"
+msgstr ""
+
+#: libraries/widget_search/frontend/location_items/radius_search.php:25
+#: views/backend/wpl_sample/tmpl/default.php:58
+#: _ADDONS/wpl_sample/wp-content/plugins/WPL/views/backend/wpl_sample/tmpl/default.php:58
+msgid "Radius"
+msgstr ""
+
+#: libraries/widget_search/frontend/location_items/radius_search.php:30
+msgid "km"
+msgstr ""
+
+#: libraries/widget_search/frontend/location_items/simple_location_text.php:102
+msgid "Location Text"
+msgstr ""
+
+#: views/activities/agent_info/form.php:6 views/activities/qrcode/form.php:9
+msgid "Picture width"
+msgstr ""
+
+#: views/activities/agent_info/form.php:10 views/activities/qrcode/form.php:13
+msgid "Picture height"
+msgstr ""
+
+#: views/activities/ajax_file_upload/form.php:5
+#: views/activities/listing_attachments/form.php:5
+#: views/activities/listing_rooms/form.php:5
+#: views/activities/location_breadcrumb/form.php:5
+#: views/activities/params/form.php:5
+#: views/activities/property_manager_actions/form.php:5
+msgid "No option!"
+msgstr ""
+
+#: views/activities/ajax_file_upload/tmpl/default.php:17
+msgid "Select Your File"
+msgstr ""
+
+#: views/activities/ajax_file_upload/tmpl/default.php:32
+msgid "File extension does not match."
+msgstr ""
+
+#: views/activities/charts/form.php:6
+msgid "Category Field"
+msgstr ""
+
+#: views/activities/charts/form.php:10
+msgid "Data Date Format"
+msgstr ""
+
+#: views/activities/charts/form.php:14
+msgid "Value Field"
+msgstr ""
+
+#: views/activities/charts/form.php:18
+msgid "Min Period"
+msgstr ""
+
+#: views/activities/charts/form.php:22
+msgid "Ballon Text Size"
+msgstr ""
+
+#: views/activities/charts/form.php:26
+msgid "Ballon Data Type Format"
+msgstr ""
+
+#: views/activities/charts/form.php:30
+msgid "Chart Width"
+msgstr ""
+
+#: views/activities/charts/form.php:34
+msgid "Chart Height"
+msgstr ""
+
+#: views/activities/charts/form.php:38
+msgid "Label Rotation"
+msgstr ""
+
+#: views/activities/googlemap/form.php:6
+msgid "Default latitude"
+msgstr ""
+
+#: views/activities/googlemap/form.php:10
+msgid "Default longitude"
+msgstr ""
+
+#: views/activities/googlemap/form.php:14
+msgid "Default zoom level"
+msgstr ""
+
+#: views/activities/listing_gallery/form.php:6
+msgid "Image width"
+msgstr ""
+
+#: views/activities/listing_gallery/form.php:10
+msgid "Image height"
+msgstr ""
+
+#: views/activities/listing_gallery/form.php:14
+msgid "Image class"
+msgstr ""
+
+#: views/activities/listing_gallery/form.php:18
+msgid "Rewrite"
+msgstr ""
+
+#: views/activities/listing_gallery/form.php:25
+msgid "Watermark"
+msgstr ""
+
+#: views/activities/listing_gallery/tmpl/pmanager.php:27
+msgid "No Image"
+msgstr ""
+
+#: views/activities/listing_links/form.php:7
+msgid "Facebook"
+msgstr ""
+
+#: views/activities/listing_links/form.php:11
+msgid "Google plus"
+msgstr ""
+
+#: views/activities/listing_links/form.php:15
+msgid "Twitter"
+msgstr ""
+
+#: views/activities/listing_links/form.php:19
+msgid "Pinterest"
+msgstr ""
+
+#: views/activities/listing_links/form.php:23
+msgid "Favorite"
+msgstr ""
+
+#: views/activities/listing_links/form.php:26
+#: views/backend/users/wpl_ajax.php:145
+msgid "Pro addon must be installed for this!"
+msgstr ""
+
+#: views/activities/listing_links/tmpl/default.php:21
+#: views/activities/listing_links/tmpl/pshow.php:22
+msgid "Share on Facebook"
+msgstr ""
+
+#: views/activities/listing_links/tmpl/default.php:27
+#: views/activities/listing_links/tmpl/pshow.php:28
+msgid "Google Plus"
+msgstr ""
+
+#: views/activities/listing_links/tmpl/default.php:32
+#: views/activities/listing_links/tmpl/pshow.php:33
+msgid "Tweet"
+msgstr ""
+
+#: views/activities/listing_links/tmpl/default.php:37
+#: views/activities/listing_links/tmpl/pshow.php:38
+msgid "Pin it"
+msgstr ""
+
+#: views/activities/listing_links/tmpl/default.php:43
+#: views/activities/listing_links/tmpl/pshow.php:48
+msgid "Add to list"
+msgstr ""
+
+#: views/activities/listing_links/tmpl/default.php:44
+#: views/activities/listing_links/tmpl/pshow.php:49
+msgid "Remove from list"
+msgstr ""
+
+#: views/activities/listing_videos/form.php:6
+msgid "Video width"
+msgstr ""
+
+#: views/activities/listing_videos/form.php:10
+msgid "Video height"
+msgstr ""
+
+#: views/activities/listing_videos/tmpl/default.php:32
+msgid "English"
+msgstr ""
+
+#: views/activities/location_breadcrumb/tmpl/location_manager.php:27
+msgid "Zipcodes"
+msgstr ""
+
+#: views/activities/location_breadcrumb/tmpl/location_manager.php:33
+msgid "All countries"
+msgstr ""
+
+#: views/activities/location_breadcrumb/tmpl/location_manager.php:35
+#: views/backend/location_manager/tmpl/edit.php:6
+msgid "Add location"
+msgstr ""
+
+#: views/activities/params/main.php:51
+msgid "Params Saved."
+msgstr ""
+
+#: views/activities/params/main.php:51
+#: views/backend/activity_manager/wpl_ajax.php:34
+#: views/backend/activity_manager/wpl_ajax.php:45
+#: views/backend/activity_manager/tmpl/scripts/js.php:60
+#: views/backend/activity_manager/tmpl/scripts/js.php:179
+#: views/backend/addon_mls/tmpl/scripts/js.php:32
+#: views/backend/addon_mls/tmpl/scripts/js.php:72
+#: views/backend/addon_mls/tmpl/scripts/js.php:113
+#: views/backend/addon_mls/tmpl/scripts/js.php:155
+#: views/backend/addon_mls/tmpl/scripts/js_import.php:68
+#: views/backend/addon_mls/tmpl/scripts/js_import.php:118
+#: views/backend/addon_mls/tmpl/scripts/js_mapping.php:41
+#: views/backend/addon_mls/tmpl/scripts/js_mapping.php:81
+#: views/backend/addon_mls/tmpl/scripts/js_mapping.php:137
+#: views/backend/addon_mls/tmpl/scripts/js_mapping.php:177
+#: views/backend/addon_mls/tmpl/scripts/js_query.php:32
+#: views/backend/addon_mls/tmpl/scripts/js_query.php:69
+#: views/backend/addon_mls/tmpl/scripts/js_query.php:109
+#: views/backend/addon_mls/tmpl/scripts/js_query.php:159
+#: views/backend/addon_mls/tmpl/scripts/js_query.php:229
+#: views/backend/addon_mls/tmpl/scripts/js_query.php:297
+#: views/backend/data_structure/wpl_ajax_listing_types.php:126
+#: views/backend/data_structure/wpl_ajax_listing_types.php:139
+#: views/backend/data_structure/wpl_ajax_listing_types.php:153
+#: views/backend/data_structure/wpl_ajax_property_types.php:63
+#: views/backend/data_structure/wpl_ajax_property_types.php:77
+#: views/backend/data_structure/wpl_ajax_room_types.php:67
+#: views/backend/data_structure/wpl_ajax_room_types.php:82
+#: views/backend/data_structure/wpl_ajax_room_types.php:109
+#: views/backend/data_structure/wpl_ajax_sort_options.php:42
+#: views/backend/data_structure/wpl_ajax_unit_manager.php:102
+#: views/backend/data_structure/tmpl/scripts/internal_listing_types_js.php:38
+#: views/backend/data_structure/tmpl/scripts/internal_listing_types_js.php:154
+#: views/backend/data_structure/tmpl/scripts/internal_listing_types_js.php:180
+#: views/backend/data_structure/tmpl/scripts/internal_listing_types_js.php:251
+#: views/backend/data_structure/tmpl/scripts/internal_property_types_js.php:37
+#: views/backend/data_structure/tmpl/scripts/internal_property_types_js.php:155
+#: views/backend/data_structure/tmpl/scripts/internal_property_types_js.php:181
+#: views/backend/data_structure/tmpl/scripts/internal_room_types_js.php:37
+#: views/backend/data_structure/tmpl/scripts/internal_room_types_js.php:154
+#: views/backend/data_structure/tmpl/scripts/internal_room_types_js.php:215
+#: views/backend/data_structure/tmpl/scripts/internal_sort_options_js.php:38
+#: views/backend/data_structure/tmpl/scripts/internal_unit_manager_js.php:37
+#: views/backend/flex/wpl_ajax.php:60 views/backend/flex/wpl_ajax.php:166
+#: views/backend/flex/tmpl/scripts/js.php:37
+#: views/backend/listing/wpl_ajax.php:66 views/backend/listing/wpl_ajax.php:92
+#: views/backend/listing/wpl_ajax.php:109
+#: views/backend/listing/wpl_ajax.php:143
+#: views/backend/listing/wpl_rooms.php:44
+#: views/backend/listing/wpl_rooms.php:59
+#: views/backend/location_manager/wpl_ajax.php:72
+#: views/backend/location_manager/wpl_ajax.php:86
+#: views/backend/location_manager/wpl_ajax.php:128
+#: views/backend/location_manager/tmpl/scripts/js.php:79
+#: views/backend/location_manager/tmpl/scripts/js.php:110
+#: views/backend/membership/wpl_ajax.php:108
+#: views/backend/membership/wpl_ajax.php:122
+#: views/backend/membership/wpl_ajax.php:136
+#: views/backend/membership/tmpl/scripts/js.php:29
+#: views/backend/membership/tmpl/scripts/js.php:56
+#: views/backend/membership/tmpl/scripts/js.php:97
+#: views/backend/membership/tmpl/scripts/js.php:142
+#: views/backend/notifications/wpl_ajax.php:24
+#: views/backend/settings/wpl_ajax.php:38 views/backend/users/wpl_ajax.php:103
+#: views/backend/users/wpl_ajax.php:121 views/backend/users/wpl_ajax.php:168
+#: views/backend/users/wpl_ajax.php:210 views/backend/users/wpl_ajax.php:225
+#: views/backend/users/wpl_ajax.php:251 views/backend/users/wpl_ajax.php:265
+#: views/backend/users/wpl_ajax.php:326 views/backend/users/wpl_ajax.php:348
+#: views/backend/users/tmpl/scripts/js.php:127
+#: views/backend/users/tmpl/scripts/js.php:204
+#: views/backend/wpl_sample/wpl_ajax.php:200
+#: views/backend/wpl_sample/tmpl/scripts/js.php:49
+#: views/basics/functions/wpl_ajax.php:39
+#: views/basics/functions/wpl_ajax.php:56
+#: views/frontend/property_listing/wpl_ajax.php:43
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js.php:32
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js.php:72
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js.php:113
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js.php:155
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js_import.php:68
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js_import.php:118
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js_mapping.php:41
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js_mapping.php:81
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js_mapping.php:137
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js_mapping.php:177
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js_query.php:32
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js_query.php:69
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js_query.php:109
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js_query.php:159
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js_query.php:229
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js_query.php:297
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/wpl_ajax.php:108
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/wpl_ajax.php:122
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/wpl_ajax.php:136
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/scripts/js.php:29
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/scripts/js.php:56
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/scripts/js.php:97
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/scripts/js.php:142
+#: _ADDONS/wpl_sample/wp-content/plugins/WPL/views/backend/wpl_sample/wpl_ajax.php:200
+#: _ADDONS/wpl_sample/wp-content/plugins/WPL/views/backend/wpl_sample/tmpl/scripts/js.php:49
+msgid "Error Occured."
+msgstr ""
+
+#: views/activities/params/tmpl/default.php:21
+msgid "Parameters"
+msgstr ""
+
+#: views/activities/params/tmpl/default.php:32
+#: views/activities/params/tmpl/default.php:46
+msgid "Key"
+msgstr ""
+
+#: views/activities/params/tmpl/default.php:33
+#: views/activities/params/tmpl/default.php:47
+msgid "Value"
+msgstr ""
+
+#: views/activities/property_manager_actions/tmpl/default.php:11
+#: views/backend/listings/tmpl/manager.php:38
+#: views/backend/listings/tmpl/scripts/js.php:145
+msgid "Confirm"
+msgstr ""
+
+#: views/activities/property_manager_actions/tmpl/default.php:11
+#: views/backend/listings/tmpl/manager.php:42
+#: views/backend/listings/tmpl/scripts/js.php:146
+msgid "Unconfirm"
+msgstr ""
+
+#: views/activities/property_manager_actions/tmpl/default.php:15
+#: views/backend/listings/tmpl/manager.php:50
+#: views/backend/listings/tmpl/scripts/js.php:183
+msgid "Restore"
+msgstr ""
+
+#: views/activities/property_manager_actions/tmpl/default.php:15
+msgid "Trash"
+msgstr ""
+
+#: views/activities/property_manager_actions/tmpl/default.php:19
+#: views/backend/listings/tmpl/manager.php:54
+msgid "Purge"
+msgstr ""
+
+#: views/activities/property_manager_actions/tmpl/default.php:23
+#: views/backend/activity_manager/tmpl/default.php:40
+#: views/backend/activity_manager/tmpl/default.php:54
+msgid "Edit"
+msgstr ""
+
+#: views/activities/qrcode/form.php:17
+msgid "Outer margin"
+msgstr ""
+
+#: views/activities/qrcode/form.php:25
+msgid "Size"
+msgstr ""
+
+#: views/activities/qrcode/tmpl/default.php:19
+msgid "QR Code"
+msgstr ""
+
+#: views/backend/activity_manager/wpl_ajax.php:34
+#: views/backend/data_structure/wpl_ajax_listing_types.php:126
+#: views/backend/data_structure/wpl_ajax_listing_types.php:153
+#: views/backend/data_structure/wpl_ajax_property_types.php:77
+#: views/backend/data_structure/wpl_ajax_room_types.php:67
+#: views/backend/data_structure/wpl_ajax_room_types.php:109
+#: views/backend/data_structure/wpl_ajax_sort_options.php:42
+#: views/backend/data_structure/wpl_ajax_unit_manager.php:102
+#: views/backend/flex/wpl_ajax.php:60 views/backend/flex/wpl_ajax.php:166
+#: views/backend/listings/wpl_ajax.php:85
+#: views/backend/location_manager/wpl_ajax.php:86
+#: views/backend/membership/wpl_ajax.php:108
+#: views/backend/membership/wpl_ajax.php:122
+#: views/backend/membership/wpl_ajax.php:136
+#: views/backend/notifications/wpl_ajax.php:24
+#: views/backend/users/wpl_ajax.php:168 views/backend/users/wpl_ajax.php:225
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/wpl_ajax.php:108
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/wpl_ajax.php:122
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/wpl_ajax.php:136
+msgid "Operation was successful."
+msgstr ""
+
+#: views/backend/activity_manager/wpl_ajax.php:45
+msgid "Activity removed successfully."
+msgstr ""
+
+#: views/backend/activity_manager/wpl_ajax.php:114
+msgid "This activity doesn't have options!"
+msgstr ""
+
+#: views/backend/activity_manager/tmpl/default.php:10
+msgid "Activity Manager"
+msgstr ""
+
+#: views/backend/activity_manager/tmpl/default.php:16
+#: views/backend/addon_mls/tmpl/mapping.php:41
+#: views/backend/notifications/tmpl/default.php:17
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/mapping.php:41
+msgid "Filter"
+msgstr ""
+
+#: views/backend/activity_manager/tmpl/default.php:25
+msgid "Add Activity"
+msgstr ""
+
+#: views/backend/activity_manager/tmpl/default.php:34
+#: views/backend/activity_manager/tmpl/default.php:48
+#: views/backend/activity_manager/tmpl/internal_modify.php:20
+#: widgets/carousel/form.php:12 widgets/favorites/form.php:9
+#: widgets/search/form.php:10
+#: _ADDONS/PRO/wp-content/plugins/WPL/widgets/favorites/form.php:9
+msgid "Title"
+msgstr ""
+
+#: views/backend/activity_manager/tmpl/default.php:35
+#: views/backend/activity_manager/tmpl/default.php:49
+msgid "Activity"
+msgstr ""
+
+#: views/backend/activity_manager/tmpl/default.php:36
+#: views/backend/activity_manager/tmpl/default.php:50
+#: views/backend/activity_manager/tmpl/internal_modify.php:24
+#: widgets/carousel/form.php:17 widgets/favorites/form.php:13
+#: widgets/search/form.php:16
+#: _ADDONS/PRO/wp-content/plugins/WPL/widgets/favorites/form.php:13
+msgid "Layout"
+msgstr ""
+
+#: views/backend/activity_manager/tmpl/default.php:37
+#: views/backend/activity_manager/tmpl/default.php:51
+#: views/backend/activity_manager/tmpl/internal_modify.php:33
+msgid "Position"
+msgstr ""
+
+#: views/backend/activity_manager/tmpl/default.php:39
+#: views/backend/activity_manager/tmpl/default.php:53
+#: views/backend/notifications/tmpl/default.php:29
+#: views/backend/notifications/tmpl/default.php:39
+msgid "Enable"
+msgstr ""
+
+#: views/backend/activity_manager/tmpl/default.php:41
+#: views/backend/activity_manager/tmpl/default.php:55
+#: views/backend/data_structure/tmpl/internal_room_types.php:18
+#: views/backend/listings/tmpl/manager.php:46
+#: views/backend/listings/tmpl/scripts/js.php:184
+msgid "Delete"
+msgstr ""
+
+#: views/backend/activity_manager/tmpl/default.php:42
+#: views/backend/activity_manager/tmpl/default.php:56
+#: views/backend/data_structure/tmpl/internal_room_types.php:19
+#: views/backend/data_structure/tmpl/internal_sort_options.php:12
+#: views/backend/data_structure/tmpl/internal_unit_manager_currency.php:19
+#: views/backend/data_structure/tmpl/internal_unit_manager_general.php:12
+msgid "Move"
+msgstr ""
+
+#: views/backend/activity_manager/tmpl/internal_modify.php:17
+msgid "Activity Information"
+msgstr ""
+
+#: views/backend/activity_manager/tmpl/internal_modify.php:37
+msgid "Show Title"
+msgstr ""
+
+#: views/backend/activity_manager/tmpl/internal_modify.php:44
+msgid "Status"
+msgstr ""
+
+#: views/backend/activity_manager/tmpl/internal_modify.php:46
+#: views/backend/data_structure/tmpl/internal_room_types.php:17
+#: views/backend/data_structure/tmpl/internal_sort_options.php:11
+#: views/backend/data_structure/tmpl/internal_unit_manager_currency.php:9
+#: views/backend/data_structure/tmpl/internal_unit_manager_general.php:9
+msgid "Enabled"
+msgstr ""
+
+#: views/backend/activity_manager/tmpl/internal_modify.php:47
+msgid "Disabled"
+msgstr ""
+
+#: views/backend/activity_manager/tmpl/internal_modify.php:51
+msgid "Index"
+msgstr ""
+
+#: views/backend/activity_manager/tmpl/internal_modify.php:58
+#: widgets/favorites/main.php:62
+#: _ADDONS/PRO/wp-content/plugins/WPL/widgets/favorites/main.php:62
+msgid "Options"
+msgstr ""
+
+#: views/backend/activity_manager/tmpl/scripts/js.php:56
+msgid "Activity Sorted!"
+msgstr ""
+
+#: views/backend/activity_manager/tmpl/scripts/js.php:72
+#: views/backend/activity_manager/tmpl/scripts/js.php:111
+msgid "Invalid Activity"
+msgstr ""
+
+#: views/backend/activity_manager/tmpl/scripts/js.php:116
+#: views/backend/addon_mls/tmpl/scripts/js.php:88
+#: views/backend/addon_mls/tmpl/scripts/js_query.php:204
+#: views/backend/data_structure/tmpl/scripts/internal_listing_types_js.php:56
+#: views/backend/data_structure/tmpl/scripts/internal_listing_types_js.php:223
+#: views/backend/data_structure/tmpl/scripts/internal_property_types_js.php:55
+#: views/backend/data_structure/tmpl/scripts/internal_room_types_js.php:108
+#: views/backend/flex/tmpl/scripts/js.php:265
+#: views/backend/location_manager/tmpl/scripts/js.php:181
+#: views/backend/membership/tmpl/scripts/js.php:72
+#: views/backend/users/tmpl/scripts/js.php:75
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js.php:88
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js_query.php:204
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/scripts/js.php:72
+msgid "Are you sure to remove this item?"
+msgstr ""
+
+#: views/backend/activity_manager/tmpl/scripts/js.php:116
+#: views/backend/addon_mls/tmpl/default.php:26
+#: views/backend/addon_mls/tmpl/mapping.php:49
+#: views/backend/addon_mls/tmpl/query.php:26
+#: views/backend/data_structure/tmpl/scripts/internal_listing_types_js.php:56
+#: views/backend/data_structure/tmpl/scripts/internal_property_types_js.php:55
+#: views/backend/data_structure/tmpl/scripts/internal_room_types_js.php:108
+#: views/backend/flex/tmpl/scripts/js.php:265
+#: views/backend/location_manager/tmpl/default.php:45
+#: views/backend/location_manager/tmpl/default.php:54
+#: views/backend/location_manager/tmpl/scripts/js.php:181
+#: views/backend/membership/tmpl/default.php:29
+#: views/backend/membership/tmpl/default.php:41
+#: views/backend/users/tmpl/default.php:26
+#: views/backend/users/tmpl/default.php:37
+#: views/backend/users/tmpl/scripts/js.php:75
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/default.php:26
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/mapping.php:49
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/query.php:26
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/default.php:29
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/default.php:41
+msgid "ID"
+msgstr ""
+
+#: views/backend/activity_manager/tmpl/scripts/js.php:116
+#: views/backend/data_structure/tmpl/scripts/internal_listing_types_js.php:56
+#: views/backend/data_structure/tmpl/scripts/internal_listing_types_js.php:223
+#: views/backend/data_structure/tmpl/scripts/internal_property_types_js.php:55
+#: views/backend/flex/tmpl/scripts/js.php:265
+#: views/backend/location_manager/tmpl/scripts/js.php:181
+#: views/backend/users/tmpl/scripts/js.php:75
+msgid "All related items will be removed."
+msgstr ""
+
+#: views/backend/activity_manager/tmpl/scripts/js.php:157
+msgid "Please select activity to import!"
+msgstr ""
+
+#: views/backend/addon_mls/wpl_ajax.php:126
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/wpl_ajax.php:126
+msgid "Successfully connected and imported the fields!"
+msgstr ""
+
+#: views/backend/addon_mls/wpl_ajax.php:126
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/wpl_ajax.php:126
+msgid "Something is wrong! Please check your username and password."
+msgstr ""
+
+#: views/backend/addon_mls/wpl_ajax.php:313
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/wpl_ajax.php:313
+msgid "Contain"
+msgstr ""
+
+#: views/backend/addon_mls/wpl_ajax.php:341
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/wpl_ajax.php:341
+msgid "MLS connection failed!"
+msgstr ""
+
+#: views/backend/addon_mls/wpl_ajax.php:347
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/wpl_ajax.php:347
+msgid "MLS unique field must be specified!"
+msgstr ""
+
+#: views/backend/addon_mls/wpl_ajax.php:355
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/wpl_ajax.php:355
+msgid "Successfully connected."
+msgstr ""
+
+#: views/backend/addon_mls/wpl_ajax.php:403
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/wpl_ajax.php:403
+msgid "Listings imported"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/default.php:12
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/default.php:12
+msgid "MLS Addon / Servers"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/default.php:21
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/default.php:21
+msgid "Add a new MLS server"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/default.php:28
+#: views/backend/addon_mls/tmpl/internal_setting_advanced.php:7
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/default.php:28
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/internal_setting_advanced.php:7
+msgid "RETS Version"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/default.php:29
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/default.php:29
+msgid "Connection / Import"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/default.php:30
+#: views/backend/addon_mls/tmpl/mapping.php:54
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/default.php:30
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/mapping.php:54
+msgid "Mapping"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/default.php:31
+#: views/backend/addon_mls/tmpl/query.php:31
+#: views/backend/location_manager/tmpl/default.php:49
+#: views/backend/location_manager/tmpl/default.php:58
+#: views/backend/membership/tmpl/default.php:36
+#: views/backend/membership/tmpl/default.php:48
+#: views/backend/users/tmpl/default.php:32
+#: views/backend/users/tmpl/default.php:43
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/default.php:31
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/query.php:31
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/default.php:36
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/default.php:48
+msgid "Actions"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/default.php:42
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/default.php:42
+#, fuzzy
+msgid "Update fields"
+msgstr "translated: Add new field"
+
+#: views/backend/addon_mls/tmpl/default.php:42
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/default.php:42
+msgid "Import fields"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/default.php:46
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/default.php:46
+msgid "Map with WPL"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/import.php:12
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/import.php:12
+msgid "MLS Addon / Import"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/import.php:16
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/import.php:16
+#, php-format
+msgid "Importing from <strong>%1$s</strong> -- <strong>%2$s</strong>"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/import.php:17
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/import.php:17
+msgid "Start"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/internal_mapping.php:8
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/internal_mapping.php:8
+msgid "Map"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/internal_mapping.php:8
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/internal_mapping.php:8
+msgid "to WPL"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/internal_mapping.php:16
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/internal_mapping.php:16
+msgid "Remove Mapping"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/internal_modify_mls.php:9
+#: views/backend/addon_mls/tmpl/query.php:27
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/internal_modify_mls.php:9
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/query.php:27
+msgid "MLS Server"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/internal_modify_mls.php:18
+#: views/backend/addon_mls/tmpl/internal_modify_query.php:26
+#: views/backend/membership/tmpl/internal_edit_membership.php:22
+#: views/backend/notifications/tmpl/modify.php:24
+#: views/backend/users/tmpl/edit.php:20
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/internal_modify_mls.php:18
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/internal_modify_query.php:26
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/internal_edit_membership.php:22
+msgid "Basic"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/internal_modify_mls.php:19
+#: views/backend/addon_mls/tmpl/internal_modify_query.php:27
+#: views/backend/membership/tmpl/internal_edit_membership.php:25
+#: views/backend/notifications/tmpl/modify.php:29
+#: views/backend/users/tmpl/edit.php:23
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/internal_modify_mls.php:19
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/internal_modify_query.php:27
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/internal_edit_membership.php:25
+msgid "Advanced"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/internal_modify_mls.php:32
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/internal_modify_mls.php:32
+msgid "URL"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/internal_modify_mls.php:36
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/internal_modify_mls.php:36
+msgid "Username"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/internal_modify_mls.php:40
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/internal_modify_mls.php:40
+msgid "Password"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/internal_modify_mls.php:44
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/internal_modify_mls.php:44
+msgid "Unique Field"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/internal_modify_mls.php:46
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/internal_modify_mls.php:46
+msgid "Required for import!"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/internal_modify_query.php:17
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/internal_modify_query.php:17
+msgid "Query Wizard"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/internal_modify_query.php:33
+#: views/backend/addon_mls/tmpl/mapping.php:24
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/internal_modify_query.php:33
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/mapping.php:24
+msgid "Server"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/internal_modify_query.php:44
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/internal_modify_query.php:44
+msgid "Server Class"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/internal_modify_query.php:56
+#: views/backend/addon_mls/tmpl/query.php:29
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/internal_modify_query.php:56
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/query.php:29
+msgid "Default User"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/internal_modify_query.php:64
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/internal_modify_query.php:64
+msgid "Images"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/internal_modify_query.php:66
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/internal_modify_query.php:66
+msgid "Insert -1 for unlimited"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/internal_modify_query.php:69
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/internal_modify_query.php:69
+msgid "Limit"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/internal_modify_query.php:73
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/internal_modify_query.php:73
+msgid "Sync Period"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/internal_modify_query.php:75
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/internal_modify_query.php:75
+msgid "(Days)"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/internal_modify_query.php:81
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/internal_modify_query.php:81
+msgid "Query"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/internal_setting_advanced.php:11
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/internal_setting_advanced.php:11
+msgid "Resource"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/mapping.php:12
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/mapping.php:12
+msgid "MLS Addon / Mapping"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/mapping.php:51
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/mapping.php:51
+msgid "Data type"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/mapping.php:52
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/mapping.php:52
+msgid "Sample data"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/mapping.php:53
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/mapping.php:53
+msgid "WPL field"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/mapping.php:60
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/mapping.php:60
+msgid "Create All"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/mapping.php:80
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/mapping.php:80
+msgid "Modify mapping"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/mapping.php:80
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/mapping.php:80
+msgid "Map a field"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/query.php:12
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/query.php:12
+msgid "MLS Addon / Query Wizard"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/query.php:21
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/query.php:21
+#, fuzzy
+msgid "Add a new Query"
+msgstr "translated: Add new field"
+
+#: views/backend/addon_mls/tmpl/query.php:28
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/query.php:28
+msgid "MLS Class"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/query.php:30
+#: views/backend/addon_mls/tmpl/query.php:46
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/query.php:30
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/query.php:46
+msgid "Import"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/query.php:46
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/query.php:46
+msgid "Last sync"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/query.php:46
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/query.php:46
+msgid "Never"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/query.php:51
+#: views/backend/addon_mls/tmpl/scripts/js_query.php:284
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/query.php:51
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js_query.php:284
+msgid "Auto sync is enabled."
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/query.php:51
+#: views/backend/addon_mls/tmpl/scripts/js_query.php:289
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/query.php:51
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js_query.php:289
+msgid "Auto sync is disabled."
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/scripts/js.php:67
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js.php:67
+msgid "MLS modified."
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/scripts/js.php:82
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js.php:82
+msgid "Invalid MLS ID"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/scripts/js.php:109
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js.php:109
+msgid "MLS server deleted."
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/scripts/js.php:126
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js.php:126
+msgid "We're processing your request. Please wait ..."
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/scripts/js_import.php:17
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js_import.php:17
+msgid ""
+"Please wait! This process may take several minutes based on your server "
+"speed."
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/scripts/js_import.php:22
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js_import.php:22
+msgid "Starting the process ..."
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/scripts/js_import.php:24
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js_import.php:24
+msgid "Initializing RETS connection ..."
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/scripts/js_import.php:49
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js_import.php:49
+msgid "Total listings : "
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/scripts/js_import.php:53
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js_import.php:53
+msgid "Importing/Updating ..."
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/scripts/js_import.php:58
+#: views/backend/addon_mls/tmpl/scripts/js_import.php:108
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js_import.php:58
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js_import.php:108
+msgid "Import stopped because of no listing!"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/scripts/js_import.php:75
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js_import.php:75
+msgid "Remained listings"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/scripts/js_import.php:96
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js_import.php:96
+msgid "listing(s) successfully imported."
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/scripts/js_import.php:102
+#: views/backend/addon_mls/tmpl/scripts/js_import.php:103
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js_import.php:102
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js_import.php:103
+msgid "Import/Update completed."
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/scripts/js_query.php:154
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js_query.php:154
+msgid "Query modified."
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/scripts/js_query.php:198
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js_query.php:198
+msgid "Invalid Query ID"
+msgstr ""
+
+#: views/backend/addon_mls/tmpl/scripts/js_query.php:225
+#: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/scripts/js_query.php:225
+msgid "Query deleted."
+msgstr ""
+
+#: views/backend/data_structure/wpl_ajax_listing_types.php:79
+msgid "File extention should be jpg, png or gif"
+msgstr ""
+
+#: views/backend/data_structure/wpl_ajax_listing_types.php:87
+msgid "Icons should not be bigger than 500KB!"
+msgstr ""
+
+#: views/backend/data_structure/wpl_ajax_listing_types.php:139
+msgid "listing type removed from WPL successfully."
+msgstr ""
+
+#: views/backend/data_structure/wpl_ajax_property_types.php:63
+msgid "Property type removed from WPL successfully."
+msgstr ""
+
+#: views/backend/data_structure/wpl_ajax_room_types.php:82
+msgid "Room type removed from WPL successfully."
+msgstr ""
+
+#: views/backend/data_structure/tmpl/default.php:9
+msgid "Data Structure Manager"
+msgstr ""
+
+#: views/backend/data_structure/tmpl/default.php:17
+msgid "Property Types"
+msgstr ""
+
+#: views/backend/data_structure/tmpl/default.php:22
+msgid "Listing Types"
+msgstr ""
+
+#: views/backend/data_structure/tmpl/default.php:27
+msgid "Unit Manager"
+msgstr ""
+
+#: views/backend/data_structure/tmpl/default.php:32
+msgid "Sort Options"
+msgstr ""
+
+#: views/backend/data_structure/tmpl/default.php:37
+msgid "Room Types"
+msgstr ""
+
+#: views/backend/data_structure/tmpl/internal_edit_listing_types.php:6
+#, fuzzy
+msgid "Add new listing type"
+msgstr "translated: Add new field"
+
+#: views/backend/data_structure/tmpl/internal_edit_listing_types.php:15
+#: views/backend/data_structure/tmpl/internal_edit_property_types.php:15
+msgid "Category"
+msgstr ""
+
+#: views/backend/data_structure/tmpl/internal_edit_listing_types.php:26
+#: views/backend/data_structure/tmpl/internal_listing_types.php:62
+msgid "Google Icon"
+msgstr ""
+
+#: views/backend/data_structure/tmpl/internal_edit_property_types.php:6
+msgid "Add new property type"
+msgstr ""
+
+#: views/backend/data_structure/tmpl/internal_listing_types.php:9
+msgid "Listing types"
+msgstr ""
+
+#: views/backend/data_structure/tmpl/internal_new_room_type.php:9
+msgid "Room type"
+msgstr ""
+
+#: views/backend/data_structure/tmpl/internal_property_types.php:9
+msgid "Property types"
+msgstr ""
+
+#: views/backend/data_structure/tmpl/internal_room_types.php:14
+#, fuzzy
+msgid "Add new room type"
+msgstr "translated: Add new field"
+
+#: views/backend/data_structure/tmpl/internal_unit_manager_currency.php:11
+msgid "3digit sep"
+msgstr ""
+
+#: views/backend/data_structure/tmpl/internal_unit_manager_currency.php:12
+msgid "Desimal sep"
+msgstr ""
+
+#: views/backend/data_structure/tmpl/internal_unit_manager_currency.php:13
+msgid "Cur. after/before"
+msgstr ""
+
+#: views/backend/data_structure/tmpl/internal_unit_manager_currency.php:15
+msgid "Exchange rate"
+msgstr ""
+
+#: views/backend/data_structure/tmpl/internal_unit_manager_currency.php:36
+msgid "No separator"
+msgstr ""
+
+#: views/backend/data_structure/tmpl/internal_unit_manager_currency.php:37
+#: views/backend/data_structure/tmpl/internal_unit_manager_currency.php:45
+msgid "Comma"
+msgstr ""
+
+#: views/backend/data_structure/tmpl/internal_unit_manager_currency.php:38
+#: views/backend/data_structure/tmpl/internal_unit_manager_currency.php:46
+msgid "Point"
+msgstr ""
+
+#: views/backend/data_structure/tmpl/internal_unit_manager_currency.php:44
+msgid "No decimal"
+msgstr ""
+
+#: views/backend/data_structure/tmpl/internal_unit_manager_currency.php:52
+msgid "Before"
+msgstr ""
+
+#: views/backend/data_structure/tmpl/internal_unit_manager_currency.php:53
+msgid "After"
+msgstr ""
+
+#: views/backend/data_structure/tmpl/internal_unit_manager_default.php:10
+msgid "Unit type"
+msgstr ""
+
+#: views/backend/data_structure/tmpl/internal_unit_manager_general.php:11
+msgid "Conv .Factor"
+msgstr ""
+
+#: views/backend/data_structure/tmpl/scripts/internal_listing_types_js.php:50
+msgid "Invalid listing Types"
+msgstr ""
+
+#: views/backend/data_structure/tmpl/scripts/internal_listing_types_js.php:95
+msgid "Invalid listing Type"
+msgstr ""
+
+#: views/backend/data_structure/tmpl/scripts/internal_listing_types_js.php:217
+msgid "Invalid Icon"
+msgstr ""
+
+#: views/backend/data_structure/tmpl/scripts/internal_property_types_js.php:49
+msgid "Invalid Property Types"
+msgstr ""
+
+#: views/backend/data_structure/tmpl/scripts/internal_property_types_js.php:96
+msgid "Invalid Property Type"
+msgstr ""
+
+#: views/backend/data_structure/tmpl/scripts/internal_room_types_js.php:51
+#: views/backend/data_structure/tmpl/scripts/internal_sort_options_js.php:51
+#: views/backend/data_structure/tmpl/scripts/internal_unit_manager_js.php:68
+#: views/backend/data_structure/tmpl/scripts/internal_unit_manager_js.php:98
+#: views/backend/data_structure/tmpl/scripts/internal_unit_manager_js.php:127
+#: views/backend/data_structure/tmpl/scripts/internal_unit_manager_js.php:165
+#: views/backend/data_structure/tmpl/scripts/internal_unit_manager_js.php:210
+#: views/backend/flex/tmpl/scripts/js.php:49
+#: views/backend/flex/tmpl/scripts/js.php:89
+#: views/backend/flex/tmpl/scripts/js.php:259
+msgid "Invalid field"
+msgstr ""
+
+#: views/backend/data_structure/tmpl/scripts/internal_room_types_js.php:102
+msgid "Invalid room type!"
+msgstr ""
+
+#: views/backend/data_structure/tmpl/scripts/internal_room_types_js.php:190
+msgid "Invalid Room type name"
+msgstr ""
+
+#: views/backend/data_structure/tmpl/scripts/internal_room_types_js.php:207
+msgid "Room type added."
+msgstr ""
+
+#: views/backend/flex/wpl_ajax.php:119 views/backend/flex/wpl_ajax.php:148
+msgid "Field saved."
+msgstr ""
+
+#: views/backend/flex/wpl_ajax.php:153
+msgid "Field is not deletable."
+msgstr ""
+
+#: views/backend/flex/tmpl/default.php:13
+msgid " Data Structure"
+msgstr ""
+
+#: views/backend/flex/tmpl/internal_sidebar3.php:6
+msgid "Add new field"
+msgstr "translated: Add new field"
+
+#: views/backend/flex/tmpl/internal_sidebar3.php:13
+#: views/backend/notifications/tmpl/internal_advanced.php:14
+#: views/backend/notifications/tmpl/internal_advanced.php:30
+msgid "Add"
+msgstr ""
+
+#: views/backend/flex/tmpl/internal_slide.php:12
+#: views/backend/membership/tmpl/default.php:31
+#: views/backend/membership/tmpl/default.php:43
+#: views/backend/membership/tmpl/internal_edit_membership.php:40
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/default.php:31
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/default.php:43
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/internal_edit_membership.php:40
+msgid "Type"
+msgstr ""
+
+#: views/backend/flex/tmpl/internal_slide.php:61
+msgid "This field is mandatory always."
+msgstr ""
+
+#: views/backend/flex/tmpl/internal_slide.php:62
+msgid "This field is mandatory never."
+msgstr ""
+
+#: views/backend/listing/wpl_ajax.php:66 views/backend/listing/wpl_ajax.php:92
+#: views/backend/listing/wpl_ajax.php:143
+#: views/backend/listing/wpl_rooms.php:44
+#: views/backend/settings/wpl_ajax.php:38 views/backend/users/wpl_ajax.php:210
+#: views/backend/users/wpl_ajax.php:251 views/backend/users/wpl_ajax.php:265
+#: views/backend/users/wpl_ajax.php:326 views/backend/users/wpl_ajax.php:348
+#: views/backend/wpl_sample/wpl_ajax.php:200
+#: views/basics/functions/wpl_ajax.php:39
+#: views/basics/functions/wpl_ajax.php:56
+#: _ADDONS/wpl_sample/wp-content/plugins/WPL/views/backend/wpl_sample/wpl_ajax.php:200
+msgid "Saved."
+msgstr ""
+
+#: views/backend/listing/wpl_ajax.php:109
+#: views/frontend/property_listing/wpl_ajax.php:43
+msgid "Fetched."
+msgstr ""
+
+#: views/backend/listing/wpl_main.php:19
+#: views/backend/listings/wpl_main.php:23 views/backend/users/wpl_main.php:42
+#: views/frontend/property_show/wpl_main.php:31
+msgid "You don't have access to this part!"
+msgstr ""
+
+#: views/backend/listing/wpl_main.php:36
+msgid "Limit reached. You Can't add more property!"
+msgstr ""
+
+#: views/backend/listing/wpl_main.php:51
+msgid "Property not exists!"
+msgstr ""
+
+#: views/backend/listing/wpl_main.php:58
+msgid "You Can't edit this property!"
+msgstr ""
+
+#: views/backend/listing/wpl_rooms.php:59
+msgid "Deleted."
+msgstr ""
+
+#: views/backend/listing/tmpl/wizard.php:13
+msgid "Add/Edit "
+msgstr ""
+
+#: views/backend/listing/tmpl/wizard.php:18
+msgid "Click to finalize property ..."
+msgstr ""
+
+#: views/backend/listing/tmpl/wizard.php:20
+msgid "Remember to finalize!"
+msgstr ""
+
+#: views/backend/listing/tmpl/wizard.php:28
+#: views/backend/users/tmpl/profile.php:24
+msgid "Finalize"
+msgstr ""
+
+#: views/backend/listing/tmpl/wizard.php:78
+msgid "Your property successfully finalized!"
+msgstr ""
+
+#: views/backend/listing/tmpl/wizard.php:81
+#: views/backend/listings/tmpl/manager.php:92
+msgid "View this listing"
+msgstr ""
+
+#: views/backend/listing/tmpl/wizard.php:82
+#, fuzzy
+msgid "Add new listing"
+msgstr "translated: Add new field"
+
+#: views/backend/listing/tmpl/scripts/js.php:83
+msgid "First please enter distance!"
+msgstr ""
+
+#: views/backend/listing/tmpl/scripts/js.php:94
+msgid "First"
+msgstr ""
+
+#: views/backend/listing/tmpl/scripts/js.php:95
+msgid "Second"
+msgstr ""
+
+#: views/backend/listing/tmpl/scripts/js.php:96
+msgid "Third"
+msgstr ""
+
+#: views/backend/listing/tmpl/scripts/js.php:97
+msgid "Fourth"
+msgstr ""
+
+#: views/backend/listing/tmpl/scripts/js.php:98
+msgid "Fifth"
+msgstr ""
+
+#: views/backend/listing/tmpl/scripts/js.php:99
+msgid "Sixth"
+msgstr ""
+
+#: views/backend/listing/tmpl/scripts/js.php:100
+msgid "Seventh"
+msgstr ""
+
+#: views/backend/listing/tmpl/scripts/js.php:101
+msgid "Eighth"
+msgstr ""
+
+#: views/backend/listing/tmpl/scripts/js.php:102
+msgid "Nineth"
+msgstr ""
+
+#: views/backend/listing/tmpl/scripts/js.php:103
+msgid "Tenth"
+msgstr ""
+
+#: views/backend/listings/wpl_ajax.php:41
+msgid "Property purged."
+msgstr ""
+
+#: views/backend/listings/wpl_ajax.php:46
+#: views/backend/listings/wpl_ajax.php:76
+#: views/backend/listings/wpl_ajax.php:90
+msgid "You don't have access to this action."
+msgstr ""
+
+#: views/backend/listings/tmpl/manager.php:12
+msgid "Listing Manager"
+msgstr ""
+
+#: views/backend/listings/tmpl/manager.php:19
+msgid "Mass actions"
+msgstr ""
+
+#: views/backend/listings/tmpl/manager.php:24
+msgid "Select all"
+msgstr ""
+
+#: views/backend/listings/tmpl/manager.php:28
+msgid "Deselect all"
+msgstr ""
+
+#: views/backend/listings/tmpl/manager.php:32
+#: views/backend/membership/tmpl/internal_edit_membership.php:52
+#: views/backend/users/tmpl/edit.php:31
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/internal_edit_membership.php:52
+msgid "Toggle"
+msgstr ""
+
+#: views/backend/listings/tmpl/manager.php:106
+msgid "Add date"
+msgstr ""
+
+#: views/backend/listings/tmpl/manager.php:110
+msgid "Visited times"
+msgstr ""
+
+#: views/backend/listings/tmpl/manager.php:116
+msgid "Property is not finalized."
+msgstr ""
+
+#: views/backend/listings/tmpl/scripts/js.php:42
+msgid "Are you sure you want to delete these properties?"
+msgstr ""
+
+#: views/backend/location_manager/wpl_ajax.php:72
+msgid "Location saved."
+msgstr ""
+
+#: views/backend/location_manager/wpl_ajax.php:128
+msgid "Location(s) Deleted."
+msgstr ""
+
+#: views/backend/location_manager/tmpl/default.php:12
+msgid "Locations"
+msgstr ""
+
+#: views/backend/location_manager/tmpl/default.php:13
+msgid "Settings"
+msgstr ""
+
+#: views/backend/location_manager/tmpl/default.php:19
+msgid "Location Tools"
+msgstr ""
+
+#: views/backend/location_manager/tmpl/default.php:28
+msgid "Show all countries"
+msgstr ""
+
+#: views/backend/location_manager/tmpl/default.php:30
+msgid "Show enabled countries"
+msgstr ""
+
+#: views/backend/location_manager/tmpl/default.php:33
+#: widgets/search/main.php:94 widgets/search/tmpl/default.php:50
+msgid "Search"
+msgstr ""
+
+#: views/backend/location_manager/tmpl/default.php:34
+msgid "Reset"
+msgstr ""
+
+#: views/backend/location_manager/tmpl/default.php:72
+msgid "Load Next Level"
+msgstr ""
+
+#: views/backend/location_manager/tmpl/default.php:74
+msgid "Load Zipcodes"
+msgstr ""
+
+#: views/backend/location_manager/tmpl/default.php:109
+msgid "Location Settings"
+msgstr ""
+
+#: views/backend/location_manager/tmpl/edit.php:6
+msgid "Edit location"
+msgstr ""
+
+#: views/backend/location_manager/tmpl/scripts/js.php:13
+msgid "Invalid Location"
+msgstr ""
+
+#: views/backend/location_manager/tmpl/scripts/js.php:175
+msgid "Invalid Location or level"
+msgstr ""
+
+#: views/backend/location_manager/tmpl/scripts/js.php:181
+msgid "Level"
+msgstr ""
+
+#: views/backend/membership/tmpl/default.php:13
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/default.php:13
+msgid "Memberships"
+msgstr ""
+
+#: views/backend/membership/tmpl/default.php:24
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/default.php:24
+msgid "Add a new membership"
+msgstr ""
+
+#: views/backend/membership/tmpl/default.php:32
+#: views/backend/membership/tmpl/default.php:44
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/default.php:32
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/default.php:44
+msgid "#Properties"
+msgstr ""
+
+#: views/backend/membership/tmpl/default.php:33
+#: views/backend/membership/tmpl/default.php:45
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/default.php:33
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/default.php:45
+msgid "#Featured"
+msgstr ""
+
+#: views/backend/membership/tmpl/default.php:34
+#: views/backend/membership/tmpl/default.php:46
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/default.php:34
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/default.php:46
+msgid "#Hot"
+msgstr ""
+
+#: views/backend/membership/tmpl/default.php:35
+#: views/backend/membership/tmpl/default.php:47
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/default.php:35
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/default.php:47
+msgid "#Images"
+msgstr ""
+
+#: views/backend/membership/tmpl/default.php:58
+#: views/backend/membership/tmpl/internal_edit_membership.php:42
+#: views/backend/membership/tmpl/internal_edit_membership.php:54
+#: views/backend/users/tmpl/default.php:58
+#: views/backend/users/tmpl/edit.php:33
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/default.php:58
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/internal_edit_membership.php:42
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/internal_edit_membership.php:54
+msgid "None"
+msgstr ""
+
+#: views/backend/membership/tmpl/default.php:65
+#: views/backend/membership/tmpl/default.php:66
+#: views/backend/membership/tmpl/default.php:67
+#: views/backend/membership/tmpl/default.php:68
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/default.php:65
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/default.php:66
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/default.php:67
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/default.php:68
+msgid "Unlimited"
+msgstr ""
+
+#: views/backend/membership/tmpl/internal_edit_membership.php:9
+#: views/backend/users/tmpl/edit.php:9
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/internal_edit_membership.php:9
+msgid "Edit User"
+msgstr ""
+
+#: views/backend/membership/tmpl/internal_edit_membership.php:15
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/internal_edit_membership.php:15
+msgid "Save update All members"
+msgstr ""
+
+#: views/backend/membership/tmpl/internal_setting_advanced.php:7
+#: views/backend/users/tmpl/internal_setting_advanced.php:7
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/internal_setting_advanced.php:7
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/users/tmpl/internal_setting_advanced.php:7
+msgid "Total number of properties"
+msgstr ""
+
+#: views/backend/membership/tmpl/internal_setting_advanced.php:11
+#: views/backend/users/tmpl/internal_setting_advanced.php:11
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/internal_setting_advanced.php:11
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/users/tmpl/internal_setting_advanced.php:11
+msgid "Total number of hot properties"
+msgstr ""
+
+#: views/backend/membership/tmpl/internal_setting_advanced.php:15
+#: views/backend/users/tmpl/internal_setting_advanced.php:15
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/internal_setting_advanced.php:15
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/users/tmpl/internal_setting_advanced.php:15
+msgid "Total number of featured properties"
+msgstr ""
+
+#: views/backend/membership/tmpl/internal_setting_advanced.php:19
+#: views/backend/users/tmpl/internal_setting_advanced.php:19
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/internal_setting_advanced.php:19
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/users/tmpl/internal_setting_advanced.php:19
+msgid "Total number of pictures for each property"
+msgstr ""
+
+#: views/backend/membership/tmpl/internal_setting_advanced.php:23
+#: views/backend/users/tmpl/internal_setting_advanced.php:23
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/internal_setting_advanced.php:23
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/users/tmpl/internal_setting_advanced.php:23
+msgid "Listing Restriction?"
+msgstr ""
+
+#: views/backend/membership/tmpl/internal_setting_advanced.php:31
+#: views/backend/membership/tmpl/internal_setting_advanced.php:54
+#: views/backend/users/tmpl/internal_setting_advanced.php:31
+#: views/backend/users/tmpl/internal_setting_advanced.php:54
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/internal_setting_advanced.php:31
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/internal_setting_advanced.php:54
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/users/tmpl/internal_setting_advanced.php:31
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/users/tmpl/internal_setting_advanced.php:54
+msgid "Ctrl+Click to select multiple"
+msgstr ""
+
+#: views/backend/membership/tmpl/internal_setting_advanced.php:45
+#: views/backend/users/tmpl/internal_setting_advanced.php:45
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/internal_setting_advanced.php:45
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/users/tmpl/internal_setting_advanced.php:45
+msgid "Property Type Restriction?"
+msgstr ""
+
+#: views/backend/membership/tmpl/scripts/js.php:66
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/scripts/js.php:66
+msgid "Invalid Membership Id"
+msgstr ""
+
+#: views/backend/membership/tmpl/scripts/js.php:93
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/scripts/js.php:93
+msgid "Membership deleted."
+msgstr ""
+
+#: views/backend/membership/tmpl/scripts/js.php:106
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/scripts/js.php:106
+msgid "Invalid Membership name"
+msgstr ""
+
+#: views/backend/membership/tmpl/scripts/js.php:137
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/backend/membership/tmpl/scripts/js.php:137
+msgid "Membership modified."
+msgstr ""
+
+#: views/backend/notifications/tmpl/default.php:11
+msgid "Notifications"
+msgstr ""
+
+#: views/backend/notifications/tmpl/default.php:25
+#: views/backend/notifications/tmpl/default.php:35
+#: views/backend/notifications/tmpl/internal_basic.php:6
+msgid "Subject"
+msgstr ""
+
+#: views/backend/notifications/tmpl/default.php:26
+#: views/backend/notifications/tmpl/default.php:36
+#: views/backend/notifications/tmpl/internal_basic.php:10
+msgid "Description"
+msgstr ""
+
+#: views/backend/notifications/tmpl/default.php:27
+#: views/backend/notifications/tmpl/default.php:37
+msgid "Template"
+msgstr ""
+
+#: views/backend/notifications/tmpl/internal_advanced.php:15
+#: views/backend/notifications/tmpl/internal_advanced.php:31
+#: widgets/favorites/scripts/js.php:64
+#: _ADDONS/PRO/wp-content/plugins/WPL/widgets/favorites/scripts/js.php:64
+msgid "Remove"
+msgstr ""
+
+#: views/backend/notifications/tmpl/internal_advanced.php:29
+#: views/backend/users/tmpl/default.php:30
+#: views/backend/users/tmpl/default.php:41
+#: widgets/favorites/tmpl/default.php:46
+#: _ADDONS/PRO/wp-content/plugins/WPL/widgets/favorites/tmpl/default.php:46
+msgid "Email"
+msgstr ""
+
+#: views/backend/notifications/tmpl/internal_basic.php:14
+msgid "Template Path"
+msgstr ""
+
+#: views/backend/notifications/tmpl/modify.php:12
+msgid "Edit Notification"
+msgstr ""
+
+#: views/backend/notifications/tmpl/scripts/js.php:35
+msgid "Invalid Notification"
+msgstr ""
+
+#: views/backend/notifications/tmpl/scripts/modify_js.php:39
+msgid "Notification modified succesfully."
+msgstr ""
+
+#: views/backend/notifications/tmpl/scripts/modify_js.php:57
+msgid "Please enter correct email!"
+msgstr ""
+
+#: views/backend/settings/wpl_ajax.php:63 views/backend/users/wpl_ajax.php:284
+msgid "An error ocurred uploading your file."
+msgstr ""
+
+#: views/backend/settings/wpl_ajax.php:72 views/backend/users/wpl_ajax.php:293
+msgid "File extention should be jpg, png or gif."
+msgstr ""
+
+#: views/backend/settings/tmpl/default.php:12
+msgid "WPL Settings"
+msgstr ""
+
+#: views/backend/users/wpl_ajax.php:103
+msgid "User added to WPL successfully."
+msgstr ""
+
+#: views/backend/users/wpl_ajax.php:121
+msgid "User removed from WPL successfully."
+msgstr ""
+
+#: views/backend/users/tmpl/default.php:13
+msgid "User Manager"
+msgstr ""
+
+#: views/backend/users/tmpl/default.php:27
+#: views/backend/users/tmpl/default.php:38
+msgid "User Name"
+msgstr ""
+
+#: views/backend/users/tmpl/default.php:29
+#: views/backend/users/tmpl/default.php:40
+msgid "Membership"
+msgstr ""
+
+#: views/backend/users/tmpl/default.php:31
+#: views/backend/users/tmpl/default.php:42
+msgid "Date Registered"
+msgstr ""
+
+#: views/backend/users/tmpl/profile.php:11
+#: views/backend/users/tmpl/profile.php:16
+msgid "Profile"
+msgstr ""
+
+#: views/backend/users/tmpl/scripts/js.php:10
+#: views/backend/users/tmpl/scripts/js.php:69
+msgid "Invalid user"
+msgstr ""
+
+#: views/backend/users/tmpl/scripts/js.php:199
+msgid "Membership add."
+msgstr ""
+
+#: views/backend/wpl/wpl_ajax.php:36 views/backend/wpl/wpl_ajax.php:74
+msgid "Installer file doesn't exist!"
+msgstr ""
+
+#: views/backend/wpl/wpl_ajax.php:40 views/backend/wpl/wpl_ajax.php:78
+msgid "Installer class doesn't exist!"
+msgstr ""
+
+#: views/backend/wpl/wpl_ajax.php:48
+msgid "Package installed."
+msgstr ""
+
+#: views/backend/wpl/wpl_ajax.php:69
+msgid "Error: #U202, Could not download the update package!"
+msgstr ""
+
+#: views/backend/wpl/wpl_ajax.php:70
+msgid "Error: #U203, Could not create the update file!"
+msgstr ""
+
+#: views/backend/wpl/wpl_ajax.php:71
+msgid "Error: #U204, Could not extract the update file!"
+msgstr ""
+
+#: views/backend/wpl/wpl_ajax.php:86
+msgid "Addon Updated."
+msgstr ""
+
+#: views/backend/wpl/tmpl/default.php:13
+msgid "WPL dashboard"
+msgstr ""
+
+#: views/backend/wpl/tmpl/default.php:43
+msgid "Changelog"
+msgstr ""
+
+#: views/backend/wpl/tmpl/internal_addons.php:7
+msgid "WPL Addons"
+msgstr ""
+
+#: views/backend/wpl/tmpl/internal_addons.php:12
+msgid "Billing username"
+msgstr ""
+
+#: views/backend/wpl/tmpl/internal_addons.php:13
+msgid "Billing password"
+msgstr ""
+
+#: views/backend/wpl/tmpl/internal_addons.php:17
+msgid ""
+"For updating the addons and premium support having realtyna billing "
+"credentials is mandatory!"
+msgstr ""
+
+#: views/backend/wpl/tmpl/internal_addons.php:19
+msgid "Install add-on"
+msgstr ""
+
+#: views/backend/wpl/tmpl/internal_addons.php:31
+msgid "Version"
+msgstr ""
+
+#: views/backend/wpl/tmpl/internal_addons.php:33
+msgid "Update"
+msgstr ""
+
+#: views/backend/wpl/tmpl/internal_ni_addons.php:11
+msgid "Optional Addons"
+msgstr ""
+
+#: views/backend/wpl/tmpl/internal_ni_addons.php:19
+msgid "Download"
+msgstr ""
+
+#: views/backend/wpl/tmpl/internal_ni_addons.php:25
+msgid "Congratulations! All the optional addons are installed on your website!"
+msgstr ""
+
+#: views/backend/wpl/tmpl/scripts/js.php:36
+msgid "Please wait ..."
+msgstr ""
+
+#: views/backend/wpl_sample/tmpl/default.php:12
+#: _ADDONS/wpl_sample/wp-content/plugins/WPL/views/backend/wpl_sample/tmpl/default.php:12
+msgid "WPL sample"
+msgstr ""
+
+#: views/backend/wpl_sample/tmpl/default.php:16
+#: _ADDONS/wpl_sample/wp-content/plugins/WPL/views/backend/wpl_sample/tmpl/default.php:16
+msgid "Generate sample listings"
+msgstr ""
+
+#: views/backend/wpl_sample/tmpl/default.php:20
+#: _ADDONS/wpl_sample/wp-content/plugins/WPL/views/backend/wpl_sample/tmpl/default.php:20
+msgid "Count"
+msgstr ""
+
+#: views/backend/wpl_sample/tmpl/default.php:24
+#: views/basics/functions/tmpl/shortcode_wizard.php:27
+#: _ADDONS/wpl_sample/wp-content/plugins/WPL/views/backend/wpl_sample/tmpl/default.php:24
+msgid "Listing type"
+msgstr ""
+
+#: views/backend/wpl_sample/tmpl/default.php:34
+#: views/basics/functions/tmpl/shortcode_wizard.php:38
+#: widgets/carousel/form.php:36
+#: _ADDONS/wpl_sample/wp-content/plugins/WPL/views/backend/wpl_sample/tmpl/default.php:34
+msgid "Property type"
+msgstr ""
+
+#: views/backend/wpl_sample/tmpl/default.php:44
+#: _ADDONS/wpl_sample/wp-content/plugins/WPL/views/backend/wpl_sample/tmpl/default.php:44
+msgid "Agent"
+msgstr ""
+
+#: views/backend/wpl_sample/tmpl/default.php:54
+#: _ADDONS/wpl_sample/wp-content/plugins/WPL/views/backend/wpl_sample/tmpl/default.php:54
+msgid "Geo center"
+msgstr ""
+
+#: views/backend/wpl_sample/tmpl/default.php:55
+#: _ADDONS/wpl_sample/wp-content/plugins/WPL/views/backend/wpl_sample/tmpl/default.php:55
+msgid "Example: Los Angeles, California, United States"
+msgstr ""
+
+#: views/backend/wpl_sample/tmpl/default.php:59
+#: _ADDONS/wpl_sample/wp-content/plugins/WPL/views/backend/wpl_sample/tmpl/default.php:59
+msgid "Miles"
+msgstr ""
+
+#: views/backend/wpl_sample/tmpl/default.php:62
+#: _ADDONS/wpl_sample/wp-content/plugins/WPL/views/backend/wpl_sample/tmpl/default.php:62
+msgid "Property tag"
+msgstr ""
+
+#: views/backend/wpl_sample/tmpl/default.php:66 widgets/carousel/form.php:52
+#: _ADDONS/wpl_sample/wp-content/plugins/WPL/views/backend/wpl_sample/tmpl/default.php:66
+msgid "Random"
+msgstr ""
+
+#: views/backend/wpl_sample/tmpl/default.php:67
+#: _ADDONS/wpl_sample/wp-content/plugins/WPL/views/backend/wpl_sample/tmpl/default.php:67
+msgid "Featured"
+msgstr ""
+
+#: views/backend/wpl_sample/tmpl/default.php:68
+#: _ADDONS/wpl_sample/wp-content/plugins/WPL/views/backend/wpl_sample/tmpl/default.php:68
+msgid "Hot"
+msgstr ""
+
+#: views/backend/wpl_sample/tmpl/default.php:69
+#: _ADDONS/wpl_sample/wp-content/plugins/WPL/views/backend/wpl_sample/tmpl/default.php:69
+msgid "Open house"
+msgstr ""
+
+#: views/backend/wpl_sample/tmpl/default.php:70
+#: _ADDONS/wpl_sample/wp-content/plugins/WPL/views/backend/wpl_sample/tmpl/default.php:70
+msgid "For closure"
+msgstr ""
+
+#: views/backend/wpl_sample/tmpl/default.php:75
+#: _ADDONS/wpl_sample/wp-content/plugins/WPL/views/backend/wpl_sample/tmpl/default.php:75
+msgid "Image count"
+msgstr ""
+
+#: views/backend/wpl_sample/tmpl/default.php:76
+#: _ADDONS/wpl_sample/wp-content/plugins/WPL/views/backend/wpl_sample/tmpl/default.php:76
+msgid "Maximum is 10"
+msgstr ""
+
+#: views/backend/wpl_sample/tmpl/default.php:81
+#: views/basics/functions/tmpl/shortcode_wizard.php:12
+#: _ADDONS/wpl_sample/wp-content/plugins/WPL/views/backend/wpl_sample/tmpl/default.php:81
+msgid "Insert"
+msgstr ""
+
+#: views/basics/features/wpl_pdf.php:40
+#: views/frontend/property_show/wpl_main.php:48
+msgid "No property found or it's not available now!"
+msgstr ""
+
+#: views/basics/features/tmpl/pdf.php:31
+msgid "Property Description"
+msgstr ""
+
+#: views/basics/functions/tmpl/shortcode_wizard.php:9
+msgid "WPL Shortcodes"
+msgstr ""
+
+#: views/basics/functions/tmpl/shortcode_wizard.php:17
+msgid "View"
+msgstr ""
+
+#: views/basics/functions/tmpl/shortcode_wizard.php:19
+msgid "Property listing"
+msgstr ""
+
+#: views/basics/functions/tmpl/shortcode_wizard.php:20
+msgid "Property show"
+msgstr ""
+
+#: views/basics/functions/tmpl/shortcode_wizard.php:21
+msgid "Profile/Agent listing"
+msgstr ""
+
+#: views/basics/functions/tmpl/shortcode_wizard.php:48
+msgid "featured"
+msgstr ""
+
+#: views/basics/functions/tmpl/shortcode_wizard.php:57
+msgid "hot"
+msgstr ""
+
+#: views/basics/functions/tmpl/shortcode_wizard.php:67
+msgid "Listing per page"
+msgstr ""
+
+#: views/basics/functions/tmpl/shortcode_wizard.php:77
+#: views/basics/functions/tmpl/shortcode_wizard.php:87
+#: widgets/carousel/form.php:89
+msgid "Order by"
+msgstr ""
+
+#: views/basics/functions/tmpl/shortcode_wizard.php:96
+#: widgets/carousel/form.php:98
+msgid "Order"
+msgstr ""
+
+#: views/basics/functions/tmpl/shortcode_wizard.php:98
+#: widgets/carousel/form.php:101
+msgid "DESC"
+msgstr ""
+
+#: views/basics/functions/tmpl/shortcode_wizard.php:99
+#: widgets/carousel/form.php:100
+msgid "ASC"
+msgstr ""
+
+#: views/basics/functions/tmpl/shortcode_wizard.php:104
+msgid "Listing id"
+msgstr ""
+
+#: views/basics/sorts/profile_listing.php:35
+#: views/basics/sorts/property_listing.php:37
+msgid "Ascending"
+msgstr ""
+
+#: views/basics/sorts/profile_listing.php:36
+#: views/basics/sorts/property_listing.php:38
+msgid "Descending"
+msgstr ""
+
+#: views/frontend/profile_listing/wpl_main.php:42
+#: views/frontend/property_listing/wpl_main.php:44
+msgid "Invalid Request!"
+msgstr ""
+
+#: views/frontend/profile_listing/tmpl/default.php:9
+msgid "Sort Option"
+msgstr ""
+
+#: views/frontend/profile_listing/tmpl/default.php:35
+msgid "View properties"
+msgstr ""
+
+#: views/frontend/property_listing/wpl_ajax_pro.php:53
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/frontend/property_listing/wpl_ajax_pro.php:53
+msgid "Your email is not a valid email!"
+msgstr ""
+
+#: views/frontend/property_listing/wpl_ajax_pro.php:60
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/frontend/property_listing/wpl_ajax_pro.php:60
+msgid "Information send to agents."
+msgstr ""
+
+#: views/frontend/property_listing/wpl_ajax_pro.php:65
+#: _ADDONS/PRO/wp-content/plugins/WPL/views/frontend/property_listing/wpl_ajax_pro.php:65
+msgid "Error on sending!"
+msgstr ""
+
+#: views/frontend/property_listing/tmpl/default.php:10
+msgid "Sort Option :"
+msgstr ""
+
+#: views/frontend/property_listing/tmpl/default.php:45
+msgid "Details"
+msgstr ""
+
+#: views/frontend/property_show/tmpl/default.php:31
+msgid "Pictures"
+msgstr ""
+
+#: views/frontend/property_show/tmpl/default.php:32
+msgid "Google Map"
+msgstr ""
+
+#: views/frontend/property_show/tmpl/default.php:47
+msgid "prp Description"
+msgstr ""
+
+#: views/frontend/property_show/tmpl/default.php:126
+msgid "Price Type"
+msgstr ""
+
+#: widgets/carousel/form.php:25
+msgid "Listing"
+msgstr ""
+
+#: widgets/carousel/form.php:46
+msgid "Property IDs"
+msgstr ""
+
+#: widgets/carousel/form.php:56
+msgid "Only Featureds"
+msgstr ""
+
+#: widgets/carousel/form.php:64
+msgid "Only Hots"
+msgstr ""
+
+#: widgets/carousel/form.php:72
+msgid "Only OpenHouses"
+msgstr ""
+
+#: widgets/carousel/form.php:80
+msgid "Only Forclosures"
+msgstr ""
+
+#: widgets/carousel/form.php:106
+msgid "Number of properties"
+msgstr ""
+
+#: widgets/carousel/main.php:29
+msgid "Showing specific properties"
+msgstr ""
+
+#: widgets/carousel/main.php:70 widgets/favorites/main.php:47
+#: widgets/search/main.php:64
+#: _ADDONS/PRO/wp-content/plugins/WPL/widgets/favorites/main.php:47
+msgid "Widget Layout Not Found!"
+msgstr ""
+
+#: widgets/carousel/main.php:98
+msgid "Featured Properties"
+msgstr ""
+
+#: widgets/carousel/tmpl/elastic.php:35
+msgid "More info"
+msgstr ""
+
+#: widgets/favorites/form.php:19
+#: _ADDONS/PRO/wp-content/plugins/WPL/widgets/favorites/form.php:19
+msgid "Maximum Title Character"
+msgstr ""
+
+#: widgets/favorites/form.php:23
+#: _ADDONS/PRO/wp-content/plugins/WPL/widgets/favorites/form.php:23
+msgid "Item Image Width"
+msgstr ""
+
+#: widgets/favorites/form.php:27 widgets/favorites/form.php:38
+#: _ADDONS/PRO/wp-content/plugins/WPL/widgets/favorites/form.php:27
+#: _ADDONS/PRO/wp-content/plugins/WPL/widgets/favorites/form.php:38
+msgid "Item Image Height"
+msgstr ""
+
+#: widgets/favorites/form.php:31
+#: _ADDONS/PRO/wp-content/plugins/WPL/widgets/favorites/form.php:31
+msgid "Show contact form"
+msgstr ""
+
+#: widgets/favorites/main.php:17
+#: _ADDONS/PRO/wp-content/plugins/WPL/widgets/favorites/main.php:17
+msgid "favorite widget for add property to list by anonymous user"
+msgstr ""
+
+#: widgets/favorites/tmpl/default.php:34
+#: _ADDONS/PRO/wp-content/plugins/WPL/widgets/favorites/tmpl/default.php:34
+msgid "Full Name"
+msgstr ""
+
+#: widgets/favorites/tmpl/default.php:38
+#: _ADDONS/PRO/wp-content/plugins/WPL/widgets/favorites/tmpl/default.php:38
+msgid "Company"
+msgstr ""
+
+#: widgets/favorites/tmpl/default.php:42
+#: _ADDONS/PRO/wp-content/plugins/WPL/widgets/favorites/tmpl/default.php:42
+msgid "Phone"
+msgstr ""
+
+#: widgets/favorites/tmpl/default.php:50
+#: _ADDONS/PRO/wp-content/plugins/WPL/widgets/favorites/tmpl/default.php:50
+msgid "Contact to agents"
+msgstr ""
+
+#: widgets/favorites/tmpl/default.php:59
+#: _ADDONS/PRO/wp-content/plugins/WPL/widgets/favorites/tmpl/default.php:59
+msgid "Compare"
+msgstr ""
+
+#: widgets/search/form.php:24
+msgid "View Fields"
+msgstr ""
+
+#: widgets/search/form.php:25
+msgid " Must be reload page before open the dialog "
+msgstr ""
+
+#: widgets/search/form.php:30
+msgid "Search Fields"
+msgstr ""
+
+#: widgets/search/form.php:44
+msgid "Fields Order"
+msgstr ""
+
+#: widgets/search/main.php:26
+msgid "Search property"
+msgstr ""
+
+#: widgets/search/scripts/fields_category.php:9
+msgid ""
+"Drag whatever field that you want from bottom list to here. For changing the "
+"order please use right side panel \" Fields Order \"."
+msgstr ""
+
+#: widgets/search/scripts/fields_category.php:27
+msgid "Drag It Here"
+msgstr ""
+
+#: widgets/search/tmpl/default.php:22 widgets/search/tmpl/default.php:58
+msgid "More options"
+msgstr ""
+
+#: widgets/search/tmpl/default.php:29
+msgid "Less options"
+msgstr ""
