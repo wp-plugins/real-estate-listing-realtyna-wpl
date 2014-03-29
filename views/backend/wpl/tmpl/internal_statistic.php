@@ -24,7 +24,8 @@ defined('_WPLEXEC') or die('Restricted access');
 					'data'=>$data
 				);
 				
-				wpl_global::import_activity('charts:bar', '', $params);
+				if(count($data)) wpl_global::import_activity('charts:bar', '', $params);
+				else echo __('No data!', WPL_TEXTDOMAIN);
 			?>
         </div>
     </div>
@@ -51,7 +52,8 @@ defined('_WPLEXEC') or die('Restricted access');
 					'data'=>$data
 				);
 				
-				wpl_global::import_activity('charts:bar', '', $params);
+				if(count($data)) wpl_global::import_activity('charts:bar', '', $params);
+				else echo __('No data!', WPL_TEXTDOMAIN);
 			?>
         </div>
     </div>
