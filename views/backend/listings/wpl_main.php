@@ -14,7 +14,7 @@ class wpl_listings_controller extends wpl_controller {
     var $tpl_path = 'views.backend.listings.tmpl';
     var $tpl;
 
-    public function manager() 
+    public function manager($instance = array())
     {
 		/** check access **/
 		if(!wpl_users::check_access('propertymanager'))

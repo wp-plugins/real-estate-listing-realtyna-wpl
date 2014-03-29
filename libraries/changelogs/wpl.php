@@ -4,6 +4,12 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.1.2 (<span class="wpl_log_date">3/29/2014</span> <span class="wpl_log_revision">revision 512</span>)</h4>
+        -- Added charts activity.<br />
+        -- Added a new shortcode for showing my profile view on frontend.<br />
+        -- Fixed some PHP notices.<br />
+        -- Fixed an issue in flex menu about saving the fields.
+        
         <h4>WPL1.0.9 (<span class="wpl_log_date">3/25/2014</span> <span class="wpl_log_revision">revision 508</span>)</h4>
         -- Fixed some tiny issues.<br />
         -- Fixed some PHP notices.

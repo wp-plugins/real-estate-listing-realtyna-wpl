@@ -491,8 +491,8 @@ class wpl_property
 		
         $items = wpl_items::get_items($property_id, '', $property_data['kind'], '', 1);
 		
-		$pic_numb = count($items['gallery']);
-		$att_numb = count($items['attachment']);
+		$pic_numb = isset($items['gallery']) ? count($items['gallery']) : 0;
+		$att_numb = isset($items['attachment']) ? count($items['attachment']) : 0;
 		
 		$query = "UPDATE `#__wpl_properties` SET `pic_numb`='$pic_numb', `att_numb`='$att_numb' WHERE `id`='$property_id'";
 		wpl_db::q($query);
@@ -515,7 +515,8 @@ class wpl_property
 		
 		foreach($rendered as $data)
 		{
-			if(!trim($data['type']) or !trim($data['value'])) continue;
+			if(!isset($data['type']) or !isset($data['value'])) continue;
+			if((isset($data['type']) and !trim($data['type'])) or (isset($data['value']) and !trim($data['value']))) continue;
 			
 			/** default value **/
 			$value = $data['value'];
@@ -951,4 +952,22 @@ class wpl_property
 		
 		return $pids;
 	}
+	
+	/**
+		@inputs [property_id]
+		@return property_edit full link
+		@author Howard
+	**/
+	public function get_property_edit_link($property_id = 0)
+	{
+		/** first validation **/
+		if(!$property_id) return false;
+		
+		$target_id = wpl_request::getVar('wpltarget', 0);
+		
+		if($target_id) $url = wpl_global::add_qs_var('pid', $property_id, get_page_link($target_id));
+		else $url = wpl_global::add_qs_var('pid', $property_id, wpl_global::get_wpl_admin_menu('wpl_admin_add_listing'));
+		
+        return $url;
+    }
 }

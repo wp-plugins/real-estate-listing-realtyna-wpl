@@ -255,8 +255,6 @@ class wpl_locations
 	**/
 	public function get_address($latitude, $longitude)
 	{
-		$address = urlencode($address);
-		
 		$url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=".$latitude.",".$longitude."&sensor=false";
 		
 		/** getting address **/

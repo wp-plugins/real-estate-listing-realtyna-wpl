@@ -19,7 +19,7 @@ $pid = isset($property_data['id']) ? $property_data['id'] : NULL;
         <span><?php echo __('Purge', WPL_TEXTDOMAIN); ?></span>
         <i class="icon-delete"></i>
     </div>
-    <a id="pmanager_edit<?php echo $pid; ?>" class="p-action-btn" href="<?php echo wpl_global::add_qs_var('pid', $pid, wpl_global::get_wpl_admin_menu('wpl_admin_add_listing')); ?>">
+    <a id="pmanager_edit<?php echo $pid; ?>" class="p-action-btn" href="<?php echo wpl_property::get_property_edit_link($pid); ?>">
         <span><?php echo __('Edit', WPL_TEXTDOMAIN); ?></span>
         <i class="icon-edit"></i>
     </a>

@@ -4,7 +4,7 @@ Donate link: http://www.realtyna.com/
 Tags: Real estate, Listing, Vertical Market, MLS, Property listing, RETS
 Requires at least: 3.0.1
 Tested up to: 3.8.1
-Stable tag: 1.0.9
+Stable tag: 1.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,12 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 
 == Changelog ==
 
+= 1.1.2 =
+* Added charts activity.
+* Added a new shortcode for showing my profile view on frontend.
+* Fixed some PHP notices.
+* Fixed an issue in flex menu about saving the fields.
+		
 = 1.0.9 =
 * Fixed some tiny issues.
 * Fixed some PHP notices.

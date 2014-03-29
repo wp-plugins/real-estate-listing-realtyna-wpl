@@ -5,7 +5,6 @@ defined('_WPLEXEC') or die('Restricted access');
 $this->_wpl_import($this->tpl_path.'.scripts.css');
 $this->_wpl_import($this->tpl_path.'.scripts.js');
 ?>
-
 <div class="wrap wpl-wp pmanager-wp">
     <header>
         <div id="icon-pmanager" class="icon48"></div>
@@ -15,9 +14,7 @@ $this->_wpl_import($this->tpl_path.'.scripts.js');
     <div class="pmanager-cnt">
 
         <div class="mass-panel-wp">
-            <h3>
-                <?php echo __("Mass actions", WPL_TEXTDOMAIN).": "; ?>
-            </h3>
+            <h3><?php echo __("Mass actions", WPL_TEXTDOMAIN).": "; ?></h3>
             <div class="mass-actions-wp p-actions-wp">
                 <div class="group-btn">
                     <div class="mass-btn icon-select-all p-action-btn" onclick="rta.util.checkboxes.selectAll('.properties-wp');">

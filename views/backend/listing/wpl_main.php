@@ -10,7 +10,7 @@ class wpl_listing_controller extends wpl_controller
 	var $tpl_path = 'views.backend.listing.tmpl';
 	var $tpl;
 	
-	public function wizard()
+	public function wizard($instance = array())
 	{
 		/** check access **/
 		if(!wpl_users::check_access('propertywizard'))

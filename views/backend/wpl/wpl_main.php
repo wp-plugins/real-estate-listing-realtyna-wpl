@@ -42,4 +42,12 @@ class wpl_wpl_controller extends wpl_controller
 		/** import tpl **/
 		parent::display($this->tpl_path, $tpl);
 	}
+	
+	public function statistic()
+	{
+		$tpl = 'internal_statistic';
+		
+		/** import tpl **/
+		parent::display($this->tpl_path, $tpl);
+	}
 }

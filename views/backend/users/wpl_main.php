@@ -33,7 +33,7 @@ class wpl_users_controller extends wpl_controller
 		parent::display($this->tpl_path, $this->tpl);
 	}
 	
-	public function profile()
+	public function profile($instance = array())
 	{
 		/** check access **/
 		if(!wpl_users::check_access('profilewizard'))

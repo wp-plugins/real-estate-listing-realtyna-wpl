@@ -5,20 +5,19 @@ defined('_WPLEXEC') or die('Restricted access');
 <div class="short-code-wp wpl_shortcode_wizard_container" id="wpl_shortcode_wizard_container">
     <h2>
         <i class="icon-shortcode"></i>
-        <span>
-            <?php echo __('WPL Shortcodes', WPL_TEXTDOMAIN); ?>
-            
-        </span>
+        <span><?php echo __('WPL Shortcodes', WPL_TEXTDOMAIN); ?></span>
         <button class="wpl-button button-1" onclick="insert_shortcode();"><?php echo __('Insert', WPL_TEXTDOMAIN); ?></button>
     </h2>
     <div class="short-code-body">
-        <!--<div class="plugin-row plugin-row-buttons"></div>-->
         <div class="plugin-row wpl_select_view">
             <label for="view_selectbox"><?php echo __('View', WPL_TEXTDOMAIN); ?></label>
             <select id="view_selectbox" onchange="wpl_view_selected(this.value);">
-                <option value="property_listing"><?php echo __('Property listing', WPL_TEXTDOMAIN); ?></option>
-                <option value="property_show"><?php echo __('Property show', WPL_TEXTDOMAIN); ?></option>
-                <option value="profile_listing"><?php echo __('Profile/Agent listing', WPL_TEXTDOMAIN); ?></option>
+                <option value="property_listing"><?php echo __('Property Listing', WPL_TEXTDOMAIN); ?></option>
+                <option value="property_show"><?php echo __('Property Show', WPL_TEXTDOMAIN); ?></option>
+                <option value="profile_listing"><?php echo __('Profile/Agent Listing', WPL_TEXTDOMAIN); ?></option>
+                <!--<option value="property_manager"><?php echo __('Listing Manager', WPL_TEXTDOMAIN); ?></option>-->
+                <option value="profile_wizard"><?php echo __('My Profile', WPL_TEXTDOMAIN); ?></option>
+                <!--<option value="property_wizard"><?php echo __('Add/Edit Listing', WPL_TEXTDOMAIN); ?></option>-->
             </select>
         </div>
 		
@@ -104,6 +103,17 @@ defined('_WPLEXEC') or die('Restricted access');
             <label for="pr_mls_id_textbox"><?php echo __('Listing id', WPL_TEXTDOMAIN); ?></label>
             <input type="text" id="pr_mls_id_textbox" name="mls_id" />
         </div>
+        
+        <div class="plugin-row wpl_shortcode_parameter pr_property_manager">
+            <?php $pages = wpl_global::get_wp_pages(); ?>
+            <label for="pr_target_page_selectbox"><?php echo __('Target page', WPL_TEXTDOMAIN); ?></label>
+            <select id="pr_target_page_selectbox" name="wpltarget" data-has-chosen="0">
+            	<option value="">-----</option>
+                <?php foreach($pages as $page): ?>
+				<option value="<?php echo $page->ID; ?>"><?php echo $page->post_title; ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
 
     </div>
 </div>
@@ -119,12 +129,12 @@ function insert_shortcode()
 	var shortcode = '';
 	var view = wplj("#view_selectbox").val();
 
-	if (view == 'property_listing')
-		shortcode += '[WPL';
-	else if (view == 'profile_listing')
-		shortcode += '[wpl_profile_listing';
-	else if (view == 'property_show')
-		shortcode += '[wpl_property_show';
+	if (view == 'property_listing') shortcode += '[WPL';
+	else if (view == 'profile_listing') shortcode += '[wpl_profile_listing';
+	else if (view == 'property_show') shortcode += '[wpl_property_show';
+	else if (view == 'property_manager') shortcode += '[wpl_listing_manager';
+	else if (view == 'profile_wizard') shortcode += '[wpl_my_profile';
+	else if (view == 'property_wizard') shortcode += '[wpl_add_edit_listing';
 
 	wplj("#wpl_shortcode_wizard_container .pr_" + view + " input:text, #wpl_shortcode_wizard_container .pr_" + view + " input[type='hidden'], #wpl_shortcode_wizard_container .pr_" + view + " select").each(function(ind, elm)
 	{

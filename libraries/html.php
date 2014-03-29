@@ -15,6 +15,7 @@ class wpl_html
 	public static $meta_description;
 	public static $scripts = array();
 	
+	/** constructor **/
 	public function __construct($init = true)
 	{
 		/** initialize html library **/
@@ -22,11 +23,18 @@ class wpl_html
 		{
 			$html = $this->getInstance(false);
 			
-			add_filter('wp_title', array($html, 'title'), 9999);
+			add_filter('wp_title', array($html, 'title'), 9999, 2);
 			add_action('wp_head', array($html, 'generate_head'), 9999);
 		}
 	}
 	
+	/**
+		Developed by : Howard
+		Inputs : boolean init
+		Outputs : void
+		Date : 2013-08-19
+		Description : This is a function for getting instance of html class
+	**/
 	public function getInstance($init = true)
 	{
 		if(!self::$document)
@@ -37,6 +45,13 @@ class wpl_html
 		return self::$document;
 	}
 	
+	/**
+		Developed by : Howard
+		Inputs : array keywords
+		Outputs : void
+		Date : 2013-08-19
+		Description : This is a function for setting meta keywords
+	**/
 	public function set_meta_keywords($keywords = array())
 	{
 		if(is_array($keywords))
@@ -49,6 +64,13 @@ class wpl_html
 		}
 	}
 	
+	/**
+		Developed by : Howard
+		Inputs : string
+		Outputs : void
+		Date : 2013-08-19
+		Description : This is a function for setting meta description
+	**/
 	public function set_meta_description($string)
 	{
 		$string = (string) $string;
@@ -57,6 +79,13 @@ class wpl_html
 		self::$meta_description = $string;
 	}
 	
+	/**
+		Developed by : Howard
+		Inputs : string
+		Outputs : void
+		Date : 2013-08-19
+		Description : This is a function for setting the title
+	**/
 	public function set_title($string = '')
 	{
 		$string = (string) $string;
@@ -65,11 +94,26 @@ class wpl_html
 		self::$title = $string;
 	}
 	
-	public function title()
+	/**
+		Developed by : Howard
+		Inputs : void
+		Outputs : void
+		Date : 2013-08-19
+		Description : This is a function for filtering title
+	**/
+	public function title($title, $separator)
 	{
-		return self::$title;
+		if(trim(self::$title) != '') return self::$title;
+		else return $title;
 	}
 	
+	/**
+		Developed by : Howard
+		Inputs : void
+		Outputs : void
+		Date : 2013-08-19
+		Description : This is a function for printing meta keywords and meta descriptions
+	**/
 	public function generate_head()
 	{
 		/** generate meta keywords **/
@@ -83,5 +127,60 @@ class wpl_html
 		{
 			echo '<meta name="description" content="'.self::$meta_description.'" />';
 		}
+	}
+	
+	/**
+		Developed by : Howard
+		Inputs : array instance
+		Outputs : void
+		Date : 2014-03-20
+		Description : This is a function for loading any view on frontend
+	**/
+	public function load_view($function, $instance = array())
+	{
+		if(trim($function) == '') return false;
+		
+		/** generate pages object **/
+		$controller = new wpl_controller();
+		
+		ob_start();
+		call_user_func(array($controller, $function), $instance);
+		return $output = ob_get_clean();
+	}
+	
+	/**
+		Developed by : Howard
+		Inputs : array instance
+		Outputs : void
+		Date : 2014-03-20
+		Description : This is a function for loading profile wizard by shortcode
+	**/
+	public function load_profile_wizard($instance = array())
+	{
+		return wpl_html::load_view('b:users:profile', $instance);
+	}
+	
+	/**
+		Developed by : Howard
+		Inputs : array instance
+		Outputs : void
+		Date : 2014-03-25
+		Description : This is a function for loading property wizard by shortcode
+	**/
+	public function load_add_edit_listing($instance = array())
+	{
+		return wpl_html::load_view('b:listing:wizard', $instance);
+	}
+	
+	/**
+		Developed by : Howard
+		Inputs : array instance
+		Outputs : void
+		Date : 2014-03-25
+		Description : This is a function for loading property manager by shortcode
+	**/
+	public function load_listing_manager($instance = array())
+	{
+		return wpl_html::load_view('b:listings:manager', $instance);
 	}
 }

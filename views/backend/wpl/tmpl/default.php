@@ -49,7 +49,10 @@ _wpl_import('libraries.activities');
                         </div>
                     </div>
                 </div>
-
+				
+                <!-- Generating statistic section -->
+                <?php $this->statistic(); ?>
+                
             </div>
         </div>
     </div>

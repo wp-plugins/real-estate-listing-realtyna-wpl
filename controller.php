@@ -23,21 +23,21 @@ class wpl_controller
 		_wpl_import('views.'.$this->_wpl_client.'.'.$this->_wpl_folder.'.'.$this->_wpl_file);
 		$_wpl_obj = new $this->_wpl_class();
 		
+		/** parameter of shortcode (setted by user) **/
+		$instance = (array) $args[0];
+		
+		/** set the parameters **/
+		foreach($instance as $key=>$value) wpl_request::setVar($key, $value, 'method', false);
+		
 		if($this->_wpl_client == 'frontend')
 		{
-			/** parameter of shortcode (setted by user) **/
-			$instance = (array) $args[0];
-			
-			/** set the parameters **/
-			foreach($instance as $key=>$value) wpl_request::setVar($key, $value, 'method', false);
-			
 			/** call the function **/
 			$result = $_wpl_obj->$_wpl_function($instance);
 			return $result;
 		}
 		
 		/** call the function **/
-		$result = $_wpl_obj->$_wpl_function();
+		$result = $_wpl_obj->$_wpl_function($instance);
 	}
 	
 	public function display($path, $tpl = '', $return_path = false, $string_output = false)
@@ -56,7 +56,7 @@ class wpl_controller
 			ob_start();
 			
 			/** including before start file **/
-			if(wpl_file::exists($before_start)) include $path;
+			if(wpl_file::exists($before_start)) include $before_start;
 			
 			include $path;
 			return $output = ob_get_clean();
@@ -65,7 +65,7 @@ class wpl_controller
 		if(!wpl_file::exists($path)) exit("tpl not found!");
 		
 		/** including before start file **/
-		if(wpl_file::exists($before_start)) include $path;
+		if(wpl_file::exists($before_start)) include $before_start;
 		include $path;
 	}
 	
