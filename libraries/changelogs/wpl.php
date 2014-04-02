@@ -4,6 +4,9 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.1.3 (<span class="wpl_log_date">4/02/2014</span> <span class="wpl_log_revision">revision 513</span>)</h4>
+        -- Fixed some tiny issues.<br />
+        
         <h4>WPL1.1.2 (<span class="wpl_log_date">3/29/2014</span> <span class="wpl_log_revision">revision 512</span>)</h4>
         -- Added charts activity.<br />
         -- Added a new shortcode for showing my profile view on frontend.<br />
