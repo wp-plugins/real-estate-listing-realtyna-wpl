@@ -22,14 +22,43 @@ if($type == 'gallery' and !$done_this)
     $ext_str = rtrim($ext_str, ';');
     $max_size = $options['file_size'];
 ?>
+<div class="video-tabs-wp" id="gallery-tabs-wp-container">
+	<ul>
+        <li id="wpl_gallery_uploader_tab" onclick="wpl_gallery_select_tab('wpl_gallery_uploader_tab', 'wpl_gallery_uploader'); return false;" class="active"><a href="#wpl_gallery_uploader"><?php echo __('Image uploader', WPL_TEXTDOMAIN); ?></a></li>
+		<li id="wpl_gallery_external_tab" onclick="wpl_gallery_select_tab('wpl_gallery_external_tab', 'wpl_gallery_external'); return false;"><a href="#wpl_gallery_external"><?php echo __('External images', WPL_TEXTDOMAIN); ?></a></li>
+	</ul>
+</div>
 <div class="gallary-btn-wp">
-    <div class="wpl-button button-1 button-upload">
-        <span><?php echo __('Select files', WPL_TEXTDOMAIN); ?></span>
-        <!-- The file input field used as target for the file upload widget -->
-        <input id="fileupload" type="file" name="files[]" multiple="multiple" />
+    <div id="wpl_gallery_uploader" class="wpl_gallery_method_container">
+        <div class="wpl-button button-1 button-upload">
+            <span><?php echo __('Select files', WPL_TEXTDOMAIN); ?></span>
+            <!-- The file input field used as target for the file upload widget -->
+            <input id="fileupload" type="file" name="files[]" multiple="multiple" />
+        </div>
+        <div class="field-desc">
+            <?php echo __('To select images click on the "Select files" button.', WPL_TEXTDOMAIN); ?>
+        </div>
     </div>
-    <div class="field-desc">
-        <?php echo __('To select images click on the "Select files" button.', WPL_TEXTDOMAIN); ?>
+    <div id="wpl_gallery_external" class="wpl_gallery_method_container" style="display: none;">
+        <?php if(!wpl_global::check_addon('PRO')): ?>
+        <div class="field-desc">
+            <?php echo __('Pro addon must be installed for this!', WPL_TEXTDOMAIN); ?>
+        </div>
+        <?php else: ?>
+        <button class="wpl-button button-1" onclick="add_external_image();"><?php echo __('Add image', WPL_TEXTDOMAIN) ?></button>
+        <div class="field-desc">
+            <?php echo __('To insert images click on the "Add image" button.', WPL_TEXTDOMAIN); ?>
+        </div>
+        <div id="wpl_gallery_external_cnt" style="margin-top: 10px; display: none;">
+            <div class="gallery-external-wp" id="gallery-external-cnt">
+                <div class="row">
+                    <label for="gallery_external_link"><?php echo __('Image links', WPL_TEXTDOMAIN); ?></label>
+                    <textarea name="gallery_external_link${count}" rows="8" cols="50" id="gallery_external_link" placeholder="<?php echo __('Enter each image link in a new line', WPL_TEXTDOMAIN); ?>"></textarea>
+                    <button class="wpl-button button-1" onclick="wpl_gallery_external_save();"><?php echo __('Save', WPL_TEXTDOMAIN); ?></button>
+                </div>
+            </div>
+        </div>
+        <?php endif; ?>
     </div>
 </div>
 
@@ -67,13 +96,14 @@ if($type == 'gallery' and !$done_this)
 			$params['image_source'] = $image_folder.$image->item_name;
 			
 			$image_thumbnail_url = wpl_images::create_gallary_image(80, 60, $params, 1, 0);
+            if($image->item_cat == 'external') $image_thumbnail_url = $image->item_extra3;
             ?>
 
             <li class="ui-state-default" id="ajax_gallery<?php echo $image->index; ?>" >
                 <input type="hidden" class="gal_name" value="<?php echo $image->item_name; ?>" />
                 <div class="image-box-wp">
                     <div class="image-wp">
-                        <img src="<?php echo $image_thumbnail_url; ?>" />
+                        <img src="<?php echo $image_thumbnail_url; ?>" width="80" height="60" />
                     </div>
                     <div class="info-wp">
                         <div class="row">
@@ -220,22 +250,22 @@ function ajax_gallery_cat_update(image, value)
 
 function ajax_gallery_image_delete(image, id)
 {
-	if(confirm('<?php echo __('Are you sure?', WPL_TEXTDOMAIN) ?>'))
-	{
-		ajax = wpl_run_ajax_query("<?php echo wpl_global::get_full_url(); ?>", "wpl_format=b:listing:gallery&wpl_function=delete_image&pid=<?php echo $item_id; ?>&image=" + encodeURIComponent(image));
-		ajax.success(function()
-		{
-			wplj("#" + id).fadeOut(600, function(){
-				wplj(this).remove();
-			});
-		});
-	}
+	if(!confirm('<?php echo __('Are you sure?', WPL_TEXTDOMAIN) ?>')) return;
+	
+    ajax = wpl_run_ajax_query("<?php echo wpl_global::get_full_url(); ?>", "wpl_format=b:listing:gallery&wpl_function=delete_image&pid=<?php echo $item_id; ?>&image=" + encodeURIComponent(image));
+    ajax.success(function()
+    {
+        wplj("#" + id).fadeOut(600, function(){
+            wplj(this).remove();
+        });
+    });
 }
 
 function wpl_image_enabled(gallery, id)
 {
 	var status = Math.abs(wplj("#enabled_image_field_" + id).val() - 1);
 	wplj("#enabled_image_field_" + id).val(status);
+    
 	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', "wpl_format=b:listing:gallery&wpl_function=change_status&pid=<?php echo $item_id; ?>&image=" + encodeURIComponent(gallery) + "&enabled=" + status);
 	ajax.success(function(data)
 	{
@@ -243,6 +273,32 @@ function wpl_image_enabled(gallery, id)
 			wplj("#active_image_tag_" + id).html('<i class="action-btn icon-disabled"></i>');
 		else
 			wplj("#active_image_tag_" + id).html('<i class="action-btn icon-enabled"></i>');
+	});
+}
+
+function wpl_gallery_select_tab(tab_id, container_id)
+{
+    wplj('#gallery-tabs-wp-container li').removeClass('active');
+    wplj('#gallery-tabs-wp-container li#'+tab_id).addClass('active');
+	
+    wplj('.wpl_gallery_method_container').hide();
+    wplj('#'+container_id).show();
+}
+
+function add_external_image(i)
+{
+    wplj('#wpl_gallery_external_cnt').show();
+}
+
+function wpl_gallery_external_save()
+{
+    var external_link = wplj('#gallery_external_link').val();
+    
+    ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', "wpl_format=b:listing:gallery&wpl_function=save_external_images&pid=<?php echo $item_id; ?>&kind=<?php echo $this->kind; ?>&links="+external_link);
+	ajax.success(function (data)
+    {
+        var url = '<?php echo wpl_global::add_qs_var('pid', $item_id, wpl_global::get_full_url()); ?>';
+        window.location = url;
 	});
 }
 </script>

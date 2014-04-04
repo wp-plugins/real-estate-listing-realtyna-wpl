@@ -43,7 +43,7 @@ class wpl_events
 	/**
 		get events by trigger and enabled status
 	**/
-	public function get_events($trigger, $enabled = 1)
+	public static function get_events($trigger, $enabled = 1)
 	{
 		$query = "SELECT * FROM `#__wpl_events` WHERE `trigger`='$trigger' AND `enabled`>='$enabled'";
 		return wpl_db::select($query);
@@ -78,7 +78,7 @@ class wpl_events
 	/**
 		get events by event_id
 	**/
-	public function get_event($event_id)
+	public static function get_event($event_id)
 	{
 		return wpl_db::get('*', 'wpl_events', 'id', $event_id);
 	}
@@ -86,7 +86,7 @@ class wpl_events
 	/**
 		execute all cronjobs
 	**/
-	public function do_cronjobs($params = array())
+	public static function do_cronjobs($params = array())
 	{
 		$cronjobs = self::get_cronjobs(1);
 		
@@ -115,7 +115,7 @@ class wpl_events
 	/**
 		get cronjobs
 	**/
-	public function get_cronjobs($enabled = 1)
+	public static function get_cronjobs($enabled = 1)
 	{
 		$query = "SELECT * FROM `#__wpl_cronjobs` WHERE DATE_ADD(`latest_run`, INTERVAL `period` HOUR)<NOW() AND `enabled`>='$enabled'";
 		return wpl_db::select($query);
@@ -124,7 +124,7 @@ class wpl_events
 	/**
 		Update latest run of cronjobs
 	**/
-	public function update_cronjob_latest_run($cronjob_id)
+	public static function update_cronjob_latest_run($cronjob_id)
 	{
 		/** first validation **/
 		if(!trim($cronjob_id)) return false;

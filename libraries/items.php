@@ -13,7 +13,7 @@ class wpl_items
 		@input {parent_id}, [item_type], [parent_kind], [category], [enabled] and [condition]
 		@return items
 	**/
-	public function get_items($parent_id, $item_type = '', $parent_kind = 0, $category = '', $enabled = 1, $condition = '')
+	public static function get_items($parent_id, $item_type = '', $parent_kind = 0, $category = '', $enabled = 1, $condition = '')
 	{
 		/** first validation **/
 		if(trim($parent_id) == '') return NULL;
@@ -49,7 +49,7 @@ class wpl_items
 		@return affected rows or insert id
 		@description use this function for insert or edit an item. if the item id is passed it tries to update current item using item id
 	**/
-	public function save($values = array(), $item_id = '')
+	public static function save($values = array(), $item_id = '')
 	{
 		/** first validation **/
 		if(!is_array($values) or count($values) == 0) return false;
@@ -64,7 +64,7 @@ class wpl_items
 		@input {item_id} and {values}
 		@return affected rows
 	**/
-	public function update($item_id, $values = array())
+	public static function update($item_id, $values = array())
 	{
 		/** first validation **/
 		if(!trim($item_id) or count($values) == 0) return false;
@@ -86,7 +86,7 @@ class wpl_items
 		@input {values}
 		@return id of new record
 	**/
-	public function insert($values = array())
+	public static function insert($values = array())
 	{
 		/** first validation **/
 		if(count($values) == 0) return false;
@@ -116,7 +116,7 @@ class wpl_items
 		@input {item_id}
 		@return item record
 	**/
-	public function get($item_id, $selects = '*')
+	public static function get($item_id, $selects = '*')
 	{
 		/** get item **/
 		return wpl_db::get($selects, 'wpl_items', 'id', $item_id);
@@ -126,7 +126,7 @@ class wpl_items
 		@input {item_id}
 		@return boolean
 	**/
-	public function delete($item_id)
+	public static function delete($item_id)
 	{
 		/** trigger event **/
 		wpl_global::event_handler('item_deleted', array('item_id'=>$item_id));
@@ -139,7 +139,7 @@ class wpl_items
 		@input {parent_id}, {kind}
 		@return boolean
 	**/
-	public function delete_all_items($parent_id, $kind = 0)
+	public static function delete_all_items($parent_id, $kind = 0)
 	{
 		/** first validation **/
 		if(!trim($parent_id) or trim($kind) == '') return false;
@@ -156,7 +156,7 @@ class wpl_items
 		@input {parent_id}, [order], and [column]
 		@sort items based on order and order have value of column in each record
 	**/
-	public function sort_items($parent_id, $order, $column = 'item_name')
+	public static function sort_items($parent_id, $order, $column = 'item_name')
 	{
 		$order_array = explode(',' , $order);
 		$counter = 0;
@@ -171,7 +171,7 @@ class wpl_items
 		@input {file_name}, [parent_id], and [kind]
 		@delete record from item table and files
 	**/
-	public function delete_file($file_name, $parent_id, $kind = 0)
+	public static function delete_file($file_name, $parent_id, $kind = 0)
 	{
 		if(!trim($file_name) or !trim($parent_id)) return false;
 		
@@ -194,7 +194,7 @@ class wpl_items
 		@input {file_name}, [parent_id], and [values]
 		@return update record of files in item table
 	**/
-	public function update_file($file_name, $parent_id, $values = array())
+	public static function update_file($file_name, $parent_id, $values = array())
 	{
 		/** first validation **/
 		if(!trim($file_name) or !trim($parent_id) or count($values) == 0) return false;
@@ -218,7 +218,7 @@ class wpl_items
 		@input [item_type], [parent_kind][condition]
 		@return items categories
 	**/
-	public function get_item_categories($item_type, $parent_kind, $condition = '')
+	public static function get_item_categories($item_type, $parent_kind, $condition = '')
 	{
 		if(trim($condition) == '')
 		{
@@ -248,7 +248,7 @@ class wpl_items
 		@input {parent_id}, [parent_kind]
 		@return WPL folder for uploaded files
 	**/
-	public function get_folder($parent_id, $kind = 0)
+	public static function get_folder($parent_id, $kind = 0)
 	{
 		if($kind == 2) return wpl_global::get_wp_site_url().'wp-content/uploads/WPL/users/'.$parent_id.'/';
 		else
@@ -259,7 +259,7 @@ class wpl_items
 		@input {parent_id}, [parent_kind]
 		@return WPL path for uploaded files
 	**/
-	public function get_path($parent_id, $kind = 0)
+	public static function get_path($parent_id, $kind = 0)
 	{
 		if($kind == 2) $path = wpl_global::get_upload_base_path(). 'users' .DS. $parent_id .DS;
 		else $path = wpl_global::get_upload_base_path(). $parent_id .DS;
@@ -273,7 +273,7 @@ class wpl_items
 		@input {parent_id}, [item_type], [parent_kind], [category], [enabled] and [condition]
 		@return maximum index
 	**/
-	public function get_maximum_index($parent_id, $item_type = '', $parent_kind = 0, $category = '', $enabled = '', $condition = '')
+	public static function get_maximum_index($parent_id, $item_type = '', $parent_kind = 0, $category = '', $enabled = '', $condition = '')
 	{
 		/** first validation **/
 		if(trim($parent_id) == '') return NULL;
@@ -298,7 +298,7 @@ class wpl_items
 		@input {parent_id}, [parent_kind], [category] and [enabled]
 		@return rendered gallery
 	**/
-	public function get_gallery($parent_id, $parent_kind = 0, $category = '', $enabled = 1)
+	public static function get_gallery($parent_id, $parent_kind = 0, $category = '', $enabled = 1)
 	{
 		$items = wpl_items::get_items($parent_id, 'gallery', $parent_kind , $category, $enabled);
 		
@@ -310,7 +310,7 @@ class wpl_items
 		@input array images (getted by wpl_items::get_items)
 		@return rendered gallery
 	**/
-	public function render_gallery($images = array())
+	public static function render_gallery($images = array())
 	{
 		/** force to array **/
 		$images = (array) $images;
@@ -325,8 +325,15 @@ class wpl_items
 			$image_path = self::get_path($image['parent_id'], $image['parent_kind']) . $image['item_name'];
 			$image_url = self::get_folder($image['parent_id'], $image['parent_kind']) . $image['item_name'];
 			
+            /** external images **/
+            if(isset($image['item_cat']) and $image['item_cat'] == 'external')
+            {
+                $image_path = $image['item_extra3'];
+                $image_url = $image['item_extra3'];
+            }
+            
 			/** existance check **/
-			if(!wpl_file::exists($image_path)) continue;
+			if(!wpl_file::exists($image_path) and $image['item_cat'] != 'external') continue;
 			
 			$pathinfo = @pathinfo($image_path);
 			
@@ -350,7 +357,7 @@ class wpl_items
 		@input array attachments (getted by wpl_items::get_items)
 		@return rendered attachments
 	**/
-	public function render_attachments($attachments = array())
+	public static function render_attachments($attachments = array())
 	{
 		_wpl_import('libraries.render');
 		
@@ -408,7 +415,7 @@ class wpl_items
 		@input array videos (getted by wpl_items::get_items)
 		@return rendered videos
 	**/
-	public function render_videos($videos = array())
+	public static function render_videos($videos = array())
 	{
 		/** force to array **/
 		$videos = (array) $videos;
@@ -462,7 +469,7 @@ class wpl_items
 		@param array $custom_sizes -- array('100_200', '50_75')
 		@return array rendered gallery
 	**/
-	public function render_gallery_custom_sizes($property_id, $images = '', $custom_sizes = array())
+	public static function render_gallery_custom_sizes($property_id, $images = '', $custom_sizes = array())
 	{
 		$kind = wpl_property::get_property_kind($property_id);
 		if(!$images) $images = wpl_items::get_items($property_id, 'gallery', $kind);
@@ -488,10 +495,20 @@ class wpl_items
 				$source_url = self::get_folder($image['parent_id'], $image['parent_kind']) . $image['item_name'];
 				
 				$params = array('image_name'=>$image['item_name'], 'image_source'=>$source_path, 'image_parentid'=>$image['parent_id'], 'image_parentkind'=>$image['parent_kind']);
-				$dest_url = wpl_images::create_gallary_image($x, $y, $params, 0, 0);
-				
-				$pathinfo = @pathinfo($dest_url);
-				$dest_path = self::get_path($image['parent_id'], $image['parent_kind']) . $pathinfo['basename'];
+                
+                /** taking care for external images **/
+				if($image['item_cat'] != 'external')
+                {
+                    $dest_url = wpl_images::create_gallary_image($x, $y, $params, 0, 0);
+                    $pathinfo = @pathinfo($dest_url);
+                    $dest_path = self::get_path($image['parent_id'], $image['parent_kind']) . $pathinfo['basename'];
+                }
+                else
+                {
+                    $dest_url = $source_url;
+                    $pathinfo = @pathinfo($dest_url);
+                    $dest_path = $source_path;
+                }
 				
 				$return[$custom_size][$i]['item_id'] = $image['id'];
 				$return[$custom_size][$i]['custom_size'] = $custom_size;

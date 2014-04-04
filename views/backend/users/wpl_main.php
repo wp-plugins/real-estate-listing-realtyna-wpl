@@ -30,7 +30,7 @@ class wpl_users_controller extends wpl_controller
 		$this->memberships = wpl_users::get_wpl_memberships();
 		
 		/** import tpl **/
-		parent::display($this->tpl_path, $this->tpl);
+		parent::render($this->tpl_path, $this->tpl);
 	}
 	
 	public function profile($instance = array())
@@ -40,16 +40,17 @@ class wpl_users_controller extends wpl_controller
 		{
 			/** import message tpl **/
 			$this->message = __("You don't have access to this part!", WPL_TEXTDOMAIN);
-			return parent::display($this->tpl_path, 'message');
+			return parent::render($this->tpl_path, 'message');
 		}
 		
 		_wpl_import('libraries.flex');
 		$this->tpl = 'profile';
-		
-		$this->user_fields = wpl_flex::get_fields('', 1, wpl_flex::get_kind_id('user'));
+		$this->kind = wpl_flex::get_kind_id('user');
+        
+		$this->user_fields = wpl_flex::get_fields('', 1, $this->kind);
 		$this->user_data = (array) wpl_users::get_wpl_data(wpl_users::get_cur_user_id());
 		
 		/** import tpl **/
-		parent::display($this->tpl_path, $this->tpl);
+		parent::render($this->tpl_path, $this->tpl);
 	}
 }

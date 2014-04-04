@@ -16,7 +16,7 @@ class wpl_settings_controller extends wpl_controller
 		$this->setting_categories = wpl_settings::get_categories();
 		
 		/** import tpl **/
-		parent::display($this->tpl_path, $this->tpl);
+		parent::render($this->tpl_path, $this->tpl);
 	}
 	
 	protected function generate_slide($category)
@@ -27,7 +27,7 @@ class wpl_settings_controller extends wpl_controller
 		$this->setting_category = $category;
 		
 		/** import tpl **/
-		parent::display($this->tpl_path, $tpl);
+		parent::render($this->tpl_path, $tpl);
 	}
 	
 	protected function generate_internal($layout_name)
@@ -35,6 +35,6 @@ class wpl_settings_controller extends wpl_controller
 		$tpl = 'internal_'.$layout_name;
 		
 		/** import tpl **/
-		parent::display($this->tpl_path, $tpl);
+		parent::render($this->tpl_path, $tpl);
 	}
 }

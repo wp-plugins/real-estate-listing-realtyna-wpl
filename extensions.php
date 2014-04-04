@@ -670,7 +670,7 @@ class wpl_extensions
 		@description for adding styles and scripts
 		@author Howard
 	**/
-	public function import_styles_scripts()
+	public static function import_styles_scripts()
 	{
 		$wpl_extensions = new wpl_extensions();
 		

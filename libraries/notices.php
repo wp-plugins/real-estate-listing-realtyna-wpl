@@ -10,7 +10,7 @@ defined('_WPLEXEC') or die('Restricted access');
 class wpl_notices
 {
 	/** developed by Howard 04/03/2013 **/
-	public function get_notices_by_category($category)
+	public static function get_notices_by_category($category)
 	{
 		if(trim($category) == '') return;
 		
@@ -21,7 +21,7 @@ class wpl_notices
 	}
 	
 	/** developed by Howard 04/03/2013 **/
-	public function get_notices_by_ids($notice_ids = array())
+	public static function get_notices_by_ids($notice_ids = array())
 	{
 		if(!is_array($notice_ids)) $notice_ids = array($notice_ids);
 		if(count($notice_ids) == 0) return;
@@ -34,7 +34,7 @@ class wpl_notices
 	}
 	
 	/** developed by Howard 04/03/2013 **/
-	public function get_overrided_notices($results)
+	public static function get_overrided_notices($results)
 	{
 		$notices = array();
 		
@@ -53,7 +53,7 @@ class wpl_notices
 	}
 	
 	/** developed by Howard 04/03/2013 **/
-	public function display_notices($notices, $show_counter = true)
+	public static function display_notices($notices, $show_counter = true)
 	{
 		if(count($notices) == 0) return;
 		
@@ -78,7 +78,7 @@ class wpl_notices
 	}
 	
 	/** developed by Martin 04/03/2013 **/
-	public function display_tooltip($notice_id)
+	public static function display_tooltip($notice_id)
 	{
 		if(!isset($notice_id)) return;
 		
@@ -97,7 +97,7 @@ class wpl_notices
 	}
 	
 	/** developed by Martin 04/03/2013 **/
-	public function display_tooltip_by_category($category)
+	public static function display_tooltip_by_category($category)
 	{
 		if(!isset($category)) return;
 		

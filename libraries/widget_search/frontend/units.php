@@ -94,7 +94,7 @@ if(($type == 'area' or $type == 'price' or $type == 'volume' or $type == 'length
 		$html .= '<script type="text/javascript">
 				function wpl_th_sep'.$field['id'].'(num)
 				{
-					sep = "'.$$separator.'";
+					sep = "'.$separator.'";
 					num = num.toString();
 					x = num;
 					z = "";
@@ -135,7 +135,7 @@ if(($type == 'area' or $type == 'price' or $type == 'volume' or $type == 'length
 						{
 							wplj("#sf'.$widget_id.'_min_'.$field_data['table_column'].'").val(ui.values[0]);
 							wplj("#sf'.$widget_id.'_max_'.$field_data['table_column'].'").val(ui.values[1]);
-							'.($ajax == 2 ? 'wpl_do_search_'.$widget_id.'();' : '').'
+							'.((isset($ajax) and $ajax == 2) ? 'wpl_do_search_'.$widget_id.'();' : '').'
 						}
 					});
 				});
@@ -143,7 +143,7 @@ if(($type == 'area' or $type == 'price' or $type == 'volume' or $type == 'length
 		
 		$html .= '<span class="wpl_search_slider_container">
 				<input type="hidden" value="'.$current_min_value.'" name="sf'.$widget_id.'_min_'.$field_data['table_column'].'" id="sf'.$widget_id.'_min_'.$field_data['table_column'].'" /><input type="hidden" value="'.$current_max_value.'" name="sf'.$widget_id.'_max_'.$field_data['table_column'].'" id="sf'.$widget_id.'_max_'.$field_data['table_column'].'" />
-				<span class="wpl_slider_show_value" id="slider'.$widget_id.'_showvalue_'.$field_data['table_column'].'">'.number_format($current_min_value, 0, '', $sep).' - '.number_format($current_max_value, 0, '', $sep).'</span>
+				<span class="wpl_slider_show_value" id="slider'.$widget_id.'_showvalue_'.$field_data['table_column'].'">'.number_format((double) $current_min_value, 0, '', $separator).' - '.number_format((double) $current_max_value, 0, '', $separator).'</span>
 				<span class="wpl_span_block" style="width: 92%; height: 20px;"><span class="wpl_span_block" id="slider'.$widget_id.'_range_'.$field_data['table_column'].'" ></span></span>
 				</span>';
 	}

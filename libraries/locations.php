@@ -12,7 +12,7 @@ class wpl_locations
 	/**
 		@description for update a locaton record using location id
 	**/
-	public function update_location($location_id, $key, $value, $location_level = 1)
+	public static function update_location($location_id, $key, $value, $location_level = 1)
 	{
 		if(!$key or !$location_level) return false;
 		
@@ -25,7 +25,7 @@ class wpl_locations
 	/**
 		@description to delete a location level
 	**/
-	public function delete_location($location_id, $level = '', $recursive = false)
+	public static function delete_location($location_id, $level = '', $recursive = false)
 	{
 		/** first validation **/
 		if(!$level) return false;
@@ -51,7 +51,7 @@ class wpl_locations
 	/**
 		@description adding a location to location database
 	**/
-	public function add_location($name, $level, $parent = 0)
+	public static function add_location($name, $level, $parent = 0)
 	{
 		if($level == 1)
 			$query = "INSERT INTO `#__wpl_location".$level."` (`name`,`enabled`) VALUES ('$name',1)";
@@ -64,7 +64,7 @@ class wpl_locations
 	/**
 		@description editing a location
 	**/
-	public function edit_location($name, $level, $location_id)
+	public static function edit_location($name, $level, $location_id)
 	{
 		$query = "UPDATE `#__wpl_location".$level."` SET `name`='$name' WHERE `id`='$location_id'";
 		return wpl_db::q($query, 'update');
@@ -73,7 +73,7 @@ class wpl_locations
 	/**
 		@description getting locations
 	**/
-	public function get_locations($level = 1, $parent = '', $enabled = 0, $condition = '')
+	public static function get_locations($level = 1, $parent = '', $enabled = 0, $condition = '')
 	{
 		if(trim($condition) == '')
 		{
@@ -92,7 +92,7 @@ class wpl_locations
 	/**
 		@description get an specific location by id
 	**/
-	public function get_location($location_id = '', $level = 1)
+	public static function get_location($location_id = '', $level = 1)
 	{
 		if(trim($location_id) == '') $location_id = 1;
 		return $results = wpl_db::get('*', "wpl_location".$level, 'id', $location_id);
@@ -101,7 +101,7 @@ class wpl_locations
 	/**
 		@description get location id by location name, parent id and level
 	**/
-	public function get_location_id($location_name = '', $parent_id = '', $level = 1)
+	public static function get_location_id($location_name = '', $parent_id = '', $level = 1)
 	{
 		$query = "SELECT `id` FROM `#__wpl_location".$level."` WHERE LOWER(name)='".strtolower($location_name)."' ".($parent_id ? " AND `parent`='$parent_id'" : "");
 		return wpl_db::select($query, 'loadResult');
@@ -110,7 +110,7 @@ class wpl_locations
 	/**
 		@description get location tree for creating breadcrumb and etc
 	**/
-	public function get_location_tree($location_id, $parent)
+	public static function get_location_tree($location_id, $parent)
 	{
 		$res = array();
 		$i = 0;
@@ -142,7 +142,7 @@ class wpl_locations
 					 this function is calling by cronjob
 		@author Howard
 	**/
-	public function update_locationtextsearch_data()
+	public static function update_locationtextsearch_data()
 	{
 		_wpl_import('libraries.property');
 		$properties = wpl_property::select_active_properties('', '`id`,`location1_name`,`location2_name`,`location3_name`,`location4_name`,`location5_name`,`location6_name`,`location7_name`,`zip_name`');
@@ -209,7 +209,7 @@ class wpl_locations
 		@return array latitude, longitude
 		@author Howard
 	**/
-	public function get_LatLng($address)
+	public static function get_LatLng($address)
 	{
 		$address = urlencode($address);
 		
@@ -253,7 +253,7 @@ class wpl_locations
 		@return array address
 		@author Howard
 	**/
-	public function get_address($latitude, $longitude)
+	public static function get_address($latitude, $longitude)
 	{
 		$url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=".$latitude.",".$longitude."&sensor=false";
 		

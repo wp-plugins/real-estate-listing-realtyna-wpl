@@ -14,7 +14,8 @@ class wpl_file
 	/** get extension **/
 	public static function getExt($file)
 	{
-		return end(explode('.', $file));
+        $ex = explode('.', $file);
+		return end($ex);
 	}
 
 	/** strip extension **/

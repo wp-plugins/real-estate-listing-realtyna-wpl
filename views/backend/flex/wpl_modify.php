@@ -35,7 +35,7 @@ class wpl_flex_controller extends wpl_controller
 		$this->field_id = $field_id;
 		$this->kind = $kind;
 		
-		parent::display($this->tpl_path, 'internal_modify');
+		parent::render($this->tpl_path, 'internal_modify');
 		exit;
 	}
 }

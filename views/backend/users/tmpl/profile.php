@@ -18,7 +18,11 @@ $this->_wpl_import($this->tpl_path . '.scripts.css');
         <div class="panel-body">
             <div class="pwizard-panel">
                 <div class="pwizard-section">
-                    <?php wpl_flex::generate_wizard_form($this->user_fields, $this->user_data, $this->user_data['id']); ?>
+                    <?php
+                        $wpl_flex = new wpl_flex();
+                        $wpl_flex->kind = $this->kind;
+                        $wpl_flex->generate_wizard_form($this->user_fields, $this->user_data, $this->user_data['id']);
+                    ?>
                 </div>
                 <div class="text-left finilize-btn">
                     <button class="wpl-button button-1" onclick="wpl_profile_finalize(<?php echo $this->user_data['id']; ?>);" id="wpl_profile_finalize_button" type="button" class="button button-primary"><?php echo __('Finalize', WPL_TEXTDOMAIN); ?></button>

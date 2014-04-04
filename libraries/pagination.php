@@ -36,75 +36,75 @@ class wpl_pagination
     var $calculate = false;
 
     #Total items
-    function items($value)
+    public function items($value)
 	{
         $this->total_pages = (int) $value;
     }
 
     #how many items to show per page
-    function limit($value)
+    public function limit($value)
 	{
         $this->limit = (int) $value;
     }
 
     #Page to sent the page value
-    function target($value)
+    public function target($value)
 	{
         $this->target = $value;
     }
 
     #Current page
-    function currentPage($value)
+    public function currentPage($value)
 	{
         $this->page = (int) $value;
     }
 
     #How many adjacent pages should be shown on each side of the current page?
-    function adjacents($value)
+    public function adjacents($value)
 	{
         $this->adjacents = (int) $value;
     }
 
     #show counter?
-    function showCounter($value = "")
+    public function showCounter($value = "")
 	{
         $this->showCounter = ($value === true) ? true : false;
     }
 
     #to change the class name of the pagination div
-    function changeClass($value = "")
+    public function changeClass($value = "")
 	{
         $this->className = $value;
     }
 
-    function nextLabel($value)
+    public function nextLabel($value)
 	{
         $this->nextT = $value;
     }
 
-    function nextIcon($value)
+    public function nextIcon($value)
 	{
         $this->nextI = $value;
     }
 
-    function prevLabel($value)
+    public function prevLabel($value)
 	{
         $this->prevT = $value;
     }
 
-    function prevIcon($value)
+    public function prevIcon($value)
 	{
         $this->prevI = $value;
     }
 
     #to change the class name of the pagination div
-    function parameterName($value = "")
+    public function parameterName($value = "")
 	{
         $this->parameterName = $value;
     }
 
     #to change urlFriendly
-    function urlFriendly($value = "%")
+    public function urlFriendly($value = "%")
 	{
         if(eregi('^ *$', $value))
 		{
@@ -117,11 +117,11 @@ class wpl_pagination
 
     var $pagination;
 
-    function pagination()
+    public function pagination()
 	{
     }
 
-    function show()
+    public function show()
 	{
         if(!$this->calculate and $this->calculate())
 		{
@@ -144,7 +144,7 @@ class wpl_pagination
         }
     }
 
-    function getOutput()
+    public function getOutput()
 	{
         if(!$this->calculate and $this->calculate())
 		{
@@ -170,7 +170,7 @@ class wpl_pagination
         }
     }
 
-    function get_pagenum_link($id)
+    public function get_pagenum_link($id)
 	{
         if(strpos($this->target, '?') === false)
 		{
@@ -183,7 +183,7 @@ class wpl_pagination
         }
     }
 
-    function calculate()
+    public function calculate()
 	{
         $this->pagination = "";
         $this->calculate == true;
@@ -305,7 +305,7 @@ class wpl_pagination
         return true;
     }
 
-    function get_pagination($num_result, $page_size = '', $show_options = false)
+    public static function get_pagination($num_result, $page_size = '', $show_options = false)
 	{
         if(!$page_size) $page_size = 20;
 

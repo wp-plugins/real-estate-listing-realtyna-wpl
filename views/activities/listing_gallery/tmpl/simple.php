@@ -36,7 +36,9 @@ $gallery = wpl_items::render_gallery($raw_gallery);
     }
     else
     {
-        if($image_width and $image_height)
+        $image_url = $gallery[0]['url'];
+        
+        if($image_width and $image_height and $image['category'] != 'external')
         {
             /** set resize method parameters **/
             $params = array();
@@ -49,7 +51,7 @@ $gallery = wpl_items::render_gallery($raw_gallery);
             $image_url = wpl_images::create_gallary_image($image_width, $image_height, $params, $watermark, $rewrite);
         }
         
-        echo '<img id="wpl_gallery_image'.$property_id .'" src="'.$image_url.'" class="wpl_gallery_image '.$image_class.'" alt="'.$params['image_name'].'" width="'.$image_width.'" height="'.$image_height.'" />';
+        echo '<img id="wpl_gallery_image'.$property_id .'" src="'.$image_url.'" class="wpl_gallery_image '.$image_class.'" alt="'.$params['image_name'].'" width="'.$image_width.'" height="'.$image_height.'" style="width: '.$image_width.'px; height: '.$image_height.'px;" />';
     }
 	
     /* Property tags */

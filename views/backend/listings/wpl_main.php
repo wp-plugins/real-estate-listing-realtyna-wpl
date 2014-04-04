@@ -21,13 +21,13 @@ class wpl_listings_controller extends wpl_controller {
 		{
 			/** import message tpl **/
 			$this->message = __("You don't have access to this part!", WPL_TEXTDOMAIN);
-			return parent::display($this->tpl_path, 'message');
+			return parent::render($this->tpl_path, 'message');
 		}
 		
         $this->init_page();  
         $this->tpl = 'manager';
 		
-        parent::display($this->tpl_path, $this->tpl);
+        parent::render($this->tpl_path, $this->tpl);
     }
     
     /**

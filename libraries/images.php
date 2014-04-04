@@ -30,13 +30,13 @@ class wpl_images
         {
             case 'jpg':
             case 'jpeg':
-                $src_image = &imagecreatefromjpeg($source);
+                $src_image = imagecreatefromjpeg($source);
                 break;
             case 'gif':
-                $src_image = &imagecreatefromgif($source);
+                $src_image = imagecreatefromgif($source);
                 break;
             case 'png':
-                $src_image = &imagecreatefrompng($source);
+                $src_image = imagecreatefrompng($source);
                 break;
             default:
                 return;

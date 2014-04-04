@@ -68,14 +68,14 @@ function wpl_do_search_<?php echo $widget_id; ?>()
 	});
 	
 	/** Adding widget id **/
-	request_str = '?widget_id=<?php echo $widget_id; ?>'+request_str;
-
-	/** Create SEF url **/
-	request_str = wpl_sef_request<?php echo $widget_id; ?>(request_str);
+	request_str = 'widget_id=<?php echo $widget_id; ?>'+request_str;
 
 	/** Create full url of search **/
-	search_str = '<?php echo wpl_property::get_property_listing_link(); ?>'+request_str;
+	search_page = '<?php echo wpl_property::get_property_listing_link($target_id); ?>';
 	
+    if(search_page.indexOf('?') >= 0) search_str = search_page+'&'+request_str
+    else search_str = search_page+'?'+request_str
+    
 	window.location = search_str;
 	return false;
 }

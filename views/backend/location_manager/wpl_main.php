@@ -48,6 +48,6 @@ class wpl_location_manager_controller extends wpl_controller
 		$this->zipcode_parent_level = wpl_settings::get('zipcode_parent_level');
 		
 		/** import tpl **/
-		parent::display($this->tpl_path, $this->tpl);
+		parent::render($this->tpl_path, $this->tpl);
 	}
 }

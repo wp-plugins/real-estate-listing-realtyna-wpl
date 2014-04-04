@@ -39,8 +39,8 @@ class wpl_profile_listing_controller extends wpl_controller
 		if(!in_array($this->kind, wpl_flex::get_kinds()))
 		{
 			/** import message tpl **/
-			$this->message = __('Invalid Request!');
-			return parent::display($this->tpl_path, 'message', false, true);
+			$this->message = __('Invalid Request!', WPL_TEXTDOMAIN);
+			return parent::render($this->tpl_path, 'message', false, true);
 		}
 		
 		$where = array('sf_tmin_id'=>1, 'sf_select_access_public_profile'=>1);
@@ -78,6 +78,6 @@ class wpl_profile_listing_controller extends wpl_controller
 		$this->wpl_profiles = $wpl_profiles;
 		
 		/** import tpl **/
-		return parent::display($this->tpl_path, $this->tpl, false, true);
+		return parent::render($this->tpl_path, $this->tpl, false, true);
 	}
 }

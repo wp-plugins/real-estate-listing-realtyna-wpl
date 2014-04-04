@@ -12,7 +12,7 @@ class wpl_units
 	/**
 		return unit types [AREA,VALUME,....]	
 	**/
-	public function get_unit_types()
+	public static function get_unit_types()
 	{				
 		$query = "SELECT * FROM `#__wpl_unit_types`  ORDER BY `id` ASC";		
 		return wpl_db::select($query, 'loadAssocList');
@@ -23,7 +23,7 @@ class wpl_units
 		@param $unit_type: is a unit type id for get all units about it
 		@return a unit type
 	**/
-	public function get_units($type = 4, $enabled = 1, $condition = '')
+	public static function get_units($type = 4, $enabled = 1, $condition = '')
 	{
 		if(trim($condition) == '')
 		{
@@ -41,7 +41,7 @@ class wpl_units
 		wpl_units::get_unit()
 		Get unit by ID
 	**/
-	public function get_unit($id)
+	public static function get_unit($id)
 	{
 		/** first validation **/
 		if(trim($id) == '') return array();
@@ -53,7 +53,7 @@ class wpl_units
 	/**
 		@input $sort_ids
 	**/
-	public function sort_units($sort_ids)
+	public static function sort_units($sort_ids)
 	{
 		$query = "SELECT `id`,`index` FROM `#__wpl_units` WHERE `id` IN ($sort_ids) ORDER BY `index` ASC";
 		$units = wpl_db::select($query, 'loadAssocList');
@@ -72,7 +72,7 @@ class wpl_units
 		@input {table}, {key}, {unit_id} and [value]
 		@return boolean result
 	**/
-	public function update($unit_id, $key, $value = '')
+	public static function update($unit_id, $key, $value = '')
 	{
 		/** first validation **/
 		if(trim($unit_id) == '' or trim($key) == '') return false;
@@ -82,7 +82,7 @@ class wpl_units
 	/**	
 		 this function is to update all currencies exchange rates from yahoo server
 	**/	
-	public function update_exchange_rates()
+	public static function update_exchange_rates()
 	{
 		$currencies = self::get_units(4);
 
@@ -101,7 +101,7 @@ class wpl_units
 		@param $currency_code this is a currency code for exchange to USD unit
 		@return true or false
 	**/
-	public function update_a_exchange_rate($unit_id, $currency_code)
+	public static function update_a_exchange_rate($unit_id, $currency_code)
 	{
 		$exchange_rate = self::currency_converter($currency_code, 'USD', 1);
 		$result = self::update($unit_id, 'tosi', $exchange_rate);
@@ -117,7 +117,7 @@ class wpl_units
 		@param $value this is a currency value that set manual by admin
 		@return true or false
 	**/
-	public function update_exchange_rate($unit_id, $value)
+	public static function update_exchange_rate($unit_id, $value)
 	{
 		return self::update($unit_id, 'tosi', $value);
 	}
@@ -126,7 +126,7 @@ class wpl_units
 		@input $cur_from currency
 		@input $cur_to
 	**/
-	public function currency_converter($cur_from, $cur_to, $val)
+	public static function currency_converter($cur_from, $cur_to, $val)
 	{
 		if(strlen($cur_from) == 0) $cur_from = "USD";
 		if(strlen($cur_to) == 0) $cur_to = "CAD";

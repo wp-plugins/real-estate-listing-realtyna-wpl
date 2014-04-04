@@ -4,6 +4,14 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.1.6 (<span class="wpl_log_date">4/04/2014</span> <span class="wpl_log_revision">revision 513</span>)</h4>
+        -- Added target page feature for linking WPL menus together.<br />
+        -- Added image and thumbnail sizes for carousel module.<br />
+        -- Added target page to search and carousel widget.<br />
+        -- Added external image feature in PRO version.<br />
+        -- Added profile show shortcode.<br />
+        -- Fixed some PHP notices on PHP5.4.
+        
         <h4>WPL1.1.3 (<span class="wpl_log_date">4/02/2014</span> <span class="wpl_log_revision">revision 513</span>)</h4>
         -- Fixed some tiny issues.<br />
         

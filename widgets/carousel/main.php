@@ -47,13 +47,16 @@ class wpl_carousel_widget extends wpl_widget
 		
 		/** render properties **/
 		$query = self::query($instance);
-		$properties = wpl_property::search($query);
+        $model = new wpl_property();
+		$properties = $model->search($query);
 		
-		$plisting_fields = wpl_property::get_plisting_fields();
+		$plisting_fields = $model->get_plisting_fields();
 		$wpl_properties = array();
+        $render_params['wpltarget'] = isset($instance['wpltarget']) ? $instance['wpltarget'] : 0;
+        
 		foreach($properties as $property)
 		{
-			$wpl_properties[$property->id] = wpl_property::full_render($property->id, $plisting_fields, $property);
+			$wpl_properties[$property->id] = $model->full_render($property->id, $plisting_fields, $property, $render_params);
 		}
 		
 		echo $args['before_widget'];
@@ -65,10 +68,8 @@ class wpl_carousel_widget extends wpl_widget
 		$layout = _wpl_import($layout, true, true);
 		
 		if(!wpl_file::exists($layout)) $layout = _wpl_import('widgets.carousel.tmpl.default', true, true);
-		elseif(wpl_file::exists($layout)) 
-			require $layout;
-		else
-			echo __('Widget Layout Not Found!', WPL_TEXTDOMAIN);
+		elseif(wpl_file::exists($layout)) require $layout;
+		else echo __('Widget Layout Not Found!', WPL_TEXTDOMAIN);
 		
 		echo $args['after_widget'];
 	}
@@ -81,6 +82,7 @@ class wpl_carousel_widget extends wpl_widget
 		$instance = array();
 		$instance['title'] = strip_tags($new_instance['title']);
 		$instance['layout'] = $new_instance['layout'];
+        $instance['wpltarget'] = $new_instance['wpltarget'];
 		$instance['data'] = (array) $new_instance['data'];
 		
 		return $instance;
@@ -96,8 +98,8 @@ class wpl_carousel_widget extends wpl_widget
 		/* Set up some default widget settings. */
 		if(!isset($instance['layout']))
 		{
-			$instance = array('title'=>__('Featured Properties', WPL_TEXTDOMAIN), 'layout'=>'default.php', 'data'=>array('limit'=>'8', 'orderby'=>'p.add_date', 'order'=>'DESC'));
-			$instance = wp_parse_args((array) $instance, $defaults);
+			$instance = array('title'=>__('Featured Properties', WPL_TEXTDOMAIN), 'layout'=>'default.php', 'data'=>array('limit'=>'8', 'orderby'=>'p.add_date', 'order'=>'DESC', 'image_width'=>'1920', 'image_height'=>'558', 'thumbnail_width'=>'150', 'thumbnail_height'=>'60'));
+			$instance = wp_parse_args((array) $instance, NULL);
 		}
 		
 		$path = _wpl_import($this->wpl_backend_form, true, true);
@@ -109,10 +111,11 @@ class wpl_carousel_widget extends wpl_widget
 	
 	private function query($instance)
 	{
+        $model = new wpl_property();
 		$data = $instance['data'];
 		
-		$this->listing_fields = wpl_property::get_plisting_fields();
-		$this->select = wpl_property::generate_select($this->listing_fields, 'p');
+		$this->listing_fields = $model->get_plisting_fields();
+		$this->select = $model->generate_select($this->listing_fields, 'p');
 		$this->limit = $data['limit'];
 		$this->order = $data['orderby']." ".$data['order'];
 		

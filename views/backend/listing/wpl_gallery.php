@@ -21,9 +21,10 @@ class wpl_listing_controller extends wpl_controller
 		elseif($function == 'delete_image') wpl_items::delete_file(wpl_request::getVar('image'), wpl_request::getVar('pid'));
 		elseif($function == 'sort_images') wpl_items::sort_items(wpl_request::getVar('pid'), wpl_request::getVar('order'));
 		elseif($function == 'change_status') wpl_items::update_file(wpl_request::getVar('image'), wpl_request::getVar('pid'), array('enabled'=>wpl_request::getVar('enabled')));
+        elseif($function == 'save_external_images') self::save_external_images();
 	}
 	
-	public function upload()
+	public static function upload()
 	{
 		/** import upload library **/
 		_wpl_import('assets.js.ajax_uploader.UploadHandler');
@@ -67,4 +68,35 @@ class wpl_listing_controller extends wpl_controller
 		
 		wpl_items::save($item);
 	}
+    
+    public static function save_external_images()
+    {
+        $kind = wpl_request::getVar('kind', 0);
+        $pid = wpl_request::getVar('pid');
+        $links_str = wpl_request::getVar('links', '');
+        $type = wpl_request::getVar('type', 'gallery');
+        $category = wpl_request::getVar('category', 'external');
+        
+        $links_str = str_replace(";", '<-->', $links_str);
+        $links_str = str_replace(",", '<-->', $links_str);
+        $links_str = str_replace("\r\n", '<-->', $links_str);
+        $links_str = str_replace("\n", '<-->', $links_str);
+        
+        $links = explode('<-->', $links_str);
+        
+        foreach($links as $link)
+        {
+            $link = trim($link, ',; ');
+            if(trim($link) == '') continue;
+            
+            // get item category with first index
+            $index = floatval(wpl_items::get_maximum_index($pid, $type, $kind, $category))+1.00;
+            $name = 'external_image'.$index;
+        
+            $item = array('parent_id'=>$pid, 'parent_kind'=>$kind, 'item_type'=>$type, 'item_cat'=>$category, 'item_name'=>$name, 'creation_date'=>date("Y-m-d H:i:s"), 'index'=>$index, 'item_extra3'=>$link);
+            $item_id = wpl_items::save($item);
+        }
+		
+        exit;
+    }
 }

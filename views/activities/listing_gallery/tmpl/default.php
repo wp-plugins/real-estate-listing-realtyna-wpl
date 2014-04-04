@@ -40,7 +40,9 @@ $gallery = wpl_items::render_gallery($raw_gallery);
         $images_total = count($gallery);
         foreach($gallery as $image)
         {
-            if($image_width and $image_height)
+            $image_url = $image['url'];
+            
+            if($image_width and $image_height and $image['category'] != 'external')
             {
                 /** set resize method parameters **/
                 $params = array();
@@ -53,7 +55,7 @@ $gallery = wpl_items::render_gallery($raw_gallery);
                 $image_url = wpl_images::create_gallary_image($image_width, $image_height, $params, $watermark, $rewrite);
             }
             
-            echo '<img id="wpl_gallery_image'.$property_id .'_'.$i.'" src="'.$image_url.'" class="wpl_gallery_image '.$image_class.'" onclick="rpl_Plisting_slider'.$property_id.'('.$i.');" alt="'.$params['image_name'].'" width="'.$image_width.'" height="'.$image_height.'" />';
+            echo '<img id="wpl_gallery_image'.$property_id .'_'.$i.'" src="'.$image_url.'" class="wpl_gallery_image '.$image_class.'" onclick="rpl_Plisting_slider'.$property_id.'('.$i.');" alt="'.$image['raw']['item_name'].'" width="'.$image_width.'" height="'.$image_height.'" style="width: '.$image_width.'px; height: '.$image_height.'px;" />';
             $i++;
         }
     ?>
@@ -63,8 +65,8 @@ $gallery = wpl_items::render_gallery($raw_gallery);
         images_total = <?php echo $images_total; ?>;
         if ((i+1)>=images_total) j=0; else j=i+1;
         if (j==i) return;
-        wplj("#wpl_gallery_image<?php echo $property_id?>_"+i).fadeTo(200,0).css("display",'none');
-        wplj("#wpl_gallery_image<?php echo $property_id?>_"+j).fadeTo(400,1);
+        wplj("#wpl_gallery_image<?php echo $property_id; ?>_"+i).fadeTo(200,0).css("display",'none');
+        wplj("#wpl_gallery_image<?php echo $property_id; ?>_"+j).fadeTo(400,1);
     }
     </script>
     <?php

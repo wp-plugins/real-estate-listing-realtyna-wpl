@@ -168,7 +168,7 @@ class wpl_data_structure_controller extends wpl_controller
 		$this->listing_types_category = wpl_listing_types::get_listing_types_category();
 		$this->listing_gicons = wpl_listing_types::get_map_icons();
 		
-		parent::display($this->tpl_path, 'internal_edit_listing_types');
+		parent::render($this->tpl_path, 'internal_edit_listing_types');
 		exit;
 	}
 	
@@ -179,7 +179,7 @@ class wpl_data_structure_controller extends wpl_controller
 		$this->listing_types_category = wpl_listing_types::get_listing_types_category();
 		$this->listing_gicons = wpl_listing_types::get_map_icons();
 		
-		parent::display($this->tpl_path, 'internal_edit_listing_types');
+		parent::render($this->tpl_path, 'internal_edit_listing_types');
 		exit;
 	}
 }

@@ -13,7 +13,7 @@ class wpl_room_types
 		@input {enabled} and [condition]
 		@return array room types
 	**/
-	public function get_room_types($enabled = 1, $condition = '', $type = '')
+	public static function get_room_types($enabled = 1, $condition = '', $type = '')
 	{
 		if(trim($condition) == '')
 		{
@@ -30,7 +30,7 @@ class wpl_room_types
 	/**
 		@input $sort_ids
 	**/
-	public function sort_room_types($sort_ids)
+	public static function sort_room_types($sort_ids)
 	{
 		$query = "SELECT `id`,`index` FROM `#__wpl_room_types` WHERE `id` IN ($sort_ids) ORDER BY `index` ASC";
 		$options = wpl_db::select($query, 'loadAssocList');
@@ -49,7 +49,7 @@ class wpl_room_types
 		@input {table}, {key}, {id} and [value]
 		@return boolean result
 	**/
-	public function update($table = 'wpl_room_types', $id, $key, $value = '')
+	public static function update($table = 'wpl_room_types', $id, $key, $value = '')
 	{
 		/** first validation **/
 		if(trim($table) == '' or trim($id) == '' or trim($key) == '') return false;
@@ -61,7 +61,7 @@ class wpl_room_types
 		@return boolean result
 		@description removing an existing room type
 	**/
-	public function remove_room_type($room_id)
+	public static function remove_room_type($room_id)
 	{
 		$query = "DELETE FROM `#__wpl_room_types` WHERE `id`='$room_id'";
 		$result = wpl_db::q($query);
@@ -74,7 +74,7 @@ class wpl_room_types
 		@return boolean result
 		@description adding a new room type
 	**/
-	public function save_room_type($name)
+	public static function save_room_type($name)
 	{
 		$query = "INSERT INTO `#__wpl_room_types` (`name`) VALUES ('$name')";
 		$result = wpl_db::q($query);
@@ -86,7 +86,7 @@ class wpl_room_types
 		@input {icon_name}
 		@return array icon data
 	**/
-	public function get_icon($icon_name)
+	public static function get_icon($icon_name)
 	{
 		$url = wpl_global::get_wpl_asset_url('img/rooms/'.$icon_name);
 		$path = WPL_ABSPATH. 'assets' .DS. 'img' .DS. 'rooms' .DS. $icon_name;

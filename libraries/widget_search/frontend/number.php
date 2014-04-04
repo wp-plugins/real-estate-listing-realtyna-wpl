@@ -32,12 +32,12 @@ if($type == 'number' and !$done_this)
 	}
 	
 	/** MIN/MAX extoptions **/
-	$extoptions = explode(',', $field['extoption']);
-	
-	$min_value = isset($extoptions[0]) ? $extoptions[0] : 0;
-	$max_value = isset($extoptions[1]) ? $extoptions[1] : 100000;
-	$division = isset($extoptions[2]) ? $extoptions[2] : 1000;
-	$separator = isset($extoptions[3]) ? $extoptions[3] : ',';
+	$extoptions = isset($field['extoption']) ? explode(',', $field['extoption']) : array();
+    
+	$min_value = (isset($extoptions[0]) and trim($extoptions[0])) ? $extoptions[0] : 0;
+	$max_value = (isset($extoptions[1]) and trim($extoptions[1])) ? $extoptions[1] : 100000;
+	$division = (isset($extoptions[2]) and trim($extoptions[2])) ? $extoptions[2] : 1000;
+	$separator = (isset($extoptions[3]) and trim($extoptions[3])) ? $extoptions[3] : ',';
 	
 	if($field['type']!=='minmax_selectbox' && $field['type']!=='minmax_selectbox_plus'){
 		$html .= '<label>'.__($field['name'], WPL_TEXTDOMAIN).'</label>';
@@ -73,7 +73,7 @@ if($type == 'number' and !$done_this)
 		$html .= '<script type="text/javascript">
 				function wpl_th_sep'.$field['id'].'(num)
 				{
-					sep = "'.$$separator.'";
+					sep = "'.$separator.'";
 					num = num.toString();
 					x = num;
 					z = "";
@@ -114,7 +114,7 @@ if($type == 'number' and !$done_this)
 						{
 							wplj("#sf'.$widget_id.'_tmin_'.$field_data['table_column'].'").val(ui.values[0]);
 							wplj("#sf'.$widget_id.'_tmax_'.$field_data['table_column'].'").val(ui.values[1]);
-							'.($ajax == 2 ? 'wpl_do_search_'.$widget_id.'();' : '').'
+							'.((isset($ajax) and $ajax == 2) ? 'wpl_do_search_'.$widget_id.'();' : '').'
 						}
 					});
 				});
@@ -122,14 +122,12 @@ if($type == 'number' and !$done_this)
 		
 		$html .= '<span class="wpl_search_slider_container">
 				<input type="hidden" value="'.$current_min_value.'" name="sf'.$widget_id.'_tmin_'.$field_data['table_column'].'" id="sf'.$widget_id.'_tmin_'.$field_data['table_column'].'" /><input type="hidden" value="'.$current_max_value.'" name="sf'.$widget_id.'_tmax_'.$field_data['table_column'].'" id="sf'.$widget_id.'_tmax_'.$field_data['table_column'].'" />
-				<span class="wpl_slider_show_value" id="slider'.$widget_id.'_showvalue_'.$field_data['table_column'].'">'.number_format($current_min_value, 0, '', $sep).' - '.number_format($current_max_value, 0, '', $sep).'</span>
+				<span class="wpl_slider_show_value" id="slider'.$widget_id.'_showvalue_'.$field_data['table_column'].'">'.number_format((double) $current_min_value, 0, '', $separator).' - '.number_format((double) $current_max_value, 0, '', $separator).'</span>
 				<span class="wpl_span_block" style="width: 92%; height: 20px;"><span class="wpl_span_block" id="slider'.$widget_id.'_range_'.$field_data['table_column'].'" ></span></span>
 				</span>';
 	}
     elseif($show == 'minmax_selectbox')
 	{
-	    //$html .= '<label id="wpl_search_widget_from_label'.$widget_id.'" class="wpl_search_widget_from_label" for="sf'.$widget_id.'_tmin_'.$field_data['table_column'].'">'.__('From', WPL_TEXTDOMAIN).'</label>';
-		
     	$html .= '<select name="sf'.$widget_id.'_tmin_'.$field_data['table_column'].'" id="sf'.$widget_id.'_tmin_'.$field_data['table_column'].'">';
 		$html .= '<option value="0" '.($current_min_value == $i ? 'selected="selected"' : '').'>'.__('From', WPL_TEXTDOMAIN).'</option>';
 		
@@ -149,8 +147,7 @@ if($type == 'number' and !$done_this)
 		
 		$html .= '<option value="'.$max_value.'">'.$max_value.'</option>';
         $html .= '</select>';
-		
-		//$html .= '<label id="wpl_search_widget_to_label'.$widget_id.'" class="wpl_search_widget_to_label" for="sf'.$widget_id.'_tmax_'.$field_data['table_column'].'">'.__('To', WPL_TEXTDOMAIN).'</label>';
+        
         $html .= '<select name="sf'.$widget_id.'_tmax_'.$field_data['table_column'].'" id="sf'.$widget_id.'_tmax_'.$field_data['table_column'].'">';
 		$html .= '<option value="999999999999" '.($current_max_value == $i ? 'selected="selected"' : '').'>'.__("To", WPL_TEXTDOMAIN).'</option>';
 		

@@ -32,7 +32,7 @@ _wpl_import($this->tpl_path.'.scripts.js');
                     ?>
                 </div>
                 <div class="back">
-                    <a href="<?php echo $profile['profile_link']; ?>" class="view_properties"><?php echo __('View properties'); ?></a>
+                    <a href="<?php echo $profile['profile_link']; ?>" class="view_properties"><?php echo __('View properties', WPL_TEXTDOMAIN); ?></a>
                 </div>
             </div>
 

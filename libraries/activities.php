@@ -12,24 +12,27 @@ class wpl_activity
     const ACTIVITY_FRONTEND = 0;
     const ACTIVITY_BACKEND = 1;
 
-    public $_wpl_activity;
-    public $_wpl_activity_layout;
-    public $_wpl_activity_file;
+    public static $_wpl_activity;
+    public static $_wpl_activity_layout;
+    public static $_wpl_activity_file;
+    public static $_wpl_activity_name;
 
     /**
       @input {activity object}, [activity_id] and [params]
       @return activity output
       Developed by : Howard
-     * */
-    public function render_activity($activity, $params = array())
+    **/
+    public static function render_activity($activity, $params = array())
     {
         $activity_params = array();
         if(trim($activity->params) != '') $activity_params = json_decode($activity->params, true);
 
         $params = array_merge($activity_params, $params);
-
+        
+        $wpl_activity = new wpl_activity();
+        
         ob_start();
-        self::import($activity->activity, $activity->id, $params);
+        $wpl_activity->import($activity->activity, $activity->id, $params);
         return $output = ob_get_clean();
     }
 
@@ -37,10 +40,12 @@ class wpl_activity
       @input {activity_name}, [activity_id] and [params]
       @return void
       Developed by : Howard
-     * */
-    public function load_position($position, $params = array())
+    **/
+    public static function load_position($position, $params = array())
     {
-        $activities = self::get_activities($position, 1);
+        $wpl_activity = new wpl_activity();
+        $activities = $wpl_activity->get_activities($position, 1);
+        
         foreach($activities as $activity)
         {
             $activity_params = array();
@@ -48,7 +53,7 @@ class wpl_activity
                 $activity_params = json_decode($activity->params, true);
 
             $params = array_merge($activity_params, $params);
-            self::import($activity->activity, $activity->id, $params);
+            $wpl_activity->import($activity->activity, $activity->id, $params);
         }
     }
 
@@ -56,19 +61,19 @@ class wpl_activity
       @input {activity_name}, [activity_id] and [params]
       @return activity output
       Developed by : Howard
-     * */
-    public function import($activity, $activity_id = 0, $params = false)
+    **/
+    public static function import($activity, $activity_id = 0, $params = false)
     {
-        $this->_wpl_activity = $activity;
-        $ex = explode(':', $this->_wpl_activity);
+        self::$_wpl_activity = $activity;
+        $ex = explode(':', self::$_wpl_activity);
 
-        $this->_wpl_activity_name = $ex[0];
-        $this->_wpl_activity_layout = (isset($ex[1]) and trim($ex[1]) != '') ? $ex[1] : 'default';
-        $this->_wpl_activity_file = (isset($ex[2]) and trim($ex[2]) != '') ? $ex[2] : 'main';
+        self::$_wpl_activity_name = $ex[0];
+        self::$_wpl_activity_layout = (isset($ex[1]) and trim($ex[1]) != '') ? $ex[1] : 'default';
+        self::$_wpl_activity_file = (isset($ex[2]) and trim($ex[2]) != '') ? $ex[2] : 'main';
         $_wpl_activity_client = self::get_activity_client();
 
-        $wpl_activity_path = 'views.' . $_wpl_activity_client . '.' . $this->_wpl_activity_name;
-        $path = _wpl_import($wpl_activity_path . '.' . $this->_wpl_activity_file, true, true);
+        $wpl_activity_path = 'views.' . $_wpl_activity_client . '.' . self::$_wpl_activity_name;
+        $path = _wpl_import($wpl_activity_path . '.' . self::$_wpl_activity_file, true, true);
 
         /** check existation of an activity * */
         if(!wpl_file::exists($path))
@@ -78,20 +83,19 @@ class wpl_activity
         }
 
         /** set activity params * */
-        $layout = $wpl_activity_path . '.tmpl.' . $this->_wpl_activity_layout;
+        $layout = $wpl_activity_path . '.tmpl.' . self::$_wpl_activity_layout;
         $params = self::get_params($activity_id, $params);
-        $activity_class_name = 'wpl_activity_' . $this->_wpl_activity_file . '_' . $this->_wpl_activity_name;
+        $activity_class_name = 'wpl_activity_' . self::$_wpl_activity_file . '_' . self::$_wpl_activity_name;
 
         /** include the activity class if not exists * */
-        if(!class_exists($activity_class_name))
-            include $path;
+        if(!class_exists($activity_class_name)) include $path;
 
         $activity_object = new $activity_class_name();
         $activity_object->activity_id = $activity_id;
         $activity_object->start($layout, $params);
     }
 
-    public function get_params($activity_id, $params = false)
+    public static function get_params($activity_id, $params = false)
     {
         if(!$params)
         {
@@ -107,7 +111,7 @@ class wpl_activity
             return $params;
     }
 
-    private function get_activity_client()
+    private static function get_activity_client()
     {
         return 'activities';
     }
@@ -130,7 +134,7 @@ class wpl_activity
     }
 
     /** for importing internal files in object mode * */
-    protected function _wpl_import($include, $override = true)
+    protected static function _wpl_import($include, $override = true)
     {
         $path = _wpl_import($include, $override, true);
 
@@ -411,7 +415,7 @@ class wpl_activity
      * @author Kevin J <kevin@realtyna.com>
      * @return array list of Frontend activity list
      */
-    public function get_available_activities()
+    public static function get_available_activities()
     {
         $activities_folders = wpl_folder::folders(wpl_activity::get_activity_folder());
         $frontend_activity = array();

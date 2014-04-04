@@ -83,9 +83,9 @@ class wpl_data_structure_controller extends wpl_controller
 		$this->units = wpl_units::get_units($type,"","");	
 		
 		if($type == 4)
-			parent::display($this->tpl_path, 'internal_unit_manager_currency') ;
+			parent::render($this->tpl_path, 'internal_unit_manager_currency') ;
 		else
-			parent::display($this->tpl_path, 'internal_unit_manager_general') ;
+			parent::render($this->tpl_path, 'internal_unit_manager_general') ;
 		
 		exit;
 	}

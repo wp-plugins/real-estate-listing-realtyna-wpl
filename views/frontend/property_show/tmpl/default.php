@@ -54,7 +54,7 @@ $pshow_googlemap_activities = count(wpl_activity::get_activities('pshow_googlema
             <div class="wpl_prp_container_content_left">               
 				<?php if($this->wpl_properties['current']['data']['field_308']): ?>
                 <div class="wpl_prp_show_detail_boxes">
-                    <div class="wpl_prp_show_detail_boxes_title"><?php echo __('prp Description', WPL_TEXTDOMAIN) ?></div>
+                    <div class="wpl_prp_show_detail_boxes_title"><?php echo __('Property Description', WPL_TEXTDOMAIN) ?></div>
                     <div class="wpl_prp_show_detail_boxes_cont">
                         <?php echo $this->wpl_properties['current']['data']['field_308']; ?>
                     </div>

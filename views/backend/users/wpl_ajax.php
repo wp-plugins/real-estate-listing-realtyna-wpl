@@ -133,7 +133,7 @@ class wpl_users_controller extends wpl_controller
 		$this->user_data = wpl_users::get_wpl_user($user_id);
 		$this->fields = wpl_db::columns('wpl_users');
 		
-		parent::display($this->tpl_path, 'edit');
+		parent::render($this->tpl_path, 'edit');
 		exit;
 	}
 	
@@ -156,7 +156,7 @@ class wpl_users_controller extends wpl_controller
 		$this->listings = wpl_listing_types::get_listing_types();
 		$this->property_types = wpl_property_types::get_property_types();
 		
-		parent::display($this->tpl_path, 'internal_setting_advanced');
+		parent::render($this->tpl_path, 'internal_setting_advanced');
 		exit;
 	}
 	

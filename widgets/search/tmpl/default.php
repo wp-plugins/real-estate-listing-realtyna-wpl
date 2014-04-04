@@ -4,8 +4,7 @@ defined('_WPLEXEC') or die('Restricted access');
 /** add Layout js **/
 $js[] = (object) array('param1'=>'chosen.jQuery', 'param2'=>'js/chosen.jQuery/chosen.jquery.min.js');
 $js[] = (object) array('param1'=>'jquery.checkbox', 'param2'=>'js/jquery.ui/checkbox/jquery.checkbox.js');
-foreach ($js as $javascript)
-    wpl_extensions::import_javascript($javascript);
+foreach ($js as $javascript) wpl_extensions::import_javascript($javascript);
 
 include _wpl_import('widgets.search.scripts.js', true, true);
 ?>

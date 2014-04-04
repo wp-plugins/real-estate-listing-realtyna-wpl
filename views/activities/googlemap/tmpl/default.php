@@ -1,8 +1,7 @@
 <?php
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
-
-$this->_wpl_import($this->tpl_path.'.scripts.js');
+include _wpl_import($this->tpl_path.'.scripts.js', true, true);
 
 /** set params **/
 $wpl_properties = isset($params['wpl_properties']) ? $params['wpl_properties'] : array();
@@ -38,8 +37,8 @@ foreach($wpl_properties as $property)
 	<div class="wpl_map_canvas" id="wpl_map_canvas<?php echo $this->activity_id; ?>" style="height: <?php echo $map_height ?>px;"></div>
 </div>
 <style type="text/css">
-.wpl_map_canvas img{max-width:none !important;}
-.wpl_map_canvas label{width:auto !important;display:inline !important;}
+.wpl_map_canvas img{max-width: none !important;}
+.wpl_map_canvas label{width: auto !important; display: inline !important;}
 </style>
 <script type="text/javascript">
 var markers = <?php echo json_encode($markers); ?>;

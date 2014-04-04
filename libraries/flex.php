@@ -19,7 +19,7 @@ class wpl_flex
 		@params: value is a value of custom key
 		@return field objects
 	**/
-	public function get_fields($category = '', $enabled = 0, $kind = 0, $key = '', $value = '', $condition = '')
+	public static function get_fields($category = '', $enabled = 0, $kind = 0, $key = '', $value = '', $condition = '')
 	{
 		if(!$condition)
 		{
@@ -40,7 +40,7 @@ class wpl_flex
 		@input {field_id}
 		@return field object
 	**/
-	public function get_field($field_id)
+	public static function get_field($field_id)
 	{
 		$query = "SELECT * FROM `#__wpl_dbst` WHERE `id`='$field_id'";
 		return wpl_db::select($query, 'loadObject');
@@ -50,7 +50,7 @@ class wpl_flex
 		@input {dbst_id}
 		@return void
 	**/
-	public function create_default_dbst($dbst_id = 0)
+	public static function create_default_dbst($dbst_id = 0)
 	{
 		if(!$dbst_id) $dbst_id = self::get_new_dbst_id();
 		
@@ -62,7 +62,7 @@ class wpl_flex
 		@input [enabled], [kind] and [condition]
 		@return array categories
 	**/
-	public function get_categories($enabled = 1, $kind = 0, $condition = '')
+	public static function get_categories($enabled = 1, $kind = 0, $condition = '')
 	{
 		if(trim($condition) == '') $condition = " AND `enabled`>='$enabled' AND `kind`='$kind'";
 		
@@ -74,7 +74,7 @@ class wpl_flex
 		@input {category_id}
 		@return category object
 	**/
-	public function get_category($category_id)
+	public static function get_category($category_id)
 	{
 		$query = "SELECT * FROM `#__wpl_dbcat` WHERE `id`='$category_id'";
 		return wpl_db::select($query, 'loadObject');
@@ -84,7 +84,7 @@ class wpl_flex
 		@input {kind}
 		@return kind label
 	**/
-	public function get_kind_label($kind = 0)
+	public static function get_kind_label($kind = 0)
 	{
 		$kind_array = array(0=>'property', 1=>'complex', 2=>'user');
 		return $kind_array[$kind];
@@ -94,7 +94,7 @@ class wpl_flex
 		@input {kind_name}
 		@return kind id
 	**/
-	public function get_kind_id($kind_name = 'property')
+	public static function get_kind_id($kind_name = 'property')
 	{
 		$kind_array = array('property'=>0, 'complex'=>1, 'user'=>2);
 		return $kind_array[$kind_name];
@@ -104,7 +104,7 @@ class wpl_flex
 		@input {kind}
 		@return kind label
 	**/
-	public function get_kind_table($kind = 0)
+	public static function get_kind_table($kind = 0)
 	{
 		$kind_array = array(0=>'wpl_properties', 1=>'wpl_properties', 2=>'wpl_users');
 		return $kind_array[$kind];
@@ -114,7 +114,7 @@ class wpl_flex
 		@input void
 		@return kind ids
 	**/
-	public function get_kinds()
+	public static function get_kinds()
 	{
 		return array(0, 1, 2);
 	}
@@ -123,7 +123,7 @@ class wpl_flex
 		@input [enabled], [kind] and [condition]
 		@return array dbst types
 	**/
-	public function get_dbst_types($enabled = 1, $kind = 0, $condition = '')
+	public static function get_dbst_types($enabled = 1, $kind = 0, $condition = '')
 	{
 		if(trim($condition) == '')
 		{
@@ -138,7 +138,7 @@ class wpl_flex
 		@input [enabled], [kind] and [type]
 		@return object dbst type
 	**/
-	public function get_dbst_type($enabled = 1, $kind = 0, $type = '')
+	public static function get_dbst_type($enabled = 1, $kind = 0, $type = '')
 	{
 		$condition = " AND `enabled`>='$enabled' AND `kind` LIKE '%[$kind]%' AND `type`='$type'";
 		
@@ -150,7 +150,7 @@ class wpl_flex
 		@input [key] and [dbst_id]
 		@return key value
 	**/
-	public function get_dbst_key($key, $dbst_id, $kind = 0)
+	public static function get_dbst_key($key, $dbst_id, $kind = 0)
 	{
 		/** first validation **/
 		if(trim($key) == '' or trim($dbst_id) == '') return false;
@@ -163,7 +163,7 @@ class wpl_flex
 		@input void
 		@return new dbst id for insert new fields
 	**/
-	public function get_new_dbst_id()
+	public static function get_new_dbst_id()
 	{
 		$max_dbst_id = wpl_db::get("MAX(`id`)", "wpl_dbst", '', '', '', "`id`<'10000'");
 		return max(($max_dbst_id+1), 3000);
@@ -173,7 +173,7 @@ class wpl_flex
 		@input {dbst_id}
 		@return boolean result
 	**/
-	public function remove_dbst($dbst_id)
+	public static function remove_dbst($dbst_id)
 	{
 		/** first validation **/
 		if(!$dbst_id) return false;
@@ -186,7 +186,7 @@ class wpl_flex
 		@return void
 		@description this function generates dbst modify form
 	**/
-	public function generate_modify_form($dbst_type = 'text', $dbst_id = 0, $kind = 0)
+	public static function generate_modify_form($dbst_type = 'text', $dbst_id = 0, $kind = 0)
 	{
 		/** first validation **/
 		if(!$dbst_type) return;
@@ -232,7 +232,7 @@ class wpl_flex
 		@input {dbst_id}, {dbst type} and {dbst kind}
 		@return new dbst id for insert new fields
 	**/
-	public function run_dbst_type_queries($dbst_id, $dbst_type, $dbst_kind, $query_type = 'add')
+	public static function run_dbst_type_queries($dbst_id, $dbst_type, $dbst_kind, $query_type = 'add')
 	{
 		$dbst_type_data = self::get_dbst_type(0, $dbst_kind, $dbst_type);
 		$kind_table = self::get_kind_table($dbst_kind);
@@ -257,7 +257,7 @@ class wpl_flex
 		@input [key] and [dbst_id]
 		@return key value
 	**/
-	public function get_encoded_options($values, $prefix, $options = array())
+	public static function get_encoded_options($values, $prefix, $options = array())
 	{
 		$length = strlen($prefix);
 		
@@ -276,7 +276,7 @@ class wpl_flex
 		@input {table}, {key}, {dbst_id} and [value]
 		@return boolean result
 	**/
-	public function update($table = 'wpl_dbst', $dbst_id, $key, $value = '')
+	public static function update($table = 'wpl_dbst', $dbst_id, $key, $value = '')
 	{
 		/** first validation **/
 		if(trim($table) == '' or trim($dbst_id) == '' or trim($key) == '') return false;
@@ -355,7 +355,7 @@ class wpl_flex
 		@return js validation string
 		@author Howard
 	**/
-	public function generate_js_validation($field)
+	public static function generate_js_validation($field)
 	{
 		$field = (object) $field;
 		$js_string = '';
@@ -375,7 +375,7 @@ class wpl_flex
 		@input {field_id}
 		@return field options
 	**/
-	public function get_field_options($field_id, $return_array = true)
+	public static function get_field_options($field_id, $return_array = true)
 	{
 		$field = self::get_field($field_id);
 		return ($return_array ? json_decode($field->options, true) : $field->options);
@@ -386,7 +386,7 @@ class wpl_flex
 		@return void
 		@description this function set sort 
 	**/
-	public function sort_flex($sort_ids)
+	public static function sort_flex($sort_ids)
 	{
 		$query = "SELECT DISTINCT  `category`  FROM `#__wpl_dbst` WHERE `id` IN ($sort_ids) ORDER BY `index` ASC";
 		$flex_category = wpl_db::select($query, 'loadAssoc');

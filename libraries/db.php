@@ -46,7 +46,7 @@ class wpl_db
 		Date : 2013-03-06
 		Description : use this function getting num of result
 	**/
-	public function num($query, $table = '')
+	public static function num($query, $table = '')
 	{
 		if(trim($table) != '')
 		{
@@ -68,7 +68,7 @@ class wpl_db
 		Date : 2013-03-06
 		Description : use this function for creating query
 	**/
-	public function create_query($vars = '', $needle_str = 'sf_')
+	public static function create_query($vars = '', $needle_str = 'sf_')
 	{
 		if(!$vars)
 		{
@@ -199,7 +199,7 @@ class wpl_db
 		Date : 2013-05-07
 		Description : use this function for runnig DELETE commands
 	**/
-	public function delete($table, $id, $condition = '')
+	public static function delete($table, $id, $condition = '')
 	{
 		/** first validation **/
 		if(trim($table) == '' or (trim($id) == '' and trim($condition) == '')) return false;
@@ -230,7 +230,7 @@ class wpl_db
 		@return boolean result
 		@author Howard
 	**/
-	public function update($table, $params = array(), $where_key = 'id', $where_value = '')
+	public static function update($table, $params = array(), $where_key = 'id', $where_value = '')
 	{
 		/** first validation **/
 		if(trim($table) == '' or trim($where_value) == '' or trim($where_key) == '' or !is_array($params)) return false;
@@ -249,7 +249,7 @@ class wpl_db
 	}
 	
 	/** get table columns howard 12/30/2012 **/
-	public function columns($table = 'wpl_properties')
+	public static function columns($table = 'wpl_properties')
 	{
 		$query = "SHOW COLUMNS FROM `#__".$table."`";
 		$results = wpl_db::q($query, "select");
@@ -302,7 +302,7 @@ class wpl_db
 		Date : 2013-05-07
 		Description : use this function for replacing fake prefix with real one
 	**/
-	public function _prefix($query)
+	public static function _prefix($query)
 	{
 		$database = self::get_DBO();
 		
@@ -320,7 +320,7 @@ class wpl_db
 		Date : 2013-02-16
 		Description : use this function for getting database object
 	**/
-	public function get_DBO()
+	public static function get_DBO()
 	{
 		global $wpdb;
 		return $wpdb;

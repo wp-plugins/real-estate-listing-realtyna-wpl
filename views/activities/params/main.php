@@ -48,7 +48,7 @@ class wpl_activity_main_params extends wpl_activity
 		wpl_global::event_handler('params_saved', array('table'=>$table, 'id'=>$id, 'params'=>$params));
 		
 		$res = 1;
-		$message = $res ? __('Params Saved.') : __('Error Occured.');
+		$message = $res ? __('Params Saved.', WPL_TEXTDOMAIN) : __('Error Occured.', WPL_TEXTDOMAIN);
 		$data = NULL;
 		
 		$response = array('success'=>$res, 'message'=>$message, 'data'=>$data);

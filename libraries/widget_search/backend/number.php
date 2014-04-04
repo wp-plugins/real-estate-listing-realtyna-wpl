@@ -29,7 +29,7 @@ if($type == 'number' and !$done_this)
 			</select>
 		</div>
 		<div class="erow wpl_extoptions_span <?php echo $value['type']; ?>">
-			<input type="text" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][extoption]" value="<?php echo $value['extoption']; ?>" placeholder="<?php _e('min,max,increment like 0,10,1', WPL_TEXTDOMAIN); ?>" title="<?php _e('min,max,increment like 0,10,1', WPL_TEXTDOMAIN); ?>" />
+			<input type="text" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][extoption]" value="<?php echo isset($value['extoption']) ? $value['extoption'] : ''; ?>" placeholder="<?php echo __('min,max,increment like 0,10,1', WPL_TEXTDOMAIN); ?>" title="<?php echo __('min,max,increment like 0,10,1', WPL_TEXTDOMAIN); ?>" />
 		</div>
 	</div>
 </div>

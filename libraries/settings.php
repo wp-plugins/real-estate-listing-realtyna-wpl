@@ -16,7 +16,7 @@ class wpl_settings
 		@params: boolean return_records: it returns raw records
 		@return settings array or raw records
 	**/
-	public function get_settings($category = '', $showable = 0, $return_records = false)
+	public static function get_settings($category = '', $showable = 0, $return_records = false)
 	{
 		/** return from cache if exists **/
 		$cache_key = trim($category) != '' ? $category : 'all';
@@ -55,7 +55,7 @@ class wpl_settings
 		@return affected rows or insert id
 		@description this function takes care for modifying existing setting or inserting new record
 	**/
-	public function save_setting($name, $value = '', $category = '', $condition = '')
+	public static function save_setting($name, $value = '', $category = '', $condition = '')
 	{
 		/** first validation **/
 		if(trim($name) == '') return false;
@@ -72,7 +72,7 @@ class wpl_settings
 		@input setting name and [value] and [category] and [condition]
 		@return affected rows
 	**/
-	public function update_setting($name, $value = '', $category = '', $condition = '')
+	public static function update_setting($name, $value = '', $category = '', $condition = '')
 	{
 		/** first validation **/
 		if(trim($name) == '') return false;
@@ -91,7 +91,7 @@ class wpl_settings
 		@input setting name and [value] and [category]
 		@return id of new record
 	**/
-	public function insert_setting($name, $value = '', $category = '')
+	public static function insert_setting($name, $value = '', $category = '')
 	{
 		/** first validation **/
 		if(trim($name) == '') return false;
@@ -111,7 +111,7 @@ class wpl_settings
 		@input {setting_name} and [category]
 		@return setting value
 	**/
-	public function get($setting_name, $category = '')
+	public static function get($setting_name, $category = '')
 	{
 		/** return from cache if exists **/
 		$cache_key = trim($category) != '' ? $category : 'all';
@@ -132,7 +132,7 @@ class wpl_settings
 		@input category (string)
 		@return category id
 	**/
-	public function get_category_id($category)
+	public static function get_category_id($category)
 	{
 		$category = strtolower($category);
 		$query = "SELECT `id` FROM `#__wpl_setting_categories` WHERE LOWER(name)='$category'";
@@ -144,7 +144,7 @@ class wpl_settings
 		@input showable
 		@return array category
 	**/
-	public function get_categories($showable = 1)
+	public static function get_categories($showable = 1)
 	{
 		$query = "SELECT * FROM `#__wpl_setting_categories` WHERE `showable`>='$showable' ORDER BY `index` ASC";
 		return wpl_db::select($query, 'loadObjectList');
@@ -154,7 +154,7 @@ class wpl_settings
 		@input setting name and [category]
 		@return boolean
 	**/
-	public function is_setting_exists($name, $category = '')
+	public static function is_setting_exists($name, $category = '')
 	{
 		$condition = '';
 		
@@ -175,7 +175,7 @@ class wpl_settings
 		@return void
 		@description this function generates setting form
 	**/
-	public function generate_setting_form($setting_record)
+	public static function generate_setting_form($setting_record)
 	{
 		/** first validation **/
 		if(!$setting_record) return;
@@ -208,7 +208,7 @@ class wpl_settings
 		@return void
 		@description this function generates setting forms
 	**/
-	public function generate_setting_forms($setting_records)
+	public static function generate_setting_forms($setting_records)
 	{
 		/** first validation **/
 		if(!$setting_records) return;
@@ -224,7 +224,7 @@ class wpl_settings
 		@return void
 		@description use this function for removing WPL caches
 	**/
-	public function clear_cache($cache_type = 'All')
+	public static function clear_cache($cache_type = 'All')
 	{
 		/** first validation **/
 		$cache_type = strtolower($cache_type);

@@ -41,8 +41,8 @@ class wpl_property_listing_controller extends wpl_controller
 		if(!in_array($this->kind, wpl_flex::get_kinds()))
 		{
 			/** import message tpl **/
-			$this->message = __('Invalid Request!');
-			return parent::display($this->tpl_path, 'message', false, true);
+			$this->message = __('Invalid Request!', WPL_TEXTDOMAIN);
+			return parent::render($this->tpl_path, 'message', false, true);
 		}
 		
 		$where = array('sf_select_confirmed'=>1, 'sf_select_finalized'=>1, 'sf_select_deleted'=>0, 'sf_select_kind'=>$this->kind);
@@ -81,6 +81,6 @@ class wpl_property_listing_controller extends wpl_controller
 		$this->wpl_properties = $wpl_properties;
 		
 		/** import tpl **/
-		return parent::display($this->tpl_path, $this->tpl, false, true);
+		return parent::render($this->tpl_path, $this->tpl, false, true);
 	}
 }

@@ -97,7 +97,7 @@ function get_infowindow_html<?php echo $this->activity_id; ?>(property_ids)
 	wplj.ajax(
 	{
 		url: '<?php echo wpl_global::get_full_url(); ?>',
-		data: 'wpl_format=c:functions:ajax&wpl_function=infowindow&property_ids='+property_ids,
+		data: 'wpl_format=c:functions:ajax&wpl_function=infowindow&property_ids='+property_ids+'&wpltarget=<?php echo wpl_request::getVar('wpltarget', 0); ?>',
 		type: 'GET',
 		async: false,
 		cache: false,

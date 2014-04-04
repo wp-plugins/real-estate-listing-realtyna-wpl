@@ -24,7 +24,7 @@ class wpl_data_structure_controller extends wpl_controller
 		$this->order = in_array(strtoupper(wpl_request::getVar('order')), array('ASC','DESC')) ? wpl_request::getVar('order') : 'ASC';
 		
 		/** import tpl **/
-		parent::display($this->tpl_path, $this->tpl);
+		parent::render($this->tpl_path, $this->tpl);
 	}
 	
 	public function generate_property_types()
@@ -35,7 +35,7 @@ class wpl_data_structure_controller extends wpl_controller
 		$this->property_types = wpl_property_types::get_property_types();
 		
 		/** import tpl **/
-		parent::display($this->tpl_path, $tpl);
+		parent::render($this->tpl_path, $tpl);
 	}
 	
 	public function generate_sort_options()
@@ -44,7 +44,7 @@ class wpl_data_structure_controller extends wpl_controller
 		$this->sort_options = wpl_sort_options::get_sort_options('0', 0);
 		
 		/** import tpl **/
-		parent::display($this->tpl_path, $tpl);
+		parent::render($this->tpl_path, $tpl);
 	}
 	
 	public function generate_room_types()
@@ -55,7 +55,7 @@ class wpl_data_structure_controller extends wpl_controller
 		$this->icons = wpl_global::get_icons($folder);
 		
 		/** import tpl **/
-		parent::display($this->tpl_path, $tpl);
+		parent::render($this->tpl_path, $tpl);
 	}
 	
 	public function generate_listing_types()
@@ -68,7 +68,7 @@ class wpl_data_structure_controller extends wpl_controller
 		$this->get_caption_imgs = wpl_listing_types::get_caption_images();
 		
 		/** import tpl **/
-		parent::display($this->tpl_path, $tpl);
+		parent::render($this->tpl_path, $tpl);
 	}
 	
 	public function generate_unit_manager()
@@ -80,7 +80,7 @@ class wpl_data_structure_controller extends wpl_controller
 		$this->units = wpl_units::get_units(4, '', '');
 		
 		/** import tpl **/
-		parent::display($this->tpl_path, $tpl);
+		parent::render($this->tpl_path, $tpl);
 	}
 	
 	public function generate_currency_page()
@@ -88,6 +88,6 @@ class wpl_data_structure_controller extends wpl_controller
 		$this->units = wpl_units::get_units(4, '', '');
 		
 		/** import tpl **/
-		parent::display($this->tpl_path, 'internal_unit_manager_currency');
+		parent::render($this->tpl_path, 'internal_unit_manager_currency');
 	}
 }

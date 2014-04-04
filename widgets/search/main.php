@@ -34,7 +34,8 @@ class wpl_search_widget extends wpl_widget
 		$this->widget_uq_name = 'wpls'.$this->number;
 		$this->widget_id = $this->number;
 		$widget_id = $this->widget_id;
-		
+		$target_id = isset($instance['wpltarget']) ? $instance['wpltarget'] : 0;
+        
 		/** add main scripts **/
 		wp_enqueue_script('jquery-ui-core');
 		wp_enqueue_script('jquery-ui-slider');
@@ -74,6 +75,7 @@ class wpl_search_widget extends wpl_widget
 		$instance = array();
 		$instance['title'] = strip_tags($new_instance['title']);
 		$instance['layout'] = $new_instance['layout'];
+        $instance['wpltarget'] = $new_instance['wpltarget'];
 		$instance['data'] = (array) $new_instance['data'];
 		
 		return $instance;

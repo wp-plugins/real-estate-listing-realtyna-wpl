@@ -25,7 +25,9 @@ class wpl_activity_main_qrcode extends wpl_activity
 		if(!wpl_file::exists($file_path))
 		{
 			if(!wpl_file::exists(dirname($file_path))) wpl_folder::create(dirname($file_path));
-			QRcode::png($url, $file_path, 'L', $size, $outer_margin);
+            
+			$QRcode = new QRcode();
+            $QRcode->png($url, $file_path, 'L', $size, $outer_margin);
 		}
 		
 		$file_url = wpl_global::get_wpl_upload_url().'qrcode/'.$file_name;

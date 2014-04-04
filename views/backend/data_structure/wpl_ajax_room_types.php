@@ -97,7 +97,7 @@ class wpl_data_structure_controller extends wpl_controller
 
 	private function generate_new_room_type()
 	{
-		parent::display($this->tpl_path, 'internal_new_room_type');
+		parent::render($this->tpl_path, 'internal_new_room_type');
 		exit;
 	}
 	

@@ -20,6 +20,6 @@ class wpl_activity_manager_controller extends wpl_controller
 		$this->available_activities = wpl_activity::get_available_activities();
 
         /** import tpl * */
-        parent::display($this->tpl_path, $this->tpl);
+        parent::render($this->tpl_path, $this->tpl);
     }
 }

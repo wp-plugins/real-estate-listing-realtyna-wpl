@@ -1,5 +1,4 @@
 <?php
-
 /** no direct access * */
 defined('_WPLEXEC') or die('Restricted access');
 _wpl_import("libraries.locations");
@@ -7,7 +6,6 @@ _wpl_import("libraries.favorites");
 
 class wpl_property_listing_controller extends wpl_controller
 {
-
     public function display()
     {
         $function = wpl_request::getVar('wpl_function');
@@ -59,7 +57,6 @@ class wpl_property_listing_controller extends wpl_controller
         $html .= '</select>';
 
         $response = array('success' => $res, 'message' => $message, 'data' => $location_data, 'html' => $html, 'keyword' => __($location_settings['location' . $location_level . '_keyword'], WPL_TEXTDOMAIN));
-
         echo json_encode($response);
         exit;
     }
@@ -69,12 +66,11 @@ class wpl_property_listing_controller extends wpl_controller
         $limit = 10;
         $query = "SELECT `count`, `location_text` AS name FROM `#__wpl_locationtextsearch` WHERE `location_text` LIKE '" . $term . "%' ORDER BY `count` DESC LIMIT " . $limit;
         $results = wpl_db::select($query, 'loadAssocList');
-
-        //for($i = 1; $i <= 10; $i++) sleep(1);
+        
         $output = array();
         foreach($results as $result)
         {
-            $output[] = array('label' => $result['name'] . ' (~' . $result['count'] . ')', 'value' => $result['name']);
+            $output[] = array('label' => $result['name'], 'value' => $result['name']);
         }
 
         echo json_encode($output);

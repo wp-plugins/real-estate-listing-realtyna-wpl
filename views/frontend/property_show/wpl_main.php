@@ -29,7 +29,7 @@ class wpl_property_show_controller extends wpl_controller
 		{
 			/** import message tpl **/
 			$this->message = __("You don't have access to this part!", WPL_TEXTDOMAIN);
-			return parent::display($this->tpl_path, 'message', false, true);
+			return parent::render($this->tpl_path, 'message', false, true);
 		}
 		
 		/** property listing model **/
@@ -46,7 +46,7 @@ class wpl_property_show_controller extends wpl_controller
 		{
 			/** import message tpl **/
 			$this->message = __("No property found or it's not available now!", WPL_TEXTDOMAIN);
-			return parent::display($this->tpl_path, 'message', false, true);
+			return parent::render($this->tpl_path, 'message', false, true);
 		}
 		
 		$this->pshow_fields = $this->model->get_pshow_fields('', $property['kind']);
@@ -81,6 +81,6 @@ class wpl_property_show_controller extends wpl_controller
 		wpl_property::property_visited($this->pid);
 		
 		/** import tpl **/
-		return parent::display($this->tpl_path, $this->tpl, false, true);
+		return parent::render($this->tpl_path, $this->tpl, false, true);
 	}
 }

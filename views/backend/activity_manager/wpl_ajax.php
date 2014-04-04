@@ -71,7 +71,7 @@ class wpl_activity_manager_controller extends wpl_controller
 		
         $this->options = isset($this->activity_data->params) ? json_decode($this->activity_data->params) : new stdClass;
 		
-        parent::display($this->tpl_path, 'internal_modify');
+        parent::render($this->tpl_path, 'internal_modify');
         exit;
     }
 

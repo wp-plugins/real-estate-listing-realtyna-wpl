@@ -11,7 +11,7 @@ class wpl_property_types
 {
 	var $property_types;
 	
-	public function remove_property_type($property_type_id)
+	public static function remove_property_type($property_type_id)
 	{
 		$query = "DELETE FROM `#__wpl_property_types` WHERE `id`='$property_type_id'";
 		$result = wpl_db::q($query);
@@ -19,7 +19,7 @@ class wpl_property_types
 		return $result;	
 	}
 	
-	public function clear_empty_property_types()
+	public static function clear_empty_property_types()
 	{
 		$query = "DELETE FROM `#__wpl_property_types` WHERE `name`=''";
 		$result = wpl_db::q($query);
@@ -28,12 +28,12 @@ class wpl_property_types
 	}
 	
 	/** Deprecated :: use wpl_global::get_property_types instead. **/
-	public function get_property_type($property_type_id)
+	public static function get_property_type($property_type_id)
 	{
 		return wpl_global::get_property_types($property_type_id);
 	}
 	
-	public function insert_property_type()
+	public static function insert_property_type()
 	{
 		$query = "INSERT INTO `#__wpl_property_types`(`parent`, `enabled`, `editable`, `listing`) VALUE ('1','1','2','0')";
 		$id = wpl_db::q($query, 'insert');
@@ -43,7 +43,7 @@ class wpl_property_types
 		return $id;
 	}
 	
-	public function sort_property_types($sort_ids)
+	public static function sort_property_types($sort_ids)
 	{
 		$query = "SELECT `id`, `index` FROM `#__wpl_property_types` WHERE `id` IN ($sort_ids) ORDER BY `index` ASC";
 		$property_types = wpl_db::select($query, 'loadAssocList');
@@ -60,7 +60,7 @@ class wpl_property_types
 		return $conter;
 	}
 	
-	public function update($id, $key, $value = '')
+	public static function update($id, $key, $value = '')
 	{
 		/** first validation **/
 		if(trim($id) == '' or trim($key) == '') return false;
@@ -68,12 +68,12 @@ class wpl_property_types
 	}
 	
 	/** Deprecated :: use wpl_global::get_property_types instead. **/
-	public function get_property_types()
+	public static function get_property_types()
 	{
 		return wpl_global::get_property_types('', 0);
 	}
 	
-	public function get_property_types_category()
+	public static function get_property_types_category()
 	{
 		$query = "SELECT * FROM `#__wpl_property_types` WHERE `parent` = '0' ORDER BY `index` ASC";
 		return wpl_db::select($query, 'loadAssocList');

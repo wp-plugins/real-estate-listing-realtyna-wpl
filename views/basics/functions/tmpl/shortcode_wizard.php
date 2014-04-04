@@ -1,6 +1,9 @@
 <?php
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
+
+$js = (object) array('param1'=>'wpl-tinymce-popup', 'param2'=>wpl_global::get_wp_site_url().'wp-includes/js/tinymce/tiny_mce_popup.js', 'external'=>true);
+wpl_extensions::import_javascript($js);
 ?>
 <div class="short-code-wp wpl_shortcode_wizard_container" id="wpl_shortcode_wizard_container">
     <h2>
@@ -15,6 +18,7 @@ defined('_WPLEXEC') or die('Restricted access');
                 <option value="property_listing"><?php echo __('Property Listing', WPL_TEXTDOMAIN); ?></option>
                 <option value="property_show"><?php echo __('Property Show', WPL_TEXTDOMAIN); ?></option>
                 <option value="profile_listing"><?php echo __('Profile/Agent Listing', WPL_TEXTDOMAIN); ?></option>
+                <option value="profile_show"><?php echo __('Profile/Agent Show', WPL_TEXTDOMAIN); ?></option>
                 <!--<option value="property_manager"><?php echo __('Listing Manager', WPL_TEXTDOMAIN); ?></option>-->
                 <option value="profile_wizard"><?php echo __('My Profile', WPL_TEXTDOMAIN); ?></option>
                 <!--<option value="property_wizard"><?php echo __('Add/Edit Listing', WPL_TEXTDOMAIN); ?></option>-->
@@ -61,6 +65,28 @@ defined('_WPLEXEC') or die('Restricted access');
             </select>
         </div>
         
+        <div class="plugin-row wpl_shortcode_parameter pr_property_listing pr_profile_show">
+            <?php $wpl_users = wpl_users::get_wpl_users(); ?>
+            <label for="pr_target_page_selectbox"><?php echo __('User', WPL_TEXTDOMAIN); ?></label>
+            <select id="pr_target_page_selectbox" name="sf_select_user_id" data-has-chosen="0">
+            	<option value="">-----</option>
+                <?php foreach($wpl_users as $wpl_user): ?>
+				<option value="<?php echo $wpl_user->ID; ?>"><?php echo $wpl_user->user_login.((trim($wpl_user->first_name) != '' or trim($wpl_user->last_name) != '') ? ' ('.$wpl_user->first_name.' '.$wpl_user->last_name.')' : ''); ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        
+        <div class="plugin-row wpl_shortcode_parameter pr_property_manager pr_property_listing pr_profile_listing pr_profile_show">
+            <?php $pages = wpl_global::get_wp_pages(); ?>
+            <label for="pr_target_page_selectbox"><?php echo __('Target page', WPL_TEXTDOMAIN); ?></label>
+            <select id="pr_target_page_selectbox" name="wpltarget" data-has-chosen="0">
+            	<option value="">-----</option>
+                <?php foreach($pages as $page): ?>
+				<option value="<?php echo $page->ID; ?>"><?php echo $page->post_title; ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        
         <div class="plugin-row wpl_shortcode_parameter wpl_hidden_element pr_property_listing pr_profile_listing">
             <?php $page_sizes = explode(',', trim($this->settings['page_sizes'], ', ')); ?>
             <label for="pr_limit_selectbox"><?php echo __('Listing per page', WPL_TEXTDOMAIN); ?></label>
@@ -103,21 +129,9 @@ defined('_WPLEXEC') or die('Restricted access');
             <label for="pr_mls_id_textbox"><?php echo __('Listing id', WPL_TEXTDOMAIN); ?></label>
             <input type="text" id="pr_mls_id_textbox" name="mls_id" />
         </div>
-        
-        <div class="plugin-row wpl_shortcode_parameter pr_property_manager">
-            <?php $pages = wpl_global::get_wp_pages(); ?>
-            <label for="pr_target_page_selectbox"><?php echo __('Target page', WPL_TEXTDOMAIN); ?></label>
-            <select id="pr_target_page_selectbox" name="wpltarget" data-has-chosen="0">
-            	<option value="">-----</option>
-                <?php foreach($pages as $page): ?>
-				<option value="<?php echo $page->ID; ?>"><?php echo $page->post_title; ?></option>
-                <?php endforeach; ?>
-            </select>
-        </div>
 
     </div>
 </div>
-<script type="text/javascript"><?php include ABSPATH.'wp-includes'.DS.'js'.DS.'tinymce'.DS.'tiny_mce_popup.js'; ?></script>
 <script type="text/javascript">
 wplj(document).ready(function()
 {
@@ -130,8 +144,9 @@ function insert_shortcode()
 	var view = wplj("#view_selectbox").val();
 
 	if (view == 'property_listing') shortcode += '[WPL';
+    else if (view == 'property_show') shortcode += '[wpl_property_show';
 	else if (view == 'profile_listing') shortcode += '[wpl_profile_listing';
-	else if (view == 'property_show') shortcode += '[wpl_property_show';
+    else if (view == 'profile_show') shortcode += '[wpl_profile_show';
 	else if (view == 'property_manager') shortcode += '[wpl_listing_manager';
 	else if (view == 'profile_wizard') shortcode += '[wpl_my_profile';
 	else if (view == 'property_wizard') shortcode += '[wpl_add_edit_listing';

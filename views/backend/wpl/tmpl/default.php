@@ -45,7 +45,7 @@ _wpl_import('libraries.activities');
                     <div class="panel-wp">
                         <h3><?php echo __('Changelog', WPL_TEXTDOMAIN); ?></h3>
                         <div class="panel-body">
-                            <?php _wpl_import('libraries.changelogs.wpl'); ?>
+                            <?php _wpl_import('assets.changelogs.wpl'); ?>
                         </div>
                     </div>
                 </div>

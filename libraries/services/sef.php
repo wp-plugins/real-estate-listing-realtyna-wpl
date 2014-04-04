@@ -16,23 +16,29 @@ class wpl_service_sef
 		
 		/** get global settings **/
 		$settings = wpl_global::get_settings();
-		
 		$wpl_qs = urldecode(wpl_global::get_wp_qvar('wpl_qs'));
-		if(trim($wpl_qs) == '') return;
 		
 		/** get view **/
 		$view = wpl_sef::get_view($wpl_qs, $settings['sef_main_separator']);
 		
 		/** set vars **/
 		wpl_sef::setVars($view, $wpl_qs);
-		
+        
 		if($view == 'property_show')
 		{
-			$ex = explode('-', $wpl_qs);
-			$exp = explode('-', $ex[0]);
-			$proeprty_id = $exp[0];
+            if(trim($wpl_qs) != '')
+            {
+                $ex = explode('-', $wpl_qs);
+                $exp = explode('-', $ex[0]);
+                $proeprty_id = $exp[0];
+            }
+			else
+            {
+                $proeprty_id = wpl_request::getVar('pid', NULL);
+                if(!$proeprty_id) $proeprty_id = wpl_request::getVar('property_id', NULL);
+            }
 		
-			self::check_property_link($proeprty_id);
+			if(trim($wpl_qs) != '') self::check_property_link($proeprty_id);
 			self::set_property_page_params($proeprty_id);
 		}
 		elseif($view == 'profile_show')

@@ -40,7 +40,7 @@ class wpl_controller
 		$result = $_wpl_obj->$_wpl_function($instance);
 	}
 	
-	public function display($path, $tpl = '', $return_path = false, $string_output = false)
+	public function render($path, $tpl = '', $return_path = false, $string_output = false)
 	{
 		$_wpl_tpl = trim($tpl) != '' ? $tpl : wpl_request::getVar('tpl', '', 'GET');
 		if(trim($_wpl_tpl) == '') $_wpl_tpl = 'default';

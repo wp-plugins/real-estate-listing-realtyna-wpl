@@ -47,7 +47,10 @@ wplj(document).ready(function()
 		
         foreach($gallery as $image)
         {
-            if($image_width and $image_height)
+            $image_url = $image['url'];
+            $image_thumbnail_url = $image['url'];
+            
+            if($image_width and $image_height and $image['category'] != 'external')
             {
                 /** set resize method parameters **/
                 $params = array();
@@ -62,8 +65,8 @@ wplj(document).ready(function()
             }
             
             /** start loading images **/
-            echo '<li><img src="'.$image_url.'" title="" class="wpl_gallery_image '.$image_class.'" id="wpl_gallery_image'.$image['raw']['id'].'" width="'.$image_width.'" height="'.$image_height.'" /></li>';
-            $pager_box .= '<a data-slide-index="'.$i.'" href=""><img src="'.$image_thumbnail_url.'" width="100" height="80"/></a>';
+            echo '<li><img src="'.$image_url.'" title="" class="wpl_gallery_image '.$image_class.'" id="wpl_gallery_image'.$image['raw']['id'].'" width="'.$image_width.'" height="'.$image_height.'" style="width: '.$image_width.'px; height: '.$image_height.'px;" /></li>';
+            $pager_box .= '<a data-slide-index="'.$i.'" href=""><img src="'.$image_thumbnail_url.'" width="100" height="80" style="width: 100px; height: 80px;" /></a>';
         	$i++;
         }
 		

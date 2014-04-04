@@ -46,7 +46,7 @@ class wpl_filters
 	/**
 		get filters by trigger and enabled status
 	**/
-	public function get_filters($trigger, $enabled = 1)
+	public static function get_filters($trigger, $enabled = 1)
 	{
 		$query = "SELECT * FROM `#__wpl_filters` WHERE `trigger`='$trigger' AND `enabled`>='$enabled'";
 		return wpl_db::select($query);

@@ -129,7 +129,7 @@ class wpl_render
 		@return rendered price
 		@author Howard
 	**/
-	public function render_price($price, $unit_id = '')
+	public static function render_price($price, $unit_id = '')
 	{
 		/** in case of empty unit just do it with default currency **/
 		if(trim($unit_id) == '')
@@ -168,7 +168,7 @@ class wpl_render
 		@return derendered date based on global settings
 		@author Albert
 	**/
-	public function derender_date($date)
+	public static function derender_date($date)
 	{
 		$date_format_arr = explode(':', wpl_global::get_setting('main_date_format'));
 		$date_format = $date_format_arr[0];

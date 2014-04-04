@@ -1,8 +1,7 @@
 <?php
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
-
-$this->_wpl_import($this->tpl_path.'.scripts.js');
+include _wpl_import($this->tpl_path.'.scripts.js', true, true);
 
 /** set params **/
 $wpl_properties = isset($params['wpl_properties']) ? $params['wpl_properties'] : array();
@@ -10,7 +9,7 @@ $property_id = isset($wpl_properties['current']['data']['id']) ? $wpl_properties
 
 /** get params **/
 $map_width = isset($params['map_width']) ? $params['map_width'] : 360;
-$map_height = isset($params['map_height']) ? $params['map_height'] : 285;
+$map_height = isset($params['map_height']) ? $params['map_height'] : 385;
 $default_lt = isset($params['default_lt']) ? $params['default_lt'] : '38.685516';
 $default_ln = isset($params['default_ln']) ? $params['default_ln'] : '-101.073324';
 $default_zoom = isset($params['default_zoom']) ? $params['default_zoom'] : '4';

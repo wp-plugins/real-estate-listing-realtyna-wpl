@@ -12,7 +12,7 @@ if($type == 'text' and !$done_this)
 
 		<?php if ($options['show_shortcode']): ?>
         <div class="shortcode-wp" id="wpl_setting_form_shortcode_container<?php echo $setting_record->id; ?>">
-            <span title="<?php echo __('Shortcode'); ?>" id="wpl_st_<?php echo $setting_record->id; ?>_shortcode_value"><?php echo $options['shortcode_key'] . '="' . $value . '"'; ?></span>
+            <span title="<?php echo __('Shortcode', WPL_TEXTDOMAIN); ?>" id="wpl_st_<?php echo $setting_record->id; ?>_shortcode_value"><?php echo $options['shortcode_key'] . '="' . $value . '"'; ?></span>
         </div>
 		<?php endif; ?>
 

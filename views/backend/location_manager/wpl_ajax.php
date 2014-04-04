@@ -106,7 +106,7 @@ class wpl_location_manager_controller extends wpl_controller
 		/** get location data for edit **/
 		if(trim($location_id) != '') $this->location_data = wpl_locations::get_location($location_id, $level);
 		
-		parent::display($this->tpl_path, 'edit');
+		parent::render($this->tpl_path, 'edit');
 		exit;
 	}
 	

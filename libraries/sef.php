@@ -16,7 +16,7 @@ class wpl_sef
 		Date : 2013-08-14
 		Description : This is a system function for processing SEF
 	**/
-	public function process($instance)
+	public static function process($instance)
 	{
 		/** get global settings **/
 		$settings = wpl_global::get_settings();
@@ -38,25 +38,36 @@ class wpl_sef
 		Date : 2013-08-14
 		Description : This is a function for getting the view based on query string
 	**/
-	public function get_view($query_string = '', $separator = '')
+	public static function get_view($query_string = '', $separator = '')
 	{
 		/** first validations **/
 		if(trim($query_string) == '') $query_string = wpl_global::get_wp_qvar('wpl_qs');
 		if(trim($separator) == '') $separator = wpl_global::get_setting('sef_main_separator');
 		
-		$ex = explode($separator, $query_string);
+		if(trim($query_string) != '')
+        {
+            $ex = explode($separator, $query_string);
+            
+            if(trim($ex[0]) == '') $view = 'property_listing';
+            else
+            {
+                $exp = explode('-', $ex[0]);
+
+                if(is_numeric($exp[0])) $view = 'property_show';
+                elseif($ex[0] == 'agents') $view = 'profile_listing';
+                elseif($ex[0] == 'features') $view = 'features';
+                elseif(strpos($ex[0], ':') === false) $view = 'profile_show';
+                else $view = 'property_listing';
+            }
+        }
+        else
+        {
+            $view = wpl_request::getVar('wplview', '');
+            if(trim($view) == '') self::set_view();
+            
+            $view = wpl_request::getVar('wplview', '');
+        }
 		
-		if(trim($ex[0]) == '') $view = 'property_listing';
-		else
-		{
-			$exp = explode('-', $ex[0]);
-			
-			if(is_numeric($exp[0])) $view = 'property_show';
-			elseif($ex[0] == 'agents') $view = 'profile_listing';
-			elseif($ex[0] == 'features') $view = 'features';
-			elseif(strpos($ex[0], ':') === false) $view = 'profile_show';
-			else $view = 'property_listing';
-		}
 		
 		return $view;
 	}
@@ -68,7 +79,7 @@ class wpl_sef
 		Date : 2013-08-14
 		Description : This is a function for setting the parameters
 	**/
-	public function setVars($view = 'property_listing', $query_string = '')
+	public static function setVars($view = 'property_listing', $query_string = '')
 	{
 		/** first validations **/
 		if(trim($query_string) == '') $query_string = wpl_global::get_wp_qvar('wpl_qs');
@@ -77,20 +88,20 @@ class wpl_sef
 		$ex = explode($separator, $query_string);
 		
 		/** set view **/
-		wpl_request::setVar('wplview', $view);
+		wpl_request::setVar('wplview', $view, 'method', false);
 		
 		if($view == 'property_show')
 		{
 			$exp = explode('-', $ex[0]);
-			wpl_request::setVar('pid', $exp[0]);
+			wpl_request::setVar('pid', $exp[0], 'method', false);
 		}
 		elseif($view == 'profile_show')
 		{
 			$query = "SELECT `ID` FROM `#__users` WHERE `user_login`='".$ex[0]."' ORDER BY ID ASC LIMIT 1";
 			$uid = wpl_db::select($query, 'loadResult');
 			
-			wpl_request::setVar('uid', $uid);
-			wpl_request::setVar('sf_select_user_id', $uid);
+			wpl_request::setVar('uid', $uid, 'method', false);
+			wpl_request::setVar('sf_select_user_id', $uid, 'method', false);
 		}
 		else
 		{
@@ -152,7 +163,7 @@ class wpl_sef
 					$field = self::parse_field(urldecode($fields[$i]), $specific_fields);
 					$value = self::get_id_by_name($field, urldecode($values[$i]));
 					
-					if(trim($value) != '') wpl_request::setVar('sf_'.$type.'_'.$field, $value);
+					if(trim($value) != '') wpl_request::setVar('sf_'.$type.'_'.$field, $value, 'method', false);
 					$i++;
 				}
 			}
@@ -166,7 +177,7 @@ class wpl_sef
 		Date : 2013-08-14
 		Description : This is a function for loading view
 	**/
-	public function get_id_by_name($field = '', $value = '')
+	public static function get_id_by_name($field = '', $value = '')
 	{
 		/** return if value is numeric for some special fields **/
 		if(is_numeric($value)) return $value;
@@ -198,7 +209,7 @@ class wpl_sef
 		Date : 2013-08-14
 		Description : It will change dummy fields to WPL fields for example "Property Type" to "property_type". Also it takes care of specific fields
 	**/
-	public function parse_field($field, $specific_fields = array())
+	public static function parse_field($field, $specific_fields = array())
 	{
 		if(trim($field) == '') return '';
 		
@@ -211,7 +222,7 @@ class wpl_sef
 		Date : 2013-08-14
 		Description : It will change dummy fields to WPL fields.
 	**/
-	public function set_location_vars($parameters)
+	public static function set_location_vars($parameters)
 	{
 		/** specific fields like country, state, city and ... **/
 		$location_fields = array();
@@ -258,7 +269,7 @@ class wpl_sef
 		Date : 2013-11-06
 		Description : This is for settings wpl view before initializing theme for using in theme
 	**/
-	public function set_view()
+	public static function set_view()
 	{
 		/** checking wordpress post type (post, page, any kind of posts and ...) **/
 		if(is_page() or is_single())
@@ -268,15 +279,43 @@ class wpl_sef
 			$post_content = wpl_db::get('post_content', 'posts', 'id', $post_id);
 			$wplview = '';
 			
-			if(strpos($post_content, '[wpl_profile_listing') !== false) $wplview = 'profile_listing';
-			elseif(strpos($post_content, '[wpl_property_listings') !== false or strpos($post_content, '[WPL') !== false) $wplview = 'property_listing';
+			if(strpos($post_content, '[wpl_property_listings') !== false or strpos($post_content, '[WPL') !== false) $wplview = 'property_listing';
 			elseif(strpos($post_content, '[wpl_property_show') !== false) $wplview = 'property_show';
+            elseif(strpos($post_content, '[wpl_profile_listing') !== false) $wplview = 'profile_listing';
+            elseif(strpos($post_content, '[wpl_profile_show') !== false) $wplview = 'profile_show';
 			elseif(strpos($post_content, '[wpl_my_profile') !== false) $wplview = 'profile_wizard';
 			elseif(strpos($post_content, '[wpl_add_edit_listing') !== false) $wplview = 'property_wizard';
 			elseif(strpos($post_content, '[wpl_listing_manager') !== false) $wplview = 'property_manager';
 			
 			/** set view **/
 			if(trim($wplview) != '') wpl_request::setVar('wplview', $wplview);
+            
+            $pattern = get_shortcode_regex();
+            preg_match('/'.$pattern.'/s', $post_content, $matches);
+            
+            $wpl_shortcodes = array('WPL', 'wpl_property_listings', 'wpl_property_show', 'wpl_profile_listing', 'wpl_profile_show', 'wpl_my_profile', 'wpl_add_edit_listing', 'wpl_listing_manager');
+            if(is_array($matches) and isset($matches[2]) and in_array($matches[2], $wpl_shortcodes))
+            {
+               $shortcode = $matches[0];
+               $params_str = trim($matches[3], ', ');
+               if(trim($params_str) != '')
+               {
+                   $params_str_ex = explode(' ', $params_str);
+                   foreach($params_str_ex as $param)
+                   {
+                       $param_ex = explode('=', $param);
+                       $key = $param_ex[0];
+                       $value = trim($param_ex[1], '" ');
+                       
+                       wpl_request::setVar($key, $value, 'method', false);
+                   }
+               }
+            }
 		}
 	}
+    
+    public static function get_page_link($page_id)
+    {
+        return get_page_link($page_id);
+    }
 }

@@ -7,13 +7,13 @@ defined('_WPLEXEC') or die('Restricted access');
         <h3><?php echo __('Properties by listing types', WPL_TEXTDOMAIN); ?></h3>
         <div class="panel-body">
         	<?php
-				$properties = wpl_db::select("SELECT COUNT(*) as count, `listing` FROM `#__wpl_properties` WHERE `finalized`='1' AND `confirmed`='1' AND `deleted`='0' AND `listing`!='0' GROUP BY `listing`");
+				$properties = wpl_db::select("SELECT COUNT(*) as count, `listing` FROM `#__wpl_properties` WHERE `finalized`='1' AND `confirmed`='1' AND `deleted`='0' AND `listing`!='0' GROUP BY `listing`", 'loadAssocList');
 				
 				$data = array();
 				foreach($properties as $property)
 				{
-					$listing = wpl_global::get_listings($property->listing);
-					$data[__($listing->name, WPL_TEXTDOMAIN)] = $property->count;
+					$listing = wpl_global::get_listings($property['listing']);
+					$data[__($listing->name, WPL_TEXTDOMAIN)] = $property['count'];
 				}
 				
 				$params = array(
@@ -35,13 +35,13 @@ defined('_WPLEXEC') or die('Restricted access');
         <h3><?php echo __('Properties by property types', WPL_TEXTDOMAIN); ?></h3>
         <div class="panel-body">
         	<?php
-				$properties = wpl_db::select("SELECT COUNT(*) as count, `property_type` FROM `#__wpl_properties` WHERE `finalized`='1' AND `confirmed`='1' AND `deleted`='0' AND `property_type`!='0' GROUP BY `property_type`");
+				$properties = wpl_db::select("SELECT COUNT(*) as count, `property_type` FROM `#__wpl_properties` WHERE `finalized`='1' AND `confirmed`='1' AND `deleted`='0' AND `property_type`!='0' GROUP BY `property_type`", 'loadAssocList');
 				
 				$data = array();
 				foreach($properties as $property)
 				{
-					$property_type = wpl_global::get_property_types($property->property_type);
-					$data[__($property_type->name, WPL_TEXTDOMAIN)] = $property->count;
+					$property_type = wpl_global::get_property_types($property['property_type']);
+					$data[__($property_type->name, WPL_TEXTDOMAIN)] = $property['count'];
 				}
 				
 				$params = array(

@@ -91,7 +91,7 @@ class wpl_data_structure_controller extends wpl_controller
 		$this->property_type_data = wpl_property_types::get_property_type($this->property_type_id);
 		$this->property_types_category = wpl_property_types::get_property_types_category();
 		
-		parent::display($this->tpl_path, 'internal_edit_property_types');
+		parent::render($this->tpl_path, 'internal_edit_property_types');
 		exit;
 	}
 	
@@ -101,7 +101,7 @@ class wpl_data_structure_controller extends wpl_controller
 		$this->property_type_data = wpl_property_types::get_property_type($this->property_type_id);
 		$this->property_types_category = wpl_property_types::get_property_types_category();
 		
-		parent::display($this->tpl_path, 'internal_edit_property_types');
+		parent::render($this->tpl_path, 'internal_edit_property_types');
 		exit;
 	}
 }

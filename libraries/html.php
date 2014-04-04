@@ -35,7 +35,7 @@ class wpl_html
 		Date : 2013-08-19
 		Description : This is a function for getting instance of html class
 	**/
-	public function getInstance($init = true)
+	public static function getInstance($init = true)
 	{
 		if(!self::$document)
 		{
@@ -52,7 +52,7 @@ class wpl_html
 		Date : 2013-08-19
 		Description : This is a function for setting meta keywords
 	**/
-	public function set_meta_keywords($keywords = array())
+	public static function set_meta_keywords($keywords = array())
 	{
 		if(is_array($keywords))
 		{
@@ -71,7 +71,7 @@ class wpl_html
 		Date : 2013-08-19
 		Description : This is a function for setting meta description
 	**/
-	public function set_meta_description($string)
+	public static function set_meta_description($string)
 	{
 		$string = (string) $string;
 		if(trim($string) == '') return false;
@@ -86,7 +86,7 @@ class wpl_html
 		Date : 2013-08-19
 		Description : This is a function for setting the title
 	**/
-	public function set_title($string = '')
+	public static function set_title($string = '')
 	{
 		$string = (string) $string;
 		if(trim($string) == '') return false;
@@ -101,7 +101,7 @@ class wpl_html
 		Date : 2013-08-19
 		Description : This is a function for filtering title
 	**/
-	public function title($title, $separator)
+	public static function title($title, $separator)
 	{
 		if(trim(self::$title) != '') return self::$title;
 		else return $title;
@@ -114,7 +114,7 @@ class wpl_html
 		Date : 2013-08-19
 		Description : This is a function for printing meta keywords and meta descriptions
 	**/
-	public function generate_head()
+	public static function generate_head()
 	{
 		/** generate meta keywords **/
 		if(self::$meta_keywords)
@@ -136,7 +136,7 @@ class wpl_html
 		Date : 2014-03-20
 		Description : This is a function for loading any view on frontend
 	**/
-	public function load_view($function, $instance = array())
+	public static function load_view($function, $instance = array())
 	{
 		if(trim($function) == '') return false;
 		
@@ -155,7 +155,7 @@ class wpl_html
 		Date : 2014-03-20
 		Description : This is a function for loading profile wizard by shortcode
 	**/
-	public function load_profile_wizard($instance = array())
+	public static function load_profile_wizard($instance = array())
 	{
 		return wpl_html::load_view('b:users:profile', $instance);
 	}
@@ -167,7 +167,7 @@ class wpl_html
 		Date : 2014-03-25
 		Description : This is a function for loading property wizard by shortcode
 	**/
-	public function load_add_edit_listing($instance = array())
+	public static function load_add_edit_listing($instance = array())
 	{
 		return wpl_html::load_view('b:listing:wizard', $instance);
 	}
@@ -179,7 +179,7 @@ class wpl_html
 		Date : 2014-03-25
 		Description : This is a function for loading property manager by shortcode
 	**/
-	public function load_listing_manager($instance = array())
+	public static function load_listing_manager($instance = array())
 	{
 		return wpl_html::load_view('b:listings:manager', $instance);
 	}

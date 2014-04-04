@@ -39,4 +39,24 @@ class wpl_widget extends WP_Widget
 		
 		return $data;
 	}
+    
+    /*
+	 * List the layouts in <option> fields
+	 */
+	public function generate_pages_selectbox($instance, $field_name = 'wpltarget')
+	{
+        $pages = wpl_global::get_wp_pages();
+        
+        foreach($pages as $page)
+        {
+            $data .= '<option ';
+			if(isset($instance[$field_name]) and $page->ID == $instance[$field_name]) $data .= 'selected="selected" ';
+			$data .= 'value="'.$page->ID.'"';
+			$data .= '>';
+			$data .= substr($page->post_title, 0, 100);
+			$data .= '</option>';
+        }
+		
+		return $data;
+	}
 }

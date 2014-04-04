@@ -4,6 +4,12 @@ defined('_WPLEXEC') or die('Restricted access');
 
 include _wpl_import("widgets.carousel.scripts.js", true, true);
 
+$image_width = isset($this->instance['data']['image_width']) ? $this->instance['data']['image_width'] : 1920;
+$image_height = isset($this->instance['data']['image_height']) ? $this->instance['data']['image_height'] : 558;
+
+$thumbnail_width = isset($this->instance['data']['thumbnail_width']) ? $this->instance['data']['thumbnail_width'] : 150;
+$thumbnail_height = isset($this->instance['data']['thumbnail_height']) ? $this->instance['data']['thumbnail_height'] : 60;
+
 /** add Layout js **/
 $js[] = (object) array('param1'=>'elastic.slideshow', 'param2'=>'js/elastic_slideshow/jquery.eislideshow.js');
 foreach($js as $javascript) wpl_extensions::import_javascript($javascript);
@@ -23,12 +29,21 @@ foreach($wpl_properties as $key=>$gallery)
         else $image_title = $gallery['rendered'][3]['value'] .' '.$gallery['rendered'][2]['value'];
 		
 		$image_description	= $gallery["items"]["gallery"][0]->item_extra2;
-        $image_url 			= wpl_images::create_gallary_image(1920, 558, $params);
-        $thumbnail_url 		= wpl_images::create_gallary_image(150, 60, $params);
+        
+        if($gallery["items"]["gallery"][0]->item_cat != 'external')
+        {
+            $image_url 			= wpl_images::create_gallary_image($image_width, $image_height, $params);
+            $thumbnail_url 		= wpl_images::create_gallary_image($thumbnail_width, $thumbnail_height, $params);
+        }
+        else
+        {
+            $image_url 			= $gallery["items"]["gallery"][0]->item_extra3;
+            $thumbnail_url 		= $gallery["items"]["gallery"][0]->item_extra3;
+        }
 
 		$larg_images .= '
 		<li>
-            <img src="'.$image_url.'" alt="'.$image_title.'" width="1920" height="558" />
+            <img src="'.$image_url.'" alt="'.$image_title.'" width="'.$image_width.'" height="'.$image_height.'" style="width: '.$image_width.'px; height: '.$image_height.'px;" />
             <div class="ei-title">
                 <h2>'.$gallery["rendered"][3]["value"].' '.$gallery["rendered"][2]["value"].'</h2>
                 <h3>'.$gallery["rendered"][10]["value"].' - '.$gallery["location_text"].'</h3>
@@ -36,7 +51,7 @@ foreach($wpl_properties as $key=>$gallery)
             </div>
         </li>';
 
-        $thumbnail	.='<li><a href="#">'.$image_title.'</a><img src="'.$thumbnail_url.'" alt="'.$image_title.'" width="150" height="60" /></li>';
+        $thumbnail	.='<li><a href="#">'.$image_title.'</a><img src="'.$thumbnail_url.'" alt="'.$image_title.'" width="'.$thumbnail_width.'" height="'.$thumbnail_height.'" style="width: '.$thumbnail_width.'px; height: '.$thumbnail_height.'px;" /></li>';
 	}
 }
 ?>

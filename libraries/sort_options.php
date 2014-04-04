@@ -12,7 +12,7 @@ class wpl_sort_options
 	/**
 		return sort options
 	**/
-	public function get_sort_options($kind = '', $enabled = 1, $condition = '', $output_type = 'loadAssocList')
+	public static function get_sort_options($kind = '', $enabled = 1, $condition = '', $output_type = 'loadAssocList')
 	{
 		if(trim($condition) == '')
 		{
@@ -30,7 +30,7 @@ class wpl_sort_options
 	/**
 		@input $sort_ids
 	**/
-	public function sort_options($sort_ids)
+	public static function sort_options($sort_ids)
 	{
 		$query = "SELECT `id`,`index` FROM `#__wpl_sort_options` WHERE `id` IN ($sort_ids) ORDER BY `index` ASC";
 		$options = wpl_db::select($query, 'loadAssocList');
@@ -49,7 +49,7 @@ class wpl_sort_options
 		@input {table}, {key}, {id} and [value]
 		@return boolean result
 	**/
-	public function update($table = 'wpl_sort_options', $id, $key, $value = '')
+	public static function update($table = 'wpl_sort_options', $id, $key, $value = '')
 	{
 		/** first validation **/
 		if(trim($table) == '' or trim($id) == '' or trim($key) == '') return false;

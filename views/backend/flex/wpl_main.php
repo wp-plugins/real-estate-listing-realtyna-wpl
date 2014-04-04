@@ -22,7 +22,7 @@ class wpl_flex_controller extends wpl_controller
 		$this->new_dbst_id = wpl_flex::get_new_dbst_id();
 		
 		/** import tpl **/
-		parent::display($this->tpl_path, $this->tpl);
+		parent::render($this->tpl_path, $this->tpl);
 	}
 	
 	protected function generate_slide($category)
@@ -33,7 +33,7 @@ class wpl_flex_controller extends wpl_controller
 		$this->field_category = $category;
 		
 		/** import tpl **/
-		parent::display($this->tpl_path, $tpl);
+		parent::render($this->tpl_path, $tpl);
 	}
 	
 	protected function generate_sidebar($sidebar)
@@ -43,6 +43,6 @@ class wpl_flex_controller extends wpl_controller
 		$this->sidebar = $sidebar;
 		
 		/** import tpl **/
-		parent::display($this->tpl_path, $tpl);
+		parent::render($this->tpl_path, $tpl);
 	}
 }

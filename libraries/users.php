@@ -17,7 +17,7 @@ class wpl_users
 		@description for deleting user from wpl
 		@author Howard
 	**/
-	public function get_plisting_fields($category = '', $kind = 2, $enabled = 1)
+	public static function get_plisting_fields($category = '', $kind = 2, $enabled = 1)
 	{
 		return wpl_flex::get_fields($category, $enabled, $kind, 'plisting', '1');
 	}
@@ -28,7 +28,7 @@ class wpl_users
 		@description for deleting user from wpl
 		@author Howard
 	**/
-	public function delete_user_from_wpl($user_id)
+	public static function delete_user_from_wpl($user_id)
 	{
 		$query = "DELETE FROM `#__wpl_users` WHERE `id`='$user_id'";
 		$result = wpl_db::q($query);
@@ -42,7 +42,7 @@ class wpl_users
 		@description for adding user to wpl
 		@author Howard
 	**/
-	public function add_user_to_wpl($user_id)
+	public static function add_user_to_wpl($user_id)
 	{
 		/** first validation **/
 		if(wpl_users::get_wpl_user($user_id)) return true;
@@ -83,7 +83,7 @@ class wpl_users
 		@description for getting all wordpress users (included wpl data)
 		@author Howard
 	**/
-	public function get_all_wp_users($args, $add_data = false)
+	public static function get_all_wp_users($args, $add_data = false)
 	{
 		$users = get_users($args);
 		if(!$add_data) return $users;
@@ -103,7 +103,7 @@ class wpl_users
 		@description for getting wordpress users
 		@author Howard
 	**/
-	public function get_wp_users($query = '')
+	public static function get_wp_users($query = '')
 	{
 		$query = "SELECT * FROM `#__users` AS u LEFT JOIN `#__wpl_users` AS wpl ON u.ID = wpl.id WHERE 1 $query";
 		$users = wpl_db::select($query);
@@ -151,7 +151,7 @@ class wpl_users
 		@description for getting user data (just wpl data)
 		@author Howard
 	**/
-	public function get_wpl_user($user_id = '')
+	public static function get_wpl_user($user_id = '')
 	{
 		/** load current user **/
 		if(trim($user_id) == '') $user_id = self::get_cur_user_id();
@@ -166,7 +166,7 @@ class wpl_users
 		@description for getting user meta data
 		@author Howard
 	**/
-	public function get_user_meta($user_id = '', $key = '', $single = '')
+	public static function get_user_meta($user_id = '', $key = '', $single = '')
 	{
 		$rendered_meta = array();
 		
@@ -190,7 +190,7 @@ class wpl_users
 		@description for getting user meta data
 		@author Howard
 	**/
-	public function get_wpl_data($user_id = '')
+	public static function get_wpl_data($user_id = '')
 	{
 		if(trim($user_id) == '') $user_id = self::get_cur_user_id();
 		return wpl_db::get('*', 'wpl_users', 'id', $user_id);
@@ -202,7 +202,7 @@ class wpl_users
 		@description for getting current user id
 		@author Howard
 	**/
-	public function get_cur_user_id()
+	public static function get_cur_user_id()
 	{
 		return get_current_user_id();
 	}
@@ -213,8 +213,11 @@ class wpl_users
 		@description for getting user id by username
 		@author Howard
 	**/
-	public function get_id_by_username($username)
+	public static function get_id_by_username($username)
 	{
+        /** first validation **/
+        if(!trim($username)) return false;
+        
 		$query = "SELECT * FROM `#__users` WHERE `user_login`='$username'";
 		$user = wpl_db::select($query, 'loadObject');
 		
@@ -227,7 +230,7 @@ class wpl_users
 		@description for getting user id by username
 		@author Howard
 	**/
-	public function get_id_by_email($email)
+	public static function get_id_by_email($email)
 	{
 		$query = "SELECT * FROM `#__users` WHERE `user_email`='$email'";
 		$user = wpl_db::select($query, 'loadObject');
@@ -241,7 +244,7 @@ class wpl_users
 		@description for getting current ip
 		@author Howard
 	**/
-	public function get_current_ip()
+	public static function get_current_ip()
 	{
 		return wpl_request::getVar('REMOTE_ADDR', '', 'SERVER');
 	}
@@ -252,7 +255,7 @@ class wpl_users
 		@description for getting user role (wp feature)
 		@author Howard
 	**/
-	public function get_role($user_id = '')
+	public static function get_role($user_id = '')
 	{
 		$user_data = self::get_user($user_id);
 		return $user_data->roles[0];
@@ -263,7 +266,7 @@ class wpl_users
 		@return array roles
 		@author Howard
 	**/
-	public function get_wpl_roles()
+	public static function get_wpl_roles()
 	{
 		$roles = array();
 		$roles['admin'] = 'administrator';
@@ -281,7 +284,7 @@ class wpl_users
 		@return role point
 		@author Howard
 	**/
-	public function get_role_point($role)
+	public static function get_role_point($role)
 	{
 		/** get all roles **/
 		$roles = self::get_wpl_roles();
@@ -306,7 +309,7 @@ class wpl_users
 		@description for checking if user have the capability or not
 		@author Howard
 	**/
-	public function is($caps, $user_id)
+	public static function is($caps, $user_id)
 	{
 		$result = false;
 		
@@ -333,7 +336,7 @@ class wpl_users
 		@description for getting wpl memberships
 		@author Morgan
 	**/
-	public function get_wpl_memberships()
+	public static function get_wpl_memberships()
 	{
 		$query = "SELECT * FROM `#__wpl_users` WHERE `id` < 0 ORDER BY `id` DESC";
 		$memberships = wpl_db::select($query);
@@ -347,7 +350,7 @@ class wpl_users
 		@description for getting membership types
 		@author Morgan
 	**/
-	public function get_membership_types()
+	public static function get_membership_types()
 	{
 		$query = "SELECT * FROM `#__wpl_user_group_types`";
 		$result = wpl_db::select($query);
@@ -361,7 +364,7 @@ class wpl_users
 		@description for getting unique id for new membership
 		@author Morgan
 	**/
-	public function get_mmbership_id()
+	public static function get_mmbership_id()
 	{
 		$query = "SELECT MIN(id) as min_id FROM `#__wpl_users`";
 		$result = wpl_db::select($query, 'loadResult');
@@ -376,7 +379,7 @@ class wpl_users
 		@description for removing a membership
 		@author Howard
 	**/
-	public function remove_membership($membership_id)
+	public static function remove_membership($membership_id)
 	{
 		/** don't remove default and guest membership **/
 		if(in_array($membership_id, array(-1, -2))) return false;
@@ -396,7 +399,7 @@ class wpl_users
 		@description for getting a membership data
 		@author Morgan
 	**/
-	public function get_membership($membership_id)
+	public static function get_membership($membership_id)
 	{
 		$query = "SELECT * FROM `#__wpl_users` WHERE `id`='$membership_id'";
 		return wpl_db::select($query, 'loadObject');
@@ -407,7 +410,7 @@ class wpl_users
 		@return boolean result
 		@author Howard
 	**/
-	public function update($table = 'wpl_users', $id, $key, $value = '')
+	public static function update($table = 'wpl_users', $id, $key, $value = '')
 	{
 		/** first validation **/
 		if(trim($table) == '' or trim($id) == '' or trim($key) == '') return false;
@@ -420,7 +423,7 @@ class wpl_users
 		@description for checking if a user is wordpress admin or not
 		@author Howard
 	**/
-	public function is_super_admin($user_id = '')
+	public static function is_super_admin($user_id = '')
 	{
 		/** get current user id **/
 		if(!trim($user_id)) $user_id = wpl_users::get_cur_user_id();
@@ -435,7 +438,7 @@ class wpl_users
 		@description for checking if a user is added to wpl or not
 		@author Howard
 	**/
-	public function is_wpl_user($user_id = '')
+	public static function is_wpl_user($user_id = '')
 	{
 		/** get current user id **/
 		if(!trim($user_id)) $user_id = wpl_users::get_cur_user_id();
@@ -453,7 +456,7 @@ class wpl_users
 		@description use this function for changing membership of a user
 		@author Howard
 	**/
-	public function change_membership($user_id, $membership_id = -1, $trigger_event = true)
+	public static function change_membership($user_id, $membership_id = -1, $trigger_event = true)
 	{
 		$user_data = wpl_users::get_wpl_data($user_id);
 		$membership_data = wpl_users::get_wpl_data($membership_id);
@@ -485,7 +488,7 @@ class wpl_users
 		@description use this function for changing membership of a user
 		@author Howard
 	**/
-	public function check_access($access, $owner_id = 0, $user_id = '')
+	public static function check_access($access, $owner_id = 0, $user_id = '')
 	{
 		/** get current user id **/
 		if(trim($user_id) == '') $user_id = wpl_users::get_cur_user_id();
@@ -527,7 +530,7 @@ class wpl_users
 		@description use this function for getting count of properties
 		@author Howard
 	**/
-	public function get_users_properties_count($user_id = '', $condition = '')
+	public static function get_users_properties_count($user_id = '', $condition = '')
 	{
 		/** get current user id **/
 		if(trim($user_id) == '') $user_id = wpl_users::get_cur_user_id();
@@ -584,7 +587,7 @@ class wpl_users
 	**/
 	public function query()
     {
-		$this->query  = " SELECT ".$this->select;
+		$this->query  = "SELECT ".$this->select;
         $this->query .= " FROM ".$this->main_table;
         $this->query .= $this->join_query;
 		$this->query .= " WHERE 1 ".$this->where;
@@ -652,15 +655,20 @@ class wpl_users
 		@return profile_show full link
 		@author Howard
 	**/
-	public function get_profile_link($user_id = '')
+	public static function get_profile_link($user_id = '')
 	{
 		/** fetch currenr user data if user id is empty **/
 		if(trim($user_id) == '') $user_id = self::get_cur_user_id();
+        $target_id = wpl_request::getVar('wpltarget', 0);
+        
+        $user_data = self::get_user($user_id);
 		
-		$user_data = self::get_user($user_id);
-		$url = wpl_global::get_wp_site_url().wpl_global::get_setting('main_permalink').'/';
-		
-		$url .= urlencode($user_data->data->user_login).'/';
+		if($target_id) $url = wpl_global::add_qs_var('uid', $user_id, wpl_sef::get_page_link($target_id));
+		else
+        {
+            $url = wpl_global::get_wp_site_url().wpl_global::get_setting('main_permalink').'/';
+            $url .= urlencode($user_data->data->user_login).'/';
+        }
 		
         return $url;
     }
@@ -685,7 +693,7 @@ class wpl_users
 		@return rendered data
 		@author Howard
 	**/
-	public function render_profile($profile, $fields, &$finds = array())
+	public static function render_profile($profile, $fields, &$finds = array())
 	{
 		_wpl_import('libraries.property');
 		return wpl_property::render_property($profile, $fields, $finds);
@@ -696,7 +704,7 @@ class wpl_users
 		@description This function finalizes user profile and triggering events
 		@author Howard
 	**/
-	public function finalize($user_id)
+	public static function finalize($user_id)
 	{
 		/** create folder **/
 		$folder_path = wpl_items::get_path($user_id, 2);
@@ -721,7 +729,7 @@ class wpl_users
 		@description This function is for updating location text search field
 		@author Howard
 	**/
-	public function update_location_text_search_field($user_id)
+	public static function update_location_text_search_field($user_id)
 	{
         $user_data = (array) wpl_users::get_wpl_user($user_id);
 		$location_text = $user_data['location7_name'].', '.$user_data['location6_name'].', '.$user_data['location5_name'].', '.
@@ -736,7 +744,7 @@ class wpl_users
 		@description This function is for updating textsearch field
 		@author Howard
 	**/
-	public function update_text_search_field($user_id)
+	public static function update_text_search_field($user_id)
 	{
         $user_data = (array) wpl_users::get_wpl_user($user_id);
 		
@@ -792,7 +800,7 @@ class wpl_users
 		@description This function is for generating email files of user
 		@author Howard
 	**/
-	public function generate_email_files($user_id)
+	public static function generate_email_files($user_id)
 	{
 		/** import library **/
 		_wpl_import('libraries.images');
@@ -808,7 +816,7 @@ class wpl_users
 		@description this function will generate rendered data of user and save them into db
 		@author Howard
 	**/
-	public function generate_rendered_data($user_id)
+	public static function generate_rendered_data($user_id)
 	{
 		_wpl_import('libraries.render');
 		
@@ -831,7 +839,7 @@ class wpl_users
 		@return string location_text
 		@author Howard
 	**/
-	public function generate_location_text($user_data, $user_id = 0, $glue = ', ')
+	public static function generate_location_text($user_data, $user_id = 0, $glue = ', ')
 	{
 		/** fetch user data if user id is setted **/
 		if($user_id) $user_data = (array) wpl_users::get_wpl_user($user_id);
@@ -860,7 +868,7 @@ class wpl_users
 		@description This is a very useful function for rendering whole data of user. you need to just pass user_id and get everything!
 		@author Howard
 	**/
-	public function full_render($user_id, $plisting_fields = NULL)
+	public static function full_render($user_id, $plisting_fields = NULL)
 	{
 		/** get plisting fields **/
 		if(!$plisting_fields) $plisting_fields = self::get_plisting_fields();
@@ -920,7 +928,7 @@ class wpl_users
 		@input string $username, string $password
 		@return result
 	**/
-	public function authenticate($username, $password)
+	public static function authenticate($username, $password)
 	{
 		$wp_auth = wp_authenticate($username, $password);
 		$result = array();

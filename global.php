@@ -44,7 +44,7 @@ class wpl_global
 		Date : 2013-08-14
 		Description : This is a function for loading view
 	**/
-	public function load($view = 'property_listing', $query_string = '', $instance = array())
+	public static function load($view = 'property_listing', $query_string = '', $instance = array())
 	{
 		/** first validations **/
 		if(trim($query_string) == '') $query_string = wpl_global::get_wp_qvar('wpl_qs');
@@ -58,7 +58,7 @@ class wpl_global
 	}
 	
 	/** developed by howard 07/30/2013 **/
-	public function get_property_types($property_type_id = '', $enabled = 1)
+	public static function get_property_types($property_type_id = '', $enabled = 1)
 	{
 		if(!trim($property_type_id))
 		{
@@ -72,7 +72,7 @@ class wpl_global
 	}
 	
 	/** developed by howard 07/30/2013 **/
-	public function get_listings($listing_id = '', $enabled = 1)
+	public static function get_listings($listing_id = '', $enabled = 1)
 	{
 		if(!trim($listing_id))
 		{
@@ -86,7 +86,7 @@ class wpl_global
 	}
 	
 	/** developed by howard 04/17/2013 **/
-	public function get_params($table, $value, $params_field = 'params', $key = 'id')
+	public static function get_params($table, $value, $params_field = 'params', $key = 'id')
 	{
 		if(trim($table) == '' or trim($value) == '') return array();
 		
@@ -95,7 +95,7 @@ class wpl_global
 	}
 	
 	/** developed by howard 04/17/2013 **/
-	public function set_params($table, $value, $values = array(), $params_field = 'params', $key = 'id')
+	public static function set_params($table, $value, $values = array(), $params_field = 'params', $key = 'id')
 	{
 		if(trim($table) == '' or trim($value) == '') return false;
 		
@@ -105,7 +105,7 @@ class wpl_global
 	}
 	
 	/** developed by howard 03/06/2013 **/
-	public function get_menus($type = 'menu', $client = 'backend', $enabled = 1, $dashboard = 0)
+	public static function get_menus($type = 'menu', $client = 'backend', $enabled = 1, $dashboard = 0)
 	{
 		$query = "SELECT * FROM `#__wpl_menus` WHERE `client`='$client' AND `type`='$type' AND `enabled`='$enabled' AND `dashboard`>='$dashboard' ORDER BY `index` ASC";
 		return wpl_db::select($query);
@@ -115,7 +115,7 @@ class wpl_global
 		@description Remove any variable from Query String
 		@author Howard
 	**/
-	public function remove_qs_var($key, $url = '')
+	public static function remove_qs_var($key, $url = '')
 	{
 		if(trim($url) == '') $url = self::get_full_url();
 		
@@ -128,7 +128,7 @@ class wpl_global
 		@description Add any variable to Query String
 		@author Howard
 	**/
-	public function add_qs_var($key, $value, $url = '')
+	public static function add_qs_var($key, $value, $url = '')
 	{
 		if(trim($url) == '') $url = self::get_full_url();
 		
@@ -142,7 +142,7 @@ class wpl_global
 	}
 	
 	/** developed by howard 10/4/2012 **/
-	public function get_full_url()
+	public static function get_full_url()
 	{
 		/** get $_SERVER **/
 		$server = wpl_request::get('SERVER');
@@ -161,7 +161,7 @@ class wpl_global
 		@description create order link used in tables for listing records
 		@author Howard
 	**/
-	public function order_table($thName, $orderBy, $class = true, $url = '')
+	public static function order_table($thName, $orderBy, $class = true, $url = '')
 	{
 		if(trim($url) == '') $url = self::get_full_url();
 		
@@ -188,7 +188,7 @@ class wpl_global
 		@return option value
 		@author Howard
 	**/
-	public function get_wp_option($option_name, $default = false)
+	public static function get_wp_option($option_name, $default = false)
 	{
 		return get_option($option_name, $default);
 	}
@@ -198,13 +198,13 @@ class wpl_global
 		@return option value
 		@author Howard
 	**/
-	public function get_wp_qvar($var_name = 'wpl_qs')
+	public static function get_wp_qvar($var_name = 'wpl_qs')
 	{
 		return get_query_var($var_name);
 	}
 	
 	/** developed by howard 04/14/2013 **/
-	public function get_wp_url($type = 'site')
+	public static function get_wp_url($type = 'site')
 	{
 		/** make it lowercase **/
 		$type = strtolower($type);
@@ -221,50 +221,50 @@ class wpl_global
 	}
 	
 	/** developed by howard 04/10/2013 **/
-	public function get_wp_root_path()
+	public static function get_wp_root_path()
 	{
 		return ABSPATH;
 	}
 	
 	/** developed by howard 04/10/2013 **/
-	public function get_wpl_root_path()
+	public static function get_wpl_root_path()
 	{
 		return WPL_ABSPATH;
 	}
 	
 	/** developed by howard 04/14/2013 **/
-	public function get_wp_site_url()
+	public static function get_wp_site_url()
 	{
 		return self::get_wp_url('site');
 	}
 	
 	/** developed by howard 04/14/2013 **/
-	public function get_wp_admin_url()
+	public static function get_wp_admin_url()
 	{
 		return self::get_wp_url('admin');
 	}
 	
 	/** developed by howard 04/15/2013 **/
-	public function get_wpl_url()
+	public static function get_wpl_url()
 	{
 		return self::get_wp_url('WPL');
 	}
 	
 	/** developed by howard 08/11/2013 **/
-	public function get_wpl_upload_url()
+	public static function get_wpl_upload_url()
 	{
 		return self::get_wp_url('upload');
 	}
 	
 	/** developed by howard 04/15/2013 **/
-	public function get_wpl_admin_menu($admin_menu_slug)
+	public static function get_wpl_admin_menu($admin_menu_slug)
 	{
 		$admin_url = self::get_wp_url('admin');
 		return $admin_url.'admin.php?page='.$admin_menu_slug;
 	}
 	
 	/** developed by martin 04/15/2013 **/
-	public function get_icons($path, $regex = '.png$|.gif$|.jpg$|.jpeg$')
+	public static function get_icons($path, $regex = '.png$|.gif$|.jpg$|.jpeg$')
 	{
 		return wpl_folder::files($path, $regex, false, false);
 	}
@@ -274,7 +274,7 @@ class wpl_global
 		@return option value
 		@author Howard
 	**/
-	public function has_permission($role = 'guest', $user_id = '')
+	public static function has_permission($role = 'guest', $user_id = '')
 	{
 		/** get user id **/
 		if(trim($user_id) == '') $user_id = wpl_users::get_cur_user_id();
@@ -301,7 +301,7 @@ class wpl_global
 		@return option value
 		@author Howard
 	**/
-	public function min_access($role = 'guest', $user_id = '')
+	public static function min_access($role = 'guest', $user_id = '')
 	{
 		if(!wpl_global::has_permission($role, $user_id))
 		{
@@ -315,7 +315,7 @@ class wpl_global
 		@return option value
 		@author Howard
 	**/
-	public function return_in_id_array($inputs, $is_object = false)
+	public static function return_in_id_array($inputs, $is_object = false)
 	{
 		$return = array();
 		
@@ -333,7 +333,7 @@ class wpl_global
 		@return true or false
 		@author Howard
 	**/
-	public function check_access($access, $user_id = '')
+	public static function check_access($access, $user_id = '')
 	{
 		if($access == '') return 1000;
 		
@@ -357,7 +357,7 @@ class wpl_global
 		@return string
 		@author Howard
 	**/
-	public function number_to_word($x)
+	public static function number_to_word($x)
 	{
 		$nwords = array("zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty", 30=>"thirty", 40=>"forty", 50=>"fifty", 60=>"sixty", 70=>"seventy", 80=>"eighty", 90=>"ninety");
 		
@@ -439,7 +439,7 @@ class wpl_global
 		Function to sort internal arrays by their [sort] value
 		@author Marvin
 	**/
-	public function wpl_array_sort($a, $b)
+	public static function wpl_array_sort($a, $b)
 	{
 		if($a['sort'] > $b['sort']) return 1;
 		elseif($a['sort'] < $b['sort']) return -1;
@@ -458,7 +458,7 @@ class wpl_global
 	}
 	
 	/** developed by howard 08/11/2012 **/
-	public function trouble_shooting_log($log_msg, $path = '')
+	public static function trouble_shooting_log($log_msg, $path = '')
 	{
 		if(trim($path) == '') $path = WPL_ABSPATH. 'libraries' .DS. 'troubleshooting.txt';
 		if(wpl_file::exists($path)) wpl_file::delete($path);
@@ -473,7 +473,7 @@ class wpl_global
 		Date : 2013-04-17
 		Description : use this function for calling any events
 	**/
-	public function event_handler($trigger, $params = array())
+	public static function event_handler($trigger, $params = array())
 	{
 		/** import library **/
 		_wpl_import('libraries.events');
@@ -488,7 +488,7 @@ class wpl_global
 		@return settings array or raw records
 		Developed by : Howard
 	**/
-	public function get_settings($category = '', $showable = 0, $return_records = false)
+	public static function get_settings($category = '', $showable = 0, $return_records = false)
 	{
 		/** import library **/
 		_wpl_import('libraries.settings');
@@ -501,7 +501,7 @@ class wpl_global
 		@return setting value
 		@author Howard
 	**/
-	public function get_setting($setting_name, $category = '')
+	public static function get_setting($setting_name, $category = '')
 	{
 		/** import library **/
 		_wpl_import('libraries.settings');
@@ -514,12 +514,13 @@ class wpl_global
 		@return activity output
 		Developed by : Howard
 	**/
-	public function import_activity($activity, $activity_id = 0, $params = false)
+	public static function import_activity($activity, $activity_id = 0, $params = false)
 	{
 		/** import library **/
 		_wpl_import('libraries.activities');
 		
-		wpl_activity::import($activity, $activity_id, $params);
+		$wpl_activity = new wpl_activity();
+		$wpl_activity->import($activity, $activity_id, $params);
 	}
 	
 	/**
@@ -527,7 +528,7 @@ class wpl_global
 		@return wpl theme options
 		@author Howard
 	**/
-	public function get_wpl_theme_options()
+	public static function get_wpl_theme_options()
 	{
 		return self::get_wp_option('wpl_theme_options', array());
 	}
@@ -537,7 +538,7 @@ class wpl_global
 		@return WP pages
 		@author Howard
 	**/
-	public function get_wp_pages($args = array())
+	public static function get_wp_pages($args = array())
 	{
 		return get_pages($args);
 	}
@@ -547,7 +548,7 @@ class wpl_global
 		@return wpl version
 		@author Howard
 	**/
-	public function wpl_version()
+	public static function wpl_version()
 	{
 		return WPL_VERSION;
 	}
@@ -557,7 +558,7 @@ class wpl_global
 		@return wp version
 		@author Howard
 	**/
-	public function wp_version()
+	public static function wp_version()
 	{
 		global $wp_version;
 		return $wp_version;
@@ -568,7 +569,7 @@ class wpl_global
 		@return wpl version
 		@author Howard
 	**/
-	public function php_version()
+	public static function php_version()
 	{
 		return phpversion();
 	}
@@ -578,7 +579,7 @@ class wpl_global
 		@return tmp full path
 		@author Howard
 	**/
-	public function get_tmp_path()
+	public static function get_tmp_path()
 	{
 		return WPL_ABSPATH.'assets'.DS.'tmp'.DS;
 	}
@@ -588,7 +589,7 @@ class wpl_global
 		@return tmp full path
 		@author Howard
 	**/
-	public function init_tmp_folder()
+	public static function init_tmp_folder()
 	{
 		$path = wpl_global::get_tmp_path();
 		$directory = $path.'tmp_'.md5(microtime(true)).DS;
@@ -603,7 +604,7 @@ class wpl_global
 		@return void
 		@author Howard
 	**/
-	public function delete_expired_tmp()
+	public static function delete_expired_tmp()
 	{
 		$path = wpl_global::get_tmp_path();
 		$folders = wpl_folder::folders($path);
@@ -624,7 +625,7 @@ class wpl_global
 		@return array response
 		@author Howard
 	**/
-	public function upload($file, $dest = '', $ext_array = array('jpg','png','gif','jpeg'), $max_file_size = 512000)
+	public static function upload($file, $dest = '', $ext_array = array('jpg','png','gif','jpeg'), $max_file_size = 512000)
 	{
 		$error = '';
 		$msg = '';
@@ -664,7 +665,7 @@ class wpl_global
 		@return boolean
 		@author Howard
 	**/
-	public function zip_extract($file, $dest)
+	public static function zip_extract($file, $dest)
 	{
 		$zip = new ZipArchive;
 		if($zip->open($file) === true)
@@ -683,7 +684,7 @@ class wpl_global
 		@return boolean
 		@author Howard
 	**/
-	public function do_file_queries($sql_file, $delete = false, $exception = false)
+	public static function do_file_queries($sql_file, $delete = false, $exception = false)
 	{
 		if(!wpl_file::exists($sql_file)) return false;
 		
@@ -720,7 +721,7 @@ class wpl_global
 		@return boolean
 		@author Howard
 	**/
-	public function check_addon($addon_name)
+	public static function check_addon($addon_name)
 	{
 		/** first validation **/
 		if(trim($addon_name) == '') return false;
@@ -737,7 +738,7 @@ class wpl_global
 		@return array response
 		@author Howard
 	**/
-	public function check_addon_update($addon_id)
+	public static function check_addon_update($addon_id)
 	{
 		$current_url = wpl_global::get_full_url();
 		$domain = wpl_global::domain($current_url);
@@ -800,7 +801,7 @@ class wpl_global
 		@return array response
 		@author Howard
 	**/
-	public function check_realtyna_credentials()
+	public static function check_realtyna_credentials()
 	{
 		/** import settings library **/
 		_wpl_import('libraries.settings');
@@ -845,7 +846,7 @@ class wpl_global
 		@return string domain
 		@author Howard
 	**/
-	public function domain($url)
+	public static function domain($url)
 	{
 		$url = str_replace('http://', '', $url);
 		$url = str_replace('https://', '', $url);
@@ -916,7 +917,7 @@ class wpl_global
 		@return string value
 		@author Howard
 	**/
-	public function isset_object($key, $params)
+	public static function isset_object($key, $params)
 	{
 		if(isset($params->{$key})) return $params->{$key};
 		else return NULL;
@@ -927,7 +928,7 @@ class wpl_global
 		@return string value
 		@author Howard
 	**/
-	public function isset_array($key, $params)
+	public static function isset_array($key, $params)
 	{
 		if(isset($params[$key])) return $params[$key];
 		else return NULL;
@@ -938,7 +939,7 @@ class wpl_global
 		@return current blog id, it returns 1 if multisite is off
 		@author Howard
 	**/
-	public function get_current_blog_id()
+	public static function get_current_blog_id()
 	{
 		return get_current_blog_id();
 	}
@@ -948,7 +949,7 @@ class wpl_global
 		@return WPL base path for uploaded files
 		@description this functions will take care of multisite usage
 	**/
-	public function get_upload_base_path($blog_id = NULL)
+	public static function get_upload_base_path($blog_id = NULL)
 	{
 		if(!$blog_id) $blog_id = wpl_global::get_current_blog_id();
 		
@@ -967,7 +968,7 @@ class wpl_global
 		@return WPL base url for uploaded files
 		@description this functions will take care of multisite usage
 	**/
-	public function get_upload_base_url($blog_id = NULL)
+	public static function get_upload_base_url($blog_id = NULL)
 	{
 		if(!$blog_id) $blog_id = wpl_global::get_current_blog_id();
 		
