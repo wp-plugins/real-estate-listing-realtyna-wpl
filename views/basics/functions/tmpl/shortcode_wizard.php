@@ -1,6 +1,9 @@
 <?php
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
+
+$js = (object) array('param1'=>'wpl-tinymce-popup', 'param2'=>wpl_global::get_wp_site_url().'wp-includes/js/tinymce/tiny_mce_popup.js', 'external'=>true);
+wpl_extensions::import_javascript($js);
 ?>
 <div class="short-code-wp wpl_shortcode_wizard_container" id="wpl_shortcode_wizard_container">
     <h2>
@@ -129,7 +132,6 @@ defined('_WPLEXEC') or die('Restricted access');
 
     </div>
 </div>
-<script type="text/javascript"><?php include ABSPATH.'wp-includes'.DS.'js'.DS.'tinymce'.DS.'tiny_mce_popup.js'; ?></script>
 <script type="text/javascript">
 wplj(document).ready(function()
 {
