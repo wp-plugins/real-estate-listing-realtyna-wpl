@@ -333,7 +333,7 @@ class wpl_extensions
 		$query_file = WPL_ABSPATH. 'assets' .DS. 'install' .DS. 'queries.sql';
 		if(wpl_file::exists($query_file))
 		{
-			$queries = file_get_contents($query_file);
+			$queries = wpl_file::read($query_file);
 			$queries = str_replace(";\r\n", "-=++=-", $queries);
 			$queries = str_replace(";\r", "-=++=-", $queries);
 			$queries = str_replace(";\n", "-=++=-", $queries);
@@ -448,7 +448,7 @@ class wpl_extensions
 		$query_file = WPL_ABSPATH. 'assets' .DS. 'upgrade' .DS. 'queries.sql';
 		if(wpl_file::exists($query_file))
 		{
-			$queries = file_get_contents($query_file);
+			$queries = wpl_file::read($query_file);
 			$queries = str_replace(";\r\n", "-=++=-", $queries);
 			$queries = str_replace(";\r", "-=++=-", $queries);
 			$queries = str_replace(";\n", "-=++=-", $queries);
@@ -518,6 +518,22 @@ class wpl_extensions
 	**/
 	public function uninstall_wpl()
 	{
+        $tables = wpl_db::select('SHOW TABLES');
+		$database = wpl_db::get_DBO();
+		
+		foreach($tables as $table_name=>$table)
+		{
+			if(strpos($table_name, $database->prefix.'wpl_') !== false)
+			{
+				/** drop table **/
+				wpl_db::q("DROP TABLE `$table_name`");
+			}
+		}
+        
+        /** delete options **/
+        wpl_db::q("DELETE FROM `#__options` WHERE `option_name` LIKE 'wpl_%' AND `option_name` NOT LIKE 'wpl_theme%'", 'delete');
+        
+        return true;
 	}
 	
 	/**

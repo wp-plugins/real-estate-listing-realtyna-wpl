@@ -139,7 +139,7 @@ class wpl_flex_controller extends wpl_controller
 			wpl_flex::remove_dbst($dbst_id);
 			
 			/** run queries **/
-			if($mode == 'delete') wpl_flex::run_dbst_type_queries($dbst_id, $dbst_type, $dbst_kind, 'delete');
+			wpl_flex::run_dbst_type_queries($dbst_id, $dbst_type, $dbst_kind, 'delete');
 			
 			/** trigger event **/
 			wpl_global::event_handler('dbst_deleted', array('id'=>$dbst_id, 'kind'=>$dbst_kind, 'type'=>$dbst_type));

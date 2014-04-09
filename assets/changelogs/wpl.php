@@ -4,7 +4,14 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
-        <h4>WPL1.1.6 (<span class="wpl_log_date">4/04/2014</span> <span class="wpl_log_revision">revision 513</span>)</h4>
+        <h4>WPL1.2.0 (<span class="wpl_log_date">4/09/2014</span> <span class="wpl_log_revision">revision 533</span>)</h4>
+        -- Added agents widget for showing agents on front-end.<br />
+        -- Fixing some plugin-check plugin warnings.<br />
+        -- Added new layout to carousel widget.<br />
+        -- Fixing some issues when STRICT_TRANS_TABLES is enabled on MySQL server.<br />
+        -- Fixing deleting field issue.
+        
+        <h4>WPL1.1.6 (<span class="wpl_log_date">4/04/2014</span> <span class="wpl_log_revision">revision 517</span>)</h4>
         -- Added target page feature for linking WPL menus together.<br />
         -- Added image and thumbnail sizes for carousel module.<br />
         -- Added target page to search and carousel widget.<br />

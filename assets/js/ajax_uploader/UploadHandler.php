@@ -4,7 +4,7 @@ defined('_WPLEXEC') or die('Restricted access');
 
 /*
  * jQuery File Upload Plugin PHP Class 6.8.0
- * https://github.com/blueimp/wplj-File-Upload
+ * https://github.com/blueimp/jquery-File-Upload
  *
  * Copyright 2010, Sebastian Tschan
  * https://blueimp.net

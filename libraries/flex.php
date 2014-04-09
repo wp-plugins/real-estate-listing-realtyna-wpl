@@ -130,7 +130,7 @@ class wpl_flex
 			$condition = " AND `enabled`>='$enabled' AND `kind` LIKE '%[$kind]%'";
 		}
 		
-		$query = "SELECT * FROM `#__wpl_dbst_types` WHERE 1 ".$condition." ORDER BY `index` ASC";
+		$query = "SELECT * FROM `#__wpl_dbst_types` WHERE 1 ".$condition." ORDER BY `id` ASC";
 		return wpl_db::select($query, 'loadObjectList');
 	}
 	

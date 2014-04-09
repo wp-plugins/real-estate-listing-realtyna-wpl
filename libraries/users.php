@@ -651,18 +651,18 @@ class wpl_users
     }
 	
 	/**
-		@inputs {user_id}
+		@inputs {user_id}, [target_id]
 		@return profile_show full link
 		@author Howard
 	**/
-	public static function get_profile_link($user_id = '')
+	public static function get_profile_link($user_id = '', $target_id = 0)
 	{
 		/** fetch currenr user data if user id is empty **/
 		if(trim($user_id) == '') $user_id = self::get_cur_user_id();
-        $target_id = wpl_request::getVar('wpltarget', 0);
         
         $user_data = self::get_user($user_id);
-		
+        
+		if(!$target_id) $target_id = wpl_request::getVar('wpltarget', 0);
 		if($target_id) $url = wpl_global::add_qs_var('uid', $user_id, wpl_sef::get_page_link($target_id));
 		else
         {
@@ -868,13 +868,13 @@ class wpl_users
 		@description This is a very useful function for rendering whole data of user. you need to just pass user_id and get everything!
 		@author Howard
 	**/
-	public static function full_render($user_id, $plisting_fields = NULL)
+	public static function full_render($user_id, $plisting_fields = NULL, $profile = NULL, $params = array())
 	{
 		/** get plisting fields **/
 		if(!$plisting_fields) $plisting_fields = self::get_plisting_fields();
 		
 		$raw_data = (array) self::get_wpl_user($user_id);
-		$profile = (object) $raw_data;
+		if(!$profile) $profile = (object) $raw_data;
 		
 		$rendered = json_decode($raw_data['rendered'], true);
 		$result = array();
@@ -891,8 +891,9 @@ class wpl_users
 		if($rendered['location_text']) $result['location_text'] = $rendered['location_text'];
 		else $result['location_text'] = self::generate_location_text($raw_data);
 		
-		/** property full link **/
-		$result['profile_link'] = self::get_profile_link($profile->id);
+		/** profile full link **/
+        $target_id = isset($params['wpltarget']) ? $params['wpltarget'] : 0;
+		$result['profile_link'] = self::get_profile_link($profile->id, $target_id);
 		
 		/** profile picture **/
 		if(trim($raw_data['profile_picture']) != '')

@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `#__wpl_cronjobs` (
 
 INSERT INTO `#__wpl_cronjobs` (`id`, `cronjob_name`, `period`, `class_location`, `class_name`, `function_name`, `params`, `enabled`, `latest_run`) VALUES
 (1, 'Location Text Update', 24, 'libraries.locations', 'wpl_locations', 'update_locationtextsearch_data', '', 1, '2014-02-10 08:14:11'),
-(2, 'remove expired tmp', 24, 'global', 'wpl_global', 'delete_expired_tmp', '', 1, '2014-02-10 08:09:10');
+(2, 'Remove Expired tmp Directories', 24, 'global', 'wpl_global', 'delete_expired_tmp', '', 1, '2014-02-10 08:09:10');
 
 CREATE TABLE IF NOT EXISTS `#__wpl_dbcat` (
   `id` int(11) NOT NULL,

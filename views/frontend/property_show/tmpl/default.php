@@ -4,8 +4,8 @@ defined('_WPLEXEC') or die('Restricted access');
 
 _wpl_import($this->tpl_path.'.scripts.js');
 
-$prp_type      = isset($this->wpl_properties['current']['rendered_raw'][3]['value']) ? $this->wpl_properties['current']['rendered_raw'][3]['value'] : '';
-$prp_listings  = isset($this->wpl_properties['current']['rendered_raw'][2]['value']) ? $this->wpl_properties['current']['rendered_raw'][2]['value'] : '';
+$prp_type           = isset($this->wpl_properties['current']['rendered_raw'][3]['value']) ? $this->wpl_properties['current']['rendered_raw'][3]['value'] : '';
+$prp_listings       = isset($this->wpl_properties['current']['rendered_raw'][2]['value']) ? $this->wpl_properties['current']['rendered_raw'][2]['value'] : '';
 $build_up_area      = isset($this->wpl_properties['current']['rendered_raw'][10]['value']) ? $this->wpl_properties['current']['rendered_raw'][10]['value'] : '';
 $bedroom            = isset($this->wpl_properties['current']['rendered_raw'][8]['value']) ? $this->wpl_properties['current']['rendered_raw'][8]['value'] : '';
 $bathroom           = isset($this->wpl_properties['current']['rendered_raw'][9]['value']) ? $this->wpl_properties['current']['rendered_raw'][9]['value'] : '';
@@ -173,7 +173,6 @@ $pshow_googlemap_activities = count(wpl_activity::get_activities('pshow_googlema
                         }
                     ?>
                 </div>
-                <?php dynamic_sidebar('sidebar-5'); ?>
             </div>
         </div>
     </div>

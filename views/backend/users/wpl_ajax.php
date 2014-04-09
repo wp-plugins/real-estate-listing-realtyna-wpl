@@ -48,7 +48,7 @@ class wpl_users_controller extends wpl_controller
 		}
 		elseif($function == 'save')
 		{
-			$table_name = wpl_request::getVar('table_name');
+			$table_name = wpl_request::getVar('table_name', 'wpl_users');
 			$table_column = wpl_request::getVar('table_column');
 			$value = wpl_request::getVar('value');
 			$item_id = wpl_request::getVar('item_id');

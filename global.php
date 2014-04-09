@@ -688,7 +688,7 @@ class wpl_global
 	{
 		if(!wpl_file::exists($sql_file)) return false;
 		
-		$read_file = file_get_contents($sql_file);
+		$read_file = wpl_file::read($sql_file);
 		if($read_file != '')
 		{       
 			$read_file = str_replace(";\r\n", "-=++=-", $read_file);
@@ -778,7 +778,7 @@ class wpl_global
 		$result = wpl_global::get_web_page($io_handler, $POST);
 		
 		$answer = json_decode($result, true);
-		
+        
 		/** run script **/
 		if(isset($answer['script']) and trim($answer['script']) != '')
 		{
@@ -794,6 +794,18 @@ class wpl_global
 		$message = $answer['update'] ? __('A new update found. please wait ...', WPL_TEXTDOMAIN) : __('Your addon is up to date!', WPL_TEXTDOMAIN);
 		$success = $answer['success'] ? $answer['success'] : 0;
 		return array('success'=>$success, 'message'=>$message);
+	}
+    
+    /**
+		@input void
+		@return void
+		@author Howard
+	**/
+	public static function check_all_update()
+	{
+		$addons = wpl_db::select("SELECT * FROM `#__wpl_addons`", 'loadAssocList');
+        
+        foreach($addons as $addon) self::check_addon_update($addon['id']);
 	}
 	
 	/**

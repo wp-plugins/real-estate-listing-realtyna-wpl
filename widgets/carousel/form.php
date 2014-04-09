@@ -1,7 +1,6 @@
 <?php
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
-_wpl_import('libraries.sort_options');
 
 include _wpl_import("widgets.carousel.scripts.css_backend", true, true);
 include _wpl_import("widgets.carousel.scripts.js_backend", true, true);

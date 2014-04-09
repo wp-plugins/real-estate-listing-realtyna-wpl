@@ -54,7 +54,7 @@ class wpl_render
 		}
 		else $sign = 'E';
 		
-		return $sign . $degree .'° '. $minutes ."' ". round($seconds, 1) ."'' ";
+		return $sign . $degree .'&deg; '. $minutes ."' ". round($seconds, 1) ."'' ";
 	}
 	
 	/**
@@ -78,7 +78,7 @@ class wpl_render
 		}
 		else $sign = 'N';
 		
-		return $sign . $degree .'° '. $minutes ."' ". round($seconds, 1) ."'' ";
+		return $sign . $degree .'&deg; '. $minutes ."' ". round($seconds, 1) ."'' ";
 	}
 	
 	/**

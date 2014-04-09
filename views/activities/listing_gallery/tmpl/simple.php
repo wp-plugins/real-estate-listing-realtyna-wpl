@@ -12,6 +12,7 @@ $image_height = isset($params['image_height']) ? $params['image_height'] : 200;
 $image_class = isset($params['image_class']) ? $params['image_class'] : '';
 $rewrite = (isset($params['rewrite']) and trim($params['rewrite']) != '') ? $params['rewrite'] : 0;
 $watermark = (isset($params['watermark']) and trim($params['watermark']) != '') ? $params['watermark'] : 0;
+$img_category = (isset($image['category']) and trim($image['category']) != '') ? $image['category'] : '';
 
 /** Property tags **/
 $features = '';
@@ -38,7 +39,7 @@ $gallery = wpl_items::render_gallery($raw_gallery);
     {
         $image_url = $gallery[0]['url'];
         
-        if($image_width and $image_height and $image['category'] != 'external')
+        if($image_width and $image_height and $img_category != 'external')
         {
             /** set resize method parameters **/
             $params = array();

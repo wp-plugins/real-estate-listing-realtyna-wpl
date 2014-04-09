@@ -688,7 +688,10 @@ class wpl_property
 	{
 		/** fetch property data if property id is setted **/
 		if($property_id) $property_data = self::get_property_raw_data($property_id);
-		
+        
+        /** firstvalidation **/
+		if(!$property_data) return '';
+        
 		$listing = wpl_global::get_listings($property_data['listing'])->name;
 		$property_type = wpl_global::get_property_types($property_data['property_type'])->name;
 		
@@ -865,7 +868,7 @@ class wpl_property
 	}
 	
 	/**
-		@inputs {property_id}, [plisting_fields] and [property]
+		@inputs {property_id}, [plisting_fields], [property] and [params]
 		@return array full render of property
 		@description This is a very useful function for rendering whole data of property. you need to just pass property_id and get everything!
 		@author Howard

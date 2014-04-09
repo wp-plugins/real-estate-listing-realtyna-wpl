@@ -164,7 +164,10 @@ function wpl_generate_edit_page_property_type(property_type_id)
 
 	wpl_remove_message('.wpl_data_structure_list .wpl_show_message');
 	request_str = 'wpl_format=b:data_structure:ajax_property_types&wpl_function=generate_edit_page&property_type_id=' + property_type_id;
-
+    
+    /** refresh the fancybox **/
+	rta.config.fancybox.reloadAfterClose = true;
+    
 	/** run ajax query **/
 	wplj.ajax(
 	{
@@ -193,8 +196,10 @@ function wpl_ajax_save_property_type(key, element, id)
 
 	wpl_remove_message('.wpl_show_message' + id);
 	wplj(ajax_loader_element).html('<img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader3.gif'); ?>" />');
-
-	ajax = wpl_ajax_save(table, key, element, id, url);
+    
+    /** run ajax query **/
+    request_str = 'wpl_format=b:data_structure:ajax_property_types&wpl_function=save_property_type&property_type_id=' + id + '&key=' + key + '&value=' + element.value;
+	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str, ajax_loader_element);
 
 	ajax.success(function(data)
 	{

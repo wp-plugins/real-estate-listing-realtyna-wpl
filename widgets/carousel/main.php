@@ -6,6 +6,7 @@ _wpl_import('libraries.widgets');
 _wpl_import('libraries.flex');
 _wpl_import('libraries.property');
 _wpl_import('libraries.images');
+_wpl_import('libraries.sort_options');
 
 /**
  * WPL Carousel Widget

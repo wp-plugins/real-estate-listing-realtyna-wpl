@@ -54,6 +54,10 @@ class wpl_data_structure_controller extends wpl_controller
 		{
 			self::gicon_upload_file();
 		}
+        elseif($function == 'save_listing_type')
+        {
+            self::save_listing_type();
+        }
 	}
 	
 	private function gicon_upload_file()
@@ -182,4 +186,23 @@ class wpl_data_structure_controller extends wpl_controller
 		parent::render($this->tpl_path, 'internal_edit_listing_types');
 		exit;
 	}
+    
+    private function save_listing_type()
+    {
+		$key = wpl_request::getVar('key');
+		$value = wpl_request::getVar('value');
+		$id = wpl_request::getVar('listing_type_id');
+		
+		$query = "UPDATE `#__wpl_listing_types` SET `$key`='$value' WHERE id='$id'";
+		$res = wpl_db::q($query);
+		
+		$res = (int) $res;
+		$message = $res ? __('Saved.', WPL_TEXTDOMAIN) : __('Error Occured.', WPL_TEXTDOMAIN);
+		$data = NULL;
+		
+		$response = array('success'=>$res, 'message'=>$message, 'data'=>$data);
+		
+		echo json_encode($response);
+		exit;
+    }
 }

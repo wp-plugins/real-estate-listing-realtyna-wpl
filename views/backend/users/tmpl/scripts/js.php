@@ -38,15 +38,16 @@ function add_to_wpl(user_id)
 
 function wpl_ajax_save_users(key, element, id)
 {
-	table = 'wpl_users';
 	ajax_loader_element = '#'+element.id+'_ajax_loader';
 	url = '<?php echo wpl_global::get_full_url(); ?>';
 	
 	wpl_remove_message('.wpl_show_message'+id);
 	wplj(ajax_loader_element).html('<img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader3.gif'); ?>" />');
 	
-	ajax = wpl_ajax_save(table, key, element, id, url);
-	
+    /** run ajax query **/
+    request_str = 'wpl_format=b:users:ajax&wpl_function=save&item_id=' + id + '&table_column=' + key + '&value=' + element.value;
+	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str);
+    
 	ajax.success(function(data)
 	{
 		if(data.success == 1)

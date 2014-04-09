@@ -3,17 +3,13 @@
 defined('_WPLEXEC') or die('Restricted access');
 _wpl_import('libraries.images');
 
+$image_width = isset($image_width) ? $image_width : 180;
+$image_height = isset($image_height) ? $image_height : 125;
+
 foreach($this->wpl_properties as $key => $property)
 {
 	$property_id = $property['data']['id'];
-	$locations	 = '';
-
-	foreach(array_reverse($property['rendered'][41]['locations']) as $value)
-	{
-		$locations .= $value.', ';
-	}
-	
-	$locations = trim($locations ,', ');
+    $locations	 = $property['location_text'];
 
 	$bedroom    = '<div class="bedroom">'.$property['raw']['bedrooms'].'</div>';
     $room    	= '<div class="room">'.$property['raw']['rooms'].'</div>';
@@ -25,7 +21,7 @@ foreach($this->wpl_properties as $key => $property)
 	<div id="main_infowindow">
 		<div class="main_infowindow_l">
 			<?php
-			if($property['items']['gallery'])
+			if(isset($property['items']['gallery']))
 			{
 				$i = 0;
                 $images_total = count($property['items']['gallery']);
@@ -38,10 +34,11 @@ foreach($this->wpl_properties as $key => $property)
 	                $params['image_parentkind'] = $image->parent_kind;
 	                $params['image_source'] = wpl_global::get_upload_base_path().$image->parent_id.DS.$image->item_name;
 	                
-	                /** resize image if does not exist **/
-	                $image_url = wpl_images::create_gallary_image(180, 125, $params);
+                    /** resize image if does not exist **/
+                    if(isset($image->item_cat) and $image->item_cat != 'external') $image_url = wpl_images::create_gallary_image($image_width, $image_height, $params);
+                    else $image_url = $image->item_extra3;
 
-					echo '<img id="wpl_gallery_image'.$property_id .'_'.$i.'" src="'.$image_url.'" class="wpl_gallery_image" onclick="wpl_Plisting_slider('.$i.','.$images_total.','.$property_id.');" />';
+					echo '<img id="wpl_gallery_image'.$property_id .'_'.$i.'" src="'.$image_url.'" class="wpl_gallery_image" onclick="wpl_Plisting_slider('.$i.','.$images_total.','.$property_id.');" width="'.$image_width.'" height="'.$image_height.'" style="width: '.$image_width.'px; height: '.$image_height.'px;" />';
 					$i++;	
 				}
 			}
@@ -61,6 +58,4 @@ foreach($this->wpl_properties as $key => $property)
 			</div>
 		</div>
 	</div>
-
 <?php } ?>
-

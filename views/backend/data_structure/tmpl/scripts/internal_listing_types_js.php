@@ -193,8 +193,10 @@ function wpl_ajax_save_listing_type(key, element, id)
 	wpl_remove_message('.wpl_show_message' + id);
 	wplj(ajax_loader_element).html('<img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader3.gif'); ?>" />');
 
-	ajax = wpl_ajax_save(table, key, element, id, url);
-
+    /** run ajax query **/
+    request_str = 'wpl_format=b:data_structure:ajax_listing_types&wpl_function=save_listing_type&listing_type_id=' + id + '&key=' + key + '&value=' + element.value;
+	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str, ajax_loader_element);
+    
 	ajax.success(function(data)
 	{
 		if (data.success == 1)

@@ -22,8 +22,6 @@ class wpl_images
      */
     public static function resize_image($source, $dest, $width, $height, $crop = 0) 
     {
-        // Set memory limit in php.ini
-        ini_set("memory_limit", '500M');
         $extension = wpl_file::getExt(strtolower($source));
 
         switch($extension) 
@@ -169,21 +167,21 @@ class wpl_images
             ob_start();
             imagejpeg($dest_image, NULL, 90);
             $out_image = ob_get_clean();
-            file_put_contents($dest, $out_image);
+            wpl_file::write($dest, $out_image);
         }
         elseif($extension == 'png') 
         {
             ob_start();
             imagepng($dest_image);
             $out_image = ob_get_clean();
-            file_put_contents($dest, $out_image);
+            wpl_file::write($dest, $out_image);
         } 
         elseif($extension == 'gif') 
         {
             ob_start();
             imagegif($dest_image);
             $out_image = ob_get_clean();
-            file_put_contents($dest, $out_image);
+            wpl_file::write($dest, $out_image);
         }
 
         imagedestroy($src_image);
@@ -202,9 +200,7 @@ class wpl_images
     {
         if($options == '') $options['status'] = 0;
         if($options['status'] != 1) return;
-
-        ini_set("memory_limit", '500M');
-
+        
         $filename = $source;
 
         //default path for watermark
@@ -302,21 +298,21 @@ class wpl_images
             ob_start();
             imagejpeg($w_dest, NULL, 90);
             $out_image = ob_get_clean();
-            file_put_contents($dest, $out_image);
+            wpl_file::write($dest, $out_image);
         }
         elseif($extension == 'png') 
         {
             ob_start();
             imagepng($w_dest);
             $out_image = ob_get_clean();
-            file_put_contents($dest, $out_image);
+            wpl_file::write($dest, $out_image);
         }
         elseif($extension == 'gif') 
         {
             ob_start();
             imagegif($w_dest);
             $out_image = ob_get_clean();
-            file_put_contents($dest, $out_image);
+            wpl_file::write($dest, $out_image);
         }
 
         imagedestroy($w_src);

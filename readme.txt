@@ -4,7 +4,7 @@ Donate link: http://www.realtyna.com/
 Tags: Real estate, Listing, Vertical Market, MLS, Property listing, RETS
 Requires at least: 3.0.1
 Tested up to: 3.8.1
-Stable tag: 1.1.6
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -59,6 +59,13 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 6. External Responsive Template: Agent listing
 
 == Changelog ==
+
+= 1.2.0 =
+* Added agents widget for showing agents on front-end.
+* Fixing some plugin-check plugin warnings.
+* Added new layout to carousel widget.
+* Fixing some issues when STRICT_TRANS_TABLES is enabled on MySQL server.
+* Fixing deleting field issue.
 
 = 1.1.6 =
 * Added target page feature for linking WPL menus together.
