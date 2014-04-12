@@ -4,6 +4,11 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.2.2 (<span class="wpl_log_date">4/12/2014</span> <span class="wpl_log_revision">revision 540</span>)</h4>
+        -- Fixed an issue in property listing for showing commercial property rooms.<br />
+        -- Fixed some PHP notices.<br />
+        -- Fixed image uploader issue on my profile menu.
+        
         <h4>WPL1.2.0 (<span class="wpl_log_date">4/09/2014</span> <span class="wpl_log_revision">revision 533</span>)</h4>
         -- Added agents widget for showing agents on front-end.<br />
         -- Fixing some plugin-check plugin warnings.<br />

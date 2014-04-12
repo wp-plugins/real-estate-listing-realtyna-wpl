@@ -129,10 +129,10 @@ if($type == 'number' and !$done_this)
     elseif($show == 'minmax_selectbox')
 	{
     	$html .= '<select name="sf'.$widget_id.'_tmin_'.$field_data['table_column'].'" id="sf'.$widget_id.'_tmin_'.$field_data['table_column'].'">';
-		$html .= '<option value="0" '.($current_min_value == $i ? 'selected="selected"' : '').'>'.__('From', WPL_TEXTDOMAIN).'</option>';
 		
 		$i = $min_value;
-		
+		$html .= '<option value="0" '.($current_min_value == $i ? 'selected="selected"' : '').'>'.__('From', WPL_TEXTDOMAIN).'</option>';
+        
 		while($i < $max_value)
 		{
 			if($i == '0')

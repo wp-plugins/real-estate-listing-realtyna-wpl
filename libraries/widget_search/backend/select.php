@@ -20,15 +20,15 @@ if($type == 'select' and !$done_this)
 	<div class="field-body">
 		<div class="erow">
 			<select name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][type]" onchange="selectChange(this, 'select');">
-				<option value="select" <?php if ($value['type'] == 'select') echo 'selected="selected"'; ?>><?php echo __('Select box', WPL_TEXTDOMAIN); ?></option>
-				<option value="multiple" <?php if ($value['type'] == 'multiple') echo 'selected="selected"'; ?>><?php echo __('Multiple SelectBox', WPL_TEXTDOMAIN); ?></option>
-				<option value="radios" <?php if ($value['type'] == 'radios') echo 'selected="selected"'; ?>><?php echo __('Radio Buttons', WPL_TEXTDOMAIN); ?></option>
-				<option value="radios_any" <?php if ($value['type'] == 'radios_any') echo 'selected="selected"'; ?>><?php echo __('Radio buttons with any', WPL_TEXTDOMAIN); ?></option>
-				<option value="checkboxes" <?php if ($value['type'] == 'checkboxes') echo 'selected="selected"'; ?>><?php echo __('Check boxes', WPL_TEXTDOMAIN); ?></option>
-				<option value="predefined" <?php if ($value['type'] == 'predefined') echo 'selected="selected"'; ?>><?php echo __('Predefined', WPL_TEXTDOMAIN); ?></option>
+				<option value="select" <?php if (isset($value['type']) and $value['type'] == 'select') echo 'selected="selected"'; ?>><?php echo __('Select box', WPL_TEXTDOMAIN); ?></option>
+				<option value="multiple" <?php if (isset($value['type']) and $value['type'] == 'multiple') echo 'selected="selected"'; ?>><?php echo __('Multiple SelectBox', WPL_TEXTDOMAIN); ?></option>
+				<option value="radios" <?php if (isset($value['type']) and $value['type'] == 'radios') echo 'selected="selected"'; ?>><?php echo __('Radio Buttons', WPL_TEXTDOMAIN); ?></option>
+				<option value="radios_any" <?php if (isset($value['type']) and $value['type'] == 'radios_any') echo 'selected="selected"'; ?>><?php echo __('Radio buttons with any', WPL_TEXTDOMAIN); ?></option>
+				<option value="checkboxes" <?php if (isset($value['type']) and $value['type'] == 'checkboxes') echo 'selected="selected"'; ?>><?php echo __('Check boxes', WPL_TEXTDOMAIN); ?></option>
+				<option value="predefined" <?php if (isset($value['type']) and $value['type'] == 'predefined') echo 'selected="selected"'; ?>><?php echo __('Predefined', WPL_TEXTDOMAIN); ?></option>
 			</select>
 		</div>
-		<div class="erow wpl_extoptions_span <?php echo $value['type']; ?>">
+		<div class="erow wpl_extoptions_span <?php echo (isset($value['type']) ? $value['type'] : ''); ?>">
 			<select multiple="multiple" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][extoption][]">
 				<?php
 				$options = $field->options;
@@ -38,7 +38,7 @@ if($type == 'select' and !$done_this)
 				foreach ($options as $option)
 				{
 					?>
-					<option <?php if (in_array($option['key'], $value['extoption'])) echo 'selected="selected"'; ?> value="<?php echo $option['key']; ?>"><?php echo $option['value']; ?></option>
+					<option <?php if (isset($value['extoption']) and in_array($option['key'], $value['extoption'])) echo 'selected="selected"'; ?> value="<?php echo $option['key']; ?>"><?php echo $option['value']; ?></option>
 					<?php
 				}
 				?>

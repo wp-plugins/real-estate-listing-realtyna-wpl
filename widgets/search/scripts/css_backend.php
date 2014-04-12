@@ -3,6 +3,7 @@
 defined('_WPLEXEC') or die('Restricted access');
 ?>
 <style type="text/css">
+.wpl-widget-search-wp{margin: 10px 0;}
 .wpl_field_container{border: 0px; width: 100%; border-bottom: 1px solid #CCC;}
 .wpl_field_container select{min-width: 215px;}
 .wpl_field_container td, wpl_field_container tr{border: 0px; text-align: left;}

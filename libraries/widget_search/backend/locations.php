@@ -13,10 +13,10 @@ if($type == 'locations' and !$done_this)
 	<div class="field-body">
 		<div class="erow">
 			<select name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][type]">
-				<option value="simple" <?php if ($value['type'] == 'simple') echo 'selected="selected"' ?>><?php echo __('simple', WPL_TEXTDOMAIN); ?></option>
-                <option value="locationtextsearch" <?php if ($value['type'] == 'locationtextsearch') echo 'selected="selected"' ?>><?php echo __('Location textsearch', WPL_TEXTDOMAIN); ?></option>
+				<option value="simple" <?php if (isset($value['type']) and $value['type'] == 'simple') echo 'selected="selected"' ?>><?php echo __('simple', WPL_TEXTDOMAIN); ?></option>
+                <option value="locationtextsearch" <?php if (isset($value['type']) and $value['type'] == 'locationtextsearch') echo 'selected="selected"' ?>><?php echo __('Location textsearch', WPL_TEXTDOMAIN); ?></option>
                 <?php if(wpl_global::check_addon('pro')): ?>
-				<option value="radiussearch" <?php if ($value['type'] == 'radiussearch') echo 'selected="selected"' ?>><?php echo __('Radius Search', WPL_TEXTDOMAIN); ?></option>
+				<option value="radiussearch" <?php if (isset($value['type']) and $value['type'] == 'radiussearch') echo 'selected="selected"' ?>><?php echo __('Radius Search', WPL_TEXTDOMAIN); ?></option>
                 <?php endif; ?>
 			</select>
 		</div>

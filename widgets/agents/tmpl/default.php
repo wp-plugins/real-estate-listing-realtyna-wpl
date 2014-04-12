@@ -38,7 +38,16 @@ include _wpl_import("widgets.agents.scripts.js", true, true);
             </div>
             <ul>
                 <?php if(isset($profile['rendered'][904]['value'])): ?>
-                    <li class="website" data-toggle="tooltip" title="<?php echo $profile['rendered'][904]['value']; ?>"></li>
+                    <li class="website" data-toggle="tooltip" title="<?php echo $profile['rendered'][904]['value']; ?>">
+                        <a href="<?php
+                        $urlStr = $profile['rendered'][904]['value'];
+                        $parsed = parse_url($urlStr);
+                        if (empty($parsed['scheme'])) {
+                            $urlStr = 'http://' . ltrim($urlStr, '/');
+                        }
+                        echo $urlStr;
+                        ?>" target="_blank"><?php echo $agent_name.' '.$agent_l_name; ?></a>
+                    </li>
                 <?php endif; ?>
                 <?php if(isset($profile['rendered'][907]['value'])): ?>
                     <li class="phone" data-toggle="tooltip" title="<?php echo $profile['rendered'][907]['value']; ?>"></li>

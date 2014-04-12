@@ -54,7 +54,7 @@ if($type == 'rooms' and !$done_this)
             ?>
         </select>
         <input type="text" id="xroom<?php echo $field->id; ?>" name="xroom<?php echo $field->id; ?>" placeholder="<?php echo __('Width', WPL_TEXTDOMAIN); ?>" />
-        <input type="text" id="yroom<?php echo $field->id; ?>" name="yroom<?php echo $field->id; ?>" placeholder="<?php echo __('Height', WPL_TEXTDOMAIN); ?>" />
+        <input type="text" id="yroom<?php echo $field->id; ?>" name="yroom<?php echo $field->id; ?>" placeholder="<?php echo __('Length', WPL_TEXTDOMAIN); ?>" />
         <button class="wpl-button button-1" onclick="wpl_save_room();"><?php echo __('Add room', WPL_TEXTDOMAIN) ?></button>
     </div>
     <div class="rooms-list-wp" id="room_list<?php echo $field->id; ?>">

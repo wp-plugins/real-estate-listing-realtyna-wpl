@@ -19,15 +19,15 @@ if(($type == 'area' or $type == 'price' or $type == 'length' or $type == 'volume
 
 	<div class="field-body">
 		<div class="erow">
-			<select name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][type]">
-				<option value="minmax" <?php if($value['type'] == 'minmax') echo 'selected="selected"' ?>><?php echo __('Min/Max textbox', WPL_TEXTDOMAIN); ?></option>
-				<option value="minmax_slider" <?php if($value['type'] == 'minmax_slider') echo 'selected="selected"' ?>><?php echo __('Min/Max Slider', WPL_TEXTDOMAIN); ?></option>
-				<option value="minmax_selectbox" <?php if($value['type'] == 'minmax_selectbox') echo 'selected="selected"' ?>><?php echo __('Min/Max SelectBox', WPL_TEXTDOMAIN); ?></option>
-				<option value="minmax_selectbox_plus" <?php if($value['type'] == 'minmax_selectbox_plus') echo 'selected="selected"' ?>><?php echo __('Min/Max SelectBox+', WPL_TEXTDOMAIN); ?></option>
+			<select name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][type]" onchange="selectChange(this, '<?php echo $type; ?>');">
+				<option value="minmax" <?php if(isset($value['type']) and $value['type'] == 'minmax') echo 'selected="selected"' ?>><?php echo __('Min/Max textbox', WPL_TEXTDOMAIN); ?></option>
+				<option value="minmax_slider" <?php if(isset($value['type']) and $value['type'] == 'minmax_slider') echo 'selected="selected"' ?>><?php echo __('Min/Max Slider', WPL_TEXTDOMAIN); ?></option>
+				<option value="minmax_selectbox" <?php if(isset($value['type']) and $value['type'] == 'minmax_selectbox') echo 'selected="selected"' ?>><?php echo __('Min/Max SelectBox', WPL_TEXTDOMAIN); ?></option>
+				<option value="minmax_selectbox_plus" <?php if(isset($value['type']) and $value['type'] == 'minmax_selectbox_plus') echo 'selected="selected"' ?>><?php echo __('Min/Max SelectBox+', WPL_TEXTDOMAIN); ?></option>
 			</select>
 		</div>
-		<div class="erow wpl_extoptions_span">
-			<input type="text" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][extoption]" value="<?php echo $value['extoption']; ?>" placeholder="<?php _e('min,max,increment like 0,10,1', WPL_TEXTDOMAIN); ?>" title="<?php _e('min,max,increment like 0,10,1', WPL_TEXTDOMAIN); ?>" />
+		<div class="erow wpl_extoptions_span <?php echo (isset($value['type']) ? $value['type'] : ''); ?>">
+			<input type="text" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][extoption]" value="<?php echo (isset($value['extoption']) ? $value['extoption'] : ''); ?>" placeholder="<?php _e('min,max,increment like 0,10,1', WPL_TEXTDOMAIN); ?>" title="<?php _e('min,max,increment like 0,10,1', WPL_TEXTDOMAIN); ?>" />
 		</div>
 	</div>
 </div>

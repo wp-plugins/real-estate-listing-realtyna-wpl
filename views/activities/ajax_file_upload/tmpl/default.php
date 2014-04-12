@@ -48,7 +48,8 @@ function <?php echo $js_function; ?>()
 			success: function (data, status)
 			{
 				wplj(ajax_loader_element).html('');
-				data = _j.parseJSON(data);
+				data = wplj.parseJSON(data);
+                
 				if (data.error != '')
 				{
 					<?php if(trim($html_path_message) != ''): ?>
@@ -59,8 +60,7 @@ function <?php echo $js_function; ?>()
 				}
 				else
 				{
-					rta.util.showMessage(data.message, rta.util.messageType.info);
-					setTimeout(function () {window.location.reload(); }, 1500);
+					window.location.reload();
 				}
 
 				/** reset the value **/

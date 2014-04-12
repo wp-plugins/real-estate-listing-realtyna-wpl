@@ -21,8 +21,9 @@ _wpl_import($this->tpl_path.'.scripts.js');
         /** set current property **/
         $this->wpl_properties['current'] = $property;
 
-        $bedroom    = '<div class="bedroom">'.$property['raw']['bedrooms'].'</div>';
-        $room    	= '<div class="room">'.$property['raw']['rooms'].'</div>';
+        $room    = '<div class="bedroom">'.$property['raw']['bedrooms'].'</div>';
+        if($property['raw']['bedrooms'] == 0 and $property['raw']['rooms'] != 0) $room = '<div class="bedroom">'.$property['raw']['rooms'].'</div>';
+        
         $bathroom   = '<div class="bathroom">'.$property['raw']['bathrooms'].'</div>';
         $parking    = '<div class="parking">'.$property['raw']['parkings'].'</div>';
         $pic_count  = '<div class="pic_count">'.$property['raw']['pic_numb'].'</div>';
@@ -41,7 +42,7 @@ _wpl_import($this->tpl_path.'.scripts.js');
                 echo '<div class="wpl_prp_title">'.$property['rendered'][3]['value'].' - '.$property['rendered'][2]['value'] . '</div>';
                 echo '<div class="wpl_prp_listing_location">'.$property['location_text'] .'</div>';   
                 ?>
-                <div class="wpl_prp_listing_icon_box"><?php echo $bedroom . $bathroom . $parking . $pic_count?></div>
+                <div class="wpl_prp_listing_icon_box"><?php echo $room . $bathroom . $parking . $pic_count; ?></div>
                 <a id="prp_link_id_<?php echo $property['data']['id']; ?>" href="<?php echo $property['property_link']; ?>" class="view_detail"><?php echo __('Details', WPL_TEXTDOMAIN); ?></a>
             </div>
 		</div>

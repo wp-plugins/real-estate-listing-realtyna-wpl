@@ -60,14 +60,14 @@ $this->_wpl_import($this->tpl_path.'.scripts.js');
         </div>
         <div class="properties-wp">
             <?php
-            foreach($this->wpl_properties as $key=> $property)
+            foreach($this->wpl_properties as $key=>$property)
             {
                 if($key == 'current') continue;
 
-                $property_type = trim($property['rendered'][3]['value']) != '' ? $property['rendered'][3]['value'] : '';
-                $listing_type = trim($property['rendered'][2]['value']) != '' ? $property['rendered'][2]['value'] : '';
-                $price = trim($property['rendered'][6]['value']) != '' ? '<span class="plist_price">'.$property['rendered'][6]['value'].'</span>' : '';
-                $builtup_area = trim($property['rendered'][10]['value']) != '' ? $property['rendered'][10]['value'] : '';
+                $property_type = isset($property['rendered'][3]['value']) ? $property['rendered'][3]['value'] : '';
+                $listing_type = isset($property['rendered'][2]['value']) ? $property['rendered'][2]['value'] : '';
+                $price = isset($property['rendered'][6]['value']) ? '<span class="plist_price">'.$property['rendered'][6]['value'].'</span>' : '';
+                $builtup_area = isset($property['rendered'][10]['value']) ? $property['rendered'][10]['value'] : '';
 
                 $details_string = trim($property_type.', '.$listing_type.', '.$price.', '.$builtup_area, ', ');
                 $location_string = $property['location_text'];
@@ -109,7 +109,7 @@ $this->_wpl_import($this->tpl_path.'.scripts.js');
                             </div>
 
                             <?php if(!$property['data']['finalized']): ?>
-                            <div class="finilize-msg" id="pmanager_finalized_status<?php echo $pid; ?>">
+                            <div class="finilize-msg" id="pmanager_finalized_status<?php echo $property['data']['id']; ?>">
                                 <span><?php echo __('Property is not finalized.', WPL_TEXTDOMAIN); ?></span>
                             </div>
                             <?php endif; ?>

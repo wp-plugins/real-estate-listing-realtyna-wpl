@@ -195,5 +195,4 @@ function wpl_Plisting_slider(i,total_images,id)
     wplj("#wpl_gallery_image"+ id +"_"+i).fadeTo(200,0).css("display",'none');
     wplj("#wpl_gallery_image"+ id +"_"+j).fadeTo(400,1);
 }
-
 </script>

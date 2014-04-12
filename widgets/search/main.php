@@ -145,7 +145,7 @@ class wpl_search_widget extends wpl_widget
 			$done_this = false;
 			$type = $field->type;
 			$options = json_decode($field->options, true);
-			$value = $values[$field->id];
+			$value = isset($values[$field->id]) ? $values[$field->id] : NULL;
 			
 			if(isset($finds[$type]))
 			{
@@ -213,7 +213,7 @@ class wpl_search_widget extends wpl_widget
 			
 			if(isset($finds[$type]))
 			{
-				$html .= '<div class="wpl_search_field_container '.($field['type'] == 'predefined' ? 'wpl_hidden' : '').'" id="wpl'.$widget_id.'_search_field_container_'.$field['id'].'" style="'.$display.'">';
+				$html .= '<div class="wpl_search_field_container '.((isset($field['type']) and $field['type'] == 'predefined') ? 'wpl_hidden' : '').'" id="wpl'.$widget_id.'_search_field_container_'.$field['id'].'" style="'.$display.'">';
 				include($path .DS. $finds[$type]);
 				$html .= '</div>';
 				

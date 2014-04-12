@@ -25,7 +25,8 @@ class wpl_widget extends WP_Widget
 		// Base Layouts
 		$layouts = self::get_layouts($widget_name);
 		$i = 0;
-		
+		$data = '';
+        
 		while($i < count($layouts))
 		{
 			$data .= '<option ';
@@ -46,6 +47,7 @@ class wpl_widget extends WP_Widget
 	public function generate_pages_selectbox($instance, $field_name = 'wpltarget')
 	{
         $pages = wpl_global::get_wp_pages();
+        $data = '';
         
         foreach($pages as $page)
         {

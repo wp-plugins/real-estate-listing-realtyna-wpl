@@ -8,14 +8,12 @@ include _wpl_import("widgets.search.scripts.js_backend", true, true);
 <div id="<?php echo $this->get_field_id('wpl_search_widget_container'); ?>" class="wpl-widget-search-wp">
     <p>
         <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title', WPL_TEXTDOMAIN); ?>: </label>
-        <input id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>"
-               value="<?php echo $instance['title']; ?>" style="width: 96%;"/>
+        <input id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" value="<?php echo $instance['title']; ?>" style="width: 96%;"/>
     </p>
 
     <p>
         <label for="<?php echo $this->get_field_id('layout'); ?>"><?php _e('Layout', WPL_TEXTDOMAIN); ?>: </label>
-        <select id="<?php echo $this->get_field_id('layout'); ?>" name="<?php echo $this->get_field_name('layout'); ?>"
-                style="width: 100%;min-width: 150px;">
+        <select id="<?php echo $this->get_field_id('layout'); ?>" name="<?php echo $this->get_field_name('layout'); ?>" style="width: 100%;min-width: 150px;">
             <?php echo $this->generate_layouts_selectbox('search', $instance); ?>
         </select>
     </p>
@@ -28,9 +26,7 @@ include _wpl_import("widgets.search.scripts.js_backend", true, true);
         </select>
     </p>
     
-    <button id="btn-search-<?php echo $this->number ?>" data-is-init="false" data-item-id="<?php echo $this->number ?>"
-            data-fancy-id="wpl_view_fields_<?php echo $this->number; ?>" class="wpl-button button-1"
-            href="#wpl_view_fields_<?php echo $this->number ?>" onclick="showLiBo<?php echo $this->number ?>();return false;"><?php _e('View Fields', WPL_TEXTDOMAIN); ?></button>
+    <button id="btn-search-<?php echo $this->number ?>" data-is-init="false" data-item-id="<?php echo $this->number ?>" data-fancy-id="wpl_view_fields_<?php echo $this->number; ?>" class="wpl-button button-1" href="#wpl_view_fields_<?php echo $this->number ?>" onclick="showLiBo<?php echo $this->number ?>();return false;"><?php _e('View Fields', WPL_TEXTDOMAIN); ?></button>
     <span class="page-must-reload"><?php _e(' Must be reload page before open the dialog ', WPL_TEXTDOMAIN); ?></span>
 </div>
 
@@ -52,7 +48,6 @@ include _wpl_import("widgets.search.scripts.js_backend", true, true);
                     <span>
                         <?php echo __('Fields Order', WPL_TEXTDOMAIN); ?>    
                     </span>
-                    <!--<a id="reorder-list" href="#" title="Reorder sorting" class="action-btn icon-recycle-2"></a>-->
                 </h4>
 
                 <div class="order-list-body">

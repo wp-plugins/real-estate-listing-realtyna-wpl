@@ -20,8 +20,8 @@ if($type == 'text' and !$done_this)
 	<div class="field-body">
 		<div class="erow">
 			<select name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][type]">
-				<option value="text" <?php if ($value['type'] == 'text') echo 'selected="selected"'; ?> ><?php echo __('Text', WPL_TEXTDOMAIN); ?></option>
-				<option value="exacttext" <?php if ($value['type'] == 'exacttext') echo 'selected="selected"'; ?> ><?php echo __('Exact text', WPL_TEXTDOMAIN); ?></option>
+				<option value="text" <?php if(isset($value['type']) and $value['type'] == 'text') echo 'selected="selected"'; ?> ><?php echo __('Text', WPL_TEXTDOMAIN); ?></option>
+				<option value="exacttext" <?php if(isset($value['type']) and $value['type'] == 'exacttext') echo 'selected="selected"'; ?> ><?php echo __('Exact text', WPL_TEXTDOMAIN); ?></option>
 			</select>
 		</div>
 	</div>

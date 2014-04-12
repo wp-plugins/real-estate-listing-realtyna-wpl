@@ -1,10 +1,10 @@
 <?php
-/** no direct access * */
+/** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 
 if($type == 'upload' and !$done_this)
 {
-    /** import library * */
+    /** import library **/
     _wpl_import('libraries.items');
 
     $upload_params = $options['params'];

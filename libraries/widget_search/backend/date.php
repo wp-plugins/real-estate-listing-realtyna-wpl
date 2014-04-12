@@ -20,11 +20,11 @@ if($type == 'date' and !$done_this)
 	<div class="field-body">
 		<div class="erow">
 			<select name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][type]">
-				<option value="datepicker" <?php if ($value['type'] == 'datepicker') echo 'selected="selected"'; ?>><?php echo __('Datepicker', WPL_TEXTDOMAIN); ?></option>
+				<option value="datepicker" <?php if (isset($value['type']) and $value['type'] == 'datepicker') echo 'selected="selected"'; ?>><?php echo __('Datepicker', WPL_TEXTDOMAIN); ?></option>
 			</select>
 		</div>
-		<div class="erow ">
-			<input type="text" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][extoption]" value="<?php echo $value['extoption']; ?>" />
+		<div class="erow">
+			<input type="text" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][extoption]" value="<?php echo (isset($value['extoption']) ? $value['extoption'] : ''); ?>" />
 		</div>
 	</div>
 </div>

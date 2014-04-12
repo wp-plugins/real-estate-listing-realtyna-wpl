@@ -11,9 +11,9 @@ if($type == 'date' and !$done_this)
 	/** MIN/MAX extoptions **/
 	$extoptions = explode(',', $field['extoption']);
 	
-	$min_value = trim($extoptions[0]) != '' ? $extoptions[0] : '1990-01-01';
-	$max_value = trim($extoptions[1]) != '' ? $extoptions[1] : '2025-01-01';
-	$show_icon = trim($extoptions[2]) ? $extoptions[2] : 0;
+	$min_value = (isset($extoptions[0]) and trim($extoptions[0]) != '') ? $extoptions[0] : '1990-01-01';
+	$max_value = (isset($extoptions[1]) and trim($extoptions[1]) != '') ? $extoptions[1] : '2025-01-01';
+	$show_icon = (isset($extoptions[2]) and trim($extoptions[2]) != '') ? $extoptions[2] : 0;
 	
 	$mindate = explode('-', $min_value);
 	$maxdate = explode('-', $max_value);
