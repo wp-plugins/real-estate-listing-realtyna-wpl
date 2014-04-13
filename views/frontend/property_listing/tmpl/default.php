@@ -25,7 +25,7 @@ _wpl_import($this->tpl_path.'.scripts.js');
         if($property['raw']['bedrooms'] == 0 and $property['raw']['rooms'] != 0) $room = '<div class="bedroom">'.$property['raw']['rooms'].'</div>';
         
         $bathroom   = '<div class="bathroom">'.$property['raw']['bathrooms'].'</div>';
-        $parking    = '<div class="parking">'.$property['raw']['parkings'].'</div>';
+        $parking    = '<div class="parking">'.($property['raw']['f_150'] == 1 ? $property['raw']['f_150_options'] : 0).'</div>';
         $pic_count  = '<div class="pic_count">'.$property['raw']['pic_numb'].'</div>';
 		?>
 		<div class="wpl_prp_cont" id="wpl_prp_cont<?php echo $property['data']['id']; ?>">

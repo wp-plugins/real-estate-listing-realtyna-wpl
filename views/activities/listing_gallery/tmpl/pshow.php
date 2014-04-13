@@ -73,7 +73,7 @@ wplj(document).ready(function()
         echo '</ul>';
     ?>
     <div id="bx-pager">
-        <?php echo $pager_box; ?>
+        <?php echo '<div id="img_count">'.count($gallery).'</div>'.$pager_box; ?>
     </div>
     <?php } ?>
     

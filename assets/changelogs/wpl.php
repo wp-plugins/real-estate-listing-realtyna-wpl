@@ -4,6 +4,10 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.2.3 (<span class="wpl_log_date">4/13/2014</span> <span class="wpl_log_revision">revision 543</span>)</h4>
+        -- Fixed thumbnail overlaying issue on property gallery.<br />
+        -- Make the rooms, bedrooms and price type fields editable.<br />
+        
         <h4>WPL1.2.2 (<span class="wpl_log_date">4/12/2014</span> <span class="wpl_log_revision">revision 540</span>)</h4>
         -- Fixed an issue in property listing for showing commercial property rooms.<br />
         -- Fixed some PHP notices.<br />

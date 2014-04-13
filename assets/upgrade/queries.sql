@@ -456,3 +456,7 @@ CHANGE `after_before` `after_before` TINYINT( 4 ) NOT NULL DEFAULT '0' COMMENT '
 
 ALTER TABLE `#__wpl_sort_options` CHANGE `name` `name` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL ,
 CHANGE `field_name` `field_name` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL;
+
+UPDATE `#__wpl_dbst` SET `editable`='1' WHERE `id`='8';
+UPDATE `#__wpl_dbst` SET `editable`='1' WHERE `id`='13';
+UPDATE `#__wpl_dbst` SET `editable`='1' WHERE `id`='14';
