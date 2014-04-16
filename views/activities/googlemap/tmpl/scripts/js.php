@@ -28,69 +28,68 @@ function wpl_initialize<?php echo $this->activity_id; ?>()
 	wpl_load_markers<?php echo $this->activity_id; ?>(markers);
 
     var styles =
-        [
-            {
-                "featureType": "water",
-                "stylers": [
-                    {
-                        "color": "#46bcec"
-                    },
-                    {
-                        "visibility": "on"
-                    }
-                ]
-            },
-            {
-                "featureType": "landscape",
-                "stylers": [
-                    {
-                        "color": "#f2f2f2"
-                    }
-                ]
-            },
-            {
-                "featureType": "road",
-                "stylers": [
-                    {
-                        "saturation": -100
-                    },
-                    {
-                        "lightness": 45
-                    }
-                ]
-            },
-            {
-                "featureType": "road.highway",
-                "stylers": [
-                    {
-                        "visibility": "simplified"
-                    }
-                ]
-            },
-            {
-                "featureType": "administrative",
-                "elementType": "labels.text.fill",
-                "stylers": [
-                    {
-                        "color": "#444444"
-                    }
-                ]
-            },
-            {
-                "featureType": "poi",
-                "stylers": [
-                    {
-                        "visibility": "off"
-                    }
-                ]
-            }
-        ];
+    [
+        {
+            "featureType": "water",
+            "stylers": [
+                {
+                    "color": "#46bcec"
+                },
+                {
+                    "visibility": "on"
+                }
+            ]
+        },
+        {
+            "featureType": "landscape",
+            "stylers": [
+                {
+                    "color": "#f2f2f2"
+                }
+            ]
+        },
+        {
+            "featureType": "road",
+            "stylers": [
+                {
+                    "saturation": -100
+                },
+                {
+                    "lightness": 45
+                }
+            ]
+        },
+        {
+            "featureType": "road.highway",
+            "stylers": [
+                {
+                    "visibility": "simplified"
+                }
+            ]
+        },
+        {
+            "featureType": "administrative",
+            "elementType": "labels.text.fill",
+            "stylers": [
+                {
+                    "color": "#444444"
+                }
+            ]
+        },
+        {
+            "featureType": "poi",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        }
+    ];
 
     var styledMap = new google.maps.StyledMapType(styles,{name: "WPL Map"});
 
     wpl_map.mapTypes.set('map_style', styledMap);
     wpl_map.setMapTypeId('map_style');
-
 }
 
 function wpl_marker<?php echo $this->activity_id; ?>(dataMarker)
@@ -101,7 +100,7 @@ function wpl_marker<?php echo $this->activity_id; ?>(dataMarker)
 		position: new google.maps.LatLng(dataMarker.googlemap_lt, dataMarker.googlemap_ln),
 		map: wpl_map,
 		property_ids: dataMarker.pids,
-		icon: '<?php echo wpl_global::get_wpl_url();?>assets/img/listing_types/gicon/'+dataMarker.gmap_icon,
+		icon: '<?php echo wpl_global::get_wpl_url(); ?>assets/img/listing_types/gicon/'+dataMarker.gmap_icon,
 		title: dataMarker.title
 	});
 	

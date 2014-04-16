@@ -37,12 +37,12 @@ include _wpl_import("widgets.agents.scripts.js_backend", true, true);
     
     <div>
         <label for="<?php echo $this->get_field_id('data_image_width'); ?>"><?php echo __('Image Width', WPL_TEXTDOMAIN); ?>: </label>
-        <input type="text" id="<?php echo $this->get_field_id('data_image_width'); ?>" name="<?php echo $this->get_field_name('data'); ?>[image_width]" value="<?php echo isset($instance['data']['image_width']) ? $instance['data']['image_width'] : '175'; ?>" />
+        <input type="text" id="<?php echo $this->get_field_id('data_image_width'); ?>" name="<?php echo $this->get_field_name('data'); ?>[image_width]" value="<?php echo isset($instance['data']['image_width']) ? $instance['data']['image_width'] : '230'; ?>" />
     </div>
     
     <div>
         <label for="<?php echo $this->get_field_id('data_image_height'); ?>"><?php echo __('Image Height', WPL_TEXTDOMAIN); ?>: </label>
-        <input type="text" id="<?php echo $this->get_field_id('data_image_height'); ?>" name="<?php echo $this->get_field_name('data'); ?>[image_height]" value="<?php echo isset($instance['data']['image_height']) ? $instance['data']['image_height'] : '145'; ?>" />
+        <input type="text" id="<?php echo $this->get_field_id('data_image_height'); ?>" name="<?php echo $this->get_field_name('data'); ?>[image_height]" value="<?php echo isset($instance['data']['image_height']) ? $instance['data']['image_height'] : '230'; ?>" />
     </div>
     
     <?php $membership_types = wpl_users::get_membership_types(); ?>

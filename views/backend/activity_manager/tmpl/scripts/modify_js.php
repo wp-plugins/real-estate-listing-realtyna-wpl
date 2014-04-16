@@ -28,4 +28,11 @@ wplj(document).ready(function()
 		});
 	});
 });
+
+function wpl_page_association_selected(activity_id)
+{
+    var association = wplj("#wpl_page_association"+activity_id).val();
+    if(association == '1' || association == '0') wplj(".wpl_activity_pages_container").hide();
+    else wplj(".wpl_activity_pages_container").show();
+}
 </script>

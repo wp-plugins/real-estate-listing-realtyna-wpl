@@ -625,20 +625,37 @@ class wpl_property
 		
 		$levels = array('location1', 'location2', 'location3', 'location4', 'location5', 'location6', 'location7', 'zip');
 		$locations = array();
+        
+		if(isset($property_data['street_no']) and trim($property_data['street_no']) != '') $locations['street_no'] = $property_data['street_no'];
+        if(isset($property_data['field_42']) and trim($property_data['field_42']) != '') $locations['street'] = $property_data['field_42'];
+        if(isset($property_data['location4_name']) and trim($property_data['location4_name']) != '') $locations['location4_name'] = $property_data['location4_name'];
+        if(isset($property_data['location3_name']) and trim($property_data['location3_name']) != '') $locations['location3_name'] = $property_data['location3_name'];
+        if(isset($property_data['location2_name']) and trim($property_data['location2_name']) != '') $locations['location2_name'] = $property_data['location2_name'];
+        if(isset($property_data['zip_name']) and trim($property_data['zip_name']) != '') $locations['zip_name'] = $property_data['zip_name'];
+        if(isset($property_data['location1_name']) and trim($property_data['location1_name']) != '') $locations['location1_name'] = $property_data['location1_name'];
+        
+        $location_pattern = '[street_no] [street][glue] [location4_name][glue] [location3_name][glue] [location2_name] [zip_name][glue] [location1_name]';
+		$location_text = '';
+		$location_text = isset($locations['street_no']) ? str_replace('[street_no]', $locations['street_no'], $location_pattern) : str_replace('[street_no]', '', $location_pattern);
+        $location_text = isset($locations['street']) ? str_replace('[street]', $locations['street'], $location_text) : str_replace('[street]', '', $location_text);
+        $location_text = isset($locations['location4_name']) ? str_replace('[location4_name]', $locations['location4_name'], $location_text) : str_replace('[location4_name]', '', $location_text);
+        $location_text = isset($locations['location3_name']) ? str_replace('[location3_name]', $locations['location3_name'], $location_text) : str_replace('[location3_name]', '', $location_text);
+        $location_text = isset($locations['location2_name']) ? str_replace('[location2_name]', $locations['location2_name'], $location_text) : str_replace('[location2_name]', '', $location_text);
+        $location_text = isset($locations['zip_name']) ? str_replace('[zip_name]', $locations['zip_name'], $location_text) : str_replace('[zip_name]', '', $location_text);
+        $location_text = isset($locations['location1_name']) ? str_replace('[location1_name]', $locations['location1_name'], $location_text) : str_replace('[location1_name]', '', $location_text);
+        $location_text = str_replace('[glue]', $glue, $location_text);
+        
+        $final = '';
+        $ex = explode($glue, $location_text);
+        
+        foreach($ex as $value)
+        {
+            if(trim($value) == '') continue;
+            
+            $final .= $value.$glue.' ';
+        }
 		
-		foreach($levels as $level)
-		{
-			if(!trim($property_data[$level.'_name'])) continue;
-			$locations[] = $property_data[$level.'_name'];
-		}
-		
-		$location_text = implode($glue, array_reverse($locations));
-		
-		/** apply filters **/
-		_wpl_import('libraries.filters');
-		@extract(wpl_filters::apply('generate_property_location_text', array('locations'=>$locations)));
-		
-		return $location_text;
+		return $final;
     }
 	
 	/**

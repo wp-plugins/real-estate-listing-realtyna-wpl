@@ -43,7 +43,15 @@ class wpl_wpl_controller extends wpl_controller
 		parent::render($this->tpl_path, $tpl);
 	}
 	
-	public function statistic()
+	public function announce()
+	{
+		$tpl = 'internal_announce';
+		
+		/** import tpl **/
+		parent::render($this->tpl_path, $tpl);
+	}
+    
+    public function statistic()
 	{
 		$tpl = 'internal_statistic';
 		

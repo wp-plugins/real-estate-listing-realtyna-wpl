@@ -4,7 +4,7 @@ Donate link: http://www.realtyna.com/
 Tags: Real estate, Listing, Vertical Market, MLS, Property listing, RETS
 Requires at least: 3.0.1
 Tested up to: 3.8.2
-Stable tag: 1.2.3
+Stable tag: 1.2.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -59,6 +59,12 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 6. External Responsive Template: Agent listing
 
 == Changelog ==
+
+= 1.2.6 =
+* added 2 default sidebars to WPL.
+* Changing property price position in listings page.
+* Fixed an style issue on single property page.
+* Fixed listing address issue on front-end.
 
 = 1.2.3 =
 * Fixed thumbnail overlaying issue on property gallery.

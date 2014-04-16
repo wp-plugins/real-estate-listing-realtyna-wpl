@@ -26,12 +26,12 @@ foreach($wpl_properties as $property)
 	$markers[$i]['title'] = $property['raw']['googlemap_title'];
 	
 	$markers[$i]['pids'] = $property['raw']['id'];
-	$markers[$i]['gmap_icon'] = $listings[$property['raw']['listing']]['gicon'];
+    $markers[$i]['gmap_icon'] = (isset($listings[$property['raw']['listing']]['gicon']) and $listings[$property['raw']['listing']]['gicon']) ? $listings[$property['raw']['listing']]['gicon'] : 'default.png';
 	
 	$i++;
 }
 ?>
-<div class="wpl_googlemap_container wpl_googlemap_plisting" id="wpl_googlemap_container<?php echo $this->activity_id; ?>">
+<div class="wpl_googlemap_container wpl_googlemap_pshow" id="wpl_googlemap_container<?php echo $this->activity_id; ?>">
 	<div class="wpl_map_canvas" id="wpl_map_canvas<?php echo $this->activity_id; ?>" style="height: <?php echo $map_height ?>px;"></div>
 </div>
 <style type="text/css">

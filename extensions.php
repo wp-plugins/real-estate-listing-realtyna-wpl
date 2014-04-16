@@ -51,6 +51,7 @@ class wpl_extensions
 			elseif($extension->type == 'library') $this->import_library($extension);
 			elseif($extension->type == 'widget') $this->import_widget($extension);
 			elseif($extension->type == 'service') $this->import_service($extension);
+            elseif($extension->type == 'sidebar') $this->import_sidebar($extension);
 		}
 	}
 	
@@ -223,6 +224,32 @@ class wpl_extensions
 		add_shortcode('WPL', array($sef, 'process'));
 	}
 	
+    /**
+		@inputs object $extension
+		@description for importing sidebar
+		@author Howard
+	**/
+	public function import_sidebar($extension)
+	{
+        $name = isset($extension->title) ? $extension->title : 'WPL sidebar';
+        $id = isset($extension->param1) ? $extension->param1 : 'wpl-sidebar-id';
+        $description = isset($extension->description) ? $extension->description : 'WPL sidebar description';
+        $before_widget = isset($extension->param2) ? $extension->param2 : '<aside id="%1$s" class="widget %2$s">';
+        $after_widget = isset($extension->param3) ? $extension->param3 : '</aside>';
+        $before_title = isset($extension->param4) ? $extension->param4 : '<h3 class="widget-title">';
+        $after_title = isset($extension->param5) ? $extension->param5 : '</h3>';
+        
+		register_sidebar(array(
+			'name'          => __($name, WPL_TEXTDOMAIN),
+			'id'            => $id,
+			'description'   => __($description, WPL_TEXTDOMAIN),
+			'before_widget' => $before_widget,
+			'after_widget'  => $after_widget,
+			'before_title'  => $before_title,
+			'after_title'   => $after_title,
+		));
+	}
+    
 	/**
 		@inputs void
 		@description flush_rules() if our rules are not yet included

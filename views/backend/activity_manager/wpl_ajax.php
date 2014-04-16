@@ -17,7 +17,7 @@ class wpl_activity_manager_controller extends wpl_controller
         elseif($function == 'sort_activities') $this->sort_activities(wpl_request::getVar('sort_ids'));
         elseif($function == 'set_enabled_activity') $this->set_enabled_activity(wpl_request::getVar('activity_id'), wpl_request::getVar('enabled_status'));
         elseif($function == 'remove_activity') $this->remove_activity(wpl_request::getVar('activity_id'), wpl_request::getVar('wpl_confirmed', 0));
-        elseif($function == 'save_activity') $this->save_activity(wpl_request::getVar('info'), wpl_request::getVar('option'));
+        elseif($function == 'save_activity') $this->save_activity();
         elseif($function == 'load_options') $this->load_options(wpl_request::getVar('activity_name'), wpl_request::getVar('activity_layout'));
     }
 
@@ -75,12 +75,19 @@ class wpl_activity_manager_controller extends wpl_controller
         exit;
     }
 
-    private function save_activity($information, $options)
+    private function save_activity()
     {
-        if (is_null($options))
-            $information['params'] = '';
-        else
-            $information['params'] = json_encode($options);
+        $information = wpl_request::getVar('info');
+        $options = wpl_request::getVar('option');
+        
+        $associations = wpl_request::getVar('associations', '', array());
+        $associations_str = '';
+        foreach($associations as $page_id=>$value) if($value) $associations_str .= '['.$page_id.']';
+        $information['associations'] = $associations_str;
+        
+        if(is_null($options)) $information['params'] = '';
+        else $information['params'] = json_encode($options);
+        
         if(trim($information['layout']) != '') $information['activity'] = $information['activity'] . ':' . $information['layout'];
 
         if(!isset($information['activity_id'])) wpl_activity::add_activity($information);

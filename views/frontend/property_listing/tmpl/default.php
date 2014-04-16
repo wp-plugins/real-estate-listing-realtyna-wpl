@@ -34,7 +34,7 @@ _wpl_import($this->tpl_path.'.scripts.js');
                     <?php wpl_activity::load_position('wpl_property_listing_image', array('wpl_properties'=>$this->wpl_properties)); ?>
                 </div>
                 <div class="wpl_prp_top_boxes back">
-                    <?php echo $property['rendered'][6]['value'].(isset($property['rendered'][14]['value']) ? $property['rendered'][14]['value'] : ''); ?>
+                    <a id="prp_link_id_<?php echo $property['data']['id']; ?>" href="<?php echo $property['property_link']; ?>" class="view_detail"><?php echo __('More Details', WPL_TEXTDOMAIN); ?></a>
                 </div>
             </div>
             <div class="wpl_prp_bot">
@@ -43,8 +43,8 @@ _wpl_import($this->tpl_path.'.scripts.js');
                 echo '<div class="wpl_prp_listing_location">'.$property['location_text'] .'</div>';   
                 ?>
                 <div class="wpl_prp_listing_icon_box"><?php echo $room . $bathroom . $parking . $pic_count; ?></div>
-                <a id="prp_link_id_<?php echo $property['data']['id']; ?>" href="<?php echo $property['property_link']; ?>" class="view_detail"><?php echo __('Details', WPL_TEXTDOMAIN); ?></a>
             </div>
+            <div class="price_box"><span><?php echo $property['rendered'][6]['value'].(isset($property['rendered'][14]['value']) ? $property['rendered'][14]['value'] : ''); ?></span></div>
 		</div>
 		<?php
     }

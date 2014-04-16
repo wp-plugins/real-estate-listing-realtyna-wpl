@@ -460,3 +460,16 @@ CHANGE `field_name` `field_name` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_
 UPDATE `#__wpl_dbst` SET `editable`='1' WHERE `id`='8';
 UPDATE `#__wpl_dbst` SET `editable`='1' WHERE `id`='13';
 UPDATE `#__wpl_dbst` SET `editable`='1' WHERE `id`='14';
+
+INSERT INTO `#__wpl_extensions` (`id`, `type`, `title`, `parent`, `description`, `enabled`, `param1`, `param2`, `param3`, `param4`, `param5`, `params`, `editable`, `index`, `client`) VALUES
+(21, 'sidebar', 'Property Show Bottom', 0, 'Appears on bottom of single property/property show page', 1, 'wpl-pshow-bottom', '', '', '', '', '', 0, 99.99, 2),
+(22, 'sidebar', 'Profile Show Top', 0, 'Appears on top of agent show/profile show page', 1, 'wpl-profileshow-top', '', '', '', '', '', 0, 99.99, 2);
+
+UPDATE `#__wpl_dbst` SET `deletable`='0' WHERE `id`='2';
+UPDATE `#__wpl_dbst` SET `deletable`='0' WHERE `id`='3';
+
+UPDATE `#__wpl_settings` SET `showable`='0' WHERE `id`='41';
+UPDATE `#__wpl_settings` SET `showable`='0' WHERE `id`='39';
+UPDATE `#__wpl_settings` SET `showable`='0' WHERE `id`='40';
+
+ALTER TABLE `#__wpl_activities` ADD `association_type` TINYINT( 4 ) NOT NULL DEFAULT '1', ADD `associations` TEXT NULL;

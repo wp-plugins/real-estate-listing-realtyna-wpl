@@ -68,6 +68,7 @@ class wpl_property_show_controller extends wpl_controller
 		$wpl_properties['current']['items'] = wpl_items::get_items($this->pid, '', $property['kind'], '', 1);
 		/** property location text **/ $wpl_properties['current']['location_text'] = $this->model->generate_location_text((array) $property);
 		/** property full link **/ $wpl_properties['current']['property_link'] = $this->model->get_property_link((array) $property);
+        /** property title **/ $wpl_properties['current']['property_title'] = $this->model->generate_property_title($property);
 		
 		/** apply filters (This filter must place after all proccess) **/
 		_wpl_import('libraries.filters');

@@ -108,7 +108,7 @@ class wpl_agents_widget extends wpl_widget
 		/* Set up some default widget settings. */
 		if(!isset($instance['layout']))
 		{
-			$instance = array('title'=>__('Featured Agents', WPL_TEXTDOMAIN), 'layout'=>'default.php', 'data'=>array('limit'=>'4', 'orderby'=>'p.first_name', 'order'=>'DESC', 'image_width'=>'175', 'image_height'=>'145'));
+			$instance = array('title'=>__('Featured Agents', WPL_TEXTDOMAIN), 'layout'=>'default.php', 'data'=>array('limit'=>'4', 'orderby'=>'p.first_name', 'order'=>'DESC', 'image_width'=>'230', 'image_height'=>'230'));
 			$instance = wp_parse_args((array) $instance, NULL);
 		}
 		

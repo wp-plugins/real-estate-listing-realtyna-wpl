@@ -7,16 +7,16 @@ wplj(document).ready(function()
 {
 	rta.config.fancybox.reloadAfterClose = true;
 	
-	jQuery("#activity_manager_filter").keyup(function()
+	wplj("#activity_manager_filter").keyup(function()
 	{
-        var term = jQuery(this).val().toLowerCase();
+        var term = wplj(this).val().toLowerCase();
 		
 		if(term != "")
 		{
-			jQuery("#wpl_activity_manager_table tbody tr").hide();
-            jQuery("#wpl_activity_manager_table tbody tr").filter(function()
+			wplj("#wpl_activity_manager_table tbody tr").hide();
+            wplj("#wpl_activity_manager_table tbody tr").filter(function()
 			{
-				var activity_values = jQuery(this)
+				var activity_values = wplj(this)
 				.children('td.wpl_activity_title, td.wpl_activity_activity, td.wpl_activity_layout, td.wpl_activity_position')
 				.text();
 				
@@ -25,7 +25,7 @@ wplj(document).ready(function()
 		}
 		else
 		{
-			jQuery("#wpl_activity_manager_table tbody tr").show();
+			wplj("#wpl_activity_manager_table tbody tr").show();
 		}
 	});
 	

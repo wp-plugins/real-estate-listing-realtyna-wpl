@@ -94,9 +94,10 @@ $pshow_googlemap_activities = count(wpl_activity::get_activities('pshow_googlema
                                 foreach ($value['values'] as $val) $html .= __($val, WPL_TEXTDOMAIN).', ';
                                 $html = rtrim($html, ', ');
                                 echo $html;
+                                echo '</span>';
                             }
 							
-                            echo '</span></div>';
+                            echo '</div>';
                         }
                         elseif($value['type'] == 'locations')
                         {
@@ -174,6 +175,7 @@ $pshow_googlemap_activities = count(wpl_activity::get_activities('pshow_googlema
                     ?>
                 </div>
             </div>
+            <?php if(is_active_sidebar('wpl-pshow-bottom')) dynamic_sidebar('wpl-pshow-bottom'); ?>
         </div>
     </div>
 </div>

@@ -28,7 +28,7 @@ foreach($wpl_properties as $property)
 	$markers[$i]['title'] = $property['raw']['googlemap_title'];
 	
 	$markers[$i]['pids'] = $property['raw']['id'];
-	$markers[$i]['gmap_icon'] = $listings[$property['raw']['listing']]['gicon'];
+	$markers[$i]['gmap_icon'] = (isset($listings[$property['raw']['listing']]['gicon']) and $listings[$property['raw']['listing']]['gicon']) ? $listings[$property['raw']['listing']]['gicon'] : 'default.png';
 	
 	$i++;
 }

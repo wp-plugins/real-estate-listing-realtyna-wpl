@@ -66,6 +66,45 @@ $this->_wpl_import($this->tpl_path . '.scripts.modify_js');
                     </div>
                 </div>
             </div>
+            <div class="col-wp">
+                <div class="col-fanc-bottom wpl-fanc-full-row">
+                    <div class="fanc-row fanc-inline-title">
+                        <?php echo __('Page Association', WPL_TEXTDOMAIN); ?>
+                    </div>
+                    <div class="fanc-row">
+                        <?php if(!wpl_global::check_addon('pro')): ?>
+                        <p><?php echo __('PRO addon must be installed for this.', WPL_TEXTDOMAIN); ?></p>
+                        <?php else: ?>
+                        <label for="wpl_page_association<?php echo $this->activity_id; ?>"><?php echo __('Association', WPL_TEXTDOMAIN); ?></label>
+                        <select class="select_box" id="wpl_page_association<?php echo $this->activity_id; ?>" name="info[association_type]" onchange="wpl_page_association_selected('<?php echo $this->activity_id; ?>');">
+                            <option value="1" <?php if(isset($this->activity_data->association_type) and $this->activity_data->association_type == 1) echo 'selected="selected"'; ?>><?php echo __('Show on all pages', WPL_TEXTDOMAIN); ?></option>
+                            <option value="2" <?php if(isset($this->activity_data->association_type) and $this->activity_data->association_type == 2) echo 'selected="selected"'; ?>><?php echo __('Show on selected pages', WPL_TEXTDOMAIN); ?></option>
+                            <option value="3" <?php if(isset($this->activity_data->association_type) and $this->activity_data->association_type == 3) echo 'selected="selected"'; ?>><?php echo __('Hide on selected pages', WPL_TEXTDOMAIN); ?></option>
+                            <option value="0" <?php if(isset($this->activity_data->association_type) and $this->activity_data->association_type == 0) echo 'selected="selected"'; ?>><?php echo __('Hide on all pages', WPL_TEXTDOMAIN); ?></option>
+                        </select>
+                        <div class="wpl-page-list wpl_activity_pages_container <?php if(!isset($this->activity_data->association_type) or (isset($this->activity_data->association_type) and in_array($this->activity_data->association_type, array(0,1)))) echo 'wpl_hidden_element'; ?>">
+                            <?php
+                                $pages = wpl_global::get_wp_pages();
+                                if(count($pages))
+                                {
+                                    foreach($pages as $page)
+                                    {
+                                        echo '<div class="wpl-page wpl_activity_page_container" id="wpl_activity_page_container'.$page->ID.'">'
+                                                . '<input type="checkbox" class="wpl_activity_page_selectbox" name="associations['.$page->ID.']" id="wpl_activity_page_checkbox'.$page->ID.'" '.((isset($this->activity_data->associations) and strpos($this->activity_data->associations, '['.$page->ID.']') !== false) ? 'checked="checked"' : '').' />'
+                                                . '<label for="wpl_activity_page_checkbox'.$page->ID.'">'.$page->post_title.'</label>'
+                                                . '</div>';
+                                    }
+                                }
+                                else
+                                {
+                                    echo __('No pages', WPL_TEXTDOMAIN);
+                                }
+                            ?>
+                        </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <input type="hidden" name="info[activity]" value="<?php echo $this->activity_raw_name[0]; ?>" />

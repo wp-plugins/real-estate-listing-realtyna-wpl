@@ -19,4 +19,5 @@ defined('_WPLEXEC') or die('Restricted access');
 .wpl_version{padding-left: 10px; color: #ffb42b;}
 .side-statistic1{margin-right: 1% !important;}
 .side-statistic2{width: 50% !important;}
+.side-announce{width: 100% !important;}
 </style>

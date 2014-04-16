@@ -224,7 +224,7 @@ class wpl_settings
 		@return void
 		@description use this function for removing WPL caches
 	**/
-	public static function clear_cache($cache_type = 'All')
+	public static function clear_cache($cache_type = 'all')
 	{
 		/** first validation **/
 		$cache_type = strtolower($cache_type);
@@ -233,6 +233,12 @@ class wpl_settings
 		if($cache_type == 'properties_cached_data' or $cache_type == 'all')
 		{
 			$query = "UPDATE `#__wpl_properties` SET `location_text`='', `rendered`=''";
+			wpl_db::q($query);
+		}
+        
+        if($cache_type == 'location_texts' or $cache_type == 'all')
+		{
+			$query = "UPDATE `#__wpl_properties` SET `location_text`=''";
 			wpl_db::q($query);
 		}
 		

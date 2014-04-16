@@ -51,6 +51,9 @@ _wpl_import('libraries.activities');
                 </div>
 				
                 <!-- Generating statistic section -->
+                <?php $this->announce(); ?>
+                
+                <!-- Generating statistic section -->
                 <?php $this->statistic(); ?>
                 
             </div>

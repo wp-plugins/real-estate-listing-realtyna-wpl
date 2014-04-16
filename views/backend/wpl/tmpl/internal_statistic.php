@@ -13,7 +13,7 @@ defined('_WPLEXEC') or die('Restricted access');
 				foreach($properties as $property)
 				{
 					$listing = wpl_global::get_listings($property['listing']);
-					$data[__($listing->name, WPL_TEXTDOMAIN)] = $property['count'];
+					if(is_object($listing)) $data[__($listing->name, WPL_TEXTDOMAIN)] = $property['count'];
 				}
 				
 				$params = array(
@@ -41,7 +41,7 @@ defined('_WPLEXEC') or die('Restricted access');
 				foreach($properties as $property)
 				{
 					$property_type = wpl_global::get_property_types($property['property_type']);
-					$data[__($property_type->name, WPL_TEXTDOMAIN)] = $property['count'];
+					if(is_object($property_type)) $data[__($property_type->name, WPL_TEXTDOMAIN)] = $property['count'];
 				}
 				
 				$params = array(

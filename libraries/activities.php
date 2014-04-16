@@ -125,7 +125,14 @@ class wpl_activity
                 $condition .= " AND `position`='$position'";
             if(trim($enabled) != '')
                 $condition .= " AND `enabled`>='$enabled'";
-
+            
+            /** page associations **/
+            if(is_page())
+            {
+                $page_id = get_the_ID();
+                if($page_id) $condition .= " AND (`association_type`='1' OR (`association_type`='2' AND `associations` LIKE '%[".$page_id."]%') OR (`association_type`='3' AND `associations` NOT LIKE '%[".$page_id."]%'))";
+            }
+            
             $condition .= " ORDER BY `index` ASC, `ID` DESC";
         }
 
@@ -202,7 +209,7 @@ class wpl_activity
             $id[] = $id_section[0];
         }
 		
-        $query = "SELECT `id`, `index` FROM `#__wpl_activities` WHERE `id` IN (".  implode(",", $id).") ORDER BY `index` ASC, `ID` DESC";
+        $query = "SELECT `id`, `index` FROM `#__wpl_activities` WHERE `id` IN (".implode(",", $id).") ORDER BY `index` ASC, `id` DESC";
         $activities = wpl_db::select($query, 'loadAssocList');
 		
         foreach($activities as $activity)
@@ -305,9 +312,9 @@ class wpl_activity
     {
         $information = wpl_db::escape($information);
         
-        $query = 'INSERT INTO #__wpl_activities(`activity`, `position`, `enabled`, `params`, `show_title`, `title`, `index`)';
-        $query .= "VALUES('{$information['activity']}','{$information['position']}',{$information['enabled']},";
-        $query .= "'{$information['params']}',{$information['show_title']},'{$information['title']}',".(float)$information['index'].")";
+        $query  = 'INSERT INTO `#__wpl_activities` (`activity`, `position`, `enabled`, `params`, `show_title`, `title`, `index`, `association_type`, `associations`)';
+        $query .= " VALUES ('{$information['activity']}','{$information['position']}',{$information['enabled']},";
+        $query .= "'{$information['params']}',{$information['show_title']},'{$information['title']}',".(float)$information['index'].",'{$information['association_type']}','{$information['associations']}')";
 
         return wpl_db::q($query, 'insert');
     }
@@ -323,11 +330,12 @@ class wpl_activity
     {
         $information = wpl_db::escape($information);
 
-        $query = 'UPDATE #__wpl_activities SET  ';
+        $query  = 'UPDATE `#__wpl_activities` SET ';
         $query .= "`activity` = '{$information['activity']}',`position` = '{$information['position']}',`enabled` = {$information['enabled']},";
         $query .= "`params` = '{$information['params']}',`show_title` = {$information['show_title']},";
-        $query .= "`title` = '{$information['title']}', `index` = ".(float)$information['index'];
-        $query .= ' WHERE id = ' . $information['activity_id'];
+        $query .= "`title` = '{$information['title']}', `index` = ".(float)$information['index'].",";
+        $query .= "`association_type` = '{$information['association_type']}', `associations` = '{$information['associations']}'";
+        $query .= " WHERE `id` = '".$information['activity_id']."'";
         
         return wpl_db::q($query);
     }
