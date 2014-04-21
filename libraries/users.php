@@ -221,7 +221,8 @@ class wpl_users
 		$query = "SELECT * FROM `#__users` WHERE `user_login`='$username'";
 		$user = wpl_db::select($query, 'loadObject');
 		
-		return $user->ID;
+		if($user) return $user->ID;
+        else return 0;
 	}
 	
 	/**
@@ -232,10 +233,14 @@ class wpl_users
 	**/
 	public static function get_id_by_email($email)
 	{
+        /** first validation **/
+        if(!trim($email)) return false;
+        
 		$query = "SELECT * FROM `#__users` WHERE `user_email`='$email'";
 		$user = wpl_db::select($query, 'loadObject');
 		
-		return $user->ID;
+		if($user) return $user->ID;
+        else return 0;
 	}
 	
 	/**
@@ -736,7 +741,7 @@ class wpl_users
 						 $user_data['location4_name'].', '.$user_data['location3_name'].', '.$user_data['location2_name'].', '.$user_data['location1_name'];
 		
 		$location_text = $user_data['zip_name'].', '.trim($location_text, ', ');
-		wpl_db::set('wpl_users', $user_id, 'location_text', trim($location_text, ', '));
+		wpl_db::set('wpl_users', $user_id, 'location_text', trim(wpl_db::escape($location_text), ', '));
     }
 	
 	/**
@@ -792,7 +797,7 @@ class wpl_users
 			if(trim($value2) != '') $text_search_data[] = $value2;
 		}
 		
-		wpl_db::set('wpl_users', $user_id, 'textsearch', implode(' ', $text_search_data));
+		wpl_db::set('wpl_users', $user_id, 'textsearch', implode(' ', wpl_db::escape($text_search_data)));
     }
 	
 	/**
@@ -828,7 +833,7 @@ class wpl_users
 		$rendered = self::render_profile($user_data, wpl_users::get_plisting_fields());
 		
 		$result = json_encode(array('rendered'=>$rendered, 'location_text'=>$location_text));
-		$query = "UPDATE `#__wpl_users` SET `rendered`='".wpl_db::escape($result)."' WHERE `id`='$user_id'";
+		$query = "UPDATE `#__wpl_users` SET `rendered`='".wpl_db::escape($result)."', `location_text`='".wpl_db::escape($location_text)."' WHERE `id`='$user_id'";
 		
 		/** update **/
 		wpl_db::q($query, 'update');
@@ -839,27 +844,41 @@ class wpl_users
 		@return string location_text
 		@author Howard
 	**/
-	public static function generate_location_text($user_data, $user_id = 0, $glue = ', ')
+	public static function generate_location_text($user_data, $user_id = 0, $glue = ',')
 	{
 		/** fetch user data if user id is setted **/
 		if($user_id) $user_data = (array) wpl_users::get_wpl_user($user_id);
 		
-		$levels = array('location1', 'location2', 'location3', 'location4', 'location5', 'location6', 'location7', 'zip');
 		$locations = array();
-		
-		foreach($levels as $level)
-		{
-			if(!trim($user_data[$level.'_name'])) continue;
-			$locations[] = $user_data[$level.'_name'];
-		}
-		
-		$location_text = implode($glue, array_reverse($locations));
-		
-		/** apply filters **/
-		_wpl_import('libraries.filters');
-		@extract(wpl_filters::apply('generate_user_location_text', array('locations'=>$locations)));
-		
-		return $location_text;
+        
+		if(isset($user_data['location5_name']) and trim($user_data['location5_name']) != '') $locations['location5_name'] = $user_data['location5_name'];
+        if(isset($user_data['location4_name']) and trim($user_data['location4_name']) != '') $locations['location4_name'] = $user_data['location4_name'];
+        if(isset($user_data['location3_name']) and trim($user_data['location3_name']) != '') $locations['location3_name'] = $user_data['location3_name'];
+        if(isset($user_data['location2_name']) and trim($user_data['location2_name']) != '') $locations['location2_name'] = $user_data['location2_name'];
+        if(isset($user_data['zip_name']) and trim($user_data['zip_name']) != '') $locations['zip_name'] = $user_data['zip_name'];
+        if(isset($user_data['location1_name']) and trim($user_data['location1_name']) != '') $locations['location1_name'] = $user_data['location1_name'];
+        
+        $location_pattern = '[location5_name][glue][location4_name][glue][location3_name][glue][location2_name][glue][location1_name] [zip_name]';
+		$location_text = '';
+        $location_text = isset($locations['location5_name']) ? str_replace('[location5_name]', $locations['location5_name'], $location_pattern) : str_replace('[location5_name]', '', $location_pattern);
+        $location_text = isset($locations['location4_name']) ? str_replace('[location4_name]', $locations['location4_name'], $location_text) : str_replace('[location4_name]', '', $location_text);
+        $location_text = isset($locations['location3_name']) ? str_replace('[location3_name]', $locations['location3_name'], $location_text) : str_replace('[location3_name]', '', $location_text);
+        $location_text = isset($locations['location2_name']) ? str_replace('[location2_name]', $locations['location2_name'], $location_text) : str_replace('[location2_name]', '', $location_text);
+        $location_text = isset($locations['zip_name']) ? str_replace('[zip_name]', $locations['zip_name'], $location_text) : str_replace('[zip_name]', '', $location_text);
+        $location_text = isset($locations['location1_name']) ? str_replace('[location1_name]', $locations['location1_name'], $location_text) : str_replace('[location1_name]', '', $location_text);
+        $location_text = str_replace('[glue]', $glue, $location_text);
+        
+        $final = '';
+        $ex = explode($glue, $location_text);
+        
+        foreach($ex as $value)
+        {
+            if(trim($value) == '') continue;
+            
+            $final .= trim($value).$glue.' ';
+        }
+        
+		return trim($final, ', ');
     }
 	
 	/**

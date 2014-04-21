@@ -32,7 +32,7 @@ $profile_image = wpl_images::create_profile_images($picture_path, $profile_pictu
         </div>
 		<ul>
 			<?php if(isset($wpl_user['rendered']['904']['value'])){ ?>
-			<li class="website"><?php echo $wpl_user['rendered']['904']['value']; ?></li>
+            <li class="website"><a href="<?php echo $wpl_user['rendered']['904']['value']; ?>" target="_blank"><?php echo $wpl_user['rendered']['904']['value']; ?></a></li>
 			<?php
 			}
 			if(isset($wpl_user['rendered']['907']['value'])){?>
@@ -60,7 +60,7 @@ $profile_image = wpl_images::create_profile_images($picture_path, $profile_pictu
 		<?php
 		if(isset($wpl_user['company_logo'])) echo '<img src="'.$wpl_user['company_logo']['url'].'" />';
 		if(isset($wpl_user['rendered']['902']['value'])) echo '<div class="company">'.$wpl_user['rendered']['902']['value'].'</div>';
-        if(isset($wpl_user['location_text'])) echo '<div class="location">'.$wpl_user['location_text'].'</div>';
+        if(isset($wpl_user['data']['company_address'])) echo '<div class="location">'.$wpl_user['data']['company_address'].'</div>';
         ?>
 	</div>
 </div>

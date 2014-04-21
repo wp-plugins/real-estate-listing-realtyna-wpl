@@ -141,12 +141,27 @@ class wpl_activity
     }
 
     /** for importing internal files in object mode * */
-    protected static function _wpl_import($include, $override = true)
+    protected function _wpl_import($include, $override = true, $set_footer = false, $once = false)
     {
         $path = _wpl_import($include, $override, true);
 
-        /** check existS * */
-        if(wpl_file::exists($path)) include $path;
+        /** check exists **/
+        if(!wpl_file::exists($path)) return;
+        
+        if(!$set_footer)
+        {
+            if(!$once) include $path;
+            else include_once $path;
+        }
+        else
+        {
+            ob_start();
+            
+            if(!$once) include $path;
+            else include_once $path;
+            
+            wpl_html::set_footer(ob_get_clean());
+        }
     }
 
     /**

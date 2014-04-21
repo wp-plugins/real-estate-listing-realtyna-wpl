@@ -22,6 +22,10 @@ class wpl_listings_controller extends wpl_controller
             
             $this->update_property($pid, $action, $value);
         }
+        elseif($function == 'change_user')
+        {
+            $this->change_user();
+        }
     }
     
     /**
@@ -98,5 +102,31 @@ class wpl_listings_controller extends wpl_controller
 		
 		echo json_encode(array('success'=>$res, 'message'=>$message, 'data'=>$data));
         exit;
+    }
+    
+    /**
+     * author Howard
+     * desctiption: change user of a property
+     */
+    private function change_user()
+    {
+        $pid = wpl_request::getVar('pid');
+        $uid = wpl_request::getVar('uid');
+		
+		/** purge property **/
+		if(wpl_users::check_access('change_user'))
+		{
+			$res = (int) wpl_property::change_user($pid, $uid);
+			$message = __("User changed.", WPL_TEXTDOMAIN);
+		}
+		else
+		{
+			$res = 0;
+			$message = __("You don't have access to this action.", WPL_TEXTDOMAIN);
+		}
+		
+		/** echo response **/
+		echo json_encode(array('success'=>$res, 'message'=>$message, 'data'=>NULL));
+		exit;
     }
 }

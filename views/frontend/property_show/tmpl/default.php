@@ -2,7 +2,7 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 
-_wpl_import($this->tpl_path.'.scripts.js');
+$this->_wpl_import($this->tpl_path.'.scripts.js', true, true);
 
 $prp_type           = isset($this->wpl_properties['current']['rendered_raw'][3]['value']) ? $this->wpl_properties['current']['rendered_raw'][3]['value'] : '';
 $prp_listings       = isset($this->wpl_properties['current']['rendered_raw'][2]['value']) ? $this->wpl_properties['current']['rendered_raw'][2]['value'] : '';
@@ -130,11 +130,12 @@ $pshow_googlemap_activities = count(wpl_activity::get_activities('pshow_googlema
                         <div class="wpl_prp_right_boxe_details_top clearfix">
                             <div class="wpl_prp_right_boxe_details_left">
                                 <ul>
-                                    <li><?php echo __('Listing ID',WPL_TEXTDOMAIN).' : <span>'.$listing_id.'</span>'; ?></li>
-                                    <li><?php echo __('Bedroom',WPL_TEXTDOMAIN).' : <span>'.$bedroom.'</span>'; ?></li>
-                                    <li><?php echo __('Bathroom',WPL_TEXTDOMAIN).' : <span>'.$bathroom.'</span>'; ?></li>
+                                    <li><?php echo __('Listing ID', WPL_TEXTDOMAIN).' : <span>'.$listing_id.'</span>'; ?></li>
+                                    <li><?php echo __('Bedroom', WPL_TEXTDOMAIN).' : <span>'.$bedroom.'</span>'; ?></li>
+                                    <li><?php echo __('Bathroom', WPL_TEXTDOMAIN).' : <span>'.$bathroom.'</span>'; ?></li>
+                                    <li><?php echo __('Built Up Area', WPL_TEXTDOMAIN).' : <span>'.$build_up_area.'</span>'; ?></li>
                                     <?php if($price_type){ ?>
-                                    <li><?php echo __('Price Type',WPL_TEXTDOMAIN).' : <span>'.$price_type.'</span>'; ?></li>
+                                    <li><?php echo __('Price Type', WPL_TEXTDOMAIN).' : <span>'.$price_type.'</span>'; ?></li>
                                     <?php } ?>
                                 </ul>
                            </div>
@@ -146,10 +147,7 @@ $pshow_googlemap_activities = count(wpl_activity::get_activities('pshow_googlema
 
                         </div>
                         <div class="wpl_prp_right_boxe_details_bot">
-                            <?php 
-                            echo '<div class="location_box">'.$location_string.'</div>';
-                            echo '<div class="price_box">'.$price.'</div>';
-                            ?>
+                            <?php echo '<div class="price_box">'.$price.'</div>'; ?>
                         </div>
                     </div>
                 </div>

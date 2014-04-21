@@ -13,6 +13,7 @@ class wpl_html
 	public static $title;
 	public static $meta_keywords = array();
 	public static $meta_description;
+    public static $footer_strings = array();
 	public static $scripts = array();
 	
 	/** constructor **/
@@ -22,9 +23,13 @@ class wpl_html
 		if($init)
 		{
 			$html = $this->getInstance(false);
-			
+			$client = wpl_global::get_client();
+            
 			add_filter('wp_title', array($html, 'title'), 9999, 2);
 			add_action('wp_head', array($html, 'generate_head'), 9999);
+            
+            if($client == 0) add_action('wp_footer', array($html, 'generate_footer'), 9999);
+            elseif($client == 1) add_action('in_admin_footer', array($html, 'generate_footer'), 9999);
 		}
 	}
 	
@@ -126,6 +131,42 @@ class wpl_html
 		if(self::$meta_description)
 		{
 			echo '<meta name="description" content="'.self::$meta_description.'" />';
+		}
+	}
+    
+    /**
+		Developed by : Howard
+		Inputs : void
+		Outputs : void
+		Date : 2014-04-19
+		Description : This is a function for printing needed codes in footer
+	**/
+	public static function set_footer($string)
+	{
+		$string = (string) $string;
+		if(trim($string) == '') return false;
+		
+        array_push(self::$footer_strings, $string);
+	}
+    
+    /**
+		Developed by : Howard
+		Inputs : void
+		Outputs : void
+		Date : 2014-04-19
+		Description : This is a function for printing needed codes in footer
+	**/
+	public static function generate_footer()
+	{
+		/** printing footer strings **/
+		if(isset(self::$footer_strings) and count(self::$footer_strings))
+		{
+            foreach(self::$footer_strings as $key=>$string)
+            {
+                echo PHP_EOL;
+                echo $string;
+                echo PHP_EOL;
+            }
 		}
 	}
 	

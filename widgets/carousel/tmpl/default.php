@@ -6,7 +6,25 @@ include _wpl_import("widgets.carousel.scripts.js", true, true);
 
 $image_width = isset($this->instance['data']['image_width']) ? $this->instance['data']['image_width'] : 1920;
 $image_height = isset($this->instance['data']['image_height']) ? $this->instance['data']['image_height'] : 558;
+
+/** add Layout js **/
+$js[] = (object) array('param1'=>'owl.slider', 'param2'=>'js/jquery.bxslider.min.js');
+foreach($js as $javascript) wpl_extensions::import_javascript($javascript);
 ?>
+<script type="text/javascript">
+wplj(document).ready(function()
+{
+	wplj('.bxslider').bxSlider(
+	{
+		mode: 'fade',
+		pager : false,
+		auto : true,
+		captions: true,
+		nextText:'',
+		prevText:''
+	});
+});
+</script>
 <div class="wpl_carousel_container">
 	<ul class="bxslider">
 		<?php 

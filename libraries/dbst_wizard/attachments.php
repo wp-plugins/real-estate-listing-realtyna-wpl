@@ -6,13 +6,6 @@ if($type == 'attachments' and !$done_this)
 {
     _wpl_import('libraries.items');
 
-    /** add scripts and style sheet for uploaders **/
-    $style[] = (object) array('param1' => 'ajax-fileupload-style', 'param2' => 'js/ajax_uploader/css/style.css');
-    $style[] = (object) array('param1' => 'ajax-fileupload-ui', 'param2' => 'js/ajax_uploader/css/jquery.fileupload-ui.css');
-
-    /** import styles and javascripts **/
-    foreach($style as $css) wpl_extensions::import_style($css);
-
     $extentions = explode(',', $options['ext_file']);
 	$ext_str = '';
     foreach($extentions as $extention) $ext_str .= $extention . '|';
@@ -132,73 +125,70 @@ wplj(document).ready(function()
 				sort_str += elm.value + ",";
 			});
 
-			wplj.post("' . wpl_global::get_full_url() . '", "&wpl_format=b:listing:attachments&wpl_function=sort_attachments&pid=' . $item_id . '&order=" + sort_str, function (data) {});
+			wplj.post("<?php echo wpl_global::get_full_url(); ?>", "&wpl_format=b:listing:attachments&wpl_function=sort_attachments&pid=' . $item_id . '&order=" + sort_str, function (data) {});
 		}
 	});
 });
 
 var att_counter = parseInt(<?php echo $max_index_att ?>) + 1;
-wplj(function ()
+wplj(document).ready(function()
 {
 	var url = '<?php echo wpl_global::get_full_url(); ?>&wpl_format=b:listing:attachments&wpl_function=upload&pid=' + <?php echo $item_id; ?> +'&kind=<?php echo $this->kind; ?>&type=attachment';
 
-	require([rta.config.JSes.fileUpload], function ()
-	{
-		wplj('#attachment_upload').fileupload(
-		{
-			url: url,
-			acceptFileTypes: /(<?php echo $ext_str; ?>)$/i,
-			dataType: 'json',
-			maxFileSize:<?php echo $max_size * 1000; ?>,
-			done: function (e, data)
-			{
-				wplj.each(data.result.files, function (index, file)
-				{
-					if (file.error !== undefined)
-					{
-						wplj('<p/>').text(file.error).appendTo('#attaches');
-					}
-					else
-					{
-						wplj(rta.template.bind(
-						{
-							att_counter: att_counter,
-							fileName: file.name,
-							subFileName: file.name.substr((file.name.lastIndexOf('.') + 1)),
-							lblTitle: '<?php echo __('Attachment Title', WPL_TEXTDOMAIN); ?>',
-							lblDesc: '<?php echo __('Video Description', WPL_TEXTDOMAIN); ?>',
-							lblCat: '<?php echo __('Video Category', WPL_TEXTDOMAIN); ?>',
-							attachCat: '<?php echo $attachment_categories_html ?>'
-						}, 'dbst-wizard-attachment')).appendTo('#ajax_att_sortable');
+    wplj('#attachment_upload').fileupload(
+    {
+        url: url,
+        acceptFileTypes: /(<?php echo $ext_str; ?>)$/i,
+        dataType: 'json',
+        maxFileSize:<?php echo $max_size * 1000; ?>,
+        done: function (e, data)
+        {
+            wplj.each(data.result.files, function (index, file)
+            {
+                if (file.error !== undefined)
+                {
+                    wplj('<p/>').text(file.error).appendTo('#attaches');
+                }
+                else
+                {
+                    wplj(rta.template.bind(
+                    {
+                        att_counter: att_counter,
+                        fileName: file.name,
+                        subFileName: file.name.substr((file.name.lastIndexOf('.') + 1)),
+                        lblTitle: '<?php echo __('Attachment Title', WPL_TEXTDOMAIN); ?>',
+                        lblDesc: '<?php echo __('Video Description', WPL_TEXTDOMAIN); ?>',
+                        lblCat: '<?php echo __('Video Category', WPL_TEXTDOMAIN); ?>',
+                        attachCat: '<?php echo $attachment_categories_html ?>'
+                    }, 'dbst-wizard-attachment')).appendTo('#ajax_att_sortable');
 
-						att_counter++;
-					}
+                    att_counter++;
+                }
 
-					rta.internal.initChosen();
-				});
-			},
-			progressall: function (e, data)
-			{
-				wplj("#progress_att").show('fast');
-				var progress = parseInt(data.loaded / data.total * 100, 10);
-				
-				wplj('#progress_att #progress .bar').css
-				(
-					'width',
-					progress + '%'
-				);
-				
-				wplj("#error_ajax_att").html("");
-				wplj("#error_ajax_att").hide('slow');
-			},
-			processfail: function (e, data)
-			{
-				wplj("#progress_att").hide('slow');
-				wplj("#error_ajax_att").html("<span color='red'><?php echo __('Error occured', WPL_TEXTDOMAIN) ?> : " + data.files[data.index].name + " " + data.files[data.index].error + "</span>");
-				wplj("#error_ajax_att").show('slow');
-			}
-		});
-	});
+                rta.internal.initChosen();
+            });
+        },
+        progressall: function (e, data)
+        {
+            wplj("#progress_att").show('fast');
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+
+            wplj('#progress_att #progress .bar').css
+            (
+                'width',
+                progress + '%'
+            );
+
+            wplj("#error_ajax_att").html("");
+            wplj("#error_ajax_att").hide('slow');
+        },
+        processfail: function (e, data)
+        {
+            wplj("#progress_att").hide('slow');
+            wplj("#error_ajax_att").html("<span color='red'><?php echo __('Error occured', WPL_TEXTDOMAIN) ?> : " + data.files[data.index].name + " " + data.files[data.index].error + "</span>");
+            wplj("#error_ajax_att").show('slow');
+        }
+    });
 });
 
 function ajax_attachment_title_update(attachment, value)

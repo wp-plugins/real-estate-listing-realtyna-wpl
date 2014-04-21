@@ -2,7 +2,7 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 
-_wpl_import($this->tpl_path.'.scripts.js');
+$this->_wpl_import($this->tpl_path.'.scripts.js', true, true);
 ?>
 <div id="wpl_profile_listing_main_container" class="container">
 	<div class="wpl_sort_options_container">

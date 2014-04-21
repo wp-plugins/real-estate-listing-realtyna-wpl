@@ -468,8 +468,27 @@ INSERT INTO `#__wpl_extensions` (`id`, `type`, `title`, `parent`, `description`,
 UPDATE `#__wpl_dbst` SET `deletable`='0' WHERE `id`='2';
 UPDATE `#__wpl_dbst` SET `deletable`='0' WHERE `id`='3';
 
-UPDATE `#__wpl_settings` SET `showable`='0' WHERE `id`='41';
-UPDATE `#__wpl_settings` SET `showable`='0' WHERE `id`='39';
-UPDATE `#__wpl_settings` SET `showable`='0' WHERE `id`='40';
-
 ALTER TABLE `#__wpl_activities` ADD `association_type` TINYINT( 4 ) NOT NULL DEFAULT '1', ADD `associations` TEXT NULL;
+
+INSERT INTO `#__wpl_settings` (`id`, `setting_name`, `setting_value`, `showable`, `category`, `type`, `title`, `params`, `options`, `index`) VALUES
+(50, 'backend_listing_target_page', NULL, 1, 4, 'wppages', 'Backend Listing Target', '{"tooltip":"Used for backend views"}', '{"show_empty":1} ', 99.00);
+
+ALTER TABLE `#__wpl_users` ADD `access_change_user` TINYINT( 4 ) NOT NULL DEFAULT '0' AFTER `access_public_profile`;
+
+DELETE FROM `#__wpl_settings` WHERE `setting_name` IN ('realtyna_username','realtyna_password','realtyna_verified');
+INSERT INTO `#__wpl_settings` (`id`, `setting_name`, `setting_value`, `showable`, `category`, `type`, `title`, `params`, `options`, `index`) VALUES
+(36, 'realtyna_username', NULL, 0, 1, 'text', '', '', '', 99.00),
+(37, 'realtyna_password', NULL, 0, 1, 'text', '', '', '', 99.00),
+(38, 'realtyna_verified', '0', 0, 1, 'text', '', '', '', 99.00);
+
+INSERT INTO `#__wpl_extensions` (`id`, `type`, `title`, `parent`, `description`, `enabled`, `param1`, `param2`, `param3`, `param4`, `param5`, `params`, `editable`, `index`, `client`) VALUES
+(105, 'javascript', 'AjaxFileUpload', 0, '', 1, 'ajaxFileUpload', 'js/libs/bower_components/ajaxfileupload.min.js', '', '', '', '', 0, 100.00, 2),
+(104, 'javascript', 'HoverIntent', 0, '', 1, 'hoverIntent', 'js/libs/bower_components/hoverintent/jquery.hoverIntent.js', '', '', '', '', 0, 100.00, 1),
+(103, 'javascript', 'Transit', 0, '', 1, 'transit', 'js/libs/bower_components/transit/jquery.transit.min.js', '', '', '', '', 0, 100.00, 1),
+(102, 'javascript', 'customScrollBarJS', 0, '', 1, 'customScrollBarJS', 'js/libs/bower_components/malihu-custom-scrollbar-plugin-bower/jquery.mCustomScrollbar.concat.min.js', '', '', '', '', 0, 100.00, 1),
+(101, 'javascript', 'Chosen', 0, '', 1, 'ChosenJS', 'js/libs/bower_components/chosen/public/chosen.jquery.min.js', '', '', '', '', 0, 100.00, 1);
+
+DELETE FROM `#__wpl_extensions` WHERE `id`='93';
+DELETE FROM `#__wpl_extensions` WHERE `id`='95';
+
+UPDATE `#__wpl_activities` SET `activity`='agent_info:profileshow' WHERE `id`='12';

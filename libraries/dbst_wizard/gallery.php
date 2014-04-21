@@ -6,13 +6,6 @@ if($type == 'gallery' and !$done_this)
 {
     _wpl_import('libraries.items');
 
-	/** add scripts and style sheet for uploaders **/
-    $style[] = (object) array('param1' => 'ajax-fileupload-style', 'param2' => 'js/ajax_uploader/css/style.css');
-    $style[] = (object) array('param1' => 'ajax-fileupload-ui', 'param2' => 'js/ajax_uploader/css/jquery.fileupload-ui.css');
-
-    /** import styles and javascripts **/
-    foreach($style as $css) wpl_extensions::import_style($css);
-
     $extentions = explode(',', $options['ext_file']);
 	$ext_str = '';
     foreach($extentions as $extention) $ext_str .= $extention . '|';
@@ -176,11 +169,10 @@ wplj(document).ready(function()
 
 var img_counter = parseInt(<?php echo $max_img_index ?>) + 1;
 
-wplj(function()
+wplj(document).ready(function()
 {
 	var url = '<?php echo wpl_global::get_full_url(); ?>&wpl_format=b:listing:gallery&wpl_function=upload&pid=' +<?php echo $item_id; ?> + '&kind=<?php echo $this->kind; ?>&type=gallery';
 
-	require([rta.config.JSes.fileUpload], function() {
 		wplj('#fileupload').fileupload({
 			url: url,
 			acceptFileTypes: /(<?php echo $ext_str; ?>)$/i,
@@ -230,7 +222,6 @@ wplj(function()
 				wplj("#error_ajax_img").show('slow');
 			}
 		});
-	});
 });
 
 function ajax_gallery_title_update(image, value)

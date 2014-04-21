@@ -2,7 +2,7 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 
-_wpl_import($this->tpl_path.'.scripts.js');
+$this->_wpl_import($this->tpl_path.'.scripts.js', true, true);
 
 $js = (object) array('param1'=>'jquery-video-js-script', 'param2'=>'js/video-js/video.js');
 $style = (object) array('param1'=>'ajax-video-js-style', 'param2'=>'js/video-js/video-js.min.css');

@@ -78,7 +78,8 @@ $this->finds = array();
                                 <?php echo __('Your property successfully finalized!', WPL_TEXTDOMAIN); ?>
                             </span>
                             <div class="finilize-btn-wp">
-                                <a class="wpl-button button-2" href="<?php echo wpl_property::get_property_link('', $this->property_id); ?>"><?php echo __('View this listing', WPL_TEXTDOMAIN); ?></a>
+                                <?php $listing_target_page = wpl_global::get_client() == 1 ? wpl_global::get_setting('backend_listing_target_page') : NULL; ?>
+                                <a class="wpl-button button-2" href="<?php echo wpl_property::get_property_link('', $this->property_id, $listing_target_page); ?>"><?php echo __('View this listing', WPL_TEXTDOMAIN); ?></a>
                                 <a class="wpl-button button-2" href="<?php echo wpl_global::remove_qs_var('pid', wpl_global::get_full_url()); ?>"><?php echo __('Add new listing', WPL_TEXTDOMAIN); ?></a>
                             </div>
                         </div>

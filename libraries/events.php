@@ -84,7 +84,7 @@ class wpl_events
 	}
 	
 	/**
-		execute all cronjobs
+		Execute all cronjobs
 	**/
 	public static function do_cronjobs($params = array())
 	{

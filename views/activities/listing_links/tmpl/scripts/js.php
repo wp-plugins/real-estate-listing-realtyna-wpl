@@ -9,17 +9,19 @@ function wpl_favorite_control(id, mode, property_show)
 	var title = '';
 	var link = '';
 	
-	if (mode === 1)
+	if (mode == 1)
 	{
 		if (property_show)
 		{
-			wplj("#wpl_gallery_container" + id + ' ul li:visible img').each(function() {
+			wplj("#wpl_gallery_container" + id + ' ul li:visible img').each(function()
+            {
 				image = this.src;
 			});
 		}
 		else
 		{
-			wplj("#wpl_gallery_container" + id).children('img').each(function() {
+			wplj("#wpl_gallery_container" + id).children('img').each(function()
+            {
 				if (wplj(this).is(":visible"))
 				{
 					image = this.src;

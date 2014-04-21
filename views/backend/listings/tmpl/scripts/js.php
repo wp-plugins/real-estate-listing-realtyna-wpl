@@ -95,6 +95,23 @@ function mass_unconfirm_properties()
     });
 }
 
+function mass_change_user(uid)
+{
+    if(!uid)
+    {
+        wpl_show_messages('<?php echo __('User is not valid!', WPL_TEXTDOMAIN); ?>', '.wpl_property_manager_list .wpl_show_message', 'wpl_red_msg');
+        return false;
+    }
+    
+    wplj('.js-pcheckbox:checked').each(function()
+	{
+        pid = wplj(this).attr('id');
+        wplj("#pmanager_change_user_select"+pid).val(uid);
+        
+        change_user(pid, uid);
+    });
+}
+
 function purge_property(pid)
 {
 	request_str = "wpl_format=b:listings:ajax&wpl_function=purge_property&pid="+pid;
@@ -189,5 +206,25 @@ function trash_property(pid)
 			wpl_show_messages(data.message, '.wpl_property_manager_list .wpl_show_message', 'wpl_red_msg');
 		}
 	});
+}
+
+function change_user(pid, uid)
+{
+    request_str = "wpl_format=b:listings:ajax&wpl_function=change_user&pid="+pid+"&uid="+uid;
+    wplj("#pmanager_change_user_label"+pid).html('<img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader3.gif'); ?>" />');
+    
+    ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str);
+    ajax.success(function(data)
+	{
+		if(data.success == 1)
+		{
+			wplj("#pmanager_change_user_label"+pid).html('<?php echo __('User', WPL_TEXTDOMAIN); ?>');
+		}
+		else if(data.success != 1)
+		{
+			wplj("#pmanager_change_user_label"+pid).html('<?php echo __('User', WPL_TEXTDOMAIN); ?>');
+			wpl_show_messages(data.message, '.wpl_property_manager_list .wpl_show_message', 'wpl_red_msg');
+		}
+    });
 }
 </script>

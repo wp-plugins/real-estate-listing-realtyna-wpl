@@ -10,12 +10,13 @@ _wpl_import('libraries.activities');
 
     <header>
         <div id="icon-dashboard" class="icon48"></div>
-        <h2><?php echo __('WPL', WPL_TEXTDOMAIN); ?>&nbsp;<?php echo (wpl_global::check_addon('pro') ? 'PRO' : 'Basic'); ?><span class="wpl_version">v<?php echo wpl_global::wpl_version(); ?></span></h2>
+        <h2><?php echo __('WPL', WPL_TEXTDOMAIN); ?>&nbsp;<?php echo(wpl_global::check_addon('pro') ? 'PRO' : 'Basic'); ?><span
+                class="wpl_version">v<?php echo wpl_global::wpl_version(); ?></span></h2>
     </header>
 
     <div id="dashboard-links-wp">
         <ul>
-            <?php foreach($this->submenus as $submenu): ?>
+            <?php foreach ($this->submenus as $submenu): ?>
                 <li class="link-<?php echo $submenu->id; ?>">
                     <a href="<?php echo wpl_global::get_wp_admin_url(); ?>admin.php?page=<?php echo $submenu->menu_slug; ?>">
                         <span class="box"><i></i></span>
@@ -32,30 +33,38 @@ _wpl_import('libraries.activities');
         <div class="side-14 side-ni-addons">
             <div class="sidebar-wp sidebar-float">
 
-                <!-- Generating not installed extensions -->
-                <?php $this->not_installed_addons(); ?>
-                
-                <!-- Generating support section -->
-                <?php $this->support(); ?>
+                <div class="rt-same-height sidebar-float">
+                    <!-- Generating not installed extensions -->
+                    <?php $this->not_installed_addons(); ?>
 
-                <!-- Generating addons -->
-                <?php $this->generate_addons(); ?>
+                    <!-- Generating support section -->
+                    <?php $this->support(); ?>
+                </div>
 
-                <div class="side-4 side-changes">
-                    <div class="panel-wp">
-                        <h3><?php echo __('Changelog', WPL_TEXTDOMAIN); ?></h3>
-                        <div class="panel-body">
-                            <?php _wpl_import('assets.changelogs.wpl'); ?>
+                <div class="rt-same-height sidebar-float">
+                    <!-- Generating addons -->
+                    <?php $this->generate_addons(); ?>
+
+                    <div class="side-4 side-changes js-full-height" data-minuse-size="56">
+                        <div class="panel-wp">
+                            <h3><?php echo __('Changelog', WPL_TEXTDOMAIN); ?></h3>
+
+                            <div class="panel-body">
+                                <?php _wpl_import('assets.changelogs.wpl'); ?>
+                            </div>
                         </div>
                     </div>
                 </div>
-				
+
+
                 <!-- Generating statistic section -->
                 <?php $this->announce(); ?>
-                
-                <!-- Generating statistic section -->
-                <?php $this->statistic(); ?>
-                
+
+                <div class="rt-same-height sidebar-float">
+                    <!-- Generating statistic section -->
+                    <?php $this->statistic(); ?>
+                </div>
+
             </div>
         </div>
     </div>

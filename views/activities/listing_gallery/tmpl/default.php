@@ -4,14 +4,14 @@ defined('_WPLEXEC') or die('Restricted access');
 
 /** set params **/
 $wpl_properties = isset($params['wpl_properties']) ? $params['wpl_properties'] : array();
-$property_id = isset($wpl_properties['current']['data']['id']) ? $wpl_properties['current']['data']['id'] : NULL;
+$this->property_id = isset($wpl_properties['current']['data']['id']) ? $wpl_properties['current']['data']['id'] : NULL;
 
 /** get image params **/
-$image_width = isset($params['image_width']) ? $params['image_width'] : 285;
-$image_height = isset($params['image_height']) ? $params['image_height'] : 200;
-$image_class = isset($params['image_class']) ? $params['image_class'] : '';
-$rewrite = (isset($params['rewrite']) and trim($params['rewrite']) != '') ? $params['rewrite'] : 0;
-$watermark = (isset($params['watermark']) and trim($params['watermark']) != '') ? $params['watermark'] : 0;
+$this->image_width = isset($params['image_width']) ? $params['image_width'] : 285;
+$this->image_height = isset($params['image_height']) ? $params['image_height'] : 200;
+$this->image_class = isset($params['image_class']) ? $params['image_class'] : '';
+$this->rewrite = (isset($params['rewrite']) and trim($params['rewrite']) != '') ? $params['rewrite'] : 0;
+$this->watermark = (isset($params['watermark']) and trim($params['watermark']) != '') ? $params['watermark'] : 0;
 
 /** Property tags **/
 $features = '';
@@ -27,8 +27,11 @@ if(isset($wpl_properties['current']['rendered'][403]) and $wpl_properties['curre
 /** render gallery **/
 $raw_gallery = isset($wpl_properties['current']['items']['gallery']) ? $wpl_properties['current']['items']['gallery'] : array();
 $gallery = wpl_items::render_gallery($raw_gallery);
+
+/** import js codes **/
+$this->_wpl_import($this->tpl_path.'.scripts.default', true, true, true);
 ?>
-<div class="wpl_gallery_container" id="wpl_gallery_container<?php echo $property_id; ?>" >
+<div class="wpl_gallery_container" id="wpl_gallery_container<?php echo $this->property_id; ?>" >
     <?php 
     if(!count($gallery)) 
     {
@@ -42,7 +45,7 @@ $gallery = wpl_items::render_gallery($raw_gallery);
         {
             $image_url = $image['url'];
             
-            if($image_width and $image_height and $image['category'] != 'external')
+            if($this->image_width and $this->image_height and $image['category'] != 'external')
             {
                 /** set resize method parameters **/
                 $params = array();
@@ -52,24 +55,12 @@ $gallery = wpl_items::render_gallery($raw_gallery);
                 $params['image_source'] = $image['path'];
                 
                 /** resize image if does not exist **/
-                $image_url = wpl_images::create_gallary_image($image_width, $image_height, $params, $watermark, $rewrite);
+                $image_url = wpl_images::create_gallary_image($this->image_width, $this->image_height, $params, $this->watermark, $this->rewrite);
             }
             
-            echo '<img id="wpl_gallery_image'.$property_id .'_'.$i.'" src="'.$image_url.'" class="wpl_gallery_image '.$image_class.'" onclick="rpl_Plisting_slider'.$property_id.'('.$i.');" alt="'.$image['raw']['item_name'].'" width="'.$image_width.'" height="'.$image_height.'" style="width: '.$image_width.'px; height: '.$image_height.'px;" />';
+            echo '<img id="wpl_gallery_image'.$this->property_id .'_'.$i.'" src="'.$image_url.'" class="wpl_gallery_image '.$this->image_class.'" onclick="wpl_plisting_slider('.$i.', '.$this->property_id.', '.$images_total.');" alt="'.$image['raw']['item_name'].'" width="'.$this->image_width.'" height="'.$this->image_height.'" style="width: '.$this->image_width.'px; height: '.$this->image_height.'px;" />';
             $i++;
         }
-    ?>
-    <script type="text/javascript">
-    function rpl_Plisting_slider<?php echo $property_id; ?>(i)
-    {
-        images_total = <?php echo $images_total; ?>;
-        if ((i+1)>=images_total) j=0; else j=i+1;
-        if (j==i) return;
-        wplj("#wpl_gallery_image<?php echo $property_id; ?>_"+i).fadeTo(200,0).css("display",'none');
-        wplj("#wpl_gallery_image<?php echo $property_id; ?>_"+j).fadeTo(400,1);
-    }
-    </script>
-    <?php
     } 
 
     /* Property tags */

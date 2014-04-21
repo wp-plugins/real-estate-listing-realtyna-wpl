@@ -5,13 +5,7 @@ defined('_WPLEXEC') or die('Restricted access');
 if($type == 'addon_video' and !$done_this)
 {
     _wpl_import('libraries.items');
-
-    $style[] = (object) array('param1'=>'ajax-fileupload-style', 'param2'=>'js/ajax_uploader/css/style.css');
-    $style[] = (object) array('param1'=>'ajax-fileupload-ui', 'param2'=>'js/ajax_uploader/css/jquery.fileupload-ui.css');
-
-    /** import styles and javascripts * */
-    foreach ($style as $css) wpl_extensions::import_style($css);
-
+    
     $ext_str = trim(str_replace(',', '|', $options['ext_file']), '|,; ');
     $max_size = $options['file_size'];
 
@@ -214,12 +208,10 @@ wplj(document).ready(function()
 });
 
 var vid_counter = parseInt(<?php echo $max_index_vid; ?>) + 1;
-wplj(function ()
+wplj(document).ready(function()
 {
 	var url = '<?php echo wpl_global::get_full_url(); ?>&wpl_format=b:listing:videos&wpl_function=upload&pid=' + <?php echo $item_id; ?> +'&kind=<?php echo $this->kind; ?>&type=video';
 
-	require([rta.config.JSes.fileUpload], function ()
-	{
 		wplj('#video_upload').fileupload({
 			url: url,
 			acceptFileTypes: /(<?php echo $ext_str; ?>)$/i,
@@ -260,8 +252,6 @@ wplj(function ()
 				wplj("#error_ajax_vid").show('slow');
 			}
 		}); // End of FileUpload
-
-	}); // End of Reqiure Command
 
 });
 

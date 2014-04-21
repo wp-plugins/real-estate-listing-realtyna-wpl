@@ -458,7 +458,7 @@ class wpl_property
 		$rendered = self::render_property($property_data, self::get_plisting_fields());
 		
 		$result = json_encode(array('rendered'=>$rendered, 'location_text'=>$location_text));
-		$query = "UPDATE `#__wpl_properties` SET `rendered`='".wpl_db::escape($result)."' WHERE `id`='$pid'";
+		$query = "UPDATE `#__wpl_properties` SET `rendered`='".wpl_db::escape($result)."', `location_text`='".wpl_db::escape($location_text)."' WHERE `id`='$pid'";
 		
 		/** update **/
 		wpl_db::q($query, 'update');
@@ -618,12 +618,11 @@ class wpl_property
 		@return string location_text
 		@author Howard
 	**/
-	public static function generate_location_text($property_data, $property_id = 0, $glue = ', ')
+	public static function generate_location_text($property_data, $property_id = 0, $glue = ',')
 	{
 		/** fetch property data if property id is setted **/
 		if($property_id) $property_data = self::get_property_raw_data($property_id);
-		
-		$levels = array('location1', 'location2', 'location3', 'location4', 'location5', 'location6', 'location7', 'zip');
+        
 		$locations = array();
         
 		if(isset($property_data['street_no']) and trim($property_data['street_no']) != '') $locations['street_no'] = $property_data['street_no'];
@@ -634,7 +633,7 @@ class wpl_property
         if(isset($property_data['zip_name']) and trim($property_data['zip_name']) != '') $locations['zip_name'] = $property_data['zip_name'];
         if(isset($property_data['location1_name']) and trim($property_data['location1_name']) != '') $locations['location1_name'] = $property_data['location1_name'];
         
-        $location_pattern = '[street_no] [street][glue] [location4_name][glue] [location3_name][glue] [location2_name] [zip_name][glue] [location1_name]';
+        $location_pattern = '[street_no] [street][glue] [location4_name][glue] [location3_name][glue] [location2_name][glue] [location1_name] [zip_name]';
 		$location_text = '';
 		$location_text = isset($locations['street_no']) ? str_replace('[street_no]', $locations['street_no'], $location_pattern) : str_replace('[street_no]', '', $location_pattern);
         $location_text = isset($locations['street']) ? str_replace('[street]', $locations['street'], $location_text) : str_replace('[street]', '', $location_text);
@@ -652,10 +651,10 @@ class wpl_property
         {
             if(trim($value) == '') continue;
             
-            $final .= $value.$glue.' ';
+            $final .= trim($value).$glue.' ';
         }
 		
-		return $final;
+		return trim($final, ', ');
     }
 	
 	/**
@@ -851,6 +850,26 @@ class wpl_property
 		
 		/** trigger event **/
 		if($trigger_event) wpl_global::event_handler('property_purged', array('property_id'=>$property_id, 'property_data'=>$property_data));
+		
+		return true;
+	}
+    
+    /**
+		@inputs {property_id} and {user_id}
+		@return boolean
+		@description Use this function for changing the user of property
+		@author Howard
+	**/
+	public static function change_user($property_id, $user_id)
+	{
+		/** first validation **/
+		if(!trim($property_id) or !trim($user_id)) return false;
+		
+		/** running the query **/
+        wpl_db::q("UPDATE `#__wpl_properties` SET `user_id`='$user_id' WHERE `id`='$property_id'");
+        
+		/** trigger event **/
+		wpl_global::event_handler('property_user_changed', array('property_id'=>$property_id, 'user_id'=>$user_id));
 		
 		return true;
 	}

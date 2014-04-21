@@ -32,7 +32,7 @@ $profile_image = wpl_images::create_profile_images($picture_path, $profile_pictu
 			<li class="name"><?php echo (isset($wpl_user['rendered']['900']['value']) ? $wpl_user['rendered']['900']['value'] : '').' '.(isset($wpl_user['rendered']['901']['value']) ? $wpl_user['rendered']['901']['value'] : ''); ?></li>
 			
 			<?php if(isset($wpl_user['rendered']['904']['value'])): ?>
-			<li class="website"><?php echo $wpl_user['rendered']['904']['value']; ?></li>
+            <li class="website"><a href="<?php echo $wpl_user['rendered']['904']['value']; ?>" target="_blank"><?php echo $wpl_user['rendered']['904']['value']; ?></a></li>
 			<?php endif; ?>
 			
 			<?php if(isset($wpl_user['rendered']['907']['value'])): ?>
@@ -53,6 +53,10 @@ $profile_image = wpl_images::create_profile_images($picture_path, $profile_pictu
 			
 			<?php if(isset($wpl_user['second_email_url'])): ?>
 			<li class="second_email"><img src="<?php echo $wpl_user['second_email_url']; ?>" /></li>
+			<?php endif; ?>
+            
+            <?php if(isset($wpl_user['data']['company_address'])): ?>
+            <li class="company_address"><?php echo $wpl_user['data']['company_address']; ?></li>
 			<?php endif; ?>
 		</ul>
 	</div>

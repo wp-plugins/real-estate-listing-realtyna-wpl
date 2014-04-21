@@ -2,8 +2,8 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 
-_wpl_import($this->tpl_path.'.scripts.js');
-_wpl_import($this->tpl_path.'.scripts.css');
+$this->_wpl_import($this->tpl_path.'.scripts.js', true, true);
+$this->_wpl_import($this->tpl_path.'.scripts.css', true, true);
 ?>
 <div class="wrap container">
     <div class="wpl_message_container" id="wpl_message_container">

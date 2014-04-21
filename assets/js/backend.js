@@ -246,14 +246,17 @@ Array.prototype.unique = function () {
      * Usage:
      $('div.bests').equalHeight();
      */
-    $.fn.equalHeight = function () {
+    $.fn.equalHeight = function (callBack) {
         var currentTallest = 0,
             currentRowStart = 0,
             rowDivs = new Array(),
             $el,
-            topPosition = 0;
+            topPosition = 0,
+            elCount = $(this).length,
+            elIndex = 0;
 
         $(this).each(function () {
+
 
             $el = $(this);
             topPostion = $el.position().top;
@@ -281,6 +284,12 @@ Array.prototype.unique = function () {
                 rowDivs[currentDiv].height(currentTallest);
             }
 
+            elIndex++;
+            if(elIndex === elCount){
+                if(typeof(callBack) !== undefined && $.isFunction(callBack)){
+                    callBack.call();
+                }
+            }
         });
     };
 
@@ -463,11 +472,8 @@ Array.prototype.unique = function () {
         },
         require: {
             //By default load any module IDs from js/lib
-            baseUrl: _rta_urlJs + 'libs/bower_components/',
-            paths: {
-                'jquery': '//code.jquery.com/jquery-latest.min',
-                'jquery.ui.widget': 'jquery-ui/jquery.ui.widget'
-            }/*,
+            baseUrl: _rta_urlJs + 'libs/bower_components/'
+            /*,
              map: {
              // '*' means all modules will get 'jquery-private'
              // for their 'jquery' dependency.
@@ -791,9 +797,10 @@ Array.prototype.unique = function () {
                     title: __title,
                     message: message
                 }, 'notificationTemplate');
-                //$(message).appendTo('body');
 
-                $.fancybox($(message), $.extend(true, rta.config.fancybox, { wrapCSS: 'fanc-' + __type }));
+                //$.LiBo.open();
+
+                //$.fancybox($(message), $.extend(true, rta.config.fancybox, { wrapCSS: 'fanc-' + __type }));
             },
             /**
              * Steve.M
@@ -1118,13 +1125,8 @@ Array.prototype.unique = function () {
                 }
             },
             initChosen: function () {
-                require([rta.config.JSes.chosen], function () {
                     $("select[data-has-chosen],.prow select, .panel-body > select, .fanc-row > select").chosen(rta.config.chosen);
-                });
-
             }
-
-
         }
     })();
 
@@ -1287,7 +1289,7 @@ Array.prototype.unique = function () {
      * @returns {bool}
      */
     rta.fwLoader = function () {
-        requirejs.config(rta.config.require);
+        /*requirejs.config(rta.config.require);*/
 
         rta.util.log('Framework completely loaded.');
         return true;
@@ -1361,19 +1363,27 @@ Array.prototype.unique = function () {
         // Initialize all template in the page
         rta.template.init();
 
-        require([rta.config.JSes.mCustomScrollbar, rta.config.JSes.chosen], function () {
-            $(".side-changes .panel-body").mCustomScrollbar({
-                mouseWheel: true,
-                mouseWheelPixels: 200,
-                scrollInertia: 300,
-                scrollButtons: {
-                    //enable: true
-                },
-                advanced: {
-                    updateOnContentResize: true
-                },
-                theme: "dark-thin"
+
+        $('.rt-same-height .panel-wp').equalHeight(function(){
+            $('.rt-same-height .js-full-height').each(function(){
+                var __height = $(this).find('.panel-wp').height();
+                if($(this).attr('data-minuse-size'))
+                    __height -= parseInt($(this).attr('data-minuse-size'));
+                $(this).find('.panel-body').css('max-height',__height);
             });
+        });
+
+        $(".side-changes .panel-body,.side-announce .panel-body").mCustomScrollbar({
+            mouseWheel: true,
+            mouseWheelPixels: 200,
+            scrollInertia: 300,
+            scrollButtons: {
+                //enable: true
+            },
+            advanced: {
+                updateOnContentResize: true
+            },
+            theme: "dark-thin"
         });
 
         rta.internal.initChosen();

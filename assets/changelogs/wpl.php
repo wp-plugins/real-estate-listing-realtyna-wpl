@@ -4,6 +4,12 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.3.0 (<span class="wpl_log_date">4/21/2014</span> <span class="wpl_log_revision">revision 568</span>)</h4>
+        -- Compatible with WordPress 3.9.<br />
+        -- Fixed some js conflicts about requirejs.<br />
+        -- Added change user feature in listing manager.<br />
+        -- Fixed an issue about rendering datetime.
+        
         <h4>WPL1.2.6 (<span class="wpl_log_date">4/16/2014</span> <span class="wpl_log_revision">revision 553</span>)</h4>
         -- added 2 default sidebars to WPL.<br />
         -- Changing property price position in listings page.<br />

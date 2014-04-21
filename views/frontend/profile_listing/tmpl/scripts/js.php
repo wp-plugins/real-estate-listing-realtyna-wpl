@@ -20,13 +20,13 @@ wplj(document).ready(function()
         wplj(this).removeClass('flip');
     });
 
-    wplj('.wpl_profile_container li').tooltip();
+    if(wplj.isFunction(wplj.fn.tooltip)) wplj('.wpl_profile_container li').tooltip();
 });
 
 wplj(window).resize(function()
 {
 	win_size = wplj(window).width();
-	if((win_size <= 480 ))
+	if((win_size <= 480))
 	{
 		wplj('#wpl_profile_listing_main_container .wpl_sort_options_container .wpl_sort_options_container_title').unbind('click').click(function()
 		{
@@ -37,7 +37,7 @@ wplj(window).resize(function()
 	{
 		wplj('#wpl_profile_listing_main_container .wpl_sort_options_container .wpl_sort_options_container_title').unbind('click');
 		wplj('#wpl_profile_listing_main_container .wpl_sort_options_container ul').show();
-	}	
+	}
 });
 
 function wpl_page_sortchange(order_string)

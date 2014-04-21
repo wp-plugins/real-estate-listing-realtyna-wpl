@@ -33,6 +33,24 @@ class wpl_render
 		return date($date_format, strtotime($date));
 	}
 	
+    /**
+		@inputs {date}, [year], [month] and [day]
+		@param string $date
+		@return rendered datetime based on global settings
+		@author Howard
+	**/
+    public static function render_datetime($datetime, $year = '', $month = '', $day = '')
+	{
+		if(trim($datetime) == '0000-00-00' or trim($datetime) == '0000-00-00 00:00:00') return '';
+		$tmp = explode(' ', $datetime);
+        
+		$date = $tmp[0];
+		$time = $tmp[1];
+        
+		$output = wpl_render::render_date($date).' '.$time;
+		return $output;
+	}
+    
 	/**
 		@inputs {longitude}
 		@param string $longitude

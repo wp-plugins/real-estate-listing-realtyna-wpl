@@ -186,11 +186,13 @@ function delete_markers<?php echo $this->activity_id; ?>()
 	if(loaded_markers) loaded_markers.length = 0;
 }
 
-function wpl_Plisting_slider(i,total_images,id)
+function wpl_Plisting_slider(i, total_images, id)
 {
     images_total = total_images;
+    
     if ((i+1)>=images_total) j=0; else j=i+1;
     if (j==i) return;
+    
     wplj("#wpl_gallery_image"+ id +"_"+i).fadeTo(200,0).css("display",'none');
     wplj("#wpl_gallery_image"+ id +"_"+j).fadeTo(400,1);
 }

@@ -441,9 +441,6 @@ var wplSearchWidget<?php echo $this->number ?> = (function (codeId) {
             _j('#wpl_view_fields_<?php echo $this->number ?>').attr({'data-active-tab': _j('#wpl_view_fields_<?php echo $this->number ?>').find('.search-tab').eq(__currentTab).attr('href')});
             _j('#wpl_view_fields_<?php echo $this->number ?>' + ' .search-tab').css({width: __tabs_width + '%'}).eq(__currentTab).trigger('click');
 
-            // Dynamic Load Scrollbar JS Module rta.config.JSes.mCustomScrollbar,
-            require([rta.config.JSes.mCustomScrollbar, rta.config.JSes.transit], function () {
-
                 /**
                  * mCustomScrollbar Initialization
                  */
@@ -570,7 +567,7 @@ var wplSearchWidget<?php echo $this->number ?> = (function (codeId) {
                 //// Set init attr to TRUE
                 _j('#btn-search-<?php echo $this->number ?>').addClass('fancybox').attr('data-is-init', 'true');
                 _j('#btn-search-<?php echo $this->number ?>').next('.page-must-reload').remove();
-            });
+
         }
     });
 

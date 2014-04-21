@@ -51,9 +51,23 @@ $this->_wpl_import($this->tpl_path.'.scripts.js');
                         <span><?php echo __('Purge', WPL_TEXTDOMAIN); ?></span>
                         <i class="icon-delete"></i>
                     </div>
+
                 </div>
                 <?php /** load position1 **/ wpl_activity::load_position('pmanager_position1', array('wpl_properties'=>$this->wpl_properties)); ?>
             </div>
+            <?php if(wpl_users::check_access('change_user')): ?>
+                <div class="change-user-cnt-wp">
+                    <div class="change-user-wp">
+                        <label id="pmanager_mass_change_user_label" for="pmanager_mass_change_user_select"><?php echo __('User', WPL_TEXTDOMAIN); ?>: </label>
+                        <?php $wpl_users = wpl_users::get_wpl_users(); ?>
+                        <select id="pmanager_mass_change_user_select" data-has-chosen onchange="mass_change_user(this.value);">
+                            <?php foreach($wpl_users as $wpl_user): ?>
+                                <option value="<?php echo $wpl_user->ID; ?>"><?php echo $wpl_user->user_login; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+            <?php endif; ?>
         </div>
         <div class="pagination-wp">
             <?php echo $this->pagination->show(); ?>
@@ -86,7 +100,8 @@ $this->_wpl_import($this->tpl_path.'.scripts.js');
 
                     <div class="property-image">
                         <?php /** load position3 **/ wpl_activity::load_position('pmanager_position3', array('wpl_properties'=>$this->wpl_properties)); ?>
-                        <a class="p-links" href="<?php echo wpl_property::get_property_link('', $property['data']['id']); ?>"><?php echo __('View this listing', WPL_TEXTDOMAIN); ?></a>
+                        <?php $listing_target_page = wpl_global::get_client() == 1 ? wpl_global::get_setting('backend_listing_target_page') : NULL; ?>
+                        <a class="p-links" href="<?php echo wpl_property::get_property_link('', $property['data']['id'], $listing_target_page); ?>"><?php echo __('View this listing', WPL_TEXTDOMAIN); ?></a>
                     </div>
                     <div class="info-action-wp">
                         <div class="property-detailes">

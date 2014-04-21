@@ -3,8 +3,8 @@ Contributors: realtyna
 Donate link: http://www.realtyna.com/
 Tags: Real estate, Listing, Vertical Market, MLS, Property listing, RETS
 Requires at least: 3.0.1
-Tested up to: 3.8.2
-Stable tag: 1.2.6
+Tested up to: 3.9
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,9 +14,9 @@ Manage property listings, RETS / IDX / VOW options and scalable features. Suppor
 
 Run your real estate website using WPL. WPL has lot's of features and addons. Check WPL demo website: http://wpl28.realtyna.com
 
-Download [WPL manual](http://wpl.realtyna.com/wassets/wpl-manual.pdf) and check [WPL knowledge base](https://support.realtyna.com/index.php?/Default/Knowledgebase/List/Index/28/wpl---wordpress-property-listing). If you couldn't find your question in WPL manual and knowledge base feel free to [open a support ticket!](https://support.realtyna.com/index.php?/Tickets/Submit/RenderForm/18)
+Download [WPL manual](http://wpl.realtyna.com/wassets/wpl-manual.pdf) and check [WPL knowledge base](https://support.realtyna.com/index.php?/Default/Knowledgebase/List/Index/28/wpl---wordpress-property-listing). If you can't find an answer to your question in WPL Manual or Knowledge Base, please [open a Support Ticket!](https://support.realtyna.com/index.php?/Tickets/Submit/RenderForm/18) to ask your question. We will respond as soon as possible with an answer.
 
-WPL (WordPress Property Listing) is an amazing flexible plugin for Real estate and vertical markets. The system is designed in such a way that database management is fully flexible. This means you can add/remove/change the fields without custom changing the database. Sequentially, the property search function in WPL is flexible as well allowing the admin to set the desired search parameters from the administration panel.
+WPL (WordPress Property Listing) is an amazing flexible plugin for real estate and vertical markets. The system is designed in such a way that database management is fully flexible. This means you can add/remove/change the fields without custom changing the database. Sequentially, the property search function in WPL is flexible as well allowing the admin to set the desired search parameters from the administration panel.
 
 **WPL Expansion options**
 
@@ -59,6 +59,12 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 6. External Responsive Template: Agent listing
 
 == Changelog ==
+
+= 1.3.0 =
+* Compatible with WordPress 3.9
+* Fixed some js conflicts about requirejs.
+* Added change user feature in listing manager.
+* Fixed an issue about rendering datetime.
 
 = 1.2.6 =
 * added 2 default sidebars to WPL.

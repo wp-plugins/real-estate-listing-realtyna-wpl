@@ -12,7 +12,10 @@ class wpl_listing_controller extends wpl_controller
 	
 	public function wizard($instance = array())
 	{
-		/** check access **/
+        /** load assets **/
+        $this->load_assets();
+        
+        /** check access **/
 		if(!wpl_users::check_access('propertywizard'))
 		{
 			/** import message tpl **/
@@ -74,5 +77,18 @@ class wpl_listing_controller extends wpl_controller
 		
 		/** import tpl **/
 		parent::render($this->tpl_path, $tpl);
+	}
+    
+    protected function load_assets()
+	{
+		/** add scripts and style sheet for uploaders **/
+        $style = array();
+        $style[] = (object) array('param1' => 'ajax-fileupload-style', 'param2' => 'js/ajax_uploader/css/style.css');
+        $style[] = (object) array('param1' => 'ajax-fileupload-ui', 'param2' => 'js/ajax_uploader/css/jquery.fileupload-ui.css');
+        foreach($style as $css) wpl_extensions::import_style($css);
+
+        $scripts = array();
+        $scripts[] = (object) array('param1' => 'jquery_file_upload', 'param2' => 'js/ajax_uploader/jquery.fileupload.js');
+        foreach($scripts as $script) wpl_extensions::import_javascript($script);
 	}
 }
