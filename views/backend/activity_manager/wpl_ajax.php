@@ -80,10 +80,13 @@ class wpl_activity_manager_controller extends wpl_controller
         $information = wpl_request::getVar('info');
         $options = wpl_request::getVar('option');
         
-        $associations = wpl_request::getVar('associations', '', array());
+        $associations = wpl_request::getVar('associations', '') ? wpl_request::getVar('associations', '') : array();
         $associations_str = '';
         foreach($associations as $page_id=>$value) if($value) $associations_str .= '['.$page_id.']';
         $information['associations'] = $associations_str;
+        
+        /** validation for association type **/
+        if(!isset($information['association_type']) or (isset($information['association_type']) and is_null($information['association_type']))) $information['association_type'] = 1;
         
         if(is_null($options)) $information['params'] = '';
         else $information['params'] = json_encode($options);

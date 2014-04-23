@@ -41,11 +41,7 @@ class wpl_carousel_widget extends wpl_widget
 		/** add main scripts **/
 		wp_enqueue_script('jquery-ui-core');
 		wp_enqueue_script('jquery-ui-slider');
-		
-		/** add main styles **/
-		$css[] = (object) array('param1'=>'jquery-ui-style', 'param2'=>'js/jquery.ui/jquery.ui.lightness.css');
-		foreach($css as $style) wpl_extensions::import_style($style);
-		
+			
 		/** render properties **/
 		$query = self::query($instance);
         $model = new wpl_property();

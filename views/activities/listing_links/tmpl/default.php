@@ -12,6 +12,7 @@ $show_google_plus = (isset($params['google_plus']) and $params['google_plus']) ?
 $show_twitter = (isset($params['twitter']) and $params['twitter']) ? 1 : 0;
 $show_pinterest = (isset($params['pinterest']) and $params['pinterest']) ? 1 : 0;
 $show_favorite = (isset($params['favorite']) and $params['favorite']) ? 1 : 0;
+$show_pdf = (isset($params['pdf']) and $params['pdf']) ? 1 : 0;
 ?>
 <div class="wpl_listing_links_container" id="wpl_listing_links_container<?php echo $property_id; ?>">
 	<ul>
@@ -35,6 +36,11 @@ $show_favorite = (isset($params['favorite']) and $params['favorite']) ? 1 : 0;
         <?php if($show_pinterest): ?>
 		<li class="pinterest_link">
 			<a href="http://pinterest.com/pin/create/link/?url=<?php echo $property_link; ?>" target="_blank"><?php echo __('Pin it', WPL_TEXTDOMAIN); ?></a>
+		</li>
+        <?php endif; ?>
+        <?php if($show_pdf): ?>
+		<li class="pdf_link">
+			<a href="<?php echo wpl_property::get_property_pdf_link($property_id); ?>" target="_blank"><?php echo __('PDF', WPL_TEXTDOMAIN); ?></a>
 		</li>
         <?php endif; ?>
 	</ul>

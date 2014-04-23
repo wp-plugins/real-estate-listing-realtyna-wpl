@@ -32,8 +32,8 @@ if($type == 0)
 	
 	foreach($sort_options as $sort_option)
 	{
-		$html .= '<option value="wplorderby='.urlencode($sort_option['field_name']).'&wplorder=ASC" '.(($this->orderby == $sort_option['field_name'] and $this->order == 'ASC') ? 'selected="selected"' : '').'>'.__($sort_option['name'], WPL_TEXTDOMAIN).' '.__('Ascending', WPL_TEXTDOMAIN).'</option>';
-		$html .= '<option value="wplorderby='.urlencode($sort_option['field_name']).'&wplorder=DESC" '.(($this->orderby == $sort_option['field_name'] and $this->order == 'DESC') ? 'selected="selected"' : '').'>'.__($sort_option['name'], WPL_TEXTDOMAIN).' '.__('Descending', WPL_TEXTDOMAIN).'</option>';
+		$html .= '<option value="wplorderby='.urlencode($sort_option['field_name']).'&amp;wplorder=ASC" '.(($this->orderby == $sort_option['field_name'] and $this->order == 'ASC') ? 'selected="selected"' : '').'>'.__($sort_option['name'], WPL_TEXTDOMAIN).' '.__('Ascending', WPL_TEXTDOMAIN).'</option>';
+		$html .= '<option value="wplorderby='.urlencode($sort_option['field_name']).'&amp;wplorder=DESC" '.(($this->orderby == $sort_option['field_name'] and $this->order == 'DESC') ? 'selected="selected"' : '').'>'.__($sort_option['name'], WPL_TEXTDOMAIN).' '.__('Descending', WPL_TEXTDOMAIN).'</option>';
 	}
 	
 	$html .= '</select>';
@@ -60,7 +60,7 @@ elseif($type == 1)
 			$html .= ' '.$sort_type;
 		}
 		
-		$html .= '" onclick="wpl_page_sortchange(\'wplorderby='.urlencode($sort_option['field_name']).'&wplorder='.$order.'\');">'.__($sort_option['name'], WPL_TEXTDOMAIN);
+		$html .= '" onclick="wpl_page_sortchange(\'wplorderby='.urlencode($sort_option['field_name']).'&amp;wplorder='.$order.'\');">'.__($sort_option['name'], WPL_TEXTDOMAIN);
 		$html .= '</div></li>';
 	}
 	

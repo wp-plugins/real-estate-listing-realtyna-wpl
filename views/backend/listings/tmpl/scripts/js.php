@@ -218,11 +218,11 @@ function change_user(pid, uid)
 	{
 		if(data.success == 1)
 		{
-			wplj("#pmanager_change_user_label"+pid).html('<?php echo __('User', WPL_TEXTDOMAIN); ?>');
+			wplj("#pmanager_change_user_label"+pid).html('<?php echo __('User', WPL_TEXTDOMAIN); ?>: ');
 		}
 		else if(data.success != 1)
 		{
-			wplj("#pmanager_change_user_label"+pid).html('<?php echo __('User', WPL_TEXTDOMAIN); ?>');
+			wplj("#pmanager_change_user_label"+pid).html('<?php echo __('User', WPL_TEXTDOMAIN); ?>: ');
 			wpl_show_messages(data.message, '.wpl_property_manager_list .wpl_show_message', 'wpl_red_msg');
 		}
     });

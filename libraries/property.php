@@ -574,7 +574,7 @@ class wpl_property
     }
 	
 	/**
-		@inputs [property_data] and [property_id]
+		@inputs [property_data] and [property_id] and [target_id]
 		@return property_show full link
 		@author Howard
 	**/
@@ -597,6 +597,20 @@ class wpl_property
         }
 		else $url .= $alias;
 		
+        return $url;
+    }
+    
+    /**
+		@inputs {property_id} and [target_id]
+		@return pdf full link
+		@author Howard
+	**/
+	public static function get_property_pdf_link($property_id, $target_id = 0)
+	{
+        /** first validation **/
+        if(!trim($property_id)) return false;
+        
+		$url = wpl_global::get_wp_site_url().wpl_global::get_setting('main_permalink').'/features/pdf?pid='.$property_id;
         return $url;
     }
 	

@@ -4,6 +4,11 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.3.2 (<span class="wpl_log_date">4/23/2014</span> <span class="wpl_log_revision">revision 582</span>)</h4>
+        -- Fixed manual property title issue.<br />
+        -- Fixed some issues on activity manager.<br />
+        -- W3C compatible.
+        
         <h4>WPL1.3.0 (<span class="wpl_log_date">4/21/2014</span> <span class="wpl_log_revision">revision 568</span>)</h4>
         -- Compatible with WordPress 3.9.<br />
         -- Fixed some js conflicts about requirejs.<br />

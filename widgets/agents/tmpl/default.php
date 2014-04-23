@@ -8,14 +8,18 @@ include _wpl_import("widgets.agents.scripts.js", true, true);
     <?php
     foreach($wpl_profiles as $key=>$profile)
     {
+        $agent_name   = (isset($profile['rendered'][900]['value']) ? $profile['rendered'][900]['value'] : '') ;
+        $agent_l_name = (isset($profile['rendered'][901]['value']) ? $profile['rendered'][901]['value'] : '');
         ?>
         <div class="wpl_profile_container" id="wpl_profile_container<?php echo $profile['data']['id']; ?>">
             <div class="wpl_profile_picture">
                 <div class="front">
                     <?php
+
+
                     if(isset($profile['profile_picture']['url']))
                     {
-                        echo '<img src="'.$profile['profile_picture']['url'].'" />';
+                        echo '<img src="'.$profile['profile_picture']['url'].'" alt="'.$agent_name.' '.$agent_l_name.'" />';
                     }
                     else
                     {
@@ -30,10 +34,9 @@ include _wpl_import("widgets.agents.scripts.js", true, true);
 
             <div class="wpl_profile_container_title">
                 <?php
-                    $agent_name = (isset($profile['rendered'][900]['value']) ? $profile['rendered'][900]['value'] : '') ;
-                    $agent_l_name = (isset($profile['rendered'][901]['value']) ? $profile['rendered'][901]['value'] : '');
+                    
                     echo '<div class="title">'.$agent_name.' '.$agent_l_name.'</div>';
-                    if(isset($profile['main_email_url'])) echo '<img src="'.$profile["main_email_url"].'" />';
+                    if(isset($profile['main_email_url'])) echo '<img src="'.$profile["main_email_url"].'" alt="'.$agent_name.' '.$agent_l_name.'" />';
                 ?>
             </div>
             <ul>

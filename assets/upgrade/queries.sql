@@ -475,7 +475,6 @@ INSERT INTO `#__wpl_settings` (`id`, `setting_name`, `setting_value`, `showable`
 
 ALTER TABLE `#__wpl_users` ADD `access_change_user` TINYINT( 4 ) NOT NULL DEFAULT '0' AFTER `access_public_profile`;
 
-DELETE FROM `#__wpl_settings` WHERE `setting_name` IN ('realtyna_username','realtyna_password','realtyna_verified');
 INSERT INTO `#__wpl_settings` (`id`, `setting_name`, `setting_value`, `showable`, `category`, `type`, `title`, `params`, `options`, `index`) VALUES
 (36, 'realtyna_username', NULL, 0, 1, 'text', '', '', '', 99.00),
 (37, 'realtyna_password', NULL, 0, 1, 'text', '', '', '', 99.00),
@@ -492,3 +491,9 @@ DELETE FROM `#__wpl_extensions` WHERE `id`='93';
 DELETE FROM `#__wpl_extensions` WHERE `id`='95';
 
 UPDATE `#__wpl_activities` SET `activity`='agent_info:profileshow' WHERE `id`='12';
+
+UPDATE `#__wpl_activities` SET `association_type`='1';
+UPDATE `#__wpl_extensions` SET `client`='2' WHERE `id`='98';
+UPDATE `#__wpl_extensions` SET `client`='2' WHERE `id`='102';
+UPDATE `#__wpl_extensions` SET `client`='2' WHERE `id`='89';
+UPDATE `#__wpl_extensions` SET `client`='2' WHERE `id`='101';

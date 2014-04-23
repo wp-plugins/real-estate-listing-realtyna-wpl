@@ -24,7 +24,7 @@ function ajax_save(table_name, table_column, value, item_id, field_id, form_elem
 	var ajax_loader_element = '#wpl_listing_saved_span_'+field_id;
 	wplj(ajax_loader_element).html('<img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader3.gif'); ?>" />');
 	
-	request_str = 'wpl_format=b:listing:ajax&wpl_function='+wpl_function+'&table_name='+table_name+'&table_column='+table_column+'&value='+value+'&item_id='+item_id;
+	request_str = 'wpl_format=b:listing:ajax&wpl_function='+wpl_function+'&table_name='+table_name+'&table_column='+table_column+'&value='+encodeURIComponent(value)+'&item_id='+item_id;
 	
 	/** run ajax query **/
 	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str, ajax_loader_element);

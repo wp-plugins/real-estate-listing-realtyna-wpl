@@ -83,7 +83,8 @@ class wpl_service_sef
 		
 		$property_data = wpl_property::get_property_raw_data($proeprty_id);
 		
-		if(trim($property_data['property_title']) == '') $property_title = wpl_property::generate_property_title($property_data);
+        if(trim($property_data['field_312']) != '') $property_title = $property_data['field_312'];
+		elseif(trim($property_data['property_title']) == '') $property_title = wpl_property::generate_property_title($property_data);
 		else $property_title = $property_data['property_title'];
 		
 		$html = wpl_html::getInstance();

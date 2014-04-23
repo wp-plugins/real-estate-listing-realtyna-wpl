@@ -37,26 +37,27 @@ $this->_wpl_import($this->tpl_path.'.scripts.pshow', true, true);
 		
         foreach($gallery as $image)
         {
+
             $image_url = $image['url'];
             $image_thumbnail_url = $image['url'];
             
             if($this->image_width and $this->image_height and $image['category'] != 'external')
             {
                 /** set resize method parameters **/
-                $params = array();
-                $params['image_name'] = $image['raw']['item_name'];
-                $params['image_parentid'] = $image['raw']['parent_id'];
+                $params                     = array();
+                $params['image_name']       = $image['raw']['item_name'];
+                $params['image_parentid']   = $image['raw']['parent_id'];
                 $params['image_parentkind'] = $image['raw']['parent_kind'];
-                $params['image_source'] = $image['path'];
+                $params['image_source']     = $image['path'];
                 
                 /** resize image if does not exist and add watermark **/
-                $image_url = wpl_images::create_gallary_image($this->image_width, $this->image_height, $params, $this->watermark, $this->rewrite);
+                $image_url           = wpl_images::create_gallary_image($this->image_width, $this->image_height, $params, $this->watermark, $this->rewrite);
                 $image_thumbnail_url = wpl_images::create_gallary_image(100, 80, $params, $this->watermark, $this->rewrite);
             }
             
             /** start loading images **/
-            echo '<li><img src="'.$image_url.'" title="" class="wpl_gallery_image '.$this->image_class.'" id="wpl_gallery_image'.$image['raw']['id'].'" width="'.$this->image_width.'" height="'.$this->image_height.'" style="width: '.$this->image_width.'px; height: '.$this->image_height.'px;" /></li>';
-            $pager_box .= '<a data-slide-index="'.$i.'" href=""><img src="'.$image_thumbnail_url.'" width="100" height="80" style="width: 100px; height: 80px;" /></a>';
+            echo '<li><img src="'.$image_url.'" title="" class="wpl_gallery_image '.$this->image_class.'" id="wpl_gallery_image'.$image['raw']['id'].'" width="'.$this->image_width.'" height="'.$this->image_height.'" style="width: '.$this->image_width.'px; height: '.$this->image_height.'px;" alt="'.$image['title'].'" /></li>';
+            $pager_box .= '<a data-slide-index="'.$i.'" href=""><img src="'.$image_thumbnail_url.'" width="100" height="80" style="width: 100px; height: 80px;" alt="'.$image['title'].'" /></a>';
         	$i++;
         }
 		

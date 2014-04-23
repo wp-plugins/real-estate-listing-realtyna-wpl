@@ -41,11 +41,7 @@ class wpl_search_widget extends wpl_widget
 		wp_enqueue_script('jquery-ui-slider');
 		wp_enqueue_script('jquery-ui-button');
 		wp_enqueue_script('jquery-ui-datepicker');
-		
-		/** add main styles **/
-		$css[] = (object) array('param1'=>'jquery-ui-style', 'param2'=>'js/jquery.ui/jquery.ui.lightness.css');
-		foreach($css as $style) wpl_extensions::import_style($style);
-		
+				
 		echo $args['before_widget'];
 
 		$title = apply_filters('widget_title', $instance['title']);

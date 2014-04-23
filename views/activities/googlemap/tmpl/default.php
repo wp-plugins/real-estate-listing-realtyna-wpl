@@ -38,10 +38,6 @@ $this->_wpl_import($this->tpl_path.'.scripts.js', true, true);
 <div class="wpl_googlemap_container wpl_googlemap_plisting" id="wpl_googlemap_container<?php echo $this->activity_id; ?>">
 	<div class="wpl_map_canvas" id="wpl_map_canvas<?php echo $this->activity_id; ?>" style="height: <?php echo $this->map_height ?>px;"></div>
 </div>
-<style type="text/css">
-.wpl_map_canvas img{max-width: none !important;}
-.wpl_map_canvas label{width: auto !important; display: inline !important;}
-</style>
 <script type="text/javascript">
 var markers = <?php echo json_encode($markers); ?>;
 
