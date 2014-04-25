@@ -8,21 +8,23 @@ $image_width = isset($this->instance['data']['image_width']) ? $this->instance['
 $image_height = isset($this->instance['data']['image_height']) ? $this->instance['data']['image_height'] : 558;
 
 /** add Layout js **/
-$js[] = (object) array('param1'=>'owl.slider', 'param2'=>'js/jquery.bxslider.min.js');
+$js[] = (object) array('param1'=>'bx.slider', 'param2'=>'js/jquery.bxslider.min.js');
 foreach($js as $javascript) wpl_extensions::import_javascript($javascript);
 ?>
 <script type="text/javascript">
 wplj(document).ready(function()
 {
+    <?php if(count($wpl_properties) > 1): ?>
 	wplj('.bxslider').bxSlider(
 	{
 		mode: 'fade',
-		pager : false,
-		auto : true,
+		pager: false,
+		auto: true,
 		captions: true,
-		nextText:'',
-		prevText:''
+		nextText: '',
+		prevText: ''
 	});
+    <?php endif; ?>
 });
 </script>
 <div class="wpl_carousel_container">

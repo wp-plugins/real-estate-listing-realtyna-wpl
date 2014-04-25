@@ -6,6 +6,7 @@ wplj(document).ready(function()
     },function(){
         wplj(this).children('.wpl_profile_picture').removeClass('flip');
     });
-    wplj('.wpl_profile_container li').tooltip();
+    
+    if(wplj.isFunction(wplj.fn.tooltip)) wplj('.wpl_profile_container li').tooltip();
 });
 </script>

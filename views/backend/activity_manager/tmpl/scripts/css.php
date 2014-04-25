@@ -10,4 +10,5 @@ defined('_WPLEXEC') or die('Restricted access');
 #activity_manager_filter{width: 500px;}
 .clearfix{clear: both;}
 .gray_tip{font-style: italic; color: #999999; font-size: 13px;}
+.wpl_actions_td{width: 160px;}
 </style>

@@ -44,7 +44,7 @@ $this->_wpl_import($this->tpl_path.'.scripts.js', true, true);
                 ?>
                 <div class="wpl_prp_listing_icon_box"><?php echo $room . $bathroom . $parking . $pic_count; ?></div>
             </div>
-            <div class="price_box"><span><?php echo $property['rendered'][6]['value'].(isset($property['rendered'][14]['value']) ? $property['rendered'][14]['value'] : ''); ?></span></div>
+            <div class="price_box"><span><?php echo $property['rendered'][6]['value'].(isset($property['rendered'][14]['value']) ? ' '.$property['rendered'][14]['value'] : ''); ?></span></div>
 		</div>
 		<?php
     }

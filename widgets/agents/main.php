@@ -95,6 +95,9 @@ class wpl_agents_widget extends wpl_widget
         $instance['wpltarget'] = $new_instance['wpltarget'];
 		$instance['data'] = (array) $new_instance['data'];
 		
+        /** random option **/
+        if(isset($instance['data']['random']) and $instance['data']['random']) $instance['data']['user_ids'] = '';
+        
 		return $instance;
 	}
 	
@@ -135,6 +138,17 @@ class wpl_agents_widget extends wpl_widget
 		if(trim($data['membership']) and $data['membership'] != '') $this->where .= " AND p.`membership_id`='".$data['membership']."'";
 		if(trim($data['user_ids'])) $this->where .= " AND p.`id` IN (".trim($data['user_ids'], ', ').")";
 		
+        if(isset($data['random']) and trim($data['random']) and trim($data['user_ids']) == '')
+		{
+			$query_rand = "SELECT p.`id` FROM `#__users` AS u INNER JOIN `#__wpl_users` AS p ON u.ID = p.id WHERE 1 ".$this->where." ORDER BY RAND() LIMIT ".$this->limit;
+			$results = wpl_db::select($query_rand);
+			
+			$rand_ids = array();
+			foreach($results as $result) $rand_ids[] = $result->id;
+			
+			$this->where .= " AND p.`id` IN (".implode(',', $rand_ids).")";
+		}
+        
 		return $query = "SELECT ".$this->select." FROM `#__users` AS u INNER JOIN `#__wpl_users` AS p ON u.ID = p.id WHERE 1 ".$this->where." ORDER BY ".$this->order." LIMIT ".$this->limit;
 	}
 }

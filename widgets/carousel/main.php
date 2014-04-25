@@ -82,6 +82,9 @@ class wpl_carousel_widget extends wpl_widget
         $instance['wpltarget'] = $new_instance['wpltarget'];
 		$instance['data'] = (array) $new_instance['data'];
 		
+        /** random option **/
+        if(isset($instance['data']['random']) and $instance['data']['random']) $instance['data']['property_ids'] = '';
+        
 		return $instance;
 	}
 	

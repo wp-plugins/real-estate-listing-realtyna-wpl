@@ -39,7 +39,7 @@ function wpl_favorite_control(id, mode, property_show)
 	
 	ajax.success(function(data)
 	{
-		wplj('#wpl_favorite_remove_' + id).toggle();
+		wplj('#wpl_favorite_remove_' + id).toggle().parent('li').toggleClass('added');;
 		wplj('#wpl_favorite_add_' + id).toggle();
 		wpl_load_favorites();
 	});

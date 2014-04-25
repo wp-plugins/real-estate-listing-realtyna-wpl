@@ -4,6 +4,12 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.3.3 (<span class="wpl_log_date">4/25/2014</span> <span class="wpl_log_revision">revision 589</span>)</h4>
+        -- Added company logo and company information in agent info activity.<br />
+        -- Added random option in agents widget.<br />
+        -- Tweaked listing links activity styles.<br />
+        -- Fixed some tiny issues.
+        
         <h4>WPL1.3.2 (<span class="wpl_log_date">4/23/2014</span> <span class="wpl_log_revision">revision 582</span>)</h4>
         -- Fixed manual property title issue.<br />
         -- Fixed some issues on activity manager.<br />

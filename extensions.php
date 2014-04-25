@@ -702,10 +702,13 @@ class wpl_extensions
 		
 		if(in_array($wplview, array('property_listing', 'profile_listing')) and $wplpage >= 2)
 		{
-			return $title.' -- '.__('Page', WPL_TEXTDOMAIN).' '.$wplpage;
+            /** has HTML tag **/
+            if(strpos($title, '</') != false) return $title;
+            
+			return wpl_global::clean($title.' -- '.__('Page', WPL_TEXTDOMAIN).' '.$wplpage);
 		}
 		
-		return wpl_global::clean($title);
+		return $title;
 	}
 	
 	/**

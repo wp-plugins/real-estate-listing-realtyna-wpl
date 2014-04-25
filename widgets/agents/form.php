@@ -47,8 +47,8 @@ include _wpl_import("widgets.agents.scripts.js_backend", true, true);
     
     <?php $membership_types = wpl_users::get_membership_types(); ?>
     <div>
-    	<label for="<?php echo $this->get_field_id('data_membership'); ?>"><?php echo __('User Type', WPL_TEXTDOMAIN); ?>: </label>
-        <select id="<?php echo $this->get_field_id('data_membership'); ?>" name="<?php echo $this->get_field_name('data'); ?>[user_type]">
+    	<label for="<?php echo $this->get_field_id('data_user_type'); ?>"><?php echo __('User Type', WPL_TEXTDOMAIN); ?>: </label>
+        <select id="<?php echo $this->get_field_id('data_user_type'); ?>" name="<?php echo $this->get_field_name('data'); ?>[user_type]">
         	<option value="-1"><?php echo __('All', WPL_TEXTDOMAIN); ?></option>
             <?php foreach($membership_types as $membership_type): ?>
             <option <?php if(isset($instance['data']['user_type']) and $instance['data']['user_type'] == $membership_type->id) echo 'selected="selected"'; ?> value="<?php echo $membership_type->id; ?>"><?php echo __($membership_type->name, WPL_TEXTDOMAIN); ?></option>
@@ -70,6 +70,11 @@ include _wpl_import("widgets.agents.scripts.js_backend", true, true);
     <div>
     	<label for="<?php echo $this->get_field_id('data_user_ids'); ?>"><?php echo __('User IDs', WPL_TEXTDOMAIN); ?>: </label>
         <input type="text" id="<?php echo $this->get_field_id('data_user_ids'); ?>" name="<?php echo $this->get_field_name('data'); ?>[user_ids]" value="<?php echo isset($instance['data']['user_ids']) ? $instance['data']['user_ids'] : ''; ?>" />
+    </div>
+    
+    <div>
+    	<input <?php if(isset($instance['data']['random']) and $instance['data']['random']) echo 'checked="checked"'; ?> value="1" type="checkbox" id="<?php echo $this->get_field_id('data_random'); ?>" name="<?php echo $this->get_field_name('data'); ?>[random]" onclick="random_clicked_agents<?php echo $this->widget_id; ?>();" />
+    	<label for="<?php echo $this->get_field_id('data_random'); ?>"><?php echo __('Random', WPL_TEXTDOMAIN); ?>: </label>
     </div>
     
     <?php $sort_options = wpl_sort_options::get_sort_options(2); ?>

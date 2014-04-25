@@ -36,10 +36,7 @@ $this->_wpl_import($this->tpl_path . '.scripts.css');
                     <th scope="col" class="manage-column"><?php echo __('Layout', WPL_TEXTDOMAIN); ?></th>
                     <th scope="col" class="manage-column"><?php echo __('Position', WPL_TEXTDOMAIN); ?></th>
                     <th></th>
-                    <th scope="col" class="manage-column"><?php echo __('Enable', WPL_TEXTDOMAIN); ?></th>
-                    <th scope="col" class="manage-column"><?php echo __('Edit', WPL_TEXTDOMAIN); ?></th>
-                    <th scope="col" class="manage-column"><?php echo __('Delete', WPL_TEXTDOMAIN); ?></th>
-                    <th scope="col" class="manage-column"><?php echo __('Move', WPL_TEXTDOMAIN); ?></th>
+                    <th scope="col" class="manage-column"><?php echo __('Actions', WPL_TEXTDOMAIN); ?></th>
                 </tr>
             </thead>
             <tfoot>
@@ -50,10 +47,7 @@ $this->_wpl_import($this->tpl_path . '.scripts.css');
                     <th scope="col" class="manage-column"><?php echo __('Layout', WPL_TEXTDOMAIN); ?></th>
                     <th scope="col" class="manage-column"><?php echo __('Position', WPL_TEXTDOMAIN); ?></th>
                     <th></th>
-                    <th scope="col" class="manage-column"><?php echo __('Enable', WPL_TEXTDOMAIN); ?></th>
-                    <th scope="col" class="manage-column"><?php echo __('Edit', WPL_TEXTDOMAIN); ?></th>
-                    <th scope="col" class="manage-column"><?php echo __('Delete', WPL_TEXTDOMAIN); ?></th>
-                    <th scope="col" class="manage-column"><?php echo __('Move', WPL_TEXTDOMAIN); ?></th>
+                    <th scope="col" class="manage-column wpl_actions_td"><?php echo __('Actions', WPL_TEXTDOMAIN); ?></th>
                 </tr>
             </tfoot>
             <tbody class="sortable_activity">
@@ -75,7 +69,7 @@ $this->_wpl_import($this->tpl_path . '.scripts.css');
                         <td class="manager-wp">
                             <span class="wpl_ajax_loader" id="wpl_ajax_loader_<?php echo $activity->id ?>"></span>
                         </td>
-                        <td class="manager-wp">
+                        <td class="wpl_actions_td">
                             <?php
                             if($activity->enabled == 1)
                             {
@@ -90,14 +84,8 @@ $this->_wpl_import($this->tpl_path . '.scripts.css');
                             ?>
                             <span class="action-btn icon-disabled <?php echo $activity_disable_class; ?>" id="activity_disable_<?php echo $activity->id; ?>" onclick="wpl_set_enabled_activity(<?php echo $activity->id ?>, 1);"></span>
                             <span class="action-btn icon-enabled <?php echo $activity_enable_class; ?>" id="activity_enable_<?php echo $activity->id; ?>" onclick="wpl_set_enabled_activity(<?php echo $activity->id ?>, 0);"></span>
-                        </td>
-                        <td class="manager-wp">
                             <span class="action-btn icon-edit wpl_show fancybox" href="#wpl_activity_manager_edit_div" onclick="wpl_generate_modify_activity_page(<?php echo $activity->id; ?>)"></span>
-                        </td>
-                        <td class="manager-wp">
                             <span class="action-btn icon-recycle wpl_show" onclick="wpl_remove_activity(<?php echo $activity->id; ?>);"></span>
-                        </td>
-                        <td class="manager-wp">
                             <span class="action-btn icon-move" id="extension_move_1"></span>
                         </td>
                     </tr>

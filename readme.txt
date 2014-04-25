@@ -4,7 +4,7 @@ Donate link: http://www.realtyna.com/
 Tags: Real estate, Listing, Vertical Market, MLS, Property listing, RETS
 Requires at least: 3.0.1
 Tested up to: 3.9
-Stable tag: 1.3.2
+Stable tag: 1.3.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -59,6 +59,12 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 6. External Responsive Template: Agent listing
 
 == Changelog ==
+
+= 1.3.3 =
+* Added company logo and company information in agent info activity.
+* Added random option in agents widget.
+* Tweaked listing links activity styles.
+* Fixed some tiny issues.
 
 = 1.3.2 =
 * Fixed manual property title issue.

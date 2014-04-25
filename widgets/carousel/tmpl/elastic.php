@@ -58,6 +58,7 @@ foreach($wpl_properties as $key=>$gallery)
 <script type="text/javascript">
 wplj(function()
 {
+    <?php if(count($wpl_properties) > 1): ?>
 	wplj('#ei-slider').eislideshow(
 	{
 		animation			: 'center',
@@ -65,6 +66,7 @@ wplj(function()
 		slideshow_interval	: 3000,
 		titlesFactor		: 0
 	});
+    <?php endif; ?>
 });
 </script>
 <div class="wpl_carousel_container">
