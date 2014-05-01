@@ -18,7 +18,7 @@ $raw_gallery = isset($wpl_properties['current']['items']['gallery']) ? $wpl_prop
 $gallery = wpl_items::render_gallery($raw_gallery);
 
 $js[] = (object) array('param1'=>'jquery.bxslider', 'param2'=>'js/jquery.bxslider.min.js');
-foreach($js as $javascript) wpl_extensions::import_javascript($javascript);
+foreach($js as $javascript) wpl_extensions::import_javascript($javascript, true);
 
 /** import js codes **/
 $this->_wpl_import($this->tpl_path.'.scripts.pshow', true, true);

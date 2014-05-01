@@ -4,7 +4,7 @@ defined('_WPLEXEC') or die('Restricted access');
 
 $this->_wpl_import($this->tpl_path.'.scripts.js', true, true);
 ?>
-<div class="wpl_property_listing_container container" id="wpl_property_listing_container">
+<div class="wpl_property_listing_container" id="wpl_property_listing_container">
 	<?php /** load position1 **/ wpl_activity::load_position('plisting_position1', array('wpl_properties'=>$this->wpl_properties)); ?>
     <div class="wpl_sort_options_container">
         <div class="wpl_sort_options_container_title"><?php echo __("Sort Option :", WPL_TEXTDOMAIN) ?></div>

@@ -4,6 +4,11 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.3.4 (<span class="wpl_log_date">5/1/2014</span> <span class="wpl_log_revision">revision 596</span>)</h4>
+        -- Fixed container class issue on property listing and profile listing.<br />
+        -- Fixed no image font issue.<br />
+        -- Fixed an issue in profile show page.
+        
         <h4>WPL1.3.3 (<span class="wpl_log_date">4/25/2014</span> <span class="wpl_log_revision">revision 589</span>)</h4>
         -- Added company logo and company information in agent info activity.<br />
         -- Added random option in agents widget.<br />

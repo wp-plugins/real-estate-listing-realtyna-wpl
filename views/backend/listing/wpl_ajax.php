@@ -6,6 +6,7 @@ _wpl_import('libraries.flex');
 _wpl_import('libraries.property');
 _wpl_import('libraries.locations');
 _wpl_import('libraries.render');
+_wpl_import('libraries.items');
 
 class wpl_listing_controller extends wpl_controller
 {
@@ -52,6 +53,10 @@ class wpl_listing_controller extends wpl_controller
 			$value = wpl_request::getVar('value', 1);
 			
 			self::finalize($item_id, $mode, $value);
+		}
+        elseif($function == 'item_save')
+		{
+			self::item_save();
 		}
 	}
 	
@@ -139,6 +144,35 @@ class wpl_listing_controller extends wpl_controller
 		if($value) wpl_property::finalize($item_id, $mode);
 		else wpl_property::unfinalize($item_id);
 		
+		$res = 1;
+		$message = $res ? __('Saved.', WPL_TEXTDOMAIN) : __('Error Occured.', WPL_TEXTDOMAIN);
+		$data = NULL;
+		
+		$response = array('success'=>$res, 'message'=>$message, 'data'=>$data);
+		
+		echo json_encode($response);
+		exit;
+	}
+    
+    private function item_save()
+	{
+		$kind = wpl_request::getVar('kind', 0);
+		$parent_id = wpl_request::getVar('item_id', 0);
+        $item_type = wpl_request::getVar('item_type', '');
+        $item_cat = wpl_request::getVar('item_cat', '');
+        $item_name = wpl_request::getVar('value', '');
+        $item_extra1 = wpl_request::getVar('item_extra1', '');
+        $item_extra2 = wpl_request::getVar('item_extra2', '');
+        $item_extra3 = wpl_request::getVar('item_extra3', '');
+        
+        $query = "SELECT `id` FROM `#__wpl_items` WHERE `parent_kind`='$kind' AND `parent_id`='$parent_id' AND `item_type`='$item_type' AND `item_cat`='$item_cat'";
+        $item_id = wpl_db::select($query, 'loadResult');
+        
+        $item = array('parent_id'=>$parent_id, 'parent_kind'=>$kind, 'item_type'=>$item_type, 'item_cat'=>$item_cat, 'item_name'=>$item_name, 
+					  'creation_date'=>date("Y-m-d H:i:s"), 'index'=>'1.00', 'item_extra1'=>$item_extra1, 'item_extra2'=>$item_extra2, 'item_extra3'=>$item_extra3);
+		
+		wpl_items::save($item, $item_id);
+        
 		$res = 1;
 		$message = $res ? __('Saved.', WPL_TEXTDOMAIN) : __('Error Occured.', WPL_TEXTDOMAIN);
 		$data = NULL;

@@ -14,12 +14,6 @@ wplj(document).ready(function()
 		});
 	}
 
-    wplj('.wpl_profile_picture').hover(function(){
-        wplj(this).addClass('flip');
-    },function(){
-        wplj(this).removeClass('flip');
-    });
-
     if(wplj.isFunction(wplj.fn.tooltip)) wplj('.wpl_profile_container li').tooltip();
 });
 

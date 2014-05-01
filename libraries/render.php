@@ -22,9 +22,9 @@ class wpl_render
 		if(trim($date) == '0000-00-00' or trim($date) == '0000-00-00 00:00:00') return '';
 		$date_arr = explode('-', $date);
 		
-		if($year == '') $year = $date_arr[0];
-		if($month == '') $month = $date_arr[1];
-		if($day == '') $day = $date_arr[2];
+		if($year == '' and isset($date_arr[0])) $year = $date_arr[0];
+		if($month == '' and isset($date_arr[1])) $month = $date_arr[1];
+		if($day == '' and isset($date_arr[2])) $day = $date_arr[2];
 		
 		$date = $year.'-'.$month.'-'.$day;
 		$date_format_arr = explode(':', wpl_global::get_setting('main_date_format'));

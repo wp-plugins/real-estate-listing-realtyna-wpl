@@ -13,12 +13,6 @@ wplj(document).ready(function()
 			wplj(this).next('ul').stop().slideToggle();
 		});
 	}
-
-	wplj('.wpl_prp_cont').hover(function(){
-		wplj(this).children('.wpl_prp_top').addClass('flip');
-	},function(){
-		wplj(this).children('.wpl_prp_top').removeClass('flip');
-	});	
 });
 
 wplj(window).resize(function()

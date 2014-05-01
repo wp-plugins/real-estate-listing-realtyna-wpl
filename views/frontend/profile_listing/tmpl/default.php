@@ -4,7 +4,7 @@ defined('_WPLEXEC') or die('Restricted access');
 
 $this->_wpl_import($this->tpl_path.'.scripts.js', true, true);
 ?>
-<div id="wpl_profile_listing_main_container" class="container">
+<div id="wpl_profile_listing_main_container">
 	<div class="wpl_sort_options_container">
         <div class="wpl_sort_options_container_title"><?php echo __("Sort Option", WPL_TEXTDOMAIN) ?></div>
         <?php echo $this->model->generate_sorts(); ?>

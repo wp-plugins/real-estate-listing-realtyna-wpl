@@ -44,7 +44,11 @@ class wpl_service_sef
 		elseif($view == 'profile_show')
 		{
 			$username = $wpl_qs;
-			self::set_profile_page_params($username);
+            if(trim($username) != '') $user_id = wpl_users::get_id_by_username($username);
+            elseif(wpl_request::getVar('sf_select_user_id', 0)) $user_id = wpl_request::getVar('sf_select_user_id', 0);
+            elseif(wpl_request::getVar('uid', 0)) $user_id = wpl_request::getVar('uid', 0);
+                
+			self::set_profile_page_params($user_id);
 		}
 		elseif($view == 'property_listing'){}
 		elseif($view == 'profile_listing'){}
@@ -99,9 +103,8 @@ class wpl_service_sef
 		$html->set_meta_description($property_data['meta_description']);
 	}
 	
-	public function set_profile_page_params($username)
+	public function set_profile_page_params($user_id)
 	{
-		$user_id = wpl_users::get_id_by_username($username);
 		$user_data = (array) wpl_users::get_wpl_user($user_id);
 		
 		$user_title = '';

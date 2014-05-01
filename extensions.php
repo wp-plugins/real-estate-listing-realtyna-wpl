@@ -134,12 +134,13 @@ class wpl_extensions
 		@description for importing extension
 		@author Howard
 	**/
-	public static function import_javascript($extension)
+	public static function import_javascript($extension, $footer = false)
 	{
 		/** render script_url **/
 		$script_url = (isset($extension->external) or (isset($extension->param5) and trim($extension->param5))) ? $extension->param2 : wpl_global::get_wpl_asset_url($extension->param2);
-		
-		if(trim($extension->param2) != '') wp_register_script($extension->param1, $script_url);
+		$in_footer = (isset($extension->param4) and trim($extension->param4)) ? $extension->param4 : $footer;
+        
+		if(trim($extension->param2) != '') wp_register_script($extension->param1, $script_url, array(), false, $in_footer);
 	    wp_enqueue_script($extension->param1);
 	}
 	

@@ -26,6 +26,9 @@ class wpl_profile_show_controller extends wpl_controller
 			return parent::render($this->tpl_path, 'message', false, true);
 		}
         
+        /** set the user id to search credentials **/
+        wpl_request::setVar('sf_select_user_id', $this->uid);
+        
 		/** import tpl **/
 		return parent::render($this->tpl_path, $this->tpl, false, true);
 	}

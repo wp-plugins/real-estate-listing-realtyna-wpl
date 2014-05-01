@@ -53,6 +53,57 @@ function ajax_save(table_name, table_column, value, item_id, field_id, form_elem
 	});
 }
 
+/** for saving items into the items table **/
+function item_save(value, item_id, field_id, item_type, item_cat, item_extra1, item_extra2, item_extra3, form_element_id, wpl_function)
+{
+    if(!item_extra1) item_extra1 = '';
+    if(!item_extra2) item_extra2 = '';
+    if(!item_extra3) item_extra3 = '';
+	if(!wpl_function) wpl_function = 'item_save';
+	if(!form_element_id) form_element_id = "#wpl_c_"+field_id;
+	
+	var current_element_status = wplj(form_element_id).attr("disabled");
+	wplj(form_element_id).attr("disabled", "disabled");
+	element_type = wplj(form_element_id).attr('type');
+	
+	if(element_type == 'checkbox')
+	{
+		if(wplj(form_element_id).is(':checked')) value = 1;
+		else value = 0;
+	}
+	
+	var ajax_loader_element = '#wpl_listing_saved_span_'+field_id;
+	wplj(ajax_loader_element).html('<img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader3.gif'); ?>" />');
+	
+	request_str = 'wpl_format=b:listing:ajax&wpl_function='+wpl_function+'&value='+encodeURIComponent(value)+'&item_id='+item_id+'&item_type='+item_type+'&item_cat='+item_cat+'&item_extra1='+item_extra1+'&item_extra2='+item_extra2+'&item_extra3='+item_extra3;
+	
+	/** run ajax query **/
+	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str, ajax_loader_element);
+	ajax.success(function(data)
+	{
+		if(current_element_status != 'disabled') wplj(form_element_id).removeAttr("disabled");
+		
+		if(data.success == 1)
+		{
+			wplj(ajax_loader_element).html('');
+			
+			/** unfinalize property **/
+			if(finalized)
+			{
+				ajax_save('', '', '0', item_id, '', '', 'finalize');
+				finalized = 0;
+				wplj("#wpl_listing_remember_to_finalize").show();
+			}
+		}
+		else if(data.success != 1)
+		{
+			try{eval(data.js)} catch(err){}
+  
+			wplj(ajax_loader_element).html('');
+		}
+	});
+}
+
 function wpl_neighborhood_select(table_name, table_column, value, item_id, field_id)
 {
 	if(wplj('#wpl_c_'+field_id).is(':checked')) value = 1; else value = 0;

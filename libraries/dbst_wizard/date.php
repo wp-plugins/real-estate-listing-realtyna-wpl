@@ -7,7 +7,7 @@ if($type == 'date' and !$done_this)
     _wpl_import('libraries.render');
 	wp_enqueue_script('jquery-ui-datepicker');
 
-    $style = (object) array('param1' => 'jquery-date-css', 'param2' => 'js/jquery.ui/jquery.ui.start.css');
+    $style = (object) array('param1'=>'jquery-ui-css', 'param2'=>'js/jquery.ui/jquery.ui.start.css');
     wpl_extensions::import_style($style);
 
     $date_format_arr = explode(':', wpl_global::get_setting('main_date_format'));

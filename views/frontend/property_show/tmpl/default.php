@@ -140,7 +140,7 @@ $pshow_googlemap_activities = count(wpl_activity::get_activities('pshow_googlema
                                 </ul>
                            </div>
                             <div class="wpl_prp_right_boxe_details_right">
-                                <?php /** load wpl_pshow_link modules **/
+                                <?php /** load wpl_pshow_link activity **/
                                     wpl_activity::load_position('wpl_pshow_link', array('wpl_properties'=>$this->wpl_properties));
                                 ?>
                             </div>
