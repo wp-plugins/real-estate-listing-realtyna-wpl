@@ -33,7 +33,6 @@ $this->_wpl_import($this->tpl_path . '.scripts.internal_room_types_css');
                     </td>
                     <td class="manager-wp">
                         <span class="action-btn icon-recycle" onclick="wpl_remove_room_type(<?php echo $room['id']; ?>, 0);"></span>
-                        <span class="action-btn icon-recycle wpl_hidden cursor-none"></span>
                     </td>
                     <td class="manager-wp">
                         <span class="action-btn icon-move" id="sort_move_<?php echo $room['id']; ?>"></span>

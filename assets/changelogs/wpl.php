@@ -4,6 +4,10 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.3.5 (<span class="wpl_log_date">5/6/2014</span> <span class="wpl_log_revision">revision 599</span>)</h4>
+        -- Fixed user access issue.<br />
+        -- Fixed a tiny style issue on WPL light-boxes.
+        
         <h4>WPL1.3.4 (<span class="wpl_log_date">5/1/2014</span> <span class="wpl_log_revision">revision 596</span>)</h4>
         -- Fixed container class issue on property listing and profile listing.<br />
         -- Fixed no image font issue.<br />

@@ -497,8 +497,11 @@ class wpl_users
 	{
 		/** get current user id **/
 		if(trim($user_id) == '') $user_id = wpl_users::get_cur_user_id();
-		
+        
 		$user_data = wpl_users::get_wpl_data($user_id);
+        
+        /** user is registered in WordPress but not in WPL so we choose guest user for accesses **/
+        if(!$user_data) $user_data = wpl_users::get_wpl_data(0);
 		
 		if($access == 'edit')
 		{
