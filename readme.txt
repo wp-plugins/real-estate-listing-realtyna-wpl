@@ -61,9 +61,9 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 == Changelog ==
 
 = 1.3.7 =
--- Fixed an issue in search widget layout.
--- Cleanup on assets directory and some clean coding on js codes.
--- Fixed some tiny issues.
+* Fixed an issue in search widget layout.
+* Cleanup on assets directory and some clean coding on js codes.
+* Fixed some tiny issues.
 
 = 1.3.5 =
 * Fixed a user access issue.
