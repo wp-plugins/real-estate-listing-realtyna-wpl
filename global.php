@@ -20,7 +20,7 @@ class wpl_global
     {
 		$return_data = '';
 		
-        if(is_array($parameter)) // Added by Kevin for Escape Array Items
+        if(is_array($parameter))
         {
 			$return_data = array();
 			

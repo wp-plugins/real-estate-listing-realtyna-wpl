@@ -18,3 +18,14 @@ defined('_WPLEXEC') or die('Restricted access');
     <label for="wpl_o_map_height"><?php echo __('Map height', WPL_TEXTDOMAIN); ?></label>
     <input class="text_box" name="option[map_height]" type="text" id="wpl_o_map_height" value="<?php echo isset($this->options->map_height) ? $this->options->map_height: '480'; ?>" />
 </div>
+<div class="fanc-row">
+    <label for="wpl_o_google_place"><?php echo __('Google place', WPL_TEXTDOMAIN); ?></label>
+    <?php if(!wpl_global::check_addon('pro')): ?>
+	<span id="wpl_o_google_place" class="gray_tip"><?php echo __('Pro addon must be installed for this!', WPL_TEXTDOMAIN); ?></span>
+	<?php else: ?>
+    <select class="text_box" name="option[google_place]" type="text" id="wpl_o_google_place">
+	    <option value="0" <?php if(isset($this->options->google_place) && $this->options->google_place == 0) echo __('selected="selected"'); ?>>Disable</option>
+        <option value="1" <?php if(isset($this->options->google_place) && $this->options->google_place == 1) echo __('selected="selected"'); ?>>Enable</option>
+    </select>
+    <?php endif; ?>
+</div>

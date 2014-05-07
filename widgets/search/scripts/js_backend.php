@@ -574,3 +574,6 @@ var wplSearchWidget<?php echo $this->number ?> = (function (codeId) {
 })('<?php echo $this->number ?>');
 
 </script>
+<script type="text/javascript">
+    (function($){$(function(){isWPL();})})(jQuery);
+</script>

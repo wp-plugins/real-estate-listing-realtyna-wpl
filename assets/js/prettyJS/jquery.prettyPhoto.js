@@ -26,12 +26,12 @@
             horizontal_padding: 20, /* The padding on each side of the picture */
             hideflash: false, /* Hides all the flash object on a page, set to TRUE if flash appears over prettyPhoto */
             wmode: 'opaque', /* Set the flash wmode attribute */
-            autoplay: true, /* Automatically start videos: True/False */
+            autoplay: false, /* Automatically start videos: True/False */
             modal: false, /* If set to true, only the close button will close the window */
             deeplinking: true, /* Allow prettyPhoto to update the url to enable deeplinking. */
             overlay_gallery: true, /* If set to true, a gallery will overlay the fullscreen image on mouse over */
             overlay_gallery_max: 30, /* Maximum number of pictures in the overlay gallery */
-            keyboard_shortcuts: true, /* Set to false if you open forms inside prettyPhoto */
+            keyboard_shortcuts: false, /* Set to false if you open forms inside prettyPhoto */
             changepicturecallback: function () {
             }, /* Called everytime an item is shown/changed */
             callback: function () {

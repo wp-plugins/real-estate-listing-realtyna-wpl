@@ -79,3 +79,6 @@ _wpl_import('libraries.activities');
         <div class="logo"></div>
     </footer>
 </div>
+<script type="text/javascript">
+    (function($){$(function(){isWPL();})})(jQuery);
+</script>

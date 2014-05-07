@@ -35,7 +35,7 @@ _wpl_import($this->tpl_path.'.scripts.css');
         <div class="clearit"></div>
         <div class="wpl-bottom-nav">
         	
-            <div class="side-10 side-maintenance">
+            <div class="side-9 side-maintenance">
                 <div class="panel-wp">
                     <h3><?php echo __('Maintenance', WPL_TEXTDOMAIN); ?></h3>
                     <div class="panel-body">
@@ -43,7 +43,7 @@ _wpl_import($this->tpl_path.'.scripts.css');
                     </div>
                 </div>
             </div>
-            <div class="side-4 side-requirements">
+            <div class="side-5 side-requirements">
                 <div class="panel-wp">
                     <h3><?php echo __('Server requirements', WPL_TEXTDOMAIN); ?></h3>
                     <div class="panel-body">
@@ -57,3 +57,6 @@ _wpl_import($this->tpl_path.'.scripts.css');
         <div class="logo"></div>
     </footer>
 </div>
+<script type="text/javascript">
+    (function($){$(function(){isWPL();})})(jQuery);
+</script>

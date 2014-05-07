@@ -201,13 +201,18 @@ class wpl_extensions
 	**/
 	public function import_language()
 	{
-		$overriden_language_filepath = WPL_ABSPATH .DS. 'languages' .DS. 'overrides' .DS. WPL_TEXTDOMAIN .'-'. WPLANG .'.mo';
+        $locale = apply_filters('plugin_locale', get_locale(), WPL_TEXTDOMAIN);
+		$overriden_language_filepath = WP_LANG_DIR .DS. WPL_BASENAME .DS. WPL_TEXTDOMAIN.'-'.$locale.'.mo';
 		
 		/** check if the language file is overridden **/
 		if(wpl_file::exists($overriden_language_filepath))
-			load_plugin_textdomain(WPL_TEXTDOMAIN, false, dirname(plugin_basename( __FILE__ )) .DS. 'languages' .DS. 'overrides');
+        {
+            load_textdomain(WPL_TEXTDOMAIN, WP_LANG_DIR .DS. WPL_BASENAME .DS. WPL_TEXTDOMAIN.'-'.$locale.'.mo');
+        }
 		else
-			load_plugin_textdomain(WPL_TEXTDOMAIN, false, dirname(plugin_basename( __FILE__ )) .DS. 'languages');
+        {
+			load_plugin_textdomain(WPL_TEXTDOMAIN, false, dirname(plugin_basename( __FILE__ )) .DS. 'languages' .DS);
+        }
 	}
 	
 	/**

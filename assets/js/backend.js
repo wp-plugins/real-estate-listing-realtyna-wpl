@@ -92,6 +92,10 @@ Array.prototype.unique = function () {
     return a;
 };
 
+function isWPL(){
+    _j('html').attr('data-wpl-plugin','');
+}
+
 /**
  * RTA Framework
  */
@@ -468,7 +472,7 @@ Array.prototype.unique = function () {
             rightHolder: '}',
             tag: 'div',
             idAttr: 'data-id',
-            fileName: 'templates.html'
+            fileName: 'inline.tmpl'
         },
         require: {
             //By default load any module IDs from js/lib
@@ -1251,7 +1255,7 @@ Array.prototype.unique = function () {
 
             },
             initPage: function () {
-                $.get(_rta_urlJs + 'templates.html').done(function (data) {
+                $.get(_rta_urlJs +  rta.config.templates.fileName).done(function (data) {
                     $(data).filter(_tag).each(function () {
                         var __id = $(this).attr(_idAttr);
 
@@ -1312,6 +1316,7 @@ Array.prototype.unique = function () {
             markup: rta.config.liBo.tmpl.wrap.replaceAll('${sample}',rta.config.liBo.tmpl.sample),
             inline_markup: rta.config.liBo.tmpl.inline,
             inline_sample_markup: rta.config.liBo.tmpl.inlineSample,
+            keyboard_shortcuts: false,
             ajaxcallback: function(){
                 var __callerID = $('.fancybox-inner').attr('id'),
                     __specConfig = (rta.config.fancySpecificOptions.hasOwnProperty(__callerID)) ? rta.config.fancySpecificOptions[__callerID] : null;

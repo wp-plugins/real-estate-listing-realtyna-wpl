@@ -78,3 +78,7 @@ function wpl_validation_check()
 	return true;
 }
 </script>
+
+<script type="text/javascript">
+    (function($){$(function(){isWPL();})})(jQuery);
+</script>

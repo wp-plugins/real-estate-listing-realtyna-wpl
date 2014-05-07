@@ -96,6 +96,10 @@ $this->finds = array();
     </footer>
 </div>
 <script type="text/javascript">
+    (function($){$(function(){isWPL();})})(jQuery);
+</script>
+
+<script type="text/javascript">
     var finalized = <?php echo $this->finalized; ?>;
 
     function wpl_listing_changed(id)

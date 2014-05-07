@@ -4,6 +4,12 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.3.7 (<span class="wpl_log_date">5/7/2014</span> <span class="wpl_log_revision">revision 609</span>)</h4>
+        -- <strong>[PRO]</strong> - Google Place feature added to google map activity.<br />
+        -- Fixed an issue in search widget layout.<br />
+        -- Cleanup on assets directory and some clean coding on js codes.<br />
+        -- Fixed some tiny issues.
+        
         <h4>WPL1.3.5 (<span class="wpl_log_date">5/6/2014</span> <span class="wpl_log_revision">revision 599</span>)</h4>
         -- Fixed user access issue.<br />
         -- Fixed a tiny style issue on WPL light-boxes.

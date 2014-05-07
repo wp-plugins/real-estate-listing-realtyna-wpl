@@ -1,7 +1,6 @@
 <?php
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
-
 /** set params **/
 $wpl_properties = isset($params['wpl_properties']) ? $params['wpl_properties'] : array();
 $property_id = isset($wpl_properties['current']['data']['id']) ? $wpl_properties['current']['data']['id'] : NULL;
@@ -12,6 +11,9 @@ $this->map_width = isset($params['map_height']) ? $params['map_height'] : 385;
 $this->default_lt = isset($params['default_lt']) ? $params['default_lt'] : '38.685516';
 $this->default_ln = isset($params['default_ln']) ? $params['default_ln'] : '-101.073324';
 $this->default_zoom = isset($params['default_zoom']) ? $params['default_zoom'] : '4';
+
+/* Get Google Place Option */
+$this->google_place = isset($params['google_place']) ? $params['google_place'] : 0;
 
 $listings = wpl_global::return_in_id_array(wpl_global::get_listings());
 $markers = array();
@@ -38,6 +40,7 @@ $this->_wpl_import($this->tpl_path.'.scripts.js', true, true);
 </div>
 <script type="text/javascript">
 var markers = <?php echo json_encode($markers); ?>;
+var google_place = <?php echo $this->google_place; ?>;
 
 /** default values in case of no marker to showing **/
 var default_lt = '<?php echo $this->default_lt; ?>';
@@ -50,7 +53,6 @@ function wpl_pshow_map_init()
 	if(wpl_map_initialized) return;
 	
 	wpl_initialize<?php echo $this->activity_id; ?>();
-	
 	/** restore the zoom level after the map is done scaling **/
 	var listener = google.maps.event.addListener(wpl_map, 'idle', function(event)
 	{

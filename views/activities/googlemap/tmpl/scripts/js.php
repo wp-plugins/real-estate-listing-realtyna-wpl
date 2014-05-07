@@ -14,19 +14,18 @@ function wpl_initialize<?php echo $this->activity_id; ?>()
 {
 	/** create empty LatLngBounds object **/
 	bounds = new google.maps.LatLngBounds();
-
 	var mapOptions = {
 		scrollwheel: false,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	}
-	
+    
 	/** init map **/
 	wpl_map = new google.maps.Map(document.getElementById('wpl_map_canvas<?php echo $this->activity_id; ?>'), mapOptions);
 	infowindow = new google.maps.InfoWindow();
 	
 	/** load markers **/
 	wpl_load_markers<?php echo $this->activity_id; ?>(markers);
-
+	
     var styles =
     [
         {
@@ -86,10 +85,22 @@ function wpl_initialize<?php echo $this->activity_id; ?>()
         }
     ];
 
-    var styledMap = new google.maps.StyledMapType(styles,{name: "WPL Map"});
+    var styledMap = new google.maps.StyledMapType(styles, {name: "WPL Map"});
 
     wpl_map.mapTypes.set('map_style', styledMap);
     wpl_map.setMapTypeId('map_style');
+    
+    /* Check Google Places */
+	if((typeof google_place != 'undefined') && (google_place == 1) )
+	{
+        var request = {
+            location: marker.position,
+            radius: 1000
+        };
+    
+		var service = new google.maps.places.PlacesService(wpl_map);
+		service.search(request, wpl_gplace_callback<?php echo $this->activity_id; ?>);
+	}
 }
 
 function wpl_marker<?php echo $this->activity_id; ?>(dataMarker)
@@ -195,5 +206,49 @@ function wpl_Plisting_slider(i, total_images, id)
     
     wplj("#wpl_gallery_image"+ id +"_"+i).fadeTo(200,0).css("display",'none');
     wplj("#wpl_gallery_image"+ id +"_"+j).fadeTo(400,1);
+}
+
+/** Google places functions **/
+function wpl_gplace_callback<?php echo $this->activity_id;?>(results, status)
+{
+	if(status == google.maps.places.PlacesServiceStatus.OK)
+	{
+		for(var i=0; i<results.length; i++) wpl_gplace_marker<?php echo $this->activity_id;?>(results[i]);
+	}
+}
+
+function wpl_gplace_marker<?php echo $this->activity_id;?>(place)
+{
+	var placeLoc = place.geometry.location;
+	var image = new google.maps.MarkerImage(
+  	place.icon, new google.maps.Size(51, 51),
+  	new google.maps.Point(0, 0), new google.maps.Point(17, 34),
+  	new google.maps.Size(25, 25));
+
+	// create place types title
+	var title_str = '';
+    
+	for(var i=0; i<place.types.length; i++)
+	{
+		title_str = title_str+place.types[i];
+		if((i+1) != place.types.length) title_str = title_str+', ';
+	}
+    
+	var marker = new google.maps.Marker(
+    {
+		map: wpl_map,
+		icon: image,
+		title: title_str,
+		position: place.geometry.location
+	});
+    
+    /** extend the bounds to include each marker's position **/
+  	bounds.extend(place.geometry.location);
+    
+	google.maps.event.addListener(marker, 'click', function()
+	{
+		infowindow.setContent('<div class="wpl_gplace_infowindow_container" style="color: #000000;">'+place.name+'</div>');
+		infowindow.open(wpl_map, this);
+	});
 }
 </script>

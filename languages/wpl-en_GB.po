@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wpl\n"
 "POT-Creation-Date: 2014-03-08 17:07+0330\n"
-"PO-Revision-Date: 2014-03-08 17:08+0330\n"
+"PO-Revision-Date: 2014-05-07 09:29+0330\n"
 "Last-Translator: Howard <howard@realtyna.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1574,9 +1574,8 @@ msgstr ""
 
 #: views/backend/addon_mls/tmpl/default.php:42
 #: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/default.php:42
-#, fuzzy
 msgid "Update fields"
-msgstr "translated: Add new field"
+msgstr ""
 
 #: views/backend/addon_mls/tmpl/default.php:42
 #: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/default.php:42
@@ -1774,9 +1773,8 @@ msgstr ""
 
 #: views/backend/addon_mls/tmpl/query.php:21
 #: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/query.php:21
-#, fuzzy
 msgid "Add a new Query"
-msgstr "translated: Add new field"
+msgstr ""
 
 #: views/backend/addon_mls/tmpl/query.php:28
 #: _ADDONS/MLS/wp-content/plugins/WPL/views/backend/addon_mls/tmpl/query.php:28
@@ -1945,9 +1943,8 @@ msgid "Room Types"
 msgstr ""
 
 #: views/backend/data_structure/tmpl/internal_edit_listing_types.php:6
-#, fuzzy
 msgid "Add new listing type"
-msgstr "translated: Add new field"
+msgstr ""
 
 #: views/backend/data_structure/tmpl/internal_edit_listing_types.php:15
 #: views/backend/data_structure/tmpl/internal_edit_property_types.php:15
@@ -1976,9 +1973,8 @@ msgid "Property types"
 msgstr ""
 
 #: views/backend/data_structure/tmpl/internal_room_types.php:14
-#, fuzzy
 msgid "Add new room type"
-msgstr "translated: Add new field"
+msgstr ""
 
 #: views/backend/data_structure/tmpl/internal_unit_manager_currency.php:11
 msgid "3digit sep"
@@ -2089,7 +2085,7 @@ msgstr ""
 
 #: views/backend/flex/tmpl/internal_sidebar3.php:6
 msgid "Add new field"
-msgstr "translated: Add new field"
+msgstr ""
 
 #: views/backend/flex/tmpl/internal_sidebar3.php:13
 #: views/backend/notifications/tmpl/internal_advanced.php:14
@@ -2182,9 +2178,8 @@ msgid "View this listing"
 msgstr ""
 
 #: views/backend/listing/tmpl/wizard.php:82
-#, fuzzy
 msgid "Add new listing"
-msgstr "translated: Add new field"
+msgstr ""
 
 #: views/backend/listing/tmpl/scripts/js.php:83
 msgid "First please enter distance!"

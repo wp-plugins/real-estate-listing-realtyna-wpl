@@ -11,20 +11,22 @@ include _wpl_import('widgets.search.scripts.js', true, true);
 <script type="text/javascript">
 wplj(document).ready(function()
 {
-	wplj('.wpl_search_from_box .more_search_option').click(function()
+	wplj('.wpl_search_from_box #more_search_option<?php echo $widget_id; ?>').click(function()
 	{
+        var widget_id = wplj(this).attr('data-widget-id');
+        
 		if(wplj(this).hasClass('active'))
 		{
 			wplj(this).removeClass('active');
-			wplj('.wpl_search_from_box .wpl_search_from_box_bot').slideUp("fast");
-			wplj('.wpl_search_from_box .wpl_search_from_box_bot .wpl_search_field_container').animate({ marginLeft : 100 + 'px', opacity : 1 });
+			wplj('.wpl_search_from_box #wpl_search_from_box_bot'+widget_id).slideUp("fast");
+			wplj('.wpl_search_from_box #wpl_search_from_box_bot'+widget_id+' .wpl_search_field_container').animate({ marginLeft : 100 + 'px', opacity : 1 });
 			wplj(this).text("<?php echo __('More options', WPL_TEXTDOMAIN); ?>");
 		}
 		else
 		{
 			wplj(this).addClass('active');
-			wplj('.wpl_search_from_box .wpl_search_from_box_bot').fadeIn();
-			wplj('.wpl_search_from_box .wpl_search_from_box_bot .wpl_search_field_container').animate({ marginLeft : 0 + 'px', opacity : 1 });
+			wplj('.wpl_search_from_box #wpl_search_from_box_bot'+widget_id).fadeIn();
+			wplj('.wpl_search_from_box #wpl_search_from_box_bot'+widget_id+' .wpl_search_field_container').animate({ marginLeft : 0 + 'px', opacity : 1 });
 			wplj(this).text("<?php echo __('Less options', WPL_TEXTDOMAIN); ?>");
 		}
 	})
@@ -49,11 +51,11 @@ wplj(document).ready(function()
 		    	<input id="wpl_search_widget_submit<?php echo $widget_id; ?>" class="wpl_search_widget_submit" type="submit" value="<?php echo __('Search', WPL_TEXTDOMAIN); ?>" />
 		    </div>
 	    </div>
-	    <div class="wpl_search_from_box_bot">
+        <div class="wpl_search_from_box_bot" id="wpl_search_from_box_bot<?php echo $widget_id; ?>">
 	    	<?php echo $bott_div; ?>
 	    </div>	    
 	</div>
     <?php if($bott_div){ ?>
-	<div class="more_search_option"><?php echo __('More options', WPL_TEXTDOMAIN); ?></div>
+	<div class="more_search_option" data-widget-id="<?php echo $widget_id; ?>" id="more_search_option<?php echo $widget_id; ?>"><?php echo __('More options', WPL_TEXTDOMAIN); ?></div>
     <?php } ?>
 </form>

@@ -147,3 +147,6 @@ $this->_wpl_import($this->tpl_path.'.scripts.js');
         <div class="logo"></div>
     </footer>
 </div>
+<script type="text/javascript">
+    (function($){$(function(){isWPL();})})(jQuery);
+</script>

@@ -20,3 +20,6 @@ function random_clicked_agents<?php echo $this->widget_id; ?>()
 	}
 }
 </script>
+<script type="text/javascript">
+    (function($){$(function(){isWPL();})})(jQuery);
+</script>
