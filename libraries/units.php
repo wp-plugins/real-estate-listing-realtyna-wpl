@@ -80,7 +80,7 @@ class wpl_units
 	}	
 	
 	/**	
-		 this function is to update all currencies exchange rates from yahoo server
+		 This is a function for updating all currencies exchange rates from yahoo server
 	**/	
 	public static function update_exchange_rates()
 	{
@@ -91,7 +91,10 @@ class wpl_units
 			$currency_code = $currency['extra'];
 			$exchange_rate = self::currency_converter($currency_code, 'USD', 1);
 			self::update($currency['id'], 'tosi', $exchange_rate);
-		}	
+		}
+        
+        /** trigger event **/
+		wpl_global::event_handler('exchange_rates_updated', array());
 	}
 	
 	/**
@@ -106,6 +109,9 @@ class wpl_units
 		$exchange_rate = self::currency_converter($currency_code, 'USD', 1);
 		$result = self::update($unit_id, 'tosi', $exchange_rate);
 		
+        /** trigger event **/
+		wpl_global::event_handler('exchange_rate_updated', array('unit_id'=>$unit_id, 'currency_code'=>$currency_code));
+        
 		if($result)	return $exchange_rate;
 		else return 0;
 	}

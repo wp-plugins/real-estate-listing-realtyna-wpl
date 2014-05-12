@@ -250,14 +250,19 @@ function isWPL(){
      * Usage:
      $('div.bests').equalHeight();
      */
-    $.fn.equalHeight = function (callBack) {
+    $.fn.equalHeight = function (callBack, removeHeightAttr) {
         var currentTallest = 0,
             currentRowStart = 0,
             rowDivs = new Array(),
             $el,
             topPosition = 0,
             elCount = $(this).length,
-            elIndex = 0;
+            elIndex = 0,
+            removeHeightAttr= removeHeightAttr || false;
+
+        if(removeHeightAttr)
+            $(this).css('height','');
+
 
         $(this).each(function () {
 
@@ -1072,6 +1077,18 @@ function isWPL(){
                         elm.checked = false;
                     });
                 }
+            },
+
+            equalPanel: function(resetHeight){
+                var __resetHeight = resetHeight || false;
+                $('.rt-same-height .panel-wp').equalHeight(function(){
+                    $('.rt-same-height .js-full-height').each(function(){
+                        var __height = $(this).find('.panel-wp').height();
+                        if($(this).attr('data-minuse-size'))
+                            __height -= parseInt($(this).attr('data-minuse-size'));
+                        $(this).find('.panel-body').css('max-height',__height);
+                    });
+                },__resetHeight);
             }
 
         };
@@ -1368,15 +1385,7 @@ function isWPL(){
         // Initialize all template in the page
         rta.template.init();
 
-
-        $('.rt-same-height .panel-wp').equalHeight(function(){
-            $('.rt-same-height .js-full-height').each(function(){
-                var __height = $(this).find('.panel-wp').height();
-                if($(this).attr('data-minuse-size'))
-                    __height -= parseInt($(this).attr('data-minuse-size'));
-                $(this).find('.panel-body').css('max-height',__height);
-            });
-        });
+        rta.util.equalPanel(true);
 
         $(".side-changes .panel-body,.side-announce .panel-body").mCustomScrollbar({
             mouseWheel: true,

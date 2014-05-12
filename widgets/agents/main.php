@@ -58,6 +58,10 @@ class wpl_agents_widget extends wpl_widget
                 $params['image_name'] = isset($wpl_profiles[$profile->id]['profile_picture']['name']) ? $wpl_profiles[$profile->id]['profile_picture']['name'] : '';
                 $profile_picture_path = isset($wpl_profiles[$profile->id]['profile_picture']['path']) ? $wpl_profiles[$profile->id]['profile_picture']['path'] : '';
                 $wpl_profiles[$profile->id]['profile_picture']['url'] = wpl_images::create_profile_images($profile_picture_path, $instance['data']['image_width'], $instance['data']['image_height'], $params);
+
+                $wpl_profiles[$profile->id]['profile_picture']['image_width'] = isset($instance['data']['image_width']) ? $instance['data']['image_width'] : '';
+                
+                $wpl_profiles[$profile->id]['profile_picture']['image_height'] = isset($instance['data']['image_height']) ? $instance['data']['image_height'] : '';
             }
             
             /** company logo **/

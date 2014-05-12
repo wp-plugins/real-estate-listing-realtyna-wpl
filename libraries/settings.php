@@ -84,7 +84,12 @@ class wpl_settings
 		}
 		
 		$query = "UPDATE `#__wpl_settings` SET `setting_value`='$value' WHERE `setting_name`='$name' ".$condition;
-		return wpl_db::q($query, 'update');
+		$result = wpl_db::q($query, 'update');
+        
+        /** trigger event **/
+        wpl_global::event_handler('settings_updated', array('setting_value'=>$value, 'setting_name'=>$name));
+        
+        return $result;
 	}
 	
 	/**
@@ -104,7 +109,12 @@ class wpl_settings
 		}
 		
 		$query = "INSERT INTO `#__wpl_settings` (`setting_name`,`setting_value`,`category`) VALUES ('$name','$value','$category_id')";
-		return wpl_db::q($query, 'insert');
+		$id = wpl_db::q($query, 'insert');
+        
+        /** trigger event **/
+        wpl_global::event_handler('settings_added', array('id'=>$id));
+        
+        return $id;
 	}
 	
 	/**
@@ -230,6 +240,10 @@ class wpl_settings
 		$cache_type = strtolower($cache_type);
 		if(trim($cache_type) == '') return false;
 		
+        /** import libraries **/
+        _wpl_import('libraries.property');
+        _wpl_import('libraries.items');
+        
 		if($cache_type == 'properties_cached_data' or $cache_type == 'all')
 		{
 			$query = "UPDATE `#__wpl_properties` SET `location_text`='', `rendered`=''";
@@ -241,7 +255,44 @@ class wpl_settings
 			$query = "UPDATE `#__wpl_properties` SET `location_text`=''";
 			wpl_db::q($query);
 		}
+        
+        if($cache_type == 'listings_thumbnails' or $cache_type == 'all')
+		{
+			$properties = wpl_db::select("SELECT `id`, `kind` FROM `#__wpl_properties` WHERE `id`>0", 'loadAssocList');
+            $ext_array = array('jpg', 'jpeg', 'gif', 'png');
+            
+            foreach($properties as $property)
+            {
+                $path = wpl_items::get_path($property['id'], $property['kind']);
+                $thumbnails = wpl_folder::files($path, 'th.*\.('.implode('|', $ext_array).')$', 3, true);
+                
+                foreach($thumbnails as $thumbnail)
+                {
+                    wpl_file::delete($thumbnail);
+                }
+            }
+		}
+        
+        if($cache_type == 'users_thumbnails' or $cache_type == 'all')
+		{
+			$users = wpl_db::select("SELECT `id` FROM `#__wpl_users` WHERE `id`>0", 'loadAssocList');
+            $ext_array = array('jpg', 'jpeg', 'gif', 'png');
+            
+            foreach($users as $user)
+            {
+                $path = wpl_items::get_path($user['id'], 2);
+                $thumbnails = wpl_folder::files($path, 'th.*\.('.implode('|', $ext_array).')$', 3, true);
+                
+                foreach($thumbnails as $thumbnail)
+                {
+                    wpl_file::delete($thumbnail);
+                }
+            }
+		}
 		
+        /** trigger event **/
+        wpl_global::event_handler('cache_cleared', array('cache_type'=>$cache_type));
+        
 		return true;
 	}
 }

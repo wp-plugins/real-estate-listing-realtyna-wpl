@@ -246,7 +246,10 @@ class wpl_activity
     {
         $query = "DELETE FROM `#__wpl_activities` WHERE `id`='$activity_id'";
         $result = wpl_db::q($query);
-
+        
+        /** trigger event **/
+		wpl_global::event_handler('activity_removed', array('id'=>$activity_id));
+        
         return $result;
     }
 
@@ -330,8 +333,13 @@ class wpl_activity
         $query  = 'INSERT INTO `#__wpl_activities` (`activity`, `position`, `enabled`, `params`, `show_title`, `title`, `index`, `association_type`, `associations`)';
         $query .= " VALUES ('{$information['activity']}','{$information['position']}',{$information['enabled']},";
         $query .= "'{$information['params']}',{$information['show_title']},'{$information['title']}',".(float)$information['index'].",'{$information['association_type']}','{$information['associations']}')";
-
-        return wpl_db::q($query, 'insert');
+        
+        $activity_id = wpl_db::q($query, 'insert');
+        
+        /** trigger event **/
+		wpl_global::event_handler('activity_added', array('id'=>$activity_id));
+        
+        return $activity_id;
     }
 
     /**
@@ -351,6 +359,9 @@ class wpl_activity
         $query .= "`title` = '{$information['title']}', `index` = ".(float)$information['index'].",";
         $query .= "`association_type` = '{$information['association_type']}', `associations` = '{$information['associations']}'";
         $query .= " WHERE `id` = '".$information['activity_id']."'";
+        
+        /** trigger event **/
+		wpl_global::event_handler('activity_updated', array('id'=>$information['activity_id']));
         
         return wpl_db::q($query);
     }

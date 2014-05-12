@@ -965,7 +965,11 @@ class wpl_global
 	{
 		if(!$blog_id) $blog_id = wpl_global::get_current_blog_id();
 		
-		if(!$blog_id or $blog_id == 1) return WPL_UP_ABSPATH;
+		if(!$blog_id or $blog_id == 1)
+        {
+            if(!wpl_folder::exists(WPL_UP_ABSPATH)) wpl_folder::create(WPL_UP_ABSPATH);
+            return WPL_UP_ABSPATH;
+        }
 		else
 		{
 			$path = rtrim(WPL_UP_ABSPATH, DS).$blog_id. DS;

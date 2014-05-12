@@ -4,8 +4,17 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.3.9 (<span class="wpl_log_date">5/12/2014</span> <span class="wpl_log_revision">revision 622</span>)</h4>
+        -- <strong>[PRO]</strong> Added radius option for google places feature.<br />
+        -- Added simple layouts to carousel and agents widgets.<br />
+        -- Added Hectare to WPL units.<br />
+        -- Trigger some events using WPL events API for notifications and logs.<br />
+        -- Fixed specifications issue on Flex menu.<br />
+        -- Removed useless CSS and CSS style options from flex edit screen.<br />
+        -- Fixed some PHP notices.
+        
         <h4>WPL1.3.7 (<span class="wpl_log_date">5/7/2014</span> <span class="wpl_log_revision">revision 609</span>)</h4>
-        -- <strong>[PRO]</strong> - Google Place feature added to google map activity.<br />
+        -- <strong>[PRO]</strong> Google Place feature added to google map activity.<br />
         -- Fixed an issue in search widget layout.<br />
         -- Cleanup on assets directory and some clean coding on js codes.<br />
         -- Fixed some tiny issues.
@@ -40,7 +49,7 @@ defined('_WPLEXEC') or die('Restricted access');
         -- added 2 default sidebars to WPL.<br />
         -- Changing property price position in listings page.<br />
         -- Fixed an style issue on single property page.<br />
-        -- <strong>[PRO]</strong> - Page association feature added to the activity manager.<br />
+        -- <strong>[PRO]</strong> Page association feature added to the activity manager.<br />
         -- Fixed listing address issue on front-end.
         
         <h4>WPL1.2.3 (<span class="wpl_log_date">4/13/2014</span> <span class="wpl_log_revision">revision 543</span>)</h4>

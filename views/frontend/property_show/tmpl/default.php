@@ -16,6 +16,10 @@ $location_string 	= isset($this->wpl_properties['current']['location_text']) ? $
 
 $pshow_gallery_activities = count(wpl_activity::get_activities('pshow_gallery', 1));
 $pshow_googlemap_activities = count(wpl_activity::get_activities('pshow_googlemap', 1));
+
+/** video tab for showing videos **/
+$pshow_video_activities = count(wpl_activity::get_activities('pshow_video', 1));
+if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->wpl_properties['current']['items']['video']) and !count($this->wpl_properties['current']['items']['video']))) $pshow_video_activities = 0;
 ?>
 <div class="wpl_prp_show_container" id="wpl_prp_show_container">
     <div class="wpl_prp_container" id="wpl_prp_container<?php echo $this->pid; ?>">
@@ -31,19 +35,27 @@ $pshow_googlemap_activities = count(wpl_activity::get_activities('pshow_googlema
                     <?php /** load position googlemap **/ wpl_activity::load_position('pshow_googlemap', array('wpl_properties'=>$this->wpl_properties)); ?>
                 </div>
                 <?php endif; ?>
+                <?php if($pshow_video_activities): ?>
+                <div id="tabs-3" class="tabs_contents">
+                    <?php /** load position video **/ wpl_activity::load_position('pshow_video', array('wpl_properties'=>$this->wpl_properties)); ?>
+                </div>
+                <?php endif; ?>
             </div>
-            <div class="tabs_box container">
-                <ul class="tabs container">
+            <div class="tabs_box">
+                <ul class="tabs">
                 	<?php if($pshow_gallery_activities): ?>
                     <li><a href="#tabs-1"><?php echo __('Pictures', WPL_TEXTDOMAIN) ?></a></li>
                     <?php endif; ?>
                     <?php if($pshow_googlemap_activities): ?>
-                    <li><a href="#tabs-2"><?php echo __('Google Map', WPL_TEXTDOMAIN) ?></a></li>
+                    <li><a href="#tabs-2" data-init-googlemap="1"><?php echo __('Google Map', WPL_TEXTDOMAIN) ?></a></li>
+                    <?php endif; ?>
+                    <?php if($pshow_video_activities): ?>
+                    <li><a href="#tabs-3"><?php echo __('Video', WPL_TEXTDOMAIN) ?></a></li>
                     <?php endif; ?>
                 </ul>
             </div>
         </div>
-        <div class="wpl_prp_container_content container">
+        <div class="wpl_prp_container_content">
             <div class="wpl_prp_container_content_title">
                 <?php
                 echo '<div class="title_text">'.$prp_type .' '.$prp_listings.'</div>';
@@ -78,11 +90,11 @@ $pshow_googlemap_activities = count(wpl_activity::get_activities('pshow_googlema
                         
                         elseif($value['type'] == 'neighborhood')
                         {
-                            echo '<div class="rows neighborhood">' .__($value['name'],WPL_TEXTDOMAIN) .(isset($value['distance']) ? ' <span class="'.$value['by'].'">'. $value['distance'] .' '. __('Minutes',WPL_TEXTDOMAIN). '</span>':''). '</div>';
+                            echo '<div id="wpl-dbst-show'.$value['field_id'].'" class="rows neighborhood">' .__($value['name'],WPL_TEXTDOMAIN) .(isset($value['distance']) ? ' <span class="'.$value['by'].'">'. $value['distance'] .' '. __('Minutes',WPL_TEXTDOMAIN). '</span>':''). '</div>';
                         }
                         elseif($value['type'] == 'feature')
                         {
-                            echo '<div class="rows feature ';
+                            echo '<div id="wpl-dbst-show'.$value['field_id'].'" class="rows feature ';
                             if(!isset($value['values'][0])) echo ' single ';
 							
                             echo '">'.__($value['name'], WPL_TEXTDOMAIN);
@@ -103,13 +115,13 @@ $pshow_googlemap_activities = count(wpl_activity::get_activities('pshow_googlema
                         {
                             foreach ($value['locations'] as $ii=>$lvalue)
                             {
-                                echo '<div class="rows location">'.__($value['keywords'][$ii], WPL_TEXTDOMAIN).' : ';
+                                echo '<div id="wpl-dbst-show'.$value['field_id'].'" class="rows location">'.__($value['keywords'][$ii], WPL_TEXTDOMAIN).' : ';
                                 echo '<span>'.$lvalue.'</span>';
                                 echo '</div>';
                             }
                         }
                         else
-                            echo '<div class="rows other">' .__($value['name'], WPL_TEXTDOMAIN). ' : <span>'. __((isset($value['value']) ? $value['value'] : ''), WPL_TEXTDOMAIN) .'</span></div>';
+                            echo '<div id="wpl-dbst-show'.$value['field_id'].'" class="rows other">' .__($value['name'], WPL_TEXTDOMAIN). ' : <span>'. __((isset($value['value']) ? $value['value'] : ''), WPL_TEXTDOMAIN) .'</span></div>';
                     }
 					
                     echo '</div></div>';

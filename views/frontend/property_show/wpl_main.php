@@ -81,6 +81,9 @@ class wpl_property_show_controller extends wpl_controller
 		/** updating the visited times and etc **/
 		wpl_property::property_visited($this->pid);
 		
+        /** trigger event **/
+		wpl_global::event_handler('property_show', array('id'=>$this->pid));
+        
 		/** import tpl **/
 		return parent::render($this->tpl_path, $this->tpl, false, true);
 	}

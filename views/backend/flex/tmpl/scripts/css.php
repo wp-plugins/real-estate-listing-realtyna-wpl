@@ -7,4 +7,5 @@ defined('_WPLEXEC') or die('Restricted access');
 .wpl_flex_modify_title{font-weight: bold; padding: 7px 0;}
 .wpl_sidebar2{margin: 0;}
 .flex-right-panel .panel-body{padding: 10px 8px !important;}
+.wpl_flex_specificable_cnt{margin-left: 26px;}
 </style>

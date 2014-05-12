@@ -16,6 +16,9 @@ class wpl_listing_types
 		$query = "DELETE FROM `#__wpl_listing_types` WHERE `id`='$listing_type_id'";
 		$result = wpl_db::q($query);
 		
+        /** trigger event **/
+		wpl_global::event_handler('listing_type_removed', array('id'=>$listing_type_id));
+        
 		return $result;	
 	}
 	

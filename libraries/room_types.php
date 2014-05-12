@@ -77,9 +77,12 @@ class wpl_room_types
 	public static function save_room_type($name)
 	{
 		$query = "INSERT INTO `#__wpl_room_types` (`name`) VALUES ('$name')";
-		$result = wpl_db::q($query);
+		$id = wpl_db::q($query, 'insert');
 		
-		return $result;
+        /** trigger event **/
+		wpl_global::event_handler('room_type_added', array('id'=>$id));
+        
+		return $id;
 	}
 	
 	/**

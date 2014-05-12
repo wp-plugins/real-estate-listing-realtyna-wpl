@@ -29,6 +29,9 @@ class wpl_profile_show_controller extends wpl_controller
         /** set the user id to search credentials **/
         wpl_request::setVar('sf_select_user_id', $this->uid);
         
+        /** trigger event **/
+		wpl_global::event_handler('profile_show', array('id'=>$this->uid));
+        
 		/** import tpl **/
 		return parent::render($this->tpl_path, $this->tpl, false, true);
 	}

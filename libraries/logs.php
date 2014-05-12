@@ -70,14 +70,50 @@ class wpl_logs
 	
 	/**
 		Developed by : Howard
-		Inputs : {log_id}
-		Outputs : log data
+		Inputs : [condition]
+		Outputs : logs
 		Date : 2013-04-18
-		Description : use this function for get one log
+		Description : use this function for get logs
 	**/
 	public static function get_logs($condition = '')
 	{
 		$query = "SELECT * FROM `#__wpl_logs` WHERE 1 ".$condition;
 		return wpl_db::select($query, 'select');
+	}
+    
+    /**
+		Developed by : Howard
+		Inputs : [params]
+		Outputs : void
+		Date : 2014-05-09
+		Description : This function is using for inserting logs using WPL events API
+	**/
+	public static function autolog($params = array())
+	{
+        $dynamic_params = $params[0];
+        $static_params = $params[1];
+        
+        $section = isset($static_params['section']) ? $static_params['section'] : 'no-section';
+        $addon_id = isset($static_params['addon_id']) ? $static_params['addon_id'] : 0;
+        $user_id = isset($static_params['user_id']) ? $static_params['user_id'] : NULL;
+        $status = isset($static_params['status']) ? $static_params['status'] : 1;
+        $priority = isset($static_params['priority']) ? $static_params['priority'] : 3;
+        
+        if($static_params['type'] == 1)
+        {
+        }
+        elseif($static_params['type'] == 2)
+        {
+            $query = str_replace('[VALUE]', $dynamic_params, $static_params['pattern']);
+            $contents = wpl_db::select($query, 'loadAssoc');
+            
+            $log_text = $static_params['message'];
+            foreach($contents as $key=>$value)
+            {
+                $log_text = str_replace('['.$key.']', $value, $log_text);
+            }
+        }
+        
+        return self::add($log_text, $section, $status, $user_id, $addon_id, $priority);
 	}
 }

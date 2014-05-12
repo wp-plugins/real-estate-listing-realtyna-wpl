@@ -296,7 +296,7 @@ function wpl_remove_dbst(dbst_id, confirmed)
 function wpl_flex_change_specificable(specificable_value, prefix)
 {
 	wplj(".wpl_flex_specificable_cnt").slideUp();
-	wplj("#"+prefix+"specificable"+specificable_value).slideDown();
+    wplj("#"+prefix+"specificable"+specificable_value).slideDown();
 }
 
 function wpl_listing_specific_all(checked)

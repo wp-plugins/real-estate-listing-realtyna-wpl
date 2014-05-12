@@ -18,15 +18,19 @@ function check_addon_update(addon_id)
 		if(data.success == 1)
 		{
 			wpl_show_messages(data.message, '.wpl_addons_message .wpl_show_message', 'wpl_green_msg');
+            rta.util.equalPanel(true);
+            
 			setTimeout(function(){ window.location.reload(); }, 1500);
 		}
 		else if(data.success == 2)
 		{
 			wpl_show_messages(data.message, '.wpl_addons_message .wpl_show_message', 'wpl_gold_msg');
+            rta.util.equalPanel(true);
 		}
 		else
 		{
 			wpl_show_messages(data.message, '.wpl_addons_message .wpl_show_message', 'wpl_red_msg');
+            rta.util.equalPanel(true);
 		}
 	});
 }
@@ -34,7 +38,8 @@ function check_addon_update(addon_id)
 function update_package(sid)
 {
 	wpl_show_messages('<?php echo __('Please wait ...', WPL_TEXTDOMAIN); ?>', '.wpl_addons_message .wpl_show_message', 'wpl_gold_msg');
-
+    rta.util.equalPanel(true);
+    
 	/** run ajax query **/
 	request_str = 'wpl_format=b:wpl:ajax&wpl_function=update_package&sid=' + sid;
 	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str);
@@ -44,10 +49,13 @@ function update_package(sid)
 		if(data.error != '')
 		{
 			wpl_show_messages(data.error, '.wpl_addons_message .wpl_show_message', 'wpl_red_msg');
+            rta.util.equalPanel(true);
 		}
 		else
 		{
 			wpl_show_messages(data.message, '.wpl_addons_message .wpl_show_message', 'wpl_green_msg');
+            rta.util.equalPanel(true);
+            
 			setTimeout(function() { window.location.reload(); }, 1500);
 		}
 	});
@@ -70,11 +78,15 @@ function save_realtyna_credentials()
 		if(data.status == 1)
 		{
 			wpl_show_messages(data.message, '.wpl_addons_message .wpl_show_message', 'wpl_green_msg');
+            rta.util.equalPanel(true);
+            
 			wplj(ajax_loader_element).html('<span class="action-btn icon-enabled"></span>');
 		}
 		else if(data.status != 1)
 		{
 			wpl_show_messages(data.message, '.wpl_addons_message .wpl_show_message', 'wpl_red_msg');
+            rta.util.equalPanel(true);
+            
 			wplj(ajax_loader_element).html('<span class="action-btn icon-disabled"></span>');
 		}
 	});

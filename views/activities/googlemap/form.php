@@ -29,3 +29,11 @@ defined('_WPLEXEC') or die('Restricted access');
     </select>
     <?php endif; ?>
 </div>
+<div class="fanc-row">
+    <label for="wpl_o_google_place_radius"><?php echo __('Google place radius', WPL_TEXTDOMAIN); ?></label>
+    <?php if(!wpl_global::check_addon('pro')): ?>
+	<span id="wpl_o_google_place_radius" class="gray_tip"><?php echo __('Pro addon must be installed for this!', WPL_TEXTDOMAIN); ?></span>
+	<?php else: ?>
+    <input class="text_box" name="option[google_place_radius]" type="text" id="wpl_o_google_place_radius" value="<?php echo isset($this->options->google_place_radius) ? $this->options->google_place_radius: '1000'; ?>" />
+    <?php endif; ?>
+</div>

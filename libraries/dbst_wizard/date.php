@@ -7,9 +7,6 @@ if($type == 'date' and !$done_this)
     _wpl_import('libraries.render');
 	wp_enqueue_script('jquery-ui-datepicker');
 
-    $style = (object) array('param1'=>'jquery-ui-css', 'param2'=>'js/jquery.ui/jquery.ui.start.css');
-    wpl_extensions::import_style($style);
-
     $date_format_arr = explode(':', wpl_global::get_setting('main_date_format'));
     $jqdate_format = $date_format_arr[1];
 
@@ -25,7 +22,7 @@ if($type == 'date' and !$done_this)
 ?>
 <div class="date-wp">
     <label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($field->name, WPL_TEXTDOMAIN); ?><?php if (in_array($field->mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>
-    <input type="text" id="wpl_c_<?php echo $field->id; ?>" value="<?php echo wpl_render::render_date($value); ?>" onchange="ajax_save('<?php echo $field->table_name; ?>', '<?php echo $field->table_column; ?>', this.value, '<?php echo $item_id; ?>', '<?php echo $field->id; ?>');" <?php echo ($options['readonly'] == 1 ? 'disabled="disabled"' : ''); ?> />
+    <input type="text" id="wpl_c_<?php echo $field->id; ?>" value="<?php echo wpl_render::render_date($value); ?>" onchange="ajax_save('<?php echo $field->table_name; ?>', '<?php echo $field->table_column; ?>', this.value, '<?php echo $item_id; ?>', '<?php echo $field->id; ?>');" <?php echo ((isset($options['readonly']) and $options['readonly'] == 1) ? 'disabled="disabled"' : ''); ?> />
     <span id="wpl_listing_saved_span_<?php echo $field->id; ?>" class="ajax-inline-save"></span>
 </div>
 <?php
@@ -44,7 +41,7 @@ if($type == 'date' and !$done_this)
 				changeYear: true,
 				yearRange: "' . $mindate[0] . ':' . $maxdate[0] . '",
 				showOn: "both",
-				buttonImage: "' . wpl_global::get_wpl_asset_url('img/system/calendar2.png') . '",
+				buttonImage: "' . wpl_global::get_wpl_asset_url('img/system/calendar3.png') . '",
 				buttonImageOnly: false,
 				buttonImageOnly: true,
 				firstDay: 1,

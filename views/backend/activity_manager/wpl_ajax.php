@@ -41,7 +41,7 @@ class wpl_activity_manager_controller extends wpl_controller
     {
         if($confirmed) $res = wpl_activity::remove_activity($activity_id);
         else $res = false;
-
+        
         $message = $res ? __('Activity removed successfully.', WPL_TEXTDOMAIN) : __('Error Occured.', WPL_TEXTDOMAIN);
         $data = NULL;
 

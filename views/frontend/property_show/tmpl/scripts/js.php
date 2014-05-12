@@ -18,7 +18,8 @@ wplj(document).ready(function()
 		wplj('.wpl_prp_show_tabs .tabs_container div.tabs_contents').hide();
 		wplj(currentTab).show();
 		
-		if(typeof wpl_pshow_map_init == 'function')
+        var init_google_map = wplj(this).attr('data-init-googlemap');
+		if(init_google_map && typeof wpl_pshow_map_init == 'function')
 		{
 			wpl_pshow_map_init();
 		}

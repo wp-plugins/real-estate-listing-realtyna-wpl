@@ -16,6 +16,9 @@ class wpl_property_types
 		$query = "DELETE FROM `#__wpl_property_types` WHERE `id`='$property_type_id'";
 		$result = wpl_db::q($query);
 		
+        /** trigger event **/
+		wpl_global::event_handler('property_type_removed', array('id'=>$property_type_id));
+        
 		return $result;	
 	}
 	

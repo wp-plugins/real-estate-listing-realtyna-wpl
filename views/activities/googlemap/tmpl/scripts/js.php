@@ -9,7 +9,10 @@ var loaded_markers = new Array();
 var markers;
 var bounds;
 var infowindow;
-
+if(typeof google_place_radius == 'undefined')
+{
+	var google_place_radius = 1100;
+}
 function wpl_initialize<?php echo $this->activity_id; ?>()
 {
 	/** create empty LatLngBounds object **/
@@ -89,15 +92,15 @@ function wpl_initialize<?php echo $this->activity_id; ?>()
 
     wpl_map.mapTypes.set('map_style', styledMap);
     wpl_map.setMapTypeId('map_style');
-    
+
     /* Check Google Places */
 	if((typeof google_place != 'undefined') && (google_place == 1) )
 	{
         var request = {
             location: marker.position,
-            radius: 1000
+            radius: google_place_radius
         };
-    
+  
 		var service = new google.maps.places.PlacesService(wpl_map);
 		service.search(request, wpl_gplace_callback<?php echo $this->activity_id; ?>);
 	}
@@ -112,7 +115,7 @@ function wpl_marker<?php echo $this->activity_id; ?>(dataMarker)
 		map: wpl_map,
 		property_ids: dataMarker.pids,
 		icon: '<?php echo wpl_global::get_wpl_url(); ?>assets/img/listing_types/gicon/'+dataMarker.gmap_icon,
-		title: dataMarker.title
+		title: dataMarker.title,
 	});
 	
 	/** extend the bounds to include each marker's position **/
@@ -152,7 +155,7 @@ function wpl_load_markers<?php echo $this->activity_id; ?>(markers, delete_marke
 	{
 		wpl_marker<?php echo $this->activity_id; ?>(markers[i]);
 	}
-	
+	wpl_map.setZoom(1);
 	if(!markers.length)
 	{
 		wpl_map.setCenter(new google.maps.LatLng(default_lt, default_ln));

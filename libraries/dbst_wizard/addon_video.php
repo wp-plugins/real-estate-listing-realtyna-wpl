@@ -12,7 +12,7 @@ if($type == 'addon_video' and !$done_this)
     $vid_embed_items = wpl_items::get_items($item_id, 'video', $this->kind, 'video_embed', 1);
     $vid_embed_count = 1;
 ?>
-<div class="video-tabs-wp">
+<div class="video-tabs-wp" id="video-tabs">
 	<ul>
 		<li class="active"><a id="embed-tab" href="#embed" onclick="video_select_tab(0); return false;"><?php echo __('Embed code', WPL_TEXTDOMAIN); ?></a></li>
 		<?php if(wpl_settings::get('video_uploader')): ?>
@@ -83,8 +83,8 @@ function embed_video_delete(id)
 
 function video_select_tab(id)
 {
-	wplj('.video-tabs-wp').find('li').removeClass('active').eq(id).addClass('active');
-	var _this = wplj('.video-tabs-wp').find('li:eq(' + id + ') > a');
+	wplj('#video-tabs').find('li').removeClass('active').eq(id).addClass('active');
+	var _this = wplj('#video-tabs').find('li:eq(' + id + ') > a');
 	wplj('.video-content-wp').find('> div').hide().filter(_this.attr('href')).fadeIn(600);
 }
 </script>

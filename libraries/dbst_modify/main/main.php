@@ -20,14 +20,6 @@ defined('_WPLEXEC') or die('Restricted access');
     <input type="text" name="<?php echo $__prefix; ?>name" id="<?php echo $__prefix; ?>name" value="<?php echo (isset($values->name) ? $values->name : ''); ?>" />
 </div>
 <div class="fanc-row">
-    <label for="<?php echo $__prefix; ?>css"><?php echo __('CSS Class', WPL_TEXTDOMAIN); ?></label>
-    <input type="text" name="<?php echo $__prefix; ?>css" id="<?php echo $__prefix; ?>css" value="<?php echo (isset($values->css) ? $values->css : ''); ?>" />
-</div>
-<div class="fanc-row">
-    <label for="<?php echo $__prefix; ?>style"><?php echo __('CSS Style', WPL_TEXTDOMAIN); ?></label>
-    <input type="text" name="<?php echo $__prefix; ?>style" id="<?php echo $__prefix; ?>style" value="<?php echo (isset($values->style) ? $values->style : ''); ?>" />
-</div>
-<div class="fanc-row">
     <label for="<?php echo $__prefix; ?>text_search"><?php echo __('Text Search', WPL_TEXTDOMAIN); ?></label>
     <select name="<?php echo $__prefix; ?>text_search" id="<?php echo $__prefix; ?>text_search">
         <option value="1" <?php if (isset($values->text_search) and $values->text_search == '1') echo 'selected="selected"'; ?>><?php echo __('Yes', WPL_TEXTDOMAIN); ?></option>

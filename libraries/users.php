@@ -33,6 +33,9 @@ class wpl_users
 		$query = "DELETE FROM `#__wpl_users` WHERE `id`='$user_id'";
 		$result = wpl_db::q($query);
 		
+        /** trigger event **/
+		wpl_global::event_handler('user_deleted_from_wpl', array('id'=>$user_id));
+        
 		return $result;
 	}
 	
@@ -74,6 +77,9 @@ class wpl_users
 		$query = "INSERT INTO `#__wpl_users` (`id`, ".$auto_query1.") VALUES ('".$user_id."', ".$auto_query2.")";
 		$result = wpl_db::q($query);
 		
+        /** trigger event **/
+		wpl_global::event_handler('user_added_to_wpl', array('id'=>$user_id));
+        
 		return $result;
 	}
 	
@@ -395,6 +401,9 @@ class wpl_users
 		$query = "DELETE FROM `#__wpl_users` WHERE `id`='$membership_id'";
 		wpl_db::q($query);
 		
+        /** trigger event **/
+		wpl_global::event_handler('membership_removed', array('id'=>$membership_id));
+        
 		return true;
 	}
 	
@@ -481,10 +490,8 @@ class wpl_users
 		wpl_db::q($query);
 		
 		/** trigger event **/
-		if($trigger_event and $user_data->membership_id == $membership_id)
-			wpl_global::event_handler('user_access_updated', array('user_id'=>$user_id, 'previous_membership'=>$user_data->membership_id, 'new_membership'=>$membership_id));
-		elseif($trigger_event and $user_data->membership_id != $membership_id)
-			wpl_global::event_handler('user_group_changed', array('user_id'=>$user_id, 'previous_membership'=>$user_data->membership_id, 'new_membership'=>$membership_id));
+		if($trigger_event and $user_data->membership_id == $membership_id) wpl_global::event_handler('user_access_updated', array('user_id'=>$user_id, 'previous_membership'=>$user_data->membership_id, 'new_membership'=>$membership_id));
+		elseif($trigger_event and $user_data->membership_id != $membership_id) wpl_global::event_handler('user_group_changed', array('user_id'=>$user_id, 'previous_membership'=>$user_data->membership_id, 'new_membership'=>$membership_id));
 	}
 	
 	/**

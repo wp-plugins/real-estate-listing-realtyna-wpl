@@ -3,8 +3,8 @@ Contributors: realtyna
 Donate link: http://www.realtyna.com/
 Tags: Real estate, Listing, Vertical Market, MLS, Property listing, RETS
 Requires at least: 3.0.1
-Tested up to: 3.9
-Stable tag: 1.3.7
+Tested up to: 3.9.1
+Stable tag: 1.3.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -59,6 +59,14 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 6. External Responsive Template: Agent listing
 
 == Changelog ==
+
+= 1.3.9 =
+* Added simple layouts to carousel and agents widgets.
+* Added Hectare to WPL units.
+* Trigger some events using WPL events API for notifications and logs.
+* Fixed specifications issue on Flex menu.
+* Removed useless CSS and CSS style options from flex edit screen.
+* Fixed some PHP notices.
 
 = 1.3.7 =
 * Fixed an issue in search widget layout.

@@ -119,6 +119,10 @@ class wpl_data_structure_controller extends wpl_controller
 		$dest = WPL_ABSPATH . 'assets' . DS . 'img' . DS . 'listing_types' . DS . 'gicon' . DS . $icon;
 		
 		if (wpl_file::exists($dest)) wpl_file::delete($dest);
+        
+        /** trigger event **/
+		wpl_global::event_handler('gicon_removed', array('icon'=>$icon));
+        
 		exit;
 	}
 	
