@@ -387,7 +387,7 @@ class wpl_images
      * @param boolean $rewrite
      * description: resize and watermark images specially for gallery activity
      */
-    public static function create_gallary_image($width, $height, $params, $watermark = 0, $rewrite = 0, $crop = 0)
+    public static function create_gallary_image($width, $height, $params, $watermark = 0, $rewrite = 0, $crop = '')
     {
         $image_name = wpl_file::stripExt($params['image_name']);
         $image_ext = wpl_file::getExt($params['image_name']);
@@ -399,10 +399,18 @@ class wpl_images
 		if($rewrite or !wpl_file::exists($image_dest))
 		{
 			if($watermark)
-			   self::resize_watermark_image($params['image_source'], $image_dest, $width, $height);
+			    self::resize_watermark_image($params['image_source'], $image_dest, $width, $height);
 			
 			else
-			   self::resize_image($params['image_source'], $image_dest, $width, $height, $crop);
+			{
+				/** if crop was not set, read from wpl settings **/
+				if(!trim($crop))
+				{
+					$settings = wpl_settings::get_settings(2);
+					$crop = $settings['image_resize_method'];
+				}
+			    self::resize_image($params['image_source'], $image_dest, $width, $height, $crop);
+			}
 		}
 		
 		return $image_url;

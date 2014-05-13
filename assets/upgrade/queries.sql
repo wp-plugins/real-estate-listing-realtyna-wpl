@@ -63,5 +63,3 @@ UPDATE `#__wpl_extensions` SET `client`='2' WHERE `id`='101';
 
 INSERT INTO `#__wpl_units` (`id`, `name`, `type`, `enabled`, `tosi`, `index`, `extra`, `extra2`, `extra3`, `extra4`, `seperator`, `d_seperator`, `after_before`) VALUES
 (7, 'Hectare', 2, 0, 10000, 7, '', '', '', '', '', '', 0);
-
-UPDATE `#__wpl_activities` SET `position`='pshow_video', `enabled`='0' WHERE `id`='11';
