@@ -15,7 +15,7 @@ $this->watermark = (isset($params['watermark']) and trim($params['watermark']) !
 
 /** render gallery **/
 $raw_gallery = isset($wpl_properties['current']['items']['gallery']) ? $wpl_properties['current']['items']['gallery'] : array();
-$gallery = wpl_items::render_gallery($raw_gallery);
+$this->gallery = wpl_items::render_gallery($raw_gallery);
 
 $js[] = (object) array('param1'=>'jquery.bxslider', 'param2'=>'js/jquery.bxslider.min.js');
 foreach($js as $javascript) wpl_extensions::import_javascript($javascript, true);
@@ -25,7 +25,7 @@ $this->_wpl_import($this->tpl_path.'.scripts.pshow', true, true);
 ?>
 <div class="wpl_gallery_container" id="wpl_gallery_container<?php echo $this->property_id; ?>">
     <?php
-    if(!count($gallery)) 
+    if(!count($this->gallery)) 
     {
         echo '<div class="gallery_no_image"></div>';
     }
@@ -35,7 +35,7 @@ $this->_wpl_import($this->tpl_path.'.scripts.pshow', true, true);
         $i = 0;
         $pager_box = '';
 		
-        foreach($gallery as $image)
+        foreach($this->gallery as $image)
         {
 
             $image_url = $image['url'];
@@ -64,7 +64,7 @@ $this->_wpl_import($this->tpl_path.'.scripts.pshow', true, true);
         echo '</ul>';
     ?>
     <div id="bx-pager">
-        <?php echo '<div id="img_count">'.count($gallery).'</div>'.$pager_box; ?>
+        <?php echo '<div id="img_count">'.count($this->gallery).'</div>'.$pager_box; ?>
     </div>
     <?php } ?>
     

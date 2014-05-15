@@ -472,7 +472,7 @@ function isWPL(){
             rightHolder: '}',
             tag: 'div',
             idAttr: 'data-id',
-            fileName: 'inline.tmpl'
+            fileName: 'js_inline.html'
         },
         require: {
             //By default load any module IDs from js/lib

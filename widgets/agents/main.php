@@ -23,7 +23,9 @@ class wpl_agents_widget extends wpl_widget
 	public function __construct()
 	{
 		$this->widget_id = $this->number;
-		$this->widget_uq_name = 'wplc'.$this->number;
+        if($this->widget_id < 0) $this->widget_id = abs($this->widget_id)+1000;
+        
+		$this->widget_uq_name = 'wpla'.$this->widget_id;
 		
 		parent::__construct('wpl_agents_widget', 'WPL agents widget', array('description'=>__('Showing specific agents', WPL_TEXTDOMAIN)));
 	}

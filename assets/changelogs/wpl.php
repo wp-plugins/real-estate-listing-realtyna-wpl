@@ -4,9 +4,10 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
-        <h4>WPL1.4.0 (<span class="wpl_log_date">5/13/2014</span> <span class="wpl_log_revision">revision 628</span>)</h4>
-        -- Fixed some CSS issues on carousel widget.<br />
-        -- Fixed image crop issue.
+        <h4>WPL1.4.1 (<span class="wpl_log_date">5/15/2014</span> <span class="wpl_log_revision">revision 630</span>)</h4>
+        -- Fixed javascript tmpl file issue with IIS and windows servers.<br />
+        -- Fixed text search issue for locations.<br />
+        -- Fixed an id conflict issue on widgets.
         
         <h4>WPL1.3.9 (<span class="wpl_log_date">5/12/2014</span> <span class="wpl_log_revision">revision 622</span>)</h4>
         -- <strong>[PRO]</strong> Added radius option for google places feature.<br />

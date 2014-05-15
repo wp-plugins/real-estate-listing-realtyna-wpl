@@ -510,12 +510,12 @@ class wpl_property
 		/** get text_search fields **/
 		$fields = wpl_flex::get_fields('', 1, $property_data['kind'], 'text_search', '1');
 		$rendered = self::render_property($property_data, $fields);
-		
+        
 		$text_search_data = array();
 		
 		foreach($rendered as $data)
 		{
-			if(!isset($data['type']) or !isset($data['value'])) continue;
+			if(!isset($data['type'])) continue;
 			if((isset($data['type']) and !trim($data['type'])) or (isset($data['value']) and !trim($data['value']))) continue;
 			
 			/** default value **/
@@ -553,7 +553,7 @@ class wpl_property
 					$location_value .= $data['keywords'][$location_level] .' ';
 					$location_value .= $value . ' ';
 				}
-				
+                
 				$value = $location_value;
 			}
 			elseif(isset($data['value']))
@@ -566,10 +566,10 @@ class wpl_property
 			}
 			
 			/** set value in text search data **/
-			$text_search_data[] = $value;
+			if(trim($value) != '') $text_search_data[] = $value;
 			if(trim($value2) != '') $text_search_data[] = $value2;
 		}
-		
+        
 		wpl_db::set('wpl_properties', $pid, 'textsearch', implode(' ', $text_search_data));
     }
 	

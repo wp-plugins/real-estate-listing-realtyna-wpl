@@ -11,7 +11,7 @@ if($show == 'locationtextsearch' and !$done_this)
 	$current_value = wpl_request::getVar('sf_locationtextsearch', '');
 	
 	$html .= '<div class="wpl_search_widget_location_level_container" id="wpl'.$widget_id.'_search_widget_location_level_container_location_text">';
-	$html .= '<input class="wpl_search_widget_location_textsearch" value="'.$current_value.'" name="sf'.$widget_id.'_locationtextsearch" id="sf'.$widget_id.'_locationtextsearch" placeholder="'.__('Zip-code, City, County', WPL_TEXTDOMAIN).'" />';
+	$html .= '<input class="wpl_search_widget_location_textsearch" value="'.$current_value.'" name="sf'.$widget_id.'_locationtextsearch" id="sf'.$widget_id.'_locationtextsearch" placeholder="'.__($location_settings['locationzips_keyword'].', '.$location_settings['location3_keyword'].', '.$location_settings['location1_keyword'], WPL_TEXTDOMAIN).'" />';
 	
 	$html .= '
 	<script type="text/javascript">

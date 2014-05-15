@@ -142,7 +142,7 @@ if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->w
                         <div class="wpl_prp_right_boxe_details_top clearfix">
                             <div class="wpl_prp_right_boxe_details_left">
                                 <ul>
-                                    <li><?php echo __('Listing ID', WPL_TEXTDOMAIN).' : <span>'.$listing_id.'</span>'; ?></li>
+                                    <?php if(trim($listing_id) != ''): ?><li><?php echo __('Listing ID', WPL_TEXTDOMAIN).' : <span>'.$listing_id.'</span>'; ?></li><?php endif; ?>
                                     <li><?php echo __('Bedroom', WPL_TEXTDOMAIN).' : <span>'.$bedroom.'</span>'; ?></li>
                                     <li><?php echo __('Bathroom', WPL_TEXTDOMAIN).' : <span>'.$bathroom.'</span>'; ?></li>
                                     <li><?php echo __('Built Up Area', WPL_TEXTDOMAIN).' : <span>'.$build_up_area.'</span>'; ?></li>

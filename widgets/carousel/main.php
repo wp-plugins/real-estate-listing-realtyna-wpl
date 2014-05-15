@@ -25,7 +25,9 @@ class wpl_carousel_widget extends wpl_widget
 	public function __construct()
 	{
 		$this->widget_id = $this->number;
-		$this->widget_uq_name = 'wplc'.$this->number;
+        if($this->widget_id < 0) $this->widget_id = abs($this->widget_id)+1000;
+        
+		$this->widget_uq_name = 'wplc'.$this->widget_id;
 		
 		parent::__construct('wpl_carousel_widget', 'WPL carousel widget', array('description'=>__('Showing specific properties', WPL_TEXTDOMAIN)));
 	}

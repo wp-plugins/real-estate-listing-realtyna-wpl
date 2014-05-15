@@ -566,6 +566,30 @@ class wpl_extensions
         /** delete options **/
         wpl_db::q("DELETE FROM `#__options` WHERE `option_name` LIKE 'wpl_%' AND `option_name` NOT LIKE 'wpl_theme%'", 'delete');
         
+        /** remove WPL upload directory **/
+        if(function_exists('is_multisite') and is_multisite() and wpl_global::check_addon('multisite'))
+        {
+            $original_blog_id = wpl_global::get_current_blog_id();
+
+            // Get all blogs
+            $blogs = wpl_db::select("SELECT `blog_id` FROM `#__blogs`", 'loadColumn');
+
+            foreach($blogs as $blog)
+            {
+                switch_to_blog($blog->blog_id);
+                
+                $upload_path = wpl_global::get_upload_base_path($blog->blog_id);
+                if(wpl_folder::exists($upload_path)) wpl_folder::delete($upload_path);
+            }
+            
+            switch_to_blog($original_blog_id);
+        }
+        else
+        {
+            $upload_path = wpl_global::get_upload_base_path();
+            if(wpl_file::exists($upload_path)) wpl_file::delete($upload_path);
+        }
+        
         return true;
 	}
 	
