@@ -10,8 +10,7 @@ _wpl_import('libraries.activities');
 
     <header>
         <div id="icon-dashboard" class="icon48"></div>
-        <h2><?php echo __('WPL', WPL_TEXTDOMAIN); ?>&nbsp;<?php echo(wpl_global::check_addon('pro') ? 'PRO' : 'Basic'); ?><span
-                class="wpl_version">v<?php echo wpl_global::wpl_version(); ?></span></h2>
+        <h2><?php echo __('WPL', WPL_TEXTDOMAIN); ?>&nbsp;<?php echo(wpl_global::check_addon('pro') ? 'PRO' : 'Basic'); ?><span class="wpl_version">v<?php echo wpl_global::wpl_version(); ?></span></h2>
     </header>
 
     <div id="dashboard-links-wp">

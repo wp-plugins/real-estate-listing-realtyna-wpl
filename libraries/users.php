@@ -266,10 +266,15 @@ class wpl_users
 		@description for getting user role (wp feature)
 		@author Howard
 	**/
-	public static function get_role($user_id = '')
+	public static function get_role($user_id = '', $superadmin_role = true)
 	{
 		$user_data = self::get_user($user_id);
-		return $user_data->roles[0];
+		$role = $user_data->roles[0];
+        
+        /** check network admin **/
+        if($superadmin_role and wpl_users::is_super_admin($user_id)) $role = 'superadmin';
+        
+        return $role;
 	}
 	
 	/**
@@ -280,6 +285,7 @@ class wpl_users
 	public static function get_wpl_roles()
 	{
 		$roles = array();
+        $roles['superadmin'] = 'superadmin';
 		$roles['admin'] = 'administrator';
 		$roles['editor'] = 'editor';
 		$roles['agent'] = 'author';
@@ -304,6 +310,7 @@ class wpl_users
 		if(!in_array($role, $roles)) $role = 'guest';
 		
 		$roles_point = array();
+        $roles_point['superadmin'] = 6;
 		$roles_point['administrator'] = 5;
 		$roles_point['editor'] = 4;
 		$roles_point['author'] = 3;
@@ -375,7 +382,7 @@ class wpl_users
 		@description for getting unique id for new membership
 		@author Morgan
 	**/
-	public static function get_mmbership_id()
+	public static function get_membership_id()
 	{
 		$query = "SELECT MIN(id) as min_id FROM `#__wpl_users`";
 		$result = wpl_db::select($query, 'loadResult');
@@ -437,13 +444,33 @@ class wpl_users
 		@description for checking if a user is wordpress admin or not
 		@author Howard
 	**/
+	public static function is_administrator($user_id = '')
+	{
+		/** get current user id **/
+		if(!trim($user_id)) $user_id = wpl_users::get_cur_user_id();
+		if($user_id == 0 or $user_id == '') return false;
+		
+		$administrator = wpl_global::has_permission('administrator', $user_id);
+		$super_admin = wpl_users::is_super_admin();
+		
+		if($super_admin) return true;
+		return $administrator;
+	}
+	
+	/**
+		@input {user_id}
+		@return boolean result
+		@description for checking if a user is wordpress network admin or not
+            USE is_administrator FUNCTION IF YOU WANT TO CHECK ADMIN. this function is checking super admin (Network admin)
+		@author Howard
+	**/
 	public static function is_super_admin($user_id = '')
 	{
 		/** get current user id **/
 		if(!trim($user_id)) $user_id = wpl_users::get_cur_user_id();
 		if($user_id == 0 or $user_id == '') return false;
 		
-		return wpl_global::has_permission('administrator', $user_id);
+		return is_super_admin($user_id);
 	}
 	
 	/**
@@ -490,8 +517,8 @@ class wpl_users
 		wpl_db::q($query);
 		
 		/** trigger event **/
-		if($trigger_event and $user_data->membership_id == $membership_id) wpl_global::event_handler('user_access_updated', array('user_id'=>$user_id, 'previous_membership'=>$user_data->membership_id, 'new_membership'=>$membership_id));
-		elseif($trigger_event and $user_data->membership_id != $membership_id) wpl_global::event_handler('user_group_changed', array('user_id'=>$user_id, 'previous_membership'=>$user_data->membership_id, 'new_membership'=>$membership_id));
+		if($trigger_event and isset($user_data->membership_id) and $user_data->membership_id == $membership_id) wpl_global::event_handler('user_access_updated', array('user_id'=>$user_id, 'previous_membership'=>$user_data->membership_id, 'new_membership'=>$membership_id));
+		elseif($trigger_event and isset($user_data->membership_id) and $user_data->membership_id != $membership_id) wpl_global::event_handler('user_group_changed', array('user_id'=>$user_id, 'previous_membership'=>$user_data->membership_id, 'new_membership'=>$membership_id));
 	}
 	
 	/**
@@ -512,7 +539,7 @@ class wpl_users
 		
 		if($access == 'edit')
 		{
-			if($owner_id == $user_id or wpl_users::is_super_admin($user_id)) return true;
+			if($owner_id == $user_id or wpl_users::is_administrator($user_id)) return true;
 		}
 		elseif($access == 'add')
 		{
@@ -520,16 +547,16 @@ class wpl_users
 			$num_prop = wpl_users::get_users_properties_count($user_id);
 			
 			if($num_prop_limit == '-1') return true; # unlimited
-			if($num_prop_limit <= $num_prop and !wpl_users::is_super_admin($user_id)) return false;
+			if($num_prop_limit <= $num_prop and !wpl_users::is_administrator($user_id)) return false;
 			else return true;
 		}
 		elseif($access == 'delete')
 		{
-			if($user_data->access_delete and ($owner_id == $user_id or wpl_users::is_super_admin($user_id))) return true;
+			if($user_data->access_delete and ($owner_id == $user_id or wpl_users::is_administrator($user_id))) return true;
 		}
 		elseif($access == 'confirm')
 		{
-			if($user_data->access_confirm and ($owner_id == $user_id or wpl_users::is_super_admin($user_id))) return true;
+			if($user_data->access_confirm and ($owner_id == $user_id or wpl_users::is_administrator($user_id))) return true;
 		}
 		else
 		{

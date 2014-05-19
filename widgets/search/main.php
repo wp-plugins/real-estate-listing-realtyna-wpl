@@ -23,11 +23,6 @@ class wpl_search_widget extends wpl_widget
 	
 	public function __construct()
 	{
-        $this->widget_id = $this->number;
-        if($this->widget_id < 0) $this->widget_id = abs($this->widget_id)+1000;
-        
-        $this->widget_uq_name = 'wpls'.$this->widget_id;
-        
 		parent::__construct('wpl_search_widget', 'WPL search widget', array('description'=>__('Search property', WPL_TEXTDOMAIN)));
 	}
 
@@ -36,6 +31,8 @@ class wpl_search_widget extends wpl_widget
 	 */
 	public function widget($args, $instance)
 	{
+		$this->widget_uq_name = 'wpls'.$this->number;
+		$this->widget_id = $this->number;
 		$widget_id = $this->widget_id;
 		$target_id = isset($instance['wpltarget']) ? $instance['wpltarget'] : 0;
         
@@ -89,6 +86,15 @@ class wpl_search_widget extends wpl_widget
 	{
 		_wpl_import('libraries.flex');
 
+		/** add main scripts **/
+		wp_enqueue_script('jquery-ui-core');
+		wp_enqueue_script('jquery-ui-slider');
+		wp_enqueue_script('jquery-ui-button');
+		wp_enqueue_script('jquery-ui-datepicker');
+		wp_enqueue_script('jquery-ui-draggable');
+		wp_enqueue_script('jquery-ui-droppable');
+		wp_enqueue_script('jquery-effects-core');
+
 		/* Set up some default widget settings. */
 		if(!isset($instance['layout']))
 		{
@@ -116,8 +122,8 @@ class wpl_search_widget extends wpl_widget
 		}
                 
 	}
-        
-        public function generate_backend_categories_tabs($values)
+    
+    public function generate_backend_categories_tabs($values)
 	{
 		$categories = wpl_flex::get_categories(1, 0, ' and `searchmod` = 1 and `kind` = 0 and `enabled`>=1');
                 

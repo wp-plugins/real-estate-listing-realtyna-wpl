@@ -5,7 +5,6 @@ defined('_WPLEXEC') or die('Restricted access');
 _wpl_import($this->tpl_path . '.scripts.js');
 _wpl_import($this->tpl_path . '.scripts.css');
 ?>
-
 <div class="wrap wpl-wp user-wp">
     <header>
         <div id="icon-user" class="icon48">
@@ -66,12 +65,12 @@ _wpl_import($this->tpl_path . '.scripts.css');
                         <td><?php echo $wp_user->user_email; ?></td>				
                         <td><?php echo $wp_user->user_registered; ?></td>            
                         <td class="wpl_manager_td">
-                            <span id="wpl_edit_btn_<?php echo $wp_user->id; ?>" class="<?php if (!$wp_user->id) echo 'wpl_hidden_element'; ?> action-btn icon-edit wpl_show fancybox wpl_user_edit_div" href="#wpl_user_edit_div" onclick="wpl_edit_user(<?php echo $wp_user->ID; ?>)"></span>
+                            <span id="wpl_edit_btn_<?php echo $wp_user->id; ?>" class="action-btn icon-edit wpl_show fancybox wpl_user_edit_div" href="#wpl_user_edit_div" onclick="wpl_edit_user(<?php echo $wp_user->ID; ?>);" style="<?php if(!$wp_user->id) echo 'display: none;'; ?>"></span>
                             <span class="<?php if ($wp_user->id) echo 'wpl_hidden_element'; ?>" id="no_added_to_wpl<?php echo $wp_user->ID; ?>">
-                                <span class="action-btn icon-enabled" onclick="add_to_wpl(<?php echo $wp_user->ID; ?>);"></span>
+                                <span class="action-btn icon-plus" onclick="add_to_wpl(<?php echo $wp_user->ID; ?>);" title="<?php echo __('Add user to WPL', WPL_TEXTDOMAIN); ?>"></span>
                             </span>
                             <span class="<?php if (!$wp_user->id) echo 'wpl_hidden_element'; ?>  wpl_actions_icon_disable" id="added_to_wpl<?php echo $wp_user->ID; ?>">                	
-                                <span class="action-btn icon-disabled" onclick="wpl_remove_user(<?php echo $wp_user->ID; ?>, 0);"></span>
+                                <span class="action-btn icon-disabled" onclick="wpl_remove_user(<?php echo $wp_user->ID; ?>, 0);" title="<?php echo __('Remove user from WPL', WPL_TEXTDOMAIN); ?>"></span>
                             </span>
                             <span class="ajax-inline-save" id="wpl_ajax_loader_<?php echo $wp_user->ID; ?>"></span>
                         </td>

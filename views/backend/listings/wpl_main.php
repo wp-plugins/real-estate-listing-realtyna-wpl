@@ -55,7 +55,7 @@ class wpl_listings_controller extends wpl_controller {
         $this->model = new wpl_property;
 		
 		/** load user properties **/
-		if(!wpl_users::is_super_admin($current_user_id))
+		if(!wpl_users::is_administrator($current_user_id))
 		{
 			$where['sf_select_user_id'] = $current_user_id;
 		}

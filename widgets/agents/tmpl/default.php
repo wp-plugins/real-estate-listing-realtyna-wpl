@@ -12,7 +12,9 @@ include _wpl_import("widgets.agents.scripts.js", true, true);
         $agent_l_name = (isset($profile['rendered'][901]['value']) ? $profile['rendered'][901]['value'] : '');
         ?>
         <div class="wpl_profile_container" id="wpl_profile_container<?php echo $profile['data']['id']; ?>">
-            <div class="wpl_profile_picture">
+            <div class="wpl_profile_picture"
+                <?php 
+                echo 'style="'.(isset($profile['profile_picture']['image_width']) ? 'width:'.$profile['profile_picture']['image_width'].'px;' : '').(isset($profile['profile_picture']['image_height']) ? 'height:'.$profile['profile_picture']['image_height'].'px;' : '').'"'; ?>>
                 <div class="front">
                     <?php
 
@@ -28,7 +30,7 @@ include _wpl_import("widgets.agents.scripts.js", true, true);
                     ?>
                 </div>
                 <div class="back">
-                    <a href="<?php echo $profile['profile_link']; ?>" class="view_properties"><?php echo __('View properties', WPL_TEXTDOMAIN); ?></a>
+                    <a href="<?php echo $profile['profile_link']; ?>" class="view_properties" <?php echo 'style="'.(isset($profile['profile_picture']['image_height']) ? 'line-height:'.$profile['profile_picture']['image_height'].'px;' : '').'"'; ?>><?php echo __('View properties', WPL_TEXTDOMAIN); ?></a>
                 </div>
             </div>
 

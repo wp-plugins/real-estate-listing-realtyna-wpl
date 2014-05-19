@@ -519,7 +519,7 @@ class wpl_property
 			if((isset($data['type']) and !trim($data['type'])) or (isset($data['value']) and !trim($data['value']))) continue;
 			
 			/** default value **/
-			$value = $data['value'];
+			$value = isset($data['value']) ? $data['value'] : '';
 			$value2 = '';
 			$type = $data['type'];
 			

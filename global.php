@@ -341,7 +341,7 @@ class wpl_global
 		if(!trim($user_id)) $user_id = wpl_users::get_cur_user_id();
 		
 		/** return admin access **/
-		if(wpl_users::is_super_admin($user_id)) return 1000;
+		if(wpl_users::is_administrator($user_id)) return 1000;
 
 		if(!trim($user_id) or !wpl_users::is_wpl_user($user_id)) $query = "SELECT `access_".$access."` FROM `#__wpl_users` WHERE `id`='-2'";
 		else $query = "SELECT `access_".$access."` FROM `#__wpl_users` WHERE `id`='$user_id'";

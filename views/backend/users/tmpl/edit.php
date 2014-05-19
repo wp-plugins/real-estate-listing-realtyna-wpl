@@ -35,11 +35,12 @@ _wpl_import($this->tpl_path . '.scripts.css');
                         <div class="access-checkbox-wp">
                             <input type="hidden" id="id" name="id" value="<?php echo $this->user_data->id; ?>" />
                             <?php
-                            foreach ($this->fields as $field => $value) {
-                                if (substr($value, 0, 7) != 'access_')
-                                    continue;
+                            foreach($this->fields as $field=>$value)
+                            {
+                                if(substr($value, 0, 7) != 'access_') continue;
+                                
                                 echo '<div class="checkbox-wp"><input type="checkbox" id="' . $value . '" value="' . $this->user_data->{$value} . '"' . ($this->user_data->{$value} == 1 ? 'checked="checked"' : '');
-                                echo '  /> <label for="' . $value . '">' . str_replace('_', ' ', substr($value, 7)) . '</label></div>';
+                                echo ' /> <label for="' . $value . '">' . str_replace('_', ' ', substr($value, 7)) . '</label></div>';
                             }
                             ?>
                         </div>

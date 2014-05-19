@@ -11,9 +11,11 @@ $this->html_ajax_loader = isset($params['html_ajax_loader']) ? $params['html_aja
 $this->img_ajax_loader = isset($params['img_ajax_loader']) ? $params['img_ajax_loader'] : 'ajax-loader3.gif';
 $this->request_str = isset($params['request_str']) ? $params['request_str'] : '';
 $this->valid_extensions = (isset($params['valid_extensions']) and is_array($params['valid_extensions'])) ? $params['valid_extensions'] : array('jpg', 'gif', 'png');
+$this->footer_js = isset($params['footer_js']) ? $params['footer_js'] : true;
+$this->js_callback = isset($params['js_callback']) ? $params['js_callback'] : false;
 
 /** importing js codes **/
-$this->_wpl_import($this->tpl_path.'.scripts.js', true, true);
+$this->_wpl_import($this->tpl_path.'.scripts.js', true, $this->footer_js);
 ?>
 <div class="file-upload-wp">
     <div class="wpl-button button-1 button-upload">

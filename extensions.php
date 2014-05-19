@@ -618,7 +618,7 @@ class wpl_extensions
 		$cur_user_id = wpl_users::get_cur_user_id();
 		$cur_user_data = wpl_users::get_user($cur_user_id);
 		
-		if(wpl_users::is('administrator', $cur_user_id) or $cur_user_data->data->wpl_data->id)
+		if(wpl_users::is_administrator($cur_user_id) or $cur_user_data->data->wpl_data->id)
 		{
 			$wp_admin_bar->add_menu(array(
 			   'id'=>'wpl_add_listings',
@@ -639,7 +639,7 @@ class wpl_extensions
 		$cur_user_id = wpl_users::get_cur_user_id();
 		$cur_user_data = wpl_users::get_user($cur_user_id);
 		
-		$cur_role = wpl_users::get_role();
+		$cur_role = wpl_users::get_role($cur_user_id, false);
 		$wpl_roles = wpl_users::get_wpl_roles();
 		$menus = wpl_global::get_menus('menu', 'backend');
 		$submenus = wpl_global::get_menus('submenu', 'backend');
@@ -647,7 +647,7 @@ class wpl_extensions
 		/** generate pages object **/
 		$controller = new wpl_controller();
 	
-		if(wpl_users::is('administrator', $cur_user_id) or $cur_user_data->data->wpl_data->id)
+		if(wpl_users::is_administrator($cur_user_id) or $cur_user_data->data->wpl_data->id)
 		{
 			/** add menus **/
 			foreach($menus as $menu)
@@ -679,7 +679,7 @@ class wpl_extensions
 		$cur_user_id = wpl_users::get_cur_user_id();
 		$cur_user_data = wpl_users::get_user($cur_user_id);
 		
-		$cur_role = wpl_users::get_role();
+		$cur_role = wpl_users::get_role($cur_user_id, false);
 		$wpl_roles = wpl_users::get_wpl_roles();
 		$menus = wpl_global::get_menus('menu', 'backend');
 		$submenus = wpl_global::get_menus('submenu', 'backend');
@@ -689,12 +689,12 @@ class wpl_extensions
 		/** generate pages object **/
 		$controller = new wpl_controller();
 	
-		if(wpl_users::is('administrator', $cur_user_id) or $cur_user_data->data->wpl_data->id)
+		if(wpl_users::is_administrator($cur_user_id) or $cur_user_data->data->wpl_data->id)
 		{
 			/** add menus **/
 			foreach($menus as $menu)
 			{
-				$menu_slug = (!wpl_users::is('administrator', $cur_user_id) and $submenu->capability != 'current') ? 'wpl_admin_profile' : $menu->menu_slug;
+				$menu_slug = (!wpl_users::is_administrator($cur_user_id) and $menu->capability != 'current') ? 'wpl_admin_profile' : $menu->menu_slug;
 				
 				$wp_admin_bar->add_menu(array(
 					'id'=>$menu->menu_slug,
@@ -706,7 +706,7 @@ class wpl_extensions
 			/** add sub menus **/
 			foreach($submenus as $submenu)
 			{
-				if(!wpl_users::is('administrator', $cur_user_id) and $submenu->capability != 'current') continue;
+				if(!wpl_users::is_administrator($cur_user_id) and $submenu->capability != 'current') continue;
 				
 				$menu_title = $submenu->separator ? $controller->wpl_add_separator().__($submenu->menu_title, WPL_TEXTDOMAIN) : __($submenu->menu_title, WPL_TEXTDOMAIN);
 				
