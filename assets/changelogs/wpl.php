@@ -4,6 +4,9 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.4.3 (<span class="wpl_log_date">5/25/2014</span> <span class="wpl_log_revision">revision 635</span>)</h4>
+        -- Fixed some tiny issues.<br />
+        
         <h4>WPL1.4.2 (<span class="wpl_log_date">5/19/2014</span> <span class="wpl_log_revision">revision 634</span>)</h4>
         -- Fixed an issue on search widget.<br />
         -- Fixed a style issue on WPL frontend.
