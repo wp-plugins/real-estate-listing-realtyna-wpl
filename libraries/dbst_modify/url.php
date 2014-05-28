@@ -2,7 +2,7 @@
 /** no direct access * */
 defined('_WPLEXEC') or die('Restricted access');
 
-if($type == 'gallery' and !$done_this)
+if($type == 'url' and !$done_this)
 {
 ?>
 <div class="fanc-body">
@@ -35,13 +35,16 @@ if($type == 'gallery' and !$done_this)
 					<?php echo __('Params', WPL_TEXTDOMAIN); ?>    
 				</span>
 			</div>
-			<div class="fanc-row">
-				<label for="<?php echo $__prefix; ?>opt_ext_file"><?php echo __('Valid file type', WPL_TEXTDOMAIN); ?></label>
-				<input type="text" name="<?php echo $__prefix; ?>opt_ext_file" id="<?php echo $__prefix; ?>opt_ext_file" value="<?php echo (isset($options['ext_file']) ? $options['ext_file'] : ''); ?>" />
+            <div class="fanc-row">
+				<label for="<?php echo $__prefix; ?>opt_link_title"><?php echo __('Link title', WPL_TEXTDOMAIN); ?></label>
+				<input type="text" name="<?php echo $__prefix; ?>opt_link_title" id="<?php echo $__prefix; ?>opt_link_title" value="<?php echo (isset($options['link_title']) ? $options['link_title'] : ''); ?>" />
 			</div>
 			<div class="fanc-row">
-				<label for="<?php echo $__prefix; ?>opt_file_size"><?php echo __('Maximum file size', WPL_TEXTDOMAIN); ?></label>
-				<input type="text" name="<?php echo $__prefix; ?>opt_file_size" id="<?php echo $__prefix; ?>opt_file_size" value="<?php echo (isset($options['file_size']) ? $options['file_size'] : ''); ?>" />
+				<label for="<?php echo $__prefix; ?>opt_link_target"><?php echo __('Target', WPL_TEXTDOMAIN); ?></label>
+                <select name="<?php echo $__prefix; ?>opt_link_target" id="<?php echo $__prefix; ?>opt_link_target">
+                    <option <?php echo (isset($options['link_target']) and $options['link_target'] == '_blank') ? 'selected="selected"' : ''; ?> value="_blank"><?php echo __('New Window', WPL_TEXTDOMAIN); ?></option>
+                    <option <?php echo (isset($options['link_target']) and $options['link_target'] == '_self') ? 'selected="selected"' : ''; ?> value="_self"><?php echo __('Current Window', WPL_TEXTDOMAIN); ?></option>
+                </select>
 			</div>
 		</div>
 	</div>

@@ -20,11 +20,11 @@ class wpl_images
      * @param int $crop     : 0 if crop is disable, 1 if crop is enable, 2 if crop (center) is enable
      * @return string       : destination file path
      */
-    public static function resize_image($source, $dest, $width, $height, $crop = 0) 
+    public static function resize_image($source, $dest, $width, $height, $crop = 0)
     {
         $extension = wpl_file::getExt(strtolower($source));
 
-        switch($extension) 
+        switch($extension)
         {
             case 'jpg':
             case 'jpeg':

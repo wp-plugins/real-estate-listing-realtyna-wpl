@@ -301,7 +301,7 @@ class wpl_users_controller extends wpl_controller
 					self::delete_file(912, $user_id, false);
 					
 					$new_file_name = 'profile.'.$extention;
-					
+                    
 					/** save into db and add to items **/
 					wpl_db::set('wpl_users', $user_id, 'profile_picture', $new_file_name);
 				}

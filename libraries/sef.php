@@ -305,9 +305,9 @@ class wpl_sef
                    {
                        $param_ex = explode('=', $param);
                        $key = $param_ex[0];
-                       $value = trim($param_ex[1], '" ');
+                       $value = isset($param_ex[1]) ? trim($param_ex[1], '" ') : '';
                        
-                       wpl_request::setVar($key, $value, 'method', false);
+                       if(trim($key) != '') wpl_request::setVar($key, $value, 'method', false);
                    }
                }
             }

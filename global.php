@@ -690,7 +690,7 @@ class wpl_global
 		
 		$read_file = wpl_file::read($sql_file);
 		if($read_file != '')
-		{       
+		{
 			$read_file = str_replace(";\r\n", "-=++=-", $read_file);
 			$read_file = str_replace(";\r", "-=++=-", $read_file);
 			$read_file = str_replace(";\n", "-=++=-", $read_file);

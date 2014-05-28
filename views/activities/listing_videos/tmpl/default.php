@@ -25,7 +25,7 @@ if(!count($videos) or !is_array($videos)) return;
 <div class="wpl_videos_container" id="wpl_videos_container<?php echo $property_id; ?>">
 	<ul class="wpl_videos_list_container">
 		<?php foreach($videos as $video): ?>
-        <li class="wpl_videos_video wpl_video_type<?php echo $video['item_cat']; ?>" id="wpl_videos_video<?php echo $video['id']; ?>">
+        <li class="wpl_videos_video wpl_video_type<?php echo (isset($video['item_cat']) ? $video['item_cat'] : ''); ?>" id="wpl_videos_video<?php echo (isset($video['id']) ? $video['id'] : ''); ?>">
         	<?php if($video['category'] == 'video'): ?>
             <video id="example_video_<?php echo $video['id']; ?>" class="video-js vjs-default-skin" controls preload="none" width="<?php echo $video_width; ?>" height="<?php echo $video_height; ?>" data-setup="{}">
                 <source src="<?php echo $video['url']; ?>" type='video/<?php echo pathinfo($video['url'], PATHINFO_EXTENSION); ?>' />

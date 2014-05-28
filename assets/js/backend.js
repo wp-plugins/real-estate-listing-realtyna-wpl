@@ -79,7 +79,9 @@ Date.prototype.timeNow = function () {
  * Add some function to Array
  * @returns {Array.prototype.unique.a|Array.prototype.unique@call;concat}
  */
+
 // Add unique method to concat array
+/*
 Array.prototype.unique = function () {
     var a = this.concat();
     for (var i = 0; i < a.length; ++i) {
@@ -91,6 +93,7 @@ Array.prototype.unique = function () {
 
     return a;
 };
+*/
 
 function isWPL(){
     _j('html').attr('data-wpl-plugin','');

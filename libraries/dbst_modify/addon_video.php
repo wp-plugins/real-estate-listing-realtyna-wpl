@@ -30,6 +30,11 @@ if($type == 'addon_video' and !$done_this)
 				$path = _wpl_import('libraries.dbst_modify.main.specific', true, true);
 				include $path;
 			?>
+            <div class="fanc-row fanc-inline-title">
+				<span>
+					<?php echo __('Params', WPL_TEXTDOMAIN); ?>    
+				</span>
+			</div>
 			<div class="fanc-row">
 				<label for="<?php echo $__prefix; ?>opt_ext_file"><?php echo __('Valid file type', WPL_TEXTDOMAIN); ?></label>
 				<input type="text" name="<?php echo $__prefix; ?>opt_ext_file" id="<?php echo $__prefix; ?>opt_ext_file" value="<?php echo (isset($options['ext_file']) ? $options['ext_file'] : ''); ?>" />

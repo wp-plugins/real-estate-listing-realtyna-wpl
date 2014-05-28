@@ -6,6 +6,13 @@ $this->_wpl_import($this->tpl_path.'.scripts.js', true, true);
 ?>
 <div class="wpl_property_listing_container" id="wpl_property_listing_container">
 	<?php /** load position1 **/ wpl_activity::load_position('plisting_position1', array('wpl_properties'=>$this->wpl_properties)); ?>
+    
+    <?php if(is_active_sidebar('wpl-plisting-top')): ?>
+    <div class="wpl_plisting_top_sidebar_container">
+        <?php dynamic_sidebar('wpl-plisting-top'); ?>
+    </div>
+    <?php endif; ?>
+    
     <div class="wpl_sort_options_container">
         <div class="wpl_sort_options_container_title"><?php echo __("Sort Option :", WPL_TEXTDOMAIN) ?></div>
         <?php echo $this->model->generate_sorts(); ?>
@@ -39,7 +46,7 @@ $this->_wpl_import($this->tpl_path.'.scripts.js', true, true);
             </div>
             <div class="wpl_prp_bot">
                 <?php
-                echo '<div class="wpl_prp_title">'.$property['rendered'][3]['value'].' - '.$property['rendered'][2]['value'] . '</div>';
+                echo '<div class="wpl_prp_title">'.((isset($property['rendered'][313]) and trim($property['rendered'][313]['value']) != '') ? $property['rendered'][313]['value'] : $property['rendered'][3]['value'].' - '.$property['rendered'][2]['value']).'</div>';
                 echo '<div class="wpl_prp_listing_location">'.$property['location_text'] .'</div>';   
                 ?>
                 <div class="wpl_prp_listing_icon_box"><?php echo $room . $bathroom . $parking . $pic_count; ?></div>

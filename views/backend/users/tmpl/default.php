@@ -13,12 +13,9 @@ _wpl_import($this->tpl_path . '.scripts.css');
     </header>
     <div class="wpl_user_list"><div class="wpl_show_message"></div></div>
     <div class="sidebar-wp">
-        <div class="tablenav">
-            <div class="tablenav-pages">
-                <?php echo $this->pagination->show(); ?>
-            </div>
+        <div class="pagination-wp">
+            <?php echo $this->pagination->show(); ?>
         </div>
-
         <table class="widefat page">
             <thead>
                 <tr>

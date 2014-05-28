@@ -13,9 +13,11 @@ $listing_id         = isset($this->wpl_properties['current']['rendered_raw'][5][
 $price              = isset($this->wpl_properties['current']['rendered_raw'][6]['value']) ? $this->wpl_properties['current']['rendered_raw'][6]['value'] : '';
 $price_type         = isset($this->wpl_properties['current']['rendered_raw'][14]['value']) ? $this->wpl_properties['current']['rendered_raw'][14]['value'] : '';
 $location_string 	= isset($this->wpl_properties['current']['location_text']) ? $this->wpl_properties['current']['location_text'] : '';
+$prp_title          = (isset($this->wpl_properties['current']['raw']['field_313']) and trim($this->wpl_properties['current']['raw']['field_313']) != '') ? $this->wpl_properties['current']['raw']['field_313'] : $prp_type .' '.$prp_listings;
 
 $pshow_gallery_activities = count(wpl_activity::get_activities('pshow_gallery', 1));
 $pshow_googlemap_activities = count(wpl_activity::get_activities('pshow_googlemap', 1));
+$pshow_walkscore_activities = count(wpl_activity::get_activities('pshow_walkscore', 1));
 
 /** video tab for showing videos **/
 $pshow_video_activities = count(wpl_activity::get_activities('pshow_video', 1));
@@ -58,12 +60,12 @@ if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->w
         <div class="wpl_prp_container_content">
             <div class="wpl_prp_container_content_title">
                 <?php
-                echo '<div class="title_text">'.$prp_type .' '.$prp_listings.'</div>';
+                echo '<div class="title_text">'.$prp_title.'</div>';
                 echo '<div class="location_build_up">'.$build_up_area.' - '. $location_string .'</div>';
 				
                 /** load QR Code **/ wpl_activity::load_position('pshow_qr_code', array('wpl_properties'=>$this->wpl_properties)); ?>
             </div>
-            <div class="wpl_prp_container_content_left">               
+            <div class="wpl_prp_container_content_left">
 				<?php if($this->wpl_properties['current']['data']['field_308']): ?>
                 <div class="wpl_prp_show_detail_boxes">
                     <div class="wpl_prp_show_detail_boxes_title"><?php echo __('Property Description', WPL_TEXTDOMAIN) ?></div>
@@ -111,7 +113,7 @@ if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->w
 							
                             echo '</div>';
                         }
-                        elseif($value['type'] == 'locations')
+                        elseif($value['type'] == 'locations' and isset($value['locations']) and is_array($value['locations']))
                         {
                             foreach ($value['locations'] as $ii=>$lvalue)
                             {
@@ -136,7 +138,7 @@ if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->w
             <div class="wpl_prp_container_content_right">
                 <div class="wpl_prp_right_boxes details">
                     <div class="wpl_prp_right_boxes_title">
-                        <?php echo $prp_type .' <span class="title_color">'.$prp_listings.'</span>'; ?>
+                        <?php echo '<span>'.$prp_type .'</span> '.$prp_listings; ?>
                     </div>
                     <div class="wpl_prp_right_boxes_content">
                         <div class="wpl_prp_right_boxe_details_top clearfix">
@@ -174,7 +176,26 @@ if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->w
                                 $activity_title =  explode(':', $activity->activity);
                             ?> 
                                 <div class="wpl_prp_right_boxes <?php echo $activity_title[0]; ?>">
-                                    <?php if($activity->show_title and trim($activity->title) != '') echo '<div class="wpl_prp_right_boxes_title">'.__($activity->title).'</div>'; ?> 
+                                    <?php if($activity->show_title and trim($activity->title) != '')
+                                    {
+                                        $activity_box_title = NULL;
+                                        $title_parts        = explode(' ',$activity->title);
+                                        $i_part             = 0;
+                                        foreach ($title_parts as $title_part) {
+                                            if($i_part == 0)
+                                            {
+                                                $activity_box_title.='<span>'.$title_part.'</span> ';
+                                            }
+                                            else
+                                            {
+                                                $activity_box_title.=$title_part.' ';
+                                            }
+                                            $i_part++;
+                                        }
+
+                                        echo '<div class="wpl_prp_right_boxes_title">'.__($activity_box_title).'</div>';  
+                                    }
+                                    ?> 
                                     <div class="wpl_prp_right_boxes_content clearfix">
                                         <?php echo $content; ?>
                                     </div>
@@ -185,7 +206,14 @@ if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->w
                     ?>
                 </div>
             </div>
-            <?php if(is_active_sidebar('wpl-pshow-bottom')) dynamic_sidebar('wpl-pshow-bottom'); ?>
+            <div class="wpl_prp_show_bottom">
+                <?php if($pshow_walkscore_activities): ?>
+                <div class="wpl_prp_show_walkscore">
+                    <?php /** load position walkscore **/ wpl_activity::load_position('pshow_walkscore', array('wpl_properties'=>$this->wpl_properties)); ?>
+                </div>
+                <?php endif; ?>
+                <?php if(is_active_sidebar('wpl-pshow-bottom')) dynamic_sidebar('wpl-pshow-bottom'); ?>
+            </div>
         </div>
     </div>
 </div>

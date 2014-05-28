@@ -22,8 +22,8 @@ foreach($wpl_properties as $key=>$gallery)
         $params['image_parentkind'] = $gallery["items"]["gallery"][0]->parent_kind;
         $params['image_source'] 	= wpl_global::get_upload_base_path().$params['image_parentid'].DS.$params['image_name'];
 
-        if($gallery['raw']['property_title']) $image_title = $gallery['raw']['property_title'];
-        else $image_title = $gallery['rendered'][3]['value'] .' '.$gallery['rendered'][2]['value'];
+        if(isset($gallery['rendered']['313']) and trim($gallery['rendered']['313']['value']) != '') $image_title = $gallery['rendered']['313']['value'];
+        else $image_title = $gallery['rendered'][3]['value'].' '.$gallery['rendered'][2]['value'];
 		
 		$image_description	= $gallery["items"]["gallery"][0]->item_extra2;
         
@@ -40,7 +40,7 @@ foreach($wpl_properties as $key=>$gallery)
 		<div class="item">
             <img src="'.$image_url.'" alt="'.$image_title.'" width="'.$image_width.'" height="'.$image_height.'" style="width: '.$image_width.'px; height: '.$image_height.'px;" />
             <div class="title">
-                <h3>'.$gallery["rendered"][3]["value"].' '.$gallery["rendered"][2]["value"].'</h3>
+                <h3>'.$image_title.'</h3>
                 <a class="more_info" href="'.$gallery["property_link"].'">'. __('More', WPL_TEXTDOMAIN).'</a>
             </div>
         </div>';

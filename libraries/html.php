@@ -106,7 +106,7 @@ class wpl_html
 		Date : 2013-08-19
 		Description : This is a function for filtering title
 	**/
-	public static function title($title, $separator)
+	public static function title($title, $separator = '')
 	{
 		if(trim(self::$title) != '') return self::$title;
 		else return $title;

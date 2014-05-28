@@ -59,7 +59,7 @@ $company_name             = (isset($wpl_user['rendered']['902']['value']) ? $wpl
     
 	<div class="wpl_agent_info_r">
 		<ul>
-			<li class="name"><?php echo $agent_name. ' '.$agent_l_name; ?></li>
+			<li class="name"><a href="<?php echo wpl_users::get_profile_link($user_id); ?>"><?php echo $agent_name.' '.$agent_l_name; ?></a></li>
 			
 			<?php if(isset($wpl_user['rendered']['904']['value'])): ?>
             <li class="website"><a href="<?php echo $wpl_user['rendered']['904']['value']; ?>" target="_blank"><?php echo $wpl_user['rendered']['904']['value']; ?></a></li>

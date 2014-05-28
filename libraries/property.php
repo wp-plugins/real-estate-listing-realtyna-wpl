@@ -476,7 +476,7 @@ class wpl_property
 						 $property_data["location4_name"].", ".$property_data["location3_name"].", ".$property_data["location2_name"].", ".$property_data["location1_name"];
 						 
 		$location_text = $property_data['zip_name'].", ".trim($location_text, ', ');
-		wpl_db::set('wpl_properties', $pid, 'location_text', trim($location_text, ', '));
+		wpl_db::set('wpl_properties', $pid, 'location_text', wpl_db::escape(trim($location_text, ', ')));
     }
 	
 	/**
@@ -545,7 +545,7 @@ class wpl_property
 				
 				$value = $feature_value;
 			}
-			elseif($type == 'locations')
+			elseif($type == 'locations' and isset($data['locations']) and is_array($data['locations']))
 			{
 				$location_value = '';
 				foreach($data['locations'] as $location_level=>$value)
@@ -570,7 +570,7 @@ class wpl_property
 			if(trim($value2) != '') $text_search_data[] = $value2;
 		}
         
-		wpl_db::set('wpl_properties', $pid, 'textsearch', implode(' ', $text_search_data));
+		wpl_db::set('wpl_properties', $pid, 'textsearch', wpl_db::escape(implode(' ', $text_search_data)));
     }
 	
 	/**
@@ -997,12 +997,12 @@ class wpl_property
 				
 				$q .= "`$wpl_field`='".wpl_db::escape($wpl_value)."',";
 			}
-			
+            
 			$exists = wpl_property::get_properties_count(" AND `$wpl_unique_field`='$unique_value'");
 			if(!$exists) $pid = wpl_property::create_property_default($user_id);
 			else $pid = wpl_property::pid($unique_value, $wpl_unique_field);
 			
-			/** add property id to retusn **/
+			/** add property id to return **/
 			$pids[] = $pid;
 			
 			$q = trim($q, ', ');

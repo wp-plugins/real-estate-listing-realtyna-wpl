@@ -244,6 +244,12 @@ class wpl_settings
         _wpl_import('libraries.property');
         _wpl_import('libraries.items');
         
+        if($cache_type == 'unfinalized_properties' or $cache_type == 'all')
+		{
+			$query = "DELETE FROM `#__wpl_properties` WHERE `finalized`='0'";
+			wpl_db::q($query);
+		}
+        
 		if($cache_type == 'properties_cached_data' or $cache_type == 'all')
 		{
 			$query = "UPDATE `#__wpl_properties` SET `location_text`='', `rendered`=''";

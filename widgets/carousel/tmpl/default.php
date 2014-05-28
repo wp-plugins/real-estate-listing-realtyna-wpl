@@ -40,7 +40,7 @@ wplj(document).ready(function()
 		        $params['image_parentkind'] = $gallery["items"]["gallery"][0]->parent_kind;
 		        $params['image_source'] 	= wpl_global::get_upload_base_path().$params['image_parentid'].DS.$params['image_name'];
 
-		        if($gallery['raw']['property_title']) $image_title = $gallery['raw']['property_title'];
+		        if(isset($gallery['rendered']['313']) and trim($gallery['rendered']['313']['value']) != '') $image_title = $gallery['rendered']['313']['value'];
 		        else $image_title = $gallery['rendered'][3]['value'] .' '.$gallery['rendered'][2]['value'];
 				
 				$image_description = $gallery["items"]["gallery"][0]->item_extra2;

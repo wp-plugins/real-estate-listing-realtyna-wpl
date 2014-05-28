@@ -147,3 +147,16 @@ elseif($type == 'price' and !$done_this)  //////////////////////////// Price ///
 	
 	$done_this = true;
 }
+elseif($type == 'url' and !$done_this)  //////////////////////////// URL ////////////////////////////
+{
+	$return['field_id'] = $field->id;
+	$return['type'] = $field->type;
+	$return['name'] = __($field->name, WPL_TEXTDOMAIN);
+    
+    $title = (isset($options['link_title']) and trim($options['link_title']) != '') ? $options['link_title'] : $value;
+    $target = (isset($options['link_target']) and trim($options['link_target']) != '') ? $options['link_target'] : '_blank';
+    
+	$return['value'] = '<a href="'.$value.'" target="'.$target.'">'.$title.'</a>';
+	
+	$done_this = true;
+}

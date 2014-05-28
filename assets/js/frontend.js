@@ -1440,10 +1440,12 @@ wplj(document).ready(function () {
     wplj('.wpl_help').wpl_help();
 
     wplj(".wpl_prp_cont .wpl_prp_top_boxes.front .wpl_gallery_container img").load(function() {
-        var font_size = wplj(this).height() / 220;
+        var font_size    = wplj(this).height() / 220;
+        var no_image_box = wplj(".wpl_prp_cont .wpl_prp_top .wpl_prp_top_boxes .wpl_gallery_container .no_image_box");
         wplj(".wpl_prp_cont .wpl_prp_top").width(wplj(this).width()).height(wplj(this).height());
         wplj(".wpl_prp_cont .wpl_prp_top .wpl_prp_top_boxes.back a.view_detail").css("line-height", wplj(this).height()+"px");
-        wplj(".wpl_prp_cont .wpl_prp_top .wpl_prp_top_boxes .wpl_gallery_container .no_image_box") .height(wplj(this).height()).css("font-size", font_size+"em");
+        no_image_box.height(wplj(this).height());
+        if(font_size != 1) no_image_box.css("font-size", font_size+"em");
     });
 
 });

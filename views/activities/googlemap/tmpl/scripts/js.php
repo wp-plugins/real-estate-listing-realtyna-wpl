@@ -9,10 +9,9 @@ var loaded_markers = new Array();
 var markers;
 var bounds;
 var infowindow;
-if(typeof google_place_radius == 'undefined')
-{
-	var google_place_radius = 1100;
-}
+
+if(typeof google_place_radius == 'undefined') var google_place_radius = 1100;
+
 function wpl_initialize<?php echo $this->activity_id; ?>()
 {
 	/** create empty LatLngBounds object **/

@@ -227,9 +227,9 @@ class wpl_locations
 		
 		$data = curl_exec($ch);
 		$data = json_decode($data, true);
-		$location_point = $data['results'][0]['geometry']['location'];
+		$location_point = isset($data['results'][0]) ? $data['results'][0]['geometry']['location'] : NULL;
 		
-		if($location_point['lat'] and $location_point['lng'])
+		if((isset($location_point['lat']) and $location_point['lat']) and (isset($location_point['lng']) and $location_point['lng']))
 		{
 			curl_close($ch);
 			return array($location_point['lat'], $location_point['lng']);
@@ -241,7 +241,7 @@ class wpl_locations
 		$data = curl_exec($ch);
 		$location_point = explode(',', $data);
 		
-		if($location_point[2] and $location_point[3])
+		if((isset($location_point[2]) and $location_point[2]) and (isset($location_point[3]) and $location_point[3]))
 		{
 			curl_close($ch);
 			return array($location_point[2], $location_point[3]);

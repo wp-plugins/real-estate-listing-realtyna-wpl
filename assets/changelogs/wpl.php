@@ -4,8 +4,15 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.4.5 (<span class="wpl_log_date">5/28/2014</span> <span class="wpl_log_revision">revision 650</span>)</h4>
+        -- Fixed image size issue on listing pages.<br />
+        -- Added property title field and use this field instead of default property title in listings, single property and carousel widget.<br />
+        -- Added URL field type.<br />
+        -- Added a new sidebar in property listing page.<br />
+        -- Added WPL icon for WPL menu.
+        
         <h4>WPL1.4.3 (<span class="wpl_log_date">5/25/2014</span> <span class="wpl_log_revision">revision 635</span>)</h4>
-        -- Fixed some tiny issues.<br />
+        -- Fixed some tiny issues.
         
         <h4>WPL1.4.2 (<span class="wpl_log_date">5/19/2014</span> <span class="wpl_log_revision">revision 634</span>)</h4>
         -- Fixed an issue on search widget.<br />

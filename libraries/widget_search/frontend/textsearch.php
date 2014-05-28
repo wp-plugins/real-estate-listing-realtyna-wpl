@@ -13,6 +13,10 @@ if($type == 'textsearch' and !$done_this)
 		case 'textarea':
 			$show = 'textarea';
 		break;
+        
+        default:
+            $show = 'text';
+        break;
 	}
 	
 	/** current value **/
