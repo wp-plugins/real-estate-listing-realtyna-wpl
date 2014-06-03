@@ -4,7 +4,18 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.4.8 (<span class="wpl_log_date">6/03/2014</span> <span class="wpl_log_revision">revision 669</span>)</h4>
+        -- <strong>[PRO]</strong> Added user auto add feature.<br />
+        -- Hide currency field when there is just one active currency on search widget.<br />
+        -- Added User Flex menu for managing user fields.<br />
+        -- Added a feature for editing agents profile by admin.<br />
+        -- Added a search form on listing manager page.<br />
+        -- Fixed an issue on WPL bxslider.<br />
+        -- Fixed some responsive issues.<br />
+        -- Updated WPL fonts.
+        
         <h4>WPL1.4.5 (<span class="wpl_log_date">5/28/2014</span> <span class="wpl_log_revision">revision 650</span>)</h4>
+        -- <strong>[PRO]</strong> Added Walkscore activity.<br />
         -- Fixed image size issue on listing pages.<br />
         -- Added property title field and use this field instead of default property title in listings, single property and carousel widget.<br />
         -- Added URL field type.<br />

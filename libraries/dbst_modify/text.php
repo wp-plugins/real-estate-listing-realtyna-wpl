@@ -23,6 +23,7 @@ if($type == 'text' and !$done_this)
 
 		</div>
 		<div class="col-fanc-right" id="wpl_flex_specific_options">
+            <?php if($kind != 2): ?>
 			<div class="fanc-row fanc-inline-title">
 				<?php echo __('Specific Options', WPL_TEXTDOMAIN); ?>
 			</div>
@@ -31,7 +32,7 @@ if($type == 'text' and !$done_this)
 				$path = _wpl_import('libraries.dbst_modify.main.specific', true, true);
 				include $path;
 			?>
-
+            <?php endif; ?>
 		</div>
 	</div>
 </div>

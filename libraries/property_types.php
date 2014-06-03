@@ -22,27 +22,18 @@ class wpl_property_types
 		return $result;	
 	}
 	
-	public static function clear_empty_property_types()
-	{
-		$query = "DELETE FROM `#__wpl_property_types` WHERE `name`=''";
-		$result = wpl_db::q($query);
-		
-		return $result;
-	}
-	
 	/** Deprecated :: use wpl_global::get_property_types instead. **/
 	public static function get_property_type($property_type_id)
 	{
 		return wpl_global::get_property_types($property_type_id);
 	}
 	
-	public static function insert_property_type()
+	public static function insert_property_type($parent,$name)
 	{
-		$query = "INSERT INTO `#__wpl_property_types`(`parent`, `enabled`, `editable`, `listing`) VALUE ('1','1','2','0')";
+		$query = "INSERT INTO `#__wpl_property_types`(`parent`, `enabled`, `editable`, `index`, `listing`, `name`) VALUE ('$parent', '1', '2', '00.00', '0', '$name')";
 		$id = wpl_db::q($query, 'insert');
 		$query = "UPDATE `#__wpl_property_types` SET `index`='$id.00' WHERE id=$id";
 		wpl_db::q($query);
-		
 		return $id;
 	}
 	

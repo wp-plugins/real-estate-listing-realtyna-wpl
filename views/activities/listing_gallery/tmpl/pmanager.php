@@ -23,7 +23,7 @@ $gallery = wpl_items::render_gallery($raw_gallery);
     {
         echo '
             <div class="no_image_box">
-                <i class="icon-no-pic"></i>
+                <i class="wpl-font-no-pic"></i>
                 <span>'.__('No Image', WPL_TEXTDOMAIN).'</span>
             </div>';
     }

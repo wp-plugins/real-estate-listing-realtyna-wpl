@@ -49,6 +49,10 @@ class wpl_data_structure_controller extends wpl_controller
 		{
 			self::save_property_type();
 		}
+		 elseif($function == 'insert_property_type')
+		{
+			self::insert_property_type();
+		}
 	}
 	
 	private function sort_property_types($sort_ids)
@@ -101,16 +105,40 @@ class wpl_data_structure_controller extends wpl_controller
 	
 	private function generate_new_page()
 	{
-		$this->property_type_id = wpl_property_types::insert_property_type();
+		$this->property_type_id = 10000;
 		$this->property_type_data = wpl_property_types::get_property_type($this->property_type_id);
 		$this->property_types_category = wpl_property_types::get_property_types_category();
 		
 		parent::render($this->tpl_path, 'internal_edit_property_types');
 		exit;
 	}
-    
+     private function insert_property_type()
+    {
+		$parent = wpl_request::getVar('parent');
+		$name = wpl_request::getVar('name');
+		$res = wpl_property_types::insert_property_type($parent,$name);
+		$res = (int) $res;
+		
+		if($res>0) 
+		{
+			$res = 1;
+		}
+		else
+		{
+			 $res = 0;
+		}
+		$message = $res ? __('Saved.', WPL_TEXTDOMAIN) : __('Error Occured.', WPL_TEXTDOMAIN);
+		$data = NULL;
+		
+		$response = array('success'=>$res, 'message'=>$message, 'data'=>$data);
+		
+		echo json_encode($response);
+		exit;
+	}
     private function save_property_type()
     {
+		
+		
 		$key = wpl_request::getVar('key');
 		$value = wpl_request::getVar('value');
 		$id = wpl_request::getVar('property_type_id');

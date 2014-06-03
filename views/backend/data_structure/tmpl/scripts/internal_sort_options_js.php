@@ -43,12 +43,12 @@ wplj(document).ready(function()
 	})
 });
 
-//change enabled state enabled/disabled
+/** change enabled state enabled/disabled **/
 function wpl_sort_options_enabled_change(id)
 {	
 	if(!id)
 	{
-		wpl_show_messages("<?php echo __('Invalid field', WPL_TEXTDOMAIN); ?>", '.wpl_show_message');
+		wpl_show_messages("<?php echo __('Invalid sort option!', WPL_TEXTDOMAIN); ?>", '.wpl_show_message');
 		return false;
 	}
 	
@@ -84,6 +84,37 @@ function wpl_sort_options_enabled_change(id)
 		else if(data.success != 1)
 		{
 			wpl_show_messages(data.message, '.wpl_flex_list .wpl_show_message', 'wpl_red_msg');
+			wplj(ajax_loader_element).html('');
+		}
+	});
+}
+
+/** change enabled state enabled/disabled **/
+function wpl_save_sort_option(id)
+{	
+	if(!id)
+	{
+		wpl_show_messages("<?php echo __('Invalid sort option!', WPL_TEXTDOMAIN); ?>", '.wpl_show_message');
+		return false;
+	}
+	
+    var sort_name = wplj("#wpl_sort_option_name"+id).val();
+	var ajax_loader_element = '#wpl_sort_option_ajax_loader'+id;
+	
+	wplj(ajax_loader_element).html('<img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader3.gif'); ?>" />');	
+	request_str = 'wpl_format=b:data_structure:ajax_sort_options&wpl_function=save_sort_option&id='+id+'&sort_name='+sort_name;
+	
+	/** run ajax query **/
+	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str);
+	
+	ajax.success(function(data)
+	{
+		if(data.success == 1)
+		{
+			wplj(ajax_loader_element).html('');
+		}
+		else if(data.success != 1)
+		{
 			wplj(ajax_loader_element).html('');
 		}
 	});

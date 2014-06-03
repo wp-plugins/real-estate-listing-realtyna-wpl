@@ -14,7 +14,7 @@ class wpl_flex_controller extends wpl_controller
 		/** check permission **/
 		wpl_global::min_access('administrator');
 		
-		$this->kind = trim(wpl_request::getVar('sf_select_kind')) != '' ? wpl_request::getVar('sf_select_kind') : 0;
+		$this->kind = trim(wpl_request::getVar('kind')) != '' ? wpl_request::getVar('kind') : 0;
 		
 		$this->field_categories = wpl_flex::get_categories(0, $this->kind);
 		$this->kind_label = wpl_flex::get_kind_label($this->kind);

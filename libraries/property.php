@@ -323,12 +323,12 @@ class wpl_property
 			/** use detected files **/
 			if(isset($finds[$type]))
 			{
-				include($path .DS. $finds[$type]);
-				
-				if(is_array($return) and count($return)) $rendered[$field->id] = $return;
-				continue;
+                include($path .DS. $finds[$type]);
+
+                if(is_array($return) and count($return)) $rendered[$field->id] = $return;
+                continue;
 			}
-			
+            
 			foreach($files as $file)
 			{
 				require $path.DS.$file;

@@ -19,10 +19,10 @@ $hot_offer = '';
 $open_house = '';
 $forclosure = '';
 
-if(isset($wpl_properties['current']['rendered'][400]) and $wpl_properties['current']['rendered'][400]) $features = '<div class="feature">'.$wpl_properties['current']['rendered'][400]['name'].'</div>' ;
-if(isset($wpl_properties['current']['rendered'][401]) and $wpl_properties['current']['rendered'][401]) $hot_offer = '<div class="hot_offer">'.$wpl_properties['current']['rendered'][401]['name'].'</div>' ;
-if(isset($wpl_properties['current']['rendered'][402]) and $wpl_properties['current']['rendered'][402]) $open_house = '<div class="open_house">'.$wpl_properties['current']['rendered'][402]['name'].'</div>' ;
-if(isset($wpl_properties['current']['rendered'][403]) and $wpl_properties['current']['rendered'][403]) $forclosure = '<div class="forclosure">'.$wpl_properties['current']['rendered'][403]['name'].'</div>' ;
+if(isset($wpl_properties['current']['rendered'][400]) and $wpl_properties['current']['rendered'][400]) $features = '<div class="feature">'.$wpl_properties['current']['rendered'][400]['name'].'</div>';
+if(isset($wpl_properties['current']['rendered'][401]) and $wpl_properties['current']['rendered'][401]) $hot_offer = '<div class="hot_offer">'.$wpl_properties['current']['rendered'][401]['name'].'</div>';
+if(isset($wpl_properties['current']['rendered'][402]) and $wpl_properties['current']['rendered'][402]) $open_house = '<div class="open_house">'.$wpl_properties['current']['rendered'][402]['name'].'</div>';
+if(isset($wpl_properties['current']['rendered'][403]) and $wpl_properties['current']['rendered'][403]) $forclosure = '<div class="forclosure">'.$wpl_properties['current']['rendered'][403]['name'].'</div>';
 
 /** render gallery **/
 $raw_gallery = isset($wpl_properties['current']['items']['gallery']) ? $wpl_properties['current']['items']['gallery'] : array();

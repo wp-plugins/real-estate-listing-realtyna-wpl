@@ -24,9 +24,9 @@ _wpl_import($this->tpl_path . '.scripts.css');
                     ?>
                     <div class="location_tools">
                         <?php if ($this->level == 1 and $this->enabled == 1): ?>
-                            <input class="button" type="submit" value="<?php echo __('Show all countries', WPL_TEXTDOMAIN); ?>" onclick="wpl_show_countries(-1);" />
+                        <input class="button" type="submit" value="<?php echo __('Show all countries', WPL_TEXTDOMAIN); ?>" onclick="wpl_show_countries(-1);" />
                         <?php elseif ($this->level == 1): ?>
-                            <input class="button" type="submit" value="<?php echo __('Show enabled countries', WPL_TEXTDOMAIN); ?>" onclick="wpl_show_countries(1);" />
+                        <input class="button" type="submit" value="<?php echo __('Show enabled countries', WPL_TEXTDOMAIN); ?>" onclick="wpl_show_countries(1);" />
                         <?php endif; ?>
                         <input class="text_box" type="text" id="wpl_search_location" value="<?php echo $this->text_search; ?>" autocomplete="on" />
                         <input class="button" type="submit" value="<?php echo __('Search', WPL_TEXTDOMAIN); ?>" onclick="wpl_search_location('wpl_search_location', '<?php echo $this->level; ?>');" />
@@ -34,7 +34,7 @@ _wpl_import($this->tpl_path . '.scripts.css');
                     </div> 
                 </div>
             </div>
-            <?php if(isset($this->pagination->total_pages) and $this->pagination->total_pages > 1): ?>
+            <?php if(isset($this->pagination->max_page) and $this->pagination->max_page > 1): ?>
             <div class="pagination-wp">
                 <?php echo $this->pagination->show(); ?>
             </div>
@@ -107,7 +107,7 @@ _wpl_import($this->tpl_path . '.scripts.css');
 	                <?php } ?>
                 </tbody>
             </table>
-            <?php if(isset($this->pagination->total_pages) and $this->pagination->total_pages > 1): ?>
+            <?php if(isset($this->pagination->max_page) and $this->pagination->max_page > 1): ?>
             <div class="pagination-wp">
                 <?php echo $this->pagination->show(); ?>
             </div>

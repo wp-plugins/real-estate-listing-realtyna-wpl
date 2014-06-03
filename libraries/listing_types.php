@@ -22,23 +22,15 @@ class wpl_listing_types
 		return $result;	
 	}
 	
-	public static function clear_empty_listing_types()
-	{
-		$query = "DELETE FROM `#__wpl_listing_types` WHERE `name`=''";
-		$result = wpl_db::q($query);
-		
-		return $result;
-	}
-	
 	/** Deprecated :: use wpl_global::get_listings instead. **/
 	public static function get_listing_type($listing_type_id)
 	{
 		return wpl_global::get_listings($listing_type_id);
 	}
 	
-	public static function insert_listing_type()
+	public static function insert_listing_type($parent,$name,$gicon)
 	{
-		$query = "INSERT INTO `#__wpl_listing_types` (`parent`, `enabled`, `editable`) VALUE ('1','1','2')";
+		$query = "INSERT INTO `#__wpl_listing_types` (`parent`, `enabled`, `editable`, `gicon`, `name`) VALUE ('1','1','2','$gicon','$name')";
 		$id = wpl_db::q($query,'insert');
 		
 		$query = "UPDATE `#__wpl_listing_types` SET `index`='$id.00' WHERE id=$id";

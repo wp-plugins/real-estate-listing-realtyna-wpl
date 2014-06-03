@@ -189,6 +189,7 @@ function wpl_generate_edit_page_property_type(property_type_id)
 
 function wpl_ajax_save_property_type(key, element, id)
 {
+	if(id == '10000') return;
 	table = 'wpl_property_types';
 
 	ajax_loader_element = '#' + element.id + '_ajax_loader';
@@ -212,6 +213,37 @@ function wpl_ajax_save_property_type(key, element, id)
 		{
 			wpl_show_messages(data.message, '.wpl_show_message' + id, 'wpl_red_msg');
 			wplj(ajax_loader_element).html('');
+		}
+	});
+}
+function wpl_ajax_insert_property_type(id)
+{
+	if(id != '10000') return;
+	table = 'wpl_property_types';
+
+	url = '<?php echo wpl_global::get_full_url(); ?>';
+
+	wpl_remove_message('.wpl_show_message' + id);
+	parent = wplj('#wpl_parent10000').val();
+    name = wplj('#wpl_name10000').val();
+    /** run ajax query **/
+    request_str = 'wpl_format=b:data_structure:ajax_property_types&wpl_function=insert_property_type&parent=' + parent + '&name=' + name;
+	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str);
+
+	ajax.success(function(data)
+	{
+		if (data.success == 1)
+		{
+			wpl_show_messages(data.message, '.wpl_show_message' + id, 'wpl_green_msg');
+			setTimeout(function() {   
+			    wplj(".fancybox-close").trigger("click");
+				 location.reload();
+			}, 1000);
+			
+		}
+		else if (data.success != 1)
+		{
+			wpl_show_messages(data.message, '.wpl_show_message' + id, 'wpl_red_msg');
 		}
 	});
 }

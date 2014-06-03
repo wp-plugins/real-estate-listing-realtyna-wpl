@@ -33,6 +33,11 @@ defined('_WPLEXEC') or die('Restricted access');
             <?php echo wpl_notices::display_tooltip(58) ?>
             <span class="ajax-inline-save" id="wpl_gicon<?php echo $this->listing_type_id; ?>_ajax_loader"></span>
         </div>
+        <?php if($this->listing_type_id === 10000){ ?>
+        <div class="fanc-row">
+         <label></label><input type="button" class="wpl-button button-1" onclick="wpl_ajax_insert_listing_type(<?php echo $this->listing_type_id; ?>);" value="<?php echo __('Save', WPL_TEXTDOMAIN); ?>"/>
+        </div>
+        <?php } ?>
         <div class="fanc-row">
 
         </div>

@@ -20,6 +20,7 @@ $done_this = true;
             ?>
         </div>
         <div class="col-fanc-right">
+            <?php if($kind != 2): ?>
         	<div class="fanc-row fanc-inline-title">
                 <?php echo __('Specific Options', WPL_TEXTDOMAIN); ?>
             </div>
@@ -28,6 +29,7 @@ $done_this = true;
 				$path = _wpl_import('libraries.dbst_modify.main.specific', true, true);
 				include $path;
             ?>
+            <?php endif; ?>
         </div>
     </div>
     <div class="fanc-row">

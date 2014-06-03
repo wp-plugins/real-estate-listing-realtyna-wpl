@@ -68,18 +68,23 @@ if(($type == 'area' or $type == 'price' or $type == 'volume' or $type == 'length
 		break;
 	}
 	
-	if($field['type']!=='minmax_selectbox' && $field['type']!=='minmax_selectbox_plus'){
-		$html .= '<label>'.__($field['name'], WPL_TEXTDOMAIN).'</label>';
-	}
-	
+	$html .= '<label>'.__($field['name'], WPL_TEXTDOMAIN).'</label>';
+
 	/** current values **/
 	$current_min_value = wpl_request::getVar('sf_min_'.$field_data['table_column'], $min_value);
 	$current_max_value = wpl_request::getVar('sf_max_'.$field_data['table_column'], $max_value);
 	$current_unit = wpl_request::getVar('sf_unit_'.$field_data['table_column'], $units[0]['id']);
 	
-	$html .= '<select class="wpl_search_widget_field_unit" name="sf'.$widget_id.'_unit_'.$field_data['table_column'].'" id="sf'.$widget_id.'_unit_'.$field_data['table_column'].'">';
-	foreach($units as $unit) $html .= '<option value="'.$unit['id'].'" '.($current_unit == $unit['id'] ? 'selected="selected"' : '').'>'.$unit['name'].'</option>';
-	$html .= '</select>';
+    if(count($units) > 1)
+    {
+        $html .= '<select class="wpl_search_widget_field_unit" name="sf'.$widget_id.'_unit_'.$field_data['table_column'].'" id="sf'.$widget_id.'_unit_'.$field_data['table_column'].'">';
+        foreach($units as $unit) $html .= '<option value="'.$unit['id'].'" '.($current_unit == $unit['id'] ? 'selected="selected"' : '').'>'.$unit['name'].'</option>';
+        $html .= '</select>';
+    }
+    elseif(count($units) == 1)
+    {
+        $html .= '<input type="hidden" class="wpl_search_widget_field_unit" name="sf'.$widget_id.'_unit_'.$field_data['table_column'].'" id="sf'.$widget_id.'_unit_'.$field_data['table_column'].'" value="'.$units[0]['id'].'" />';
+    }
 	
 	if($show == 'minmax')
 	{

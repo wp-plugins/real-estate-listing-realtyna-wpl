@@ -150,9 +150,11 @@ class wpl_global
 		$page_url = 'http';
 		if(isset($server['HTTPS']) and $server['HTTPS'] == 'on') $page_url .= 's';
 		
+        $site_domain = (isset($server['HTTP_HOST']) and trim($server['HTTP_HOST']) != '') ? $server['HTTP_HOST'] : $server['SERVER_NAME'];
+        
 		$page_url .= '://';
-		if($server['SERVER_PORT'] != '80') $page_url .= $server['SERVER_NAME'].':'.$server['SERVER_PORT'].$server['REQUEST_URI'];
-		else $page_url .= $server['SERVER_NAME'].$server['REQUEST_URI'];
+		if($server['SERVER_PORT'] != '80') $page_url .= $site_domain.':'.$server['SERVER_PORT'].$server['REQUEST_URI'];
+		else $page_url .= $site_domain.$server['REQUEST_URI'];
 		
 		return $page_url;
 	}

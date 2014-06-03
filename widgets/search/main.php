@@ -207,18 +207,16 @@ class wpl_search_widget extends wpl_widget
 			{
 				$specified_listings = explode(',', trim($field_data['listing_specific'], ', '));
 				$this->listing_specific_array[$field_data['id']] = $specified_listings;
-				if(!in_array(wpl_request::getVar('sf_select_listing'), $specified_listings)) $display = 'display: none;';
 			}
 			elseif(trim($field_data['property_type_specific']) != '')
 			{
 				$specified_property_types = explode(',', trim($field_data['property_type_specific'], ', '));
 				$this->property_type_specific_array[$field_data['id']] = $specified_property_types;
-				if(!in_array(wpl_request::getVar('sf_select_property_type'), $specified_property_types)) $display = 'display: none;';
 			}
 			
 			if(isset($finds[$type]))
 			{
-				$html .= '<div class="wpl_search_field_container '.((isset($field['type']) and $field['type'] == 'predefined') ? 'wpl_hidden' : '').'" id="wpl'.$widget_id.'_search_field_container_'.$field['id'].'" style="'.$display.'">';
+				$html .= '<div class="wpl_search_field_container '.((isset($field['type']) and $field['type'] == 'predefined') ? 'wpl_hidden' : '').'" id="wpl'.$widget_id.'_search_field_container_'.$field['id'].'">';
 				include($path .DS. $finds[$type]);
 				$html .= '</div>';
 				

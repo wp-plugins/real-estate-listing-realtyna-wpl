@@ -9,7 +9,7 @@ if($type == 'select' and !$done_this)
 		case 'select':
 			$show = 'select';
 			$any = true;
-			$label = false;
+			$label = true;
 		break;
 		
 		case 'multiple':

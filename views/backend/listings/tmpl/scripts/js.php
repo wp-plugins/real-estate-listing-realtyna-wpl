@@ -10,6 +10,25 @@ var unconfirm_class = 'icon-unconfirm';
 var ajax_loader_image_class = 'ajax-inline-save';
 var delete_class = 'icon-delete';
 
+function wpl_search_listings()
+{
+    /** Create full url of search **/
+    search_str = '<?php echo wpl_global::get_full_url(); ?>';
+    
+    wplj("#wpl_listing_manager_search_form_cnt select").each(function(ind, elm)
+	{
+        if(wplj(elm).val() != '-1') search_str = wpl_update_qs(elm.id, wplj(elm).val(), search_str);
+        else if(wplj(elm).val() == '-1') search_str = wpl_update_qs(elm.id, '', search_str);
+	});
+    
+    wplj("#wpl_listing_manager_search_form_cnt input:text, #wpl_listing_manager_search_form_cnt input[type='hidden']").each(function(ind, elm)
+	{
+        search_str = wpl_update_qs(elm.id, wplj(elm).val(), search_str);
+	});
+    
+    window.location = search_str;
+}
+
 function select_all_checkboxes()
 {
     wplj(".js-pcheckbox").each(function()

@@ -39,9 +39,8 @@ if($type == 'number' and !$done_this)
 	$division = (isset($extoptions[2]) and trim($extoptions[2])) ? $extoptions[2] : 1000;
 	$separator = (isset($extoptions[3]) and trim($extoptions[3])) ? $extoptions[3] : ',';
 	
-	if($field['type']!=='minmax_selectbox' && $field['type']!=='minmax_selectbox_plus'){
-		$html .= '<label>'.__($field['name'], WPL_TEXTDOMAIN).'</label>';
-	}
+    $html .= '<label>'.__($field['name'], WPL_TEXTDOMAIN).'</label>';
+
 	/** current values **/
 	$current_min_value = wpl_request::getVar('sf_tmin_'.$field_data['table_column'], $min_value);
 	$current_max_value = wpl_request::getVar('sf_tmax_'.$field_data['table_column'], $max_value);
@@ -149,9 +148,9 @@ if($type == 'number' and !$done_this)
         $html .= '</select>';
         
         $html .= '<select name="sf'.$widget_id.'_tmax_'.$field_data['table_column'].'" id="sf'.$widget_id.'_tmax_'.$field_data['table_column'].'">';
+        
+        $i = $min_value;
 		$html .= '<option value="999999999999" '.($current_max_value == $i ? 'selected="selected"' : '').'>'.__("To", WPL_TEXTDOMAIN).'</option>';
-		
-		$i = $min_value;
 		
 		while($i < $max_value)
 		{
@@ -164,10 +163,10 @@ if($type == 'number' and !$done_this)
 	}
     elseif($show == 'minmax_selectbox_plus')
 	{
+        $i = $min_value;
+        
 		$html .= '<select name="sf'.$widget_id.'_tmin_'.$field_data['table_column'].'" id="sf'.$widget_id.'_tmin_'.$field_data['table_column'].'">';
 		$html .= '<option value="-1" '.($current_min_value == $i ? 'selected="selected"' : '').'>'.__($field['name'], WPL_TEXTDOMAIN).'</option>';
-		
-		$i = $min_value;
 		
 		while($i < $max_value)
 		{

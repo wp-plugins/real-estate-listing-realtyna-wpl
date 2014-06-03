@@ -2,6 +2,7 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 _wpl_import('libraries.pagination');
+_wpl_import('libraries.flex');
 
 class wpl_users_controller extends wpl_controller
 {
@@ -22,7 +23,7 @@ class wpl_users_controller extends wpl_controller
 		
 		$where_query = wpl_db::create_query();
 		$num_result = wpl_db::num("SELECT COUNT(id) FROM `#__users` WHERE 1 $where_query");
-		
+        
 		$this->pagination = wpl_pagination::get_pagination($num_result, $page_size);
 		
 		$where_query .= " ORDER BY $orderby $order ".$this->pagination->limit_query;
@@ -46,9 +47,15 @@ class wpl_users_controller extends wpl_controller
 		_wpl_import('libraries.flex');
 		$this->tpl = 'profile';
 		$this->kind = wpl_flex::get_kind_id('user');
+        $this->user_id = wpl_users::get_cur_user_id();
+        
+        if(wpl_users::is_administrator($this->user_id) and wpl_request::getVar('id', 0))
+        {
+            $this->user_id = wpl_request::getVar('id');
+        }
         
 		$this->user_fields = wpl_flex::get_fields('', 1, $this->kind);
-		$this->user_data = (array) wpl_users::get_wpl_data(wpl_users::get_cur_user_id());
+		$this->user_data = (array) wpl_users::get_wpl_data($this->user_id);
 		
 		/** import tpl **/
 		parent::render($this->tpl_path, $this->tpl);

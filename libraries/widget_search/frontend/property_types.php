@@ -12,7 +12,7 @@ if($type == 'property_types' and !$done_this)
 			$show = 'select';
 			$any = true;
 			$multiple = false;
-			$label = false;
+			$label = true;
 		break;
 		
 		case 'multiple':

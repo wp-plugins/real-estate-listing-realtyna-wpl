@@ -12,7 +12,10 @@ $this->_wpl_import($this->tpl_path.'.scripts.js');
     </header>
     <div class="wpl_property_manager_list"><div class="wpl_show_message"></div></div>
     <div class="pmanager-cnt">
-
+        
+        <!-- generate search form -->
+        <?php $this->generate_search_form(); ?>
+        
         <div class="mass-panel-wp">
             <h3><?php echo __("Mass actions", WPL_TEXTDOMAIN).": "; ?></h3>
             <div class="mass-actions-wp p-actions-wp">
@@ -58,7 +61,7 @@ $this->_wpl_import($this->tpl_path.'.scripts.js');
             <?php if(wpl_users::check_access('change_user')): ?>
                 <div class="change-user-cnt-wp">
                     <div class="change-user-wp">
-                        <label id="pmanager_mass_change_user_label" for="pmanager_mass_change_user_select"><?php echo __('User', WPL_TEXTDOMAIN); ?>: </label>
+                        <label id="pmanager_mass_change_user_label" for="pmanager_mass_change_user_select"><?php echo __('Change User to', WPL_TEXTDOMAIN); ?> </label>
                         <?php $wpl_users = wpl_users::get_wpl_users(); ?>
                         <select id="pmanager_mass_change_user_select" data-has-chosen onchange="mass_change_user(this.value);">
                             <?php foreach($wpl_users as $wpl_user): ?>
@@ -69,9 +72,11 @@ $this->_wpl_import($this->tpl_path.'.scripts.js');
                 </div>
             <?php endif; ?>
         </div>
+        <?php if(isset($this->pagination->max_page) and $this->pagination->max_page > 1): ?>
         <div class="pagination-wp">
             <?php echo $this->pagination->show(); ?>
         </div>
+        <?php endif; ?>
         <div class="properties-wp">
             <?php
             foreach($this->wpl_properties as $key=>$property)
@@ -139,9 +144,11 @@ $this->_wpl_import($this->tpl_path.'.scripts.js');
             }
             ?>
         </div>
+        <?php if(isset($this->pagination->max_page) and $this->pagination->max_page > 1): ?>
         <div class="pagination-wp">
             <?php echo $this->pagination->show(); ?>
         </div>
+        <?php endif; ?>
     </div>
     <footer>
         <div class="logo"></div>

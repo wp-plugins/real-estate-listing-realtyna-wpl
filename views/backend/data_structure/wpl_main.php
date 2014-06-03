@@ -29,8 +29,6 @@ class wpl_data_structure_controller extends wpl_controller
 	
 	public function generate_property_types()
 	{
-		wpl_property_types::clear_empty_property_types();
-		
 		$tpl = 'internal_property_types';
 		$this->property_types = wpl_property_types::get_property_types();
 		
@@ -60,8 +58,6 @@ class wpl_data_structure_controller extends wpl_controller
 	
 	public function generate_listing_types()
 	{
-		wpl_listing_types::clear_empty_listing_types();
-		
 		$tpl = 'internal_listing_types';
 		$this->listing_types = wpl_listing_types::get_listing_types();
 		$this->listing_gicons = wpl_listing_types::get_map_icons();
@@ -73,8 +69,6 @@ class wpl_data_structure_controller extends wpl_controller
 	
 	public function generate_unit_manager()
 	{
-		wpl_listing_types::clear_empty_listing_types();
-		
 		$tpl = 'internal_unit_manager_default';
 		$this->unit_types = wpl_units::get_unit_types();
 		$this->units = wpl_units::get_units(4, '', '');

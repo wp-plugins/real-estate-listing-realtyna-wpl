@@ -25,10 +25,18 @@ class wpl_data_structure_controller extends wpl_controller
 		elseif($function == 'sort_options_enabled_state_change')
 		{
 			$id = wpl_request::getVar('id');
-			$enabled_status = wpl_request::getVar('enabled_status');			
+			$enabled_status = wpl_request::getVar('enabled_status');
+            
 			self::update('wpl_sort_options', $id, 'enabled', $enabled_status);
-		}			
-	}	
+		}
+        elseif($function == 'save_sort_option')
+        {
+            $id = wpl_request::getVar('id');
+			$sort_name = wpl_request::getVar('sort_name', '');
+            
+            self::update('wpl_sort_options', $id, 'name', $sort_name);
+        }
+	}
 	
 	/**
 	*{tablename,id,key,value of key}
@@ -52,5 +60,5 @@ class wpl_data_structure_controller extends wpl_controller
 		if(trim($sort_ids) == '') $sort_ids = wpl_request::getVar('sort_ids');
 		wpl_sort_options::sort_options($sort_ids);		
 		exit;
-	}	
+	}
 }

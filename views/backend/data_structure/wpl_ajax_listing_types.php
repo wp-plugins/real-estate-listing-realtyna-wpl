@@ -58,6 +58,10 @@ class wpl_data_structure_controller extends wpl_controller
         {
             self::save_listing_type();
         }
+		 elseif($function == 'insert_listing_type')
+		{
+			self::insert_listing_type();
+		}
 	}
 	
 	private function gicon_upload_file()
@@ -182,7 +186,7 @@ class wpl_data_structure_controller extends wpl_controller
 	
 	private function generate_new_page()
 	{
-		$this->listing_type_id = wpl_listing_types::insert_listing_type();
+		$this->listing_type_id = 10000;
 		$this->listing_type_data = wpl_listing_types::get_listing_type($this->listing_type_id);
 		$this->listing_types_category = wpl_listing_types::get_listing_types_category();
 		$this->listing_gicons = wpl_listing_types::get_map_icons();
@@ -190,7 +194,32 @@ class wpl_data_structure_controller extends wpl_controller
 		parent::render($this->tpl_path, 'internal_edit_listing_types');
 		exit;
 	}
-    
+	
+    private function insert_listing_type()
+    {
+		$parent = wpl_request::getVar('parent');
+		$name = wpl_request::getVar('name');
+		$gicon = wpl_request::getVar('gicon');
+		
+		$res = wpl_listing_types::insert_listing_type($parent,$name,$gicon);
+		$res = (int) $res;
+		
+		if($res>0) 
+		{
+			$res = 1;
+		}
+		else
+		{
+			 $res = 0;
+		}
+		$message = $res ? __('Saved.', WPL_TEXTDOMAIN) : __('Error Occured.', WPL_TEXTDOMAIN);
+		$data = NULL;
+		
+		$response = array('success'=>$res, 'message'=>$message, 'data'=>$data);
+		
+		echo json_encode($response);
+		exit;
+	}
     private function save_listing_type()
     {
 		$key = wpl_request::getVar('key');

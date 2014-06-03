@@ -92,4 +92,13 @@ class wpl_listings_controller extends wpl_controller {
 		
         $this->wpl_properties = $wpl_properties;
     }
+    
+    public function generate_search_form()
+    {
+        $this->property_types = wpl_global::get_property_types();
+        $this->listings = wpl_global::get_listings();
+        $this->users = wpl_users::get_wpl_users();
+        
+        parent::render($this->tpl_path, 'search_form');
+    }
 }
