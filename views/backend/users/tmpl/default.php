@@ -10,7 +10,7 @@ _wpl_import($this->tpl_path . '.scripts.css');
         <div id="icon-user" class="icon48">
         </div>
         <h2><?php echo __('User Manager', WPL_TEXTDOMAIN); ?></h2>
-        <a href="<?php echo wpl_global::add_qs_var('kind', wpl_flex::get_kind_id('user'), wpl_global::get_wpl_admin_menu('wpl_admin_flex')); ?>" class="action-btn icon-gear" title="<?php echo __('Manage User Data Structure', WPL_TEXTDOMAIN); ?>"><?php echo __('Manage User Data Structure', WPL_TEXTDOMAIN); ?></a>
+        <?php if(wpl_global::check_addon('pro')): ?><a href="<?php echo wpl_global::add_qs_var('kind', wpl_flex::get_kind_id('user'), wpl_global::get_wpl_admin_menu('wpl_admin_flex')); ?>" class="action-btn icon-gear" title="<?php echo __('Manage User Data Structure', WPL_TEXTDOMAIN); ?>"><?php echo __('Manage User Data Structure', WPL_TEXTDOMAIN); ?></a><?php endif; ?>
     </header>
     <div class="wpl_user_list"><div class="wpl_show_message"></div></div>
     <div class="sidebar-wp">
@@ -49,10 +49,17 @@ _wpl_import($this->tpl_path . '.scripts.css');
                     ?>
                     <tr id="item_row<?php echo $wp_user->ID; ?>">
                         <td class="size-1"><?php echo $wp_user->ID; ?></td>
-                        <td><a href="<?php echo wpl_global::add_qs_var('id', $wp_user->ID, wpl_global::get_wpl_admin_menu('wpl_admin_profile')); ?>"><?php echo $wp_user->user_login; ?></a></td>
+                        <td>
+                            <?php if($wp_user->id): ?>
+                            <a href="<?php echo wpl_global::add_qs_var('id', $wp_user->ID, wpl_global::get_wpl_admin_menu('wpl_admin_profile')); ?>"><?php echo $wp_user->user_login; ?></a>
+                            <?php else: ?>
+                            <?php echo $wp_user->user_login; ?>
+                            <?php endif; ?>
+                        </td>
                         <td><?php echo (is_object($wpl_data) ? $wpl_data->first_name.' '.$wpl_data->last_name : ''); ?></td>
                         <?php if(wpl_global::check_addon('pro')): ?>
                         <td>
+                            <?php if($wp_user->id): ?>
                             <select data-without-chosen name="membership_id_<?php echo $wp_user->ID; ?>" id="membership_id_<?php echo $wp_user->ID; ?>" onChange="wpl_change_membership(<?php echo $wp_user->ID; ?>);" autocomplete="off">
                                 <option value=""><?php echo __('None', WPL_TEXTDOMAIN); ?></option>
                                 <?php foreach ($this->memberships as $membership): ?>
@@ -60,6 +67,7 @@ _wpl_import($this->tpl_path . '.scripts.css');
                                 <?php endforeach; ?>
                             </select>
                             <span id="wpl_ajax_loader_membership_<?php echo $wp_user->ID; ?>"></span>
+                            <?php endif; ?>
                         </td>
                         <?php endif; ?>
                         <td><?php echo $wp_user->user_email; ?></td>				

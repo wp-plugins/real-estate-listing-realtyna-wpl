@@ -16,6 +16,14 @@ class wpl_flex_controller extends wpl_controller
 		
 		$this->kind = trim(wpl_request::getVar('kind')) != '' ? wpl_request::getVar('kind') : 0;
 		
+        if($this->kind != 0 and !wpl_global::check_addon('pro'))
+        {
+            $this->message = __('Pro addon must be installed for this!', WPL_TEXTDOMAIN);
+            
+            /** import tpl **/
+            return parent::render($this->tpl_path, 'message');
+        }
+        
 		$this->field_categories = wpl_flex::get_categories(0, $this->kind);
 		$this->kind_label = wpl_flex::get_kind_label($this->kind);
 		$this->dbst_types = wpl_flex::get_dbst_types(1, $this->kind);

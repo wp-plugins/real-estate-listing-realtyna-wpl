@@ -4,10 +4,16 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.5.0 (<span class="wpl_log_date">6/04/2014</span> <span class="wpl_log_revision">revision 674</span>)</h4>
+        -- <strong>[PRO]</strong> Added energy tag feature.<br />
+        -- <strong>[PRO]</strong> Updated PDF library.<br />
+        -- Added property description to the text search by default.<br />
+        -- Fixed some issues on user manager menu.<br />
+        
         <h4>WPL1.4.8 (<span class="wpl_log_date">6/03/2014</span> <span class="wpl_log_revision">revision 669</span>)</h4>
         -- <strong>[PRO]</strong> Added user auto add feature.<br />
         -- Hide currency field when there is just one active currency on search widget.<br />
-        -- Added User Flex menu for managing user fields.<br />
+        -- <strong>[PRO]</strong> Added User Flex menu for managing user fields.<br />
         -- Added a feature for editing agents profile by admin.<br />
         -- Added a search form on listing manager page.<br />
         -- Fixed an issue on WPL bxslider.<br />

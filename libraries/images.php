@@ -22,6 +22,9 @@ class wpl_images
      */
     public static function resize_image($source, $dest, $width, $height, $crop = 0)
     {
+        /** set memory limit **/
+        ini_set('memory_limit', '-1');
+        
         $extension = wpl_file::getExt(strtolower($source));
 
         switch($extension)

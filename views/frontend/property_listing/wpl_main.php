@@ -19,21 +19,30 @@ class wpl_property_listing_controller extends wpl_controller
 	
 	public function display($instance = array())
 	{
-		/** property listing model **/
-		$this->model = new wpl_property;
-		
-		/** global settings **/
+        $this->tpl = wpl_request::getVar('tpl');
+        
+        /** global settings **/
 		$settings = wpl_settings::get_settings();
 		
 		/** listing settings **/
 		$this->page_number = wpl_request::getVar('wplpage', 1, '', true);
-		$limit = wpl_request::getVar('limit', $settings['default_page_size']);
-		$start = wpl_request::getVar('start', (($this->page_number-1)*$limit), '', true);
-		$orderby = wpl_request::getVar('wplorderby', $settings['default_orderby'], '', true);
-		$order = wpl_request::getVar('wplorder', $settings['default_order'], '', true);
+		$this->limit = wpl_request::getVar('limit', $settings['default_page_size']);
+		$this->start = wpl_request::getVar('start', (($this->page_number-1)*$this->limit), '', true);
+		$this->orderby = wpl_request::getVar('wplorderby', $settings['default_orderby'], '', true);
+		$this->order = wpl_request::getVar('wplorder', $settings['default_order'], '', true);
+        
+        /** load mapview without any server proccess **/
+        if($this->tpl == 'mapview')
+        {
+            /** import tpl **/
+            return parent::render($this->tpl_path, $this->tpl, false, true);
+        }
+        
+		/** property listing model **/
+		$this->model = new wpl_property;
 		
 		/** set page if start var passed **/
-		$this->page_number = ($start/$limit)+1;
+		$this->page_number = ($this->start/$this->limit)+1;
 		wpl_request::setVar('wplpage', $this->page_number);
 		
 		/** detect kind **/
@@ -48,11 +57,11 @@ class wpl_property_listing_controller extends wpl_controller
 		$where = array('sf_select_confirmed'=>1, 'sf_select_finalized'=>1, 'sf_select_deleted'=>0, 'sf_select_kind'=>$this->kind);
 		
 		/** start search **/
-		$this->model->start($start, $limit, $orderby, $order, $where);
+		$this->model->start($this->start, $this->limit, $this->orderby, $this->order, $where);
 		$this->model->total = $this->model->get_properties_count();
 		
 		/** validation for page_number **/
-		$max_page = ceil($this->model->total / $limit);
+		$max_page = ceil($this->model->total / $this->limit);
 		if($this->page_number <= 0 or ($this->page_number > $max_page)) $this->model->start = 0;
 		
 		/** run the search **/
@@ -77,7 +86,7 @@ class wpl_property_listing_controller extends wpl_controller
 		_wpl_import('libraries.filters');
 		@extract(wpl_filters::apply('property_listing_after_render', array('wpl_properties'=>$wpl_properties)));
 		
-		$this->pagination = wpl_pagination::get_pagination($this->model->total, $limit, true);
+		$this->pagination = wpl_pagination::get_pagination($this->model->total, $this->limit, true);
 		$this->wpl_properties = $wpl_properties;
 		
 		/** import tpl **/

@@ -96,6 +96,16 @@ defined('_WPLEXEC') or die('Restricted access');
             	<i class="icon-<?php echo $safe_mode ? 'confirm' : 'warning'; ?>"></i>
             </span>
 		</li>
+        <!-- Memory Limit -->
+        <?php $memory_limit = ini_get('memory_limit'); $memory_status = ((int) $memory_limit < 128) ? false : true; ?>
+        <li>
+        	<span class="wpl-requirement-name"><?php echo __('Memory Limit', WPL_TEXTDOMAIN); ?></span>
+            <span class="wpl-requirement-require"><?php echo __('128M', WPL_TEXTDOMAIN); ?></span>
+            <span class="wpl-requirement-current"><?php echo $memory_limit; ?></span>
+            <span class="wpl-requirement-status p-action-btn">
+            	<i class="icon-<?php echo $memory_status ? 'confirm' : 'warning'; ?>"></i>
+            </span>
+		</li>
         <!-- Server providers offers -->
         <li class="wpl_server_offers">
         	<a href="http://hosting.realtyna.com/" target="_blank">Cloud real estate web hosting</a><br />

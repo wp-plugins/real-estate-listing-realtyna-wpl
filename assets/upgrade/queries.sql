@@ -109,3 +109,6 @@ UPDATE `#__wpl_dbst` SET `deletable`='0' WHERE `id`='5';
 
 ALTER TABLE `#__wpl_extensions` CHANGE `param2` `param2` TEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;
 UPDATE `#__wpl_extensions` SET `param2`='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic|Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700|Scada:400italic,700italic,400,700|Archivo+Narrow:400,40|Lato:400,700,900,400italic|BenchNine' WHERE `id`='99';
+
+UPDATE `#__wpl_dbst` SET `index`='3.50' WHERE `id`='171';
+UPDATE `#__wpl_dbst` SET `text_search`='1' WHERE `id`='308';

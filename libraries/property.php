@@ -566,8 +566,8 @@ class wpl_property
 			}
 			
 			/** set value in text search data **/
-			if(trim($value) != '') $text_search_data[] = $value;
-			if(trim($value2) != '') $text_search_data[] = $value2;
+			if(trim($value) != '') $text_search_data[] = strip_tags($value);
+			if(trim($value2) != '') $text_search_data[] = strip_tags($value2);
 		}
         
 		wpl_db::set('wpl_properties', $pid, 'textsearch', wpl_db::escape(implode(' ', $text_search_data)));
