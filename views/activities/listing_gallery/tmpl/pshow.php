@@ -10,6 +10,7 @@ $this->property_id = isset($wpl_properties['current']['data']['id']) ? $wpl_prop
 $this->image_width = isset($params['image_width']) ? $params['image_width'] : 360;
 $this->image_height = isset($params['image_height']) ? $params['image_height'] : 285;
 $this->image_class = isset($params['image_class']) ? $params['image_class'] : '';
+$this->resize = (isset($params['resize']) and trim($params['resize']) != '') ? $params['resize'] : 1;
 $this->rewrite = (isset($params['rewrite']) and trim($params['rewrite']) != '') ? $params['rewrite'] : 0;
 $this->watermark = (isset($params['watermark']) and trim($params['watermark']) != '') ? $params['watermark'] : 1;
 
@@ -25,11 +26,11 @@ $this->_wpl_import($this->tpl_path.'.scripts.pshow', true, true);
 ?>
 <div class="wpl_gallery_container" id="wpl_gallery_container<?php echo $this->property_id; ?>">
     <?php
-    if(!count($this->gallery)) 
+    if(!count($this->gallery))
     {
         echo '<div class="gallery_no_image"></div>';
     }
-    else 
+    else
     {
         echo '<ul class="bxslider" id="bxslider_'.$this->property_id.'">';
         $i = 0;
@@ -41,7 +42,7 @@ $this->_wpl_import($this->tpl_path.'.scripts.pshow', true, true);
             $image_url = $image['url'];
             $image_thumbnail_url = $image['url'];
             
-            if($this->image_width and $this->image_height and $image['category'] != 'external')
+            if($this->resize and $this->image_width and $this->image_height and $image['category'] != 'external')
             {
                 /** set resize method parameters **/
                 $params                     = array();

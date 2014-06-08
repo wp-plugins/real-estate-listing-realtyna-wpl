@@ -145,12 +145,10 @@ if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->w
                             <div class="wpl_prp_right_boxe_details_left">
                                 <ul>
                                     <?php if(trim($listing_id) != ''): ?><li><?php echo __('Listing ID', WPL_TEXTDOMAIN).' : <span>'.$listing_id.'</span>'; ?></li><?php endif; ?>
-                                    <li><?php echo __('Bedroom', WPL_TEXTDOMAIN).' : <span>'.$bedroom.'</span>'; ?></li>
-                                    <li><?php echo __('Bathroom', WPL_TEXTDOMAIN).' : <span>'.$bathroom.'</span>'; ?></li>
-                                    <li><?php echo __('Built Up Area', WPL_TEXTDOMAIN).' : <span>'.$build_up_area.'</span>'; ?></li>
-                                    <?php if($price_type){ ?>
-                                    <li><?php echo __('Price Type', WPL_TEXTDOMAIN).' : <span>'.$price_type.'</span>'; ?></li>
-                                    <?php } ?>
+                                    <?php if(trim($bedroom) != ''): ?><li><?php echo __('Bedroom', WPL_TEXTDOMAIN).' : <span>'.$bedroom.'</span>'; ?></li><?php endif; ?>
+                                    <?php if(trim($bathroom) != ''): ?><li><?php echo __('Bathroom', WPL_TEXTDOMAIN).' : <span>'.$bathroom.'</span>'; ?></li><?php endif; ?>
+                                    <?php if(trim($build_up_area) != ''): ?><li><?php echo __('Built Up Area', WPL_TEXTDOMAIN).' : <span>'.$build_up_area.'</span>'; ?></li><?php endif; ?>
+                                    <?php if($price_type): ?><li><?php echo __('Price Type', WPL_TEXTDOMAIN).' : <span>'.$price_type.'</span>'; ?></li><?php endif; ?>
                                 </ul>
                            </div>
                             <div class="wpl_prp_right_boxe_details_right">

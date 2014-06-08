@@ -10,6 +10,7 @@ $this->property_id = isset($wpl_properties['current']['data']['id']) ? $wpl_prop
 $this->image_width = isset($params['image_width']) ? $params['image_width'] : 285;
 $this->image_height = isset($params['image_height']) ? $params['image_height'] : 200;
 $this->image_class = isset($params['image_class']) ? $params['image_class'] : '';
+$this->resize = (isset($params['resize']) and trim($params['resize']) != '') ? $params['resize'] : 1;
 $this->rewrite = (isset($params['rewrite']) and trim($params['rewrite']) != '') ? $params['rewrite'] : 0;
 $this->watermark = (isset($params['watermark']) and trim($params['watermark']) != '') ? $params['watermark'] : 0;
 
@@ -22,7 +23,7 @@ $gallery = wpl_items::render_gallery($raw_gallery);
     if(!count($gallery))
     {
         echo '
-            <div class="no_image_box">
+            <div class="no_image_box" style="width:'.$this->image_width.'px;height:'.$this->image_height.'px;">
                 <i class="wpl-font-no-pic"></i>
                 <span>'.__('No Image', WPL_TEXTDOMAIN).'</span>
             </div>';
@@ -32,7 +33,7 @@ $gallery = wpl_items::render_gallery($raw_gallery);
         $pimage = $gallery[0];
         $image_url = $pimage['url'];
         
-        if($this->image_width and $this->image_height and $pimage['category'] != 'external')
+        if($this->resize and $this->image_width and $this->image_height and $pimage['category'] != 'external')
         {
             /** set resize method parameters **/
             $params = array();

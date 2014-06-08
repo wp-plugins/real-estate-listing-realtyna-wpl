@@ -192,7 +192,7 @@ class wpl_locations
 		
 		foreach($unique_locations as $location_text)
 		{
-			$query = "SELECT `kind`, COUNT(id) AS count FROM `#__wpl_properties` WHERE `deleted`='0' AND `finalized`='1' AND `confirmed`='1' AND `location_text` LIKE '%$location_text%' GROUP BY `kind`";
+			$query = "SELECT `kind`, COUNT(id) AS count FROM `#__wpl_properties` WHERE `deleted`='0' AND `finalized`='1' AND `confirmed`='1' AND `location_text` LIKE '%".wpl_db::escape($location_text)."%' GROUP BY `kind`";
 	        $counts = wpl_db::select($query, 'loadAssocList');
 			
 			$total_count = 0;

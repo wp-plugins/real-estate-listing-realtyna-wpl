@@ -4,7 +4,7 @@ Donate link: http://wpl.realtyna.com/
 Tags: Real estate, Listing, Vertical Market, MLS, Property listing, RETS
 Requires at least: 3.0.1
 Tested up to: 3.9.1
-Stable tag: 1.5.0
+Stable tag: 1.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,7 +20,7 @@ Download [WPL manual](http://wpl.realtyna.com/wassets/wpl-manual.pdf) and check 
 
 **WPL Expansion options**
 
-*   Have necessary database fields for further MLS Integration (integrating MLS / IDX / RETS / VOW  servers into WPL - Wordpress directly) - Extra customization may be needed. http://rpl.realtyna.com/Add-ons/MLS-IDX-Integration
+*   Have necessary database fields for further MLS Integration ([MLS Coverage](http://wpl.realtyna.com/mls-coverage/)) (integrating MLS / IDX / RETS / VOW  servers into WPL - Wordpress directly) - Extra customization may be needed. http://rpl.realtyna.com/Add-ons/MLS-IDX-Integration
 *   Native Custom Brand Mobile App http://rpl.realtyna.com/add-ons/real-estate-iphone/android-app
 *   Demographic Package http://rpl.realtyna.com/add-ons/real-estate-demographic-information-add-ons
 *   Cloud Hosting (Starting from $24.95 per month) http://hosting.realtyna.com
@@ -59,6 +59,10 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 6. External Responsive Template: Agent listing
 
 == Changelog ==
+
+= 1.5.1 =
+* Added resize handler to gallery activity.
+* Fixed an issue on agents widget.
 
 = 1.5.0 =
 * Added property description to the text search by default.
