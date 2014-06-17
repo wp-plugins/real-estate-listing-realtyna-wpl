@@ -21,6 +21,10 @@ class wpl_data_structure_controller extends wpl_controller
 		{
 			self::generate_new_page();
 		}
+		elseif($function == 'generate_delete_page')
+		{
+			self::generate_delete_page();
+		}
 		elseif($function == 'set_enabled_listing_type')
 		{
 			$listing_type_id = wpl_request::getVar('listing_type_id');
@@ -62,6 +66,18 @@ class wpl_data_structure_controller extends wpl_controller
 		{
 			self::insert_listing_type();
 		}
+		elseif($function == 'can_remove_listing_type')
+		{
+			self::can_remove_listing_type();
+		}elseif($function == 'purge_related_property')
+		{
+			self::purge_related_property();
+		}
+		elseif($function == 'assign_related_properties')
+		{
+			self::assign_related_properties();
+		}
+		
 	}
 	
 	private function gicon_upload_file()
@@ -195,6 +211,15 @@ class wpl_data_structure_controller extends wpl_controller
 		exit;
 	}
 	
+	private function generate_delete_page()
+	{
+		$this->listing_type_id = wpl_request::getVar('listing_type_id');
+		$this->listing_type_data = wpl_listing_types::get_listing_type($this->listing_type_id);
+		$this->listing_types = wpl_listing_types::get_listing_types();
+		parent::render($this->tpl_path, 'internal_delete_listing_types');
+		exit;
+	}
+	
     private function insert_listing_type()
     {
 		$parent = wpl_request::getVar('parent');
@@ -238,4 +263,36 @@ class wpl_data_structure_controller extends wpl_controller
 		echo json_encode($response);
 		exit;
     }
+	private function can_remove_listing_type()
+	{
+		$listing_type_id = wpl_request::getVar('listing_type_id');
+		$res = wpl_listing_types::have_properties($listing_type_id);
+		$res = (int) $res;
+		if($res>0)
+		{
+			$res = 0;
+		}
+		else
+		{
+			$res = 1;	
+		}
+		echo $res;
+		exit;
+	}
+	function purge_related_property()
+	{
+		$listing_type_id = wpl_request::getVar('listing_type_id');
+		$properties_list = wpl_property::get_properties_list('listing',$listing_type_id);
+		foreach($properties_list as $property)
+			wpl_property::purge($property['id']);
+		self::remove_listing_type($listing_type_id, 1);
+	}
+	function assign_related_properties()
+	{
+		$listing_type_id = wpl_request::getVar('listing_type_id');
+		$select_id = wpl_request::getVar('select_id');
+		$j = wpl_property::update_properties('listing',$listing_type_id,$select_id);
+		self::remove_listing_type($listing_type_id, 1);
+	}
+	
 }

@@ -22,6 +22,7 @@ wpl_extensions::import_javascript($js);
                 <!--<option value="property_manager"><?php echo __('Listing Manager', WPL_TEXTDOMAIN); ?></option>-->
                 <option value="profile_wizard"><?php echo __('My Profile', WPL_TEXTDOMAIN); ?></option>
                 <!--<option value="property_wizard"><?php echo __('Add/Edit Listing', WPL_TEXTDOMAIN); ?></option>-->
+                <?php if(wpl_global::check_addon('pro')): ?><option value="widget_shortcode"><?php echo __('Widget Shortcode', WPL_TEXTDOMAIN); ?></option><?php endif; ?>
             </select>
         </div>
 		
@@ -108,7 +109,7 @@ wpl_extensions::import_javascript($js);
         </div>
 
         <div class="plugin-row wpl_shortcode_parameter wpl_hidden_element pr_profile_listing">
-            <?php $sort_options = wpl_sort_options::get_sort_options(2, 1);/** getting enaled sort options **/ ?>
+            <?php $sort_options = wpl_sort_options::get_sort_options(2, 1); /** getting enaled sort options **/ ?>
             <label for="pr_orderby_user_selectbox"><?php echo __('Order by', WPL_TEXTDOMAIN); ?></label>
             <select id="pr_orderby_user_selectbox" name="wplorderby">
                 <?php foreach($sort_options as $value_array): ?>
@@ -124,10 +125,23 @@ wpl_extensions::import_javascript($js);
                 <option value="ASC"><?php echo __('ASC', WPL_TEXTDOMAIN); ?></option>
             </select>
         </div>
-
+       
         <div class="plugin-row wpl_shortcode_parameter wpl_hidden_element pr_property_show">
             <label for="pr_mls_id_textbox"><?php echo __('Listing id', WPL_TEXTDOMAIN); ?></label>
             <input type="text" id="pr_mls_id_textbox" name="mls_id" />
+        </div>
+        
+        <div class="plugin-row wpl_shortcode_parameter wpl_hidden_element pr_widget_shortcode">
+			<?php $widgets_list = wpl_widget::get_existing_widgets(); ?>
+            <label for="pr_widget_selectbox"><?php echo __('Widget', WPL_TEXTDOMAIN); ?></label>
+            <select id="pr_widget_selectbox" name="id">
+            	<option value="">-----</option>
+                <?php foreach($widgets_list as $sidebar=>$widgets): if($sidebar == 'wp_inactive_widgets') continue; ?>
+                	<?php foreach($widgets as $widget): if(strpos($widget['id'], 'wpl_') === false) continue; ?>
+						<option value="<?php echo $widget['id']; ?>"><?php echo ucwords(str_replace('_', ' ', $widget['id'])); ?></option>
+                    <?php endforeach;?>
+                <?php endforeach; ?>
+            </select>
         </div>
 
     </div>
@@ -150,6 +164,7 @@ function insert_shortcode()
 	else if (view == 'property_manager') shortcode += '[wpl_listing_manager';
 	else if (view == 'profile_wizard') shortcode += '[wpl_my_profile';
 	else if (view == 'property_wizard') shortcode += '[wpl_add_edit_listing';
+	else if (view == 'widget_shortcode') shortcode += '[wpl_widget_instance';
 
 	wplj("#wpl_shortcode_wizard_container .pr_" + view + " input:text, #wpl_shortcode_wizard_container .pr_" + view + " input[type='hidden'], #wpl_shortcode_wizard_container .pr_" + view + " select").each(function(ind, elm)
 	{

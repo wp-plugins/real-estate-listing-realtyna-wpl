@@ -72,4 +72,10 @@ class wpl_property_types
 		$query = "SELECT * FROM `#__wpl_property_types` WHERE `parent` = '0' ORDER BY `index` ASC";
 		return wpl_db::select($query, 'loadAssocList');
 	}
+	public static function have_properties($property_type_id)
+	{
+		$query = "SELECT count(`id`) as 'id' FROM `#__wpl_properties` WHERE `property_type` = '$property_type_id'";
+		$res = wpl_db::select($query, 'loadAssocList');
+		return $res[0]['id'];
+	}
 }

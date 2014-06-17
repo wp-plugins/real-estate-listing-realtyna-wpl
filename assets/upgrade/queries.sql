@@ -65,13 +65,13 @@ INSERT INTO `#__wpl_units` (`id`, `name`, `type`, `enabled`, `tosi`, `index`, `e
 (7, 'Hectare', 2, 0, 10000, 7, '', '', '', '', '', '', 0);
 
 ALTER TABLE `#__wpl_settings` CHANGE `setting_value` `setting_value` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;
-UPDATE `wp_wpl_dbst` SET `name`='Property Page Title' WHERE `id`='312';
+UPDATE `#__wpl_dbst` SET `name`='Property Page Title' WHERE `id`='312';
 
 INSERT INTO `#__wpl_dbst` (`id`, `kind`, `mandatory`, `name`, `type`, `options`, `enabled`, `pshow`, `plisting`, `searchmod`, `editable`, `deletable`, `index`, `css`, `style`, `specificable`, `listing_specific`, `property_type_specific`, `table_name`, `table_column`, `category`, `rankable`, `rank_point`, `comments`, `pwizard`, `text_search`, `params`) VALUES
 (313, 0, 3, 'Property Title', 'text', 'null', 1, '0', 1, 0, 1, 0, 1.00, '', '', 1, '', '', 'wpl_properties', 'field_313', 1, 0, 0, '', '1', 0, '[]');
 
 ALTER TABLE `#__wpl_properties` ADD `field_313` VARCHAR( 50 ) NULL AFTER `field_312`;
-UPDATE `wp_wpl_dbcat` SET `listing_specific`='' WHERE `id`='7';
+UPDATE `#__wpl_dbcat` SET `listing_specific`='' WHERE `id`='7';
 
 INSERT INTO `#__wpl_dbst_types` (`id`, `kind`, `type`, `enabled`, `index`, `queries_add`, `queries_delete`) VALUES
 (14, '[0][1]', 'url', 1, 1.00, 'ALTER TABLE `wp_[TABLE_NAME]` ADD `field_[FIELD_ID]` varchar(50) NULL; UPDATE wp_wpl_dbst SET `table_name`=''[TABLE_NAME]'', `table_column`=''field_[FIELD_ID]'' WHERE id=[FIELD_ID];', 'ALTER TABLE `#__[TABLE_NAME]`\r\nDROP `field_[FIELD_ID]`;');
@@ -112,3 +112,12 @@ UPDATE `#__wpl_extensions` SET `param2`='http://fonts.googleapis.com/css?family=
 
 UPDATE `#__wpl_dbst` SET `index`='3.50' WHERE `id`='171';
 UPDATE `#__wpl_dbst` SET `text_search`='1' WHERE `id`='308';
+
+INSERT INTO `#__wpl_settings` (`id`, `setting_name`, `setting_value`, `showable`, `category`, `type`, `title`, `params`, `options`, `index`) VALUES
+(51, 'log', '0', 1, 1, 'select', 'WPL log', NULL, '{"values":[{"key":0,"value":"Disabled" },{"key":1,"value":"Enabled"}]}', 120.00);
+
+UPDATE `#__wpl_dbst` SET `deletable`='0' WHERE `id`='51';
+UPDATE `#__wpl_dbst` SET `deletable`='0' WHERE `id`='52';
+
+INSERT INTO `#__wpl_extensions` (`id`,`type`, `title`, `parent`, `description`, `enabled`, `param1`, `param2`, `param3`, `param4`, `param5`, `params`, `editable`, `index`, `client`) VALUES
+(108, 'javascript', 'Modernizr', 0, '', '', 'modernizer', 'js/modernizr.custom.js', '', '', '1', '', 0, 99.99, 0);

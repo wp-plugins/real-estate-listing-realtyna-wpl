@@ -143,7 +143,7 @@ function wpl_address_creator()
 			if (wplj("#wpl_listing_location" + i + "_select").val() != '0' && wplj.trim(wplj("#wpl_listing_location" + i + "_select").val()) != '')
 			{
 				if (!isNaN(wplj("#wpl_listing_location" + i + "_select").val()))
-					address += wplj("#wpl_listing_location" + i + "_select :selected").text() + ', ';
+					address += wplj("#wpl_listing_location" + i + "_select:selected").text() + ', ';
 				else
 					address += wplj("#wpl_listing_location" + i + "_select").val() + ', ';
 			}
@@ -158,7 +158,7 @@ function wpl_address_creator()
 		if (wplj("#wpl_listing_locationzips_select").val() != '0' && wplj.trim(wplj("#wpl_listing_locationzips_select").val()) != '')
 		{
 			if (wplj("#wpl_listing_locationzips_select").prop('tagName').toLowerCase() == 'select')
-				address = wplj("#wpl_listing_locationzips_select :selected").text() + ', ' + address;
+				address = wplj("#wpl_listing_locationzips_select:selected").text() + ', ' + address;
 			else
 				address = wplj("#wpl_listing_locationzips_select").val() + ', ' + address;
 		}
@@ -198,7 +198,7 @@ function wpl_address_creator()
 </script>
 <div class="google-map-wp">
 	<div class="map-form-wp">
-		<label for="wpl_map_address<?php echo $field->id; ?>"><?php echo __('Address', WPL_TEXTDOMAIN); ?> :</label>
+		<label for="wpl_map_address<?php echo $field->id; ?>"><?php echo __('Map point', WPL_TEXTDOMAIN); ?> :</label>
 		<input class="text-address" id="wpl_map_address<?php echo $field->id; ?>" type="text" name="address" value="">
 		<button class="wpl-button button-1" onclick="wpl_code_address(wplj('#wpl_map_address<?php echo $field->id; ?>').val());"><?php echo __('Go', WPL_TEXTDOMAIN); ?></button>
 	</div>

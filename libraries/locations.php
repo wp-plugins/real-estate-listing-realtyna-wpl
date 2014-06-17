@@ -199,7 +199,7 @@ class wpl_locations
 			foreach($counts as $count) $total_count += $count['count'];
 			
 			/** add to wpl_locationtextsearch **/
-			$query = "INSERT INTO `#__wpl_locationtextsearch` (`location_text`,`count`,`counts`) VALUES ('$location_text','$total_count','".json_encode($counts)."')";
+			$query = "INSERT INTO `#__wpl_locationtextsearch` (`location_text`,`count`,`counts`) VALUES ('".wpl_db::escape($location_text)."','$total_count','".json_encode($counts)."')";
 			wpl_db::q($query);
 		}
 	}

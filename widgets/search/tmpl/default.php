@@ -33,7 +33,9 @@ wplj(document).ready(function()
 });
 </script>
 <form action="<?php echo wpl_property::get_property_listing_link(); ?>" id="wpl_search_form_<?php echo $widget_id; ?>" method="GET" onsubmit="return wpl_do_search_<?php echo $widget_id; ?>();" class="wpl_search_from_box clearfix">
-	<div id="wpl_searchwidget_<?php echo $widget_id; ?>" class="clearfix">
+
+    <!-- Do not change the ID -->
+    <div id="wpl_searchwidget_<?php echo $widget_id; ?>" class="clearfix">
 		<?php
 		$top_div = '';
 		$bott_div = '';

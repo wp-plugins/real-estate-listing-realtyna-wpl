@@ -13,6 +13,15 @@ wplj(document).ready(function()
 			wplj(this).next('ul').stop().slideToggle();
 		});
 	}
+
+    if (!Modernizr.csstransitions) {
+        wplj(".wpl_prp_top").hover(function () {
+            wplj(this).children('.wpl_prp_top_boxes.front').hide();
+        }, function() {
+            wplj(this).children('.wpl_prp_top_boxes.front').show();
+        });
+    }
+
 });
 
 wplj(window).resize(function()
@@ -54,4 +63,5 @@ function wpl_pagesize_changed(page_size)
 	url = wpl_update_qs('limit', page_size, url);
 	window.location = url;
 }
+
 </script>

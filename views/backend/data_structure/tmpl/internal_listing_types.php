@@ -3,6 +3,7 @@
 defined('_WPLEXEC') or die('Restricted access');
 $this->_wpl_import($this->tpl_path.'.scripts.internal_listing_types_js');
 ?>
+<span id="wpl_fancybox_handler" class="fancybox wpl_hidden_element" href="#wpl_data_structure_edit_div"></span>
 <table class="widefat page">
     <thead>
         <tr>

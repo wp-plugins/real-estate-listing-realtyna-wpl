@@ -6,7 +6,7 @@ $this->_wpl_import($this->tpl_path . '.scripts.css');
 $this->_wpl_import($this->tpl_path . '.scripts.js');
 ?>
 
-<div class="wrap wpl-wp flex-wp">
+<div class="wrap wpl-wp flex-wp<?php echo ($this->kind == 2 ? ' user-flex': ''); ?>">
     <header>
         <div id="icon-flex" class="icon48">
         </div>

@@ -1036,4 +1036,28 @@ class wpl_property
 		
         return $url;
     }
+	public static function get_properties_list($col,$id)
+	{
+		$query = "SELECT `id` FROM `#__wpl_properties` WHERE `$col` = '$id'";
+		$res = wpl_db::select($query, 'loadAssocList');
+		return $res;
+    }
+	public static function update_properties($col,$property_type_id,$select_id)
+	{
+		$pid_list = wpl_property::get_properties_list($col,$property_type_id);
+		$query = "UPDATE `#__wpl_properties` SET `$col`='$select_id' WHERE `$col`='$property_type_id'";
+		$res = wpl_db::q($query);
+		foreach($pid_list as $tmp)
+		{
+			$pid = $tmp['id'];
+			$property = self::get_property_raw_data($pid);
+			wpl_property::update_text_search_field($pid);
+			wpl_property::update_location_text_search_field($pid);
+			wpl_property::update_alias($property, $pid);
+			wpl_property::update_numbs($pid, $property);
+			/** generate rendered data **/
+			if(wpl_settings::get('cache')) wpl_property::generate_rendered_data($pid);
+		}
+		return $res;
+    }
 }

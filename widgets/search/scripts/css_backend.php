@@ -31,4 +31,5 @@ input[name$="[sort]"]{width: 100%; margin: 0px; font-size: 11px; padding: 0px; h
 .wpl_extoptions_span.minmax_selectbox,
 .wpl_extoptions_span.minmax_selectbox_plus,
 .wpl_extoptions_span.minmax_selectbox_any{display: inline;}
+.wpl_widget_shortcode_preview{text-align: center; padding: 15px 3px 5px;}
 </style>

@@ -86,4 +86,10 @@ class wpl_listing_types
 		$path = WPL_ABSPATH. 'assets' .DS. 'img' .DS. 'listing_types' .DS. 'gicon';
 		return wpl_global::get_icons($path);
 	}
+	public static function have_properties($listing_type_id)
+	{
+		$query = "SELECT count(`id`) as 'id' FROM `#__wpl_properties` WHERE `listing` = '$listing_type_id'";
+		$res = wpl_db::select($query, 'loadAssocList');
+		return $res[0]['id'];
+	}
 }

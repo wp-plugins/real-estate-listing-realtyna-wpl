@@ -153,8 +153,8 @@ function wpl_select_radio<?php echo $widget_id; ?>(value, checked, table_column)
 	$this->create_property_type_specific_js();
 ?>
 wplj(document).ready(function(){
-	wplj("select").chosen();
-    wplj('input[type="checkbox"]:not(.yesno)').checkbox({cls: 'jquery-safari-checkbox',empty:'<?php echo wpl_global::get_wpl_asset_url('img/empty.png'); ?>'});
-    wplj('input.yesno[type="checkbox"]').checkbox({empty:'<?php echo wpl_global::get_wpl_asset_url('img/empty.png'); ?>'});
+	wplj("#wpl_searchwidget_<?php echo $widget_id; ?> select").chosen();
+    wplj('#wpl_searchwidget_<?php echo $widget_id; ?> input[type="checkbox"]:not(.yesno)').checkbox({cls: 'jquery-safari-checkbox',empty:'<?php echo wpl_global::get_wpl_asset_url('img/empty.png'); ?>'});
+    wplj('#wpl_searchwidget_<?php echo $widget_id; ?> input.yesno[type="checkbox"]').checkbox({empty:'<?php echo wpl_global::get_wpl_asset_url('img/empty.png'); ?>'});
 })
 </script>

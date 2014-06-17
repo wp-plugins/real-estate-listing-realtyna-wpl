@@ -26,8 +26,22 @@ include _wpl_import("widgets.search.scripts.js_backend", true, true);
         </select>
     </p>
     
-    <button id="btn-search-<?php echo $this->number ?>" data-is-init="false" data-item-id="<?php echo $this->number ?>" data-fancy-id="wpl_view_fields_<?php echo $this->number; ?>" class="wpl-button button-1" href="#wpl_view_fields_<?php echo $this->number ?>" onclick="showLiBo<?php echo $this->number ?>();return false;"><?php _e('View Fields', WPL_TEXTDOMAIN); ?></button>
+    <button id="btn-search-<?php echo $this->number ?>" data-is-init="false" data-item-id="<?php echo $this->number ?>" data-fancy-id="wpl_view_fields_<?php echo $this->number; ?>" class="wpl-button button-1" href="#wpl_view_fields_<?php echo $this->number ?>" onclick="showLiBo<?php echo $this->number ?>(); return false;"><?php _e('View Fields', WPL_TEXTDOMAIN); ?></button>
+    <?php if(wpl_global::check_addon('pro')): ?>
+        <button id="btn-shortcode-<?php echo $this->number ?>"  data-is-init="false" data-item-id="<?php echo $this->number ?>" data-fancy-id="wpl_view_shortcode_<?php echo $this->number; ?>" class="wpl-button button-1" href="#wpl_view_shortcode_<?php echo $this->number ?>" onclick="showShortCodeInfo<?php echo $this->number ?>(); return false;"><?php _e('View Shortcode', WPL_TEXTDOMAIN); ?></button>
+    <?php endif; ?>
     <span class="page-must-reload"><?php _e(' Must be reload page before open the dialog ', WPL_TEXTDOMAIN); ?></span>
+</div>
+
+<div id="wpl_view_shortcode_<?php echo $this->number ?>" class="wpl_inline_lightbox fanc-box-wp wpl_lightbox hidden">
+    <div class="fanc-content size-width-1" id="wpl_flex_modify_container">
+        <h2><?php echo __('View Shortcode', WPL_TEXTDOMAIN); ?></h2>
+
+        <div class="fanc-body fancy-search-body">
+
+            <p class="wpl_widget_shortcode_preview"><?php echo '[wpl_widget_instance id="'.$this->id.'"]'; ?></p>
+        </div>
+    </div>
 </div>
 
 <div id="wpl_view_fields_<?php echo $this->number ?>" class="wpl_inline_lightbox fanc-box-wp wpl_lightbox hidden">

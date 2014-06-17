@@ -44,49 +44,38 @@ wplj(document).ready(function()
 
 function wpl_remove_property_type(property_type_id, confirmed)
 {
+
 	if (!property_type_id)
 	{
 		wpl_show_messages("<?php echo __('Invalid Property Types', WPL_TEXTDOMAIN); ?>", '.wpl_data_structure_list .wpl_show_message');
 		return false;
 	}
 
-	if (!confirmed)
-	{
-		message = "<?php echo __('Are you sure to remove this item?', WPL_TEXTDOMAIN); ?>&nbsp;(<?php echo __('ID', WPL_TEXTDOMAIN); ?>:" + property_type_id + ")&nbsp;<?php echo __('All related items will be removed.', WPL_TEXTDOMAIN); ?>";
-		message += '<span class="wpl_actions" onclick="wpl_remove_property_type(' + property_type_id + ', 1);"><?php echo __('Yes', WPL_TEXTDOMAIN); ?></span>&nbsp;<span class="wpl_actions" onclick="wpl_remove_message();"><?php echo __('No', WPL_TEXTDOMAIN); ?></span>';
+	/** load delete light box **/
+    wpl_remove_message('.wpl_data_structure_list .wpl_show_message');
+    request_str = 'wpl_format=b:data_structure:ajax_property_types&wpl_function=generate_delete_page&property_type_id='+property_type_id;
 
-		wpl_show_messages(message, '.wpl_data_structure_list .wpl_show_message');
+    /** refresh the fancybox **/
+    rta.config.fancybox.reloadAfterClose = true;
 
-		return false;
-	}
-	else
-	{
-		wpl_remove_message();
-	}
-
-	ajax_loader_element = '#wpl_ajax_loader_' + property_type_id;
-	wplj(ajax_loader_element).html('<img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader3.gif'); ?>" />');
-
-	request_str = 'wpl_format=b:data_structure:ajax_property_types&wpl_function=remove_property_type&property_type_id=' + property_type_id + '&wpl_confirmed=' + confirmed;
-
-	/** run ajax query **/
-	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str, ajax_loader_element);
-
-	ajax.success(function(data)
-	{
-		if (data.success == 1)
-		{
-			wpl_show_messages(data.message, '.wpl_data_structure_list .wpl_show_message', 'wpl_green_msg');
-			wplj(ajax_loader_element).html('');
-			wplj(ajax_loader_element).parent().parent().remove();
-		}
-		else if (data.success != 1)
-		{
-
-			wpl_show_messages(data.message, '.wpl_data_structure_list .wpl_show_message', 'wpl_red_msg');
-			wplj(ajax_loader_element).html('');
-		}
-	});
+    /** run ajax query **/
+    wplj.ajax(
+    {
+        type: "POST",
+        url: '<?php echo wpl_global::get_full_url(); ?>',
+        data: request_str,
+        success: function(data)
+        {
+            wplj("#wpl_data_structure_edit_div").html(data);
+            wplj('.wpl_help').wpl_help();
+            jQuery("#wpl_fancybox_handler").trigger("click");
+        },
+        error: function(jqXHR, textStatus, errorThrown)
+        {
+            wpl_show_messages('<?php echo __('Error Occured.', WPL_TEXTDOMAIN); ?>', '.wpl_data_structure_list .wpl_show_message', 'wpl_red_msg');
+            wplj.fancybox.close();
+        }
+    });
 }
 
 function wpl_set_enabled_property_type(property_type_id, enabeled_status)
@@ -246,5 +235,59 @@ function wpl_ajax_insert_property_type(id)
 			wpl_show_messages(data.message, '.wpl_show_message' + id, 'wpl_red_msg');
 		}
 	});
+}
+function purge_properties_property_type(property_type_id)
+{
+	request_str = 'wpl_format=b:data_structure:ajax_property_types&wpl_function=purge_related_property&property_type_id=' + property_type_id;
+	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str);
+
+	ajax.success(function(data)
+	{
+		if (data.success == 1)
+		{
+			wpl_show_messages(data.message, '.wpl_show_message' + property_type_id, 'wpl_green_msg');
+			setTimeout(function() {   
+			    wplj(".fancybox-close").trigger("click");
+				 location.reload();
+			}, 1000);
+			
+		}
+		else if (data.success != 1)
+		{
+			wpl_show_messages(data.message, '.wpl_show_message' + property_type_id, 'wpl_red_msg');
+		}
+	});
+}
+function assign_properties_property_type(property_type_id)
+{
+	var select_id = wplj('#property_type_select').val();
+
+	if(select_id == -1)
+		return;
+	
+	request_str = 'wpl_format=b:data_structure:ajax_property_types&wpl_function=assign_related_properties&property_type_id=' + property_type_id+ '&select_id=' + select_id;
+	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str);
+
+	ajax.success(function(data)
+	{
+		if (data.success == 1)
+		{
+			wpl_show_messages(data.message, '.wpl_show_message' + property_type_id, 'wpl_green_msg');
+			setTimeout(function() {   
+			    wplj(".fancybox-close").trigger("click");
+				 location.reload();
+			}, 1000);
+			
+		}
+		else if (data.success != 1)
+		{
+			wpl_show_messages(data.message, '.wpl_show_message' + property_type_id, 'wpl_red_msg');
+		}
+	});
+}
+function show_opt_2_property_type()
+{
+	wplj('.options').hide('slow');
+	wplj('#property_type_list').show('slow');
 }
 </script>

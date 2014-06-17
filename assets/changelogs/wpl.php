@@ -4,6 +4,12 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.5.3 (<span class="wpl_log_date">6/17/2014</span> <span class="wpl_log_revision">revision 704</span>)</h4>
+        -- <strong>[PRO]</strong> Added WPL widget loader (shortcode for widgets).<br />
+        -- Added new options for deleting property types and listing types.<br />
+        -- Fixed some issues in gallery activity.<br />
+        -- Added new keywords to language file.
+        
         <h4>WPL1.5.1 (<span class="wpl_log_date">6/08/2014</span> <span class="wpl_log_revision">revision 683</span>)</h4>
         -- Added resize handler to gallery activity.<br />
         -- Fixed an issue on agents widget.
