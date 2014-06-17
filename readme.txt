@@ -20,7 +20,7 @@ Download [WPL manual](http://wpl.realtyna.com/wassets/wpl-manual.pdf) and check 
 
 **WPL Expansion options**
 
-*   Have necessary database fields for further MLS Integration ([MLS Coverage](http://wpl.realtyna.com/mls-coverage/)) (integrating MLS / IDX / RETS / VOW  servers into WPL - Wordpress directly) - Extra customization may be needed. http://rpl.realtyna.com/Add-ons/MLS-IDX-Integration
+*   Have necessary database fields for further MLS Integration (integrating MLS / IDX / RETS / VOW  servers into WPL - Wordpress directly) - Extra customization may be needed. http://rpl.realtyna.com/Add-ons/MLS-IDX-Integration
 *   Native Custom Brand Mobile App http://rpl.realtyna.com/add-ons/real-estate-iphone/android-app
 *   Demographic Package http://rpl.realtyna.com/add-ons/real-estate-demographic-information-add-ons
 *   Cloud Hosting (Starting from $24.95 per month) http://hosting.realtyna.com
