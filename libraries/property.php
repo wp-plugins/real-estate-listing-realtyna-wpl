@@ -69,7 +69,7 @@ class wpl_property
 		_wpl_import('libraries.filters');
 		@extract(wpl_filters::apply('create_default_property', array('query'=>$query, 'values'=>$values, 'user_id'=>$user_id, 'kind'=>$kind)));
 		
-       	$query = "INSERT INTO  `#__wpl_properties` (".$query.", `kind`, `user_id`, `finalized`, `add_date`, `mls_id`) VALUES (".$values.", '$kind', '$user_id', '0', NOW(), '".self::get_new_mls_id()."')";
+       	$query = "INSERT INTO  `#__wpl_properties` (".(trim($query) != '' ? $query.", " : '')."`kind`, `user_id`, `finalized`, `add_date`, `mls_id`) VALUES (".(trim($values) != '' ? $values.", " : '')."'$kind', '$user_id', '0', NOW(), '".self::get_new_mls_id()."')";
 		return wpl_db::q($query, 'insert');
     }
 	

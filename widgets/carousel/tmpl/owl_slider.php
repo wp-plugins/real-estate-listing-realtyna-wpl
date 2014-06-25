@@ -51,7 +51,7 @@ foreach($wpl_properties as $key=>$gallery)
 <script type="text/javascript">
 wplj(function()
 {
-    wplj("#owl-slider").owlCarousel({
+    wplj("#owl-slider<?php echo $this->widget_id; ?>").owlCarousel({
         items : 3,
         lazyLoad : true,
         navigation : true,
@@ -64,6 +64,6 @@ wplj(function()
     });
 });
 </script>
-<div id="owl-slider" class="owl-carousel owl-theme container">
+<div id="owl-slider<?php echo $this->widget_id; ?>" class="owl-carousel owl-theme container">
     <?php echo $images ?>
 </div>

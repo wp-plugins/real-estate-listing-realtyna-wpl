@@ -121,3 +121,6 @@ UPDATE `#__wpl_dbst` SET `deletable`='0' WHERE `id`='52';
 
 INSERT INTO `#__wpl_extensions` (`id`,`type`, `title`, `parent`, `description`, `enabled`, `param1`, `param2`, `param3`, `param4`, `param5`, `params`, `editable`, `index`, `client`) VALUES
 (108, 'javascript', 'Modernizr', 0, '', '', 'modernizer', 'js/modernizr.custom.js', '', '', '1', '', 0, 99.99, 0);
+
+UPDATE `#__wpl_extensions` SET `param5`='' WHERE `id`='108';
+UPDATE `#__wpl_extensions` SET `enabled`='1' WHERE `id`='108';

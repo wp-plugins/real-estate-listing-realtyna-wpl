@@ -31,8 +31,10 @@ class wpl_search_widget extends wpl_widget
 	 */
 	public function widget($args, $instance)
 	{
-		$this->widget_uq_name = 'wpls'.$this->number;
-		$this->widget_id = $this->number;
+        $this->widget_id = $this->number;
+        if($this->widget_id < 0) $this->widget_id = abs($this->widget_id)+1000;
+        
+        $this->widget_uq_name = 'wpls'.$this->widget_id;
 		$widget_id = $this->widget_id;
 		$target_id = isset($instance['wpltarget']) ? $instance['wpltarget'] : 0;
         

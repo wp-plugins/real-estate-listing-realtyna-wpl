@@ -24,11 +24,6 @@ class wpl_carousel_widget extends wpl_widget
 	
 	public function __construct()
 	{
-		$this->widget_id = $this->number;
-        if($this->widget_id < 0) $this->widget_id = abs($this->widget_id)+1000;
-        
-		$this->widget_uq_name = 'wplc'.$this->widget_id;
-		
 		parent::__construct('wpl_carousel_widget', 'WPL carousel widget', array('description'=>__('Showing specific properties', WPL_TEXTDOMAIN)));
 	}
 
@@ -38,8 +33,13 @@ class wpl_carousel_widget extends wpl_widget
 	public function widget($args, $instance)
 	{
 		$this->instance = $instance;
+        
+        $this->widget_id = $this->number;
+        if($this->widget_id < 0) $this->widget_id = abs($this->widget_id)+1000;
+        
+		$this->widget_uq_name = 'wplc'.$this->widget_id;
 		$widget_id = $this->widget_id;
-		
+        
 		/** add main scripts **/
 		wp_enqueue_script('jquery-ui-core');
 		wp_enqueue_script('jquery-ui-slider');
