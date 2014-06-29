@@ -70,30 +70,6 @@ if($type == 'number' and !$done_this)
 	elseif($show == 'minmax_slider')
 	{
 		$html .= '<script type="text/javascript">
-				function wpl_th_sep'.$field['id'].'(num)
-				{
-					sep = "'.$separator.'";
-					num = num.toString();
-					x = num;
-					z = "";
-					
-					for (i=x.length-1; i>=0; i--)
-						z += x.charAt(i);
-					
-					// add seperators. but undo the trailing one, if there
-					z = z.replace(/(\d{3})/g, "$1" + sep);
-					
-					if (z.slice(-sep.length) == sep)
-						z = z.slice(0, -sep.length);
-					
-					x = "";
-					// reverse again to get back the number
-					for (i=z.length-1; i>=0; i--)
-						x += z.charAt(i);
-					
-					return x;
-				}
-				
 				wplj(function()
 				{
 					wplj("#slider'.$widget_id.'_range_'.$field_data['table_column'].'" ).slider(
@@ -102,11 +78,12 @@ if($type == 'number' and !$done_this)
 						range: true,
 						min: '.$min_value.',
 						max: '.$max_value.',
+                        field_id: '.$field['id'].',
 						values: ['.$current_min_value.', '.$current_max_value.'],
 						slide: function(event, ui)
 						{
-							v1 = wpl_th_sep'.$field['id'].'(ui.values[0]);
-							v2 = wpl_th_sep'.$field['id'].'(ui.values[1]);
+							v1 = wpl_th_sep'.$widget_id.'(ui.values[0]);
+							v2 = wpl_th_sep'.$widget_id.'(ui.values[1]);
 							wplj("#slider'.$widget_id.'_showvalue_'.$field_data['table_column'].'" ).html(v1+" - "+ v2);
 						},
 						stop: function(event, ui)

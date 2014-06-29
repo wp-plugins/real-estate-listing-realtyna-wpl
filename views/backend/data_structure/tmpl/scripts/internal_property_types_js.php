@@ -215,6 +215,14 @@ function wpl_ajax_insert_property_type(id)
 	wpl_remove_message('.wpl_show_message' + id);
 	parent = wplj('#wpl_parent10000').val();
     name = wplj('#wpl_name10000').val();
+    
+    /** validation for parent **/
+    if(parent == '')
+    {
+        wpl_show_messages('<?php echo __('Select category!', WPL_TEXTDOMAIN); ?>', '.wpl_show_message' + id, 'wpl_red_msg');
+        return;
+    }
+    
     /** run ajax query **/
     request_str = 'wpl_format=b:data_structure:ajax_property_types&wpl_function=insert_property_type&parent=' + parent + '&name=' + name;
 	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str);

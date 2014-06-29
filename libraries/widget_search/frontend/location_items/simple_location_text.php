@@ -47,6 +47,14 @@ if($show == 'simple_location_text' and !$done_this)
 				html += \'<label class="wpl_search_widget_location_level_label" for="sf'.$widget_id.'_select_location\'+next_level+\'_id">\'+data.keyword+\'</label>\';
 				html += data.html;
 				wplj("#wpl'.$widget_id.'_search_widget_location_level_container"+next_level).html(html);
+                
+                setTimeout(function()
+                {
+                    if(wplj.fn.chosen != "undefined")
+                    {
+                        wplj("#wpl'.$widget_id.'_search_widget_location_level_container"+next_level+" select").chosen();
+                    }
+                }, 200);
 			}
 			else if(data.success != 1)
 			{

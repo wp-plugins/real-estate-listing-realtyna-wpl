@@ -26,6 +26,22 @@ function wpl_pshow_map_init()
 		google.maps.event.removeListener(listener);
 	});
 	
+    <?php if($this->googlemap_type == '1'): ?>
+  	var panoramaOptions = 
+    {
+		position: marker.position,
+		pov: 
+		{
+		  heading: 34,
+		  pitch: 10,
+		  zoom: 1
+		}
+	};
+    
+	var panorama = new google.maps.StreetViewPanorama(document.getElementById('wpl_map_canvas<?php echo $this->activity_id; ?>'), panoramaOptions);
+	wpl_map.setStreetView(panorama);
+ 	<?php endif; ?> 
+    
 	/** set true **/
 	wpl_map_initialized = true;
 }

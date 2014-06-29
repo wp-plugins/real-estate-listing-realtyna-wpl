@@ -7,6 +7,7 @@ $wpl_properties = isset($params['wpl_properties']) ? $params['wpl_properties'] :
 $property_id = isset($wpl_properties['current']['data']['id']) ? $wpl_properties['current']['data']['id'] : NULL;
 
 /** get params **/
+$this->googlemap_type = isset($params['googlemap_type']) ? $params['googlemap_type'] : 0;
 $this->map_width = isset($params['map_width']) ? $params['map_width'] : 360;
 $this->map_width = isset($params['map_height']) ? $params['map_height'] : 385;
 $this->default_lt = isset($params['default_lt']) ? $params['default_lt'] : '38.685516';

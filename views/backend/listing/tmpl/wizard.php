@@ -24,7 +24,7 @@ $this->finds = array();
         <div class="side-2 side-tabs-wp">
             <ul>
                 <li class="finilized">
-                    <a href="#10000" class=" wpl_slide_label_id10000" id="wpl_slide_label_id10000" onclick="wpl_finalize(10000, '<?php echo $this->property_id; ?>');">
+                    <a href="#10000" class="tab-finalize wpl_slide_label_id10000" id="wpl_slide_label_id10000" onclick="wpl_finalize(10000, '<?php echo $this->property_id; ?>');">
                         <span><?php echo __('Finalize', WPL_TEXTDOMAIN); ?></span>
                         <i class="icon-finalize"></i>
                     </a>        

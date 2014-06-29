@@ -14,4 +14,5 @@ span.plist_price{color: #e66f00;}
 .pmanager_massaction_btn{padding: 5px; margin-left: 5px; background-color: #F0F0EE; color: #3a3a3a; text-align: center; border-radius: 3px; display: inline-block; cursor: pointer;}
 .pmanager_massaction_btn:hover{background-color: #fff9c0;}
 .wpl_message_container{margin: 30px 10px; font-size: 30px;}
+.wpl_listing_manager_search_form_element_cnt .wpl_reset_button{cursor: pointer;}
 </style>

@@ -9,9 +9,10 @@ class wpl_io_cmd_check_property
 	var $uid;
 	var $pid;
 	var $built = array();
-	var $settings = array(
-	'include_raw'=>0,
-	'access_view' => 'propertyshow'
+	var $settings = array
+    (
+        'include_raw'=>0,
+        'access_view'=>'propertyshow'
 	);
 	var $is_exists; // property existance?
 	var $status;

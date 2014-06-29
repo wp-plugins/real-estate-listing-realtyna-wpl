@@ -4,6 +4,13 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.5.6 (<span class="wpl_log_date">6/29/2014</span> <span class="wpl_log_revision">revision 711</span>)</h4>
+        -- Added street view feature to Googlemap activity.<br />
+        -- Added a feature for resetting other search fields after inserting Listing ID.<br />
+        -- Added a reset link to listing manager search widget.<br />
+        -- Fixed finalize button issue on listing wizard menu.<br />
+        -- Fixed an issue in location select boxes in search widget.
+        
         <h4>WPL1.5.4 (<span class="wpl_log_date">6/25/2014</span> <span class="wpl_log_revision">revision 709</span>)</h4>
         -- Fixed an issue in owl_slider layout of carousel widget.<br />
         -- Fixed a js issue on WPL frontend.

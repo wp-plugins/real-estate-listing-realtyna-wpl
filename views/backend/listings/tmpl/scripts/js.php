@@ -29,6 +29,43 @@ function wpl_search_listings()
     window.location = search_str;
 }
 
+function wpl_reset_listings()
+{
+    wplj("#wpl_listing_manager_search_form_cnt").find(':input').each(function()
+    {
+        switch(this.type)
+        {
+            case 'text':
+
+                wplj(this).val('');
+                break;
+                
+            case 'select-multiple':
+                
+                wplj(this).multiselect("uncheckAll");
+                break;
+                
+            case 'select-one':
+
+                wplj(this).val('-1');
+                wplj(this).trigger("chosen:updated");
+                break;
+                
+            case 'password':
+            case 'textarea':
+                
+                wplj(this).val('');
+                break;
+                
+            case 'checkbox':
+            case 'radio':
+                
+                this.checked = false;
+                break;
+        }
+    });
+}
+
 function select_all_checkboxes()
 {
     wplj(".js-pcheckbox").each(function()

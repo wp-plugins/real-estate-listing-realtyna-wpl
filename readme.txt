@@ -4,7 +4,7 @@ Donate link: http://wpl.realtyna.com/
 Tags: Real estate, Listing, Vertical Market, MLS, Property listing, RETS
 Requires at least: 3.0.1
 Tested up to: 3.9.1
-Stable tag: 1.5.4
+Stable tag: 1.5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -59,6 +59,13 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 6. External Responsive Template: Agent listing
 
 == Changelog ==
+
+= 1.5.6 =
+* Added street view feature to Googlemap activity.
+* Added a feature for resetting other search fields after inserting Listing ID.
+* Added a reset link to listing manager search widget.
+* Fixed finalize button issue on listing wizard menu.
+* Fixed an issue in location select boxes in search widget.
 
 = 1.5.4 =
 * Fixed an issue in owl_slider layout of carousel widget.

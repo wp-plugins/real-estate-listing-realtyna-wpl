@@ -95,6 +95,7 @@ defined('_WPLEXEC') or die('Restricted access');
     <div class="prow wpl-btn-wp">
         <div class="wpl_listing_manager_search_form_element_cnt">
             <button class="wpl-button button-1" onclick="wpl_search_listings();"><?php echo __('Search', WPL_TEXTDOMAIN); ?></button>
+            <span class="wpl_reset_button" onclick="wpl_reset_listings();"><?php echo __('Reset', WPL_TEXTDOMAIN); ?></span>
         </div>
     </div>
 </div>
