@@ -34,10 +34,10 @@ if($type == 'number' and !$done_this)
 	/** MIN/MAX extoptions **/
 	$extoptions = isset($field['extoption']) ? explode(',', $field['extoption']) : array();
     
-	$min_value = (isset($extoptions[0]) and trim($extoptions[0])) ? $extoptions[0] : 0;
-	$max_value = (isset($extoptions[1]) and trim($extoptions[1])) ? $extoptions[1] : 100000;
-	$division = (isset($extoptions[2]) and trim($extoptions[2])) ? $extoptions[2] : 1000;
-	$separator = (isset($extoptions[3]) and trim($extoptions[3])) ? $extoptions[3] : ',';
+	$min_value = isset($extoptions[0]) ? $extoptions[0] : 0;
+	$max_value = isset($extoptions[1]) ? $extoptions[1] : 100000;
+	$division = isset($extoptions[2]) ? $extoptions[2] : 1000;
+	$separator = isset($extoptions[3]) ? $extoptions[3] : ',';
 	
     $html .= '<label>'.__($field['name'], WPL_TEXTDOMAIN).'</label>';
 

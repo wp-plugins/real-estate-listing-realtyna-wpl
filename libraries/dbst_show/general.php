@@ -129,7 +129,7 @@ elseif(($type == 'volume' or $type == 'area' or $type == 'length') and !$done_th
 		$return['field_id'] = $field->id;
 		$return['type'] = $field->type;
 		$return['name'] = __($field->name, WPL_TEXTDOMAIN);
-		$return['value'] = ($value == round($value) ? $value : number_format($value, 2));
+		$return['value'] = ($value == round($value) ? number_format($value, 0) : number_format($value, 2));
 		
 		/** adding unit **/
 		$unit = wpl_units::get_unit($values[$field->table_column.'_unit']);

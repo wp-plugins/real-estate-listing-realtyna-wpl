@@ -4,6 +4,10 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.5.7 (<span class="wpl_log_date">6/30/2014</span> <span class="wpl_log_revision">revision 715</span>)</h4>
+        -- Added new keywords to language file.<br />
+        -- Fixed a responsive issue on single property gallery.
+        
         <h4>WPL1.5.6 (<span class="wpl_log_date">6/29/2014</span> <span class="wpl_log_revision">revision 711</span>)</h4>
         -- Added street view feature to Googlemap activity.<br />
         -- Added a feature for resetting other search fields after inserting Listing ID.<br />

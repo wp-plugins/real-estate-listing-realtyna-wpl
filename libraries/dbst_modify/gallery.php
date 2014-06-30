@@ -42,7 +42,7 @@ if($type == 'gallery' and !$done_this)
 				<input type="text" name="<?php echo $__prefix; ?>opt_ext_file" id="<?php echo $__prefix; ?>opt_ext_file" value="<?php echo (isset($options['ext_file']) ? $options['ext_file'] : ''); ?>" />
 			</div>
 			<div class="fanc-row">
-				<label for="<?php echo $__prefix; ?>opt_file_size"><?php echo __('Maximum file size', WPL_TEXTDOMAIN); ?></label>
+				<label for="<?php echo $__prefix; ?>opt_file_size"><?php echo __('Max file size', WPL_TEXTDOMAIN); ?></label>
 				<input type="text" name="<?php echo $__prefix; ?>opt_file_size" id="<?php echo $__prefix; ?>opt_file_size" value="<?php echo (isset($options['file_size']) ? $options['file_size'] : ''); ?>" />
 			</div>
 		</div>

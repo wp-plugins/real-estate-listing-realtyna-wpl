@@ -326,4 +326,16 @@ class wpl_db
 		return $wpdb;
 	}
 	
+	/**
+		Developed by : Chris
+		Inputs : {input}
+		Outputs : sanitize_text_field
+		Date : 2014-06-29
+		Description : Checks for invalid UTF-8, Convert single < characters to entity, strip all tags, remove line breaks, tabs and extra white space, strip octets. 
+	**/
+	public static function sanitize($input)
+	{
+		return sanitize_text_field($input);
+	}
+	
 }

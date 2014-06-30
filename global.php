@@ -993,9 +993,39 @@ class wpl_global
 		else
 		{
 			$path = rtrim(WPL_UP_ABSPATH, DS).$blog_id. DS;
-			
 			if(!wpl_folder::exists($path)) wpl_folder::create($path);
+            
 			return get_site_url().'/wp-content/uploads/WPL'.$blog_id.'/';
 		}
+	}
+	
+	
+	/**
+		Developed by : Chris
+		Inputs : {lenght}{special_chars}{extra_special_chars}
+		Outputs : randomize password
+		Date : 2014-06-29
+		Description : Generates a random password drawn from the defined set of characters. 
+	**/
+	public static function generate_password($lenght, $special_chars = NULL, $extra_special_chars = NULL)
+	{
+		return wp_generate_password($lenght, $special_chars, $extra_special_chars);
+	}
+	
+	/**
+		Developed by : Chris
+		Inputs : {iteration_count}{key}
+		Outputs : hashed passowrd
+		Date : 2014-06-29
+		Description : Creates a hash of a plain text password
+	**/
+	public static function wpl_hasher($iteration_count, $key)
+	{
+		_wp_import('wp-includes.class-phpass');
+        
+		$wpl_hasher = new PasswordHash($iteration_count, true);
+		$hashed_key = $wpl_hasher->HashPassword($key);
+        
+		return $hashed_key;
 	}
 }

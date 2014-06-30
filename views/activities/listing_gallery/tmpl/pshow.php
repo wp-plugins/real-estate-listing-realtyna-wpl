@@ -57,7 +57,7 @@ $this->_wpl_import($this->tpl_path.'.scripts.pshow', true, true);
             }
             
             /** start loading images **/
-            echo '<li><img src="'.$image_url.'" title="" class="wpl_gallery_image '.$this->image_class.'" id="wpl_gallery_image'.$image['raw']['id'].'" width="'.$this->image_width.'" height="'.$this->image_height.'" style="width: '.$this->image_width.'px; height: '.$this->image_height.'px;" alt="'.$image['title'].'" /></li>';
+            echo '<li><img src="'.$image_url.'" title="" class="wpl_gallery_image '.$this->image_class.'" id="wpl_gallery_image'.$image['raw']['id'].'" width="'.$this->image_width.'" height="'.$this->image_height.'" alt="'.$image['title'].'" /></li>';
             $pager_box .= '<a data-slide-index="'.$i.'" href=""><img src="'.$image_thumbnail_url.'" width="100" height="80" style="width: 100px; height: 80px;" alt="'.$image['title'].'" /></a>';
         	$i++;
         }

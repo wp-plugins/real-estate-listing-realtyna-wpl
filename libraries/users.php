@@ -1003,4 +1003,92 @@ class wpl_users
 		
 		return $result;
 	}
+	
+	/**
+		Developed by : Chris
+		Inputs : none
+		Outputs : boolean
+		Date : 2014-06-29
+		Description : This Conditional Tag checks if the current visitor is logged in. This is a boolean function, meaning it returns either TRUE or FALSE
+	**/
+	public static function check_user_login()
+	{
+		if(is_user_logged_in()) return true;
+		else return false;
+	}
+	
+	/**
+		Developed by : Chris
+		Inputs : {user_data}[array]
+		Outputs : if successful, returns the newly-created user's user_id, otherwise returns a WP_Error object
+		Date : 2014-06-29
+		Description : Insert a user into the database. 
+	**/
+	public static function insert_user($user_data)
+	{
+		$acceptable_fileds = array('ID', 'user_pass', 'user_login', 'user_nicename', 'user_url', 'user_email', 'display_name', 'nickname', 'first_name', 'last_name', 'description', 'rich_editing', 'user_registered', 'role', 'jabber', 'aim', 'yim');
+		$insert_data = array();
+        
+		if((array_key_exists('user_login', $user_data)) && (array_key_exists('user_email', $user_data)) && (array_key_exists('user_pass', $user_data)))
+		{
+			foreach($user_data as $key=>$value)
+			{
+				if(in_array($key, $acceptable_fileds))
+				{
+					$insert_data[$key] = $value;
+				}
+			}
+            
+			$insert_user = wp_insert_user($insert_data);
+			return $insert_user;
+		}
+		else
+		{
+			return new WP_Error('broke', __("ERROR : Requirement fileds invalid", WPL_TEXTDOMAIN));
+		}
+	}
+	
+	/**
+		Developed by : Chris
+		Inputs : {user_data}[array]
+		Outputs : if successful, returns the newly-created user's user_id, otherwise returns a WP_Error object
+		Date : 2014-06-29
+		Description : Authenticates a user with option to remember credentials
+	**/
+	public static function login_user($user_data)
+	{
+		$acceptable_fileds = array('user_login', 'user_password', 'remember');
+		$login_data = array();
+        
+		if((is_array($user_data)) && (array_key_exists('user_login', $user_data)) && (array_key_exists('user_password', $user_data)) && (array_key_exists('remember', $user_data)))
+		{
+			foreach($user_data as $key=>$value)
+			{
+				if(in_array($key, $acceptable_fileds))
+				{
+					$login_data[$key] = $value;
+				}
+			}
+            
+			$login_user = wp_signon($login_data, false);
+			return $login_user;
+		}
+		else
+		{
+			return new WP_Error('broke', __("ERROR : Requirement fileds invalid", WPL_TEXTDOMAIN));
+		}
+	}
+	
+	/**
+		Developed by : Chris
+		Inputs : {field}{data}
+		Outputs : WP_User object or false if no user is found. Will also return false if $field does not exist. 
+		Date : 2014-06-29
+		Description : Get user data by field and data. The possible fields are shown below with the corresponding columns in the wp_users database table. 
+	**/
+	public static function get_user_by($field, $data)
+	{
+		$acceptable_fileds = array('id', 'slug', 'email', 'login');
+		if(in_array($field, $acceptable_fileds)) return get_user_by($field, trim($data));
+	}
 }
