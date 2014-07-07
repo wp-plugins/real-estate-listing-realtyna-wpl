@@ -53,14 +53,15 @@ class wpl_data_structure_controller extends wpl_controller
 		{
 			self::save_property_type();
 		}
-		 elseif($function == 'insert_property_type')
+		elseif($function == 'insert_property_type')
 		{
 			self::insert_property_type();
 		}
 		elseif($function == 'can_remove_property_type')
 		{
 			self::can_remove_property_type();
-		}elseif($function == 'purge_related_property')
+		}
+        elseif($function == 'purge_related_property')
 		{
 			self::purge_related_property();
 		}
@@ -161,6 +162,7 @@ class wpl_data_structure_controller extends wpl_controller
 		echo json_encode($response);
 		exit;
 	}
+    
     private function save_property_type()
     {
 		$key = wpl_request::getVar('key');
@@ -179,36 +181,36 @@ class wpl_data_structure_controller extends wpl_controller
 		echo json_encode($response);
 		exit;
     }
+    
 	private function can_remove_property_type()
 	{
 		$property_type_id = wpl_request::getVar('property_type_id');
 		$res = wpl_property_types::have_properties($property_type_id);
 		$res = (int) $res;
-		if($res>0)
-		{
-			$res = 0;
-		}
-		else
-		{
-			$res = 1;	
-		}
+        
+		if($res > 0) $res = 0;
+		else $res = 1;
+        
 		echo $res;
 		exit;
 	}
+    
 	function purge_related_property()
 	{
 		$property_type_id = wpl_request::getVar('property_type_id');
-		$properties_list = wpl_property::get_properties_list('property_type',$property_type_id);
-		foreach($properties_list as $property)
-			wpl_property::purge($property['id']);
+		$properties_list = wpl_property::get_properties_list('property_type', $property_type_id);
+        
+		foreach($properties_list as $property) wpl_property::purge($property['id']);
 		self::remove_property_type($property_type_id, 1);
 	}
+    
 	function assign_related_properties()
 	{
 		$property_type_id = wpl_request::getVar('property_type_id');
 		$select_id = wpl_request::getVar('select_id');
-		$j = wpl_property::update_properties('property_type',$property_type_id,$select_id);
+        
+		$j = wpl_property::update_properties('property_type', $property_type_id, $select_id);
+        
 		self::remove_property_type($property_type_id, 1);
 	}
-	
 }

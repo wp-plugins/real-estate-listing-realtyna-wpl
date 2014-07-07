@@ -337,7 +337,10 @@ function assign_properties_listing_type(listing_type_id)
 }
 function show_opt_2_listing_type()
 {
-	wplj('.options').hide('slow');
-	wplj('#listing_type_list').show('slow');
+
+	wplj('#lt-del-options').fadeOut(200,function(){
+        wplj('#lt-del-plist').fadeIn();
+    });
+
 }
 </script>

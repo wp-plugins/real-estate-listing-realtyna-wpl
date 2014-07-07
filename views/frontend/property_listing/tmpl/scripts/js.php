@@ -14,10 +14,14 @@ wplj(document).ready(function()
 		});
 	}
 
-    if (!Modernizr.csstransitions) {
-        wplj(".wpl_prp_top").hover(function () {
+    if(!Modernizr.csstransitions)
+    {
+        wplj(".wpl_prp_top").hover(function ()
+        {
             wplj(this).children('.wpl_prp_top_boxes.front').hide();
-        }, function() {
+        },
+        function()
+        {
             wplj(this).children('.wpl_prp_top_boxes.front').show();
         });
     }
@@ -63,5 +67,4 @@ function wpl_pagesize_changed(page_size)
 	url = wpl_update_qs('limit', page_size, url);
 	window.location = url;
 }
-
 </script>

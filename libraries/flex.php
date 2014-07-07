@@ -50,11 +50,11 @@ class wpl_flex
 		@input {dbst_id}
 		@return void
 	**/
-	public static function create_default_dbst($dbst_id = 0)
+	public static function create_default_dbst($dbst_id = 0, $searchmod = 1)
 	{
 		if(!$dbst_id) $dbst_id = self::get_new_dbst_id();
 		
-		$query = "INSERT INTO `#__wpl_dbst` (`id`,`enabled`,`pshow`,`plisting`,`searchmod`,`pwizard`,`index`) VALUES ('$dbst_id','1','1','0','1','1','$dbst_id');";
+		$query = "INSERT INTO `#__wpl_dbst` (`id`,`enabled`,`pshow`,`plisting`,`searchmod`,`pwizard`,`index`) VALUES ('$dbst_id','1','1','0','$searchmod','1','$dbst_id');";
 		return wpl_db::q($query, 'insert');
 	}
 	

@@ -110,8 +110,6 @@ function showShortCodeInfo<?php echo $this->number ?>() {
     return false;
 }
 
-
-
 var wplSearchWidget<?php echo $this->number ?> = (function (codeId) {
 
 
@@ -349,7 +347,6 @@ var wplSearchWidget<?php echo $this->number ?> = (function (codeId) {
 
     _j(function () {
 
-
         _j('div.widgets-sortables').bind('sortstop', function (event, ui) {
             rta.util.log('New widget added to "Main Widget Area".');
         });
@@ -359,14 +356,22 @@ var wplSearchWidget<?php echo $this->number ?> = (function (codeId) {
          */
 
             // Append the move icon to disable element
-        _j('#wpl_view_fields_<?php echo $this->number ?> .search-field-wp[data-status="disable"] h4').append(searchConfig.templates.move);
 
         // Append the move icon to disable element
         _j('#wpl_view_fields_<?php echo $this->number ?> .search-field-wp[data-status="enable"] h4').append(searchConfig.templates.delete);
 
-        // Move enable element to active block
+        // Move enable elements to active block
         _j('#wpl_view_fields_<?php echo $this->number ?> .search-field-wp').filter('[data-status="enable"]').each(function () {
             _j(this).appendTo(_j(this).closest('.search-body').find('.active-block'));
+        });
+
+        // Move disable elements to inactive block
+        _j('#wpl_view_fields_<?php echo $this->number ?> .search-field-wp').filter('[data-status!="enable"]').each(function () {
+            var __self = _j(this);
+            if(!__self.hasClass("disable"))
+                __self.addClass("disable").attr("data-status","disable");
+
+            __self.appendTo(_j(this).closest('.search-body').find('.inactive-block'));
         });
 
         // Initialize OrderList
@@ -377,11 +382,6 @@ var wplSearchWidget<?php echo $this->number ?> = (function (codeId) {
             });
             updateOrder(true);
         }
-
-        // Move disable elemement to inactive block
-        _j('#wpl_view_fields_<?php echo $this->number ?> .search-field-wp').filter('[data-status="disable"]').each(function () {
-            _j(this).appendTo(_j(this).closest('.search-body').find('.inactive-block'));
-        });
 
         // Reorder Button Action
         _j(document).on('click', '#wpl_view_fields_<?php echo $this->number ?> #reorder-list', function (e) {
@@ -464,12 +464,12 @@ var wplSearchWidget<?php echo $this->number ?> = (function (codeId) {
             var __currentTab = 0,
                 __numberOfTabs = _j('#wpl_view_fields_<?php echo $this->number ?> .search-tab').length,
                 __tabs_width = 100 / __numberOfTabs;
-            if (__numberOfTabs > 7){
+            if (__numberOfTabs > 7) {
                 __tabs_width = 100 / 7;
                 _j('#wpl_view_fields_<?php echo $this->number ?> .search-tabs-wp').addClass('multi-row-tab');
-                for(var i=0;i < __numberOfTabs;i++){
+                for (var i = 0; i < __numberOfTabs; i++) {
                     var __row = parseInt((i + 1) / 8);
-                    _j('#wpl_view_fields_<?php echo $this->number ?>' + ' .search-tab').eq(i).addClass('row-'+__row);
+                    _j('#wpl_view_fields_<?php echo $this->number ?>' + ' .search-tab').eq(i).addClass('row-' + __row);
                 }
             }
 
@@ -517,11 +517,11 @@ var wplSearchWidget<?php echo $this->number ?> = (function (codeId) {
                     enable: false
                 },
                 advanced: {
-                    updateOnContentResize: true,
+                    updateOnContentResize: true
                     //autoExpandHorizontalScroll: true
                 },
                 horizontalScroll: true,
-                theme: "dark-thin",
+                theme: "dark-thin"
                 //set_width: true
             });
 
@@ -560,6 +560,8 @@ var wplSearchWidget<?php echo $this->number ?> = (function (codeId) {
                     }
                 }
             });
+
+
             _j('#wpl_view_fields_<?php echo $this->number ?> #fields-order ul').disableSelection();
 
 
@@ -589,7 +591,7 @@ var wplSearchWidget<?php echo $this->number ?> = (function (codeId) {
                     ui.draggable.removeAttr('style').transition({scale: 0}, 0).prependTo(_j(this).find('.mCSB_container'));
 
                     // Add Element to OrderList
-                    addOrderElement(ui.draggable);
+                    addOrderElement(ui.draggable, true);
 
                     updateElements(true);
 
@@ -611,14 +613,11 @@ var wplSearchWidget<?php echo $this->number ?> = (function (codeId) {
 
         }
     });
-
 })('<?php echo $this->number ?>');
 
-</script>
-<script type="text/javascript">
-    (function ($) {
-        $(function () {
-            isWPL();
-        })
-    })(jQuery);
+(function ($) {
+    $(function () {
+        isWPL();
+    })
+})(jQuery);
 </script>

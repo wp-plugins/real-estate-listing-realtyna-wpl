@@ -120,7 +120,7 @@ class wpl_search_widget extends wpl_widget
 		foreach($categories as $category)
 		{
 			$path = 'widgets.search.scripts.fields_category';
-			include _wpl_import($path,true,true);
+			include _wpl_import($path, true, true);
 		}
                 
 	}
@@ -133,7 +133,7 @@ class wpl_search_widget extends wpl_widget
 		foreach($categories as $category)
 		{
 			$path = 'widgets.search.scripts.fields_category_tabs';
-			include _wpl_import($path,true,true);
+			include _wpl_import($path, true, true);
 		}
 	}
 	
@@ -148,7 +148,7 @@ class wpl_search_widget extends wpl_widget
 		foreach($fields as $key=>$field)
 		{
 			if(!$field) return;
-
+            
 			$done_this = false;
 			$type = $field->type;
 			$options = json_decode($field->options, true);

@@ -4,6 +4,12 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.5.8 (<span class="wpl_log_date">7/06/2014</span> <span class="wpl_log_revision">revision 722</span>)</h4>
+        -- <strong>[PRO]</strong> Fixed some issues in PDF flyer layout.<br />
+        -- Added location field in shortcode wizard.<br />
+        -- Added single property page and search widget handler for Flex fields.<br />
+        -- Fixed some issues in search widget.
+        
         <h4>WPL1.5.7 (<span class="wpl_log_date">6/30/2014</span> <span class="wpl_log_revision">revision 715</span>)</h4>
         -- Added new keywords to language file.<br />
         -- Fixed a responsive issue on single property gallery.

@@ -26,3 +26,17 @@ defined('_WPLEXEC') or die('Restricted access');
         <option value="0" <?php if (isset($values->text_search) and $values->text_search == '0') echo 'selected="selected"'; ?>><?php echo __('No', WPL_TEXTDOMAIN); ?></option>
     </select>
 </div>
+<div class="fanc-row">
+    <label for="<?php echo $__prefix; ?>pshow"><?php echo __('Single Property', WPL_TEXTDOMAIN); ?></label>
+    <select name="<?php echo $__prefix; ?>pshow" id="<?php echo $__prefix; ?>pshow">
+        <option value="1" <?php if (isset($values->pshow) and $values->pshow == '1') echo 'selected="selected"'; ?>><?php echo __('Show', WPL_TEXTDOMAIN); ?></option>
+        <option value="0" <?php if (isset($values->pshow) and $values->pshow == '0') echo 'selected="selected"'; ?>><?php echo __('Hide', WPL_TEXTDOMAIN); ?></option>
+    </select>
+</div>
+<div class="fanc-row">
+    <label for="<?php echo $__prefix; ?>searchmod"><?php echo __('Search Widget', WPL_TEXTDOMAIN); ?></label>
+    <select name="<?php echo $__prefix; ?>searchmod" id="<?php echo $__prefix; ?>searchmod">
+        <option value="1" <?php if (isset($values->searchmod) and $values->searchmod == '1') echo 'selected="selected"'; ?>><?php echo __('Show', WPL_TEXTDOMAIN); ?></option>
+        <option value="0" <?php if (isset($values->searchmod) and $values->searchmod == '0') echo 'selected="selected"'; ?>><?php echo __('Hide', WPL_TEXTDOMAIN); ?></option>
+    </select>
+</div>

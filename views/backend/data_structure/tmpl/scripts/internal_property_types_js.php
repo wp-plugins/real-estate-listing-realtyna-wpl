@@ -295,7 +295,9 @@ function assign_properties_property_type(property_type_id)
 }
 function show_opt_2_property_type()
 {
-	wplj('.options').hide('slow');
-	wplj('#property_type_list').show('slow');
+	wplj('#pt-del-options').fadeOut(200,function(){
+        wplj('#pt-del-plist').fadeIn();
+    });
+
 }
 </script>

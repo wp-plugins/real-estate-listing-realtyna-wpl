@@ -49,7 +49,13 @@ wpl_extensions::import_javascript($js);
         </div>
         
         <div class="plugin-row wpl_shortcode_parameter wpl_hidden_element pr_property_listing">
-            <label for="pr_only_featured_selectbox"><?php echo __('featured', WPL_TEXTDOMAIN); ?></label>
+            <?php $location_settings = wpl_global::get_settings('3'); # location settings ?>
+            <label for="pr_location_textsearch"><?php echo __('Location', WPL_TEXTDOMAIN); ?></label>
+            <input type="text" id="pr_location_textsearch" name="sf_locationtextsearch" placeholder="<?php echo __($location_settings['locationzips_keyword'].', '.$location_settings['location3_keyword'].', '.$location_settings['location1_keyword'], WPL_TEXTDOMAIN); ?>" />
+        </div>
+        
+        <div class="plugin-row wpl_shortcode_parameter wpl_hidden_element pr_property_listing">
+            <label for="pr_only_featured_selectbox"><?php echo __('Featured', WPL_TEXTDOMAIN); ?></label>
             <select id="pr_only_featured_selectbox" name="sf_select_sp_featured">
                 <option value="-1"><?php echo __('Any', WPL_TEXTDOMAIN); ?></option>
                 <option value="0"><?php echo __('No', WPL_TEXTDOMAIN); ?></option>
@@ -58,7 +64,7 @@ wpl_extensions::import_javascript($js);
         </div>
         
         <div class="plugin-row wpl_shortcode_parameter wpl_hidden_element pr_property_listing">
-            <label for="pr_only_hot_selectbox"><?php echo __('hot', WPL_TEXTDOMAIN); ?></label>
+            <label for="pr_only_hot_selectbox"><?php echo __('Hot', WPL_TEXTDOMAIN); ?></label>
             <select id="pr_only_hot_selectbox" name="sf_select_sp_hot">
                 <option value="-1"><?php echo __('Any', WPL_TEXTDOMAIN); ?></option>
                 <option value="0"><?php echo __('No', WPL_TEXTDOMAIN); ?></option>
@@ -169,6 +175,8 @@ function insert_shortcode()
 	wplj("#wpl_shortcode_wizard_container .pr_" + view + " input:text, #wpl_shortcode_wizard_container .pr_" + view + " input[type='hidden'], #wpl_shortcode_wizard_container .pr_" + view + " select").each(function(ind, elm)
 	{
 		if(elm.name == '') return;
+        if(wplj(elm).val() == '' || wplj(elm).val() == '-1') return;
+        
 		shortcode += ' ' + elm.name + '="' + wplj(elm).val() + '"';
 	});
 

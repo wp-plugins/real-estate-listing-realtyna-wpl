@@ -62,14 +62,15 @@ class wpl_data_structure_controller extends wpl_controller
         {
             self::save_listing_type();
         }
-		 elseif($function == 'insert_listing_type')
+		elseif($function == 'insert_listing_type')
 		{
 			self::insert_listing_type();
 		}
 		elseif($function == 'can_remove_listing_type')
 		{
 			self::can_remove_listing_type();
-		}elseif($function == 'purge_related_property')
+		}
+        elseif($function == 'purge_related_property')
 		{
 			self::purge_related_property();
 		}
@@ -77,7 +78,6 @@ class wpl_data_structure_controller extends wpl_controller
 		{
 			self::assign_related_properties();
 		}
-		
 	}
 	
 	private function gicon_upload_file()
@@ -142,7 +142,6 @@ class wpl_data_structure_controller extends wpl_controller
         
         /** trigger event **/
 		wpl_global::event_handler('gicon_removed', array('icon'=>$icon));
-        
 		exit;
 	}
 	
@@ -216,6 +215,7 @@ class wpl_data_structure_controller extends wpl_controller
 		$this->listing_type_id = wpl_request::getVar('listing_type_id');
 		$this->listing_type_data = wpl_listing_types::get_listing_type($this->listing_type_id);
 		$this->listing_types = wpl_listing_types::get_listing_types();
+        
 		parent::render($this->tpl_path, 'internal_delete_listing_types');
 		exit;
 	}
@@ -229,14 +229,9 @@ class wpl_data_structure_controller extends wpl_controller
 		$res = wpl_listing_types::insert_listing_type($parent,$name,$gicon);
 		$res = (int) $res;
 		
-		if($res>0) 
-		{
-			$res = 1;
-		}
-		else
-		{
-			 $res = 0;
-		}
+		if($res > 0) $res = 1;
+		else $res = 0;
+		
 		$message = $res ? __('Saved.', WPL_TEXTDOMAIN) : __('Error Occured.', WPL_TEXTDOMAIN);
 		$data = NULL;
 		
@@ -245,6 +240,7 @@ class wpl_data_structure_controller extends wpl_controller
 		echo json_encode($response);
 		exit;
 	}
+    
     private function save_listing_type()
     {
 		$key = wpl_request::getVar('key');
@@ -263,36 +259,35 @@ class wpl_data_structure_controller extends wpl_controller
 		echo json_encode($response);
 		exit;
     }
+    
 	private function can_remove_listing_type()
 	{
 		$listing_type_id = wpl_request::getVar('listing_type_id');
 		$res = wpl_listing_types::have_properties($listing_type_id);
 		$res = (int) $res;
-		if($res>0)
-		{
-			$res = 0;
-		}
-		else
-		{
-			$res = 1;	
-		}
+        
+		if($res > 0) $res = 0;
+		else $res = 1;
+        
 		echo $res;
 		exit;
 	}
+    
 	function purge_related_property()
 	{
 		$listing_type_id = wpl_request::getVar('listing_type_id');
-		$properties_list = wpl_property::get_properties_list('listing',$listing_type_id);
-		foreach($properties_list as $property)
-			wpl_property::purge($property['id']);
+		$properties_list = wpl_property::get_properties_list('listing', $listing_type_id);
+        
+		foreach($properties_list as $property) wpl_property::purge($property['id']);
 		self::remove_listing_type($listing_type_id, 1);
 	}
+    
 	function assign_related_properties()
 	{
 		$listing_type_id = wpl_request::getVar('listing_type_id');
 		$select_id = wpl_request::getVar('select_id');
-		$j = wpl_property::update_properties('listing',$listing_type_id,$select_id);
+        
+		$j = wpl_property::update_properties('listing', $listing_type_id, $select_id);
 		self::remove_listing_type($listing_type_id, 1);
 	}
-	
 }

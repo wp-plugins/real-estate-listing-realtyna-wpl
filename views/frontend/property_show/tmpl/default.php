@@ -83,7 +83,7 @@ if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->w
 					if(!count($values['data'])) continue;
 					
                     echo '<div class="wpl_prp_show_detail_boxes">
-                            <div class="wpl_prp_show_detail_boxes_title">'.$values['self']['name'].'</div>
+                            <div class="wpl_prp_show_detail_boxes_title">'.__($values['self']['name'], WPL_TEXTDOMAIN).'</div>
                             <div class="wpl_prp_show_detail_boxes_cont">';
 
                     foreach($values['data'] as $key => $value)

@@ -8,27 +8,43 @@ include _wpl_import("widgets.search.scripts.js_backend", true, true);
 <div id="<?php echo $this->get_field_id('wpl_search_widget_container'); ?>" class="wpl-widget-search-wp">
     <p>
         <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title', WPL_TEXTDOMAIN); ?>: </label>
-        <input id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" value="<?php echo $instance['title']; ?>" style="width: 96%;"/>
+        <input id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>"
+               value="<?php echo $instance['title']; ?>" style="width: 96%;"/>
     </p>
 
     <p>
         <label for="<?php echo $this->get_field_id('layout'); ?>"><?php _e('Layout', WPL_TEXTDOMAIN); ?>: </label>
-        <select id="<?php echo $this->get_field_id('layout'); ?>" name="<?php echo $this->get_field_name('layout'); ?>" style="width: 100%;min-width: 150px;">
+        <select id="<?php echo $this->get_field_id('layout'); ?>" name="<?php echo $this->get_field_name('layout'); ?>"
+                style="width: 100%;min-width: 150px;">
             <?php echo $this->generate_layouts_selectbox('search', $instance); ?>
         </select>
     </p>
-    
+
     <p>
-        <label for="<?php echo $this->get_field_id('wpltarget'); ?>"><?php echo __('Target page', WPL_TEXTDOMAIN); ?>: </label>
-        <select id="<?php echo $this->get_field_id('wpltarget'); ?>" name="<?php echo $this->get_field_name('wpltarget'); ?>" class="widefat">
+        <label for="<?php echo $this->get_field_id('wpltarget'); ?>"><?php echo __('Target page', WPL_TEXTDOMAIN); ?>
+            : </label>
+        <select id="<?php echo $this->get_field_id('wpltarget'); ?>"
+                name="<?php echo $this->get_field_name('wpltarget'); ?>" class="widefat">
             <option value="">-----</option>
-	        <?php echo $this->generate_pages_selectbox($instance); ?>
+            <?php echo $this->generate_pages_selectbox($instance); ?>
         </select>
     </p>
-    
-    <button id="btn-search-<?php echo $this->number ?>" data-is-init="false" data-item-id="<?php echo $this->number ?>" data-fancy-id="wpl_view_fields_<?php echo $this->number; ?>" class="wpl-button button-1" href="#wpl_view_fields_<?php echo $this->number ?>" onclick="showLiBo<?php echo $this->number ?>(); return false;"><?php _e('View Fields', WPL_TEXTDOMAIN); ?></button>
-    <?php if(wpl_global::check_addon('pro')): ?>
-        <button id="btn-shortcode-<?php echo $this->number ?>"  data-is-init="false" data-item-id="<?php echo $this->number ?>" data-fancy-id="wpl_view_shortcode_<?php echo $this->number; ?>" class="wpl-button button-1" href="#wpl_view_shortcode_<?php echo $this->number ?>" onclick="showShortCodeInfo<?php echo $this->number ?>(); return false;"><?php _e('View Shortcode', WPL_TEXTDOMAIN); ?></button>
+
+    <button id="btn-search-<?php echo $this->number ?>"
+            data-is-init="false"
+            data-item-id="<?php echo $this->number ?>"
+            data-fancy-id="wpl_view_fields_<?php echo $this->number; ?>" class="wpl-button button-1"
+            href="#wpl_view_fields_<?php echo $this->number ?>"
+            onclick="showLiBo<?php echo $this->number ?>(); return false;"><?php _e('View Fields', WPL_TEXTDOMAIN); ?></button>
+
+    <?php if (wpl_global::check_addon('pro')): ?>
+        <button id="btn-shortcode-<?php echo $this->number ?>"
+                data-is-init="false"
+                data-item-id="<?php echo $this->number ?>"
+                data-fancy-id="wpl_view_shortcode_<?php echo $this->number; ?>" class="wpl-button button-1"
+                href="#wpl_view_shortcode_<?php echo $this->number ?>"
+                onclick="showShortCodeInfo<?php echo $this->number ?>(); return false;"><?php _e('View Shortcode', WPL_TEXTDOMAIN); ?></button>
+
     <?php endif; ?>
     <span class="page-must-reload"><?php _e(' Must be reload page before open the dialog ', WPL_TEXTDOMAIN); ?></span>
 </div>
@@ -39,7 +55,7 @@ include _wpl_import("widgets.search.scripts.js_backend", true, true);
 
         <div class="fanc-body fancy-search-body">
 
-            <p class="wpl_widget_shortcode_preview"><?php echo '[wpl_widget_instance id="'.$this->id.'"]'; ?></p>
+            <p class="wpl_widget_shortcode_preview"><?php echo '[wpl_widget_instance id="' . $this->id . '"]'; ?></p>
         </div>
     </div>
 </div>
