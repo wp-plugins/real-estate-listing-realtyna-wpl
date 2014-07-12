@@ -139,3 +139,9 @@ UPDATE `#__wpl_dbst_types` SET `queries_add`='ALTER TABLE `#__[TABLE_NAME]` ADD 
 UPDATE `#__wpl_dbst_types` SET `queries_add`='ALTER TABLE `#__[TABLE_NAME]` ADD `field_[FIELD_ID]` datetime NULL; UPDATE `#__wpl_dbst` SET `table_name`=''[TABLE_NAME]'', `table_column`=''field_[FIELD_ID]'' WHERE id=[FIELD_ID];' WHERE `id`='13';
 UPDATE `#__wpl_dbst_types` SET `queries_add`='ALTER TABLE `#__[TABLE_NAME]` ADD `field_[FIELD_ID]` varchar(50) NULL; UPDATE `#__wpl_dbst` SET `table_name`=''[TABLE_NAME]'', `table_column`=''field_[FIELD_ID]'' WHERE id=[FIELD_ID];' WHERE `id`='14';
 UPDATE `#__wpl_dbst` SET `deletable`='0' WHERE `id`='18';
+
+UPDATE `#__wpl_dbst` SET `name`='Coffee Shop' WHERE `id`='106';
+UPDATE `#__wpl_dbst` SET `options`='{"type":"single","values":[{"key":"1","value":"Fully Equipped"},{"key":"2","value":"Semi Equipped"},{"key":"3","value":"Not Equipped"}]}' WHERE `id`='141';
+UPDATE `#__wpl_dbst` SET `name`='High Ceiling' WHERE `id`='148';
+UPDATE `#__wpl_dbst` SET `name`='Refrigerator' WHERE `id`='153';
+UPDATE `#__wpl_dbst` SET `name`='Foreclosure' WHERE `id`='403';

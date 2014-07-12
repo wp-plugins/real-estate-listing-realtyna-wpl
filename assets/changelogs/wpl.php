@@ -4,6 +4,12 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.5.9 (<span class="wpl_log_date">7/12/2014</span> <span class="wpl_log_revision">revision 725</span>)</h4>
+        -- Fixed auto complete style issue.<br />
+        -- Updated language file with new keywords.<br />
+        -- Fixed a Google map issue in listing wizard.<br />
+        -- Added a feature for updating Geo point.
+        
         <h4>WPL1.5.8 (<span class="wpl_log_date">7/06/2014</span> <span class="wpl_log_revision">revision 722</span>)</h4>
         -- <strong>[PRO]</strong> Fixed some issues in PDF flyer layout.<br />
         -- Added location field in shortcode wizard.<br />

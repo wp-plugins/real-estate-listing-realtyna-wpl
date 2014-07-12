@@ -52,7 +52,7 @@ class wpl_global
 		/** generate pages object **/
 		$controller = new wpl_controller();
 		$function = 'f:'.$view.':display';
-		
+        
 		/** call function **/
 		return call_user_func(array($controller, $function), $instance);
 	}
@@ -641,7 +641,7 @@ class wpl_global
 			
 			if(!in_array($extention, $ext_array))
 			{
-				$error .= __('File extention is not valid.', WPL_TEXTDOMAIN);
+				$error .= __('File extension is not valid.', WPL_TEXTDOMAIN);
 			}
 			
 			/** check the file size **/

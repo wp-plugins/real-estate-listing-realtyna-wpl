@@ -285,4 +285,25 @@ class wpl_locations
 		
 		return $locations;
 	}
+    
+    public static function update_LatLng($property_data, $property_id = NULL)
+    {
+        /** fetch property data if property id is setted **/
+		if($property_id) $property_data = wpl_property::get_property_raw_data($property_id);
+        if(!$property_id) $property_id = $property_data['id'];
+        
+        $location_text = wpl_property::generate_location_text($property_data);
+        $LatLng = self::get_LatLng($location_text);
+        
+        if($LatLng[0] and $LatLng[1])
+        {
+            $query = "UPDATE `#__wpl_properties` SET `googlemap_lt`='".$LatLng[0]."', `googlemap_ln`='".$LatLng[1]."' WHERE `id`='$property_id'";
+            wpl_db::q($query);
+        }
+        
+        $latitude = $LatLng[0] ? $LatLng[0] : $property_data['googlemap_lt'];
+        $longitude = $LatLng[1] ? $LatLng[1] : $property_data['googlemap_ln'];
+        
+        return array($latitude, $longitude);
+    }
 }

@@ -290,7 +290,7 @@ class wpl_users_controller extends wpl_controller
 			
 			if(!in_array($extention, $ext_array))
 			{
-				$error = __('File extention should be jpg, png or gif.', WPL_TEXTDOMAIN);
+				$error = __('File extension should be jpg, png or gif.', WPL_TEXTDOMAIN);
 			}
 
 			if($error == '')

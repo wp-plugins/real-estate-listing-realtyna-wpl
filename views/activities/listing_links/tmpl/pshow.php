@@ -62,5 +62,4 @@ $show_pdf         = (isset($params['pdf']) and $params['pdf']) ? 1 : 0;
         </li>        
     <?php endif; ?>
 	</ul>
-    
 </div>

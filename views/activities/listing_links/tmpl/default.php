@@ -49,11 +49,11 @@ $show_pdf         = (isset($params['pdf']) and $params['pdf']) ? 1 : 0;
         <?php endif;
 
         if($show_favorite): ?>
-    		<li>
-		    	<?php $find_favorite_item = in_array($property_id, wpl_addon_pro:: favorite_load_added_item_id()); ?>
-		        <a href="#" <?php echo $find_favorite_item ? 'style="display: none;"' : ''  ?> id="wpl_favorite_add_<?php echo $property_id; ?>" onclick="return wpl_favorite_control(<?php echo $property_id; ?>, 1);"><?php echo __('Add to list', WPL_TEXTDOMAIN); ?></a>
-		        <a href="#" <?php echo !$find_favorite_item ? 'style="display: none;"' : '' ?> id="wpl_favorite_remove_<?php echo $property_id; ?>" onclick="return wpl_favorite_control(<?php echo $property_id; ?>, 0);"><?php echo __('Remove from list', WPL_TEXTDOMAIN); ?></a>
-			</li>
+        <li>
+            <?php $find_favorite_item = in_array($property_id, wpl_addon_pro:: favorite_load_added_item_id()); ?>
+            <a href="#" <?php echo $find_favorite_item ? 'style="display: none;"' : ''  ?> id="wpl_favorite_add_<?php echo $property_id; ?>" onclick="return wpl_favorite_control(<?php echo $property_id; ?>, 1);"><?php echo __('Add to list', WPL_TEXTDOMAIN); ?></a>
+            <a href="#" <?php echo !$find_favorite_item ? 'style="display: none;"' : '' ?> id="wpl_favorite_remove_<?php echo $property_id; ?>" onclick="return wpl_favorite_control(<?php echo $property_id; ?>, 0);"><?php echo __('Remove from list', WPL_TEXTDOMAIN); ?></a>
+        </li>
 	    <?php endif; ?>        
 	</ul>
 </div>

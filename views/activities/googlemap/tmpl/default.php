@@ -21,6 +21,14 @@ $this->markers = array();
 $i = 0;
 foreach($wpl_properties as $property)
 {
+    if(!$property['raw']['googlemap_lt'] or !$property['raw']['googlemap_ln'])
+    {
+        $LatLng = wpl_locations::update_LatLng(NULL, $property['raw']['id']);
+        
+        $property['raw']['googlemap_lt'] = $LatLng[0];
+        $property['raw']['googlemap_ln'] = $LatLng[1];
+    }
+            
 	$this->markers[$i]['id'] = $property['raw']['id'];
 	$this->markers[$i]['googlemap_lt'] = $property['raw']['googlemap_lt'];
 	$this->markers[$i]['googlemap_ln'] = $property['raw']['googlemap_ln'];
