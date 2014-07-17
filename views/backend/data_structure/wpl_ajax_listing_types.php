@@ -163,7 +163,7 @@ class wpl_data_structure_controller extends wpl_controller
 		else $res = false;
 		
 		$res = (int) $res;
-		$message = $res ? __('listing type removed from WPL successfully.', WPL_TEXTDOMAIN) : __('Error Occured.', WPL_TEXTDOMAIN);
+		$message = $res ? __('Listing type removed from WPL successfully.', WPL_TEXTDOMAIN) : __('Error Occured.', WPL_TEXTDOMAIN);
 		$data = NULL;
 		
 		$response = array('success'=>$res, 'message'=>$message, 'data'=>$data);

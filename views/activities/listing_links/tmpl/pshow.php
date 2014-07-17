@@ -4,9 +4,8 @@ defined('_WPLEXEC') or die('Restricted access');
 
 /** set params **/
 $wpl_properties   = isset($params['wpl_properties']) ? $params['wpl_properties'] : array();
-
-$property_link    = urlencode($wpl_properties['current']['property_link']);
 $property_id      = isset($wpl_properties['current']['data']['id']) ? $wpl_properties['current']['data']['id'] : NULL;
+$property_link    = urlencode($wpl_properties['current']['property_link']);
 
 $show_facebook    = (isset($params['facebook']) and $params['facebook']) ? 1 : 0;
 $show_google_plus = (isset($params['google_plus']) and $params['google_plus']) ? 1 : 0;
@@ -50,16 +49,11 @@ $show_pdf         = (isset($params['pdf']) and $params['pdf']) ? 1 : 0;
         <?php endif;
 
         if($show_favorite): ?>
-        <li class="favorite_link">
-            <?php
-            echo '<input id="wpl_property_title_'.$property_id.'" type="hidden" value="'.$wpl_properties['current']['location_text'].' - '.$wpl_properties['current']['rendered_raw'][3]['value'].' - '.$wpl_properties['current']['rendered_raw'][2]['value'].'" />';
-            echo '<a style="display:none;" id="property_link_id_'.$property_id.'" href="'.$property_link.'"></a>';
-            
-            $find_favorite_item = in_array($property_id, wpl_addon_pro::favorite_load_added_item_id()); ?>
-
-            <a href="#" <?php echo $find_favorite_item ? 'style="display: none;"' : '' ?> id="wpl_favorite_add_<?php echo $property_id; ?>" onclick="return wpl_favorite_control(<?php echo $property_id; ?>, 1, true);"><?php echo __('Add to list', WPL_TEXTDOMAIN); ?></a>
-            <a href="#" <?php echo!$find_favorite_item ? 'style="display: none;"' : '' ?> id="wpl_favorite_remove_<?php echo $property_id; ?>" onclick="return wpl_favorite_control(<?php echo $property_id; ?>, 0);"><?php echo __('Remove from list', WPL_TEXTDOMAIN); ?></a>    
-        </li>        
-    <?php endif; ?>
+        <?php $find_favorite_item = in_array($property_id, wpl_addon_pro::favorite_get_pids()); ?>
+        <li class="favorite_link<?php echo ($find_favorite_item ? ' added' : '') ?>">
+            <a href="#" style="<?php echo ($find_favorite_item ? 'display: none;' : '') ?>" id="wpl_favorite_add_<?php echo $property_id; ?>" onclick="return wpl_favorite_control(<?php echo $property_id; ?>, 1);"><?php echo __('Add to list', WPL_TEXTDOMAIN); ?></a>
+            <a href="#" style="<?php echo (!$find_favorite_item ? 'display: none;' : '') ?>" id="wpl_favorite_remove_<?php echo $property_id; ?>" onclick="return wpl_favorite_control(<?php echo $property_id; ?>, 0);"><?php echo __('Remove from list', WPL_TEXTDOMAIN); ?></a>
+        </li>
+        <?php endif; ?>
 	</ul>
 </div>

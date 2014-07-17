@@ -131,7 +131,7 @@ function wpl_neighborhood_distance_type_select(table_name, table_column, value, 
 	if(wplj('#wpl_c_'+field_id+'_distance').val() == '')
 	{
 		wplj('input[name=wpl_c_'+field_id+'_distance_by]:checked').attr('checked', '');
-		wpl_alert("<?php echo __("First please enter distance!", WPL_TEXTDOMAIN); ?>");
+		wpl_alert("<?php echo __("Please enter distance first!", WPL_TEXTDOMAIN); ?>");
 	}
 	else
 	{

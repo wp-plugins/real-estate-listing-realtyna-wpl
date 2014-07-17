@@ -113,7 +113,7 @@ function wpl_remove_activity(activity_id, confirmed)
 	}
 	if (!confirmed)
 	{
-		message = "<?php echo __('Are you sure to remove this item?', WPL_TEXTDOMAIN); ?>&nbsp;(<?php echo __('ID', WPL_TEXTDOMAIN); ?>:" + activity_id + ")&nbsp;<?php echo __('All related items will be removed.', WPL_TEXTDOMAIN); ?>";
+		message = "<?php echo __('Are you sure you want to remove this item?', WPL_TEXTDOMAIN); ?>&nbsp;(<?php echo __('ID', WPL_TEXTDOMAIN); ?>:" + activity_id + ")&nbsp;<?php echo __('All related items will be removed.', WPL_TEXTDOMAIN); ?>";
 		message += '<span class="wpl_actions" onclick="wpl_remove_activity(' + activity_id + ', 1);"><?php echo __('Yes', WPL_TEXTDOMAIN); ?></span>&nbsp;<span class="wpl_actions" onclick="wpl_remove_message();"><?php echo __('No', WPL_TEXTDOMAIN); ?></span>';
 		wpl_show_messages(message, '.wpl_activity_manager_list .wpl_show_message');
 		return false;

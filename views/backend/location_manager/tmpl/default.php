@@ -62,7 +62,7 @@ _wpl_import($this->tpl_path . '.scripts.css');
                 <tbody>
                 	<?php if(!count($this->wp_locations)): ?>
                     <tr>
-                    	<td onclick="wplj('#wpl_add_location_item').trigger('click');" class="wpl_no_item" colspan="5"><?php echo __('No location! Add a new one', WPL_TEXTDOMAIN); ?></td>
+                    	<td onclick="wplj('#wpl_add_location_item').trigger('click');" class="wpl_no_item" colspan="5"><?php echo __('No location! Add a new location', WPL_TEXTDOMAIN); ?></td>
                     </tr>
                     <?php endif; ?>
                     <?php

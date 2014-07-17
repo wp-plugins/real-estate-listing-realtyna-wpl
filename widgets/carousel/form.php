@@ -80,7 +80,7 @@ include _wpl_import("widgets.carousel.scripts.js_backend", true, true);
     </div>
     
     <div>
-    	<label for="<?php echo $this->get_field_id('data_only_featured'); ?>"><?php echo __('Only Featureds', WPL_TEXTDOMAIN); ?>: </label>
+    	<label for="<?php echo $this->get_field_id('data_only_featured'); ?>"><?php echo __('Only Featured', WPL_TEXTDOMAIN); ?>: </label>
         <select id="<?php echo $this->get_field_id('data_only_featured'); ?>" name="<?php echo $this->get_field_name('data'); ?>[only_featured]">
         	<option value="0" <?php if(isset($instance['data']['only_featured']) and $instance['data']['only_featured'] == 0) echo 'selected="selected"'; ?>><?php echo __('No', WPL_TEXTDOMAIN); ?></option>
             <option value="1" <?php if(isset($instance['data']['only_featured']) and $instance['data']['only_featured'] == 1) echo 'selected="selected"'; ?>><?php echo __('Yes', WPL_TEXTDOMAIN); ?></option>
@@ -88,7 +88,7 @@ include _wpl_import("widgets.carousel.scripts.js_backend", true, true);
     </div>
     
     <div>
-    	<label for="<?php echo $this->get_field_id('data_only_hot'); ?>"><?php echo __('Only Hots', WPL_TEXTDOMAIN); ?>: </label>
+    	<label for="<?php echo $this->get_field_id('data_only_hot'); ?>"><?php echo __('Only Hot', WPL_TEXTDOMAIN); ?>: </label>
         <select id="<?php echo $this->get_field_id('data_only_hot'); ?>" name="<?php echo $this->get_field_name('data'); ?>[only_hot]">
         	<option value="0" <?php if(isset($instance['data']['only_hot']) and $instance['data']['only_hot'] == 0) echo 'selected="selected"'; ?>><?php echo __('No', WPL_TEXTDOMAIN); ?></option>
             <option value="1" <?php if(isset($instance['data']['only_hot']) and $instance['data']['only_hot'] == 1) echo 'selected="selected"'; ?>><?php echo __('Yes', WPL_TEXTDOMAIN); ?></option>

@@ -145,3 +145,8 @@ UPDATE `#__wpl_dbst` SET `options`='{"type":"single","values":[{"key":"1","value
 UPDATE `#__wpl_dbst` SET `name`='High Ceiling' WHERE `id`='148';
 UPDATE `#__wpl_dbst` SET `name`='Refrigerator' WHERE `id`='153';
 UPDATE `#__wpl_dbst` SET `name`='Foreclosure' WHERE `id`='403';
+
+UPDATE `#__wpl_dbst` SET `name`='Ref ID' WHERE `id`='4';
+UPDATE `#__wpl_dbst` SET `name`='Listing ID' WHERE `id`='5';
+UPDATE `#__wpl_dbst` SET `name`='Jacuzzi' WHERE `id`='132';
+UPDATE `#__wpl_dbst` SET `name`='Open House Dates' WHERE `id`='404';

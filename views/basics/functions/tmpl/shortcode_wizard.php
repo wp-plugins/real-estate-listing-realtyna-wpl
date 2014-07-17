@@ -133,7 +133,7 @@ wpl_extensions::import_javascript($js);
         </div>
        
         <div class="plugin-row wpl_shortcode_parameter wpl_hidden_element pr_property_show">
-            <label for="pr_mls_id_textbox"><?php echo __('Listing id', WPL_TEXTDOMAIN); ?></label>
+            <label for="pr_mls_id_textbox"><?php echo __('Listing ID', WPL_TEXTDOMAIN); ?></label>
             <input type="text" id="pr_mls_id_textbox" name="mls_id" />
         </div>
         

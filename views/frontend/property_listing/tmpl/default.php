@@ -14,7 +14,7 @@ $this->_wpl_import($this->tpl_path.'.scripts.js', true, true);
     <?php endif; ?>
     
     <div class="wpl_sort_options_container">
-        <div class="wpl_sort_options_container_title"><?php echo __("Sort Option :", WPL_TEXTDOMAIN) ?></div>
+        <div class="wpl_sort_options_container_title"><?php echo __("Sort Option:", WPL_TEXTDOMAIN) ?></div>
         <?php echo $this->model->generate_sorts(); ?>
     </div>
     <?php

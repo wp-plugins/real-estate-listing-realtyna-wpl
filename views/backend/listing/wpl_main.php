@@ -36,7 +36,7 @@ class wpl_listing_controller extends wpl_controller
 			/** checking access **/
 			if(!wpl_users::check_access($this->mode))
 			{
-				$this->message = __("Limit reached. You Can't add more property!", WPL_TEXTDOMAIN);
+				$this->message = __("Limit reached. You can not add more property!", WPL_TEXTDOMAIN);
 				return parent::render($this->tpl_path, 'message');
 			}
 			
@@ -51,14 +51,14 @@ class wpl_listing_controller extends wpl_controller
 		{
 			if(!$this->values)
 			{
-				$this->message = __("Property not exists!", WPL_TEXTDOMAIN);
+				$this->message = __("Property does not exist!", WPL_TEXTDOMAIN);
 				return parent::render($this->tpl_path, 'message');
 			}
 			
 			/** checking access **/
 			if(!wpl_users::check_access($this->mode, $this->values['user_id']))
 			{
-				$this->message = __("You Can't edit this property!", WPL_TEXTDOMAIN);
+				$this->message = __("You can not edit this property.", WPL_TEXTDOMAIN);
 				return parent::render($this->tpl_path, 'message');
 			}
 		}

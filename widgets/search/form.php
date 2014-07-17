@@ -46,7 +46,7 @@ include _wpl_import("widgets.search.scripts.js_backend", true, true);
                 onclick="showShortCodeInfo<?php echo $this->number ?>(); return false;"><?php _e('View Shortcode', WPL_TEXTDOMAIN); ?></button>
 
     <?php endif; ?>
-    <span class="page-must-reload"><?php _e(' Must be reload page before open the dialog ', WPL_TEXTDOMAIN); ?></span>
+    <span class="page-must-reload"><?php _e('Must be reload page before open the dialog', WPL_TEXTDOMAIN); ?></span>
 </div>
 
 <div id="wpl_view_shortcode_<?php echo $this->number ?>" class="wpl_inline_lightbox fanc-box-wp wpl_lightbox hidden">

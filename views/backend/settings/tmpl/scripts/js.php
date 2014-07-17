@@ -50,7 +50,7 @@ function wpl_clear_properties_cached_datas(confirmed)
 {
 	if(!confirmed)
 	{
-		message = "<?php echo __("Are you sure to remove properties' cached data?", WPL_TEXTDOMAIN); ?>";
+		message = "<?php echo __("Are you sure you would like to remove properties' cached data?", WPL_TEXTDOMAIN); ?>";
 		message += '&nbsp;<span class="wpl_actions" onclick="wpl_clear_properties_cached_datas(1);"><?php echo __('Yes', WPL_TEXTDOMAIN); ?></span>&nbsp;<span class="wpl_actions" onclick="wpl_remove_message();"><?php echo __('No', WPL_TEXTDOMAIN); ?></span>';
 		
 		wpl_show_messages(message, '.wpl_maintenance .wpl_show_message');
@@ -83,7 +83,7 @@ function wpl_clear_listings_cached_location_texts(confirmed)
 {
     if(!confirmed)
 	{
-		message = "<?php echo __("Are you sure to remove cached location texts?", WPL_TEXTDOMAIN); ?>";
+		message = "<?php echo __("Are you sure you would like to remove cached location texts?", WPL_TEXTDOMAIN); ?>";
 		message += '&nbsp;<span class="wpl_actions" onclick="wpl_clear_listings_cached_location_texts(1);"><?php echo __('Yes', WPL_TEXTDOMAIN); ?></span>&nbsp;<span class="wpl_actions" onclick="wpl_remove_message();"><?php echo __('No', WPL_TEXTDOMAIN); ?></span>';
 		
 		wpl_show_messages(message, '.wpl_maintenance .wpl_show_message');
@@ -116,7 +116,7 @@ function wpl_clear_listings_thumbnails(confirmed)
 {
     if(!confirmed)
 	{
-		message = "<?php echo __("Are you sure to remove listings thumbnails?", WPL_TEXTDOMAIN); ?>";
+		message = "<?php echo __("Are you sure you would like to remove listings thumbnails?", WPL_TEXTDOMAIN); ?>";
 		message += '&nbsp;<span class="wpl_actions" onclick="wpl_clear_listings_thumbnails(1);"><?php echo __('Yes', WPL_TEXTDOMAIN); ?></span>&nbsp;<span class="wpl_actions" onclick="wpl_remove_message();"><?php echo __('No', WPL_TEXTDOMAIN); ?></span>';
 		
 		wpl_show_messages(message, '.wpl_maintenance .wpl_show_message');
@@ -149,7 +149,7 @@ function wpl_clear_users_thumbnails(confirmed)
 {
     if(!confirmed)
 	{
-		message = "<?php echo __("Are you sure to remove users thumbnails?", WPL_TEXTDOMAIN); ?>";
+		message = "<?php echo __("Are you sure you would like to remove users thumbnails?", WPL_TEXTDOMAIN); ?>";
 		message += '&nbsp;<span class="wpl_actions" onclick="wpl_clear_users_thumbnails(1);"><?php echo __('Yes', WPL_TEXTDOMAIN); ?></span>&nbsp;<span class="wpl_actions" onclick="wpl_remove_message();"><?php echo __('No', WPL_TEXTDOMAIN); ?></span>';
 		
 		wpl_show_messages(message, '.wpl_maintenance .wpl_show_message');
@@ -182,7 +182,7 @@ function wpl_clear_unfinalized_properties(confirmed)
 {
     if(!confirmed)
 	{
-		message = "<?php echo __("Are you sure to remove unfinalized listings?", WPL_TEXTDOMAIN); ?>";
+		message = "<?php echo __("Are you sure you would like to remove unfinalized listings?", WPL_TEXTDOMAIN); ?>";
 		message += '&nbsp;<span class="wpl_actions" onclick="wpl_clear_unfinalized_properties(1);"><?php echo __('Yes', WPL_TEXTDOMAIN); ?></span>&nbsp;<span class="wpl_actions" onclick="wpl_remove_message();"><?php echo __('No', WPL_TEXTDOMAIN); ?></span>';
 		
 		wpl_show_messages(message, '.wpl_maintenance .wpl_show_message');

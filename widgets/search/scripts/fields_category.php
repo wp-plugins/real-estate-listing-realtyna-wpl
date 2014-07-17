@@ -5,7 +5,7 @@ defined('_WPLEXEC') or die('Restricted access');
 <div id="sbox-<?php echo $category->id; ?>" class="search-body">
     <div class="search-msg-wp">
         <span>
-        <?php echo __('Drag whatever field that you want from bottom list to here. For changing the order please use right side panel " Fields Order ".', WPL_TEXTDOMAIN); ?>
+        <?php echo __('Drag whichever field  you would like to move from the bottom list to here. To change the order please use right side panel "Fields Order".', WPL_TEXTDOMAIN); ?>
         </span>
         <div class="search-msg-btn action-btn icon-disabled"></div>
     </div>
@@ -24,7 +24,7 @@ defined('_WPLEXEC') or die('Restricted access');
 
     <div class="overlay-wp">
         <div class="overlay-text">
-            <?php echo __('Drag It Here', WPL_TEXTDOMAIN); ?>
+            <?php echo __('Drag Here', WPL_TEXTDOMAIN); ?>
         </div>
     </div>
 </div>

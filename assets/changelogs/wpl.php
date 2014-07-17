@@ -4,6 +4,10 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.6.0 (<span class="wpl_log_date">7/15/2014</span> <span class="wpl_log_revision">revision 728</span>)</h4>
+        -- Updated language file with new keywords.<br />
+        -- Fixing an issue in Listing Wizard menu for fetching Geo point from Google servers.
+        
         <h4>WPL1.5.9 (<span class="wpl_log_date">7/12/2014</span> <span class="wpl_log_revision">revision 725</span>)</h4>
         -- Fixed auto complete style issue.<br />
         -- Updated language file with new keywords.<br />

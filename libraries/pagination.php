@@ -127,7 +127,7 @@ class wpl_pagination
 		{
             echo "<ul class=\"$this->className\">$this->pagination</ul>\n";
 
-            if(isset($this->show_total) and $this->show_total) echo '<span class="wpl_total_result">' . $this->total_pages . ' ' . __('results returned.', WPL_TEXTDOMAIN) . '</span>';
+            if(isset($this->show_total) and $this->show_total) echo '<span class="wpl_total_result">' . $this->total_pages . ' ' . __('Results returned.', WPL_TEXTDOMAIN) . '</span>';
             if(isset($this->show_page_size) and $this->show_page_size)
 			{
                 $page_sizes = explode(',', trim(wpl_global::get_setting('page_sizes'), ', '));
@@ -151,7 +151,7 @@ class wpl_pagination
             $string = '';
             $string .= "<ul class=\"$this->className\">$this->pagination</ul>\n";
 
-            if($this->show_total) $string .= '<span class="wpl_total_result">' . $this->total_pages . ' ' . __('results returned.', WPL_TEXTDOMAIN) . '</span>';
+            if($this->show_total) $string .= '<span class="wpl_total_result">' . $this->total_pages . ' ' . __('Results returned.', WPL_TEXTDOMAIN) . '</span>';
             if($this->show_page_size)
 			{
                 $page_sizes = explode(',', trim(wpl_global::get_setting('page_sizes'), ', '));

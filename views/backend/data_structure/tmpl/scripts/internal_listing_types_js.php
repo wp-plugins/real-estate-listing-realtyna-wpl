@@ -47,7 +47,7 @@ function wpl_remove_listing_type(listing_type_id, confirmed)
 {
 	if (!listing_type_id)
 	{
-		wpl_show_messages("<?php echo __('Invalid listing Types', WPL_TEXTDOMAIN); ?>", '.wpl_data_structure_list .wpl_show_message');
+		wpl_show_messages("<?php echo __('Invalid Listing Types', WPL_TEXTDOMAIN); ?>", '.wpl_data_structure_list .wpl_show_message');
 		return false;
 	}
 
@@ -213,7 +213,7 @@ function wpl_gicon_delete(icon, confirmed, index)
 
 	if (!confirmed)
 	{
-		message = "<?php echo __('Are you sure to remove this item?', WPL_TEXTDOMAIN); ?>&nbsp;(" + icon + ")&nbsp;<?php echo __('All related items will be removed.', WPL_TEXTDOMAIN); ?>";
+		message = "<?php echo __('Are you sure you want to remove this item?', WPL_TEXTDOMAIN); ?>&nbsp;(" + icon + ")&nbsp;<?php echo __('All related items will be removed.', WPL_TEXTDOMAIN); ?>";
 		message += '<span class="wpl_actions" onclick="wpl_gicon_delete(\'' + icon + '\', 1, ' + index + ');"><?php echo __('Yes', WPL_TEXTDOMAIN); ?></span>&nbsp;<span class="wpl_actions" onclick="wpl_remove_message();"><?php echo __('No', WPL_TEXTDOMAIN); ?></span>';
 
 		wpl_show_messages(message, '.wpl_data_structure_list_gicon .wpl_show_message');

@@ -58,8 +58,8 @@ defined('_WPLEXEC') or die('Restricted access');
                     <span class="action-btn icon-star disable <?php echo $wpl_field_mandatory_disable_class; ?>" id="wpl_flex_field_mandatory_dis_span<?php echo $field->id; ?>" onclick="wpl_dbst_mandatory(<?php echo $field->id; ?>, 1);"></span>
                     <span class="action-btn icon-star <?php echo $wpl_field_mandatory_class; ?>" id="wpl_flex_field_mandatory_span<?php echo $field->id; ?>" onclick="wpl_dbst_mandatory(<?php echo $field->id; ?>, 0);"></span>
 
-                    <span class="action-btn icon-star <?php echo $wpl_field_mandatory_always_class; ?>" id="wpl_flex_field_mandatory_always_span<?php echo $field->id; ?>" title="<?php echo __('This field is mandatory always.', WPL_TEXTDOMAIN); ?>"></span>
-                    <span class="action-btn icon-star disable <?php echo $wpl_field_mandatory_never_class; ?>" id="wpl_flex_field_mandatory_never_span<?php echo $field->id; ?>" title="<?php echo __('This field is mandatory never.', WPL_TEXTDOMAIN); ?>" ></span>
+                    <span class="action-btn icon-star <?php echo $wpl_field_mandatory_always_class; ?>" id="wpl_flex_field_mandatory_always_span<?php echo $field->id; ?>" title="<?php echo __('This field is always mandatory.', WPL_TEXTDOMAIN); ?>"></span>
+                    <span class="action-btn icon-star disable <?php echo $wpl_field_mandatory_never_class; ?>" id="wpl_flex_field_mandatory_never_span<?php echo $field->id; ?>" title="<?php echo __('This field is never mandatory.', WPL_TEXTDOMAIN); ?>" ></span>
                 </td>
                 <td class="wpl_manager_td">
                     <span href="#wpl_flex_edit_div" class="action-btn icon-edit <?php echo $wpl_field_editable_class ?> fancybox" onclick="generate_modify_page(<?php echo $field->id; ?>, '<?php echo $field->type; ?>');"></span>

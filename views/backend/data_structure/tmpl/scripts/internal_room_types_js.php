@@ -105,7 +105,7 @@ function wpl_remove_room_type(room_type_id, confirmed)
 	
 	if(!confirmed)
 	{
-		message = "<?php echo __('Are you sure to remove this item?', WPL_TEXTDOMAIN); ?>&nbsp;(<?php echo __('ID', WPL_TEXTDOMAIN); ?>:"+room_type_id+")&nbsp;";
+		message = "<?php echo __('Are you sure you want to remove this item?', WPL_TEXTDOMAIN); ?>&nbsp;(<?php echo __('ID', WPL_TEXTDOMAIN); ?>:"+room_type_id+")&nbsp;";
 		message += '<span class="wpl_actions" onclick="wpl_remove_room_type(\''+room_type_id+'\', 1);"><?php echo __('Yes', WPL_TEXTDOMAIN); ?></span>&nbsp;<span class="wpl_actions" onclick="wpl_remove_message();"><?php echo __('No', WPL_TEXTDOMAIN); ?></span>';
 		
 		wpl_show_messages(message, '.wpl_data_structure_list .wpl_show_message');

@@ -184,7 +184,7 @@ function wpl_remove_location(level, location_id, confirmed)
 	
 	if(!confirmed)
 	{
-		message = "<?php echo __('Are you sure to remove this item?', WPL_TEXTDOMAIN); ?>&nbsp;(<?php echo __('Level', WPL_TEXTDOMAIN); ?>:"+level+", <?php echo __('ID', WPL_TEXTDOMAIN); ?>:"+location_id+")&nbsp;<?php echo __('All related items will be removed.', WPL_TEXTDOMAIN); ?>";
+		message = "<?php echo __('Are you sure you want to remove this item?', WPL_TEXTDOMAIN); ?>&nbsp;(<?php echo __('Level', WPL_TEXTDOMAIN); ?>:"+level+", <?php echo __('ID', WPL_TEXTDOMAIN); ?>:"+location_id+")&nbsp;<?php echo __('All related items will be removed.', WPL_TEXTDOMAIN); ?>";
 		message += '<span class="wpl_actions" onclick="wpl_remove_location(\''+level+'\',\''+location_id+'\', 1);"><?php echo __('Yes', WPL_TEXTDOMAIN); ?></span>&nbsp;<span class="wpl_actions" onclick="wpl_remove_message();"><?php echo __('No', WPL_TEXTDOMAIN); ?></span>';
 		
 		wpl_show_messages(message, '.wpl_location_list .wpl_show_message');
