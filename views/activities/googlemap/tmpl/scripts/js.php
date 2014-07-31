@@ -154,7 +154,9 @@ function wpl_load_markers<?php echo $this->activity_id; ?>(markers, delete_marke
 	{
 		wpl_marker<?php echo $this->activity_id; ?>(markers[i]);
 	}
+    
 	wpl_map.setZoom(1);
+    
 	if(!markers.length)
 	{
 		wpl_map.setCenter(new google.maps.LatLng(default_lt, default_ln));

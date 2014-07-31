@@ -353,6 +353,37 @@ class wpl_property
 	}
     
     /**
+     * Renders one dbst field
+     * @author Howard R <howard@realtyna.com>
+     * @param string $value
+     * @param int $dbst_id
+     * @return array rendered field
+     */
+    public static function render_field($value, $dbst_id)
+    {
+        /** first validation **/
+        if(!$dbst_id) return array();
+        
+		$done_this = false;
+        $return = array();
+        
+		$path = WPL_ABSPATH .DS. 'libraries' .DS. 'dbst_show';
+		$files = wpl_folder::files($path, '.php$', false, false);
+        $field = wpl_flex::get_field($dbst_id);
+        
+        $type = $field->type;
+        $options = json_decode($field->options, true);
+        
+		foreach($files as $file)
+        {
+            require $path.DS.$file;
+            if($done_this == true) break;
+        }
+		
+		return $return;
+    }
+    
+    /**
      * @return number of properties according to query condition
      * @author Francis
      */
@@ -583,9 +614,9 @@ class wpl_property
 		/** fetch property data if property id is setted **/
 		if($property_id) $property_data = self::get_property_raw_data($property_id);
 		if(!$property_id) $property_id = $property_data['id'];
-		
-		$url = wpl_global::get_wp_site_url().wpl_global::get_setting('main_permalink').'/';
-		
+        
+        $url = wpl_sef::get_wpl_permalink(true);
+        
 		if(trim($property_data['alias']) != '') $alias = urlencode($property_data['alias']);
 		else $alias = urlencode(self::update_alias($property_data, $property_id));
 		
@@ -595,7 +626,20 @@ class wpl_property
             $url = wpl_global::add_qs_var('pid', $property_id, wpl_sef::get_page_link($target_id));
             $url = wpl_global::add_qs_var('alias', $alias, $url);
         }
-		else $url .= $alias;
+		else
+        {
+            $nosef = wpl_sef::is_permalink_default();
+            if($nosef)
+            {
+                $url = wpl_global::add_qs_var('wplview', 'property_show', $url);
+                $url = wpl_global::add_qs_var('pid', $property_id, $url);
+                $url = wpl_global::add_qs_var('alias', $alias, $url);
+            }
+            else
+            {
+                $url .= $alias;
+            }
+        }
 		
         return $url;
     }
@@ -610,7 +654,17 @@ class wpl_property
         /** first validation **/
         if(!trim($property_id)) return false;
         
-		$url = wpl_global::get_wp_site_url().wpl_global::get_setting('main_permalink').'/features/pdf?pid='.$property_id;
+        $nosef = wpl_sef::is_permalink_default();
+        
+        if($nosef)
+        {
+            $url = wpl_sef::get_wpl_permalink(true);
+            $url = wpl_global::add_qs_var('wplview', 'features', $url);
+            $url = wpl_global::add_qs_var('wpltype', 'pdf', $url);
+            $url = wpl_global::add_qs_var('pid', $property_id, $url);
+        }
+        else $url = wpl_sef::get_wpl_permalink(true).'/features/pdf?pid='.$property_id;
+        
         return $url;
     }
 	
@@ -622,7 +676,7 @@ class wpl_property
 	public static function get_property_listing_link($target_id = 0)
 	{
         if($target_id) $url = wpl_sef::get_page_link($target_id);
-        else $url = wpl_global::get_wp_site_url().wpl_global::get_setting('main_permalink')."/";
+        else $url = wpl_sef::get_wpl_permalink(true);
         
         return $url;
     }
@@ -647,7 +701,9 @@ class wpl_property
         if(isset($property_data['zip_name']) and trim($property_data['zip_name']) != '') $locations['zip_name'] = $property_data['zip_name'];
         if(isset($property_data['location1_name']) and trim($property_data['location1_name']) != '') $locations['location1_name'] = $property_data['location1_name'];
         
-        $location_pattern = '[street_no] [street][glue] [location4_name][glue] [location3_name][glue] [location2_name][glue] [location1_name] [zip_name]';
+        $location_pattern = wpl_global::get_setting('property_location_pattern');
+        if(trim($location_pattern) == '') $location_pattern = '[street_no] [street][glue] [location4_name][glue] [location3_name][glue] [location2_name][glue] [location1_name] [zip_name]';
+        
 		$location_text = '';
 		$location_text = isset($locations['street_no']) ? str_replace('[street_no]', $locations['street_no'], $location_pattern) : str_replace('[street_no]', '', $location_pattern);
         $location_text = isset($locations['street']) ? str_replace('[street]', $locations['street'], $location_text) : str_replace('[street]', '', $location_text);

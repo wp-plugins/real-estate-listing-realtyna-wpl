@@ -17,7 +17,7 @@ class wpl_service_sef
 		/** get global settings **/
 		$settings = wpl_global::get_settings();
 		$wpl_qs = urldecode(wpl_global::get_wp_qvar('wpl_qs'));
-		
+        
 		/** get view **/
 		$view = wpl_sef::get_view($wpl_qs, $settings['sef_main_separator']);
 		
@@ -55,7 +55,7 @@ class wpl_service_sef
 		elseif($view == 'features')
 		{
 			$function = str_replace('features/', '', $wpl_qs);
-			
+			if(!trim($function)) $function = wpl_request::getVar('wpltype');
 			_wpl_import('views.basics.features.wpl_'.$function);
 			$obj = new wpl_features_controller();
 			$obj->display();
@@ -72,8 +72,7 @@ class wpl_service_sef
 		
 		if(trim($property_alias) != '' and $called_alias != $property_alias)
 		{
-			$url = wpl_global::get_wp_site_url();
-			$url .= wpl_global::get_setting('main_permalink')."/".urlencode($property_alias);
+			$url = wpl_sef::get_wpl_permalink(true)."/".urlencode($property_alias);
 			
 			header("HTTP/1.1 301 Moved Permanently");
 			header("Location: ".$url);
@@ -84,13 +83,13 @@ class wpl_service_sef
 	public function set_property_page_params($proeprty_id)
 	{
 		_wpl_import('libraries.property');
-		
+        
 		$property_data = wpl_property::get_property_raw_data($proeprty_id);
 		
         if(trim($property_data['field_312']) != '') $property_title = $property_data['field_312'];
 		elseif(trim($property_data['property_title']) == '') $property_title = wpl_property::generate_property_title($property_data);
 		else $property_title = $property_data['property_title'];
-		
+        
 		$html = wpl_html::getInstance();
 		
 		/** set title **/

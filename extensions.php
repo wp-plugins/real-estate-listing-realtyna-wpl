@@ -265,7 +265,9 @@ class wpl_extensions
 	{
 		$rules = get_option('rewrite_rules');
 	
-		if(!isset($rules['('.wpl_global::get_setting('main_permalink').')/(.+)$']))
+        $main_permalink = wpl_sef::get_wpl_permalink();
+        
+		if(!isset($rules['('.$main_permalink.')/(.+)$']))
 		{
 			global $wp_rewrite;
 			$wp_rewrite->flush_rules();
@@ -279,8 +281,10 @@ class wpl_extensions
 	**/
 	public function wpl_insert_rewrite_rules($rules)
 	{
+        $main_permalink = wpl_sef::get_wpl_permalink();
+        
 		$newrules = array();
-		$newrules['('.wpl_global::get_setting('main_permalink').')/(.+)$'] = 'index.php?pagename=$matches[1]&wpl_qs=$matches[2]';
+		$newrules['('.$main_permalink.')/(.+)$'] = 'index.php?pagename=$matches[1]&wpl_qs=$matches[2]';
 
 		return $newrules + $rules;
 	}
@@ -431,7 +435,13 @@ class wpl_extensions
 					if(wpl_db::select("SELECT COUNT(post_content) FROM `#__posts` WHERE `post_content` LIKE '%$content%' AND `post_status` IN ('publish', 'private')", 'loadResult') != 0) continue;
 					
 					$post = array('post_title'=>$title, 'post_content'=>$content, 'post_type'=>'page', 'post_status'=>'publish', 'comment_status'=>'closed', 'ping_status'=>'closed', 'post_author'=>1);
-					wp_insert_post($post);
+					$post_id = wp_insert_post($post);
+                    
+                    if($content == '[WPL]')
+                    {
+                        _wpl_import('libraries.settings');
+                        wpl_settings::save_setting('main_permalink', $post_id);
+                    }
 				}
 				
 				/** Add admin user to WPL **/
@@ -449,7 +459,13 @@ class wpl_extensions
 				if(wpl_db::select("SELECT COUNT(post_content) FROM `#__posts` WHERE `post_content` LIKE '%$content%' AND `post_status` IN ('publish', 'private')", 'loadResult') != 0) continue;
 				
 				$post = array('post_title'=>$title, 'post_content'=>$content, 'post_type'=>'page', 'post_status'=>'publish', 'comment_status'=>'closed', 'ping_status'=>'closed', 'post_author'=>1);
-				wp_insert_post($post);
+                $post_id = wp_insert_post($post);
+                
+                if($content == '[WPL]')
+                {
+                    _wpl_import('libraries.settings');
+                    wpl_settings::save_setting('main_permalink', $post_id);
+                }
 			}
 			
 			/** Add admin user to WPL **/

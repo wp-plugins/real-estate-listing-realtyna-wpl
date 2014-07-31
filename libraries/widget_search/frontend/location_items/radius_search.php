@@ -22,7 +22,7 @@ if($show == 'radiussearch' and !$done_this)
 	foreach($units as $unit) if($unit['tosi'] > 100) $great_units[] = $unit;
 	
 	$html .= '<div class="wpl_search_widget_location_level_container" id="wpl'.$widget_id.'_search_widget_location_level_container_location_text">';
-	$html .= '<label class="wpl_search_widget_location_level_label" for="sf'.$widget_id.'_radiussearch'.$i.'_id">'.__('Radius', WPL_TEXTDOMAIN).'<img src="'.wpl_global::get_wpl_asset_url('img/radius.png').'" alt="'.__('Radius', WPL_TEXTDOMAIN).'" style="vertical-align: middle;" /></label>';
+	$html .= '<label class="wpl_search_widget_location_level_label" for="sf'.$widget_id.'_radiussearch_id">'.__('Radius', WPL_TEXTDOMAIN).'<img src="'.wpl_global::get_wpl_asset_url('img/radius.png').'" alt="'.__('Radius', WPL_TEXTDOMAIN).'" style="vertical-align: middle;" /></label>';
 	$html .= '<input class="wpl_search_widget_radiussearchradius_textbox" type="text" id="sf'.$widget_id.'_radiussearchradius" name="sf'.$widget_id.'_radiussearchradius" value="'.$current_radius.'" style="width: 50px;" />';
 	
 	if(count($great_units) == 0)

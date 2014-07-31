@@ -4,6 +4,14 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.7.0 (<span class="wpl_log_date">7/31/2014</span> <span class="wpl_log_revision">revision 740</span>)</h4>
+        -- <strong>[PRO]</strong> Added favorites widget.<br />
+        -- Added notification manager menu.<br />
+        -- Added contact agent activity.<br />
+        -- Added mailto feature for agent info activity.<br />
+        -- Some enhancements for WPL SEF.<br />
+        -- Fixed some PHP notices and tiny issues.
+        
         <h4>WPL1.6.0 (<span class="wpl_log_date">7/15/2014</span> <span class="wpl_log_revision">revision 728</span>)</h4>
         -- Updated language file with new keywords.<br />
         -- Fixing an issue in Listing Wizard menu for fetching Geo point from Google servers.

@@ -7,6 +7,7 @@ $user_id = isset($params['user_id']) ? $params['user_id'] : '';
 $wpl_properties = isset($params['wpl_properties']) ? $params['wpl_properties'] : NULL;
 $picture_width = isset($params['picture_width']) ? $params['picture_width'] : '175';
 $picture_height = isset($params['picture_height']) ? $params['picture_height'] : '145';
+$mailto = isset($params['mailto']) ? $params['mailto'] : 0;
 
 /** getting user id from current property (used in property_show and property_listing) **/
 if(!trim($user_id)) $user_id = $wpl_properties['current']['data']['user_id'];
@@ -43,29 +44,41 @@ $company_name             = (isset($wpl_user['rendered']['902']['value']) ? $wpl
             <?php echo $agent_name. ' '.$agent_l_name; ?>
         </div>
 		<ul>
-			<?php if(isset($wpl_user['rendered']['904']['value'])){ ?>
+			<?php if(isset($wpl_user['rendered']['904']['value'])): ?>
             <li class="website"><a href="<?php echo $wpl_user['rendered']['904']['value']; ?>" target="_blank"><?php echo $wpl_user['rendered']['904']['value']; ?></a></li>
-			<?php
-			}
-			if(isset($wpl_user['rendered']['907']['value'])){?>
+			<?php endif; ?>
+            
+            <?php if(isset($wpl_user['rendered']['907']['value'])): ?>
 			<li class="tel"><?php echo $wpl_user['rendered']['907']['value']; ?></li>
-			<?php
-			}
-			if(isset($wpl_user['rendered']['909']['value'])){?>
+			<?php endif; ?>
+            
+			<?php if(isset($wpl_user['rendered']['909']['value'])): ?>
 			<li class="mobile"><?php echo $wpl_user['rendered']['909']['value']; ?></li>
-			<?php
-			}
-			if(isset($wpl_user['rendered']['908']['value'])){?>
+			<?php endif; ?>
+			
+			<?php if(isset($wpl_user['rendered']['908']['value'])): ?>
 			<li class="fax"><?php echo $wpl_user['rendered']['908']['value']; ?></li>
-			<?php
-			}
-			if(isset($wpl_user['main_email_url'])){?>
-			<li class="email"><img src="<?php echo $wpl_user['main_email_url']; ?>" alt="<?php echo $agent_name. ' '.$agent_l_name; ?>" /></li>
-			<?php
-			}
-			if(isset($wpl_user['second_email_url'])){?>
-			<li class="second_email"><img src="<?php echo $wpl_user['second_email_url']; ?>" alt="<?php echo $agent_name. ' '.$agent_l_name; ?>" /></li>
-			<?php } ?>
+			<?php endif; ?>
+			
+			<?php if(isset($wpl_user['main_email_url'])): ?>
+			<li class="email">
+                <?php if($mailto): ?>
+                <a href="mailto:<?php echo $wpl_user['rendered'][914]['value']; ?>"><img src="<?php echo $wpl_user['main_email_url']; ?>" alt="<?php echo $agent_name. ' '.$agent_l_name; ?>" /></a>
+                <?php else: ?>
+                <img src="<?php echo $wpl_user['main_email_url']; ?>" alt="<?php echo $agent_name. ' '.$agent_l_name; ?>" />
+                <?php endif; ?>
+            </li>
+			<?php endif; ?>
+            
+			<?php if(isset($wpl_user['second_email_url'])): ?>
+			<li class="second_email">
+                <?php if($mailto): ?>
+                <a href="mailto:<?php echo $wpl_user['rendered'][905]['value']; ?>"><img src="<?php echo $wpl_user['second_email_url']; ?>" alt="<?php echo $agent_name. ' '.$agent_l_name; ?>" /></a>
+                <?php else: ?>
+                <img src="<?php echo $wpl_user['second_email_url']; ?>" alt="<?php echo $agent_name. ' '.$agent_l_name; ?>" />
+                <?php endif; ?>
+            </li>
+			<?php endif; ?>
 		</ul>
 	</div>
 	<div class="wpl_agent_info_r col-md-2">

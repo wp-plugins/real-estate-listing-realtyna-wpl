@@ -16,7 +16,11 @@ class wpl_profile_show_controller extends wpl_controller
 	public function display($instance = array())
 	{
 		$this->uid = wpl_request::getVar('uid', 0);
-		if(!$this->uid) $this->uid = wpl_request::getVar('sf_select_user_id', 0);
+		if(!$this->uid)
+        {
+            $this->uid = wpl_request::getVar('sf_select_user_id', 0);
+            wpl_request::setVar('uid', $this->uid);
+        }
         
         /** check user id **/
 		if(!$this->uid)

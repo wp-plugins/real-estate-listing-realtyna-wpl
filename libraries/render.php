@@ -44,8 +44,8 @@ class wpl_render
 		if(trim($datetime) == '0000-00-00' or trim($datetime) == '0000-00-00 00:00:00') return '';
 		$tmp = explode(' ', $datetime);
         
-		$date = $tmp[0];
-		$time = $tmp[1];
+		$date = isset($tmp[0]) ? $tmp[0] : '';
+		$time = isset($tmp[1]) ? $tmp[1] : '';
         
 		$output = wpl_render::render_date($date).' '.$time;
 		return $output;

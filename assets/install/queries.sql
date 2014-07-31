@@ -1174,7 +1174,7 @@ INSERT INTO `#__wpl_settings` (`id`, `setting_name`, `setting_value`, `showable`
 (6, 'default_resize_width', '500', 1, 2, 'text', 'Default resize width', '', '', 3.00),
 (7, 'default_resize_height', '450', 1, 2, 'text', 'Default resize height', '', '', 4.00),
 (8, 'watermark_status', '0', 1, 2, 'select', 'Watermark', '', '{"values":[{"key":0,"value":"No"},{"key":1,"value":"Yes"}]} ', 5.00),
-(5, 'image_resize_method', '2', 1, 2, 'select', 'Image resize method', '', '{"values":[{"key":0,"value":"Resize"},{"key":1,"value":"Crop Resize"}, {"key":2,"value":"Crop Resize (Center)"}]} ', 2.00),
+(5, 'image_resize_method', '0', 1, 2, 'select', 'Image resize method', '', '{"values":[{"key":0,"value":"Resize"},{"key":1,"value":"Crop Resize"}, {"key":2,"value":"Crop Resize (Center)"}]} ', 2.00),
 (10, 'watermark_opacity', '40', 1, 2, 'text', 'Watermark Opacity', '', '', 7.00),
 (11, 'watermark_url', '', 1, 2, 'upload', 'Watermark Logo URL ', '', '', 8.00),
 (12, 'video_uploader', '0', 1, 1, 'checkbox', 'Video uploader', '', '', 50.00),

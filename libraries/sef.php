@@ -9,13 +9,13 @@ defined('_WPLEXEC') or die('Restricted access');
 
 class wpl_sef
 {
-	/**
-		Developed by : Howard
-		Inputs : array $instance passed by wordpress
-		Outputs : void
-		Date : 2013-08-14
-		Description : This is a system function for processing SEF
-	**/
+    /**
+     * This is a system function for processing SEF
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param array $instance
+     * @return mixed
+     */
 	public static function process($instance)
 	{
 		/** get global settings **/
@@ -30,14 +30,15 @@ class wpl_sef
 		/** load view **/
 		return wpl_global::load($view, '', $instance);
 	}
-	
-	/**
-		Developed by : Howard
-		Inputs : string $query_string, string $separator
-		Outputs : string $view
-		Date : 2013-08-14
-		Description : This is a function for getting the view based on query string
-	**/
+    
+    /**
+     * Detects WPL view from URL (Query String)
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $query_string
+     * @param string $separator
+     * @return string
+     */
 	public static function get_view($query_string = '', $separator = '')
 	{
 		/** first validations **/
@@ -72,13 +73,13 @@ class wpl_sef
 		return $view;
 	}
 	
-	/**
-		Developed by : Howard
-		Inputs : string $view, string $query_string
-		Outputs : void
-		Date : 2013-08-14
-		Description : This is a function for setting the parameters
-	**/
+    /**
+     * Sets parameters of a view
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $view
+     * @param string $query_string
+     */
 	public static function setVars($view = 'property_listing', $query_string = '')
 	{
 		/** first validations **/
@@ -170,13 +171,14 @@ class wpl_sef
 		}
 	}
 	
-	/**
-		Developed by : Howard
-		Inputs : string $view, string $query_string
-		Outputs : void
-		Date : 2013-08-14
-		Description : This is a function for loading view
-	**/
+    /**
+     * Returns id of property type or listing type etc
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $field
+     * @param string $value
+     * @return string
+     */
 	public static function get_id_by_name($field = '', $value = '')
 	{
 		/** return if value is numeric for some special fields **/
@@ -202,13 +204,14 @@ class wpl_sef
 		}
 	}
 	
-	/**
-		Developed by : Howard
-		Inputs : string $field
-		Outputs : string $field
-		Date : 2013-08-14
-		Description : It will change dummy fields to WPL fields for example "Property Type" to "property_type". Also it takes care of specific fields
-	**/
+    /**
+     * It changes dummy fields to WPL fields for example "Property Type" to "property_type". Also it takes care of specific fields
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $field
+     * @param array $specific_fields
+     * @return string
+     */
 	public static function parse_field($field, $specific_fields = array())
 	{
 		if(trim($field) == '') return '';
@@ -216,12 +219,13 @@ class wpl_sef
 		if(in_array($field, $specific_fields)) return $specific_fields[$field];
 		else return strtolower(str_replace(' ', '_', $field));
 	}
-	
-	/**
-		Developed by : Howard
-		Date : 2013-08-14
-		Description : It will change dummy fields to WPL fields.
-	**/
+    
+    /**
+     * It changes dummy fields to WPL fields
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param array $parameters
+     */
 	public static function set_location_vars($parameters)
 	{
 		/** specific fields like country, state, city and ... **/
@@ -262,20 +266,23 @@ class wpl_sef
 		}
 	}
 	
-	/**
-		Developed by : Howard
-		Inputs : void
-		Outputs : void
-		Date : 2013-11-06
-		Description : This is for settings wpl view before initializing theme for using in theme
-	**/
+    /**
+     * Sets WPL view to wplview variable. This function sets other parameters as well in $_REQUEST
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @return void
+     */
 	public static function set_view()
 	{
+        /** set view **/
+        $wplview = wpl_request::getVar('wplview', '');
+        if(trim($wplview) != '') return;
+        
 		/** checking wordpress post type (post, page, any kind of posts and ...) **/
 		if(is_page() or is_single())
 		{
 			/** getting the post id and post content **/
-			$post_id = get_the_ID();
+			$post_id = wpl_global::get_the_ID();
 			$post_content = wpl_db::get('post_content', 'posts', 'id', $post_id);
 			$wplview = '';
 			
@@ -314,8 +321,61 @@ class wpl_sef
 		}
 	}
     
+    /**
+     * Returns full link of a wordpress page. It's caring about WordPress permalink structure as well.
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $page_id
+     * @return string full link of page
+     */
     public static function get_page_link($page_id)
     {
         return get_page_link($page_id);
+    }
+    
+    /**
+     * Checks WordPress permalink
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @return boolean
+     */
+    public static function is_permalink_default()
+    {
+        $option = wpl_global::get_wp_option('permalink_structure', NULL);
+        if(!trim($option)) return true;
+        else return false;
+    }
+    
+    /**
+     * Returns permalink of a post or page
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param type $post_id
+     * @return string
+     */
+    public static function get_post_name($post_id)
+    {
+        if(!trim($post_id)) return '';
+        return wpl_db::get('post_name', 'posts', 'id', $post_id);
+    }
+    
+    /**
+     * Returns WPL permalink
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @return string
+     */
+    public static function get_wpl_permalink($full = false)
+    {
+        $main_permalink = wpl_global::get_setting('main_permalink');
+        if(is_numeric($main_permalink)) $main_permalink = wpl_sef::get_post_name($main_permalink);
+        
+        if($full)
+        {
+            $post_id = wpl_db::get('ID', 'posts', 'post_name', $main_permalink);
+            return wpl_sef::get_page_link($post_id);
+        }
+            
+        return $main_permalink;
     }
 }

@@ -708,8 +708,15 @@ class wpl_users
 		if($target_id) $url = wpl_global::add_qs_var('uid', $user_id, wpl_sef::get_page_link($target_id));
 		else
         {
-            $url = wpl_global::get_wp_site_url().wpl_global::get_setting('main_permalink').'/';
-            $url .= urlencode($user_data->data->user_login).'/';
+            $url = wpl_sef::get_wpl_permalink(true);
+            $nosef = wpl_sef::is_permalink_default();
+            
+            if($nosef)
+            {
+                $url = wpl_global::add_qs_var('wplview', 'profile_show', $url);
+                $url = wpl_global::add_qs_var('uid', $user_id, $url);
+            }
+            else $url .= urlencode($user_data->data->user_login).'/';
         }
 		
         return $url;
@@ -895,7 +902,9 @@ class wpl_users
         if(isset($user_data['zip_name']) and trim($user_data['zip_name']) != '') $locations['zip_name'] = $user_data['zip_name'];
         if(isset($user_data['location1_name']) and trim($user_data['location1_name']) != '') $locations['location1_name'] = $user_data['location1_name'];
         
-        $location_pattern = '[location5_name][glue][location4_name][glue][location3_name][glue][location2_name][glue][location1_name] [zip_name]';
+        $location_pattern = wpl_global::get_setting('user_location_pattern');
+        if(trim($location_pattern) == '') $location_pattern = '[location5_name][glue][location4_name][glue][location3_name][glue][location2_name][glue][location1_name] [zip_name]';
+        
 		$location_text = '';
         $location_text = isset($locations['location5_name']) ? str_replace('[location5_name]', $locations['location5_name'], $location_pattern) : str_replace('[location5_name]', '', $location_pattern);
         $location_text = isset($locations['location4_name']) ? str_replace('[location4_name]', $locations['location4_name'], $location_text) : str_replace('[location4_name]', '', $location_text);

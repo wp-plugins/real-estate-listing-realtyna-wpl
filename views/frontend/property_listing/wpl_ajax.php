@@ -17,12 +17,16 @@ class wpl_property_listing_controller extends wpl_controller
             $current_location_id = wpl_request::getVar('current_location_id');
             $widget_id = wpl_request::getVar('widget_id');
 
-            self::get_locations($location_level, $parent, $current_location_id, $widget_id);
+            $this->get_locations($location_level, $parent, $current_location_id, $widget_id);
         }
         elseif($function == 'locationtextsearch_autocomplete')
         {
             $term = wpl_request::getVar('term');
-            self::locationtextsearch_autocomplete($term);
+            $this->locationtextsearch_autocomplete($term);
+        }
+        elseif($function == 'contact_agent')
+        {
+            $this->contact_agent();
         }
     }
 
@@ -74,6 +78,41 @@ class wpl_property_listing_controller extends wpl_controller
         }
 
         echo json_encode($output);
+        exit;
+    }
+    
+    private function contact_agent()
+    {
+        $fullname = wpl_request::getVar('fullname', '');
+        $phone = wpl_request::getVar('phone', '');
+        $email = wpl_request::getVar('email', '');
+        $message = wpl_request::getVar('message', '');
+        $property_id = wpl_request::getVar('pid', '');
+        
+        $parameters = array(
+            'fullname' => $fullname,
+            'phone' => $phone,
+            'email' => $email,
+            'message' => $message,
+            'property_id' => $property_id,
+            'user_id' => wpl_property::get_property_user($property_id)
+        );
+        
+        $returnData = array();
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL))
+        {
+            $returnData['success'] = 0;
+            $returnData['message'] = __('Your email is not a valid email!', WPL_TEXTDOMAIN);
+        }
+        else
+        {
+            wpl_events::trigger('contact_agent', $parameters);
+            
+            $returnData['success'] = 1;
+            $returnData['message'] = __('Information sent to agent.', WPL_TEXTDOMAIN);
+        }
+        
+        echo json_encode($returnData);
         exit;
     }
 }

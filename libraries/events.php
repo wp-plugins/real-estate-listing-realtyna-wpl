@@ -36,8 +36,10 @@ class wpl_events
 			include_once $path;
 			
 			/** call function **/
-			return call_user_func(array($event->class_name, $event->function_name), $all_params);
+			call_user_func(array($event->class_name, $event->function_name), $all_params);
 		}
+        
+        return true;
 	}
 	
 	/**

@@ -1,12 +1,13 @@
 <?php
-
 /** no direct access * */
 defined('_WPLEXEC') or die('Restricted access');
 
 /**
- ** Activity Library
- ** Developed 03/10/2013
- **/
+ * WPL Activity library
+ * @author Howard <howard@realtyna.com>
+ * @since WPL1.0.0
+ * @date 03/10/2013
+ */
 class wpl_activity
 {
     const ACTIVITY_FRONTEND = 0;
@@ -129,8 +130,8 @@ class wpl_activity
             /** page associations **/
             if(is_page())
             {
-                $page_id = get_the_ID();
-                if($page_id) $condition .= " AND (`association_type`='1' OR (`association_type`='2' AND `associations` LIKE '%[".$page_id."]%') OR (`association_type`='3' AND `associations` NOT LIKE '%[".$page_id."]%'))";
+                $post_id = wpl_global::get_the_ID();
+                if($post_id) $condition .= " AND (`association_type`='1' OR (`association_type`='2' AND `associations` LIKE '%[".$post_id."]%') OR (`association_type`='3' AND `associations` NOT LIKE '%[".$post_id."]%'))";
             }
             
             $condition .= " ORDER BY `index` ASC, `ID` DESC";

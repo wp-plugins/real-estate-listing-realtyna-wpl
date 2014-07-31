@@ -3,10 +3,11 @@
 defined('_WPLEXEC') or die('Restricted access');
 
 /**
-** Global Library
-** Developed 04/18/2013
-**/
-
+ * WPL global library
+ * @author Howard <howard@realtyna.com>
+ * @since WPL1.0.0
+ * @date 04/18/2013
+ */
 class wpl_global
 {
 	/**
@@ -1028,4 +1029,14 @@ class wpl_global
         
 		return $hashed_key;
 	}
+    
+    /**
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @return int post/page id of wordpress
+     */
+    public static function get_the_ID()
+    {
+        return get_the_ID();
+    }
 }

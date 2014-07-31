@@ -45,6 +45,7 @@ include _wpl_import("widgets.agents.scripts.js_backend", true, true);
         <input type="text" id="<?php echo $this->get_field_id('data_image_height'); ?>" name="<?php echo $this->get_field_name('data'); ?>[image_height]" value="<?php echo isset($instance['data']['image_height']) ? $instance['data']['image_height'] : '230'; ?>" />
     </div>
     
+    <?php if(wpl_global::check_addon('pro')): ?>
     <?php $membership_types = wpl_users::get_membership_types(); ?>
     <div>
     	<label for="<?php echo $this->get_field_id('data_user_type'); ?>"><?php echo __('User Type', WPL_TEXTDOMAIN); ?>: </label>
@@ -66,6 +67,7 @@ include _wpl_import("widgets.agents.scripts.js_backend", true, true);
             <?php endforeach; ?>
         </select>
     </div>
+    <?php endif; ?>
     
     <div>
     	<label for="<?php echo $this->get_field_id('data_user_ids'); ?>"><?php echo __('User IDs', WPL_TEXTDOMAIN); ?>: </label>

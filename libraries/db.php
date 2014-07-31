@@ -3,19 +3,20 @@
 defined('_WPLEXEC') or die('Restricted access');
 
 /**
-** DB Library
-** Developed 02/10/2013
-**/
-
+ * WPL DB library
+ * @author Howard <howard@realtyna.com>
+ * @since WPL1.0.0
+ * @date 02/10/2013
+ */
 class wpl_db
 {
-	/**
-		Developed by : Howard
-		Inputs : complete query and type of query
-		Outputs : result of query
-		Date : 2013-02-16
-		Description : use this function for runnig INSERT, UPDATE and DELETE queries, also set type if you need any result.
-	**/
+    /**
+     * Use this function for runnig INSERT, UPDATE and DELETE queries, also set type if you need any result.
+     * @author Howard <howard@realtyna.com>
+     * @param string $query
+     * @param string $type
+     * @return mixed result of query based on $type parameter
+     */
 	public static function q($query, $type = '')
 	{
 		/** db prefix **/
@@ -38,14 +39,14 @@ class wpl_db
 		
 		return $database->query($query);
 	}
-	
-	/**
-		Developed by : Howard
-		Inputs : complete query
-		Outputs : num of result
-		Date : 2013-03-06
-		Description : use this function getting num of result
-	**/
+    
+    /**
+     * Use this function getting num of result
+     * @author Howard <howard@realtyna.com>
+     * @param string $query
+     * @param string $table
+     * @return int
+     */
 	public static function num($query, $table = '')
 	{
 		if(trim($table) != '')
@@ -60,14 +61,14 @@ class wpl_db
 		$database = self::get_DBO();
 		return $database->get_var($query);
 	}
-	
-	/**
-		Developed by : Howard
-		Inputs : vars array
-		Outputs : query
-		Date : 2013-03-06
-		Description : use this function for creating query
-	**/
+    
+    /**
+     * Use this function for creating query
+     * @author Howard <howard@realtyna.com>
+     * @param array $vars
+     * @param string $needle_str
+     * @return string $query
+     */
 	public static function create_query($vars = '', $needle_str = 'sf_')
 	{
 		if(!$vars)
@@ -123,13 +124,13 @@ class wpl_db
 		return $query = trim($query, ' ,');
 	}
 	
-	/**
-		Developed by : Howard
-		Inputs : complete query and type of result
-		Outputs : result of query
-		Date : 2013-02-16
-		Description : use this function for runnig SELECT queries, also you can change type of result if need.
-	**/
+    /**
+     * Use this function for runnig SELECT queries, also you can change type of result if need.
+     * @author Howard <howard@realtyna.com>
+     * @param string $query
+     * @param string $result
+     * @return mixed
+     */
 	public static function select($query, $result = 'loadObjectList')
 	{
 		/** db prefix **/
@@ -147,13 +148,17 @@ class wpl_db
 		else return $database->get_results($query, OBJECT_K);
 	}
 	
-	/**
-		Developed by : Howard
-		Inputs : select parameters, name of table without #__ , name and value of field for creating where, return type and custom condition
-		Outputs : result of query
-		Date : 2013-02-16
-		Description : use this function for runnig SELECT queries just for 1 record. it creats query automatically.
-	**/
+    /**
+     * Use this function for runnig SELECT queries just for 1 record. it creats query automatically.
+     * @author Howard <howard@realtyna.com>
+     * @param string $selects
+     * @param string $table
+     * @param string $field
+     * @param string $value
+     * @param boolean $return_object
+     * @param string $condition
+     * @return mixed
+     */
 	public static function get($selects, $table, $field, $value, $return_object = true, $condition = '')
 	{
 		$fields = '';
@@ -191,14 +196,15 @@ class wpl_db
 			return $database->get_row($query);
 		}
 	}
-	
-	/**
-		Developed by : Howard
-		Inputs : {table_name}, {id} and [condition]
-		Outputs : result of query
-		Date : 2013-05-07
-		Description : use this function for runnig DELETE commands
-	**/
+    
+    /**
+     * Use this function for runnig DELETE commands
+     * @author Howard <howard@realtyna.com>
+     * @param string $table
+     * @param int $id
+     * @param string $condition
+     * @return mixed
+     */
 	public static function delete($table, $id, $condition = '')
 	{
 		/** first validation **/
@@ -210,12 +216,17 @@ class wpl_db
 		$query = "DELETE FROM `#__$table` WHERE 1 ".$condition;
 		return self::q($query, 'delete');
 	}
-	
-	/**
-		@input {table}, {key}, {id} and [value]
-		@return boolean result
-		@author Howard
-	**/
+    
+    /**
+     * Using this function you can update one column from some records in a certain table
+     * @author Howard <howard@realtyna.com>
+     * @param string $table
+     * @param string $where_value
+     * @param string $key
+     * @param string $value
+     * @param string $where_key
+     * @return mixed
+     */
 	public static function set($table, $where_value, $key, $value = '', $where_key = 'id')
 	{
 		/** first validation **/
@@ -225,11 +236,15 @@ class wpl_db
 		return wpl_db::q($query);
 	}
 	
-	/**
-		@input {table}, {key}, {where_key}, [where_value] and [value]
-		@return boolean result
-		@author Howard
-	**/
+    /**
+     * For updating some columns from some records in a certain table you can use this function
+     * @author Howard <howard@realtyna.com>
+     * @param string $table
+     * @param array $params
+     * @param string $where_key
+     * @param string $where_value
+     * @return mixed
+     */
 	public static function update($table, $params = array(), $where_key = 'id', $where_value = '')
 	{
 		/** first validation **/
@@ -248,7 +263,12 @@ class wpl_db
 		return wpl_db::q($query, 'update');
 	}
 	
-	/** get table columns howard 12/30/2012 **/
+    /**
+     * Fetch list of table columns
+     * @author Howard <howard@realtyna.com>
+     * @param string $table
+     * @return array
+     */
 	public static function columns($table = 'wpl_properties')
 	{
 		$query = "SHOW COLUMNS FROM `#__".$table."`";
@@ -263,13 +283,12 @@ class wpl_db
 		return $array;
 	}
 	
-	/**
-		Developed by : Howard
-		Inputs : {parameter}
-		Outputs : escaped parameter
-		Date : 2013-05-07
-		Description : use this function for escaping any variable
-     **/
+    /**
+     * Use this function for escaping any variable
+     * @author Howard <howard@realtyna.com>
+     * @param mixed $parameter
+     * @return mixed
+     */
     public static function escape($parameter)
     {
         /** db object **/
@@ -296,12 +315,11 @@ class wpl_db
     }
 
     /**
-		Developed by : Howard
-		Inputs : {query}
-		Outputs : query
-		Date : 2013-05-07
-		Description : use this function for replacing fake prefix with real one
-	**/
+     * Use this function for replacing fake prefix with real one
+     * @author Howard <howard@realtyna.com>
+     * @param string $query
+     * @return string
+     */
 	public static function _prefix($query)
 	{
 		$database = self::get_DBO();
@@ -313,29 +331,26 @@ class wpl_db
 		return $query;
 	}
 	
-	/**
-		Developed by : Howard
-		Inputs : null
-		Outputs : database object
-		Date : 2013-02-16
-		Description : use this function for getting database object
-	**/
+    /**
+     * Use this function for getting database object
+     * @author Howard <howard@realtyna.com>
+     * @global type $wpdb
+     * @return object
+     */
 	public static function get_DBO()
 	{
 		global $wpdb;
 		return $wpdb;
 	}
 	
-	/**
-		Developed by : Chris
-		Inputs : {input}
-		Outputs : sanitize_text_field
-		Date : 2014-06-29
-		Description : Checks for invalid UTF-8, Convert single < characters to entity, strip all tags, remove line breaks, tabs and extra white space, strip octets. 
-	**/
+    /**
+     * Checks for invalid UTF-8, Convert single < characters to entity, strip all tags, remove line breaks, tabs and extra white space, strip octets. 
+     * @author Chris <chris@realtyna.com>
+     * @param mixed $input
+     * @return mixed
+     */
 	public static function sanitize($input)
 	{
 		return sanitize_text_field($input);
 	}
-	
 }

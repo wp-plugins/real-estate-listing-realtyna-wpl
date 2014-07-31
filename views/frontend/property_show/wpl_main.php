@@ -37,7 +37,11 @@ class wpl_property_show_controller extends wpl_controller
 		$this->pid = wpl_request::getVar('pid', 0);
 		
 		$listing_id = wpl_request::getVar('mls_id', 0);
-		if(trim($listing_id)) $this->pid = wpl_property::pid($listing_id);
+		if(trim($listing_id))
+        {
+            $this->pid = wpl_property::pid($listing_id);
+            wpl_request::setVar('pid', $this->pid);
+        }
 		
 		$property = $this->model->get_property_raw_data($this->pid);
 		

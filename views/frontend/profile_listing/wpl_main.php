@@ -56,7 +56,7 @@ class wpl_profile_listing_controller extends wpl_controller
 		/** run the search **/
 		$query = $this->model->query();
 		$profiles = $this->model->search();
-		
+        
 		/** finish search **/
 		$this->model->finish();
 		$plisting_fields = $this->model->get_plisting_fields();

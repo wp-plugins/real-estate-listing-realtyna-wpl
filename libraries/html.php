@@ -3,20 +3,25 @@
 defined('_WPLEXEC') or die('Restricted access');
 
 /**
-** HTML Library
-** Developed 08/19/2013
-**/
-
+ * HTML Library
+ * @author Howard R <howard@realtyna.com>
+ */
 class wpl_html
 {
 	public static $document = NULL;
 	public static $title;
+    public static $content_title;
+    public static $content_title_id;
 	public static $meta_keywords = array();
 	public static $meta_description;
     public static $footer_strings = array();
 	public static $scripts = array();
-	
-	/** constructor **/
+    
+    /**
+     * Constructor function
+     * @author Howard R <howard@realtyna.com>
+     * @param type $init
+     */
 	public function __construct($init = true)
 	{
 		/** initialize html library **/
@@ -32,14 +37,14 @@ class wpl_html
             elseif($client == 1) add_action('in_admin_footer', array($html, 'generate_footer'), 9999);
 		}
 	}
-	
-	/**
-		Developed by : Howard
-		Inputs : boolean init
-		Outputs : void
-		Date : 2013-08-19
-		Description : This is a function for getting instance of html class
-	**/
+    
+    /**
+     * This is a function for getting instance of html class
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param boolean $init
+     * @return object HTML class
+     */
 	public static function getInstance($init = true)
 	{
 		if(!self::$document)
@@ -50,13 +55,12 @@ class wpl_html
 		return self::$document;
 	}
 	
-	/**
-		Developed by : Howard
-		Inputs : array keywords
-		Outputs : void
-		Date : 2013-08-19
-		Description : This is a function for setting meta keywords
-	**/
+    /**
+     * This is a function for setting meta keywords
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param array $keywords
+     */
 	public static function set_meta_keywords($keywords = array())
 	{
 		if(is_array($keywords))
@@ -68,14 +72,14 @@ class wpl_html
 			array_push(self::$meta_keywords, $keywords);
 		}
 	}
-	
-	/**
-		Developed by : Howard
-		Inputs : string
-		Outputs : void
-		Date : 2013-08-19
-		Description : This is a function for setting meta description
-	**/
+    
+    /**
+     * This is a function for setting meta description
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $string
+     * @return boolean
+     */
 	public static function set_meta_description($string)
 	{
 		$string = (string) $string;
@@ -84,13 +88,13 @@ class wpl_html
 		self::$meta_description = $string;
 	}
 	
-	/**
-		Developed by : Howard
-		Inputs : string
-		Outputs : void
-		Date : 2013-08-19
-		Description : This is a function for setting the title
-	**/
+    /**
+     * This is a function for setting the title
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param type $string
+     * @return boolean
+     */
 	public static function set_title($string = '')
 	{
 		$string = (string) $string;
@@ -98,27 +102,26 @@ class wpl_html
 		
 		self::$title = $string;
 	}
-	
-	/**
-		Developed by : Howard
-		Inputs : void
-		Outputs : void
-		Date : 2013-08-19
-		Description : This is a function for filtering title
-	**/
+    
+    /**
+     * This is a function for filtering title
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $title
+     * @param string $separator
+     * @return string $title
+     */
 	public static function title($title, $separator = '')
 	{
 		if(trim(self::$title) != '') return self::$title;
 		else return $title;
 	}
-	
-	/**
-		Developed by : Howard
-		Inputs : void
-		Outputs : void
-		Date : 2013-08-19
-		Description : This is a function for printing meta keywords and meta descriptions
-	**/
+    
+    /**
+     * This is a function for printing meta keywords and meta descriptions
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     */
 	public static function generate_head()
 	{
 		/** generate meta keywords **/
@@ -135,12 +138,12 @@ class wpl_html
 	}
     
     /**
-		Developed by : Howard
-		Inputs : void
-		Outputs : void
-		Date : 2014-04-19
-		Description : This is a function for printing needed codes in footer
-	**/
+     * This is a function for printing needed codes in footer
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $string
+     * @return boolean
+     */
 	public static function set_footer($string)
 	{
 		$string = (string) $string;
@@ -150,12 +153,10 @@ class wpl_html
 	}
     
     /**
-		Developed by : Howard
-		Inputs : void
-		Outputs : void
-		Date : 2014-04-19
-		Description : This is a function for printing needed codes in footer
-	**/
+     * This is a function for printing needed codes in footer
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     */
 	public static function generate_footer()
 	{
 		/** printing footer strings **/
@@ -169,14 +170,15 @@ class wpl_html
             }
 		}
 	}
-	
-	/**
-		Developed by : Howard
-		Inputs : array instance
-		Outputs : void
-		Date : 2014-03-20
-		Description : This is a function for loading any view on frontend
-	**/
+    
+    /**
+     * This is a function for loading any view on frontend
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $function
+     * @param array $instance
+     * @return string $output
+     */
 	public static function load_view($function, $instance = array())
 	{
 		if(trim($function) == '') return false;
@@ -189,37 +191,37 @@ class wpl_html
 		return $output = ob_get_clean();
 	}
 	
-	/**
-		Developed by : Howard
-		Inputs : array instance
-		Outputs : void
-		Date : 2014-03-20
-		Description : This is a function for loading profile wizard by shortcode
-	**/
+    /**
+     * This is a function for loading profile wizard by shortcode
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param array $instance
+     * @return string
+     */
 	public static function load_profile_wizard($instance = array())
 	{
 		return wpl_html::load_view('b:users:profile', $instance);
 	}
-	
-	/**
-		Developed by : Howard
-		Inputs : array instance
-		Outputs : void
-		Date : 2014-03-25
-		Description : This is a function for loading property wizard by shortcode
-	**/
+    
+    /**
+     * This is a function for loading property wizard by shortcode
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param array $instance
+     * @return string
+     */
 	public static function load_add_edit_listing($instance = array())
 	{
 		return wpl_html::load_view('b:listing:wizard', $instance);
 	}
 	
-	/**
-		Developed by : Howard
-		Inputs : array instance
-		Outputs : void
-		Date : 2014-03-25
-		Description : This is a function for loading property manager by shortcode
-	**/
+    /**
+     * This is a function for loading property manager by shortcode
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param array $instance
+     * @return string
+     */
 	public static function load_listing_manager($instance = array())
 	{
 		return wpl_html::load_view('b:listings:manager', $instance);
