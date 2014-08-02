@@ -4,6 +4,10 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.7.1 (<span class="wpl_log_date">8/02/2014</span> <span class="wpl_log_revision">revision 743</span>)</h4>
+        -- Added a new feature for removing user thumbnails after uploading new profile picture or company logo.<br />
+        -- Fixed some tiny issues on search widget and single property page.
+        
         <h4>WPL1.7.0 (<span class="wpl_log_date">7/31/2014</span> <span class="wpl_log_revision">revision 740</span>)</h4>
         -- <strong>[PRO]</strong> Added favorites widget.<br />
         -- Added notification manager menu.<br />

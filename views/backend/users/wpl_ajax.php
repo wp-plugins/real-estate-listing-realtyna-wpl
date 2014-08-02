@@ -340,6 +340,9 @@ class wpl_users_controller extends wpl_controller
 		/** delete file and reset db **/
 		wpl_file::delete($path);
 		wpl_db::set('wpl_users', $user_id, $field_data['table_column'], '');
+        
+        /** delete thumbnails **/
+        wpl_users::remove_thumbnails($user_id);
 		
 		/** called from other functions (upload function) **/
 		if(!$output) return;

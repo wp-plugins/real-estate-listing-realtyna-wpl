@@ -133,10 +133,26 @@ if(($type == 'area' or $type == 'price' or $type == 'volume' or $type == 'length
 	{
 		//$html .= '<label id="wpl_search_widget_from_label'.$widget_id.'" class="wpl_search_widget_from_label" for="sf'.$widget_id.'_min_'.$field_data['table_column'].'">'.__('From', WPL_TEXTDOMAIN).'</label>';
 		
+        $html .= '
+        <script type="text/javascript">
+        wplj(function()
+        {
+            wplj("#sf'.$widget_id.'_min_'.$field_data['table_column'].'" ).change(function()
+            {
+                var min_value = wplj("#sf'.$widget_id.'_min_'.$field_data['table_column'].'" ).val();
+                wplj("#sf'.$widget_id.'_max_'.$field_data['table_column'].' option").filter(
+                    function () {
+                        if(parseInt(this.value) < parseInt(min_value)) wplj(this).hide();
+                    }
+                );
+                try {wplj("#sf'.$widget_id.'_max_'.$field_data['table_column'].'").trigger("chosen:updated");} catch(err) {}
+            });
+        });
+        </script>';
+        
+        $i = $min_value;
     	$html .= '<select name="sf'.$widget_id.'_min_'.$field_data['table_column'].'" id="sf'.$widget_id.'_min_'.$field_data['table_column'].'">';
-		if($any) $html .= '<option value="0" '.($current_min_value == $i ? 'selected="selected"' : '').' >'.__('From', WPL_TEXTDOMAIN).'</option>';
-		
-		$i = $min_value;
+		if($any) $html .= '<option value="0" '.($current_min_value == $i ? 'selected="selected"' : '').' >'.__('Min '.$field_data['name'], WPL_TEXTDOMAIN).'</option>';
 		
 		while($i < $max_value)
 		{
@@ -155,7 +171,7 @@ if(($type == 'area' or $type == 'price' or $type == 'volume' or $type == 'length
 		
 		//$html .= '<label id="wpl_search_widget_to_label'.$widget_id.'" class="wpl_search_widget_to_label" for="sf'.$widget_id.'_max_'.$field_data['table_column'].'">'.__('To', WPL_TEXTDOMAIN).'</label>';
         $html .= '<select name="sf'.$widget_id.'_max_'.$field_data['table_column'].'" id="sf'.$widget_id.'_max_'.$field_data['table_column'].'">';
-		if($any) $html .= '<option value="999999999999" '.($current_max_value == $i ? 'selected="selected"' : '').'>'.__('To', WPL_TEXTDOMAIN).'</option>';
+		if($any) $html .= '<option value="999999999999" '.($current_max_value == $i ? 'selected="selected"' : '').'>'.__('Max '.$field_data['name'], WPL_TEXTDOMAIN).'</option>';
 		
 		$i = $min_value;
 		

@@ -3,6 +3,7 @@
 defined('_WPLEXEC') or die('Restricted access');
 
 _wp_import('wp-includes.pluggable');
+_wpl_import('libraries.items');
 
 /**
 ** Users Library
@@ -1099,5 +1100,29 @@ class wpl_users
 	{
 		$acceptable_fileds = array('id', 'slug', 'email', 'login');
 		if(in_array($field, $acceptable_fileds)) return get_user_by($field, trim($data));
+	}
+    
+    /**
+     * Removes user thumbnails
+     * @author Howard R <Howard@realtyna.com>
+     * @static
+     * @param int $user_id
+     * @return boolean
+     */
+    public static function remove_thumbnails($user_id)
+	{
+        /** first validation **/
+        if(!trim($user_id)) return false;
+        
+		$ext_array = array('jpg', 'jpeg', 'gif', 'png');
+        $path = wpl_items::get_path($user_id, 2);
+        $thumbnails = wpl_folder::files($path, 'th.*\.('.implode('|', $ext_array).')$', 3, true);
+
+        foreach($thumbnails as $thumbnail)
+        {
+            wpl_file::delete($thumbnail);
+        }
+        
+        return true;
 	}
 }

@@ -45,7 +45,7 @@ elseif($type == 'text' and !$done_this) //////////////////////////// text //////
 		elseif($field->id == '52') #Latitude
 			$return['value'] = wpl_render::render_latitude($value);
 		else
-			$return['value'] = $value;
+			$return['value'] = __($value, WPL_TEXTDOMAIN);
 	}
 	
 	$done_this = true;
@@ -64,7 +64,7 @@ elseif($type == 'textarea' and !$done_this) //////////////////////////// textare
 }
 elseif($type == 'select' and !$done_this) //////////////////////////// select ////////////////////////////
 {
-	if(trim($value) != '0')
+	if(trim($value) and trim($value) != '-1')
 	{
 		$return['field_id'] = $field->id;
 		$return['type'] = $field->type;
@@ -72,7 +72,7 @@ elseif($type == 'select' and !$done_this) //////////////////////////// select //
 		
 		foreach($options['params'] as $field_option)
 		{
-			if($value == $field_option['key']) $return['value'] = $field_option['value'];
+			if($value == $field_option['key']) $return['value'] = __($field_option['value'], WPL_TEXTDOMAIN);
 		}
 	}
 	

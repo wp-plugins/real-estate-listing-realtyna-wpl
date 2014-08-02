@@ -1092,28 +1092,76 @@ class wpl_property
 		
         return $url;
     }
-	public static function get_properties_list($col,$id)
+    
+    /**
+     * Get property ids for a criteria
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $column
+     * @param mixed $value
+     * @return type
+     */
+	public static function get_properties_list($column, $value)
 	{
-		$query = "SELECT `id` FROM `#__wpl_properties` WHERE `$col` = '$id'";
-		$res = wpl_db::select($query, 'loadAssocList');
-		return $res;
+		$query = "SELECT `id` FROM `#__wpl_properties` WHERE `$column`='$value'";
+		return wpl_db::select($query, 'loadAssocList');
     }
-	public static function update_properties($col,$property_type_id,$select_id)
+    
+    /**
+     * Updates properties and regenerate some of cached property data
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $column
+     * @param mixed $previous_value
+     * @param mixed $new_value
+     * @return boolean
+     */
+	public static function update_properties($column, $previous_value, $new_value)
 	{
-		$pid_list = wpl_property::get_properties_list($col,$property_type_id);
-		$query = "UPDATE `#__wpl_properties` SET `$col`='$select_id' WHERE `$col`='$property_type_id'";
-		$res = wpl_db::q($query);
-		foreach($pid_list as $tmp)
+		$listings = wpl_property::get_properties_list($column, $previous_value);
+		$query = "UPDATE `#__wpl_properties` SET `$column`='$new_value' WHERE `$column`='$previous_value'";
+		$result = wpl_db::q($query);
+        
+		foreach($listings as $listing)
 		{
-			$pid = $tmp['id'];
+			$pid = $listing['id'];
 			$property = self::get_property_raw_data($pid);
+            
 			wpl_property::update_text_search_field($pid);
 			wpl_property::update_location_text_search_field($pid);
 			wpl_property::update_alias($property, $pid);
 			wpl_property::update_numbs($pid, $property);
+            
 			/** generate rendered data **/
 			if(wpl_settings::get('cache')) wpl_property::generate_rendered_data($pid);
 		}
-		return $res;
+        
+		return $result;
+    }
+    
+    /**
+     * Removes property thumbnails
+     * @author Howard R <Howard@realtyna.com>
+     * @static
+     * @param int $property_id
+     * @param int $kind
+     * @return boolean
+     */
+    public static function remove_thumbnails($property_id, $kind = 0)
+    {
+        /** first validation **/
+        if(!trim($property_id)) return false;
+        
+        $ext_array = array('jpg', 'jpeg', 'gif', 'png');
+        
+        $path = wpl_items::get_path($property_id, $kind);
+        $thumbnails = wpl_folder::files($path, 'th.*\.('.implode('|', $ext_array).')$', 3, true);
+
+        foreach($thumbnails as $thumbnail)
+        {
+            wpl_file::delete($thumbnail);
+        }
+        
+        return true;
     }
 }
