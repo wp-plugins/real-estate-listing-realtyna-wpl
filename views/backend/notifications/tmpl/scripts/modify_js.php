@@ -35,17 +35,20 @@ wplj(document).ready(function()
             wplj("#wpl_template-tmce").trigger('click');
 			tinyMCE.triggerSave();
 
-			data = wplj("#wpl_template").val();
+			data = tinyMCE.activeEditor.getContent();
 			start = data.indexOf("<p>");
 			data = data.substring(start);
-
-			while(data.indexOf("<img")!= -1)
+            
+			while(data.indexOf("<img") != -1)
 			{
-				var replace = data.substring(data.indexOf("<img"),data.indexOf("/>")+2);
-				var data_wpl_var = replace.substring(replace.indexOf("data-wpl-var")+14);
+                start = data.indexOf("<img");
+                end = data.indexOf("/>", start);
                 
-				data_wpl_var = data_wpl_var.substring(0,data_wpl_var.indexOf("\""));
-				data = data.replace(replace,"##"+data_wpl_var+"##");
+				var replace = data.substring(start, end+2);
+				var data_wpl_var = replace.substring(replace.indexOf("data-wpl-var")+14);
+				data_wpl_var = data_wpl_var.substring(0, data_wpl_var.indexOf("\""));
+                
+				data = data.replace(replace, "##"+data_wpl_var+"##");
 			}
             
 			wplj("#wpl_template").val(data);
@@ -67,63 +70,67 @@ wplj(document).ready(function()
 
 function add_recipients(sel,inc,field)
 {
-	var names=new Array();
-	if(field=='email_recipients')
+	var names = new Array();
+	if(field == 'email_recipients')
 	{
 		var ids=Array();
 		var email_address=wplj("#email_address").val();
-		if(email_address=='' || email_address.indexOf("@")==-1 || email_address.indexOf(".")==-1)
+		
+        if(email_address == '' || email_address.indexOf("@") == -1 || email_address.indexOf(".") == -1)
 		{
 			wpl_alert("<?php echo __("Please enter a valid email address", WPL_TEXTDOMAIN); ?>");
 			return;
 		}
-		ids[0]=email_address;
-		names[0]=email_address;
+        
+		ids[0] = email_address;
+		names[0] = email_address;
 		wplj("#email_address").val('');
 	}
 	else
 	{
-		var ids=wplj("#"+sel).val();
-		if(ids==null || ids.length==0)
+		var ids = wplj("#"+sel).val();
+		if(ids == null || ids.length == 0)
 		{
 			wpl_alert("<?php echo __("Please select at least one option", WPL_TEXTDOMAIN); ?>");
 			return;
 		}
-		for(i=0;i<ids.length;i++)
+        
+		for(i=0; i<ids.length; i++)
 		{
-			names[i]=wplj("#"+sel+" option[value='"+ids[i]+"']").html();
+			names[i] = wplj("#"+sel+" option[value='"+ids[i]+"']").html();
 			wplj("#"+sel+" option[value='"+ids[i]+"']").remove();
 		}
 	}
-	for(i=0;i<ids.length;i++)
-		wplj("#"+inc).append('<option value="'+ids[i]+'">'+names[i]+'</option>');
+    
+	for(i=0; i<ids.length; i++) wplj("#"+inc).append('<option value="'+ids[i]+'">'+names[i]+'</option>');
 	
 }
+
 function remove_recipients(sel,inc,field)
 {
-	var ids=wplj("#"+inc).val();
-	if(ids==null || ids.length==0)
+	var ids = wplj("#"+inc).val();
+	if(ids == null || ids.length == 0)
 	{
 		wpl_alert("<?php echo __("Please select at least one option", WPL_TEXTDOMAIN); ?>");
 		return;
 	}
-	var names=new Array();
+    
+	var names = new Array();
 	var i;
-	for(i=0;i<ids.length;i++)
+    
+	for(i=0; i<ids.length; i++)
 	{
-		names[i]=wplj("#"+inc+" option[value='"+ids[i]+"']").html();
+		names[i] = wplj("#"+inc+" option[value='"+ids[i]+"']").html();
 		wplj("#"+inc+" option[value='"+ids[i]+"']").remove();
 	}
-	var recipients_array= new Array();
-
+    
 	if(field=='email_recipients')
 	{
 		wplj("#email_address").val(ids[0]);
 	}
 	else
 	{
-		for(i=0;i<ids.length;i++)
-			wplj("#"+sel).append('<option value="'+ids[i]+'">'+names[i]+'</option>');
+		for(i=0; i<ids.length; i++) wplj("#"+sel).append('<option value="'+ids[i]+'">'+names[i]+'</option>');
 	}	
 }
 </script>

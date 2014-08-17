@@ -2,29 +2,48 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 
-/* WPL WIDGET - 21/07/2013 */
+/**
+ * WPL widget library
+ * @author Howard <howard@realtyna.com>
+ * @since WPL1.0.0
+ * @date 21/07/2013
+ */
 class wpl_widget extends WP_Widget
 {
 	var $data;
 	
+    /**
+     * Constructor method
+     * @author Howard <howard@realtyna.com>
+     * @param int $widget_id
+     * @param string $widget_name
+     */
 	function __construct($widget_id = null, $widget_name = '')
 	{
 		parent::__construct($widget_id, $widget_name);
 	}
     
-	/*
-	 * Get The List of Layouts in the Widget
-	 */
-	public function get_layouts($widget_name)
+    /**
+     * Get The List of Layouts in the Widget
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $widget_name
+     * @return array
+     */
+	public static function get_layouts($widget_name)
 	{
 		$path = WPL_ABSPATH. 'widgets' .DS. $widget_name .DS. 'tmpl';
 		$layouts = wpl_folder::files($path, '.php', false, false);
 		return $layouts;
 	}
-	
-	/*
-	 * List the layouts in <option> fields
-	 */
+    
+    /**
+     * List the layouts in <option> fields
+     * @author Howard <howard@realtyna.com>
+     * @param string $widget_name
+     * @param array $instance
+     * @return string
+     */
 	public function generate_layouts_selectbox($widget_name, $instance)
 	{
 		// Base Layouts
@@ -46,9 +65,13 @@ class wpl_widget extends WP_Widget
 		return $data;
 	}
     
-    /*
-	 * List the layouts in <option> fields
-	 */
+    /**
+     * List the layouts in <option> fields
+     * @author Howard <howard@realtyna.com>
+     * @param array $instance
+     * @param string $field_name
+     * @return string
+     */
 	public function generate_pages_selectbox($instance, $field_name = 'wpltarget')
 	{
         $pages = wpl_global::get_wp_pages();
@@ -66,10 +89,13 @@ class wpl_widget extends WP_Widget
 		
 		return $data;
 	}
-	
-	/*
-	 * Load Registered Widget with Shortcode
-	 */
+    
+    /**
+     * Load Registered Widget with Shortcode
+     * @author Howard <howard@realtyna.com>
+     * @param array $atts
+     * @return string
+     */
 	public function load_widget_instance($atts)
 	{
         if(!wpl_global::check_addon('pro'))
@@ -86,7 +112,13 @@ class wpl_widget extends WP_Widget
         
 	    return $output;
     }
-
+    
+    /**
+     * loads widget instance
+     * @author Howard <howard@realtyna.com>
+     * @param int $widget_id
+     * @return void
+     */
 	public function widget_instance($widget_id) 
 	{
         $wp_registered_widgets = self::get_registered_widgets();
@@ -109,9 +141,12 @@ class wpl_widget extends WP_Widget
 	    }
 	}
 	
-	/*
-	 * Get Widgets Instance For Listing in Shortcode Wizard
-	 */
+    /**
+     * Get Widgets Instance For Listing in Shortcode Wizard
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @return array
+     */
 	public static function get_existing_widgets()
 	{
 		$wp_registered_widgets = self::get_registered_widgets();
@@ -132,10 +167,14 @@ class wpl_widget extends WP_Widget
 		return $widgets_with_title;
 	}
     
-    /*
-	 * Get registered widgets
-	 */
-	public function get_registered_widgets()
+    /**
+     * Get registered widgets
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @global array $wp_registered_widgets
+     * @return array
+     */
+	public static function get_registered_widgets()
 	{
 		global $wp_registered_widgets;
         return $wp_registered_widgets;

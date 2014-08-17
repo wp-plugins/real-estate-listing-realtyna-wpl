@@ -3,15 +3,23 @@
 defined('_WPLEXEC') or die('Restricted access');
 
 /**
-** sort options Library
-** Developed 08/11/2013
-**/
-
+ * Sort options library
+ * @author Howard <howard@realtyna.com>
+ * @since WPL1.0.0
+ * @date 08/11/2013
+ */
 class wpl_sort_options
 {
-	/**
-		return sort options
-	**/
+    /**
+     * Gets sort options
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $kind
+     * @param int $enabled
+     * @param string $condition
+     * @param string $output_type
+     * @return array
+     */
 	public static function get_sort_options($kind = '', $enabled = 1, $condition = '', $output_type = 'loadAssocList')
 	{
 		if(trim($condition) == '')
@@ -27,9 +35,12 @@ class wpl_sort_options
 		return wpl_db::select($query, $output_type);
 	}
 	
-	/**
-		@input $sort_ids
-	**/
+    /**
+     * Sorts sort options
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $sort_ids
+     */
 	public static function sort_options($sort_ids)
 	{
 		$query = "SELECT `id`,`index` FROM `#__wpl_sort_options` WHERE `id` IN ($sort_ids) ORDER BY `index` ASC";
@@ -45,10 +56,16 @@ class wpl_sort_options
 		}
 	}
 	
-	/**
-		@input {table}, {key}, {id} and [value]
-		@return boolean result
-	**/
+    /**
+     * Updates wpl_sort_options table
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $table
+     * @param int $id
+     * @param string $key
+     * @param string $value
+     * @return boolean
+     */
 	public static function update($table = 'wpl_sort_options', $id, $key, $value = '')
 	{
 		/** first validation **/

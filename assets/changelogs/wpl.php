@@ -4,6 +4,11 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.7.4 (<span class="wpl_log_date">8/17/2014</span> <span class="wpl_log_revision">revision 752</span>)</h4>
+        -- <strong>[PRO]</strong> Fixed an issue on PDF flyer.<br />
+        -- Fixed an issue on notification content.<br />
+        -- Fixed some PHP notices.
+        
         <h4>WPL1.7.3 (<span class="wpl_log_date">8/16/2014</span> <span class="wpl_log_revision">revision 750</span>)</h4>
         -- <strong>[PRO]</strong> Added ability to insert meta key and meta description manually for SEO purposes.<br />
         -- Fixed an issue on file uploaders.<br />

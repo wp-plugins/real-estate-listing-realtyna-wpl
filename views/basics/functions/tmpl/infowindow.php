@@ -11,8 +11,8 @@ foreach($this->wpl_properties as $key => $property)
 	$property_id = $property['data']['id'];
     $locations	 = $property['location_text'];
 
-	$bedroom    = '<div class="bedroom">'.$property['materials']['bedrooms']['value'].'</div>';
-    $room    	= '<div class="room">'.$property['materials']['rooms']['value'].'</div>';
+	$room       = '<div class="bedroom">'.$property['materials']['bedrooms']['value'].'</div>';
+    if($property['materials']['bedrooms']['value'] == 0 and $property['materials']['rooms']['value'] != 0) $room = '<div class="bedroom">'.$property['materials']['rooms']['value'].'</div>';
     $bathroom   = '<div class="bathroom">'.$property['materials']['bathrooms']['value'].'</div>';
     $parking    = '<div class="parking">'.($property['raw']['f_150'] == 1 ? $property['raw']['f_150_options'] : 0).'</div>';
     $pic_count  = '<div class="pic_count">'.$property['raw']['pic_numb'].'</div>';
@@ -54,7 +54,7 @@ foreach($this->wpl_properties as $key => $property)
 				<div class="main_infowindow_location"><?php echo $locations; ?></div>
 			</div>
 			<div class="main_infowindow_r_b">
-				<?php echo $bedroom.$bathroom.$parking.$pic_count.$price; ?>
+				<?php echo $room.$bathroom.$parking.$pic_count.$price; ?>
 			</div>
 		</div>
 	</div>

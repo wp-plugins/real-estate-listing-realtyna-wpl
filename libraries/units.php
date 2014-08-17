@@ -3,26 +3,34 @@
 defined('_WPLEXEC') or die('Restricted access');
 
 /**
-** units Library
-** Developed 05/01/2013
-**/
-
+ * WPL Units library
+ * @author Howard <howard@realtyna.com>
+ * @since WPL1.0.0
+ * @date 05/01/2013
+ */
 class wpl_units
 {
-	/**
-		return unit types [AREA,VALUME,....]	
-	**/
+    /**
+     * Returns unit types [AREA,VALUME,....]
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @return array
+     */
 	public static function get_unit_types()
-	{				
-		$query = "SELECT * FROM `#__wpl_unit_types`  ORDER BY `id` ASC";		
+	{
+		$query = "SELECT * FROM `#__wpl_unit_types`  ORDER BY `id` ASC";
 		return wpl_db::select($query, 'loadAssocList');
 	}
 	
-	/**
-		@input $unit_type
-		@param $unit_type: is a unit type id for get all units about it
-		@return a unit type
-	**/
+    /**
+     * Get units
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $type
+     * @param int $enabled
+     * @param string $condition
+     * @return array
+     */
 	public static function get_units($type = 4, $enabled = 1, $condition = '')
 	{
 		if(trim($condition) == '')
@@ -36,11 +44,14 @@ class wpl_units
 		$query = "SELECT * FROM `#__wpl_units` WHERE 1 ".$condition." ORDER BY `index` ASC";
 		return wpl_db::select($query, 'loadAssocList');
 	}
-	
-	/**
-		wpl_units::get_unit()
-		Get unit by ID
-	**/
+    
+    /**
+     * Getsa unit data
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $id
+     * @return array
+     */
 	public static function get_unit($id)
 	{
 		/** first validation **/
@@ -48,11 +59,14 @@ class wpl_units
 		
 		$unit = wpl_units::get_units('', '', " AND `id`='".$id."'");
 		return $unit[0];
-	}	
+	}
 	
-	/**
-		@input $sort_ids
-	**/
+    /**
+     * Sorts units
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $sort_ids
+     */
 	public static function sort_units($sort_ids)
 	{
 		$query = "SELECT `id`,`index` FROM `#__wpl_units` WHERE `id` IN ($sort_ids) ORDER BY `index` ASC";
@@ -68,10 +82,15 @@ class wpl_units
 		}
 	}
 	
-	/**
-		@input {table}, {key}, {unit_id} and [value]
-		@return boolean result
-	**/
+    /**
+     * Update wpl_units table
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $unit_id
+     * @param string $key
+     * @param mixed $value
+     * @return boolean
+     */
 	public static function update($unit_id, $key, $value = '')
 	{
 		/** first validation **/
@@ -79,9 +98,12 @@ class wpl_units
 		return wpl_db::set('wpl_units', $unit_id, $key, $value);
 	}	
 	
-	/**	
-		 This is a function for updating all currencies exchange rates from yahoo server
-	**/	
+    /**
+     * This is a function for updating all currencies exchange rates from yahoo server
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @return void
+     */
 	public static function update_exchange_rates()
 	{
 		$currencies = self::get_units(4);
@@ -97,13 +119,14 @@ class wpl_units
 		wpl_global::event_handler('exchange_rates_updated', array());
 	}
 	
-	/**
-		@input $unit_id
-		@input $currency_code
-		@param $unit_id 
-		@param $currency_code this is a currency code for exchange to USD unit
-		@return true or false
-	**/
+    /**
+     * Update one currency exchange rate
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param type $unit_id
+     * @param type $currency_code
+     * @return int
+     */
 	public static function update_a_exchange_rate($unit_id, $currency_code)
 	{
 		$exchange_rate = self::currency_converter($currency_code, 'USD', 1);
@@ -115,23 +138,29 @@ class wpl_units
 		if($result)	return $exchange_rate;
 		else return 0;
 	}
-	
-	/**
-		@input $unit_id
-		@input $value
-		@param $unit_id 
-		@param $value this is a currency value that set manual by admin
-		@return true or false
-	**/
+    
+    /**
+     * Updates exchange rate of a currency
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $unit_id
+     * @param mixed $value
+     * @return boolean
+     */
 	public static function update_exchange_rate($unit_id, $value)
 	{
 		return self::update($unit_id, 'tosi', $value);
 	}
 	
-	/**
-		@input $cur_from currency
-		@input $cur_to
-	**/
+    /**
+     * Convert a value from a currency to another one
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $cur_from
+     * @param int $cur_to
+     * @param string $val
+     * @return string|boolean
+     */
 	public static function currency_converter($cur_from, $cur_to, $val)
 	{
 		if(strlen($cur_from) == 0) $cur_from = "USD";
@@ -141,12 +170,12 @@ class wpl_units
 		$host = "download.finance.yahoo.com";
 		$fp = @fsockopen($host, 80, $errno, $errstr, 30);
 		
-		if(!$fp) 
+		if(!$fp)
 		{
 			$errorstr = "$errstr ($errno)<br />\n";
 			return false;
-		} 
-		else 
+		}
+		else
 		{
 			$data = '';
 			$file = "/d/quotes.csv";
@@ -176,6 +205,6 @@ class wpl_units
 			$x2 = number_format($x1, 4, '.', '');
 			
 			return $x2;
-		}		
+		}
 	}
 }
