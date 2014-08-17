@@ -62,7 +62,7 @@ if($type == 'attachments' and !$done_this)
                 <div class="info-wp">
                     <div class="row">
                         <label for=""><?php echo __('Attachment Title', WPL_TEXTDOMAIN) ?>:</label>
-                        <input type="text" class="att_title" value="<?php echo $attachment->item_extra1; ?>" onchange="ajax_attachment_title_update('<?php echo $image->item_name; ?>', this.value);" size="20" />
+                        <input type="text" class="att_title" value="<?php echo $attachment->item_extra1; ?>" onchange="ajax_attachment_title_update('<?php echo $attachment->item_name; ?>', this.value);" size="20" />
                     </div>
                     <div class="row">
                         <label for=""><?php echo __('Attachment Description', WPL_TEXTDOMAIN) ?>:</label>
@@ -125,7 +125,7 @@ wplj(document).ready(function()
 				sort_str += elm.value + ",";
 			});
 
-			wplj.post("<?php echo wpl_global::get_full_url(); ?>", "&wpl_format=b:listing:attachments&wpl_function=sort_attachments&pid=' . $item_id . '&order=" + sort_str, function (data) {});
+			wplj.post("<?php echo wpl_global::get_full_url(); ?>", "&wpl_format=b:listing:attachments&wpl_function=sort_attachments&pid=<?php echo $item_id; ?>&order="+sort_str+"&kind=<?php echo $this->kind; ?>", function (data) {});
 		}
 	});
 });
@@ -133,7 +133,7 @@ wplj(document).ready(function()
 var att_counter = parseInt(<?php echo $max_index_att ?>) + 1;
 wplj(document).ready(function()
 {
-	var url = '<?php echo wpl_global::get_full_url(); ?>&wpl_format=b:listing:attachments&wpl_function=upload&pid=' + <?php echo $item_id; ?> +'&kind=<?php echo $this->kind; ?>&type=attachment';
+	var url = '<?php echo wpl_global::get_full_url(); ?>&wpl_format=b:listing:attachments&wpl_function=upload&pid='+<?php echo $item_id; ?>+'&kind=<?php echo $this->kind; ?>&type=attachment';
 
     wplj('#attachment_upload').fileupload(
     {
@@ -193,24 +193,24 @@ wplj(document).ready(function()
 
 function ajax_attachment_title_update(attachment, value)
 {
-	ajax = wpl_run_ajax_query("<?php echo wpl_global::get_full_url(); ?>", "wpl_format=b:listing:attachments&wpl_function=title_update&pid=<?php echo $item_id; ?>&attachment=" + attachment + "&value=" + value);
+	ajax = wpl_run_ajax_query("<?php echo wpl_global::get_full_url(); ?>", "wpl_format=b:listing:attachments&wpl_function=title_update&pid=<?php echo $item_id; ?>&attachment="+attachment+"&value="+value+"&kind=<?php echo $this->kind; ?>");
 }
 
 function ajax_attachment_desc_update(attachment, value)
 {
-	ajax = wpl_run_ajax_query("<?php echo wpl_global::get_full_url(); ?>", "wpl_format=b:listing:attachments&wpl_function=desc_update&pid=<?php echo $item_id; ?>&attachment=" + attachment + "&value=" + value);
+	ajax = wpl_run_ajax_query("<?php echo wpl_global::get_full_url(); ?>", "wpl_format=b:listing:attachments&wpl_function=desc_update&pid=<?php echo $item_id; ?>&attachment="+attachment+"&value="+value+"&kind=<?php echo $this->kind; ?>");
 }
 
 function ajax_attachment_cat_update(attachment, value)
 {
-	ajax = wpl_run_ajax_query("<?php echo wpl_global::get_full_url(); ?>", "wpl_format=b:listing:attachments&wpl_function=cat_update&pid=<?php echo $item_id ?>&attachment=" + attachment + "&value=" + value);
+	ajax = wpl_run_ajax_query("<?php echo wpl_global::get_full_url(); ?>", "wpl_format=b:listing:attachments&wpl_function=cat_update&pid=<?php echo $item_id ?>&attachment="+attachment+"&value="+value+"&kind=<?php echo $this->kind; ?>");
 }
 
 function ajax_attachment_delete(attachment, id)
 {
 	if(confirm('<?php _e('Are you sure?', WPL_TEXTDOMAIN) ?>'))
 	{
-		ajax = wpl_run_ajax_query("<?php echo wpl_global::get_full_url(); ?>", "wpl_format=b:listing:attachments&wpl_function=delete_attachment&pid=<?php echo $item_id; ?>&attachment=" + encodeURIComponent(attachment));
+		ajax = wpl_run_ajax_query("<?php echo wpl_global::get_full_url(); ?>", "wpl_format=b:listing:attachments&wpl_function=delete_attachment&pid=<?php echo $item_id; ?>&attachment="+encodeURIComponent(attachment)+"&kind=<?php echo $this->kind; ?>");
 		ajax.success(function (data)
 		{
 			wplj("#" + id).hide(500).remove();
@@ -222,7 +222,7 @@ function wpl_attachment_enabled(attachment, id)
 {
 	var status = Math.abs(wplj("#enabled_attachment_field_" + id).val() - 1);
 	wplj("#enabled_attachment_field_" + id).val(status);
-	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', "wpl_format=b:listing:attachments&wpl_function=change_status&pid=<?php echo $item_id; ?>&attachment=" + encodeURIComponent(attachment) + "&enabled=" + status);
+	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', "wpl_format=b:listing:attachments&wpl_function=change_status&pid=<?php echo $item_id; ?>&attachment="+encodeURIComponent(attachment)+"&enabled="+status+"&kind=<?php echo $this->kind; ?>");
 
 	ajax.success(function (data)
 	{

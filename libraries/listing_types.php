@@ -3,14 +3,22 @@
 defined('_WPLEXEC') or die('Restricted access');
 
 /**
-** Data Structure Library
-** Developed 04/9/2013
-**/
-
+ * Listing types Library
+ * @author Howard R <howard@realtyna.com>
+ * @since WPL1.0.0
+ * @date 04/9/2013
+ */
 class wpl_listing_types
 {
 	var $listing_types;
 	
+    /**
+     * Removes a listing type
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $listing_type_id
+     * @return boolean
+     */
 	public static function remove_listing_type($listing_type_id)
 	{
 		$query = "DELETE FROM `#__wpl_listing_types` WHERE `id`='$listing_type_id'";
@@ -22,23 +30,48 @@ class wpl_listing_types
 		return $result;	
 	}
 	
-	/** Deprecated :: use wpl_global::get_listings instead. **/
+    /**
+     * Deprecated -> Use wpl_global::get_listings instead.
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @deprecated
+     * @param int $listing_type_id
+     * @return array
+     */
 	public static function get_listing_type($listing_type_id)
 	{
 		return wpl_global::get_listings($listing_type_id);
 	}
 	
-	public static function insert_listing_type($parent,$name,$gicon)
+    /**
+     * Add a new listing type
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param type $parent
+     * @param type $name
+     * @param type $gicon
+     * @return type
+     */
+	public static function insert_listing_type($parent, $name, $gicon)
 	{
-		$query = "INSERT INTO `#__wpl_listing_types` (`parent`, `enabled`, `editable`, `gicon`, `name`) VALUE ('1','1','2','$gicon','$name')";
-		$id = wpl_db::q($query,'insert');
+		$query = "INSERT INTO `#__wpl_listing_types` (`parent`,`enabled`,`editable`,`gicon`,`name`) VALUE ('1','1','2','$gicon','$name')";
+		$id = wpl_db::q($query, 'insert');
 		
-		$query = "UPDATE `#__wpl_listing_types` SET `index`='$id.00' WHERE id=$id";
+		$query = "UPDATE `#__wpl_listing_types` SET `index`='$id.00' WHERE `id`='$id'";
 		wpl_db::q($query);
 		
 		return $id;
 	}
-
+    
+    /**
+     * Updates a listing type
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $id
+     * @param string $key
+     * @param string $value
+     * @return boolean
+     */
 	public static function update($id, $key, $value = '')
 	{
 		/** first validation **/
@@ -46,6 +79,13 @@ class wpl_listing_types
 		return wpl_db::set('wpl_listing_types', $id, $key, $value);
 	}
 	
+    /**
+     * Sorts listing types
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $sort_ids
+     * @return int
+     */
 	public static function sort_listing_types($sort_ids)
 	{
 		$query = "SELECT `id`, `index` FROM `#__wpl_listing_types` WHERE `id` IN ($sort_ids) ORDER BY `index` ASC";
@@ -63,33 +103,66 @@ class wpl_listing_types
 		return $conter;	
 	}
 	
-	/** Deprecated :: use wpl_global::get_listings instead. **/
+    /**
+     * Deprecated -> Use wpl_global::get_listings instead.
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @deprecated
+     * @return array
+     */
 	public static function get_listing_types()
 	{
 		return wpl_global::get_listings('', 0);
 	}
 	
+    /**
+     * Gets listing types category
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @return array
+     */
 	public static function get_listing_types_category()
 	{
 		$query = "SELECT * FROM `#__wpl_listing_types` WHERE `parent` = '0' ORDER BY `index` ASC";
 		return wpl_db::select($query, 'loadAssocList');
 	}
 	
+    /**
+     * Gets caption images
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @return array
+     */
 	public static function get_caption_images()
 	{
 		$path = WPL_ABSPATH. 'assets' .DS. 'img' .DS. 'listing_types' .DS. 'caption_img';
 		return wpl_global::get_icons($path);
 	}
 	
+    /**
+     * Gets map icons
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @return array
+     */
 	public static function get_map_icons()
 	{
 		$path = WPL_ABSPATH. 'assets' .DS. 'img' .DS. 'listing_types' .DS. 'gicon';
 		return wpl_global::get_icons($path);
 	}
+    
+    /**
+     * CHecks if a listing type has properties or not
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $listing_type_id
+     * @return type
+     */
 	public static function have_properties($listing_type_id)
 	{
-		$query = "SELECT count(`id`) as 'id' FROM `#__wpl_properties` WHERE `listing` = '$listing_type_id'";
-		$res = wpl_db::select($query, 'loadAssocList');
-		return $res[0]['id'];
+		$query = "SELECT count(`id`) as 'id' FROM `#__wpl_properties` WHERE `listing`='$listing_type_id'";
+		$res = wpl_db::select($query, 'loadAssoc');
+        
+		return $res['id'];
 	}
 }

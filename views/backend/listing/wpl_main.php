@@ -23,10 +23,7 @@ class wpl_listing_controller extends wpl_controller
 			return parent::render($this->tpl_path, 'message');
 		}
 		
-		$this->kind = trim(wpl_request::getVar('sf_select_kind')) != '' ? wpl_request::getVar('sf_select_kind') : 0;
-		
-		$this->field_categories = wpl_flex::get_categories(0, $this->kind);
-		$this->kind_label = wpl_flex::get_kind_label($this->kind);
+		$this->kind = trim(wpl_request::getVar('kind')) != '' ? wpl_request::getVar('kind') : 0;
 		
 		$this->property_id = trim(wpl_request::getVar('pid')) != '' ? wpl_request::getVar('pid') : 0;
 		$this->mode = $this->property_id ? 'edit' : 'add';
@@ -46,7 +43,11 @@ class wpl_listing_controller extends wpl_controller
 		
 		$this->values = wpl_property::get_property_raw_data($this->property_id);
 		$this->finalized = isset($this->values['finalized']) ? $this->values['finalized'] : 0;
-		
+        $this->kind = isset($this->values['kind']) ? $this->values['kind'] : 0;
+        
+        $this->field_categories = wpl_flex::get_categories(0, $this->kind);
+		$this->kind_label = wpl_flex::get_kind_label($this->kind);
+        
 		if($this->mode == 'edit')
 		{
 			if(!$this->values)

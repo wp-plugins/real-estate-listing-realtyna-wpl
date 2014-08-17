@@ -9,7 +9,7 @@ defined('_WPLEXEC') or die('Restricted access');
             <i class="icon-trash"></i>
             <span class="wpl_ajax_loader" id="wpl_unfinalized_properties_loader"></span>
             <span class="title">
-                <?php echo __('Clear Unfinalized Listings', WPL_TEXTDOMAIN); ?>
+                <?php echo __('Purge Unfinalized Listings', WPL_TEXTDOMAIN); ?>
             </span>
         </li>
         <li onclick="wpl_clear_properties_cached_datas(0);">

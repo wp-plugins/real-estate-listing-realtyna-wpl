@@ -301,10 +301,11 @@ class wpl_property
 		@return rendered data
 		@author Howard
 	**/
-	public static function render_property($property, $fields, &$finds = array())
+	public static function render_property($property, $fields, &$finds = array(), $material = false)
 	{
 		$rendered = array();
-		
+		$materials = array();
+        
 		$path = WPL_ABSPATH .DS. 'libraries' .DS. 'dbst_show';
 		$files = wpl_folder::files($path, '.php$', false, false, $finds);
 		$values = (array) $property;
@@ -325,7 +326,12 @@ class wpl_property
 			{
                 include($path .DS. $finds[$type]);
 
-                if(is_array($return) and count($return)) $rendered[$field->id] = $return;
+                if(is_array($return) and count($return))
+                {
+                    $rendered[$field->id] = $return;
+                    if($material and trim($field->table_column) != '') $materials[$field->table_column] = $return;
+                }
+                
                 continue;
 			}
             
@@ -341,14 +347,22 @@ class wpl_property
 				}
 			}
 			
-			if(is_array($return) and count($return)) $rendered[$field->id] = $return;
+			if(is_array($return) and count($return))
+            {
+                $rendered[$field->id] = $return;
+                if($material and trim($field->table_column) != '') $materials[$field->table_column] = $return;
+            }
 			
 			if(!$done_this)
 			{
 				$rendered[$field->id] = array('field_id'=>$field->id, 'type'=>$field->type, 'name'=>__($field->name, WPL_TEXTDOMAIN), 'value'=>$value);
+                if($material and trim($field->table_column) != '') $materials[$field->table_column] = array('field_id'=>$field->id, 'type'=>$field->type, 'name'=>__($field->name, WPL_TEXTDOMAIN), 'value'=>$value);
 			}
 		}
 		
+        /** returns rendered data by field ids and table columns **/
+        if($material) return array('ids'=>$rendered, 'columns'=>$materials);
+        
 		return $rendered;
 	}
     
@@ -457,7 +471,7 @@ class wpl_property
             if(!strstr($field, '_unit')) continue;
 			
 			$core_field = str_replace('_unit', '', $field);
-			if(!isset($data[$core_field.'_si'])) continue;
+            if(!array_key_exists($core_field.'_si', $data)) continue;
 			
 			$si_value = $units[$value]['tosi'] * $data[$core_field];
 			$query .= "`".$core_field."_si`='".$si_value."',";
@@ -465,7 +479,7 @@ class wpl_property
 			if(isset($data[$core_field.'_max']))
 			{
 				$si_value = $units[$value]['tosi'] * $data[$core_field.'_max'];
-				$query .= "`".$core_field."_si_max`='".$si_value."',";
+				$query .= "`".$core_field."_max_si`='".$si_value."',";
 			}
         }
 		
@@ -486,9 +500,12 @@ class wpl_property
 		
 		/** location text **/
 		$location_text = self::generate_location_text($property_data);
-		$rendered = self::render_property($property_data, self::get_plisting_fields());
-		
-		$result = json_encode(array('rendered'=>$rendered, 'location_text'=>$location_text));
+        
+        /** rendered data **/
+        $find_files = array();
+		$rendered_fields = self::render_property($property_data, self::get_plisting_fields('', $property_data['kind']), $find_files, true);
+        
+		$result = json_encode(array('rendered'=>$rendered_fields['ids'], 'materials'=>$rendered_fields['columns'], 'location_text'=>$location_text));
 		$query = "UPDATE `#__wpl_properties` SET `rendered`='".wpl_db::escape($result)."', `location_text`='".wpl_db::escape($location_text)."' WHERE `id`='$pid'";
 		
 		/** update **/
@@ -663,7 +680,7 @@ class wpl_property
             $url = wpl_global::add_qs_var('wpltype', 'pdf', $url);
             $url = wpl_global::add_qs_var('pid', $property_id, $url);
         }
-        else $url = wpl_sef::get_wpl_permalink(true).'/features/pdf?pid='.$property_id;
+        else $url = wpl_sef::get_wpl_permalink(true).'features/pdf?pid='.$property_id;
         
         return $url;
     }
@@ -756,7 +773,7 @@ class wpl_property
 		@extract(wpl_filters::apply('generate_property_alias', array('alias'=>$alias, 'alias_str'=>$alias_str)));
 		
 		/** escape **/
-		$alias_str = wpl_db::escape($alias_str);
+		$alias_str = wpl_db::escape(wpl_global::url_encode($alias_str));
 		
 		/** update **/
 		$query = "UPDATE `#__wpl_properties` SET `alias`='".$alias_str."' WHERE `id`='".$property_data['id']."'";
@@ -993,8 +1010,14 @@ class wpl_property
 		$result['data'] = (array) $property;
 		
 		/** render data **/
+        $find_files = array();
+        $rendered_fields = self::render_property($property, $plisting_fields, $find_files, true);
+        
 		if($rendered['rendered']) $result['rendered'] = $rendered['rendered'];
-		else $result['rendered'] = self::render_property($property, $plisting_fields);
+		else $result['rendered'] = $rendered_fields['ids'];
+        
+        if($rendered['materials']) $result['materials'] = $rendered['materials'];
+		else $result['materials'] = $rendered_fields['columns'];
 		
 		$result['items'] = wpl_items::get_items($property_id, '', $property->kind, '', 1);
 		$result['raw'] = $raw_data;
@@ -1019,6 +1042,19 @@ class wpl_property
 	public static function pid($value, $key = 'mls_id')
 	{
 		return wpl_db::get('id', 'wpl_properties', $key, $value);
+	}
+    
+    /**
+     * Returns mls_id column of properties table
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param mixed $value
+     * @param string $key
+     * @return string $listing_id
+     */
+    public static function listing_id($value, $key = 'id')
+	{
+		return wpl_db::get('mls_id', 'wpl_properties', $key, $value);
 	}
 	
 	/**

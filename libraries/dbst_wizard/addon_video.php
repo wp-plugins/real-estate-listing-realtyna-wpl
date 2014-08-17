@@ -56,26 +56,30 @@ function add_embed_video()
 		item_extra2: '',
 		id: '-1'
 	}, 'add-listing-video-embed');
+    
 	wplj(embedVideo).appendTo('#embed');
 	vid_embed_count++;
 }
 
 function video_embed_save(id)
 {
-	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', "wpl_format=b:listing:videos&wpl_function=embed_video&pid=<?php echo $item_id; ?>&kind=<?php echo $this->kind; ?>&item_id=" + wplj("#vid_emb" + id).val() + "&title=" + wplj("#embed_vid_title" + id).val() + "&desc=" + wplj("#embed_vid_desc" + id).val() + "&embedcode=" + wplj("#embed_vid_code" + id).val());
-	ajax.success(function (data) {
-		if (wplj("#vid_emb" + id).val() == -1)
-			wplj("#vid_emb" + id).val(data);
+	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', "wpl_format=b:listing:videos&wpl_function=embed_video&pid=<?php echo $item_id; ?>&kind=<?php echo $this->kind; ?>&item_id="+wplj("#vid_emb"+id).val()+"&title="+wplj("#embed_vid_title"+id).val()+"&desc="+wplj("#embed_vid_desc"+id).val()+"&embedcode="+wplj("#embed_vid_code"+id).val());
+	ajax.success(function (data)
+    {
+		if(wplj("#vid_emb" + id).val() == -1) wplj("#vid_emb" + id).val(data);
 	});
 }
 
 function embed_video_delete(id)
 {
-	if (confirm('<?php echo __('Are you sure?', WPL_TEXTDOMAIN); ?>')) {
-		ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', "wpl_format=b:listing:videos&wpl_function=del_embed_video&pid=<?php echo $item_id; ?>&kind=<?php echo $this->kind; ?>&item_id=" + wplj("#vid_emb" + id).val());
-		ajax.success(function (data) {
-			wplj("#video-embed-" + id).fadeOut(500, function () {
-				$(this).remove();
+	if (confirm('<?php echo __('Are you sure?', WPL_TEXTDOMAIN); ?>'))
+    {
+		ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', "wpl_format=b:listing:videos&wpl_function=del_embed_video&pid=<?php echo $item_id; ?>&kind=<?php echo $this->kind; ?>&item_id="+wplj("#vid_emb"+id).val());
+		ajax.success(function (data)
+        {
+			wplj("#video-embed-" + id).fadeOut(500, function ()
+            {
+				wplj(this).remove();
 			});
 		});
 	}
@@ -200,7 +204,7 @@ wplj(document).ready(function()
 				sort_str += elm.value + ",";
 			});
 	
-			wplj.post("<?php echo wpl_global::get_full_url(); ?>", "&wpl_format=b:listing:videos&wpl_function=sort_videos&pid=' . $item_id . '&order=" + sort_str, function (data)
+			wplj.post("<?php echo wpl_global::get_full_url(); ?>", "&wpl_format=b:listing:videos&wpl_function=sort_videos&pid=<?php echo $item_id; ?>&order="+sort_str+"&kind=<?php echo $this->kind; ?>", function (data)
 			{
 			});
 		}
@@ -210,71 +214,70 @@ wplj(document).ready(function()
 var vid_counter = parseInt(<?php echo $max_index_vid; ?>) + 1;
 wplj(document).ready(function()
 {
-	var url = '<?php echo wpl_global::get_full_url(); ?>&wpl_format=b:listing:videos&wpl_function=upload&pid=' + <?php echo $item_id; ?> +'&kind=<?php echo $this->kind; ?>&type=video';
+	var url = '<?php echo wpl_global::get_full_url(); ?>&wpl_format=b:listing:videos&wpl_function=upload&pid='+<?php echo $item_id; ?>+'&kind=<?php echo $this->kind; ?>&type=video';
 
-		wplj('#video_upload').fileupload({
-			url: url,
-			acceptFileTypes: /(<?php echo $ext_str; ?>)$/i,
-			dataType: 'json',
-			maxFileSize:<?php echo $max_size * 1000; ?>,
-			done: function (e, data) {
-				wplj.each(data.result.files, function (index, file) {
-					if (file.error !== undefined) {
-						wplj('<p/>').text(file.error).appendTo('#video');
-					}
-					else {
-						wplj(rta.template.bind({
-							vid_counter: vid_counter,
-							lblTitle: '<?php echo __('Video Title', WPL_TEXTDOMAIN); ?>',
-							lblDesc: '<?php echo __('Video Description', WPL_TEXTDOMAIN); ?>',
-							lblCat: '<?php echo __('Video Category', WPL_TEXTDOMAIN); ?>',
-							name: file.name,
-							select: '<?php echo $video_categories_html; ?>'
-						}, 'dbst-wizard-videos')).appendTo('#ajax_vid_sortable');
+    wplj('#video_upload').fileupload({
+        url: url,
+        acceptFileTypes: /(<?php echo $ext_str; ?>)$/i,
+        dataType: 'json',
+        maxFileSize:<?php echo $max_size * 1000; ?>,
+        done: function (e, data) {
+            wplj.each(data.result.files, function (index, file) {
+                if (file.error !== undefined) {
+                    wplj('<p/>').text(file.error).appendTo('#video');
+                }
+                else {
+                    wplj(rta.template.bind({
+                        vid_counter: vid_counter,
+                        lblTitle: '<?php echo __('Video Title', WPL_TEXTDOMAIN); ?>',
+                        lblDesc: '<?php echo __('Video Description', WPL_TEXTDOMAIN); ?>',
+                        lblCat: '<?php echo __('Video Category', WPL_TEXTDOMAIN); ?>',
+                        name: file.name,
+                        select: '<?php echo $video_categories_html; ?>'
+                    }, 'dbst-wizard-videos')).appendTo('#ajax_vid_sortable');
 
-						vid_counter++;
-					}
-				});
-			},
-			progressall: function (e, data) {
-				wplj("#progress_vid").show('fast');
-				var progress = parseInt(data.loaded / data.total * 100, 10);
-				wplj('#progress_vid #progress .bar').css(
-					'width',
-					progress + '%'
-				);
-				wplj("#error_ajax_vid").html("");
-				wplj("#error_ajax_vid").hide('slow');
-			},
-			processfail: function (e, data) {
-				wplj("#progress_vid").hide('slow');
-				wplj("#error_ajax_vid").html("<span color='red'><?php echo __('Error occured', WPL_TEXTDOMAIN); ?> : " + data.files[data.index].name + " " + data.files[data.index].error + "</span>");
-				wplj("#error_ajax_vid").show('slow');
-			}
-		}); // End of FileUpload
-
+                    vid_counter++;
+                }
+            });
+        },
+        progressall: function (e, data) {
+            wplj("#progress_vid").show('fast');
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            wplj('#progress_vid #progress .bar').css(
+                'width',
+                progress + '%'
+            );
+            wplj("#error_ajax_vid").html("");
+            wplj("#error_ajax_vid").hide('slow');
+        },
+        processfail: function (e, data) {
+            wplj("#progress_vid").hide('slow');
+            wplj("#error_ajax_vid").html("<span color='red'><?php echo __('Error occured', WPL_TEXTDOMAIN); ?> : " + data.files[data.index].name + " " + data.files[data.index].error + "</span>");
+            wplj("#error_ajax_vid").show('slow');
+        }
+    }); // End of FileUpload
 });
 
 function ajax_video_title_update(video, value)
 {
-	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', "wpl_format=b:listing:videos&wpl_function=title_update&pid=<?php echo $item_id; ?>&video=" + video + "&value=" + value);
+	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', "wpl_format=b:listing:videos&wpl_function=title_update&pid=<?php echo $item_id; ?>&video="+video+"&value="+value+"&kind=<?php echo $this->kind; ?>");
 }
 
 function ajax_video_desc_update(video, value)
 {
-	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', "wpl_format=b:listing:videos&wpl_function=desc_update&pid=<?php echo $item_id; ?>&video=" + video + "&value=" + value);
+	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', "wpl_format=b:listing:videos&wpl_function=desc_update&pid=<?php echo $item_id; ?>&video="+video+"&value="+value+"&kind=<?php echo $this->kind; ?>");
 }
 
 function ajax_video_cat_update(video, value)
 {
-	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', "wpl_format=b:listing:videos&wpl_function=cat_update&pid=<?php echo $item_id ?>&video=" + video + "&value=" + value);
+	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', "wpl_format=b:listing:videos&wpl_function=cat_update&pid=<?php echo $item_id; ?>&video="+video+"&value="+value+"&kind=<?php echo $this->kind; ?>");
 }
 
 function ajax_video_delete(video, id)
 {
 	if (confirm('<?php echo __('Are you sure?', WPL_TEXTDOMAIN) ?>'))
 	{
-		ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', "wpl_format=b:listing:videos&wpl_function=delete_video&pid=<?php echo $item_id; ?>&video=" + encodeURIComponent(video));
+		ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', "wpl_format=b:listing:videos&wpl_function=delete_video&pid=<?php echo $item_id; ?>&video="+encodeURIComponent(video)+"&kind=<?php echo $this->kind; ?>");
 		ajax.success(function (data)
 		{
 			wplj("#" + id).fadeOut(function ()
@@ -289,12 +292,11 @@ function wpl_video_enabled(video, id)
 {
 	var status = Math.abs(wplj("#enabled_video_field_" + id).val() - 1);
 	wplj("#enabled_video_field_" + id).val(status);
-	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', "wpl_format=b:listing:videos&wpl_function=change_status&pid=<?php echo $item_id; ?>&video=" + encodeURIComponent(video) + "&enabled=" + status);
-	ajax.success(function (data) {
-		if (status == 0)
-			wplj("#active_video_tag_" + id).html('<i class="action-btn icon-disabled"></i>');
-		else
-			wplj("#active_video_tag_" + id).html('<i class="action-btn icon-enabled"></i>');
+	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', "wpl_format=b:listing:videos&wpl_function=change_status&pid=<?php echo $item_id; ?>&video="+encodeURIComponent(video)+"&enabled="+status+"&kind=<?php echo $this->kind; ?>");
+	ajax.success(function (data)
+    {
+		if (status == 0) wplj("#active_video_tag_" + id).html('<i class="action-btn icon-disabled"></i>');
+		else wplj("#active_video_tag_" + id).html('<i class="action-btn icon-enabled"></i>');
 	});
 }
 </script>

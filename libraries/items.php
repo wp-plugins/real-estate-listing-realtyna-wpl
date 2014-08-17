@@ -225,8 +225,6 @@ class wpl_items
 			$condition = "";
 			
 			if(trim($item_type) != '') $condition .= " AND `item_type`='$item_type'";
-			
-			$condition .= " AND `parent_kind`='$parent_kind'";
 			$condition .= " ORDER BY `index` ASC";
 		}
 		
@@ -381,7 +379,7 @@ class wpl_items
 			$filesize = @filesize($att_path);
 			
 			$return[$i]['item_id'] = $attachment['id'];
-			$return[$i]['name'] = $attachment['item_name'];
+			$return[$i]['name'] = (isset($attachment['item_extra1']) and trim($attachment['item_extra1']) != '') ? $attachment['item_extra1'] : $attachment['item_name'];
 			$return[$i]['path'] = $att_path;
 			$return[$i]['url'] = $att_url;
 			$return[$i]['size'] = $filesize;

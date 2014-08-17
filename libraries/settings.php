@@ -246,8 +246,8 @@ class wpl_settings
         
         if($cache_type == 'unfinalized_properties' or $cache_type == 'all')
 		{
-			$query = "DELETE FROM `#__wpl_properties` WHERE `finalized`='0'";
-			wpl_db::q($query);
+            $properties = wpl_db::select("SELECT `id` FROM `#__wpl_properties` WHERE `finalized`='0'", 'loadAssocList');
+            foreach($properties as $property) wpl_property::purge($property['id']);
 		}
         
 		if($cache_type == 'properties_cached_data' or $cache_type == 'all')

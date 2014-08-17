@@ -75,7 +75,7 @@ function item_save(value, item_id, field_id, item_type, item_cat, item_extra1, i
 	var ajax_loader_element = '#wpl_listing_saved_span_'+field_id;
 	wplj(ajax_loader_element).html('<img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader3.gif'); ?>" />');
 	
-	request_str = 'wpl_format=b:listing:ajax&wpl_function='+wpl_function+'&value='+encodeURIComponent(value)+'&item_id='+item_id+'&item_type='+item_type+'&item_cat='+item_cat+'&item_extra1='+item_extra1+'&item_extra2='+item_extra2+'&item_extra3='+item_extra3;
+	request_str = 'wpl_format=b:listing:ajax&wpl_function='+wpl_function+'&value='+encodeURIComponent(value)+'&item_id='+item_id+'&item_type='+item_type+'&item_cat='+item_cat+'&item_extra1='+item_extra1+'&item_extra2='+item_extra2+'&item_extra3='+item_extra3+'&kind=<?php echo $this->kind; ?>';
 	
 	/** run ajax query **/
 	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str, ajax_loader_element);
@@ -114,15 +114,15 @@ function wpl_neighborhood_select(table_name, table_column, value, item_id, field
 	if(value == 1)
 	{
 		wplj('#wpl_c_'+field_id+'_distance0').attr('checked', 'checked');
-		ajax_save(table_name, 'n_'+field_id+'_distance_by', 1, item_id, field_id, '#wpl_c_'+field_id+'_distance0');
+		ajax_save(table_name, table_column+'_distance_by', 1, item_id, field_id, '#wpl_c_'+field_id+'_distance0');
 	}
 	else
 	{
 		wplj('input[name=wpl_c_'+field_id+'_distance_by]:checked').removeAttr('checked');
-		ajax_save(table_name, 'n_'+field_id+'_distance_by', '', item_id, field_id, '#wpl_c_'+field_id+'_distance0');
+		ajax_save(table_name, table_column+'_distance_by', '', item_id, field_id, '#wpl_c_'+field_id+'_distance0');
 		
 		wplj('#wpl_c_'+field_id+'_distance').val(0);
-		ajax_save(table_name, 'n_'+field_id+'_distance', 0, item_id, field_id, '#wpl_c_'+field_id+'_distance');
+		ajax_save(table_name, table_column+'_distance', 0, item_id, field_id, '#wpl_c_'+field_id+'_distance');
 	}
 }
 

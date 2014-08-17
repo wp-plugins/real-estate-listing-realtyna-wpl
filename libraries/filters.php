@@ -3,19 +3,20 @@
 defined('_WPLEXEC') or die('Restricted access');
 
 /**
-** Filters Library
-** Developed 06/15/2013
-**/
-
+ * Filters Library
+ * @author Howard <howard@realtyna.com>
+ * @since WPL1.0.0
+ * @date 06/15/2013
+ */
 class wpl_filters
 {
-	/**
-		Developed by : Howard
-		Inputs : trigger and dynamic params
-		Outputs : void
-		Date : 2013-06-15
-		Description : use this function for applying any filter
-	**/
+    /**
+     * Use this function for applying any filter
+     * @author Howard <howard@realtyna.com>
+     * @param string $trigger
+     * @param array $params
+     * @return mixed
+     */
 	public static function apply($trigger, $params = array())
 	{
 		/** fetch filters **/
@@ -42,10 +43,14 @@ class wpl_filters
 		
 		return $params;
 	}
-	
-	/**
-		get filters by trigger and enabled status
-	**/
+    
+    /**
+     * Gets filters by trigger and enabled status
+     * @author Howard <howard@realtyna.com>
+     * @param string $trigger
+     * @param int $enabled
+     * @return array
+     */
 	public static function get_filters($trigger, $enabled = 1)
 	{
 		$query = "SELECT * FROM `#__wpl_filters` WHERE `trigger`='$trigger' AND `enabled`>='$enabled'";

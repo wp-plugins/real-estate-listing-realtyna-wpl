@@ -2,7 +2,6 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 _wpl_import('libraries.pagination');
-_wpl_import('libraries.notices');
 _wpl_import('libraries.file');
 _wpl_import('libraries.room_types');
 

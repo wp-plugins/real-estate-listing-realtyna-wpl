@@ -4,7 +4,6 @@ defined('_WPLEXEC') or die('Restricted access');
 
 _wpl_import('libraries.locations');
 _wpl_import('libraries.pagination');
-_wpl_import('libraries.notices');
 _wpl_import('libraries.settings');
 
 class wpl_location_manager_controller extends wpl_controller

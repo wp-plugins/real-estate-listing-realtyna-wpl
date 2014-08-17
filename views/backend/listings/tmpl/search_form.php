@@ -67,7 +67,7 @@ defined('_WPLEXEC') or die('Restricted access');
                     </div>
                 </div>
                 <div class="prow">
-
+                    
                     <?php $current_value = wpl_request::getVar('sf_select_mls_id', ''); ?>
                     <div class="wpl_listing_manager_search_form_element_cnt">
                         <input type="text" name="sf_select_mls_id" id="sf_select_mls_id" value="<?php echo $current_value; ?>"

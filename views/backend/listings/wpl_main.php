@@ -24,7 +24,9 @@ class wpl_listings_controller extends wpl_controller {
 			return parent::render($this->tpl_path, 'message');
 		}
 		
-        $this->init_page();  
+        $init = $this->init_page();
+        if(!$init) return false;
+        
         $this->tpl = 'manager';
 		
         parent::render($this->tpl_path, $this->tpl);
@@ -60,6 +62,20 @@ class wpl_listings_controller extends wpl_controller {
 			$where['sf_select_user_id'] = $current_user_id;
 		}
 		
+        /** detect kind **/
+        $this->kind = wpl_request::getVar('kind', 0);
+        if(!in_array($this->kind, wpl_flex::get_valid_kinds()))
+		{
+			/** import message tpl **/
+			$this->message = __('Invalid Request!', WPL_TEXTDOMAIN);
+			parent::render($this->tpl_path, 'message');
+            
+            return false;
+		}
+        
+        $this->kind_label = wpl_flex::get_kind_label($this->kind);
+        $where['sf_select_kind'] = $this->kind;
+        
         $this->model->start($start, $limit, $orderby, $order, $where);
         $query = $this->model->query();
         $properties = $this->model->search($query);
@@ -91,6 +107,7 @@ class wpl_listings_controller extends wpl_controller {
         }
 		
         $this->wpl_properties = $wpl_properties;
+        return true;
     }
     
     public function generate_search_form()

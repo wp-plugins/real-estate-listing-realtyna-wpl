@@ -4,6 +4,12 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.7.3 (<span class="wpl_log_date">8/16/2014</span> <span class="wpl_log_revision">revision 750</span>)</h4>
+        -- <strong>[PRO]</strong> Added ability to insert meta key and meta description manually for SEO purposes.<br />
+        -- Fixed an issue on file uploaders.<br />
+        -- Fixed an issue in WPL SEF links.<br />
+        -- Fixed an issue in removing unfinalized properties.
+        
         <h4>WPL1.7.1 (<span class="wpl_log_date">8/02/2014</span> <span class="wpl_log_revision">revision 743</span>)</h4>
         -- Added a new feature for removing user thumbnails after uploading new profile picture or company logo.<br />
         -- Fixed some tiny issues on search widget and single property page.

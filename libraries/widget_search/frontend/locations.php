@@ -27,6 +27,9 @@ if($type == 'locations' and !$done_this)
 		break;
 	}
 	
+    /** Place-holder **/
+	$placeholder = isset($field['extoption']) ? $field['extoption'] : array();
+    
 	$location_path = WPL_ABSPATH .DS. 'libraries' .DS. 'widget_search' .DS. 'frontend' .DS. 'location_items';
 	$location_files = array();
 	

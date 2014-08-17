@@ -8,8 +8,8 @@ include _wpl_import("widgets.agents.scripts.js", true, true);
     <?php
     foreach($wpl_profiles as $key=>$profile)
     {
-        $agent_name   = (isset($profile['rendered'][900]['value']) ? $profile['rendered'][900]['value'] : '') ;
-        $agent_l_name = (isset($profile['rendered'][901]['value']) ? $profile['rendered'][901]['value'] : '');
+        $agent_name   = (isset($profile['materials']['first_name']['value']) ? $profile['materials']['first_name']['value'] : '') ;
+        $agent_l_name = (isset($profile['materials']['last_name']['value']) ? $profile['materials']['last_name']['value'] : '');
         ?>
         <li class="wpl_profile_box" id="wpl_profile_container<?php echo $profile['data']['id']; ?>">
             <div class="profile_left">
@@ -36,20 +36,20 @@ include _wpl_import("widgets.agents.scripts.js", true, true);
                     echo '<li class="title">'.$agent_name.' '.$agent_l_name.'</li>';
                     if(isset($profile['main_email_url'])) echo '<li class="email"><img src="'.$profile["main_email_url"].'" alt="'.$agent_name.' '.$agent_l_name.'" /></li>';
 
-                    if(isset($profile['rendered'][904]['value'])): ?>
+                    if(isset($profile['materials']['website']['value'])): ?>
                         <li class="website">
                             <a href="<?php
-                            $urlStr = $profile['rendered'][904]['value'];
+                            $urlStr = $profile['materials']['website']['value'];
                             $parsed = parse_url($urlStr);
                             if (empty($parsed['scheme'])) {
                                 $urlStr = 'http://' . ltrim($urlStr, '/');
                             }
                             echo $urlStr;
-                            ?>" target="_blank"><?php echo $profile['rendered'][904]['value']; ?></a>
+                            ?>" target="_blank"><?php echo $profile['materials']['website']['value']; ?></a>
                         </li>
                     <?php endif; ?>
-                    <?php if(isset($profile['rendered'][907]['value'])): ?>
-                        <li class="phone"><?php echo $profile['rendered'][907]['value']; ?></li>
+                    <?php if(isset($profile['materials']['tel']['value'])): ?>
+                        <li class="phone"><?php echo $profile['materials']['tel']['value']; ?></li>
                     <?php endif; ?>
                 </ul>
             </div>

@@ -8,7 +8,7 @@ defined('_WPLEXEC') or die('Restricted access');
 </div>
 <div class="fanc-row">
     <label for="wpl_o_image_height"><?php echo __('Image height', WPL_TEXTDOMAIN); ?></label>
-    <input class="text_box" name="option[image_height]" type="text" id="wpl_o_image_height" value="<?php echo isset($this->options->image_height) ? $this->options->image_height : '200'; ?>" />
+    <input class="text_box" name="option[image_height]" type="text" id="wpl_o_image_height" value="<?php echo isset($this->options->image_height) ? $this->options->image_height : '140'; ?>" />
 </div>
 <div class="fanc-row">
     <label for="wpl_o_image_class"><?php echo __('Image class', WPL_TEXTDOMAIN); ?></label>

@@ -373,7 +373,13 @@ class wpl_sef
         if($full)
         {
             $post_id = wpl_db::get('ID', 'posts', 'post_name', $main_permalink);
-            return wpl_sef::get_page_link($post_id);
+            $url = wpl_sef::get_page_link($post_id);
+            
+            /** make sure / character is added to the end of URL in case WordPress SEO permalink is enabled **/
+            $nosef = wpl_sef::is_permalink_default();
+            if(!$nosef) $url = trim($url, '/').'/';
+            
+            return $url;
         }
             
         return $main_permalink;

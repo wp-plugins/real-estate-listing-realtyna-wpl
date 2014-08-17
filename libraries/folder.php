@@ -5,13 +5,22 @@ defined('_WPLEXEC') or die('Restricted access');
 _wpl_import('libraries.path');
 
 /**
-** File Library
-** Developed 03/05/2013
-**/
-
+ * File Library
+ * @author Howard <howard@realtyna.com>
+ * @since WPL1.0.0
+ * @date 03/05/2013
+ */
 class wpl_folder
 {
-	/** Copy a folder. **/
+    /**
+     * Copy a folder.
+     * @author Howard <howard@realtyna.com>
+     * @param string $src
+     * @param string $dest
+     * @param string $path
+     * @param boolean $force
+     * @return boolean
+     */
 	public static function copy($src, $dest, $path = '', $force = false)
 	{
 		@set_time_limit(ini_get('max_execution_time'));
@@ -66,7 +75,14 @@ class wpl_folder
 		return true;
 	}
 
-	/** Create a folder -- and all necessary parent folders. **/
+    /**
+     * Create a folder -- and all necessary parent folders.
+     * @author Howard <howard@realtyna.com>
+     * @staticvar int $nested
+     * @param string $path
+     * @param int $mode
+     * @return boolean
+     */
 	public static function create($path = '', $mode = 0755)
 	{
 		// Initialise variables.
@@ -149,7 +165,12 @@ class wpl_folder
 		return $ret;
 	}
 
-	/** Delete a folder. **/
+    /**
+     * Delete a folder.
+     * @author Howard <howard@realtyna.com>
+     * @param string $path
+     * @return boolean
+     */
 	public static function delete($path)
 	{
 		@set_time_limit(ini_get('max_execution_time'));
@@ -210,7 +231,14 @@ class wpl_folder
 		return $ret;
 	}
 
-	/** Moves a folder. **/
+    /**
+     * Moves a folder.
+     * @author Howard <howard@realtyna.com>
+     * @param string $src
+     * @param string $dest
+     * @param string $path
+     * @return boolean
+     */
 	public static function move($src, $dest, $path = '')
 	{
 		if ($path)
@@ -230,13 +258,28 @@ class wpl_folder
 		return true;
 	}
 
-	/** Wrapper for the standard file_exists function **/
+    /**
+     * Wrapper for the standard file_exists function
+     * @author Howard <howard@realtyna.com>
+     * @param string $path
+     * @return boolean
+     */
 	public static function exists($path)
 	{
 		return is_dir(wpl_path::clean($path));
 	}
 
-	/** Utility function to read the files in a folder. **/
+    /**
+     * Utility function to read the files in a folder.
+     * @author Howard <howard@realtyna.com>
+     * @param string $path
+     * @param string $filter
+     * @param boolean $recurse
+     * @param boolean $full
+     * @param array $exclude
+     * @param array $excludefilter
+     * @return boolean
+     */
 	public static function files($path, $filter = '.', $recurse = false, $full = false, $exclude = array('.svn', 'CVS', '.DS_Store', '__MACOSX'), $excludefilter = array('^\..*', '.*~'))
 	{
 		// Check to make sure the path valid and clean
@@ -266,7 +309,17 @@ class wpl_folder
 		return array_values($arr);
 	}
 
-	/** Utility function to read the folders in a folder. **/
+    /**
+     * Utility function to read the folders in a folder.
+     * @author Howard <howard@realtyna.com>
+     * @param string $path
+     * @param string $filter
+     * @param int $recurse
+     * @param boolean $full
+     * @param array $exclude
+     * @param array $excludefilter
+     * @return mixed
+     */
 	public static function folders($path, $filter = '.', $recurse = false, $full = false, $exclude = array('.svn', 'CVS', '.DS_Store', '__MACOSX'), $excludefilter = array('^\..*'))
 	{
 		// Check to make sure the path valid and clean
@@ -296,7 +349,18 @@ class wpl_folder
 		return array_values($arr);
 	}
 
-	/** Function to read the files/folders in a folder. **/
+    /**
+     * Function to read the files/folders in a folder.
+     * @author Howard <howard@realtyna.com>
+     * @param string $path
+     * @param string $filter
+     * @param int $recurse
+     * @param boolean $full
+     * @param array $exclude
+     * @param string $excludefilter_string
+     * @param mixed $findfiles
+     * @return array
+     */
 	protected static function _items($path, $filter, $recurse, $full, $exclude, $excludefilter_string, $findfiles)
 	{
 		@set_time_limit(ini_get('max_execution_time'));
@@ -356,7 +420,12 @@ class wpl_folder
 		return $arr;
 	}
 
-	/** Makes path name safe to use. **/
+    /**
+     * Makes path name safe to use.
+     * @author Howard <howard@realtyna.com>
+     * @param string $path
+     * @return string
+     */
 	public static function makeSafe($path)
 	{
 		$regex = array('#[^A-Za-z0-9:_\\\/-]#');

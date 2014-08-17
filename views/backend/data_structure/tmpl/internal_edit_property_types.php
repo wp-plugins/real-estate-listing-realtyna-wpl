@@ -8,7 +8,6 @@ defined('_WPLEXEC') or die('Restricted access');
         <div class="fanc-row">
             <label for="wpl_title<?php echo $this->property_type_id; ?>"><?php echo __('Name', WPL_TEXTDOMAIN); ?></label>
             <input class="text_box" type="text" id="wpl_name<?php echo $this->property_type_id; ?>" value="<?php echo (isset($this->property_type_data->name) ? $this->property_type_data->name : ''); ?>" onchange="wpl_ajax_save_property_type('name', this, '<?php echo $this->property_type_id; ?>');" autocomplete="off" />
-            <?php echo wpl_notices::display_tooltip(46) ?>
             <span class="ajax-inline-save" id="wpl_name<?php echo $this->property_type_id; ?>_ajax_loader"></span>
         </div>
         <div class="fanc-row">
@@ -20,7 +19,6 @@ defined('_WPLEXEC') or die('Restricted access');
                 <?php endforeach; ?>
                 <span class="ajax-inline-save" id="wpl_parent<?php echo $this->property_type_id; ?>_ajax_loader"></span>
             </select>
-            <?php echo wpl_notices::display_tooltip(48) ?>
         </div>
         <?php if($this->property_type_id === 10000){ ?>
         <div class="fanc-row">

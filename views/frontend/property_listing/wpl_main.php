@@ -47,7 +47,9 @@ class wpl_property_listing_controller extends wpl_controller
 		
 		/** detect kind **/
 		$this->kind = wpl_request::getVar('kind', 0);
-		if(!in_array($this->kind, wpl_flex::get_kinds()))
+        if(!$this->kind) $this->kind = wpl_request::getVar('sf_select_kind', 0);
+        
+		if(!in_array($this->kind, wpl_flex::get_valid_kinds()) and $this->kind != -1)
 		{
 			/** import message tpl **/
 			$this->message = __('Invalid Request!', WPL_TEXTDOMAIN);

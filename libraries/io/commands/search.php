@@ -131,7 +131,7 @@ class wpl_io_cmd_search extends wpl_io_global
 		/** property listing model **/
 		$this->model = new wpl_property;
 		
-		if(!in_array($this->kind, wpl_flex::get_kinds()))
+		if(!in_array($this->kind, wpl_flex::get_valid_kinds()))
 		{
 			$this->error = "ERROR: Invalid property kind!";
 			return false;

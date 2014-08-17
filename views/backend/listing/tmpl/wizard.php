@@ -51,7 +51,7 @@ $this->finds = array();
                     }
                     ?>
                     <li>
-                        <a <?php echo $display; ?> href="#<?php echo $category->id; ?>" class="wpl_slide_label wpl_slide_label_id<?php echo $category->id; ?>" id="wpl_slide_label_id<?php echo $category->id; ?>" onclick="rta.internal.slides.open('<?php echo $category->id; ?>', '.side-tabs-wp', '.wpl_slide_container', 'currentTab');">
+                        <a <?php echo $display; ?> href="#<?php echo $category->id; ?>" class="wpl_slide_label wpl_slide_label_prefix_<?php echo $category->prefix; ?>" id="wpl_slide_label_id<?php echo $category->id; ?>" onclick="rta.internal.slides.open('<?php echo $category->id; ?>', '.side-tabs-wp', '.wpl_slide_container', 'currentTab');">
 							<?php echo __($category->name, WPL_TEXTDOMAIN); ?>
                         </a>
                     </li>

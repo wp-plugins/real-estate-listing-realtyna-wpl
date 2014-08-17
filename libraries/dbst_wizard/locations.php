@@ -7,7 +7,7 @@ if($type == 'locations' and !$done_this)
     _wpl_import('libraries.locations');
     $location_settings = wpl_global::get_settings('3'); # location settings
 ?>
-<div class="location-wp" id="wpl_listing_all_location_container<?php echo $field->id; ?>">
+<div class="location-wp wpl_listing_all_location_container_<?php echo $field->table_column; ?>" id="wpl_listing_all_location_container<?php echo $field->id; ?>">
 	<?php
 	for($i = 1; $i <= 7; $i++)
 	{

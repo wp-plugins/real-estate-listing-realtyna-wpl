@@ -636,7 +636,7 @@ class wpl_global
 		{
 			$error .= __('An error occurred uploading your file!', WPL_TEXTDOMAIN);
 		}
-		else 
+		else
 		{
 			$extention = strtolower(wpl_file::getExt($file['name']));
 			
@@ -1039,4 +1039,21 @@ class wpl_global
     {
         return get_the_ID();
     }
+    
+    /**
+     * Use this function for escape url parameters
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $url
+     * @return string
+     */
+    public static function url_encode($url)
+    {
+		$url = trim($url);
+		$search = array("/\.+/","/\+/","/\:/","/\(/","/\)/","/\"/","/\//","/\!/","/\"/","/\-+/","/\s+/");
+		$replace = array(" "," "," "," "," "," "," "," "," "," ","-");
+	
+		$url = preg_replace($search, $replace, $url);
+		return trim($url, ' -');
+	}
 }

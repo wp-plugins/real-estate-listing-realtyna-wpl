@@ -194,3 +194,12 @@ INSERT INTO `#__wpl_notifications` (`id`, `description`, `template`, `subject`, 
 
 INSERT INTO `#__wpl_activities` (`id`, `activity`, `position`, `enabled`, `index`, `params`, `show_title`, `title`, `association_type`, `associations`) VALUES
 (23, 'listing_contact', 'pshow_position2', 1, 99.00, '', 1, 'Contact Agent', 1, '');
+
+UPDATE `#__wpl_dbst` SET `table_column`='locations' WHERE `id`='41';
+UPDATE `#__wpl_dbst` SET `table_column`='locations' WHERE `id`='911';
+UPDATE `#__wpl_dbst` SET `options`='' WHERE `id`='6';
+
+ALTER TABLE `#__wpl_item_categories` DROP `parent_kind`;
+DROP TABLE `#__wpl_notices`;
+
+UPDATE `#__wpl_properties` SET `alias`='';

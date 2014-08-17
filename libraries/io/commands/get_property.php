@@ -84,7 +84,10 @@ class wpl_io_cmd_get_property extends wpl_io_global
 		
 		/** BUILD **/
 		$this->built['listing']['raw'] = $property;
-		$this->built['listing']['rendered_raw'] = $this->model->render_property($property, $this->pshow_fields);
+        
+        $find_files = array();
+		$rendered_fields = $this->model->render_property($property, $this->pshow_fields, $find_files, true);
+		$this->built['listing']['materials'] = $rendered_fields['columns'];
 		
 		foreach($this->pshow_categories as $pshow_category)
 		{

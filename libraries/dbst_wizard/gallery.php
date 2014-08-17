@@ -171,79 +171,79 @@ var img_counter = parseInt(<?php echo $max_img_index ?>) + 1;
 
 wplj(document).ready(function()
 {
-	var url = '<?php echo wpl_global::get_full_url(); ?>&wpl_format=b:listing:gallery&wpl_function=upload&pid=' +<?php echo $item_id; ?> + '&kind=<?php echo $this->kind; ?>&type=gallery';
+	var url = '<?php echo wpl_global::get_full_url(); ?>&wpl_format=b:listing:gallery&wpl_function=upload&pid='+<?php echo $item_id; ?>+'&kind=<?php echo $this->kind; ?>&type=gallery';
 
-		wplj('#fileupload').fileupload({
-			url: url,
-			acceptFileTypes: /(<?php echo $ext_str; ?>)$/i,
-			dataType: 'json',
-			maxFileSize:<?php echo $max_size * 1000; ?>,
-			done: function(e, data)
-			{
-				wplj.each(data.result.files, function(index, file)
-				{
-					if (file.error !== undefined)
-					{
-						wplj('<div class="row"/>').text(file.error).appendTo('#files');
-					}
-					else if (file.thumbnailUrl !== undefined) {
+    wplj('#fileupload').fileupload({
+        url: url,
+        acceptFileTypes: /(<?php echo $ext_str; ?>)$/i,
+        dataType: 'json',
+        maxFileSize:<?php echo $max_size * 1000; ?>,
+        done: function(e, data)
+        {
+            wplj.each(data.result.files, function(index, file)
+            {
+                if (file.error !== undefined)
+                {
+                    wplj('<div class="row"/>').text(file.error).appendTo('#files');
+                }
+                else if (file.thumbnailUrl !== undefined) {
 
-						var dynTem = rta.template.bind({
-							index: img_counter,
-							name: file.name,
-							selectOptions: '<?php echo $image_categories_html ?>',
-							imageFolder: '<?php echo $image_folder; ?>',
-							lblImageTitle: '<?php echo __('Image Title', WPL_TEXTDOMAIN) ?>',
-							lblImageDesc: '<?php echo __('Image Description', WPL_TEXTDOMAIN); ?>',
-							lblImageCat: '<?php echo __('Image Category', WPL_TEXTDOMAIN); ?>',
-						}, 'newImage');
+                    var dynTem = rta.template.bind({
+                        index: img_counter,
+                        name: file.name,
+                        selectOptions: '<?php echo $image_categories_html ?>',
+                        imageFolder: '<?php echo $image_folder; ?>',
+                        lblImageTitle: '<?php echo __('Image Title', WPL_TEXTDOMAIN) ?>',
+                        lblImageDesc: '<?php echo __('Image Description', WPL_TEXTDOMAIN); ?>',
+                        lblImageCat: '<?php echo __('Image Category', WPL_TEXTDOMAIN); ?>',
+                    }, 'newImage');
 
-						wplj(dynTem).appendTo('#ajax_gal_sortable');
-						img_counter++;
-					}
-					else
-						wplj('<div class="row"/>').text(file.name).appendTo('#files');
-				});
-			},
-			progressall: function(e, data)
-			{
-				wplj('#progress_img').show('fast');
-				var progress = parseInt(data.loaded / data.total * 100, 10);
-				wplj('#progress_img #progress .bar').css(
-						'width',
-						progress + '%'
-						);
-				wplj("#error_ajax_img").html("");
-			},
-			processfail: function(e, data)
-			{
-				wplj('#progress_img').hide('fast');
-				wplj("#error_ajax_img").html("<span color='red'><?php echo __('Error occured', WPL_TEXTDOMAIN) ?> : " + data.files[data.index].name + " " + data.files[data.index].error + "</span>");
-				wplj("#error_ajax_img").show('slow');
-			}
-		});
+                    wplj(dynTem).appendTo('#ajax_gal_sortable');
+                    img_counter++;
+                }
+                else
+                    wplj('<div class="row"/>').text(file.name).appendTo('#files');
+            });
+        },
+        progressall: function(e, data)
+        {
+            wplj('#progress_img').show('fast');
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            wplj('#progress_img #progress .bar').css(
+                    'width',
+                    progress + '%'
+                    );
+            wplj("#error_ajax_img").html("");
+        },
+        processfail: function(e, data)
+        {
+            wplj('#progress_img').hide('fast');
+            wplj("#error_ajax_img").html("<span color='red'><?php echo __('Error occured', WPL_TEXTDOMAIN) ?> : " + data.files[data.index].name + " " + data.files[data.index].error + "</span>");
+            wplj("#error_ajax_img").show('slow');
+        }
+    });
 });
 
 function ajax_gallery_title_update(image, value)
 {
-	ajax = wpl_run_ajax_query("<?php echo wpl_global::get_full_url(); ?>", "wpl_format=b:listing:gallery&wpl_function=title_update&pid=<?php echo $item_id; ?>&image=" + image + "&value=" + value);
+	ajax = wpl_run_ajax_query("<?php echo wpl_global::get_full_url(); ?>", "wpl_format=b:listing:gallery&wpl_function=title_update&pid=<?php echo $item_id; ?>&image="+image+"&value="+value+"&kind=<?php echo $this->kind; ?>");
 }
 
 function ajax_gallery_desc_update(image, value)
 {
-	ajax = wpl_run_ajax_query("<?php echo wpl_global::get_full_url(); ?>", "wpl_format=b:listing:gallery&wpl_function=desc_update&pid=<?php echo $item_id; ?>&image=" + image + "&value=" + value);
+	ajax = wpl_run_ajax_query("<?php echo wpl_global::get_full_url(); ?>", "wpl_format=b:listing:gallery&wpl_function=desc_update&pid=<?php echo $item_id; ?>&image="+image+"&value="+value+"&kind=<?php echo $this->kind; ?>");
 }
 
 function ajax_gallery_cat_update(image, value)
 {
-	ajax = wpl_run_ajax_query("<?php echo wpl_global::get_full_url(); ?>", "wpl_format=b:listing:gallery&wpl_function=cat_update&pid=<?php echo $item_id ?>&image=" + image + "&value=" + value);
+	ajax = wpl_run_ajax_query("<?php echo wpl_global::get_full_url(); ?>", "wpl_format=b:listing:gallery&wpl_function=cat_update&pid=<?php echo $item_id ?>&image="+image+"&value="+value+"&kind=<?php echo $this->kind; ?>");
 }
 
 function ajax_gallery_image_delete(image, id)
 {
 	if(!confirm('<?php echo __('Are you sure?', WPL_TEXTDOMAIN) ?>')) return;
 	
-    ajax = wpl_run_ajax_query("<?php echo wpl_global::get_full_url(); ?>", "wpl_format=b:listing:gallery&wpl_function=delete_image&pid=<?php echo $item_id; ?>&image=" + encodeURIComponent(image));
+    ajax = wpl_run_ajax_query("<?php echo wpl_global::get_full_url(); ?>", "wpl_format=b:listing:gallery&wpl_function=delete_image&pid=<?php echo $item_id; ?>&image="+encodeURIComponent(image)+"&kind=<?php echo $this->kind; ?>");
     ajax.success(function()
     {
         wplj("#" + id).fadeOut(600, function(){
@@ -257,7 +257,7 @@ function wpl_image_enabled(gallery, id)
 	var status = Math.abs(wplj("#enabled_image_field_" + id).val() - 1);
 	wplj("#enabled_image_field_" + id).val(status);
     
-	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', "wpl_format=b:listing:gallery&wpl_function=change_status&pid=<?php echo $item_id; ?>&image=" + encodeURIComponent(gallery) + "&enabled=" + status);
+	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', "wpl_format=b:listing:gallery&wpl_function=change_status&pid=<?php echo $item_id; ?>&image="+encodeURIComponent(gallery)+"&enabled="+status+"&kind=<?php echo $this->kind; ?>");
 	ajax.success(function(data)
 	{
 		if (status == 0)

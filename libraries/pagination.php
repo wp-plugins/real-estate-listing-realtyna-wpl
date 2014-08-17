@@ -1,19 +1,17 @@
 <?php
-
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 
+/**
+ * @script Name: *Digg Style Paginator Class
+ * @script URI: http://www.mis-algoritmos.com/2007/05/27/digg-style-pagination-class/
+ * @description: Class in PHP that allows to use a pagination like a digg or sabrosus style.
+ * @script Version: 0.4
+ * @author: Victor De la Rocha
+ * @author URI: http://www.mis-algoritmos.com
+ */
 class wpl_pagination
 {
-    /*
-      Script Name: *Digg Style Paginator Class
-      Script URI: http://www.mis-algoritmos.com/2007/05/27/digg-style-pagination-class/
-      Description: Class in PHP that allows to use a pagination like a digg or sabrosus style.
-      Script Version: 0.4
-      Author: Victor De la Rocha
-      Author URI: http://www.mis-algoritmos.com
-     */
-
     /** Default values **/
     var $total_pages = -1; //items
     var $limit = null;

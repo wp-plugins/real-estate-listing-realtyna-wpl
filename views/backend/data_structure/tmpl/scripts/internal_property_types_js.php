@@ -68,7 +68,7 @@ function wpl_remove_property_type(property_type_id, confirmed)
         {
             wplj("#wpl_data_structure_edit_div").html(data);
             wplj('.wpl_help').wpl_help();
-            jQuery("#wpl_fancybox_handler").trigger("click");
+            wplj("#wpl_fancybox_handler").trigger("click");
         },
         error: function(jqXHR, textStatus, errorThrown)
         {

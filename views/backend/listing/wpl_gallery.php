@@ -18,7 +18,7 @@ class wpl_listing_controller extends wpl_controller
 		elseif($function == 'title_update') wpl_items::update_file(wpl_request::getVar('image'), wpl_request::getVar('pid'), array('item_extra1'=>wpl_request::getVar('value')));
 		elseif($function == 'desc_update') wpl_items::update_file(wpl_request::getVar('image'), wpl_request::getVar('pid'), array('item_extra2'=>wpl_request::getVar('value')));
 		elseif($function == 'cat_update') wpl_items::update_file(wpl_request::getVar('image'), wpl_request::getVar('pid'), array('item_cat'=>wpl_request::getVar('value')));
-		elseif($function == 'delete_image') wpl_items::delete_file(wpl_request::getVar('image'), wpl_request::getVar('pid'));
+		elseif($function == 'delete_image') wpl_items::delete_file(wpl_request::getVar('image'), wpl_request::getVar('pid'), wpl_request::getVar('kind'));
 		elseif($function == 'sort_images') wpl_items::sort_items(wpl_request::getVar('pid'), wpl_request::getVar('order'));
 		elseif($function == 'change_status') wpl_items::update_file(wpl_request::getVar('image'), wpl_request::getVar('pid'), array('enabled'=>wpl_request::getVar('enabled')));
         elseif($function == 'save_external_images') self::save_external_images();
@@ -39,17 +39,14 @@ class wpl_listing_controller extends wpl_controller
 		foreach($extentions as $extention) $ext_str .= $extention .'|';
 		
 		// remove last |
-		$ext_str = substr($ext_str,0,-1);
-		$ext_str = rtrim ($ext_str , ';');
+		$ext_str = substr($ext_str, 0, -1);
+		$ext_str = rtrim ($ext_str, ';');
 		$custom_op = array(
             'upload_dir' => wpl_global::get_upload_base_path(),
             'upload_url' => wpl_global::get_wpl_upload_url(),
             'accept_file_types' => '/\.('.$ext_str.')$/i',
-            // The php.ini settings upload_max_filesize and post_max_size
-            // take precedence over the following max_file_size setting:
             'max_file_size' => $params['accept_ext']['file_size']*1000,
             'min_file_size' => 1,
-            // The maximum number of files for the upload directory:
             'max_number_of_files' => null
 		);
 		

@@ -40,7 +40,7 @@ if($show == 'radiussearch' and !$done_this)
 		$html .= '</select>';
 	}
 	
-	$html .= '<input class="wpl_search_widget_location_textsearch" value="'.$current_value.'" name="sf'.$widget_id.'_radiussearch" id="sf'.$widget_id.'_radiussearch" placeholder="'.__('Zip-code, City, County', WPL_TEXTDOMAIN).'" />';
+	$html .= '<input class="wpl_search_widget_location_textsearch" value="'.$current_value.'" name="sf'.$widget_id.'_radiussearch" id="sf'.$widget_id.'_radiussearch" placeholder="'.__($placeholder, WPL_TEXTDOMAIN).'" />';
 	
 	$html .= '
 	<script type="text/javascript">

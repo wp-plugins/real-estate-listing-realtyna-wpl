@@ -4,14 +4,14 @@ defined('_WPLEXEC') or die('Restricted access');
 
 if($type == 'feature' and !$done_this)
 {
-	if($values['f_'.$field->id] != 0) 
+	if($values[$field->table_column] != 0) 
 	{
 		$return['field_id'] = $field->id;
 		$return['type'] = $field->type;
 		$return['name'] = __($field->name, WPL_TEXTDOMAIN);
 		
 		/** options of property column **/
-		$column_options = $values['f_'.$field->id.'_options'];
+		$column_options = $values[$field->table_column.'_options'];
 		$column_values = explode(',', $column_options);
 		$i = 0;
 		

@@ -5,6 +5,8 @@ defined('_WPLEXEC') or die('Restricted access');
 /**
  * HTML Library
  * @author Howard R <howard@realtyna.com>
+ * @since WPL1.0.0
+ * @date 10/08/2013
  */
 class wpl_html
 {

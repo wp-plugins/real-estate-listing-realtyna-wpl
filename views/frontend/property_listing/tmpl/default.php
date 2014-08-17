@@ -28,10 +28,10 @@ $this->_wpl_import($this->tpl_path.'.scripts.js', true, true);
         /** set current property **/
         $this->wpl_properties['current'] = $property;
 
-        $room    = '<div class="bedroom">'.$property['raw']['bedrooms'].'</div>';
-        if($property['raw']['bedrooms'] == 0 and $property['raw']['rooms'] != 0) $room = '<div class="bedroom">'.$property['raw']['rooms'].'</div>';
+        $room    = '<div class="bedroom">'.$property['materials']['bedrooms']['value'].'</div>';
+        if($property['materials']['bedrooms']['value'] == 0 and $property['materials']['rooms']['value'] != 0) $room = '<div class="bedroom">'.$property['materials']['rooms']['value'].'</div>';
         
-        $bathroom   = '<div class="bathroom">'.$property['raw']['bathrooms'].'</div>';
+        $bathroom   = '<div class="bathroom">'.$property['materials']['bathrooms']['value'].'</div>';
         $parking    = '<div class="parking">'.($property['raw']['f_150'] == 1 ? $property['raw']['f_150_options'] : 0).'</div>';
         $pic_count  = '<div class="pic_count">'.$property['raw']['pic_numb'].'</div>';
 		?>
@@ -46,12 +46,12 @@ $this->_wpl_import($this->tpl_path.'.scripts.js', true, true);
             </div>
             <div class="wpl_prp_bot">
                 <?php
-                echo '<div class="wpl_prp_title">'.((isset($property['rendered'][313]) and trim($property['rendered'][313]['value']) != '') ? $property['rendered'][313]['value'] : $property['rendered'][3]['value'].' - '.$property['rendered'][2]['value']).'</div>';
+                echo '<div class="wpl_prp_title">'.((isset($property['materials']['field_313']) and trim($property['materials']['field_313']['value']) != '') ? $property['materials']['field_313']['value'] : $property['materials']['property_type']['value'].' - '.$property['materials']['listing']['value']).'</div>';
                 echo '<div class="wpl_prp_listing_location">'.$property['location_text'] .'</div>';   
                 ?>
                 <div class="wpl_prp_listing_icon_box"><?php echo $room . $bathroom . $parking . $pic_count; ?></div>
             </div>
-            <div class="price_box"><span><?php echo $property['rendered'][6]['value'].(isset($property['rendered'][14]['value']) ? ' '.$property['rendered'][14]['value'] : ''); ?></span></div>
+            <div class="price_box"><span><?php echo $property['materials']['price']['value'].(isset($property['materials']['price_period']['value']) ? ' '.$property['materials']['price_period']['value'] : ''); ?></span></div>
 		</div>
 		<?php
     }

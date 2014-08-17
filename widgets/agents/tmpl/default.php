@@ -8,8 +8,8 @@ include _wpl_import("widgets.agents.scripts.js", true, true);
     <?php
     foreach($wpl_profiles as $key=>$profile)
     {
-        $agent_name   = (isset($profile['rendered'][900]['value']) ? $profile['rendered'][900]['value'] : '') ;
-        $agent_l_name = (isset($profile['rendered'][901]['value']) ? $profile['rendered'][901]['value'] : '');
+        $agent_name   = (isset($profile['materials']['first_name']['value']) ? $profile['materials']['first_name']['value'] : '') ;
+        $agent_l_name = (isset($profile['materials']['last_name']['value']) ? $profile['materials']['last_name']['value'] : '');
         ?>
         <div class="wpl_profile_container" id="wpl_profile_container<?php echo $profile['data']['id']; ?>">
             <div class="wpl_profile_picture"
@@ -42,10 +42,10 @@ include _wpl_import("widgets.agents.scripts.js", true, true);
                 ?>
             </div>
             <ul>
-                <?php if(isset($profile['rendered'][904]['value'])): ?>
-                    <li class="website" data-toggle="tooltip" title="<?php echo $profile['rendered'][904]['value']; ?>">
+                <?php if(isset($profile['materials']['website']['value'])): ?>
+                    <li class="website" data-toggle="tooltip" title="<?php echo $profile['materials']['website']['value']; ?>">
                         <a href="<?php
-                        $urlStr = $profile['rendered'][904]['value'];
+                        $urlStr = $profile['materials']['website']['value'];
                         $parsed = parse_url($urlStr);
                         if (empty($parsed['scheme'])) {
                             $urlStr = 'http://' . ltrim($urlStr, '/');
@@ -54,14 +54,14 @@ include _wpl_import("widgets.agents.scripts.js", true, true);
                         ?>" target="_blank"><?php echo $agent_name.' '.$agent_l_name; ?></a>
                     </li>
                 <?php endif; ?>
-                <?php if(isset($profile['rendered'][907]['value'])): ?>
-                    <li class="phone" data-toggle="tooltip" title="<?php echo $profile['rendered'][907]['value']; ?>"></li>
+                <?php if(isset($profile['materials']['tel']['value'])): ?>
+                    <li class="phone" data-toggle="tooltip" title="<?php echo $profile['materials']['tel']['value']; ?>"></li>
                 <?php endif; ?>
-                <?php if(isset($profile['rendered'][909]['value'])): ?>
-                    <li class="mobile" data-toggle="tooltip" title="<?php echo $profile['rendered'][909]['value']; ?>"></li>
+                <?php if(isset($profile['materials']['mobile']['value'])): ?>
+                    <li class="mobile" data-toggle="tooltip" title="<?php echo $profile['materials']['mobile']['value']; ?>"></li>
                 <?php endif; ?>
-                <?php if(isset($profile['rendered'][908]['value'])): ?>
-                    <li class="fax" data-toggle="tooltip" title="<?php echo $profile['rendered'][908]['value']; ?>"></li>
+                <?php if(isset($profile['materials']['fax']['value'])): ?>
+                    <li class="fax" data-toggle="tooltip" title="<?php echo $profile['materials']['fax']['value']; ?>"></li>
                 <?php endif ;?>
             </ul>
         </div>

@@ -11,12 +11,12 @@ foreach($this->wpl_properties as $key => $property)
 	$property_id = $property['data']['id'];
     $locations	 = $property['location_text'];
 
-	$bedroom    = '<div class="bedroom">'.$property['raw']['bedrooms'].'</div>';
-    $room    	= '<div class="room">'.$property['raw']['rooms'].'</div>';
-    $bathroom   = '<div class="bathroom">'.$property['raw']['bathrooms'].'</div>';
-    $parking    = '<div class="parking">'.$property['raw']['parkings'].'</div>';
+	$bedroom    = '<div class="bedroom">'.$property['materials']['bedrooms']['value'].'</div>';
+    $room    	= '<div class="room">'.$property['materials']['rooms']['value'].'</div>';
+    $bathroom   = '<div class="bathroom">'.$property['materials']['bathrooms']['value'].'</div>';
+    $parking    = '<div class="parking">'.($property['raw']['f_150'] == 1 ? $property['raw']['f_150_options'] : 0).'</div>';
     $pic_count  = '<div class="pic_count">'.$property['raw']['pic_numb'].'</div>';
-    $price 		= '<div class="price">'.$property['rendered'][6]['value'].'</div>';
+    $price 		= '<div class="price">'.$property['materials']['price']['value'].'</div>';
 ?>
 	<div id="main_infowindow">
 		<div class="main_infowindow_l">
@@ -50,7 +50,7 @@ foreach($this->wpl_properties as $key => $property)
 		</div>
 		<div class="main_infowindow_r">
 			<div class="main_infowindow_r_t">
-				<?php echo '<a class="main_infowindow_title" href="'.$property['property_link'].'">'.$property['rendered'][3]['value'].' '.$property['rendered'][2]['value'].'</a>'; ?>
+				<?php echo '<a class="main_infowindow_title" href="'.$property['property_link'].'">'.$property['materials']['property_type']['value'].' '.$property['materials']['listing']['value'].'</a>'; ?>
 				<div class="main_infowindow_location"><?php echo $locations; ?></div>
 			</div>
 			<div class="main_infowindow_r_b">

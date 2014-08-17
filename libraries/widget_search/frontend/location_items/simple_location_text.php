@@ -108,7 +108,7 @@ if($show == 'simple_location_text' and !$done_this)
 	/** Location text **/
 	$html .= '<div class="wpl_search_widget_location_level_container" id="wpl'.$widget_id.'_search_widget_location_level_container_location_text">';
 	$html .= '<label class="wpl_search_widget_location_level_label" for="sf'.$widget_id.'_locationtextsearch">'.__('Location Text', WPL_TEXTDOMAIN).'</label>';
-	$html .= '<input class="wpl_search_widget_'.$field['id'].'_location_text" value="'.$current_values['locationtextsearch'].'" name="sf'.$widget_id.'_locationtextsearch" id="sf'.$widget_id.'_locationtextsearch" placeholder="'.__($location_settings['locationzips_keyword'].', '.$location_settings['location3_keyword'].', '.$location_settings['location1_keyword'], WPL_TEXTDOMAIN).'" type="text" />';
+	$html .= '<input class="wpl_search_widget_'.$field['id'].'_location_text" value="'.$current_values['locationtextsearch'].'" name="sf'.$widget_id.'_locationtextsearch" id="sf'.$widget_id.'_locationtextsearch" placeholder="'.__($placeholder, WPL_TEXTDOMAIN).'" type="text" />';
 	$html .= '</div>';
 	
 	$html .= '</div>';

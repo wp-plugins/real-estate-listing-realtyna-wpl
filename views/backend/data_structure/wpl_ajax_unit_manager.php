@@ -2,7 +2,6 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 _wpl_import('libraries.units');
-_wpl_import('libraries.notices');
 
 class wpl_data_structure_controller extends wpl_controller
 {

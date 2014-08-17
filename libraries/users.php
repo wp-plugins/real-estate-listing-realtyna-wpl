@@ -743,10 +743,10 @@ class wpl_users
 		@return rendered data
 		@author Howard
 	**/
-	public static function render_profile($profile, $fields, &$finds = array())
+	public static function render_profile($profile, $fields, &$finds = array(), $material = false)
 	{
 		_wpl_import('libraries.property');
-		return wpl_property::render_property($profile, $fields, $finds);
+		return wpl_property::render_property($profile, $fields, $finds, $material);
 	}
 	
 	/**
@@ -758,7 +758,6 @@ class wpl_users
 	{
 		/** create folder **/
 		$folder_path = wpl_items::get_path($user_id, 2);
-		
 		if(!wpl_folder::exists($folder_path)) wpl_folder::create($folder_path);
 		
 		wpl_users::update_text_search_field($user_id);
@@ -875,9 +874,12 @@ class wpl_users
 		
 		/** location text **/
 		$location_text = wpl_users::generate_location_text($user_data);
-		$rendered = self::render_profile($user_data, wpl_users::get_plisting_fields());
 		
-		$result = json_encode(array('rendered'=>$rendered, 'location_text'=>$location_text));
+        /** render data **/
+        $find_files = array();
+        $rendered_fields = self::render_profile($user_data, wpl_users::get_plisting_fields(), $find_files, true);
+        
+		$result = json_encode(array('rendered'=>$rendered_fields['ids'], 'materials'=>$rendered_fields['columns'], 'location_text'=>$location_text));
 		$query = "UPDATE `#__wpl_users` SET `rendered`='".wpl_db::escape($result)."', `location_text`='".wpl_db::escape($location_text)."' WHERE `id`='$user_id'";
 		
 		/** update **/
@@ -949,10 +951,16 @@ class wpl_users
 		$result['items'] = wpl_items::get_items($profile->id, '', 2, '', 1);
 		$result['raw'] = $raw_data;
 		
-		/** render data **/
+        /** render data **/
+        $find_files = array();
+        $rendered_fields = self::render_profile($profile, $plisting_fields, $find_files, true);
+        
 		if($rendered['rendered']) $result['rendered'] = $rendered['rendered'];
-		else $result['rendered'] = self::render_profile($profile, $plisting_fields);
-		
+		else $result['rendered'] = $rendered_fields['ids'];
+        
+        if($rendered['materials']) $result['materials'] = $rendered['materials'];
+		else $result['materials'] = $rendered_fields['columns'];
+        
 		/** location text **/
 		if($rendered['location_text']) $result['location_text'] = $rendered['location_text'];
 		else $result['location_text'] = self::generate_location_text($raw_data);

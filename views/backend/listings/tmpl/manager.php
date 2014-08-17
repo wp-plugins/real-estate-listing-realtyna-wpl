@@ -8,7 +8,7 @@ $this->_wpl_import($this->tpl_path.'.scripts.js');
 <div class="wrap wpl-wp pmanager-wp">
     <header>
         <div id="icon-pmanager" class="icon48"></div>
-        <h2><?php echo __('Listing Manager', WPL_TEXTDOMAIN); ?></h2>
+        <h2><?php echo __(ucfirst($this->kind_label).' Manager', WPL_TEXTDOMAIN); ?></h2>
     </header>
     <div class="wpl_property_manager_list"><div class="wpl_show_message"></div></div>
     <div class="pmanager-cnt">
@@ -83,10 +83,10 @@ $this->_wpl_import($this->tpl_path.'.scripts.js');
             {
                 if($key == 'current') continue;
 
-                $property_type = isset($property['rendered'][3]['value']) ? $property['rendered'][3]['value'] : '';
-                $listing_type = isset($property['rendered'][2]['value']) ? $property['rendered'][2]['value'] : '';
-                $price = isset($property['rendered'][6]['value']) ? '<span class="plist_price">'.$property['rendered'][6]['value'].'</span>' : '';
-                $builtup_area = isset($property['rendered'][10]['value']) ? $property['rendered'][10]['value'] : '';
+                $property_type = isset($property['materials']['property_type']['value']) ? $property['materials']['property_type']['value'] : '';
+                $listing_type = isset($property['materials']['listing']['value']) ? $property['materials']['listing']['value'] : '';
+                $price = isset($property['materials']['price']['value']) ? '<span class="plist_price">'.$property['materials']['price']['value'].'</span>' : '';
+                $builtup_area = isset($property['materials']['living_area']['value']) ? $property['materials']['living_area']['value'] : '';
 
                 $details_string = trim($property_type.', '.$listing_type.', '.$price.', '.$builtup_area, ', ');
                 $location_string = $property['location_text'];

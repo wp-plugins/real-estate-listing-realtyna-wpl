@@ -5,20 +5,22 @@ defined('_WPLEXEC') or die('Restricted access');
 _wpl_import('libraries.settings');
 
 /**
- ** Images Library
- ** Developed 07/28/2013
- **/
- 
-class wpl_images 
+ * Images Library
+ * @author Howard R <howard@realtyna.com>
+ * @since WPL1.0.0
+ * @date 07/28/2013
+ */
+class wpl_images
 {
     /**
-     * revised by Francis
-     * @param string $source: source file path string
-     * @param string $dest  : destination file path string
-     * @param int $width    : desired destination file width
-     * @param int $height   : desired destination file height
-     * @param int $crop     : 0 if crop is disable, 1 if crop is enable, 2 if crop (center) is enable
-     * @return string       : destination file path
+     * Resizes an image
+     * @author Howard R <howard@realtyna.com>
+     * @param string $source
+     * @param string $dest
+     * @param int $width
+     * @param int $height
+     * @param int $crop
+     * @return string
      */
     public static function resize_image($source, $dest, $width, $height, $crop = 0)
     {
@@ -192,7 +194,8 @@ class wpl_images
     }
     
     /**
-     * revised by Francis
+     * Add watermark to an image
+     * @author Francis R <francis@realtyna.com>
      * @param string $source: source file string path
      * @param string $dest  : destination file string path
      * @param int $watermark: 0 if watermark is disable, 1 if watermark is enable
@@ -326,7 +329,8 @@ class wpl_images
     }
     
     /**
-     * revised by Francis
+     * Converts text to an image
+     * @author Howard <howard@realtyna.com>
      * @param string $text : text string
      * @param string $color: color hex code string
      * @param string $dest : destination file path string
@@ -355,7 +359,8 @@ class wpl_images
     }
     
     /**
-     * written by Francis
+     * Resize and add watermark to an image
+     * @author Francis <francis@realtyna.com>
      * @param String $source: source file string path
      * @param String $dest  : destination file string path
      * description          : gets gallery settings, resize and watermark source image
@@ -381,8 +386,9 @@ class wpl_images
             self::add_watermark_image($dest, $dest, $watermark_options); 
     } 
     
-     /**
-     * written by Francis
+    /**
+     * Creates gallery image
+     * @author Francis <francis@realtyna.com>
      * @param int $width
      * @param int $height
      * @param array $params
@@ -420,7 +426,8 @@ class wpl_images
     }
 	
 	/**
-     * written by Howard
+     * Creates profile image
+     * @author Howard <howard@realtyna.com>
      * @param string $source
 	 * @param int $width
      * @param int $height

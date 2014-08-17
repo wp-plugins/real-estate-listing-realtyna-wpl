@@ -15,7 +15,7 @@ foreach($js as $javascript) wpl_extensions::import_javascript($javascript);
 wplj(document).ready(function()
 {
     <?php if(count($wpl_properties) > 1): ?>
-	wplj('.bxslider').bxSlider(
+	wplj('#bxslider_widget<?php echo $this->widget_id; ?>').bxSlider(
 	{
 		mode: 'fade',
 		pager: false,
@@ -28,7 +28,7 @@ wplj(document).ready(function()
 });
 </script>
 <div class="wpl_carousel_container">
-	<ul class="bxslider">
+	<ul class="bxslider" id="bxslider_widget<?php echo $this->widget_id; ?>">
 		<?php 
 		foreach($wpl_properties as $key=>$gallery)
 		{
@@ -40,8 +40,8 @@ wplj(document).ready(function()
 		        $params['image_parentkind'] = $gallery["items"]["gallery"][0]->parent_kind;
 		        $params['image_source'] 	= wpl_global::get_upload_base_path().$params['image_parentid'].DS.$params['image_name'];
 
-		        if(isset($gallery['rendered']['313']) and trim($gallery['rendered']['313']['value']) != '') $image_title = $gallery['rendered']['313']['value'];
-		        else $image_title = $gallery['rendered'][3]['value'] .' '.$gallery['rendered'][2]['value'];
+		        if(isset($gallery['materials']['field_313']) and trim($gallery['materials']['field_313']['value']) != '') $image_title = $gallery['materials']['field_313']['value'];
+		        else $image_title = $gallery['materials']['property_type']['value'] .' '.$gallery['materials']['listing']['value'];
 				
 				$image_description = $gallery["items"]["gallery"][0]->item_extra2;
                 

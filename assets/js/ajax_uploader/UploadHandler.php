@@ -51,7 +51,7 @@ class UploadHandler
         (
             'script_url' => $this->get_full_url().'/',
             'upload_dir' => ABSPATH.'wp-content/uploads/WPL/',
-            'upload_url' =>  get_site_url().'/wp-content/uploads/WPL/',
+            'upload_url' => get_site_url().'/wp-content/uploads/WPL/',
             'user_dirs' => true,
             'mkdir_mode' => 0755,
             'param_name' => 'files',
@@ -574,12 +574,12 @@ class UploadHandler
 
     protected function get_file_name($name, $type = null, $index = null, $content_range = null)
     {
-        return $this->get_unique_filename(
+        return $this->fix_name($this->get_unique_filename(
             $this->trim_file_name($name, $type, $index, $content_range),
             $type,
             $index,
             $content_range
-        );
+        ));
     }
 
     protected function handle_form_data($file, $index)
@@ -972,6 +972,7 @@ class UploadHandler
                 '',
                 $this->get_server_var('HTTP_CONTENT_DISPOSITION')
             )) : null;
+        
         // Parse the Content-Range header, which has the following form:
         // Content-Range: bytes 0-524287/2000000
         $content_range = $this->get_server_var('HTTP_CONTENT_RANGE') ?
@@ -1031,5 +1032,14 @@ class UploadHandler
         }
         return $this->generate_response(array('success' => $success), $print_response);
     }
-
+    
+    public function fix_name($name)
+    {
+		$name = trim($name);
+		$search = array("/\+/","/\:/","/\(/","/\)/","/\"/","/\//","/\!/","/\"/","/\-+/","/\s+/");
+		$replace = array(" "," "," "," "," "," "," "," "," ","-");
+	
+		$name = preg_replace($search, $replace, $name);
+		return trim($name, ' -');
+	}
 }

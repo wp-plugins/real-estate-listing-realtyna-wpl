@@ -162,7 +162,7 @@ function wpl_generate_modify_activity_page(activity_id)
 	}
 	
 	/** open fancybox **/
-	if(!activity_id) jQuery("#wpl_fancybox_handler").trigger("click");
+	if(!activity_id) wplj("#wpl_fancybox_handler").trigger("click");
 	
 	/** run ajax query **/
 	wplj.ajax(

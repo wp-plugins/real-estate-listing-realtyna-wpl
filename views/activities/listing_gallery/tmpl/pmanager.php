@@ -8,7 +8,7 @@ $this->property_id = isset($wpl_properties['current']['data']['id']) ? $wpl_prop
 
 /** get image params **/
 $this->image_width = isset($params['image_width']) ? $params['image_width'] : 285;
-$this->image_height = isset($params['image_height']) ? $params['image_height'] : 200;
+$this->image_height = isset($params['image_height']) ? $params['image_height'] : 140;
 $this->image_class = isset($params['image_class']) ? $params['image_class'] : '';
 $this->resize = (isset($params['resize']) and trim($params['resize']) != '') ? $params['resize'] : 1;
 $this->rewrite = (isset($params['rewrite']) and trim($params['rewrite']) != '') ? $params['rewrite'] : 0;

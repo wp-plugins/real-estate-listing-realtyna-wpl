@@ -36,7 +36,7 @@ class wpl_profile_listing_controller extends wpl_controller
 		
 		/** detect kind **/
 		$this->kind = wpl_request::getVar('kind', 2);
-		if(!in_array($this->kind, wpl_flex::get_kinds()))
+		if(!in_array($this->kind, wpl_flex::get_valid_kinds()))
 		{
 			/** import message tpl **/
 			$this->message = __('Invalid Request!', WPL_TEXTDOMAIN);

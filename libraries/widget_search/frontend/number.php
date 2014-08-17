@@ -107,16 +107,10 @@ if($type == 'number' and !$done_this)
     	$html .= '<select name="sf'.$widget_id.'_tmin_'.$field_data['table_column'].'" id="sf'.$widget_id.'_tmin_'.$field_data['table_column'].'">';
 		
 		$i = $min_value;
-		$html .= '<option value="0" '.($current_min_value == $i ? 'selected="selected"' : '').'>'.__('From', WPL_TEXTDOMAIN).'</option>';
+		$html .= '<option value="0" '.($current_min_value == $i ? 'selected="selected"' : '').'>'.__('Min '.$field_data['name'], WPL_TEXTDOMAIN).'</option>';
         
 		while($i < $max_value)
 		{
-			if($i == '0')
-			{
-				$i += $division;
-				continue;
-			}
-			
 			$html .= '<option value="'.$i.'">'.$i.'</option>';
 			$i += $division;
 		}
@@ -127,7 +121,7 @@ if($type == 'number' and !$done_this)
         $html .= '<select name="sf'.$widget_id.'_tmax_'.$field_data['table_column'].'" id="sf'.$widget_id.'_tmax_'.$field_data['table_column'].'">';
         
         $i = $min_value;
-		$html .= '<option value="999999999999" '.($current_max_value == $i ? 'selected="selected"' : '').'>'.__("To", WPL_TEXTDOMAIN).'</option>';
+		$html .= '<option value="999999999999" '.($current_max_value == $i ? 'selected="selected"' : '').'>'.__('Max '.$field_data['name'], WPL_TEXTDOMAIN).'</option>';
 		
 		while($i < $max_value)
 		{

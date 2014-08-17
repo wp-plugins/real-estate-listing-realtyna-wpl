@@ -45,6 +45,14 @@ function selectChange(element, type) {
                 wplj(__self).parent().siblings('.wpl_extoptions_span').slideUp(400);
 
             break;
+            
+        case 'locations':
+            if (__self.value != 'simple')
+                wplj(__self).parent().siblings('.wpl_extoptions_span').slideDown(400);
+            else
+                wplj(__self).parent().siblings('.wpl_extoptions_span').slideUp(400);
+
+            break;
 
         case 'select':
 
@@ -358,6 +366,7 @@ var wplSearchWidget<?php echo $this->number ?> = (function (codeId) {
             // Append the move icon to disable element
 
         // Append the move icon to disable element
+        _j('#wpl_view_fields_<?php echo $this->number ?> .search-field-wp[data-status="disable"] h4').append(searchConfig.templates.move);
         _j('#wpl_view_fields_<?php echo $this->number ?> .search-field-wp[data-status="enable"] h4').append(searchConfig.templates.delete);
 
         // Move enable elements to active block
@@ -595,6 +604,9 @@ var wplSearchWidget<?php echo $this->number ?> = (function (codeId) {
 
                     updateElements(true);
 
+                    //..Move scroll to bottom
+                    _j(getBlockId('active')).mCustomScrollbar('scrollTo', 'bottom');
+
                 }
             });
 
@@ -615,9 +627,5 @@ var wplSearchWidget<?php echo $this->number ?> = (function (codeId) {
     });
 })('<?php echo $this->number ?>');
 
-(function ($) {
-    $(function () {
-        isWPL();
-    })
-})(jQuery);
+(function($){$(function(){isWPL();})})(jQuery);
 </script>

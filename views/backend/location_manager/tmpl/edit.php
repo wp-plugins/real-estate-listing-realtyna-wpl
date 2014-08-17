@@ -8,7 +8,6 @@ defined('_WPLEXEC') or die('Restricted access');
         <div class="fanc-row">
             <label for="wpl_name"><?php echo __('Name', WPL_TEXTDOMAIN); ?></label>
             <input class="text_box" type="text" id="wpl_location_name" value="<?php echo wpl_global::isset_object('name', $this->location_data); ?>" autocomplete="off" />
-            <?php echo wpl_notices::display_tooltip(59) ?>
         </div>
         <div class="fanc-row fanc-button-row">
             <?php if ($this->location_id): ?>

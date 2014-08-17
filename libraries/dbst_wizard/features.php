@@ -4,8 +4,8 @@ defined('_WPLEXEC') or die('Restricted access');
 
 if($type == 'feature' and !$done_this)
 {
-    $checked = $values['f_' . $field->id] == '1' ? 'checked="checked"' : '';
-    $style = $values['f_' . $field->id] == '1' ? '' : 'display:none;';
+    $checked = (isset($values[$field->table_column]) and $values[$field->table_column] == '1') ? 'checked="checked"' : '';
+    $style = (isset($values[$field->table_column]) and $values[$field->table_column] == '1') ? '' : 'display:none;';
 ?>
 <div class="checkbox-wp">
 	<input type="checkbox" id="wpl_c_<?php echo $field->id; ?>" <?php echo $checked; ?> onchange="wplj('#wpl_span_feature_<?php echo $field->id; ?>').slideToggle(400); ajax_save('<?php echo $field->table_name; ?>', '<?php echo $field->table_column; ?>', this.value, '<?php echo $item_id; ?>', '<?php echo $field->id; ?>');" />
@@ -14,12 +14,12 @@ if($type == 'feature' and !$done_this)
 	if($options['type'] != 'none')
 	{
 		// setting the current value
-		$value = $values['f_' . $field->id . '_options'];
+		$value = $values[$field->table_column.'_options'];
 		
 		if($options['type'] == 'single')
 		{
 			echo '<div class="options-wp" id="wpl_span_feature_' . $field->id . '" style="' . $style . '">';
-			echo '<select id="wpl_cf_' . $field->id . '" onchange="ajax_save(\'' . $field->table_name . '\', \'f_' . $field->id . '_options\', this.value, \'' . $item_id . '\', \'' . $field->id . '\', \'#wpl_cf_' . $field->id . '\');">';
+			echo '<select id="wpl_cf_' . $field->id . '" onchange="ajax_save(\'' . $field->table_name . '\', \''.$field->table_column.'_options\', this.value, \'' . $item_id . '\', \'' . $field->id . '\', \'#wpl_cf_' . $field->id . '\');">';
 			echo '<option value="0">' . __('Select', WPL_TEXTDOMAIN) . '</option>';
 	
 			foreach($options['values'] as $select)
@@ -36,7 +36,7 @@ if($type == 'feature' and !$done_this)
 			$value_array = explode(',', $value);
 		
 			echo '<div class="options-wp" id="wpl_span_feature_' . $field->id . '" style="' . $style . '">';
-			echo '<select multiple="multiple" id="wpl_cf_' . $field->id . '" onchange="ajax_save(\'' . $field->table_name . '\', \'f_' . $field->id . '_options\', wplj(this).val(), \'' . $item_id . '\', \'' . $field->id . '\', \'#wpl_cf_' . $field->id . '\');">';
+			echo '<select multiple="multiple" id="wpl_cf_' . $field->id . '" onchange="ajax_save(\'' . $field->table_name . '\', \''.$field->table_column.'_options\', wplj(this).val(), \'' . $item_id . '\', \'' . $field->id . '\', \'#wpl_cf_' . $field->id . '\');">';
 	
 			foreach($options['values'] as $select)
 			{

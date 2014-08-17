@@ -3,13 +3,19 @@
 defined('_WPLEXEC') or die('Restricted access');
 
 /**
-** Path Library
-** Developed 03/05/2013
-**/
-
+ * Path Library
+ * @author Howard <howard@realtyna.com>
+ * @since WPL1.0.0
+ * @date 03/05/2013
+ */
 class wpl_path
 {
-	/** is chmod available **/
+    /**
+     * Is chmod available
+     * @author Howard <howard@realtyna.com>
+     * @param string $path
+     * @return boolean
+     */
 	public static function canChmod($path)
 	{
 		$perms = fileperms($path);
@@ -25,7 +31,14 @@ class wpl_path
 		return false;
 	}
 
-	/** set permissions for a file or directory **/
+    /**
+     * set permissions for a file or directory
+     * @author Howard <howard@realtyna.com>
+     * @param string $path
+     * @param string $filemode
+     * @param string $foldermode
+     * @return boolean
+     */
 	public static function setPermissions($path, $filemode = '0644', $foldermode = '0755')
 	{
 		// Initialise return value
@@ -80,7 +93,12 @@ class wpl_path
 		return $ret;
 	}
 
-	/** get permissions **/
+    /**
+     * Get permissions
+     * @author Howard <howard@realtyna.com>
+     * @param string $path
+     * @return string
+     */
 	public static function getPermissions($path)
 	{
 		$path = wpl_path::clean($path);
@@ -105,14 +123,26 @@ class wpl_path
 		return $parsed_mode;
 	}
 
-	/** check **/
+    /**
+     * Check
+     * @author Howard <howard@realtyna.com>
+     * @param string $path
+     * @param string $ds
+     * @return string
+     */
 	public static function check($path, $ds = DIRECTORY_SEPARATOR)
 	{
 		$path = wpl_path::clean($path);
 		return $path;
 	}
 
-	/** clean path **/
+    /**
+     * Clean path
+     * @author Howard <howard@realtyna.com>
+     * @param string $path
+     * @param string $ds
+     * @return string
+     */
 	public static function clean($path, $ds = DIRECTORY_SEPARATOR)
 	{
 		$path = trim($path);
@@ -130,7 +160,13 @@ class wpl_path
 		return $path;
 	}
 
-	/** find a file in paths **/
+    /**
+     * Find a file in paths
+     * @author Howard <howard@realtyna.com>
+     * @param array $paths
+     * @param string $file
+     * @return boolean
+     */
 	public static function find($paths, $file)
 	{
 		settype($paths, 'array'); //force to array

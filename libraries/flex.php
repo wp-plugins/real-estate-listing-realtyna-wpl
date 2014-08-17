@@ -112,11 +112,20 @@ class wpl_flex
 	
 	/**
 		@input void
-		@return kind ids
+		@return valid kind ids
+	**/
+	public static function get_valid_kinds()
+	{
+		return array(0, 1, 2);
+	}
+    
+    /**
+		@input void
+		@return kind array
 	**/
 	public static function get_kinds()
 	{
-		return array(0, 1, 2);
+		return array(0=>array('id'=>0, 'name'=>'Property'), 1=>array('id'=>1, 'name'=>'Complex'), 2=>array('id'=>2, 'name'=>'User'));
 	}
 	
 	/**
@@ -268,7 +277,7 @@ class wpl_flex
 			$field = substr($key, $length);
 			$options[$field] = $value;
 		}
-		
+        
 		return json_encode($options);
 	}
 	

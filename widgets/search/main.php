@@ -114,9 +114,9 @@ class wpl_search_widget extends wpl_widget
 	
 	public function generate_backend_categories($values)
 	{
-		$categories = wpl_flex::get_categories(1, 0, ' and `searchmod` = 1 and `kind` = 0 and `enabled`>=1');
-                
-                // Tab Content
+		$categories = wpl_flex::get_categories(1, 0, ' AND `searchmod`=1 AND `kind`=0 AND `enabled`>=1');
+        
+        // Tab Content
 		foreach($categories as $category)
 		{
 			$path = 'widgets.search.scripts.fields_category';
@@ -127,9 +127,9 @@ class wpl_search_widget extends wpl_widget
     
     public function generate_backend_categories_tabs($values)
 	{
-		$categories = wpl_flex::get_categories(1, 0, ' and `searchmod` = 1 and `kind` = 0 and `enabled`>=1');
-                
-                // Tabs
+		$categories = wpl_flex::get_categories(1, 0, ' AND `searchmod`=1 AND `kind`=0 AND `enabled`>=1');
+        
+        // Tabs
 		foreach($categories as $category)
 		{
 			$path = 'widgets.search.scripts.fields_category_tabs';
@@ -144,7 +144,7 @@ class wpl_search_widget extends wpl_widget
 		$files = array();
 		
 		if(wpl_folder::exists($path)) $files = wpl_folder::files($path, '.php$');
-		
+        
 		foreach($fields as $key=>$field)
 		{
 			if(!$field) return;

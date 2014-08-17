@@ -22,8 +22,8 @@ $image_height = isset($this->instance['data']['image_height']) ? $this->instance
 		        $params['image_parentkind'] = $gallery["items"]["gallery"][0]->parent_kind;
 		        $params['image_source'] 	= wpl_global::get_upload_base_path().$params['image_parentid'].DS.$params['image_name'];
 
-		        if(isset($gallery['rendered']['313']) and trim($gallery['rendered']['313']['value']) != '') $image_title = $gallery['rendered']['313']['value'];
-		        else $image_title = $gallery['rendered'][3]['value'] .' '.$gallery['rendered'][2]['value'];
+		        if(isset($gallery['materials']['field_313']) and trim($gallery['materials']['field_313']['value']) != '') $image_title = $gallery['materials']['field_313']['value'];
+		        else $image_title = $gallery['materials']['property_type']['value'] .' '.$gallery['materials']['listing']['value'];
 				
 				$image_description = $gallery["items"]["gallery"][0]->item_extra2;
                 

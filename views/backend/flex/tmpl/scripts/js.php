@@ -7,12 +7,12 @@ wplj(document).ready(function()
 {
 	wplj(function()
 	{
-		wplj( ".sortable").sortable(
+		wplj(".sortable").sortable(
 		{
 			handle: 'span.icon-move',
 			cursor: "move" ,
 			update : function(e, ui)
-		{
+            {
 				var stringDiv = "";
 				wplj(this).children("tr").each(function(i)
 				{
@@ -151,7 +151,7 @@ function get_specific_options_string(prefix)
 	/** specific options **/
 	wplj("#wpl_flex_specific_options input:text, #wpl_flex_specific_options input[type='hidden'], #wpl_flex_specific_options select").each(function (index, element)
 	{
-		specific_str += "&"+element.id.replace(prefix,"")+"="+wplj(element).val();
+		specific_str += "&"+element.id.replace(prefix, "")+"="+encodeURIComponent(wplj(element).val());
 	});
 	
 	return specific_str;

@@ -131,8 +131,6 @@ if(($type == 'area' or $type == 'price' or $type == 'volume' or $type == 'length
 	}
 	elseif($show == 'minmax_selectbox')
 	{
-		//$html .= '<label id="wpl_search_widget_from_label'.$widget_id.'" class="wpl_search_widget_from_label" for="sf'.$widget_id.'_min_'.$field_data['table_column'].'">'.__('From', WPL_TEXTDOMAIN).'</label>';
-		
         $html .= '
         <script type="text/javascript">
         wplj(function()
@@ -152,7 +150,7 @@ if(($type == 'area' or $type == 'price' or $type == 'volume' or $type == 'length
         
         $i = $min_value;
     	$html .= '<select name="sf'.$widget_id.'_min_'.$field_data['table_column'].'" id="sf'.$widget_id.'_min_'.$field_data['table_column'].'">';
-		if($any) $html .= '<option value="0" '.($current_min_value == $i ? 'selected="selected"' : '').' >'.__('Min '.$field_data['name'], WPL_TEXTDOMAIN).'</option>';
+		if($any) $html .= '<option value="0" '.($current_min_value == $i ? 'selected="selected"' : '').'>'.__('Min '.$field_data['name'], WPL_TEXTDOMAIN).'</option>';
 		
 		while($i < $max_value)
 		{
@@ -162,14 +160,13 @@ if(($type == 'area' or $type == 'price' or $type == 'volume' or $type == 'length
 				continue;
 			}
 			
-			$html .= '<option value="'.$i.'">'.$i.'</option>';
+			$html .= '<option value="'.$i.'" '.($current_min_value == $i ? 'selected="selected"' : '').'>'.number_format($i, 0, '.', ',').'</option>';
 			$i += $division;
 		}
 		
-		$html .= '<option value="'.$max_value.'">'.$max_value.'</option>';
+		$html .= '<option value="'.$max_value.'" '.($current_min_value == $i ? 'selected="selected"' : '').'>'.$max_value.'</option>';
         $html .= '</select>';
-		
-		//$html .= '<label id="wpl_search_widget_to_label'.$widget_id.'" class="wpl_search_widget_to_label" for="sf'.$widget_id.'_max_'.$field_data['table_column'].'">'.__('To', WPL_TEXTDOMAIN).'</label>';
+        
         $html .= '<select name="sf'.$widget_id.'_max_'.$field_data['table_column'].'" id="sf'.$widget_id.'_max_'.$field_data['table_column'].'">';
 		if($any) $html .= '<option value="999999999999" '.($current_max_value == $i ? 'selected="selected"' : '').'>'.__('Max '.$field_data['name'], WPL_TEXTDOMAIN).'</option>';
 		
@@ -177,11 +174,11 @@ if(($type == 'area' or $type == 'price' or $type == 'volume' or $type == 'length
 		
 		while($i < $max_value)
 		{
-			$html .= '<option value="'.$i.'">'.$i.'</option>';
+			$html .= '<option value="'.$i.'" '.($current_max_value == $i ? 'selected="selected"' : '').'>'.number_format($i, 0, '.', ',').'</option>';
 			$i += $division;
 		}
 		
-		$html .= '<option value="'.$max_value.'">'.$max_value.'</option>';
+		$html .= '<option value="'.$max_value.'" '.($current_max_value == $i ? 'selected="selected"' : '').'>'.$max_value.'</option>';
         $html .= '</select>';
 	}
 	elseif($show == 'minmax_selectbox_plus')
@@ -193,11 +190,11 @@ if(($type == 'area' or $type == 'price' or $type == 'volume' or $type == 'length
 		$html .= '<option value="-1" '.($current_min_value == $i ? 'selected="selected"' : '').'>'.__($field['name'], WPL_TEXTDOMAIN).'</option>';
 		while($i < $max_value)
 		{
-			$html .= '<option value="'.$i.'">'.$i.'+</option>';
+			$html .= '<option value="'.$i.'" '.($current_min_value == $i ? 'selected="selected"' : '').'>'.number_format($i, 0, '.', ',').'+</option>';
 			$i += $division;
 		}
 		
-		$html .= '<option value="'.$max_value.'">'.$max_value.'+</option>';
+		$html .= '<option value="'.$max_value.'" '.($current_min_value == $i ? 'selected="selected"' : '').'>'.number_format($max_value, 0, '.', ',').'+</option>';
         $html .= '</select>';
 	}
 	

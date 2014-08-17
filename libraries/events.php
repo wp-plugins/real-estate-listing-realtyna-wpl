@@ -3,19 +3,20 @@
 defined('_WPLEXEC') or die('Restricted access');
 
 /**
-** Events Library
-** Developed 04/17/2013
-**/
-
+ * Events Library
+ * @author Howard <howard@realtyna.com>
+ * @since WPL1.0.0
+ * @date 04/17/2013
+ */
 class wpl_events
 {
-	/**
-		Developed by : Howard
-		Inputs : trigger and dynamic params
-		Outputs : void
-		Date : 2013-04-17
-		Description : use this function for calling any events
-	**/
+    /**
+     * Triggers a event
+     * @author Howard <howard@realtyna.com>
+     * @param string $trigger
+     * @param array $params
+     * @return boolean
+     */
 	public static function trigger($trigger, $params = array())
 	{
 		/** fetch events **/
@@ -45,6 +46,13 @@ class wpl_events
 	/**
 		get events by trigger and enabled status
 	**/
+    /**
+     * Gets events by trigger from database
+     * @author Howard <howard@realtyna.com>
+     * @param string $trigger
+     * @param int $enabled
+     * @return array
+     */
 	public static function get_events($trigger, $enabled = 1)
 	{
 		$query = "SELECT * FROM `#__wpl_events` WHERE `trigger`='$trigger' AND `enabled`>='$enabled'";
@@ -58,11 +66,18 @@ class wpl_events
 		Date : 2013-04-17
 		Description : use this function for calling one event
 	**/
+    /**
+     * Triggers one event by id
+     * @author Howard <howard@realtyna.com>
+     * @param int $event_id
+     * @param array $params
+     * @return boolean
+     */
 	public static function trigger_by_id($event_id, $params)
 	{
 		/** get event **/
 		$event = self::get_event($event_id);
-		if(!$event) return;
+		if(!$event) return false;
 		
 		/** generate all params **/
 		$all_params = array();
@@ -75,19 +90,27 @@ class wpl_events
 		
 		/** call function **/
 		call_user_func(array($event->class_name, $event->function_name), $all_params);
+        
+        return true;
 	}
-	
-	/**
-		get events by event_id
-	**/
+    
+    /**
+     * Gets a single event by event_id
+     * @author Howard <howard@realtyna.com>
+     * @param string $event_id
+     * @return array
+     */
 	public static function get_event($event_id)
 	{
 		return wpl_db::get('*', 'wpl_events', 'id', $event_id);
 	}
-	
-	/**
-		Execute all cronjobs
-	**/
+    
+    /**
+     * Executes all cronjobs
+     * @author Howard <howard@realtyna.com>
+     * @param array $params
+     * @return boolean
+     */
 	public static function do_cronjobs($params = array())
 	{
 		$cronjobs = self::get_cronjobs(1);
@@ -112,20 +135,28 @@ class wpl_events
 			/** update cronjob latest run **/
 			self::update_cronjob_latest_run($cronjob->id);
 		}
+        
+        return true;
 	}
 	
-	/**
-		get cronjobs
-	**/
+    /**
+     * Gets cronjobs
+     * @author Howard <howard@realtyna.com>
+     * @param int $enabled
+     * @return array
+     */
 	public static function get_cronjobs($enabled = 1)
 	{
 		$query = "SELECT * FROM `#__wpl_cronjobs` WHERE DATE_ADD(`latest_run`, INTERVAL `period` HOUR)<NOW() AND `enabled`>='$enabled'";
 		return wpl_db::select($query);
 	}
 	
-	/**
-		Update latest run of cronjobs
-	**/
+    /**
+     * Update latest run of cronjobs
+     * @author Howard <howard@realtyna.com>
+     * @param type $cronjob_id
+     * @return boolean
+     */
 	public static function update_cronjob_latest_run($cronjob_id)
 	{
 		/** first validation **/

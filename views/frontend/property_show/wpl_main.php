@@ -56,11 +56,16 @@ class wpl_property_show_controller extends wpl_controller
 		$this->pshow_fields = $this->model->get_pshow_fields('', $property['kind']);
 		$this->pshow_categories = wpl_flex::get_categories('', '', " AND `enabled`>='1' AND `kind`='".$property['kind']."' AND `pshow`='1'");
 		$wpl_properties = array();
-		
+        
 		/** define current index **/
 		$wpl_properties['current']['data'] = (array) $property;
 		$wpl_properties['current']['raw'] = (array) $property;
-		$wpl_properties['current']['rendered_raw'] = $this->model->render_property($property, $this->pshow_fields);
+        
+        $find_files = array();
+		$rendered_fields = $this->model->render_property($property, $this->pshow_fields, $find_files, true);
+        
+		$wpl_properties['current']['rendered_raw'] = $rendered_fields['ids'];
+        $wpl_properties['current']['materials'] = $rendered_fields['columns'];
 		
 		foreach($this->pshow_categories as $pshow_category)
 		{

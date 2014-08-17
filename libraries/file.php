@@ -5,33 +5,56 @@ defined('_WPLEXEC') or die('Restricted access');
 _wpl_import('libraries.path');
 
 /**
-** File Library
-** Developed 03/05/2013
-**/
-
+ * File Library
+ * @author Howard <howard@realtyna.com>
+ * @since WPL1.0.0
+ * @date 03/05/2013
+ */
 class wpl_file
 {
-	/** get extension **/
+    /**
+     * Get extension of a file
+     * @author Howard <howard@realtyna.com>
+     * @param string $file
+     * @return string
+     */
 	public static function getExt($file)
 	{
         $ex = explode('.', $file);
 		return end($ex);
 	}
 
-	/** strip extension **/
+    /**
+     * Strips extension
+     * @author Howard <howard@realtyna.com>
+     * @param string $file
+     * @return string extension
+     */
 	public static function stripExt($file)
 	{
 		return preg_replace('#\.[^.]*$#', '', $file);
 	}
 
-	/** make safe **/
+    /**
+     * Makes safe
+     * @author Howard <howard@realtyna.com>
+     * @param string $file
+     * @return string
+     */
 	public static function makeSafe($file)
 	{
 		$regex = array('#(\.){2,}#', '#[^A-Za-z0-9\.\_\- ]#', '#^\.#');
 		return preg_replace($regex, '', $file);
 	}
 
-	/** copies a file **/
+    /**
+     * Copies a file
+     * @author Howard <howard@realtyna.com>
+     * @param string $src
+     * @param string $dest
+     * @param string $path
+     * @return boolean
+     */
 	public static function copy($src, $dest, $path = null)
 	{
 		// Prepend a base path if it exists
@@ -55,7 +78,12 @@ class wpl_file
 		return true;
 	}
 
-	/** Delete a file or array of files **/
+    /**
+     * Delete a file or array of files
+     * @author Howard <howard@realtyna.com>
+     * @param string $file
+     * @return boolean
+     */
 	public static function delete($file)
 	{
 		if (is_array($file))
@@ -77,8 +105,15 @@ class wpl_file
 
 		return true;
 	}
-
-	/** Moves a file **/
+    
+    /**
+     * Moves a file
+     * @author Howard <howard@realtyna.com>
+     * @param string $src
+     * @param string $dest
+     * @param string $path
+     * @return boolean
+     */
 	public static function move($src, $dest, $path = '')
 	{
 		if ($path)
@@ -93,8 +128,13 @@ class wpl_file
 		
 		return true;
 	}
-
-	/** Read the contents of a file **/
+    
+    /**
+     * Read the contents of a file
+     * @author Howard <howard@realtyna.com>
+     * @param string $filename
+     * @return mixed data of file
+     */
 	public static function read($filename)
 	{
 		// Initialise variables.
@@ -118,8 +158,14 @@ class wpl_file
 			return false;
 		}
 	}
-
-	/** Write contents to a file **/
+    
+    /**
+     * Write contents to a file
+     * @author Howard <howard@realtyna.com>
+     * @param string $file
+     * @param string $buffer
+     * @return boolean
+     */
 	public static function write($file, &$buffer)
 	{
 		@set_time_limit(ini_get('max_execution_time'));
@@ -136,7 +182,13 @@ class wpl_file
 		return $ret;
 	}
 
-	/** Moves an uploaded file to a destination folder **/
+    /**
+     * Moves an uploaded file to a destination folder
+     * @author Howard <howard@realtyna.com>
+     * @param string $src
+     * @param string $dest
+     * @return boolean
+     */
 	public static function upload($src, $dest)
 	{
 		// Ensure that the path is valid and clean
@@ -158,14 +210,24 @@ class wpl_file
 
 		return $ret;
 	}
-
-	/** Wrapper for the standard file_exists function **/
+    
+    /**
+     * Wrapper for the standard file_exists function
+     * @author Howard <howard@realtyna.com>
+     * @param string $file
+     * @return boolean
+     */
 	public static function exists($file)
 	{
 		return is_file(wpl_path::clean($file));
 	}
-
-	/** Returns the name, without any path. **/
+    
+    /**
+     * Returns the name, without any path.
+     * @author Howard <howard@realtyna.com>
+     * @param string $file
+     * @return string
+     */
 	public static function getName($file)
 	{
 		// Convert back slashes to forward slashes
