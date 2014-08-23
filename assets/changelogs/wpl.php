@@ -4,6 +4,12 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.7.5 (<span class="wpl_log_date">8/23/2014</span> <span class="wpl_log_revision">revision 762</span>)</h4>
+        -- Fixed an issue on notification content.<br />
+        -- Fixed an issue on showing property neighborhoods.<br />
+        -- Updated WPL font icons.<br />
+        -- Added open graph meta tags to the single property page.
+        
         <h4>WPL1.7.4 (<span class="wpl_log_date">8/17/2014</span> <span class="wpl_log_revision">revision 752</span>)</h4>
         -- <strong>[PRO]</strong> Fixed an issue on PDF flyer.<br />
         -- Fixed an issue on notification content.<br />

@@ -86,9 +86,12 @@ ul{
 }
 .detail_boxes_tables .wpl_agent_info_l{
     display: inline-block;
+    width: 100px;
 }
 .detail_boxes_tables .wpl_agent_info_l img{
     border: 1px solid #dddddd;
+    width:100px;
+    height:100px;
 }
 .wpl_agent_info_r{
     display: inline-block;
@@ -117,15 +120,15 @@ ul{
     font-size: 10px;
 }
 .detail_box{
-    display: table;
+    display: block;
     width: 100%;
     border-spacing: 10px;
 }
 .detail_row{
-    display: table-row;
+    display: block;
 }
 .detail_l, .detail_r{
-    display: table-cell;
-    width: 50%;
-
+    display: inline-block;
+    width: 49%;
+    padding: 0 5px;
 }

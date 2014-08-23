@@ -3,16 +3,22 @@
 defined('_WPLEXEC') or die('Restricted access');
 
 /**
-** sort options Library
-** Developed 08/11/2013
-**/
-
+ * Room Types Library
+ * @author Howard <howard@realtyna.com>
+ * @since WPL1.0.0
+ * @date 08/11/2013
+ */
 class wpl_room_types
 {
-	/**
-		@input {enabled} and [condition]
-		@return array room types
-	**/
+    /**
+     * Get room types
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $enabled
+     * @param string $condition
+     * @param string $type
+     * @return array
+     */
 	public static function get_room_types($enabled = 1, $condition = '', $type = '')
 	{
 		if(trim($condition) == '')
@@ -27,9 +33,12 @@ class wpl_room_types
 		return wpl_db::select($query, 'loadAssocList');
 	}
 	
-	/**
-		@input $sort_ids
-	**/
+    /**
+     * Sorts room types
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $sort_ids
+     */
 	public static function sort_room_types($sort_ids)
 	{
 		$query = "SELECT `id`,`index` FROM `#__wpl_room_types` WHERE `id` IN ($sort_ids) ORDER BY `index` ASC";
@@ -45,10 +54,16 @@ class wpl_room_types
 		}
 	}
 	
-	/**
-		@input {table}, {key}, {id} and [value]
-		@return boolean result
-	**/
+    /**
+     * Updates a room type
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $table
+     * @param int $id
+     * @param string $key
+     * @param mixed $value
+     * @return boolean
+     */
 	public static function update($table = 'wpl_room_types', $id, $key, $value = '')
 	{
 		/** first validation **/
@@ -56,11 +71,13 @@ class wpl_room_types
 		return wpl_db::set($table, $id, $key, $value);
 	}
 	
-	/**
-		@input {room_id}
-		@return boolean result
-		@description removing an existing room type
-	**/
+    /**
+     * Removes room type
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $room_id
+     * @return mixed
+     */
 	public static function remove_room_type($room_id)
 	{
 		$query = "DELETE FROM `#__wpl_room_types` WHERE `id`='$room_id'";
@@ -69,11 +86,13 @@ class wpl_room_types
 		return $result;
 	}
 	
-	/**
-		@input {name}
-		@return boolean result
-		@description adding a new room type
-	**/
+    /**
+     * Adds a new room type
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $name
+     * @return int
+     */
 	public static function save_room_type($name)
 	{
 		$query = "INSERT INTO `#__wpl_room_types` (`name`) VALUES ('$name')";
@@ -85,10 +104,13 @@ class wpl_room_types
 		return $id;
 	}
 	
-	/**
-		@input {icon_name}
-		@return array icon data
-	**/
+    /**
+     * Returns icon details
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $icon_name
+     * @return array
+     */
 	public static function get_icon($icon_name)
 	{
 		$url = wpl_global::get_wpl_asset_url('img/rooms/'.$icon_name);

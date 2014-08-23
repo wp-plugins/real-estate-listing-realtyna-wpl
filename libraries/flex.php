@@ -3,22 +3,29 @@
 defined('_WPLEXEC') or die('Restricted access');
 
 /**
-** Flex Library
-** Developed 05/01/2013
-**/
-
+ * Flex Library
+ * @author Howard R <howard@realtyna.com>
+ * @since WPL1.0.0
+ * @date 05/01/2013
+ */
 class wpl_flex
 {
 	public static $category_listing_specific_array = array();
 	public static $category_property_type_specific_array = array();
 	public static $wizard_js_validation = array();
 	
-	/**
-		@input [category], [enabled], [kind], [custom key], [custom value] and [condition]
-		@params: key is a custom field for selecting for example "plisting" or "pwizard"
-		@params: value is a value of custom key
-		@return field objects
-	**/
+    /**
+     * Returns dbst fields
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $category
+     * @param int $enabled
+     * @param int $kind
+     * @param string $key
+     * @param mixed $value
+     * @param string $condition
+     * @return objects
+     */
 	public static function get_fields($category = '', $enabled = 0, $kind = 0, $key = '', $value = '', $condition = '')
 	{
 		if(!$condition)
@@ -36,20 +43,27 @@ class wpl_flex
 		return wpl_db::select($query, 'loadObjectList');
 	}
 	
-	/**
-		@input {field_id}
-		@return field object
-	**/
+    /**
+     * Get dbst field data
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $field_id
+     * @return object
+     */
 	public static function get_field($field_id)
 	{
 		$query = "SELECT * FROM `#__wpl_dbst` WHERE `id`='$field_id'";
 		return wpl_db::select($query, 'loadObject');
 	}
 	
-	/**
-		@input {dbst_id}
-		@return void
-	**/
+    /**
+     * Create default dbst field and returns new dbst id
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $dbst_id
+     * @param int $searchmod
+     * @return int
+     */
 	public static function create_default_dbst($dbst_id = 0, $searchmod = 1)
 	{
 		if(!$dbst_id) $dbst_id = self::get_new_dbst_id();
@@ -58,10 +72,15 @@ class wpl_flex
 		return wpl_db::q($query, 'insert');
 	}
 	
-	/**
-		@input [enabled], [kind] and [condition]
-		@return array categories
-	**/
+    /**
+     * Returns dbcats data
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $enabled
+     * @param int $kind
+     * @param string $condition
+     * @return objects
+     */
 	public static function get_categories($enabled = 1, $kind = 0, $condition = '')
 	{
 		if(trim($condition) == '') $condition = " AND `enabled`>='$enabled' AND `kind`='$kind'";
@@ -70,68 +89,89 @@ class wpl_flex
 		return wpl_db::select($query, 'loadObjectList');
 	}
 	
-	/**
-		@input {category_id}
-		@return category object
-	**/
+    /**
+     * Returns dbcat data
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $category_id
+     * @return object
+     */
 	public static function get_category($category_id)
 	{
 		$query = "SELECT * FROM `#__wpl_dbcat` WHERE `id`='$category_id'";
 		return wpl_db::select($query, 'loadObject');
 	}
 	
-	/**
-		@input {kind}
-		@return kind label
-	**/
+    /**
+     * Returns kind label
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $kind
+     * @return string
+     */
 	public static function get_kind_label($kind = 0)
 	{
 		$kind_array = array(0=>'property', 1=>'complex', 2=>'user');
 		return $kind_array[$kind];
 	}
 	
-	/**
-		@input {kind_name}
-		@return kind id
-	**/
+    /**
+     * Returns kind id
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $kind_name
+     * @return int
+     */
 	public static function get_kind_id($kind_name = 'property')
 	{
 		$kind_array = array('property'=>0, 'complex'=>1, 'user'=>2);
 		return $kind_array[$kind_name];
 	}
-	
-	/**
-		@input {kind}
-		@return kind label
-	**/
+    
+    /**
+     * Returns kind table
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $kind
+     * @return string
+     */
 	public static function get_kind_table($kind = 0)
 	{
 		$kind_array = array(0=>'wpl_properties', 1=>'wpl_properties', 2=>'wpl_users');
 		return $kind_array[$kind];
 	}
 	
-	/**
-		@input void
-		@return valid kind ids
-	**/
+    /**
+     * Returns valid kinds
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @return array
+     */
 	public static function get_valid_kinds()
 	{
 		return array(0, 1, 2);
 	}
     
     /**
-		@input void
-		@return kind array
-	**/
+     * Returns kinds
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @return array
+     */
 	public static function get_kinds()
 	{
 		return array(0=>array('id'=>0, 'name'=>'Property'), 1=>array('id'=>1, 'name'=>'Complex'), 2=>array('id'=>2, 'name'=>'User'));
 	}
-	
-	/**
-		@input [enabled], [kind] and [condition]
-		@return array dbst types
-	**/
+    
+    /**
+     * Returns dbst types
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $enabled
+     * @param int $kind
+     * @param string $condition
+     * @return objects
+     */
 	public static function get_dbst_types($enabled = 1, $kind = 0, $condition = '')
 	{
 		if(trim($condition) == '')
@@ -142,11 +182,16 @@ class wpl_flex
 		$query = "SELECT * FROM `#__wpl_dbst_types` WHERE 1 ".$condition." ORDER BY `id` ASC";
 		return wpl_db::select($query, 'loadObjectList');
 	}
-	
-	/**
-		@input [enabled], [kind] and [type]
-		@return object dbst type
-	**/
+    
+    /**
+     * Returns dbst type data
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $enabled
+     * @param int $kind
+     * @param string $type
+     * @return object
+     */
 	public static function get_dbst_type($enabled = 1, $kind = 0, $type = '')
 	{
 		$condition = " AND `enabled`>='$enabled' AND `kind` LIKE '%[$kind]%' AND `type`='$type'";
@@ -155,10 +200,15 @@ class wpl_flex
 		return wpl_db::select($query, 'loadObject');
 	}
 	
-	/**
-		@input [key] and [dbst_id]
-		@return key value
-	**/
+    /**
+     * Returns value of one specific column of dbst record on dbst table
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $key
+     * @param int $dbst_id
+     * @param int $kind
+     * @return boolean
+     */
 	public static function get_dbst_key($key, $dbst_id, $kind = 0)
 	{
 		/** first validation **/
@@ -168,20 +218,25 @@ class wpl_flex
 		return $dbst_data->$key;
 	}
 	
-	/**
-		@input void
-		@return new dbst id for insert new fields
-	**/
+    /**
+     * Returns new dbst id
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @return int
+     */
 	public static function get_new_dbst_id()
 	{
 		$max_dbst_id = wpl_db::get("MAX(`id`)", "wpl_dbst", '', '', '', "`id`<'10000'");
 		return max(($max_dbst_id+1), 3000);
 	}
 	
-	/**
-		@input {dbst_id}
-		@return boolean result
-	**/
+    /**
+     * Removes a dbst field from dbst table
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $dbst_id
+     * @return boolean
+     */
 	public static function remove_dbst($dbst_id)
 	{
 		/** first validation **/
@@ -190,11 +245,15 @@ class wpl_flex
 		wpl_db::delete("wpl_dbst", $dbst_id);
 	}
 	
-	/**
-		@input {dbst type}, [dbst_id]
-		@return void
-		@description this function generates dbst modify form
-	**/
+    /**
+     * Generates modify form of a dbst field
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $dbst_type
+     * @param int $dbst_id
+     * @param int $kind
+     * @return void
+     */
 	public static function generate_modify_form($dbst_type = 'text', $dbst_id = 0, $kind = 0)
 	{
 		/** first validation **/
@@ -237,10 +296,15 @@ class wpl_flex
 		}
 	}
 	
-	/**
-		@input {dbst_id}, {dbst type} and {dbst kind}
-		@return new dbst id for insert new fields
-	**/
+    /**
+     * Runs dbst type queries for a dbst field
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $dbst_id
+     * @param string $dbst_type
+     * @param int $dbst_kind
+     * @param string $query_type
+     */
 	public static function run_dbst_type_queries($dbst_id, $dbst_type, $dbst_kind, $query_type = 'add')
 	{
 		$dbst_type_data = self::get_dbst_type(0, $dbst_kind, $dbst_type);
@@ -262,10 +326,15 @@ class wpl_flex
 		}
 	}
 	
-	/**
-		@input [key] and [dbst_id]
-		@return key value
-	**/
+    /**
+     * Returns encoded options
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param array $values
+     * @param string $prefix
+     * @param array $options
+     * @return string
+     */
 	public static function get_encoded_options($values, $prefix, $options = array())
 	{
 		$length = strlen($prefix);
@@ -281,10 +350,16 @@ class wpl_flex
 		return json_encode($options);
 	}
 	
-	/**
-		@input {table}, {key}, {dbst_id} and [value]
-		@return boolean result
-	**/
+    /**
+     * Updates a table record
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $table
+     * @param int $dbst_id
+     * @param string $key
+     * @param mixed $value
+     * @return boolean
+     */
 	public static function update($table = 'wpl_dbst', $dbst_id, $key, $value = '')
 	{
 		/** first validation **/
@@ -292,12 +367,17 @@ class wpl_flex
 		
 		return wpl_db::set($table, $dbst_id, $key, $value);
 	}
-	
-	/**
-		@input dbst fields
-		@return void
-		@description this function generates dbst wizards
-	**/
+    
+    /**
+     * Generates wizard form using dbst fields
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param objects $fields
+     * @param array $values
+     * @param int $item_id
+     * @param array $finds
+     * @return void
+     */
 	public function generate_wizard_form($fields, $values, $item_id = 0, &$finds = array())
 	{
 		/** first validation **/
@@ -359,11 +439,13 @@ class wpl_flex
 		}
 	}
 	
-	/**
-		@input {field_object}
-		@return js validation string
-		@author Howard
-	**/
+    /**
+     * Returns js validation code
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param object $field
+     * @return string
+     */
 	public static function generate_js_validation($field)
 	{
 		$field = (object) $field;
@@ -380,21 +462,26 @@ class wpl_flex
 		return $js_string;
 	}
 	
-	/**
-		@input {field_id}
-		@return field options
-	**/
+    /**
+     * Returns field options
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $field_id
+     * @param boolean $return_array
+     * @return mixed
+     */
 	public static function get_field_options($field_id, $return_array = true)
 	{
 		$field = self::get_field($field_id);
 		return ($return_array ? json_decode($field->options, true) : $field->options);
 	}
-	
-	/**
-		@input dbst sort_ids
-		@return void
-		@description this function set sort 
-	**/
+    
+    /**
+     * Sorts flex fields
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $sort_ids
+     */
 	public static function sort_flex($sort_ids)
 	{
 		$query = "SELECT DISTINCT  `category`  FROM `#__wpl_dbst` WHERE `id` IN ($sort_ids) ORDER BY `index` ASC";

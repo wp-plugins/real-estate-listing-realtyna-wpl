@@ -3,19 +3,29 @@
 defined('_WPLEXEC') or die('Restricted access');
 
 /**
-** Settings Library
-** Developed 03/01/2013
-**/
-
+ * Settings Library
+ * @author Howard <howard@realtyna.com>
+ * @since WPL1.0.0
+ * @date 03/01/2013
+ */
 class wpl_settings
 {
-	public static $wpl_settings = array(); /** used for caching in get_settings function **/
+    /**
+     * Used for caching in get_settings function
+     * @static
+     * @var array 
+     */
+	public static $wpl_settings = array();
 	
-	/**
-		@input [category] and [return_records]
-		@params: boolean return_records: it returns raw records
-		@return settings array or raw records
-	**/
+    /**
+     * Get settings
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $category
+     * @param int $showable
+     * @param boolean $return_records
+     * @return array
+     */
 	public static function get_settings($category = '', $showable = 0, $return_records = false)
 	{
 		/** return from cache if exists **/
@@ -49,12 +59,17 @@ class wpl_settings
 		self::$wpl_settings[$cache_key] = $settings;
 		return $settings;
 	}
-	
-	/**
-		@input setting name and [value] and [category] and [condition]
-		@return affected rows or insert id
-		@description this function takes care for modifying existing setting or inserting new record
-	**/
+    
+    /**
+     * This function takes care for modifying existing setting or inserting new record
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $name
+     * @param mixed $value
+     * @param string $category
+     * @param string $condition
+     * @return boolean
+     */
 	public static function save_setting($name, $value = '', $category = '', $condition = '')
 	{
 		/** first validation **/
@@ -68,10 +83,16 @@ class wpl_settings
 		return $result;
 	}
 	
-	/**
-		@input setting name and [value] and [category] and [condition]
-		@return affected rows
-	**/
+    /**
+     * Updates settings
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $name
+     * @param mixed $value
+     * @param string $category
+     * @param string $condition
+     * @return boolean
+     */
 	public static function update_setting($name, $value = '', $category = '', $condition = '')
 	{
 		/** first validation **/
@@ -91,11 +112,16 @@ class wpl_settings
         
         return $result;
 	}
-	
-	/**
-		@input setting name and [value] and [category]
-		@return id of new record
-	**/
+    
+    /**
+     * Inserts a new setting
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $name
+     * @param mixed $value
+     * @param string $category
+     * @return boolean
+     */
 	public static function insert_setting($name, $value = '', $category = '')
 	{
 		/** first validation **/
@@ -117,10 +143,14 @@ class wpl_settings
         return $id;
 	}
 	
-	/**
-		@input {setting_name} and [category]
-		@return setting value
-	**/
+    /**
+     * Get one settings
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $setting_name
+     * @param string $category
+     * @return mixed
+     */
 	public static function get($setting_name, $category = '')
 	{
 		/** return from cache if exists **/
@@ -138,10 +168,13 @@ class wpl_settings
 		return wpl_db::get('setting_value', 'wpl_settings', '', '', true, $condition);
 	}
 	
-	/**
-		@input category (string)
-		@return category id
-	**/
+    /**
+     * Returns category id by category name
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $category
+     * @return int
+     */
 	public static function get_category_id($category)
 	{
 		$category = strtolower($category);
@@ -150,20 +183,27 @@ class wpl_settings
 		return wpl_db::select($query, 'loadResult');
 	}
 	
-	/**
-		@input showable
-		@return array category
-	**/
+    /**
+     * Get setting categories
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $showable
+     * @return object
+     */
 	public static function get_categories($showable = 1)
 	{
 		$query = "SELECT * FROM `#__wpl_setting_categories` WHERE `showable`>='$showable' ORDER BY `index` ASC";
 		return wpl_db::select($query, 'loadObjectList');
 	}
 	
-	/**
-		@input setting name and [category]
-		@return boolean
-	**/
+    /**
+     * Check if setting exists or not
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $name
+     * @param string $category
+     * @return boolean
+     */
 	public static function is_setting_exists($name, $category = '')
 	{
 		$condition = '';
@@ -180,11 +220,13 @@ class wpl_settings
 		return ($num ? true : false);
 	}
 	
-	/**
-		@input setting record
-		@return void
-		@description this function generates setting form
-	**/
+    /**
+     * Generate setting field
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param array $setting_record
+     * @return void
+     */
 	public static function generate_setting_form($setting_record)
 	{
 		/** first validation **/
@@ -213,11 +255,13 @@ class wpl_settings
 		}
 	}
 	
-	/**
-		@input setting records
-		@return void
-		@description this function generates setting forms
-	**/
+    /**
+     * Generates settings form (All the fields)
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param array $setting_records
+     * @return void
+     */
 	public static function generate_setting_forms($setting_records)
 	{
 		/** first validation **/
@@ -228,12 +272,14 @@ class wpl_settings
 			self::generate_setting_form($setting_record);
 		}
 	}
-	
-	/**
-		@input string cache_type
-		@return void
-		@description use this function for removing WPL caches
-	**/
+    
+    /**
+     * Removes WPL cached data
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param type $cache_type
+     * @return boolean
+     */
 	public static function clear_cache($cache_type = 'all')
 	{
 		/** first validation **/

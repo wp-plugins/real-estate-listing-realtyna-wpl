@@ -26,7 +26,7 @@ $this->_wpl_import($this->tpl_path . '.scripts.js');
             <!-- sidebar2 -->
             <div class="wpl_sidebar2" style="width: 100%;">
                 <?php foreach ($this->field_categories as $category): ?>
-                    <div class="wpl_slide_container wpl_slide_container<?php echo $category->id; ?>" id="wpl_slide_container_id<?php echo $category->id; ?>">
+                    <div class="wpl_slide_container wpl_slide_label_prefix_<?php echo $category->prefix; ?>" id="wpl_slide_container_id<?php echo $category->id; ?>">
                         <?php $this->generate_slide($category); ?>
                     </div>
                 <?php endforeach; ?>

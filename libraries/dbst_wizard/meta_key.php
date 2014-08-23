@@ -41,7 +41,11 @@ function metatag_key_creator()
     var address = '';
 
     /** Don't regenerate meta keywords if user want to manually insert it **/
-    if (wplj("#wpl_c_<?php echo $field->id; ?>_manual").is(':checked')) {
+    if (wplj("#wpl_c_<?php echo $field->id; ?>_manual").is(':checked'))
+    {
+        meta = wplj("#wpl_c_<?php echo $field->id; ?>").val();
+        ajax_save('<?php echo $field->table_name; ?>', '<?php echo $field->table_column; ?>', meta, '<?php echo $item_id; ?>', '<?php echo $field->id; ?>');
+    
         return true;
     }
 

@@ -17,6 +17,8 @@ class wpl_html
 	public static $meta_keywords = array();
 	public static $meta_description;
     public static $footer_strings = array();
+    public static $custom_strings = array();
+    public static $canonical;
 	public static $scripts = array();
     
     /**
@@ -35,7 +37,14 @@ class wpl_html
 			add_filter('wp_title', array($html, 'title'), 9999, 2);
 			add_action('wp_head', array($html, 'generate_head'), 9999);
             
-            if($client == 0) add_action('wp_footer', array($html, 'generate_footer'), 9999);
+            if($client == 0)
+            {
+                /** SET WPL canonical **/
+                remove_action('wp_head', 'rel_canonical');
+                add_action('wp_head', array($html, 'generate_canonical'), 9999);
+                
+                add_action('wp_footer', array($html, 'generate_footer'), 9999);
+            }
             elseif($client == 1) add_action('in_admin_footer', array($html, 'generate_footer'), 9999);
 		}
 	}
@@ -120,6 +129,52 @@ class wpl_html
 	}
     
     /**
+     * This is a function for printing needed codes in footer
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $string
+     * @return boolean
+     */
+	public static function set_custom_tag($string)
+	{
+		$string = (string) $string;
+		if(trim($string) == '') return false;
+		
+        array_push(self::$custom_strings, $string);
+	}
+    
+    /**
+     * This is a function for generating canonical tag
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @global object $wp_the_query WordPress Query object
+     * @return void
+     */
+	public static function generate_canonical()
+	{
+        /** Original WordPress code **/
+        if(!is_singular()) return;
+        
+        global $wp_the_query;
+        if(!$id = $wp_the_query->get_queried_object_id()) return;
+        
+        /** WPL canonical **/
+        if(self::$canonical)
+        {
+            echo PHP_EOL;
+            echo '<link rel="canonical" href="'.self::$canonical.'" />';
+            return;
+        }
+
+        /** Original WordPress code **/
+        $link = get_permalink($id);
+        if($page = get_query_var('cpage')) $link = get_comments_pagenum_link($page);
+        
+        echo PHP_EOL;
+        echo '<link rel="canonical" href="'.$link.'" />';
+	}
+    
+    /**
      * This is a function for printing meta keywords and meta descriptions
      * @author Howard R <howard@realtyna.com>
      * @static
@@ -136,6 +191,19 @@ class wpl_html
 		if(self::$meta_description)
 		{
 			echo '<meta name="description" content="'.self::$meta_description.'" />';
+		}
+        
+        /** Printing Custom Tags **/
+		if(isset(self::$custom_strings) and count(self::$custom_strings))
+		{
+            foreach(self::$custom_strings as $key=>$string)
+            {
+                echo PHP_EOL;
+                echo $string;
+            }
+            
+            /** make custom string empty **/
+            self::$custom_strings = array();
 		}
 	}
     

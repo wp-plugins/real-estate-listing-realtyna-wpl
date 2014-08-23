@@ -92,7 +92,7 @@ if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->w
                         
                         elseif($value['type'] == 'neighborhood')
                         {
-                            echo '<div id="wpl-dbst-show'.$value['field_id'].'" class="rows neighborhood">' .__($value['name'],WPL_TEXTDOMAIN) .(isset($value['distance']) ? ' <span class="'.$value['by'].'">'. $value['distance'] .' '. __('Minutes',WPL_TEXTDOMAIN). '</span>':''). '</div>';
+                            echo '<div id="wpl-dbst-show'.$value['field_id'].'" class="rows neighborhood">' .__($value['name'],WPL_TEXTDOMAIN) .(isset($value['distance']) ? ' <span class="'.$value['vehicle_type'].'">'. $value['distance'] .' '. __('Minutes',WPL_TEXTDOMAIN). '</span>':''). '</div>';
                         }
                         elseif($value['type'] == 'feature')
                         {

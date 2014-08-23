@@ -3,10 +3,11 @@
 defined('_WPLEXEC') or die('Restricted access');
 
 /**
-** SEF Library
-** Developed 08/14/2013
-**/
-
+ * SEF Library
+ * @author Howard <howard@realtyna.com>
+ * @since WPL1.0.0
+ * @date 08/14/2013
+ */
 class wpl_sef
 {
     /**

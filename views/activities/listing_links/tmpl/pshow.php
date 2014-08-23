@@ -18,7 +18,7 @@ $show_pdf         = (isset($params['pdf']) and $params['pdf']) ? 1 : 0;
 	<ul>
         <?php if($show_facebook): ?>
 		<li class="facebook_link">
-			<a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $property_link; ?>" target="_blank">
+			<a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $property_link; ?>" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=600'); return false;">
 			<?php echo __('Share on Facebook', WPL_TEXTDOMAIN); ?>
 			</a>
 		</li>
@@ -38,7 +38,7 @@ $show_pdf         = (isset($params['pdf']) and $params['pdf']) ? 1 : 0;
 
         if($show_pinterest): ?>
 		<li class="pinterest_link">
-			<a href="http://pinterest.com/pin/create/link/?url=<?php echo $property_link; ?>" target="_blank"><?php echo __('Pin it', WPL_TEXTDOMAIN); ?></a>
+			<a href="http://pinterest.com/pin/create/link/?url=<?php echo $property_link; ?>" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=600'); return false;"><?php echo __('Pin it', WPL_TEXTDOMAIN); ?></a>
 		</li>
         <?php endif;
 

@@ -3,12 +3,17 @@
 defined('_WPLEXEC') or die('Restricted access');
 
 /**
-** Process service
-** Developed 11/17/2013
-**/
-
+ * Process service
+ * @author Howard <howard@realtyna.com>
+ * @date 11/17/2013
+ */
 class wpl_service_process
 {
+    /**
+     * Service runner
+     * @author Howard <howard@realtyna.com>
+     * @return void
+     */
 	public function run()
 	{
 		$wpl_format = wpl_request::getVar('wpl_format');
@@ -41,7 +46,13 @@ class wpl_service_process
 		}
 	}
 	
-	private function response($response)
+    /**
+     * Response function
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param array $response
+     */
+	private static function response($response)
 	{
 		echo json_encode($response);
 		exit;

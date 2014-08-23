@@ -5,18 +5,23 @@ defined('_WPLEXEC') or die('Restricted access');
 _wpl_import('libraries.units');
 
 /**
-** Render Library
-** Developed 08/19/2013
-**/
-
+ * Render Library
+ * @author Howard <howard@realtyna.com>
+ * @since WPL1.0.0
+ * @date 08/19/2013
+ */
 class wpl_render
 {
-	/**
-		@inputs {date}, [year], [month] and [day]
-		@param string $date
-		@return rendered date based on global settings
-		@author Howard
-	**/
+    /**
+     * Renders date based on global date format
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $date
+     * @param int $year
+     * @param int $month
+     * @param int $day
+     * @return string
+     */
 	public static function render_date($date, $year = '', $month = '', $day = '')
 	{
 		if(trim($date) == '0000-00-00' or trim($date) == '0000-00-00 00:00:00') return '';
@@ -34,11 +39,15 @@ class wpl_render
 	}
 	
     /**
-		@inputs {date}, [year], [month] and [day]
-		@param string $date
-		@return rendered datetime based on global settings
-		@author Howard
-	**/
+     * Render date time
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $datetime
+     * @param mixed $year
+     * @param mixed $month
+     * @param mixed $day
+     * @return string
+     */
     public static function render_datetime($datetime, $year = '', $month = '', $day = '')
 	{
 		if(trim($datetime) == '0000-00-00' or trim($datetime) == '0000-00-00 00:00:00') return '';
@@ -51,12 +60,13 @@ class wpl_render
 		return $output;
 	}
     
-	/**
-		@inputs {longitude}
-		@param string $longitude
-		@return rendered longitude
-		@author Howard
-	**/
+    /**
+     * Renders longitude
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $longitude
+     * @return string
+     */
 	public static function render_longitude($longitude)
 	{
 		$degree = floor($longitude);
@@ -75,12 +85,13 @@ class wpl_render
 		return $sign . $degree .'&deg; '. $minutes ."' ". round($seconds, 1) ."'' ";
 	}
 	
-	/**
-		@inputs {latitude}
-		@param string $latitude
-		@return rendered latitude
-		@author Howard
-	**/
+    /**
+     * Renders latitude
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $latitude
+     * @return string
+     */
 	public static function render_latitude($latitude)
 	{
 		$degree = floor($latitude);
@@ -99,12 +110,13 @@ class wpl_render
 		return $sign . $degree .'&deg; '. $minutes ."' ". round($seconds, 1) ."'' ";
 	}
 	
-	/**
-		@inputs {size}
-		@param integer or string $size
-		@return rendered file size
-		@author Howard
-	**/
+    /**
+     * Render file size based on Byte
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $size
+     * @return string
+     */
 	public static function render_file_size($size)
 	{
 		$d = 'B';
@@ -115,13 +127,14 @@ class wpl_render
 		return round($size, 1).$d;
 	}
 	
-	/**
-		@inputs {price_si} and [unit_id]
-		@param integer or string $price_si
-		@param integer or string $unit_id
-		@return converted price
-		@author Howard
-	**/
+    /**
+     * Converts SI price (USD) to another currency
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $price_si
+     * @param int $unit_id
+     * @return int
+     */
 	public static function convert_price($price_si, $unit_id)
 	{
 		/** in case of empty unit just do it with default currency **/
@@ -140,13 +153,14 @@ class wpl_render
 		return ($price_si/$unit_data['tosi']);
 	}
 	
-	/**
-		@inputs {price} and [unit_id]
-		@param integer or string $price
-		@param integer or string $unit_id
-		@return rendered price
-		@author Howard
-	**/
+    /**
+     * Renders price based on currency unit id
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $price
+     * @param int $unit_id
+     * @return string
+     */
 	public static function render_price($price, $unit_id = '')
 	{
 		/** in case of empty unit just do it with default currency **/
@@ -180,12 +194,13 @@ class wpl_render
 		return $return;
 	}
 	
-	/**
-		@inputs rendered date
-		@param string $date
-		@return derendered date based on global settings
-		@author Albert
-	**/
+    /**
+     * Derendere date based on global settings
+     * @author Albert <albert@realtyna.com>
+     * @static
+     * @param string $date
+     * @return type
+     */
 	public static function derender_date($date)
 	{
 		$date_format_arr = explode(':', wpl_global::get_setting('main_date_format'));
@@ -218,7 +233,7 @@ class wpl_render
 			}
 		}
 		
-		$my_date = $standard_date['y'].'-'.$standard_date['m'].'-'.$standard_date['d'];
+		$dedate = $standard_date['y'].'-'.$standard_date['m'].'-'.$standard_date['d'];
 		$time = '';
 		
 		if(stristr(trim($date), ' ') != '')
@@ -227,7 +242,7 @@ class wpl_render
 			$time = $tmp[1];
 		}
 		
-		$my_date .= $time;
-		return $my_date;
+		$dedate .= $time;
+		return $dedate;
 	}
 }

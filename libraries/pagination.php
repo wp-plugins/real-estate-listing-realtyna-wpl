@@ -23,15 +23,13 @@ class wpl_pagination
     var $className = "pagination";
     var $parameterName = "page";
     var $urlF = false; //urlFriendly
-
+    var $calculate = false;
+    
     /** Buttons next and previous **/
     var $nextT = "Next";
     var $nextI = "&#187;"; //&#9658;
     var $prevT = "Previous";
     var $prevI = "&#171;"; //&#9668;
-
-    /*     * ***/
-    var $calculate = false;
 
     #Total items
     public function items($value)

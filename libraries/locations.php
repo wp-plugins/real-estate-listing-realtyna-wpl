@@ -3,15 +3,23 @@
 defined('_WPLEXEC') or die('Restricted access');
 
 /**
-** Locations Library
-** Developed 04/07/2013
-**/
-
+ * Locations Library
+ * @author Howard <howard@realtyna.com>
+ * @since WPL1.0.0
+ * @date 04/07/2013
+ */
 class wpl_locations
 {
-	/**
-		@description for update a locaton record using location id
-	**/
+    /**
+     * For updating a locaton record using location id
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $location_id
+     * @param string $key
+     * @param string $value
+     * @param int $location_level
+     * @return boolean
+     */
 	public static function update_location($location_id, $key, $value, $location_level = 1)
 	{
 		if(!$key or !$location_level) return false;
@@ -22,9 +30,15 @@ class wpl_locations
 		return $result;
 	}
 	
-	/**
-		@description to delete a location level
-	**/
+    /**
+     * Deletes a location from database
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $location_id
+     * @param int $level
+     * @param boolean $recursive
+     * @return boolean
+     */
 	public static function delete_location($location_id, $level = '', $recursive = false)
 	{
 		/** first validation **/
@@ -48,31 +62,48 @@ class wpl_locations
 		return $result;
 	}
 	
-	/**
-		@description adding a location to location database
-	**/
+    /**
+     * Adds a new location to location database
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $name
+     * @param int $level
+     * @param int $parent
+     * @return int
+     */
 	public static function add_location($name, $level, $parent = 0)
 	{
-		if($level == 1)
-			$query = "INSERT INTO `#__wpl_location".$level."` (`name`,`enabled`) VALUES ('$name',1)";
-		else
-			$query = "INSERT INTO `#__wpl_location".$level."` (`name`,`parent`) VALUES ('$name','$parent')";
+		if($level == 1) $query = "INSERT INTO `#__wpl_location".$level."` (`name`,`enabled`) VALUES ('$name',1)";
+		else $query = "INSERT INTO `#__wpl_location".$level."` (`name`,`parent`) VALUES ('$name','$parent')";
 		
 		return wpl_db::q($query, 'insert');
 	}
 	
-	/**
-		@description editing a location
-	**/
+    /**
+     * Edits a location
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $name
+     * @param int $level
+     * @param int $location_id
+     * @return mixed
+     */
 	public static function edit_location($name, $level, $location_id)
 	{
 		$query = "UPDATE `#__wpl_location".$level."` SET `name`='$name' WHERE `id`='$location_id'";
 		return wpl_db::q($query, 'update');
 	}
 	
-	/**
-		@description getting locations
-	**/
+    /**
+     * Returns locations
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $level
+     * @param int $parent
+     * @param int $enabled
+     * @param string $condition
+     * @return array
+     */
 	public static function get_locations($level = 1, $parent = '', $enabled = 0, $condition = '')
 	{
 		if(trim($condition) == '')
@@ -88,28 +119,44 @@ class wpl_locations
 
 		return $locations;
 	}
-	
-	/**
-		@description get an specific location by id
-	**/
+    
+    /**
+     * Returns a specific location data by id
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $location_id
+     * @param type $level
+     * @return type
+     */
 	public static function get_location($location_id = '', $level = 1)
 	{
 		if(trim($location_id) == '') $location_id = 1;
 		return $results = wpl_db::get('*', "wpl_location".$level, 'id', $location_id);
 	}
 	
-	/**
-		@description get location id by location name, parent id and level
-	**/
+    /**
+     * Returns location id by location name, parent id and level
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $location_name
+     * @param int $parent_id
+     * @param int $level
+     * @return int
+     */
 	public static function get_location_id($location_name = '', $parent_id = '', $level = 1)
 	{
 		$query = "SELECT `id` FROM `#__wpl_location".$level."` WHERE LOWER(name)='".strtolower($location_name)."' ".($parent_id ? " AND `parent`='$parent_id'" : "");
 		return wpl_db::select($query, 'loadResult');
 	}
-	
-	/**
-		@description get location tree for creating breadcrumb and etc
-	**/
+    
+    /**
+     * Returns location tree for creating breadcrumb and etc
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $location_id
+     * @param int $parent
+     * @return array
+     */
 	public static function get_location_tree($location_id, $parent)
 	{
 		$res = array();
@@ -135,21 +182,18 @@ class wpl_locations
 		return $res;
 	}
 	
-	/**
-		@input {property_id} and [property_data]
-		@return void
-		@description this function is for updating #__wpl_locationtextsearch table which is using in autocomplete and etc
-					 this function is calling by cronjob
-		@author Howard
-	**/
+    /**
+     * Updates locationtextsearch data. It runes by WPL cronjob!
+     * @author Howard <howard@realtyna.com>
+     * @static
+     */
 	public static function update_locationtextsearch_data()
 	{
 		_wpl_import('libraries.property');
 		$properties = wpl_property::select_active_properties('', '`id`,`location1_name`,`location2_name`,`location3_name`,`location4_name`,`location5_name`,`location6_name`,`location7_name`,`zip_name`');
 		
 		/** detele wpl_locationtextsearch completely **/
-		$query = "DELETE FROM `#__wpl_locationtextsearch`";
-		wpl_db::q($query);
+		wpl_db::q("DELETE FROM `#__wpl_locationtextsearch`");
 		
 		$locations = array();
 		foreach($properties as $property)
@@ -203,12 +247,14 @@ class wpl_locations
 			wpl_db::q($query);
 		}
 	}
-	
-	/**
-		@input {address}
-		@return array latitude, longitude
-		@author Howard
-	**/
+    
+    /**
+     * Returns latitude and longitude of an address
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $address
+     * @return array
+     */
 	public static function get_LatLng($address)
 	{
 		$address = urlencode($address);
@@ -248,11 +294,14 @@ class wpl_locations
 		}
 	}
 	
-	/**
-		@input {latitude}, {longitude}
-		@return array address
-		@author Howard
-	**/
+    /**
+     * Returns address of proeprty by latitude and longitude
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $latitude
+     * @param int $longitude
+     * @return array
+     */
 	public static function get_address($latitude, $longitude)
 	{
 		$url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=".$latitude.",".$longitude."&sensor=false";
@@ -286,6 +335,14 @@ class wpl_locations
 		return $locations;
 	}
     
+    /**
+     * Updates latitude and longitude of a property
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param type $property_data
+     * @param type $property_id
+     * @return type
+     */
     public static function update_LatLng($property_data, $property_id = NULL)
     {
         /** fetch property data if property id is setted **/

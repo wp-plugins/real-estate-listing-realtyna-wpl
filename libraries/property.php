@@ -9,10 +9,11 @@ _wpl_import('libraries.render');
 _wpl_import('libraries.items');
 
 /**
-** Property Library
-** Developed 05/26/2013
-**/
-
+ * Property Library
+ * @author Howard R <howard@realtyna.com>
+ * @since WPL1.0.0
+ * @date 05/26/2013
+ */
 class wpl_property
 {
 	/**
@@ -1016,7 +1017,7 @@ class wpl_property
 		if($rendered['rendered']) $result['rendered'] = $rendered['rendered'];
 		else $result['rendered'] = $rendered_fields['ids'];
         
-        if($rendered['materials']) $result['materials'] = $rendered['materials'];
+        if(isset($rendered['materials']) and $rendered['materials']) $result['materials'] = $rendered['materials'];
 		else $result['materials'] = $rendered_fields['columns'];
 		
 		$result['items'] = wpl_items::get_items($property_id, '', $property->kind, '', 1);

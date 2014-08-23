@@ -4,7 +4,7 @@ Donate link: http://wpl.realtyna.com/
 Tags: Real estate, Listing, Vertical Market, MLS, Property listing, RETS
 Requires at least: 3.0.1
 Tested up to: 3.9.1
-Stable tag: 1.7.4
+Stable tag: 1.7.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -59,6 +59,12 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 6. External Responsive Template: Agent listing
 
 == Changelog ==
+
+= 1.7.5 =
+* Fixed an issue on notification content.
+* Fixed an issue on showing property neighborhoods.
+* Updated WPL font icons.
+* Added open graph meta tags to the single property page.
 
 = 1.7.4 =
 * Fixed an issue on notification content.

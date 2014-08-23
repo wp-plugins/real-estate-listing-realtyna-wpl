@@ -4,10 +4,11 @@ defined('_WPLEXEC') or die('Restricted access');
 _wpl_import('libraries.images');
 
 /**
-** Notifications Library
-** Developed 20/04/2014
-**/
-
+ * Notifications Library
+ * @author Howard <howard@realtyna.com>
+ * @since WPL1.7.0
+ * @date 20/04/2014
+ */
 class wpl_notifications
 {
     public $valid_modes = array('email', 'sms');
@@ -41,6 +42,12 @@ class wpl_notifications
         }
     }
     
+    /**
+     * Returns email instance
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @return \PHPMailer
+     */
     public static function get_mailer()
     {
         _wp_import('wp-includes.class-phpmailer');
@@ -56,6 +63,12 @@ class wpl_notifications
         return $handler;
     }
     
+    /**
+     * Get notification sender
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @return array|string
+     */
     public static function get_sender()
     {
         $wpl_sender_email = wpl_global::get_setting('wpl_sender_email');
@@ -71,6 +84,13 @@ class wpl_notifications
         return 'info@'.$domain;
     }
     
+    /**
+     * Prepare for notification
+     * @author Howard R <howard@realtyna.com>
+     * @param int $notification_id
+     * @param array $replacements
+     * @param array $recipients
+     */
     public function prepare($notification_id, $replacements = NULL, $recipients = NULL)
     {
         $this->notification_id = $notification_id;
@@ -84,6 +104,10 @@ class wpl_notifications
         $this->rendered_content = $this->render_notification_content();
     }
     
+    /**
+     * Sends notification
+     * @author Howard R <howard@realtyna.com>
+     */
     public function send()
     {
         $this->handler->Subject = $this->notification_data['subject'];
@@ -100,6 +124,13 @@ class wpl_notifications
         }
     }
     
+    /**
+     * Get notification data
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $id
+     * @return boolean
+     */
     public static function get_notification($id)
     {
         /** first validation **/
@@ -109,6 +140,13 @@ class wpl_notifications
         return wpl_db::select($query, 'loadAssoc');
     }
     
+    /**
+     * Returns notification template path
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $path
+     * @return string
+     */
     public static function get_template_path($path)
     {
         /** first validation **/
@@ -118,6 +156,14 @@ class wpl_notifications
         return wpl_global::get_wpl_root_path().'libraries'.DS.'notifications'.DS.'templates'.DS.$path.'.html';
     }
     
+    /**
+     * Returns notification template content
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $path
+     * @param boolean $images_convert
+     * @return boolean|string
+     */
     public static function get_template_content($path, $images_convert = true)
     {
         /** first validation **/
@@ -137,6 +183,13 @@ class wpl_notifications
         return $content;
     }
     
+    /**
+     * Returns image URL
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $image
+     * @return string|boolean
+     */
     public static function get_images_url($image = '')
     {
         /** first validation **/
@@ -150,12 +203,24 @@ class wpl_notifications
         return $url;
     }
     
+    /**
+     * Sets replacements
+     * @author Howard R <howard@realtyna.com>
+     * @param array $replacements
+     * @return array
+     */
     public function set_replacements($replacements)
     {
         $this->recipients = $replacements;
         return $replacements;
     }
     
+    /**
+     * Sets recipients
+     * @author Howard R <howard@realtyna.com>
+     * @param array $recipients
+     * @return array
+     */
     public function set_recipients($recipients)
     {
         if(!is_array($recipients)) $recipients = array($recipients);
@@ -202,6 +267,11 @@ class wpl_notifications
         return $emails;
     }
     
+    /**
+     * Renders notification content
+     * @author Howard R <howard@realtyna.com>
+     * @return string
+     */
     public function render_notification_content()
     {
         $content = $this->template_content;
@@ -214,6 +284,14 @@ class wpl_notifications
         return $content;
     }
     
+    /**
+     * Returns notifications
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $where
+     * @param string $result
+     * @return mixed
+     */
     public static function get_notifications($where = '', $result = 'loadObjectList')
     {
         $query = "SELECT * FROM `#__wpl_notifications` WHERE 1 " . $where;
@@ -246,9 +324,7 @@ class wpl_notifications
      */
     public static function save_notification($data)
     {
-        $data['template'] = self::extract_reserved_images($data['template']);
-        
-		wpl_file::write(self::get_template_path($data['template_path'], true), $data['template']);
+        wpl_file::write(self::get_template_path($data['template_path'], true), $data['template']);
 
         $data = wpl_db::escape($data);
         $query = "UPDATE #__wpl_notifications SET `description` = '{$data['description']}',`template` = '{$data['template_path']}',";
@@ -270,34 +346,4 @@ class wpl_notifications
         preg_match_all('/##([^#]*)##/', $template, $matches);
         return $matches;
     }
-    
-    /**
-     * find image title and check for parameter, after replace parameter with that image
-     * @author Kevin J <kevin@realtyna.com>
-     * @static
-     * @param string $content
-     * @return string
-     */
-    private static function extract_reserved_images($content)
-    {
-        $dom = new DOMDocument;
-        libxml_use_internal_errors(true);
-        $dom->loadHTML($content);
-        $tags = $dom->getElementsByTagName('img');
-        $length = $tags->length;
-        
-        for($i = $length - 1; $i >= 0; $i--)
-        {
-            $tag = $tags->item($i);
-            $title = $tag->getAttribute('title');
-            if(preg_match('/##\w+?##/', $title))
-            {
-                $textNode = $dom->createTextNode($title);
-                $tag->parentNode->replaceChild($textNode, $tag);
-            }
-        }
-        
-        return preg_replace('~<(?:!DOCTYPE|/?(?:html|head|body|meta|title))[^>]*>\s*~i', '', $dom->saveHTML());
-    }
-	
 }

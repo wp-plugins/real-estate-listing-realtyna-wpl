@@ -6,10 +6,11 @@ _wp_import('wp-includes.pluggable');
 _wpl_import('libraries.items');
 
 /**
-** Users Library
-** Developed 03/01/2013
-**/
-
+ * Users Library
+ * @author Howard R <howard@realtyna.com>
+ * @since WPL1.0.0
+ * @date 03/01/2013
+ */
 class wpl_users
 {
 	/**

@@ -3,12 +3,17 @@
 defined('_WPLEXEC') or die('Restricted access');
 
 /**
-** SEF service
-** Developed 08/19/2013
-**/
-
+ * SEF service
+ * @author Howard <howard@realtyna.com>
+ * @date 08/19/2013
+ */
 class wpl_service_sef
 {
+    /**
+     * Service runner
+     * @author Howard <howard@realtyna.com>
+     * @return void
+     */
 	public function run()
 	{
 		/** setting view from post content by shortcode **/
@@ -62,7 +67,13 @@ class wpl_service_sef
 		}
 	}
 	
-	public function check_property_link($proeprty_id)
+    /**
+     * Checke proeprty alias and 301 redirect the page to the correct link
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $proeprty_id
+     */
+	public static function check_property_link($proeprty_id)
 	{
 		$wpl_qs = urldecode(wpl_global::get_wp_qvar('wpl_qs'));
 		
@@ -80,10 +91,17 @@ class wpl_service_sef
 		}
 	}
 	
-	public function set_property_page_params($proeprty_id)
+    /**
+     * Sets property single page parameters
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $proeprty_id
+     */
+	public static function set_property_page_params($proeprty_id)
 	{
 		_wpl_import('libraries.property');
         
+        $current_link_url = wpl_global::get_full_url();
 		$property_data = wpl_property::get_property_raw_data($proeprty_id);
 		
         if(trim($property_data['field_312']) != '') $property_title = $property_data['field_312'];
@@ -100,10 +118,29 @@ class wpl_service_sef
 		
 		/** set meta description **/
 		$html->set_meta_description($property_data['meta_description']);
+        
+        /** SET og meta parameters for social websites like facebook etc **/
+        wpl_html::$canonical = str_replace('&', '&amp;', $current_link_url);
+        $html->set_custom_tag('<meta property="og:url" content="'.str_replace('&', '&amp;', $current_link_url).'" />');
+        $html->set_custom_tag('<meta property="og:title" data-page-subject="true" content="'.$property_title.'" />');
+        $html->set_custom_tag('<meta property="og:description" content="'.strip_tags($property_data['field_308']).'" />');
+        
+        $gallery = wpl_items::get_gallery($proeprty_id, $property_data['kind']);
+        if(is_array($gallery) and count($gallery))
+        {
+            foreach($gallery as $image) $html->set_custom_tag('<meta property="og:image" content="'.$image['url'].'" />');
+        }
 	}
 	
-	public function set_profile_page_params($user_id)
+    /**
+     * Sets profile single page parameters
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $user_id
+     */
+	public static function set_profile_page_params($user_id)
 	{
+        $current_link_url = wpl_global::get_full_url();
 		$user_data = (array) wpl_users::get_wpl_user($user_id);
 		
 		$user_title = '';
@@ -136,7 +173,8 @@ class wpl_service_sef
 		$user_description .= ' '.__('which is located in', WPL_TEXTDOMAIN).' '.$user_data['location_text'];
 		
 		$html = wpl_html::getInstance();
-		
+		wpl_html::$canonical = str_replace('&', '&amp;', $current_link_url);
+        
 		/** set title **/
 		$html->set_title($user_title);
 		

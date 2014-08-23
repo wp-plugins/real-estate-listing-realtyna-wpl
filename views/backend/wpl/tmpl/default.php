@@ -20,7 +20,7 @@ _wpl_import('libraries.activities');
                     <a href="<?php echo wpl_global::get_wp_admin_url(); ?>admin.php?page=<?php echo $submenu->menu_slug; ?>">
                         <span class="box"><i></i></span>
                         <span class="title">
-                            <?php echo $submenu->page_title; ?>    
+                            <?php echo __($submenu->menu_title, WPL_TEXTDOMAIN); ?>
                         </span>
                     </a>
                 </li>
@@ -54,7 +54,6 @@ _wpl_import('libraries.activities');
                         </div>
                     </div>
                 </div>
-
 
                 <!-- Generating statistic section -->
                 <?php $this->announce(); ?>

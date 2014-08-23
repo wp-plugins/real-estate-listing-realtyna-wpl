@@ -29,7 +29,7 @@ $this->_wpl_import($this->tpl_path.'.scripts.js', true, true);
         $this->wpl_properties['current'] = $property;
 
         $room    = '<div class="bedroom">'.$property['materials']['bedrooms']['value'].'</div>';
-        if($property['materials']['bedrooms']['value'] == 0 and $property['materials']['rooms']['value'] != 0) $room = '<div class="bedroom">'.$property['materials']['rooms']['value'].'</div>';
+        if($property['materials']['bedrooms']['value'] == 0 and $property['materials']['rooms']['value'] != 0) $room = '<div class="room">'.$property['materials']['rooms']['value'].'</div>';
         
         $bathroom   = '<div class="bathroom">'.$property['materials']['bathrooms']['value'].'</div>';
         $parking    = '<div class="parking">'.($property['raw']['f_150'] == 1 ? $property['raw']['f_150_options'] : 0).'</div>';

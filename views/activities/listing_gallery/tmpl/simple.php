@@ -13,7 +13,6 @@ $this->image_class = isset($params['image_class']) ? $params['image_class'] : ''
 $this->resize = (isset($params['resize']) and trim($params['resize']) != '') ? $params['resize'] : 1;
 $this->rewrite = (isset($params['rewrite']) and trim($params['rewrite']) != '') ? $params['rewrite'] : 0;
 $this->watermark = (isset($params['watermark']) and trim($params['watermark']) != '') ? $params['watermark'] : 0;
-$this->img_category = (isset($image['category']) and trim($image['category']) != '') ? $image['category'] : '';
 
 /** Property tags **/
 $features = '';
@@ -29,6 +28,8 @@ if(isset($wpl_properties['current']['materials']['sp_forclosure']) and $wpl_prop
 /** render gallery **/
 $raw_gallery = isset($wpl_properties['current']['items']['gallery']) ? $wpl_properties['current']['items']['gallery'] : array();
 $gallery = wpl_items::render_gallery($raw_gallery);
+
+$this->img_category = (isset($gallery[0]['category']) and trim($gallery[0]['category']) != '') ? $gallery[0]['category'] : '';
 ?>
 <div class="wpl_gallery_container" id="wpl_gallery_container<?php echo $this->property_id; ?>">
     <?php

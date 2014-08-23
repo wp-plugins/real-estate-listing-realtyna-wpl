@@ -3,22 +3,29 @@
 defined('_WPLEXEC') or die('Restricted access');
 
 /**
-** Logs Library
-** Developed 04/18/2013
-**/
-
+ * Logs Library
+ * @author Howard R <howard@realtyna.com>
+ * @since WPL1.0.0
+ * @date 04/18/2013
+ */
 class wpl_logs
 {
-	/**
-		Developed by : Howard
-		Inputs : log text, section, status, user_id, addon_id, priority and params
-		Outputs : log_id
-		Date : 2013-04-18
-		Description : use this function for inserting logs in the logs table
-	**/
+    /**
+     * For inserting logs in the logs table
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $log_text
+     * @param string $section
+     * @param int $status
+     * @param int $user_id
+     * @param int $addon_id
+     * @param int $priority
+     * @param array $params
+     * @return int
+     */
 	public static function add($log_text, $section = '', $status = 1, $user_id = '', $addon_id = '', $priority = 3, $params = array())
 	{
-		if(trim($log_text) == '') return false;
+		if(trim($log_text) == '') return 0;
 		
 		/** set parameters **/
 		$section = trim($section) != '' ? $section : 'no section';
@@ -32,14 +39,16 @@ class wpl_logs
 		$query = "INSERT INTO `#__wpl_logs` (`user_id`,`addon_id`,`section`,`status`,`log_text`,`log_date`,`ip`,`priority`,`params`) VALUES ('$user_id','$addon_id','$section','$status','$log_text','$log_date','$ip','$priority','$params');";
 		return wpl_db::q($query, 'insert');
 	}
-	
-	/**
-		Developed by : Howard
-		Inputs : [log_id], [prior_date], [addon_id]
-		Outputs : void
-		Date : 2013-04-18
-		Description : use this function for deleting logs by id or prior date or addon_id
-	**/
+    
+    /**
+     * For deleting logs by id or prior date or addon_id
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $log_id
+     * @param string $prior_date
+     * @param int $addon_id
+     * @return boolean
+     */
 	public static function delete($log_id = '', $prior_date = '', $addon_id = '')
 	{
 		if(trim($log_id) == '' and trim($prior_date) == '' and trim($addon_id) == '') return false;
@@ -55,39 +64,39 @@ class wpl_logs
 		return wpl_db::q($query, 'delete');
 	}
 	
-	/**
-		Developed by : Howard
-		Inputs : {log_id}
-		Outputs : log data
-		Date : 2013-04-18
-		Description : use this function for get one log
-	**/
+    /**
+     * Get one log data
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $log_id
+     * @return object
+     */
 	public static function get($log_id)
 	{
 		if(trim($log_id) == '') return false;
 		return wpl_db::get('*', 'wpl_logs', 'id', $log_id);
 	}
 	
-	/**
-		Developed by : Howard
-		Inputs : [condition]
-		Outputs : logs
-		Date : 2013-04-18
-		Description : use this function for get logs
-	**/
+    /**
+     * Get logs data
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $condition
+     * @return objects
+     */
 	public static function get_logs($condition = '')
 	{
 		$query = "SELECT * FROM `#__wpl_logs` WHERE 1 ".$condition;
-		return wpl_db::select($query, 'select');
+		return wpl_db::select($query, 'loadObjectList');
 	}
     
     /**
-		Developed by : Howard
-		Inputs : [params]
-		Outputs : void
-		Date : 2014-05-09
-		Description : This function is using for inserting logs using WPL events API
-	**/
+     * For inserting logs using WPL events API
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param array $params
+     * @return int
+     */
 	public static function autolog($params = array())
 	{
         $dynamic_params = $params[0];

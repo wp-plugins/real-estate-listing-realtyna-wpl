@@ -3,24 +3,35 @@
 defined('_WPLEXEC') or die('Restricted access');
 
 /**
-** Request Library
-** Developed 03/10/2013
-**/
-
+ * Request Library
+ * @author Howard <howard@realtyna.com>
+ * @since WPL1.0.0
+ * @date 03/10/2013
+ */
 class wpl_request
 {
-	/**
-	 * Gets the request method.
-	 */
+    /**
+     * Returns request method
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @return string
+     */
 	public static function get_method()
 	{
 		$method = strtoupper($_SERVER['REQUEST_METHOD']);
 		return $method;
 	}
 	
-	/**
-	 * get a variable
-	 */
+    /**
+     * get a variable
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $name
+     * @param mixed $default
+     * @param string $hash
+     * @param boolean $clean
+     * @return mixed
+     */
 	public static function getVar($name, $default = null, $hash = 'default', $clean = false)
 	{
 		// Ensure hash and type are uppercase
@@ -66,9 +77,13 @@ class wpl_request
 		return $var;
 	}
 
-	/**
-	 * get a variable array
-	 */
+    /**
+     * Gets a variable array
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $hash
+     * @return array
+     */
 	public static function get($hash = 'default')
 	{
 		// Ensure hash and type are uppercase
@@ -113,9 +128,16 @@ class wpl_request
 		return $input;
 	}
 	
-	/**
-	 * Set a variable in one of the request variables.
-	 */
+    /**
+     * Set a variable in one of the request variables. 
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $name
+     * @param mixed $value
+     * @param string $hash
+     * @param boolean $overwrite
+     * @return mixed
+     */
 	public static function setVar($name, $value = null, $hash = 'method', $overwrite = true)
 	{
 		// If overwrite is true, makes sure the variable hasn't been set yet
@@ -158,9 +180,14 @@ class wpl_request
 		return $previous;
 	}
 
-	/**
-	 * Sets a request variable.
-	 */
+    /**
+     * Sets array to the request
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param array $array
+     * @param string $hash
+     * @param boolean $overwrite
+     */
 	public static function set($array, $hash = 'default', $overwrite = true)
 	{
 		foreach($array as $key=>$value)

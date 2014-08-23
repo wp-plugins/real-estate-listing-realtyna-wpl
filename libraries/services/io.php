@@ -6,12 +6,17 @@ _wpl_import('libraries.io.global');
 _wpl_import('libraries.property');
 
 /**
-** IO service
-** Developed 01/20/2014
-**/
-
+ * IO service
+ * @author Howard <howard@realtyna.com>
+ * @date 01/20/2014
+ */
 class wpl_service_io
 {
+    /**
+     * Service runner
+     * @author Howard <howard@realtyna.com>
+     * @return void
+     */
 	public function run()
 	{
 		/** recognizer **/
@@ -76,7 +81,13 @@ class wpl_service_io
 		exit;
 	}
 	
-	private function response($response)
+    /**
+     * Response function
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param array $response
+     */
+	private static function response($response)
 	{
 		echo json_encode($response);
 		exit;

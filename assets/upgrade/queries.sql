@@ -202,4 +202,5 @@ UPDATE `#__wpl_dbst` SET `options`='' WHERE `id`='6';
 ALTER TABLE `#__wpl_item_categories` DROP `parent_kind`;
 DROP TABLE `#__wpl_notices`;
 
-UPDATE `#__wpl_properties` SET `alias`='';
+UPDATE `#__wpl_dbst` SET `text_search`='1' WHERE `id`='312';
+UPDATE `#__wpl_dbst` SET `text_search`='1' WHERE `id`='313';
