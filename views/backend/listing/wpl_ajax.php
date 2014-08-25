@@ -222,7 +222,7 @@ class wpl_listing_controller extends wpl_controller
         
         $q .= trim($q, ', ');
         
-        $query = "UPDATE `#__wpl_properties` SET $q WHERE `id`='$item_id'";
+        $query = "UPDATE `#__wpl_properties` SET `parent`='$parent_id', $q WHERE `id`='$item_id'";
         wpl_db::q($query);
         
         echo json_encode(array('success'=>1));

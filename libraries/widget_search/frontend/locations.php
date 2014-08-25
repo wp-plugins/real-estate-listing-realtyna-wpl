@@ -28,7 +28,7 @@ if($type == 'locations' and !$done_this)
 	}
 	
     /** Place-holder **/
-	$placeholder = isset($field['extoption']) ? $field['extoption'] : array();
+	$placeholder = (isset($field['extoption']) and trim($field['extoption'])) ? $field['extoption'] : $location_settings['locationzips_keyword'].', '.$location_settings['location3_keyword'].', '.$location_settings['location1_keyword'];
     
 	$location_path = WPL_ABSPATH .DS. 'libraries' .DS. 'widget_search' .DS. 'frontend' .DS. 'location_items';
 	$location_files = array();

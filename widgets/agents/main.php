@@ -22,7 +22,7 @@ class wpl_agents_widget extends wpl_widget
 	
 	public function __construct()
 	{
-		parent::__construct('wpl_agents_widget', 'WPL agents widget', array('description'=>__('Showing specific agents', WPL_TEXTDOMAIN)));
+		parent::__construct('wpl_agents_widget', '(WPL) Agents', array('description'=>__('Showing specific agents.', WPL_TEXTDOMAIN)));
 	}
 
 	/**

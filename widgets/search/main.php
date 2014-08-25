@@ -23,7 +23,7 @@ class wpl_search_widget extends wpl_widget
 	
 	public function __construct()
 	{
-		parent::__construct('wpl_search_widget', 'WPL search widget', array('description'=>__('Search property', WPL_TEXTDOMAIN)));
+		parent::__construct('wpl_search_widget', '(WPL) Search', array('description'=>__('Search properties.', WPL_TEXTDOMAIN)));
 	}
 
 	/**

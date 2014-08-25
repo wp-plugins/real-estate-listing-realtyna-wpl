@@ -18,7 +18,7 @@ $this->_wpl_import($this->tpl_path . '.scripts.js');
         <div class="side-2 side-tabs-wp">
             <ul>
                 <?php foreach ($this->field_categories as $category): ?>
-				<li><a href="#<?php echo __($category->id); ?>" class="wpl_slide_label wpl_slide_label_id<?php echo $category->id; ?>" id="wpl_slide_label_id<?php echo $category->id; ?>" onclick="rta.internal.slides.open('<?php echo $category->id; ?>', '.side-tabs-wp', '.wpl_slide_container', 'currentTab');"><?php echo __($category->name, WPL_TEXTDOMAIN); ?></a></li>
+				<li><a href="#<?php echo __($category->id); ?>" class="wpl_slide_label wpl_slide_label_prefix_<?php echo $category->prefix; ?>" id="wpl_slide_label_id<?php echo $category->id; ?>" onclick="rta.internal.slides.open('<?php echo $category->id; ?>', '.side-tabs-wp', '.wpl_slide_container', 'currentTab');"><?php echo __($category->name, WPL_TEXTDOMAIN); ?></a></li>
                 <?php endforeach; ?>
             </ul>
         </div>
@@ -26,7 +26,7 @@ $this->_wpl_import($this->tpl_path . '.scripts.js');
             <!-- sidebar2 -->
             <div class="wpl_sidebar2" style="width: 100%;">
                 <?php foreach ($this->field_categories as $category): ?>
-                    <div class="wpl_slide_container wpl_slide_label_prefix_<?php echo $category->prefix; ?>" id="wpl_slide_container_id<?php echo $category->id; ?>">
+                    <div class="wpl_slide_container" id="wpl_slide_container_id<?php echo $category->id; ?>">
                         <?php $this->generate_slide($category); ?>
                     </div>
                 <?php endforeach; ?>

@@ -26,17 +26,15 @@ wpl_extensions::import_javascript($js);
             </select>
         </div>
 		
-        <?php if(wpl_global::check_addon('complex')): ?>
         <div class="plugin-row wpl_shortcode_parameter wpl_hidden_element pr_property_listing">
-            <?php $kinds = wpl_flex::get_kinds(); ?>
+            <?php $kinds = wpl_flex::get_kinds('wpl_properties'); ?>
             <label for="pr_kind_selectbox"><?php echo __('Kind', WPL_TEXTDOMAIN); ?></label>
             <select id="pr_kind_selectbox" name="kind">
-                <?php foreach($kinds as $kind): if($kind['id'] == 2) continue; ?>
+                <?php foreach($kinds as $kind): ?>
 				<option value="<?php echo $kind['id']; ?>"><?php echo __($kind['name'], WPL_TEXTDOMAIN); ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
-        <?php endif; ?>
         
         <div class="plugin-row wpl_shortcode_parameter wpl_hidden_element pr_property_listing">
             <?php $listings = wpl_global::get_listings(); ?>

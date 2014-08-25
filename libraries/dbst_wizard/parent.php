@@ -11,7 +11,7 @@ if($type == 'parent' and !$done_this)
 	wp_enqueue_script('jquery-ui-autocomplete');
 ?>
 <label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($field->name, WPL_TEXTDOMAIN); ?><?php if(in_array($field->mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>
-<input type="text" class="wpl_c_<?php echo $field->table_column; ?>" id="wpl_c_<?php echo $field->id; ?>" value="<?php echo $value; ?>" onchange="ajax_save('<?php echo $field->table_name; ?>', '<?php echo $field->table_column; ?>', this.value, '<?php echo $item_id; ?>', '<?php echo $field->id; ?>');" <?php echo ((isset($options['readonly']) and $options['readonly'] == 1) ? 'disabled="disabled"' : ''); ?> />
+<input type="text" class="wpl_c_<?php echo $field->table_column; ?>" id="wpl_c_<?php echo $field->id; ?>" value="<?php echo $value; ?>" <?php echo ((isset($options['readonly']) and $options['readonly'] == 1) ? 'disabled="disabled"' : ''); ?> />
 <span id="wpl_listing_saved_span_<?php echo $field->id; ?>" class="wpl_listing_saved_span"></span>
 <script type="text/javascript">
 wplj(document).ready(function()
@@ -22,7 +22,6 @@ wplj(document).ready(function()
         minLength: 1,
         select: function( event, ui )
         {
-            ajax_save('<?php echo $field->table_name; ?>', '<?php echo $field->table_column; ?>', ui.item.id, '<?php echo $item_id; ?>', '<?php echo $field->id; ?>');
             wpl_parent_is_selected<?php echo $field->id; ?>(ui.item.id);
         },
         change: function( event, ui )

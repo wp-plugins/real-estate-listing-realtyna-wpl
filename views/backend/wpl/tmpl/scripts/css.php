@@ -20,4 +20,5 @@ defined('_WPLEXEC') or die('Restricted access');
 .side-statistic1{margin-right: 1% !important;}
 .side-statistic2{width: 50% !important;}
 .side-announce{width: 100% !important;}
+.side-addons p.pro-message{margin: 10px 20px;}
 </style>

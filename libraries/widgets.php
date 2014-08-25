@@ -17,10 +17,11 @@ class wpl_widget extends WP_Widget
      * @author Howard <howard@realtyna.com>
      * @param int $widget_id
      * @param string $widget_name
+     * @param array $options
      */
-	function __construct($widget_id = null, $widget_name = '')
+	function __construct($widget_id = null, $widget_name = '', $options = array())
 	{
-		parent::__construct($widget_id, $widget_name);
+		parent::__construct($widget_id, $widget_name, $options);
 	}
     
     /**

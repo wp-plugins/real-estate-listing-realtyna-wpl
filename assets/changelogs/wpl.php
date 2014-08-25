@@ -4,6 +4,14 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.7.7 (<span class="wpl_log_date">8/25/2014</span> <span class="wpl_log_revision">revision 769</span>)</h4>
+        -- <strong>[PRO]</strong> Geo meta tag support is added for SEO purposes.<br />
+        -- <strong>[PRO]</strong> Italian and Serbian language files are added.<br />
+        -- Fixed some issues on WPL kinds.<br />
+        -- Added separators for setting fields.<br />
+        -- Fixed an issue on Widgets name and description.<br />
+        -- Updated WPL language files.
+        
         <h4>WPL1.7.5 (<span class="wpl_log_date">8/23/2014</span> <span class="wpl_log_revision">revision 762</span>)</h4>
         -- Fixed an issue on notification content.<br />
         -- Fixed an issue on showing property neighborhoods.<br />

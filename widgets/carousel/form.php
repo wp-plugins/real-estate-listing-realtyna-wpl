@@ -47,6 +47,16 @@ include _wpl_import("widgets.carousel.scripts.js_backend", true, true);
         <input type="text" id="<?php echo $this->get_field_id('thumbnail_height'); ?>" name="<?php echo $this->get_field_name('data'); ?>[thumbnail_height]" value="<?php echo isset($instance['data']['thumbnail_height']) ? $instance['data']['thumbnail_height'] : '60'; ?>" />
     </div>
     
+    <div>
+        <?php $kinds = wpl_flex::get_kinds('wpl_properties'); ?>
+        <label for="<?php echo $this->get_field_id('data_kind'); ?>"><?php echo __('Kind', WPL_TEXTDOMAIN); ?>: </label>
+        <select id="<?php echo $this->get_field_id('data_kind'); ?>" name="<?php echo $this->get_field_name('data'); ?>[kind]">
+            <?php foreach($kinds as $kind): ?>
+            <option <?php if(isset($instance['data']['kind']) and $instance['data']['kind'] == $kind['id']) echo 'selected="selected"'; ?> value="<?php echo $kind['id']; ?>"><?php echo __($kind['name'], WPL_TEXTDOMAIN); ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+    
     <?php $listings = wpl_global::get_listings(); ?>
     <div>
     	<label for="<?php echo $this->get_field_id('data_listing'); ?>"><?php echo __('Listing', WPL_TEXTDOMAIN); ?>: </label>

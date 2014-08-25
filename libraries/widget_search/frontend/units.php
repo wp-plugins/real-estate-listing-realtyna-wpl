@@ -160,11 +160,11 @@ if(($type == 'area' or $type == 'price' or $type == 'volume' or $type == 'length
 				continue;
 			}
 			
-			$html .= '<option value="'.$i.'" '.($current_min_value == $i ? 'selected="selected"' : '').'>'.number_format($i, 0, '.', ',').'</option>';
+			$html .= '<option value="'.$i.'" '.(($current_min_value == $i and $i != $default_min_value) ? 'selected="selected"' : '').'>'.number_format($i, 0, '.', ',').'</option>';
 			$i += $division;
 		}
 		
-		$html .= '<option value="'.$max_value.'" '.($current_min_value == $i ? 'selected="selected"' : '').'>'.$max_value.'</option>';
+		$html .= '<option value="'.$max_value.'">'.number_format($max_value, 0, '.', ',').'</option>';
         $html .= '</select>';
         
         $html .= '<select name="sf'.$widget_id.'_max_'.$field_data['table_column'].'" id="sf'.$widget_id.'_max_'.$field_data['table_column'].'">';
@@ -174,11 +174,17 @@ if(($type == 'area' or $type == 'price' or $type == 'volume' or $type == 'length
 		
 		while($i < $max_value)
 		{
-			$html .= '<option value="'.$i.'" '.($current_max_value == $i ? 'selected="selected"' : '').'>'.number_format($i, 0, '.', ',').'</option>';
+            if($i == '0' and $any)
+			{
+				$i += $division;
+				continue;
+			}
+            
+			$html .= '<option value="'.$i.'" '.(($current_max_value == $i and $i != $default_min_value) ? 'selected="selected"' : '').'>'.number_format($i, 0, '.', ',').'</option>';
 			$i += $division;
 		}
 		
-		$html .= '<option value="'.$max_value.'" '.($current_max_value == $i ? 'selected="selected"' : '').'>'.$max_value.'</option>';
+		$html .= '<option value="'.$max_value.'">'.number_format($max_value, 0, '.', ',').'</option>';
         $html .= '</select>';
 	}
 	elseif($show == 'minmax_selectbox_plus')
@@ -190,7 +196,13 @@ if(($type == 'area' or $type == 'price' or $type == 'volume' or $type == 'length
 		$html .= '<option value="-1" '.($current_min_value == $i ? 'selected="selected"' : '').'>'.__($field['name'], WPL_TEXTDOMAIN).'</option>';
 		while($i < $max_value)
 		{
-			$html .= '<option value="'.$i.'" '.($current_min_value == $i ? 'selected="selected"' : '').'>'.number_format($i, 0, '.', ',').'+</option>';
+            if($i == '0')
+			{
+				$i += $division;
+				continue;
+			}
+            
+			$html .= '<option value="'.$i.'" '.(($current_min_value == $i and $i != $default_min_value) ? 'selected="selected"' : '').'>'.number_format($i, 0, '.', ',').'+</option>';
 			$i += $division;
 		}
 		

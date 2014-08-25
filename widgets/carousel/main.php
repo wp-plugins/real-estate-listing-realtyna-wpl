@@ -24,7 +24,7 @@ class wpl_carousel_widget extends wpl_widget
 	
 	public function __construct()
 	{
-		parent::__construct('wpl_carousel_widget', 'WPL carousel widget', array('description'=>__('Showing specific properties', WPL_TEXTDOMAIN)));
+		parent::__construct('wpl_carousel_widget', '(WPL) Carousel', array('description'=>__('Showing specific properties.', WPL_TEXTDOMAIN)));
 	}
 
 	/**
@@ -123,6 +123,9 @@ class wpl_carousel_widget extends wpl_widget
 		
 		$this->where = " AND p.`deleted`='0' AND p.`finalized`='1' AND p.`confirmed`='1'";
 		
+        if(isset($data['kind']) and (trim($data['kind']) != '' or trim($data['kind']) != '-1')) $this->where .= " AND p.`kind`='".$data['kind']."'";
+        else $this->where .= " AND p.`kind`='0'";
+        
 		if(trim($data['listing']) and $data['listing'] != '-1') $this->where .= " AND p.`listing`='".$data['listing']."'";
 		if(trim($data['property_type']) and $data['property_type'] != '-1') $this->where .= " AND p.`property_type`='".$data['property_type']."'";
 		if(trim($data['property_ids'])) $this->where .= " AND p.`id` IN (".trim($data['property_ids'], ', ').")";

@@ -111,8 +111,7 @@ class wpl_flex
      */
 	public static function get_kind_label($kind = 0)
 	{
-		$kind_array = array(0=>'property', 1=>'complex', 2=>'user');
-		return $kind_array[$kind];
+		return wpl_db::get('name', 'wpl_kinds', 'id', $kind);
 	}
 	
     /**
@@ -124,8 +123,8 @@ class wpl_flex
      */
 	public static function get_kind_id($kind_name = 'property')
 	{
-		$kind_array = array('property'=>0, 'complex'=>1, 'user'=>2);
-		return $kind_array[$kind_name];
+        $query = "SELECT `id` FROM `#__wpl_kinds` WHERE LOWER(name)='".strtolower($kind_name)."'";
+        return wpl_db::select($query, 'loadResult');
 	}
     
     /**
@@ -137,8 +136,8 @@ class wpl_flex
      */
 	public static function get_kind_table($kind = 0)
 	{
-		$kind_array = array(0=>'wpl_properties', 1=>'wpl_properties', 2=>'wpl_users');
-		return $kind_array[$kind];
+        $query = "SELECT `table` FROM `#__wpl_kinds` WHERE `id`='$kind'";
+        return wpl_db::select($query, 'loadResult');
 	}
 	
     /**
@@ -149,7 +148,13 @@ class wpl_flex
      */
 	public static function get_valid_kinds()
 	{
-		return array(0, 1, 2);
+        $query = "SELECT `id` FROM `#__wpl_kinds`";
+        $kinds = wpl_db::select($query, 'loadAssocList');
+        
+        $retrun = array();
+        foreach($kinds as $kind) $retrun[] = $kind['id'];
+        
+		return $retrun;
 	}
     
     /**
@@ -158,9 +163,10 @@ class wpl_flex
      * @static
      * @return array
      */
-	public static function get_kinds()
+	public static function get_kinds($table = 'wpl_properties')
 	{
-		return array(0=>array('id'=>0, 'name'=>'Property'), 1=>array('id'=>1, 'name'=>'Complex'), 2=>array('id'=>2, 'name'=>'User'));
+        $query = "SELECT * FROM `#__wpl_kinds` WHERE 1".(trim($table) ? " AND `table`='$table'" : "");
+        return wpl_db::select($query, 'loadAssocList');
 	}
     
     /**

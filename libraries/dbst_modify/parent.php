@@ -4,7 +4,7 @@ defined('_WPLEXEC') or die('Restricted access');
 
 if($type == 'parent' and !$done_this)
 {
-    $kinds = wpl_flex::get_kinds();
+    $kinds = wpl_flex::get_kinds('wpl_properties');
 ?>
 <div class="fanc-body">
 	<div class="fanc-row fanc-button-row-2">

@@ -5,8 +5,11 @@ defined('_WPLEXEC') or die('Restricted access');
 <div class="side-10 side-addons">
     <div class="panel-wp">
         <h3><?php echo __('WPL Add Ons', WPL_TEXTDOMAIN); ?></h3>
-
+        
         <div class="panel-body">
+            <?php if(!wpl_global::check_addon('pro')): ?>
+            <p class="pro-message"><?php echo __('You cannot install any add-on on WPL basic! You should upgrade to WPL PRO first.', WPL_TEXTDOMAIN); ?></p>
+            <?php else: ?>
             <div class="wpl-addons-install-wp wpl_install_addons_container">
                 <div class="wpl_realtyna_credentials_container">
                 	<input type="text" name="realtyna_username" id="realtyna_username" value="<?php if(isset($this->settings['realtyna_username'])) echo $this->settings['realtyna_username']; ?>" placeholder="<?php echo __('Billing username', WPL_TEXTDOMAIN); ?>" />
@@ -38,6 +41,7 @@ defined('_WPLEXEC') or die('Restricted access');
                     </div>
                 <?php endforeach; ?>
             </div>
+            <?php endif; ?>
         </div>
     </div>
 </div>

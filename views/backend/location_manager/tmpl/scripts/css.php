@@ -11,4 +11,6 @@ defined('_WPLEXEC') or die('Restricted access');
 #wpl_location_settings_lightbox input[type=text]{font-weight: normal; width: 150px;}
 #wpl_location_settings_lightbox .wpl_setting_form_tooltip{display: none;}
 .wpl_no_item{text-align: center; cursor: pointer;}
+.separator-name{padding-left: 30px; margin: 10px 0;}
+hr{width: 90%; margin-bottom: 0;}
 </style>
