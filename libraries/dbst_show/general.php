@@ -107,6 +107,9 @@ elseif($type == 'number' and !$done_this) //////////////////////////// number //
 		$return['type'] = $field->type;
 		$return['name'] = __($field->name, WPL_TEXTDOMAIN);
 		$return['value'] = $value;
+        
+        if(isset($options['if_zero']) and $options['if_zero'] == 2 and $value == 0) $return['value'] = __($options['call_text'], WPL_TEXTDOMAIN);
+        if(isset($options['if_zero']) and !$options['if_zero'] and $value == 0) $return = array();
 	}
 	
 	$done_this = true;
@@ -119,7 +122,11 @@ elseif($type == 'mmnumber' and !$done_this) //////////////////////////// Min/Max
 		$return['type'] = $field->type;
 		$return['name'] = __($field->name, WPL_TEXTDOMAIN);
 		$return['value'] = $value;
+        
         if(trim($values[$field->table_column.'_max'])) $return['value'] .= ' - '. $values[$field->table_column.'_max'];
+        
+        if(isset($options['if_zero']) and $options['if_zero'] == 2 and $value == 0 and $values[$field->table_column.'_max'] == 0) $return['value'] = __($options['call_text'], WPL_TEXTDOMAIN);
+        if(isset($options['if_zero']) and !$options['if_zero'] and $value == 0 and $values[$field->table_column.'_max'] == 0) $return = array();
 	}
 	
 	$done_this = true;
@@ -177,6 +184,12 @@ elseif($type == 'price' and !$done_this)  //////////////////////////// Price ///
 	$return['name'] = __($field->name, WPL_TEXTDOMAIN);
 	$return['value'] = wpl_render::render_price($value, $values[$field->table_column.'_unit']);
 	
+    $price_period = wpl_property::render_field($values['price_period'], wpl_flex::get_dbst_id('price_period', $field->kind));
+    if(isset($price_period['value'])) $return['value'] .= ' '.$price_period['value'];
+    
+    if(isset($options['if_zero']) and $options['if_zero'] == 2 and $value == 0) $return['value'] = __($options['call_text'], WPL_TEXTDOMAIN);
+    if(isset($options['if_zero']) and !$options['if_zero'] and $value == 0) $return = array();
+        
 	$done_this = true;
 }
 elseif($type == 'mmprice' and !$done_this)  //////////////////////////// Price ////////////////////////////
@@ -190,6 +203,12 @@ elseif($type == 'mmprice' and !$done_this)  //////////////////////////// Price /
     {
         $return['value'] .= ' - '.wpl_render::render_price($values[$field->table_column.'_max'], $values[$field->table_column.'_unit']);
     }
+    
+    $price_period = wpl_property::render_field($values['price_period'], wpl_flex::get_dbst_id('price_period', $field->kind));
+    if(isset($price_period['value'])) $return['value'] .= ' '.$price_period['value'];
+    
+    if(isset($options['if_zero']) and $options['if_zero'] == 2 and $value == 0 and $values[$field->table_column.'_max'] == 0) $return['value'] = __($options['call_text'], WPL_TEXTDOMAIN);
+    if(isset($options['if_zero']) and !$options['if_zero'] and $value == 0 and $values[$field->table_column.'_max'] == 0) $return = array();
             
 	$done_this = true;
 }

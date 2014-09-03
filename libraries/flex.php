@@ -55,6 +55,20 @@ class wpl_flex
 		$query = "SELECT * FROM `#__wpl_dbst` WHERE `id`='$field_id'";
 		return wpl_db::select($query, 'loadObject');
 	}
+    
+    /**
+     * Get DB structure id based on kind and table column
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $table_column
+     * @param int $kind
+     * @return int
+     */
+    public static function get_dbst_id($table_column, $kind = 0)
+    {
+        $query = "SELECT id FROM `#__wpl_dbst` WHERE `kind`='$kind' and `table_column`='$table_column'";
+		return wpl_db::select($query, 'loadResult');
+    }
 	
     /**
      * Create default dbst field and returns new dbst id

@@ -203,7 +203,7 @@ class wpl_extensions
 	{
         $locale = apply_filters('plugin_locale', get_locale(), WPL_TEXTDOMAIN);
 		$overriden_language_filepath = WP_LANG_DIR .DS. WPL_BASENAME .DS. WPL_TEXTDOMAIN.'-'.$locale.'.mo';
-		
+        
 		/** check if the language file is overridden **/
 		if(wpl_file::exists($overriden_language_filepath))
         {
@@ -778,6 +778,18 @@ class wpl_extensions
 			$wpl_extensions->import_style($style);
 		}
 	}
+    
+    public static function wpl_plugin_links($links, $file)
+    {
+        if(strpos($file, WPL_BASENAME) !== false)
+        {
+            $links[] = '<a href="'.wpl_global::get_wp_admin_url().'admin.php?page=wpl_admin_settings">'.__('Settings', WPL_TEXTDOMAIN).'</a>';
+            $links[] = '<a href="http://wpl.realtyna.com/wassets/wpl-manual.pdf" target="_blank">'.__('WPL Manual', WPL_TEXTDOMAIN).'</a>';
+            $links[] = '<a href="http://wpl.realtyna.com/redirect.php?action=shop" target="_blank">'.__('WPL Add-ons', WPL_TEXTDOMAIN).'</a>';
+        }
+        
+        return $links;
+    }
 }
 
 /** load extensions **/
@@ -823,7 +835,10 @@ add_action('login_enqueue_scripts', array($wpl_extensions, 'import_styles_script
 add_filter('wp_title', array($wpl_extensions, 'wp_title'), 999);
 
 /** import languages **/
-$wpl_extensions->import_language();
+add_action('init', array($wpl_extensions, 'import_language'));
+
+/** plugin links **/
+add_filter('plugin_row_meta', array($wpl_extensions, 'wpl_plugin_links'), 10, 2);
 
 /** import permalink **/
 $wpl_extensions->import_permalink();

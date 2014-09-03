@@ -3,8 +3,8 @@ Contributors: realtyna
 Donate link: http://wpl.realtyna.com/
 Tags: Real estate, Listing, Vertical Market, MLS, Property listing, RETS
 Requires at least: 3.0.1
-Tested up to: 3.9.1
-Stable tag: 1.7.7
+Tested up to: 3.9.2
+Stable tag: 1.8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -59,6 +59,12 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 6. External Responsive Template: Agent listing
 
 == Changelog ==
+
+= 1.8.0 =
+* Added user contact activity.
+* Fixed an issue on WPL SEF.
+* Added price options to WPL shortcode wizard.
+* Added WPL plugin links in WordPress plugin manager.
 
 = 1.7.7 =
 * Fixed some issues on WPL kinds.

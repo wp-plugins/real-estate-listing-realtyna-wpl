@@ -65,6 +65,26 @@ wpl_extensions::import_javascript($js);
         </div>
         
         <div class="plugin-row wpl_shortcode_parameter wpl_hidden_element pr_property_listing">
+            <label for="pr_price_min"><?php echo __('Price (Min)', WPL_TEXTDOMAIN); ?></label>
+            <input type="text" id="pr_price_min" name="sf_min_price" />
+        </div>
+        
+        <div class="plugin-row wpl_shortcode_parameter wpl_hidden_element pr_property_listing">
+            <label for="pr_price_max"><?php echo __('Price (Max)', WPL_TEXTDOMAIN); ?></label>
+            <input type="text" id="pr_price_max" name="sf_max_price" />
+        </div>
+        
+        <div class="plugin-row wpl_shortcode_parameter wpl_hidden_element pr_property_listing">
+            <?php $units = wpl_units::get_units(4); ?>
+            <label for="pr_price_unit_selectbox"><?php echo __('Price Unit', WPL_TEXTDOMAIN); ?></label>
+            <select id="pr_price_unit_selectbox" name="sf_unit_price">
+                <?php foreach($units as $unit): ?>
+				<option value="<?php echo $unit['id']; ?>"><?php echo __($unit['name'], WPL_TEXTDOMAIN); ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        
+        <div class="plugin-row wpl_shortcode_parameter wpl_hidden_element pr_property_listing">
             <label for="pr_only_featured_selectbox"><?php echo __('Featured', WPL_TEXTDOMAIN); ?></label>
             <select id="pr_only_featured_selectbox" name="sf_select_sp_featured">
                 <option value="-1"><?php echo __('Any', WPL_TEXTDOMAIN); ?></option>

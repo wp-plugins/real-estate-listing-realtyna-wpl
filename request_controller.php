@@ -66,5 +66,10 @@ if(trim($wpl_format) != '')
 	$wpl_request_controller = new wpl_request_controller($wpl_format);
 	
 	/** actiob fur triggering request **/
-	add_action('init', array($wpl_request_controller, 'run'), 1);
+    $client = wpl_global::get_client();
+    
+    if($client == 1) $hook = 'plugins_loaded'; # WordPress Backend
+    elseif($client == 0) $hook = 'init'; # WordPress Frontend
+    
+	add_action($hook, array($wpl_request_controller, 'run'), 1);
 }

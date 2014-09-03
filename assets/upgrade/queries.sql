@@ -74,7 +74,7 @@ ALTER TABLE `#__wpl_properties` ADD `field_313` VARCHAR( 50 ) NULL AFTER `field_
 UPDATE `#__wpl_dbcat` SET `listing_specific`='' WHERE `id`='7';
 
 INSERT INTO `#__wpl_dbst_types` (`id`, `kind`, `type`, `enabled`, `index`, `queries_add`, `queries_delete`) VALUES
-(14, '[0][1]', 'url', 1, 1.00, 'ALTER TABLE `wp_[TABLE_NAME]` ADD `field_[FIELD_ID]` varchar(50) NULL; UPDATE wp_wpl_dbst SET `table_name`=''[TABLE_NAME]'', `table_column`=''field_[FIELD_ID]'' WHERE id=[FIELD_ID];', 'ALTER TABLE `#__[TABLE_NAME]`\r\nDROP `field_[FIELD_ID]`;');
+(14, '[0][1]', 'url', 1, 1.00, 'ALTER TABLE `#__[TABLE_NAME]` ADD `field_[FIELD_ID]` varchar(50) NULL; UPDATE #__wpl_dbst SET `table_name`=''[TABLE_NAME]'', `table_column`=''field_[FIELD_ID]'' WHERE id=[FIELD_ID];', 'ALTER TABLE `#__[TABLE_NAME]`\r\nDROP `field_[FIELD_ID]`;');
 
 INSERT INTO `#__wpl_extensions` (`id`, `type`, `title`, `parent`, `description`, `enabled`, `param1`, `param2`, `param3`, `param4`, `param5`, `params`, `editable`, `index`, `client`) VALUES
 (24, 'sidebar', 'Property Listing Top', 0, 'Appears below of Google map in property listing page', 1, 'wpl-plisting-top', '', '', '', '', '', 0, 99.99, 2);
@@ -190,7 +190,7 @@ INSERT INTO `#__wpl_events` (`id`, `type`, `trigger`, `class_location`, `class_n
 (4, 'notification', 'contact_agent', 'libraries.event_handlers.notifications', 'wpl_events_notifications', 'contact_agent', '', 1);
 
 INSERT INTO `#__wpl_notifications` (`id`, `description`, `template`, `subject`, `additional_memberships`, `additional_users`, `additional_emails`, `options`, `params`, `enabled`) VALUES
-(2, 'Contact to agent', 'contact_agent', 'New contact', '', '', '', NULL, '', 1);
+(2, 'Contact to listing agent from listing page', 'contact_agent', 'New Contact', '', '', '', NULL, '', 1);
 
 INSERT INTO `#__wpl_activities` (`id`, `activity`, `position`, `enabled`, `index`, `params`, `show_title`, `title`, `association_type`, `associations`) VALUES
 (23, 'listing_contact', 'pshow_position2', 1, 99.00, '', 1, 'Contact Agent', 1, '');
@@ -247,3 +247,17 @@ INSERT INTO `#__wpl_settings` (`id`, `setting_name`, `setting_value`, `showable`
 (71, 'listing_pages_separator', NULL, 1, 1, 'separator', 'Listings', NULL, NULL, 98.00),
 (72, 'users_separator', NULL, 1, 1, 'separator', 'Users', NULL, NULL, 107.00),
 (73, 'io_separator', NULL, 1, 1, 'separator', 'I/O Application', NULL, NULL, 116.00);
+
+INSERT INTO `#__wpl_activities` (`id`, `activity`, `position`, `enabled`, `index`, `params`, `show_title`, `title`, `association_type`, `associations`) VALUES
+(24, 'user_contact', 'profile_show_position1', 0, 99.00, '{"top_comment":""}', 1, 'Contact', 1, '');
+
+INSERT INTO `#__wpl_notifications` (`id`, `description`, `template`, `subject`, `additional_memberships`, `additional_users`, `additional_emails`, `options`, `params`, `enabled`) VALUES
+(3, 'Contact to agent from profile page', 'contact_profile', 'New Profile Contact', '', '', '', NULL, '', 1);
+
+INSERT INTO `#__wpl_events` (`id`, `type`, `trigger`, `class_location`, `class_name`, `function_name`, `params`, `enabled`) VALUES
+(5, 'notification', 'contact_profile', 'libraries.event_handlers.notifications', 'wpl_events_notifications', 'contact_profile', '', 1);
+
+UPDATE `#__wpl_dbst` SET `searchmod`='1' WHERE `id`='313';
+
+ALTER TABLE `#__wpl_properties` CHANGE `last_modified_time_stamp` `last_modified_time_stamp` TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
+ALTER TABLE `#__wpl_users` ADD `last_modified_time_stamp` TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `rendered`;

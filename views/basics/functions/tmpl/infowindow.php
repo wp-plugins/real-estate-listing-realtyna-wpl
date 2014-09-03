@@ -11,9 +11,10 @@ foreach($this->wpl_properties as $key => $property)
 	$property_id = $property['data']['id'];
     $locations	 = $property['location_text'];
 
-	$room       = '<div class="bedroom">'.$property['materials']['bedrooms']['value'].'</div>';
+	$room       = isset($property['materials']['bedrooms']) ? '<div class="bedroom">'.$property['materials']['bedrooms']['value'].'</div>' : '';
     if($property['materials']['bedrooms']['value'] == 0 and $property['materials']['rooms']['value'] != 0) $room = '<div class="room">'.$property['materials']['rooms']['value'].'</div>';
-    $bathroom   = '<div class="bathroom">'.$property['materials']['bathrooms']['value'].'</div>';
+    
+    $bathroom   = isset($property['materials']['bathrooms']) ? '<div class="bathroom">'.$property['materials']['bathrooms']['value'].'</div>' : '';
     $parking    = '<div class="parking">'.($property['raw']['f_150'] == 1 ? $property['raw']['f_150_options'] : 0).'</div>';
     $pic_count  = '<div class="pic_count">'.$property['raw']['pic_numb'].'</div>';
     $price 		= '<div class="price">'.$property['materials']['price']['value'].'</div>';

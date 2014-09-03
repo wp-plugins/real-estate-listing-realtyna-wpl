@@ -4,6 +4,16 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.8.0 (<span class="wpl_log_date">9/03/2014</span> <span class="wpl_log_revision">revision 784</span>)</h4>
+        -- <strong>[PRO]</strong> Added Sitemap feature for WPL items (Listings/Agents).<br />
+        -- <strong>[PRO]</strong> Added Dublin Core meta tags for SEO purposes.<br />
+        -- <strong>[PRO]</strong> Added an ability for hiding a numeric field when its value is zero.<br />
+        -- <strong>[PRO]</strong> Added Call for price feature when the price sets to zero.<br />
+        -- Added user contact activity.<br />
+        -- Fixed an issue on WPL SEF.<br />
+        -- Added price options to WPL shortcode wizard.<br />
+        -- Added WPL plugin links in WordPress plugin manager.
+        
         <h4>WPL1.7.7 (<span class="wpl_log_date">8/25/2014</span> <span class="wpl_log_revision">revision 769</span>)</h4>
         -- <strong>[PRO]</strong> Geo meta tag support is added for SEO purposes.<br />
         -- <strong>[PRO]</strong> Italian and Serbian language files are added.<br />

@@ -24,9 +24,9 @@ class wpl_property_listing_controller extends wpl_controller
             $term = wpl_request::getVar('term');
             $this->locationtextsearch_autocomplete($term);
         }
-        elseif($function == 'contact_agent')
+        elseif($function == 'contact_listing_user' or $function == 'contact_agent')
         {
-            $this->contact_agent();
+            $this->contact_listing_user();
         }
     }
 
@@ -81,7 +81,7 @@ class wpl_property_listing_controller extends wpl_controller
         exit;
     }
     
-    private function contact_agent()
+    private function contact_listing_user()
     {
         $fullname = wpl_request::getVar('fullname', '');
         $phone = wpl_request::getVar('phone', '');

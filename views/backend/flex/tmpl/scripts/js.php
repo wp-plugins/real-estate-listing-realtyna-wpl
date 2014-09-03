@@ -221,7 +221,7 @@ function save_dbst(prefix, dbst_id)
 		wplj("#wpl_dbst_submit_button").removeAttr("disabled");
 		
 		/** refresh the fancybox **/
-		rta.config.fancybox.reloadAfterClose = true;
+		if(!dbst_id) rta.config.fancybox.reloadAfterClose = true;
 		wplj.fancybox.close();
 	});
 }

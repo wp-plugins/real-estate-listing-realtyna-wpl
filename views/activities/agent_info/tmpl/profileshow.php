@@ -32,7 +32,7 @@ $agent_name               = (isset($wpl_user['materials']['first_name']['value']
 $agent_l_name             = (isset($wpl_user['materials']['last_name']['value']) ? $wpl_user['materials']['last_name']['value'] : '');
 $company_name             = (isset($wpl_user['materials']['company_name']['value']) ? $wpl_user['materials']['company_name']['value'] : '');
 ?>
-<div class="wpl_agent_info" id="wpl_agent_info">
+<div class="wpl_agent_info clearfix" id="wpl_agent_info">
 	<div class="wpl_agent_info_l">
         <?php
 			if(isset($wpl_user['profile_picture'])) echo '<img src="'.$profile_image.'" alt="'.$agent_name. ' '.$agent_l_name.'" />';

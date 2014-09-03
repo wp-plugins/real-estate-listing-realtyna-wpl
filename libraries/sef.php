@@ -385,4 +385,21 @@ class wpl_sef
             
         return $main_permalink;
     }
+    
+    /**
+     * Returns WPL main page ID
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @return int
+     */
+    public static function get_wpl_main_page_id()
+    {
+        $main_permalink = wpl_global::get_setting('main_permalink');
+        $page_id = -1;
+        
+        if(is_numeric($main_permalink)) $page_id = $main_permalink;
+        else $page_id = url_to_postid($main_permalink);
+            
+        return $page_id;
+    }
 }

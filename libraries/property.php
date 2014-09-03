@@ -638,16 +638,23 @@ class wpl_property
 		if(trim($property_data['alias']) != '') $alias = urlencode($property_data['alias']);
 		else $alias = urlencode(self::update_alias($property_data, $property_id));
 		
+        $home_type = wpl_global::get_wp_option('show_on_front', 'posts');
+        $home_id = wpl_global::get_wp_option('page_on_front', 0);
+        
 		if(!$target_id) $target_id = wpl_request::getVar('wpltarget', 0);
 		if($target_id)
         {
             $url = wpl_global::add_qs_var('pid', $property_id, wpl_sef::get_page_link($target_id));
             $url = wpl_global::add_qs_var('alias', $alias, $url);
+            
+            if($home_type == 'page' and $home_id == $target_id) $url = wpl_global::add_qs_var('wplview', 'property_show', $url);
         }
 		else
         {
             $nosef = wpl_sef::is_permalink_default();
-            if($nosef)
+            $wpl_main_page_id = wpl_sef::get_wpl_main_page_id();
+            
+            if($nosef or ($home_type == 'page' and $home_id == $wpl_main_page_id))
             {
                 $url = wpl_global::add_qs_var('wplview', 'property_show', $url);
                 $url = wpl_global::add_qs_var('pid', $property_id, $url);

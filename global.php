@@ -1041,6 +1041,61 @@ class wpl_global
     }
     
     /**
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $post_id
+     * @return string
+     */
+    public static function get_the_title($post_id = NULL)
+    {
+        /** first validation **/
+        if(!$post_id) $post_id = self::get_the_ID();
+        
+        return get_the_title($post_id);
+    }
+    
+    /**
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $post_id
+     * @return string
+     */
+    public static function get_the_date($post_id = NULL)
+    {
+        /** first validation **/
+        if(!$post_id) $post_id = self::get_the_ID();
+        
+        return get_the_date(NULL, $post_id);
+    }
+    
+    /**
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $field
+     * @param int $post_id
+     * @return string
+     */
+    public static function get_post_field($field, $post_id = NULL)
+    {
+        /** first validation **/
+        if(!$post_id) $post_id = self::get_the_ID();
+        
+        return get_post_field($field, $post_id);
+    }
+    
+    /**
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $field
+     * @param int $user_id
+     * @return string
+     */
+    public static function get_the_author_meta($field, $user_id = NULL)
+    {
+        return get_the_author_meta($field, $user_id);
+    }
+    
+    /**
      * Use this function for escape url parameters
      * @author Howard <howard@realtyna.com>
      * @static
@@ -1056,4 +1111,36 @@ class wpl_global
 		$url = preg_replace($search, $replace, $url);
 		return trim($url, ' -');
 	}
+    
+    /**
+     * Returns all WPL item links (Used in sitemap feature)
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @since 1.8.0
+     * @return array
+     */
+    public static function get_wpl_item_links()
+    {
+        $links = array();
+        
+        /** WPL Properties **/
+        $properties = wpl_property::select_active_properties(NULL, '`id`');
+        foreach($properties as $property)
+        {
+            $property_data = wpl_db::select("SELECT `id`,`alias`,`last_modified_time_stamp` FROM `#__wpl_properties` WHERE `id`='".$property['id']."'", 'loadAssoc');
+            
+            $link = wpl_property::get_property_link($property_data);
+            $links[] = array('link'=>$link, 'time'=>strtotime($property_data['last_modified_time_stamp']));
+        }
+        
+        /** WPL Profiles **/
+        $profiles = wpl_users::get_wpl_users();
+        foreach($profiles as $profile)
+        {
+            $link = wpl_users::get_profile_link($profile->ID);
+            $links[] = array('link'=>$link, 'time'=>strtotime($profile->last_modified_time_stamp));
+        }
+        
+        return $links;
+    }
 }

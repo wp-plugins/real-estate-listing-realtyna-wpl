@@ -10,7 +10,7 @@ _wpl_import('libraries.notifications.notifications');
 class wpl_events_notifications
 {
     /**
-     * Contact Agent activity
+     * Listing Contact activity. It's for contacting to a listing agent.
      * @author Howard <howard@realtyna.com>
      * @static
      * @param array $params
@@ -32,7 +32,30 @@ class wpl_events_notifications
         $notification->recipients = $notification->set_recipients(array($user->data->user_email));
 
         $notification->send();
+        return true;
+    }
+    
+    /**
+     * User Contact activity. It's for contacting to user directly from profile show page
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param type $params
+     * @return boolean
+     */
+    public static function contact_profile($params)
+    {
+        $replacements = $params[0];
         
+        $notification = new wpl_notifications('email');
+        $notification->prepare(3, $replacements);
+        
+        $user = wpl_users::get_user($params[0]['user_id']);
+        
+        $notification->replacements = $notification->set_replacements($replacements);
+        $notification->rendered_content = $notification->render_notification_content();
+        $notification->recipients = $notification->set_recipients(array($user->data->user_email));
+        
+        $notification->send();
         return true;
     }
 }

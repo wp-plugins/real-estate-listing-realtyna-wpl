@@ -705,15 +705,23 @@ class wpl_users
 		if(trim($user_id) == '') $user_id = self::get_cur_user_id();
         
         $user_data = self::get_user($user_id);
-        
+        $home_type = wpl_global::get_wp_option('show_on_front', 'posts');
+        $home_id = wpl_global::get_wp_option('page_on_front', 0);
+            
 		if(!$target_id) $target_id = wpl_request::getVar('wpltarget', 0);
-		if($target_id) $url = wpl_global::add_qs_var('uid', $user_id, wpl_sef::get_page_link($target_id));
+		if($target_id)
+        {
+            $url = wpl_global::add_qs_var('uid', $user_id, wpl_sef::get_page_link($target_id));
+            
+            if($home_type == 'page' and $home_id == $target_id) $url = wpl_global::add_qs_var('wplview', 'profile_show', $url);
+        }
 		else
         {
             $url = wpl_sef::get_wpl_permalink(true);
             $nosef = wpl_sef::is_permalink_default();
+            $wpl_main_page_id = wpl_sef::get_wpl_main_page_id();
             
-            if($nosef)
+            if($nosef or ($home_type == 'page' and $home_id == $wpl_main_page_id))
             {
                 $url = wpl_global::add_qs_var('wplview', 'profile_show', $url);
                 $url = wpl_global::add_qs_var('uid', $user_id, $url);
