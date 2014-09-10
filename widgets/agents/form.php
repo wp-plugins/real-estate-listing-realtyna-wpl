@@ -7,6 +7,7 @@ include _wpl_import("widgets.agents.scripts.js_backend", true, true);
 ?>
 <div class="wpl_agents_widget_backend_form" id="<?php echo $this->get_field_id('wpl_agents_widget_container'); ?>">
     
+    <h4><?php echo __('Widget Configurations'); ?></h4>
     <div>
         <label for="<?php echo $this->get_field_id('title'); ?>"><?php echo __('Title', WPL_TEXTDOMAIN); ?>: </label>
         <input type="text" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" value="<?php echo isset($instance['title']) ? $instance['title'] : ''; ?>" />
@@ -45,6 +46,7 @@ include _wpl_import("widgets.agents.scripts.js_backend", true, true);
         <input type="text" id="<?php echo $this->get_field_id('data_image_height'); ?>" name="<?php echo $this->get_field_name('data'); ?>[image_height]" value="<?php echo isset($instance['data']['image_height']) ? $instance['data']['image_height'] : '230'; ?>" />
     </div>
     
+    <h4><?php echo __('Filter Profiles'); ?></h4>
     <?php if(wpl_global::check_addon('pro')): ?>
     <?php $membership_types = wpl_users::get_membership_types(); ?>
     <div>
@@ -79,6 +81,7 @@ include _wpl_import("widgets.agents.scripts.js_backend", true, true);
     	<label for="<?php echo $this->get_field_id('data_random'); ?>"><?php echo __('Random', WPL_TEXTDOMAIN); ?>: </label>
     </div>
     
+    <h4><?php echo __('Sort and Limit'); ?></h4>
     <?php $sort_options = wpl_sort_options::get_sort_options(2); ?>
     <div>
     	<label for="<?php echo $this->get_field_id('data_orderby'); ?>"><?php echo __('Order by', WPL_TEXTDOMAIN); ?>: </label>

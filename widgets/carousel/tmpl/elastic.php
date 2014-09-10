@@ -46,8 +46,8 @@ foreach($wpl_properties as $key=>$gallery)
             <img src="'.$image_url.'" alt="'.$image_title.'" width="'.$image_width.'" height="'.$image_height.'" style="width: '.$image_width.'px; height: '.$image_height.'px;" />
             <div class="ei-title">
                 <h2>'.$image_title.'</h2>
-                <h3>'.$gallery["rendered"][10]["value"].' - '.$gallery["location_text"].'</h3>
-                <a class="more_info" href="'.$gallery["property_link"].'">'. __('More info', WPL_TEXTDOMAIN).'</a>
+                <h3>'.$gallery['materials']['living_area']['value'].' - '.$gallery["location_text"].'</h3>
+                <a class="more_info" href="'.$gallery['property_link'].'">'. __('More info', WPL_TEXTDOMAIN).'</a>
             </div>
         </li>';
 

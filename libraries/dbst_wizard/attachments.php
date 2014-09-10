@@ -157,8 +157,8 @@ wplj(document).ready(function()
                         fileName: file.name,
                         subFileName: file.name.substr((file.name.lastIndexOf('.') + 1)),
                         lblTitle: '<?php echo __('Attachment Title', WPL_TEXTDOMAIN); ?>',
-                        lblDesc: '<?php echo __('Video Description', WPL_TEXTDOMAIN); ?>',
-                        lblCat: '<?php echo __('Video Category', WPL_TEXTDOMAIN); ?>',
+                        lblDesc: '<?php echo __('Attachment Description', WPL_TEXTDOMAIN); ?>',
+                        lblCat: '<?php echo __('Attachment Category', WPL_TEXTDOMAIN); ?>',
                         attachCat: '<?php echo $attachment_categories_html ?>'
                     }, 'dbst-wizard-attachment')).appendTo('#ajax_att_sortable');
 

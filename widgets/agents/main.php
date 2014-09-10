@@ -114,6 +114,8 @@ class wpl_agents_widget extends wpl_widget
 	 */
 	public function form($instance)
 	{
+        $this->widget_id = $this->number;
+        
 		/* Set up some default widget settings. */
 		if(!isset($instance['layout']))
 		{

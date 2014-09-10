@@ -86,6 +86,8 @@ class wpl_search_widget extends wpl_widget
 	 */
 	public function form($instance)
 	{
+        $this->widget_id = $this->number;
+        
 		_wpl_import('libraries.flex');
 
 		/** add main scripts **/

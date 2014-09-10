@@ -385,6 +385,8 @@ class wpl_extensions
 				
 				foreach($blogs as $blog)
 				{
+                    if(!isset($blog->blog_id)) continue;
+                    
 					switch_to_blog($blog->blog_id);
 					foreach($sqls as $sql)
 					{
@@ -426,6 +428,8 @@ class wpl_extensions
 			$blogs = wpl_db::select("SELECT `blog_id` FROM `#__blogs`", 'loadColumn');
 			foreach($blogs as $blog)
 			{
+                if(!isset($blog->blog_id)) continue;
+                
 				switch_to_blog($blog->blog_id);
 				
 				/** create propertylisting page **/
@@ -512,11 +516,13 @@ class wpl_extensions
 				
 				foreach($blogs as $blog)
 				{
-					switch_to_blog($blog->blog_id);
-					foreach($sqls as $sql)
-					{
-						try{wpl_db::q($sql);} catch (Exception $e){}
-					}
+                    if(!isset($blog->blog_id)) continue;
+                    
+                    switch_to_blog($blog->blog_id);
+                    foreach($sqls as $sql)
+                    {
+                        try{wpl_db::q($sql);} catch (Exception $e){}
+                    }
 				}
 				
 				/** delete query file **/
@@ -592,6 +598,8 @@ class wpl_extensions
 
             foreach($blogs as $blog)
             {
+                if(!isset($blog->blog_id)) continue;
+                
                 switch_to_blog($blog->blog_id);
                 
                 $upload_path = wpl_global::get_upload_base_path($blog->blog_id);

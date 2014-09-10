@@ -1,10 +1,10 @@
 === WPL Real Estate ===
 Contributors: realtyna
 Donate link: http://wpl.realtyna.com/
-Tags: Real estate, Listing, Vertical Market, MLS, Property listing, RETS
+Tags: Real estate, Listing, Vertical Market, MLS, Property listing, RETS, Listings, Broker, Realtor, Property, IDX, Multiple Listing Service, Property Management, Properties
 Requires at least: 3.0.1
 Tested up to: 4.0
-Stable tag: 1.8.0
+Stable tag: 1.8.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,13 +60,25 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 
 == Changelog ==
 
+= 1.8.1 =
+* Added Similar properties feature to WPL carousel widget.
+* Fixed shortcode wizard iframe issue.
+* Fixed some interface issues.
+* Fixed some PHP notices.
+
 = 1.8.0 =
+* [PRO] Added Sitemap feature for WPL items (Listings/Agents).
+* [PRO] Added Dublin Core meta tags for SEO purposes.
+* [PRO] Added an ability for hiding a numeric field when its value is zero.
+* [PRO] Added Call for price feature when the price sets to zero.
 * Added user contact activity.
 * Fixed an issue on WPL SEF.
 * Added price options to WPL shortcode wizard.
 * Added WPL plugin links in WordPress plugin manager.
 
 = 1.7.7 =
+* [PRO] Geo meta tag support is added for SEO purposes.
+* [PRO] Italian and Serbian language files are added.
 * Fixed some issues on WPL kinds.
 * Added separators for setting fields.
 * Fixed an issue on Widgets name and description.
@@ -83,6 +95,7 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 * Fixed some PHP notices.
 
 = 1.7.3 =
+* [PRO] Added ability to insert meta key and meta description manually for SEO purposes.
 * Fixed an issue on file uploaders.
 * Fixed an issue in WPL SEF links.
 * Fixed an issue in removing unfinalized properties.
@@ -92,6 +105,7 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 * Fixed some tiny issues on search widget and single property page.
 
 = 1.7.0 =
+* [PRO] Added favorites widget.
 * Added notification manager menu.
 * Added contact agent activity.
 * Added mailto feature for agent info activity.
@@ -129,6 +143,7 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 * Fixed a js issue on WPL frontend.
 
 = 1.5.3 =
+* [PRO] Added WPL widget loader (shortcode for widgets).
 * Added new options for deleting property types and listing types.
 * Fixed some issues in gallery activity.
 * Added new keywords to language file.
@@ -138,6 +153,7 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 * Fixed an issue on agents widget.
 
 = 1.5.0 =
+* [PRO] Added energy tag feature.
 * Added property description to the text search by default.
 * Fixed some issues on user manager menu.
 
@@ -150,6 +166,7 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 * Updated WPL fonts.
 
 = 1.4.5 =
+* [PRO] Added Walkscore activity.
 * Fixed image size issue on listing pages.
 * Added property title field and use this field instead of default property title in listings, single property and carousel widget.
 * Added URL field type.

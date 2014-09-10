@@ -97,6 +97,8 @@ class wpl_carousel_widget extends wpl_widget
 	 */
 	public function form($instance)
 	{
+        $this->widget_id = $this->number;
+        
 		/* Set up some default widget settings. */
 		if(!isset($instance['layout']))
 		{
@@ -145,6 +147,59 @@ class wpl_carousel_widget extends wpl_widget
 			$this->where .= " AND p.`id` IN (".implode(',', $rand_ids).")";
 		}
 		
+        /** Similar properties **/
+        if(isset($data['sml_only_similars']) and $data['sml_only_similars']) # sml = similar
+        {
+            $sml_where = '';
+            
+            /** current proeprty id - This features works only in single property page **/
+            $pid = wpl_request::getVar('pid', 0);
+            $property_data = wpl_property::get_property_raw_data($pid);
+            
+            if($property_data)
+            {
+                $sml_where .= " AND p.`kind`='".$property_data['kind']."'";
+            
+                if(isset($data['sml_inc_listing']) and $data['sml_inc_listing']) $sml_where .= " AND p.`listing`='".$property_data['listing']."'";
+                if(isset($data['sml_inc_property_type']) and $data['sml_inc_property_type']) $sml_where .= " AND p.`property_type`='".$property_data['property_type']."'";
+
+                if(isset($data['sml_inc_price']) and $data['sml_inc_price'])
+                {
+                    $down_rate = $data['sml_price_down_rate'] ? $data['sml_price_down_rate'] : 0.8;
+                    $up_rate = $data['sml_price_up_rate'] ? $data['sml_price_up_rate'] : 1.2;
+
+                    $price_down_range = $property_data['price_si']*$down_rate;
+                    $price_up_range = $property_data['price_si']*$up_rate;
+
+                    $sml_where .= " AND p.`price_si` BETWEEN '".$price_down_range."' AND '".$price_up_range."'";
+                }
+
+                if(isset($data['sml_inc_radius']) and $data['sml_inc_radius'])
+                {
+                    $latitude = $property_data['googlemap_lt'];
+                    $longitude = $property_data['googlemap_ln'];
+                    $radius = $data['sml_radius'];
+                    $unit_id = $data['sml_radius_unit'];
+                    
+                    if($latitude and $longitude and $radius and $unit_id)
+                    {
+                        $unit = wpl_units::get_unit($unit_id);
+
+                        if($unit)
+                        {
+                            $tosi =  (6371*1000)/$unit['tosi'];
+                            $radius_si = $radius*$unit['tosi'];
+
+                            $sml_where .= " AND (( ".$tosi." * acos( cos( radians(".$latitude.") ) * cos( radians( p.googlemap_lt ) ) * cos( radians( p.googlemap_ln ) - radians(".$longitude.") ) + sin( radians(".$latitude.") ) * sin( radians( p.googlemap_lt ) ) ) ) < ".($radius) .')';
+                        }
+                    }
+                }
+            }
+            
+            /** overwrite $this->where if similar where is correct **/
+            if(trim($sml_where) != '') $this->where = $sml_where;
+        }
+        
 		return $query = "SELECT ".$this->select." FROM `#__wpl_properties` AS p WHERE 1 ".$this->where." ORDER BY ".$this->order." LIMIT ".$this->limit;
 	}
 }

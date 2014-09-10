@@ -5,8 +5,15 @@ defined('_WPLEXEC') or die('Restricted access');
 include _wpl_import("widgets.carousel.scripts.css_backend", true, true);
 include _wpl_import("widgets.carousel.scripts.js_backend", true, true);
 ?>
+<script type="text/javascript">
+function wpl_carousel_toggle<?php echo $this->widget_id; ?>(element_id)
+{
+    wplj("#"+element_id).toggle();
+}
+</script>
 <div class="wpl_carousel_widget_backend_form" id="<?php echo $this->get_field_id('wpl_carousel_widget_container'); ?>">
     
+    <h4><?php echo __('Widget Configurations'); ?></h4>
     <div>
         <label for="<?php echo $this->get_field_id('title'); ?>"><?php echo __('Title', WPL_TEXTDOMAIN); ?>: </label>
         <input type="text" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" value="<?php echo isset($instance['title']) ? $instance['title'] : ''; ?>" />
@@ -47,6 +54,7 @@ include _wpl_import("widgets.carousel.scripts.js_backend", true, true);
         <input type="text" id="<?php echo $this->get_field_id('thumbnail_height'); ?>" name="<?php echo $this->get_field_name('data'); ?>[thumbnail_height]" value="<?php echo isset($instance['data']['thumbnail_height']) ? $instance['data']['thumbnail_height'] : '60'; ?>" />
     </div>
     
+    <h4><?php echo __('Filter Properties'); ?></h4>
     <div>
         <?php $kinds = wpl_flex::get_kinds('wpl_properties'); ?>
         <label for="<?php echo $this->get_field_id('data_kind'); ?>"><?php echo __('Kind', WPL_TEXTDOMAIN); ?>: </label>
@@ -121,6 +129,79 @@ include _wpl_import("widgets.carousel.scripts.js_backend", true, true);
         </select>
     </div>
     
+    <h4><?php echo __('Similar Properties'); ?></h4>
+    <div>
+    	<label for="<?php echo $this->get_field_id('data_sml_only_similars'); ?>"><?php echo __('Only Similars', WPL_TEXTDOMAIN); ?>: </label>
+        <select id="<?php echo $this->get_field_id('data_sml_only_similars'); ?>" name="<?php echo $this->get_field_name('data'); ?>[sml_only_similars]" onchange="wpl_carousel_toggle<?php echo $this->widget_id; ?>('<?php echo $this->get_field_id('data_sml_fields_container'); ?>');">
+        	<option value="0" <?php if(isset($instance['data']['sml_only_similars']) and $instance['data']['sml_only_similars'] == 0) echo 'selected="selected"'; ?>><?php echo __('No', WPL_TEXTDOMAIN); ?></option>
+            <option value="1" <?php if(isset($instance['data']['sml_only_similars']) and $instance['data']['sml_only_similars'] == 1) echo 'selected="selected"'; ?>><?php echo __('Yes', WPL_TEXTDOMAIN); ?></option>
+        </select>
+    </div>
+    
+    <div id="<?php echo $this->get_field_id('data_sml_fields_container'); ?>" style="<?php echo ((!isset($instance['data']['sml_only_similars']) or (isset($instance['data']['sml_only_similars']) and !$instance['data']['sml_only_similars'])) ? 'display: none;' : ''); ?>">
+        <div>
+            <label for="<?php echo $this->get_field_id('data_sml_inc_listing'); ?>"><?php echo __('Include Listings', WPL_TEXTDOMAIN); ?>: </label>
+            <select id="<?php echo $this->get_field_id('data_sml_inc_listing'); ?>" name="<?php echo $this->get_field_name('data'); ?>[sml_inc_listing]">
+                <option value="1" <?php if(isset($instance['data']['sml_inc_listing']) and $instance['data']['sml_inc_listing'] == 1) echo 'selected="selected"'; ?>><?php echo __('Yes', WPL_TEXTDOMAIN); ?></option>
+                <option value="0" <?php if(isset($instance['data']['sml_inc_listing']) and $instance['data']['sml_inc_listing'] == 0) echo 'selected="selected"'; ?>><?php echo __('No', WPL_TEXTDOMAIN); ?></option>
+            </select>
+        </div>
+
+        <div>
+            <label for="<?php echo $this->get_field_id('data_sml_inc_property_type'); ?>"><?php echo __('Include Property Type', WPL_TEXTDOMAIN); ?>: </label>
+            <select id="<?php echo $this->get_field_id('data_sml_inc_property_type'); ?>" name="<?php echo $this->get_field_name('data'); ?>[sml_inc_property_type]">
+                <option value="1" <?php if(isset($instance['data']['sml_inc_property_type']) and $instance['data']['sml_inc_property_type'] == 1) echo 'selected="selected"'; ?>><?php echo __('Yes', WPL_TEXTDOMAIN); ?></option>
+                <option value="0" <?php if(isset($instance['data']['sml_inc_property_type']) and $instance['data']['sml_inc_property_type'] == 0) echo 'selected="selected"'; ?>><?php echo __('No', WPL_TEXTDOMAIN); ?></option>
+            </select>
+        </div>
+
+        <div>
+            <label for="<?php echo $this->get_field_id('data_sml_inc_price'); ?>"><?php echo __('Include Price', WPL_TEXTDOMAIN); ?>: </label>
+            <select id="<?php echo $this->get_field_id('data_sml_inc_price'); ?>" name="<?php echo $this->get_field_name('data'); ?>[sml_inc_price]" onchange="wpl_carousel_toggle<?php echo $this->widget_id; ?>('<?php echo $this->get_field_id('data_sml_price_container'); ?>');">
+                <option value="1" <?php if(isset($instance['data']['sml_inc_price']) and $instance['data']['sml_inc_price'] == 1) echo 'selected="selected"'; ?>><?php echo __('Yes', WPL_TEXTDOMAIN); ?></option>
+                <option value="0" <?php if(isset($instance['data']['sml_inc_price']) and $instance['data']['sml_inc_price'] == 0) echo 'selected="selected"'; ?>><?php echo __('No', WPL_TEXTDOMAIN); ?></option>
+            </select>
+        </div>
+        
+        <div id="<?php echo $this->get_field_id('data_sml_price_container'); ?>" style="<?php echo ((!isset($instance['data']['sml_inc_price']) or (isset($instance['data']['sml_inc_price']) and !$instance['data']['sml_inc_price'])) ? 'display: none;' : ''); ?>">
+            <div>
+                <label for="<?php echo $this->get_field_id('data_sml_price_down_rate'); ?>"><?php echo __('Price Down Rate', WPL_TEXTDOMAIN); ?>: </label>
+                <input type="text" id="<?php echo $this->get_field_id('data_sml_price_down_rate'); ?>" name="<?php echo $this->get_field_name('data'); ?>[sml_price_down_rate]" value="<?php echo isset($instance['data']['sml_price_down_rate']) ? $instance['data']['sml_price_down_rate'] : '0.8'; ?>" />
+            </div>
+
+            <div>
+                <label for="<?php echo $this->get_field_id('data_sml_price_up_rate'); ?>"><?php echo __('Price Up Rate', WPL_TEXTDOMAIN); ?>: </label>
+                <input type="text" id="<?php echo $this->get_field_id('data_sml_price_up_rate'); ?>" name="<?php echo $this->get_field_name('data'); ?>[sml_price_up_rate]" value="<?php echo isset($instance['data']['sml_price_up_rate']) ? $instance['data']['sml_price_up_rate'] : '1.2'; ?>" />
+            </div>
+        </div>
+        
+        <div>
+            <label for="<?php echo $this->get_field_id('data_sml_inc_radius'); ?>"><?php echo __('Include Radius', WPL_TEXTDOMAIN); ?>: </label>
+            <select id="<?php echo $this->get_field_id('data_sml_inc_radius'); ?>" name="<?php echo $this->get_field_name('data'); ?>[sml_inc_radius]" onchange="wpl_carousel_toggle<?php echo $this->widget_id; ?>('<?php echo $this->get_field_id('data_sml_radius_container'); ?>');">
+                <option value="0" <?php if(isset($instance['data']['sml_inc_radius']) and $instance['data']['sml_inc_radius'] == 0) echo 'selected="selected"'; ?>><?php echo __('No', WPL_TEXTDOMAIN); ?></option>
+                <option value="1" <?php if(isset($instance['data']['sml_inc_radius']) and $instance['data']['sml_inc_radius'] == 1) echo 'selected="selected"'; ?>><?php echo __('Yes', WPL_TEXTDOMAIN); ?></option>
+            </select>
+        </div>
+        
+        <div id="<?php echo $this->get_field_id('data_sml_radius_container'); ?>" style="<?php echo ((!isset($instance['data']['sml_inc_radius']) or (isset($instance['data']['sml_inc_radius']) and !$instance['data']['sml_inc_radius'])) ? 'display: none;' : ''); ?>">
+            <div>
+                <label for="<?php echo $this->get_field_id('data_sml_radius'); ?>"><?php echo __('Radius', WPL_TEXTDOMAIN); ?>: </label>
+                <input type="text" id="<?php echo $this->get_field_id('data_sml_radius'); ?>" name="<?php echo $this->get_field_name('data'); ?>[sml_radius]" value="<?php echo isset($instance['data']['sml_radius']) ? $instance['data']['sml_radius'] : '2000'; ?>" />
+            </div>
+
+            <?php $units = wpl_units::get_units(1); ?>
+            <div>
+                <label for="<?php echo $this->get_field_id('data_sml_radius_unit'); ?>"><?php echo __('Radius Unit', WPL_TEXTDOMAIN); ?>: </label>
+                <select id="<?php echo $this->get_field_id('data_sml_radius_unit'); ?>" name="<?php echo $this->get_field_name('data'); ?>[sml_radius_unit]">
+                    <?php foreach($units as $unit): ?>
+                    <option value="<?php echo $unit['id']; ?>" <?php if(isset($instance['data']['sml_radius_unit']) and $instance['data']['sml_radius_unit'] == $unit['id']) echo 'selected="selected"'; ?>><?php echo __($unit['name'], WPL_TEXTDOMAIN); ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+    </div>
+    
+    <h4><?php echo __('Sort and Limit'); ?></h4>
     <?php $sort_options = wpl_sort_options::get_sort_options(0); ?>
     <div>
     	<label for="<?php echo $this->get_field_id('data_orderby'); ?>"><?php echo __('Order by', WPL_TEXTDOMAIN); ?>: </label>

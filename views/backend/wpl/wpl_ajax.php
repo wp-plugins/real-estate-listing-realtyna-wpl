@@ -66,9 +66,9 @@ class wpl_wpl_controller extends wpl_controller
 		
 		$zip_file = wpl_global::get_web_page('http://billing.realtyna.com/index.php?option=com_rls&view=downloadables&task=download&sid='.$sid.'&randomkey='.rand(1, 100));
 		
-		if(!$zip_file) self::response(array('success'=>'0', 'message'=>__('Error: #U202, Could not download the update package!', WPL_TEXTDOMAIN)));
-		if(!wpl_file::write($dest, $zip_file)) self::response(array('success'=>'0', 'message'=>__('Error: #U203, Could not create the update file!', WPL_TEXTDOMAIN)));
-		if(!wpl_global::zip_extract($dest, $tmp_directory)) self::response(array('success'=>'0', 'message'=>__('Error: #U204, Could not extract the update file!', WPL_TEXTDOMAIN)));
+		if(!$zip_file) self::response(array('success'=>'0', 'error'=>__('Error: #U202, Could not download the update package!', WPL_TEXTDOMAIN), 'message'=>''));
+		if(!wpl_file::write($dest, $zip_file)) self::response(array('success'=>'0', 'error'=>__('Error: #U203, Could not create the update file!', WPL_TEXTDOMAIN), 'message'=>''));
+		if(!wpl_global::zip_extract($dest, $tmp_directory)) self::response(array('success'=>'0', 'error'=>__('Error: #U204, Could not extract the update file!', WPL_TEXTDOMAIN), 'message'=>''));
 		
 		$script_file = $tmp_directory.'installer.php';
 		if(!wpl_file::exists($script_file)) self::response(array('error'=>__("Installer file doesn't exist!", WPL_TEXTDOMAIN), 'message'=>''));

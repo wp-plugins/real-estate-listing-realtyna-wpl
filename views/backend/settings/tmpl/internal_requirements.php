@@ -66,6 +66,16 @@ defined('_WPLEXEC') or die('Restricted access');
             	<i class="icon-<?php echo $wpl_writable ? 'confirm' : 'danger'; ?>"></i>
             </span>
 		</li>
+        <!-- WPL temporary directory permission -->
+        <?php $wpl_tmp_writable = wpl_folder::exists(wpl_global::init_tmp_folder()) ? true : false; ?>
+        <li>
+        	<span class="wpl-requirement-name"><?php echo __('tmp directory', WPL_TEXTDOMAIN); ?></span>
+            <span class="wpl-requirement-require"><?php echo __('Writable', WPL_TEXTDOMAIN); ?></span>
+            <span class="wpl-requirement-current"><?php echo $wpl_tmp_writable ? __('Yes', WPL_TEXTDOMAIN) : __('No', WPL_TEXTDOMAIN); ?></span>
+            <span class="wpl-requirement-status p-action-btn">
+            	<i class="icon-<?php echo $wpl_tmp_writable ? 'confirm' : 'danger'; ?>"></i>
+            </span>
+		</li>
         <!-- GD library -->
         <?php $gd = (extension_loaded('gd') && function_exists('gd_info')) ? true : false; ?>
         <li>

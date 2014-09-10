@@ -225,15 +225,14 @@ class wpl_notifications
     {
         if(!is_array($recipients)) $recipients = array($recipients);
         
-        /** additional recipients from DB **/
-        $ex = explode(',', $this->notification_data['additional_memberships']);
-        if(is_array($ex) and count($ex) > 1) foreach($ex as $value) array_push($recipients, $value);
+        $ex = trim($this->notification_data['additional_memberships']) != '' ? explode(',', $this->notification_data['additional_memberships']) : array();
+        if(is_array($ex) and count($ex) >= 1) foreach($ex as $value) array_push($recipients, $value);
         
-        $ex = explode(',', $this->notification_data['additional_users']);
-        if(is_array($ex) and count($ex) > 1) foreach($ex as $value) array_push($recipients, $value);
+        $ex = trim($this->notification_data['additional_users']) != '' ? explode(',', $this->notification_data['additional_users']) : array();
+        if(is_array($ex) and count($ex) >= 1) foreach($ex as $value) array_push($recipients, $value);
         
-        $ex = explode(',', $this->notification_data['additional_emails']);
-        if(is_array($ex) and count($ex) > 1) foreach($ex as $value) array_push($recipients, $value);
+        $ex = trim($this->notification_data['additional_emails']) != '' ? explode(',', $this->notification_data['additional_emails']) : array();
+        if(is_array($ex) and count($ex) >= 1) foreach($ex as $value) array_push($recipients, $value);
         
         $emails = array();
         foreach($recipients as $recipient)

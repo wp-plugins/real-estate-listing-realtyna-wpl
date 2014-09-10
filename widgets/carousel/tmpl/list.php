@@ -37,10 +37,10 @@ $image_height = isset($this->instance['data']['image_height']) ? $this->instance
 					</div>
 					<div class="right_section">
 						<div class="title">'.$image_title.'</div>
-						<div class="location">'.$gallery["raw"]["location_text"].'</div>
-						<div class="price">'.$gallery["rendered"][6]["value"].' '.$gallery["rendered"][14]["value"].'</div>
+						<div class="location">'.$gallery['raw']['location_text'].'</div>
+						<div class="price">'.$gallery['materials']['price']['value'].'</div>
 					</div>
-					<a class="more_info" href="'.$gallery["property_link"].'">'.__('More Info', WPL_TEXTDOMAIN).'</a>
+					<a class="more_info" href="'.$gallery['property_link'].'">'.__('More Info', WPL_TEXTDOMAIN).'</a>
 				</li>';
 			}
 		}

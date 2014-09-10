@@ -4,6 +4,12 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.8.1 (<span class="wpl_log_date">9/10/2014</span> <span class="wpl_log_revision">revision 788</span>)</h4>
+        -- Added Similar properties feature to WPL carousel widget.<br />
+        -- Fixed shortcode wizard iframe issue.<br />
+        -- Fixed some interface issues.<br />
+        -- Fixed some PHP notices.
+        
         <h4>WPL1.8.0 (<span class="wpl_log_date">9/03/2014</span> <span class="wpl_log_revision">revision 784</span>)</h4>
         -- <strong>[PRO]</strong> Added Sitemap feature for WPL items (Listings/Agents).<br />
         -- <strong>[PRO]</strong> Added Dublin Core meta tags for SEO purposes.<br />
