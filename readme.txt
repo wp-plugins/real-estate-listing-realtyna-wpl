@@ -8,7 +8,7 @@ Stable tag: 1.8.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Manage property listings, RETS / IDX / VOW options and scalable features. Support for all RETS based MLS providers in North America.
+Manage property listings, RETS / IDX / VOW real estate options and scalable features. Support for all RETS based MLS providers in North America.
 
 == Description ==
 
