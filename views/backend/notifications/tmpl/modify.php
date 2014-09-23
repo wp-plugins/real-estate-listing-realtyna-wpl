@@ -3,6 +3,7 @@
 defined('_WPLEXEC') or die('Restricted access');
 
 $this->_wpl_import($this->tpl_path . '.scripts.modify_js');
+$this->_wpl_import($this->tpl_path . '.scripts.css');
 ?>
 <form action="#" id="wpl_notification_form">
     <div class="wrap wpl-wp pwizard-wp">

@@ -153,4 +153,16 @@ function number_to_th(number)
 	else if(number == 9) return "<?php echo __('Nineth', WPL_TEXTDOMAIN); ?>";
 	else if(number == 10) return "<?php echo __('Tenth', WPL_TEXTDOMAIN); ?>";
 }
+
+function wpl_get_tinymce_content(html_element_id)
+{
+	if(wplj("#wp-"+html_element_id+"-wrap").hasClass("tmce-active"))
+	{
+		return tinyMCE.activeEditor.getContent();
+	}
+	else
+	{
+		return wplj("#"+html_element_id).val();
+	}
+}
 </script>

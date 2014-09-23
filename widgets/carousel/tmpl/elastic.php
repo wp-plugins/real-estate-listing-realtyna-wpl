@@ -27,7 +27,9 @@ foreach($wpl_properties as $key=>$gallery)
 
         if(isset($gallery['materials']['field_313']) and trim($gallery['materials']['field_313']['value']) != '') $image_title = $gallery['materials']['field_313']['value'];
         else $image_title = $gallery['materials']['property_type']['value'] .' '.$gallery['materials']['listing']['value'];
-		
+        if(isset($gallery['items']['gallery'][0]->item_extra2) and trim($gallery['items']['gallery'][0]->item_extra2) != '') $image_alt = $gallery['items']['gallery'][0]->item_extra2;
+        else $image_alt = $gallery['raw']['meta_keywords'];
+
 		$image_description	= $gallery["items"]["gallery"][0]->item_extra2;
         
         if($gallery["items"]["gallery"][0]->item_cat != 'external')
@@ -43,15 +45,15 @@ foreach($wpl_properties as $key=>$gallery)
 
 		$larg_images .= '
 		<li>
-            <img src="'.$image_url.'" alt="'.$image_title.'" width="'.$image_width.'" height="'.$image_height.'" style="width: '.$image_width.'px; height: '.$image_height.'px;" />
+            <img itemprop="image" src="'.$image_url.'" alt="'.$image_alt.'" width="'.$image_width.'" height="'.$image_height.'" style="width: '.$image_width.'px; height: '.$image_height.'px;" />
             <div class="ei-title">
                 <h2>'.$image_title.'</h2>
                 <h3>'.$gallery['materials']['living_area']['value'].' - '.$gallery["location_text"].'</h3>
-                <a class="more_info" href="'.$gallery['property_link'].'">'. __('More info', WPL_TEXTDOMAIN).'</a>
+                <a itemprop="url" class="more_info" href="'.$gallery["property_link"].'">'. __('More info', WPL_TEXTDOMAIN).'</a>
             </div>
         </li>';
 
-        $thumbnail	.='<li><a href="#">'.$image_title.'</a><img src="'.$thumbnail_url.'" alt="'.$image_title.'" width="'.$thumbnail_width.'" height="'.$thumbnail_height.'" style="width: '.$thumbnail_width.'px; height: '.$thumbnail_height.'px;" /></li>';
+        $thumbnail	.='<li><a href="#">'.$image_title.'</a><img src="'.$thumbnail_url.'" alt="'.$image_alt.'" width="'.$thumbnail_width.'" height="'.$thumbnail_height.'" style="width: '.$thumbnail_width.'px; height: '.$thumbnail_height.'px;" /></li>';
 	}
 }
 ?>

@@ -128,14 +128,28 @@ class wpl_service_sef
         
         /** SET og meta parameters for social websites like facebook etc **/
         wpl_html::$canonical = str_replace('&', '&amp;', $current_link_url);
+        $html->set_custom_tag('<meta property="og:type" content="property" />');
+        
+        $locale = wpl_global::get_current_language();
+        $html->set_custom_tag('<meta property="og:locale" content="'.$locale.'" />');
+        
         $html->set_custom_tag('<meta property="og:url" content="'.str_replace('&', '&amp;', $current_link_url).'" />');
         $html->set_custom_tag('<meta property="og:title" data-page-subject="true" content="'.$this->property_title.'" />');
         $html->set_custom_tag('<meta property="og:description" content="'.strip_tags($property_data['field_308']).'" />');
         
+        $html->set_custom_tag('<meta property="twitter:card" content="summary" />');
+        $html->set_custom_tag('<meta property="twitter:title" content="'.$this->property_title.'" />');
+        $html->set_custom_tag('<meta property="twitter:description" content="'.strip_tags($property_data['field_308']).'" />');
+        $html->set_custom_tag('<meta property="twitter:url" content="'.str_replace('&', '&amp;', $current_link_url).'" />');
+        
         $gallery = wpl_items::get_gallery($proeprty_id, $property_data['kind']);
         if(is_array($gallery) and count($gallery))
         {
-            foreach($gallery as $image) $html->set_custom_tag('<meta property="og:image" content="'.$image['url'].'" />');
+            foreach($gallery as $image)
+            {
+                $html->set_custom_tag('<meta property="og:image" content="'.$image['url'].'" />');
+                $html->set_custom_tag('<meta property="twitter:image" content="'.$image['url'].'" />');
+            }
         }
 	}
 	

@@ -61,7 +61,7 @@ if($type == 'rooms' and !$done_this)
         <?php foreach($room_items as $room_item): ?>
             <div class="new-rooms room_<?php echo $room_item->id; ?>">
                 <span class="action-btn icon-recycle wpl_show cursor" onclick="wpl_delete_room(<?php echo $room_item->id; ?>);"></span>
-                <span class="room-preview"><?php echo '<span>'.$room_item->item_name.'</span><i>'.$room_item->item_extra1.'x'.$room_item->item_extra2.'</i>'; ?></span>
+                <span class="room-preview"><?php echo '<span>'.$room_item->item_name.'</span>'.(($room_item->item_extra1 and $room_item->item_extra2) ? '<i>'.$room_item->item_extra1.'x'.$room_item->item_extra2.'</i>' : ''); ?></span>
             </div>
             <?php
             $room_count++;

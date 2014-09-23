@@ -95,13 +95,26 @@ class wpl_room_types
      */
 	public static function save_room_type($name)
 	{
-		$query = "INSERT INTO `#__wpl_room_types` (`name`) VALUES ('$name')";
+		$query = "INSERT INTO `#__wpl_room_types` (`name`,`icon`) VALUES ('$name', 'default.png')";
 		$id = wpl_db::q($query, 'insert');
 		
         /** trigger event **/
 		wpl_global::event_handler('room_type_added', array('id'=>$id));
         
 		return $id;
+	}
+    
+    /**
+     * Get a room type by name
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $name
+     * @return array
+     */
+    public static function get_room_type($name)
+	{
+		$query = "SELECT * FROM `#__wpl_room_types` WHERE `name`='$name' LIMIT 1";
+		return wpl_db::select($query, 'loadAssoc');
 	}
 	
     /**

@@ -32,7 +32,9 @@ $gallery = wpl_items::render_gallery($raw_gallery);
     {
         $pimage = $gallery[0];
         $image_url = $pimage['url'];
-        
+        if(isset($image['item_extra2'])) $image_alt = $image['item_extra2'];
+        else $image_alt = $wpl_properties['current']['raw']['meta_keywords'];
+
         if($this->resize and $this->image_width and $this->image_height and $pimage['category'] != 'external')
         {
             /** set resize method parameters **/
@@ -46,7 +48,7 @@ $gallery = wpl_items::render_gallery($raw_gallery);
             $image_url = wpl_images::create_gallary_image($this->image_width, $this->image_height, $params, $this->watermark, $this->rewrite);
         }
         
-        echo '<img id="wpl_gallery_image'.$this->property_id.'" src="'.$image_url.'" class="wpl_gallery_image '.$this->image_class.'" width="'.$this->image_width.'" height="'.$this->image_height.'" style="width: '.$this->image_width.'px; height: '.$this->image_height.'px;" />';
+        echo '<img itemprop="image" id="wpl_gallery_image'.$this->property_id.'" src="'.$image_url.'" alt="'.$image_alt.'" class="wpl_gallery_image '.$this->image_class.'" width="'.$this->image_width.'" height="'.$this->image_height.'" style="width: '.$this->image_width.'px; height: '.$this->image_height.'px;" />';
 	}
 	?>
 </div>

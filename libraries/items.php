@@ -418,7 +418,7 @@ class wpl_items
 			$return[$i]['title'] = (string) $image['item_extra1'];
 			$return[$i]['description'] = (string) $image['item_extra2'];
 			$return[$i]['category'] = $image['item_cat'];
-			$return[$i]['ext'] = $pathinfo['extension'];
+			$return[$i]['ext'] = isset($pathinfo['extension']) ? $pathinfo['extension'] : NULL;
 			$return[$i]['raw'] = $image;
 			
 			$i++;

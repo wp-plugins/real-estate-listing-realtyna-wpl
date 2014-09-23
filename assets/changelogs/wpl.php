@@ -4,6 +4,15 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.8.3 (<span class="wpl_log_date">9/23/2014</span> <span class="wpl_log_revision">revision 803</span>)</h4>
+        -- <strong>[PRO]</strong> WYSIWYG Editor for property description and text-area fields.<br />
+        -- SEO optimizations for WPL core.<br />
+        -- Added twitter meta tags on single property page.<br />
+        -- Added location abbreviation in location manager for importer add-ons.<br />
+        -- Fixed an issue in WPL light-box.<br />
+        -- Fixed an issue for showing specified fields on single property page.<br />
+        -- Fixed some issues on rooms feature.
+        
         <h4>WPL1.8.1 (<span class="wpl_log_date">9/10/2014</span> <span class="wpl_log_revision">revision 788</span>)</h4>
         -- Added Similar properties feature to WPL carousel widget.<br />
         -- Fixed shortcode wizard iframe issue.<br />
@@ -11,7 +20,7 @@ defined('_WPLEXEC') or die('Restricted access');
         -- Fixed some PHP notices.
         
         <h4>WPL1.8.0 (<span class="wpl_log_date">9/03/2014</span> <span class="wpl_log_revision">revision 784</span>)</h4>
-        -- <strong>[PRO]</strong> Added Sitemap feature for WPL items (Listings/Agents).<br />
+        -- <strong>[PRO]</strong> Added sitemap feature for WPL items (Listings/Agents).<br />
         -- <strong>[PRO]</strong> Added Dublin Core meta tags for SEO purposes.<br />
         -- <strong>[PRO]</strong> Added an ability for hiding a numeric field when its value is zero.<br />
         -- <strong>[PRO]</strong> Added Call for price feature when the price sets to zero.<br />

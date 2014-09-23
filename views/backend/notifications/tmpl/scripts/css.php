@@ -10,4 +10,5 @@ defined('_WPLEXEC') or die('Restricted access');
 #notification_filter{width: 500px;}
 .clearfix{clear: both;}
 .gray_tip{font-style: italic; color: #999999; font-size: 13px;}
+.noti-wp .prow label{vertical-align: top !important;}
 </style>

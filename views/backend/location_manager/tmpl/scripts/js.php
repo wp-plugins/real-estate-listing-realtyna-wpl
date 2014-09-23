@@ -119,12 +119,13 @@ function wpl_generate_params_page(level, location_id)
 	});
 }
 
-function wpl_ajax_modify_location(name, level, parent, location_id)
+function wpl_ajax_modify_location(level, parent, location_id)
 {
 	if(!parent) parent = 0;
 	if(!location_id) location_id = '';
 	
-	name = wplj("#"+name).val();
+	var name = wplj("#wpl_location_name").val();
+    var abbr = wplj("#wpl_location_abbr").val();
 	
 	ajax_loader_element = 'wpl_ajax_loader';
 	url = '<?php echo wpl_global::get_full_url(); ?>';
@@ -132,7 +133,7 @@ function wpl_ajax_modify_location(name, level, parent, location_id)
 	wpl_remove_message('.wpl_show_message_location');
 	wplj(ajax_loader_element).html('<img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader3.gif'); ?>" />');
 	
-	request_str = 'wpl_format=b:location_manager:ajax&wpl_function=save_location&name='+name+'&level='+level+'&parent='+parent+'&location_id='+location_id;
+	request_str = 'wpl_format=b:location_manager:ajax&wpl_function=save_location&name='+name+'&abbr='+abbr+'&level='+level+'&parent='+parent+'&location_id='+location_id;
 	ajax = wpl_run_ajax_query(url, request_str);
 	
 	ajax.success(function(data)

@@ -16,4 +16,5 @@ defined('_WPLEXEC') or die('Restricted access');
 .wpl_room_list_container{margin-top: 10px;}
 .video_tabs .selected{background: #cccccc;}
 .wpl_video_embed_container{margin: 10px 0;}
+.prow-textarea textarea.wpl_c_field_308{width: 60%;}
 </style>

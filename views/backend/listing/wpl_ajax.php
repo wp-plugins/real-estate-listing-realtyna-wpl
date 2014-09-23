@@ -61,9 +61,10 @@ class wpl_listing_controller extends wpl_controller
 	
 	private function save($table_name, $table_column, $value, $item_id)
 	{
-		$field_type = wpl_global::get_db_field_type($table_name,$table_column);
-		if ($field_type == 'datetime' or $field_type == 'date') $value = wpl_render::derender_date($value);
-
+		$field_type = wpl_global::get_db_field_type($table_name, $table_column);
+		if($field_type == 'datetime' or $field_type == 'date') $value = wpl_render::derender_date($value);
+        else $value = wpl_db::escape($value);
+        
 		$res = wpl_db::set($table_name, $item_id, $table_column, $value, 'id');
         
 		$res = (int) $res;

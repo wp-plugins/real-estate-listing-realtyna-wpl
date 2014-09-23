@@ -71,10 +71,10 @@ class wpl_locations
      * @param int $parent
      * @return int
      */
-	public static function add_location($name, $level, $parent = 0)
+	public static function add_location($name, $abbr, $level, $parent = 0)
 	{
-		if($level == 1) $query = "INSERT INTO `#__wpl_location".$level."` (`name`,`enabled`) VALUES ('$name',1)";
-		else $query = "INSERT INTO `#__wpl_location".$level."` (`name`,`parent`) VALUES ('$name','$parent')";
+		if($level == 1) $query = "INSERT INTO `#__wpl_location".$level."` (`name`,`abbr`,`enabled`) VALUES ('$name','$abbr',1)";
+		else $query = "INSERT INTO `#__wpl_location".$level."` (`name`,`abbr`,`parent`) VALUES ('$name','$abbr',$parent')";
 		
 		return wpl_db::q($query, 'insert');
 	}
@@ -88,9 +88,9 @@ class wpl_locations
      * @param int $location_id
      * @return mixed
      */
-	public static function edit_location($name, $level, $location_id)
+	public static function edit_location($name, $abbr, $level, $location_id)
 	{
-		$query = "UPDATE `#__wpl_location".$level."` SET `name`='$name' WHERE `id`='$location_id'";
+		$query = "UPDATE `#__wpl_location".$level."` SET `name`='$name', `abbr`='$abbr' WHERE `id`='$location_id'";
 		return wpl_db::q($query, 'update');
 	}
 	

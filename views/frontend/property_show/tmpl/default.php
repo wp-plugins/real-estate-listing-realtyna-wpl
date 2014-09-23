@@ -24,7 +24,7 @@ $pshow_video_activities = count(wpl_activity::get_activities('pshow_video', 1));
 if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->wpl_properties['current']['items']['video']) and !count($this->wpl_properties['current']['items']['video']))) $pshow_video_activities = 0;
 ?>
 <div class="wpl_prp_show_container" id="wpl_prp_show_container">
-    <div class="wpl_prp_container" id="wpl_prp_container<?php echo $this->pid; ?>">
+    <div class="wpl_prp_container" id="wpl_prp_container<?php echo $this->pid; ?>" itemscope>
         <div class="wpl_prp_show_tabs">
             <div class="tabs_container">
             	<?php if($pshow_gallery_activities): ?>
@@ -60,8 +60,8 @@ if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->w
         <div class="wpl_prp_container_content">
             <div class="wpl_prp_container_content_title">
                 <?php
-                echo '<div class="title_text">'.$prp_title.'</div>';
-                echo '<div class="location_build_up">'.$build_up_area.' - '. $location_string .'</div>';
+                echo '<h1 class="title_text">'.$prp_title.'</h1>';
+                echo '<h2 class="location_build_up">'.$build_up_area.' - <span itemprop="address">'. $location_string .'</span></h2>';
 				
                 /** load QR Code **/ wpl_activity::load_position('pshow_qr_code', array('wpl_properties'=>$this->wpl_properties)); ?>
             </div>
@@ -69,7 +69,7 @@ if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->w
 				<?php if($this->wpl_properties['current']['data']['field_308']): ?>
                 <div class="wpl_prp_show_detail_boxes">
                     <div class="wpl_prp_show_detail_boxes_title"><?php echo __('Property Description', WPL_TEXTDOMAIN) ?></div>
-                    <div class="wpl_prp_show_detail_boxes_cont">
+                    <div class="wpl_prp_show_detail_boxes_cont" itemprop="description">
                         <?php echo nl2br($this->wpl_properties['current']['data']['field_308']); ?>
                     </div>
                 </div>
@@ -92,7 +92,7 @@ if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->w
                         
                         elseif($value['type'] == 'neighborhood')
                         {
-                            echo '<div id="wpl-dbst-show'.$value['field_id'].'" class="rows neighborhood">' .__($value['name'],WPL_TEXTDOMAIN) .(isset($value['distance']) ? ' <span class="'.$value['vehicle_type'].'">'. $value['distance'] .' '. __('Minutes',WPL_TEXTDOMAIN). '</span>':''). '</div>';
+                            echo '<div id="wpl-dbst-show'.$value['field_id'].'" class="rows neighborhood">' .__($value['name'],WPL_TEXTDOMAIN) .(isset($value['distance']) ? ' <span class="'.$value['by'].'">'. $value['distance'] .' '. __('Minutes',WPL_TEXTDOMAIN). '</span>':''). '</div>';
                         }
                         elseif($value['type'] == 'feature')
                         {
@@ -117,7 +117,7 @@ if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->w
                         {
                             foreach ($value['locations'] as $ii=>$lvalue)
                             {
-                                echo '<div id="wpl-dbst-show'.$value['field_id'].'" class="rows location">'.__($value['keywords'][$ii], WPL_TEXTDOMAIN).' : ';
+                                echo '<div id="wpl-dbst-show'.$value['field_id'].'" class="rows location" itemprop="address">'.__($value['keywords'][$ii], WPL_TEXTDOMAIN).' : ';
                                 echo '<span>'.$lvalue.'</span>';
                                 echo '</div>';
                             }
@@ -136,7 +136,7 @@ if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->w
                 </div>
             </div>
             <div class="wpl_prp_container_content_right">
-                <div class="wpl_prp_right_boxes details">
+                <div class="wpl_prp_right_boxes details" itemscope>
                     <div class="wpl_prp_right_boxes_title">
                         <?php echo '<span>'.$prp_type .'</span> '.$prp_listings; ?>
                     </div>
@@ -144,7 +144,7 @@ if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->w
                         <div class="wpl_prp_right_boxe_details_top clearfix">
                             <div class="wpl_prp_right_boxe_details_left">
                                 <ul>
-                                    <?php if(trim($listing_id) != ''): ?><li><?php echo __('Listing ID', WPL_TEXTDOMAIN).' : <span>'.$listing_id.'</span>'; ?></li><?php endif; ?>
+                                    <?php if(trim($listing_id) != ''): ?><li><?php echo __('Listing ID', WPL_TEXTDOMAIN).' : <span itemprop="productID">'.$listing_id.'</span>'; ?></li><?php endif; ?>
                                     <?php if(trim($bedroom) != ''): ?><li><?php echo __('Bedroom', WPL_TEXTDOMAIN).' : <span>'.$bedroom.'</span>'; ?></li><?php endif; ?>
                                     <?php if(trim($bathroom) != ''): ?><li><?php echo __('Bathroom', WPL_TEXTDOMAIN).' : <span>'.$bathroom.'</span>'; ?></li><?php endif; ?>
                                     <?php if(trim($build_up_area) != ''): ?><li><?php echo __('Built Up Area', WPL_TEXTDOMAIN).' : <span>'.$build_up_area.'</span>'; ?></li><?php endif; ?>
@@ -156,7 +156,7 @@ if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->w
                             </div>
                         </div>
                         <div class="wpl_prp_right_boxe_details_bot">
-                            <?php echo '<div class="price_box">'.$price.'</div>'; ?>
+                            <?php echo '<div class="price_box" itemprop="price">'.$price.'</div>'; ?>
                         </div>
                     </div>
                 </div>
@@ -210,3 +210,4 @@ if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->w
         </div>
     </div>
 </div>
+

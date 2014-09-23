@@ -27,7 +27,7 @@ if(!count($videos) or !is_array($videos)) return;
 		<?php foreach($videos as $video): ?>
         <li class="wpl_videos_video wpl_video_type<?php echo (isset($video['item_cat']) ? $video['item_cat'] : ''); ?>" id="wpl_videos_video<?php echo (isset($video['id']) ? $video['id'] : ''); ?>">
         	<?php if($video['category'] == 'video'): ?>
-            <video id="example_video_<?php echo $video['id']; ?>" class="video-js vjs-default-skin" controls preload="none" width="<?php echo $video_width; ?>" height="<?php echo $video_height; ?>" data-setup="{}">
+            <video id="example_video_<?php echo $video['raw']['id']; ?>" class="video-js vjs-default-skin" controls preload="none" width="<?php echo $video_width; ?>" height="<?php echo $video_height; ?>" data-setup="{}">
                 <source src="<?php echo $video['url']; ?>" type='video/<?php echo pathinfo($video['url'], PATHINFO_EXTENSION); ?>' />
                 <track kind="captions" src="<?php echo wpl_global::get_wpl_asset_url('js/video-js/demo.captions.vtt'); ?>" srclang="en" label="<?php echo __('English', WPL_TEXTDOMAIN); ?>"></track>
             </video>

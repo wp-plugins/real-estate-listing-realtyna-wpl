@@ -32,56 +32,55 @@ $agent_name               = (isset($wpl_user['materials']['first_name']['value']
 $agent_l_name             = (isset($wpl_user['materials']['last_name']['value']) ? $wpl_user['materials']['last_name']['value'] : '');
 $company_name             = (isset($wpl_user['materials']['company_name']['value']) ? $wpl_user['materials']['company_name']['value'] : '');
 ?>
-<div class="wpl_agent_info" id="wpl_agent_info<?php echo $user_id; ?>">
+<div class="wpl_agent_info" id="wpl_agent_info<?php echo $user_id; ?>" itemscope >
 	
 	<div class="wpl_agent_info_l">
 		<div class="image_container">
 			<div class="front <?php if($logo_image) echo 'has_logo'; ?>">
 				<?php if($profile_image): ?>
-					<img src="<?php echo $profile_image; ?>" class="profile_image" alt="<?php echo $agent_name. ' '.$agent_l_name; ?>" />	
+					<img itemprop="image" src="<?php echo $profile_image; ?>" class="profile_image" alt="<?php echo $agent_name. ' '.$agent_l_name; ?>" />
 				<?php else: ?>
-			    	<div class="no_image"></div>
+			    	<div class="no_image" style="width:<?php $picture_width; ?>px;height:<?php $picture_height; ?>px;"></div>
 			    <?php endif; ?>			
 			</div>
 			<?php if($logo_image): ?>
 				<div class="back">
-					<img src="<?php echo $logo_image; ?>" class="logo" alt="<?php echo $company_name; ?>" />
+					<img itemprop="image" src="<?php echo $logo_image; ?>" class="logo" alt="<?php echo $company_name; ?>" />
 				</div>
 		    <?php endif; ?>
 		</div>
 		<div class="company_details">
-			<div class="company_name"><?php echo $company_name; ?></div>
-
+			<div itemprop="name" class="company_name"><?php echo $company_name; ?></div>
 			<?php if(isset($wpl_user['data']['company_address'])): ?>
-	            <div class="company_address"><?php echo $wpl_user['data']['company_address']; ?></div>
+	            <div itemprop="address" class="company_address"><?php echo $wpl_user['data']['company_address']; ?></div>
 			<?php endif; ?>
 		</div>
 	</div>
     
 	<div class="wpl_agent_info_r">
 		<ul>
-			<li class="name"><a href="<?php echo wpl_users::get_profile_link($user_id); ?>"><?php echo $agent_name.' '.$agent_l_name; ?></a></li>
+			<li class="name" itemprop="name" ><a href="<?php echo wpl_users::get_profile_link($user_id); ?>"><?php echo $agent_name.' '.$agent_l_name; ?></a></li>
 			
 			<?php if(isset($wpl_user['materials']['website']['value'])): ?>
-            <li class="website"><a href="<?php echo $wpl_user['materials']['website']['value']; ?>" target="_blank"><?php echo $wpl_user['materials']['website']['value']; ?></a></li>
+            <li class="website"><a itemprop="url"  href="<?php echo $wpl_user['materials']['website']['value']; ?>" target="_blank"><?php echo __('View website', WPL_TEXTDOMAIN) ?></a></li>
 			<?php endif; ?>
 			
 			<?php if(isset($wpl_user['materials']['tel']['value'])): ?>
-			<li class="tel"><?php echo $wpl_user['materials']['tel']['value']; ?></li>
+			<li itemprop="telephone" class="tel"><?php echo $wpl_user['materials']['tel']['value']; ?></li>
 			<?php endif; ?>
             
 			<?php if(isset($wpl_user['materials']['mobile']['value'])): ?>
-			<li class="mobile"><?php echo $wpl_user['materials']['mobile']['value']; ?></li>
+			<li itemprop="telephone" class="mobile"><?php echo $wpl_user['materials']['mobile']['value']; ?></li>
 			<?php endif; ?>
 			
 			<?php if(isset($wpl_user['materials']['fax']['value'])): ?>
-			<li class="fax"><?php echo $wpl_user['materials']['fax']['value']; ?></li>
+			<li itemprop="faxNumber" class="fax"><?php echo $wpl_user['materials']['fax']['value']; ?></li>
 			<?php endif; ?>
 			
 			<?php if(isset($wpl_user['main_email_url'])): ?>
 			<li class="email">
                 <?php if($mailto): ?>
-                <a href="mailto:<?php echo $wpl_user['materials']['main_email']['value']; ?>"><img src="<?php echo $wpl_user['main_email_url']; ?>" alt="<?php echo $agent_name. ' '.$agent_l_name; ?>" /></a>
+                <a itemprop="email" href="mailto:<?php echo $wpl_user['materials']['main_email']['value']; ?>"><img src="<?php echo $wpl_user['main_email_url']; ?>" alt="<?php echo $agent_name. ' '.$agent_l_name; ?>" /></a>
                 <?php else: ?>
                 <img src="<?php echo $wpl_user['main_email_url']; ?>" alt="<?php echo $agent_name. ' '.$agent_l_name; ?>" />
                 <?php endif; ?>
@@ -91,7 +90,7 @@ $company_name             = (isset($wpl_user['materials']['company_name']['value
 			<?php if(isset($wpl_user['second_email_url'])): ?>
 			<li class="second_email">
                 <?php if($mailto): ?>
-                <a href="mailto:<?php echo $wpl_user['materials']['secondary_email']['value']; ?>"><img src="<?php echo $wpl_user['second_email_url']; ?>" alt="<?php echo $agent_name. ' '.$agent_l_name; ?>" /></a>
+                <a itemprop="email" href="mailto:<?php echo $wpl_user['materials']['secondary_email']['value']; ?>"><img src="<?php echo $wpl_user['second_email_url']; ?>" alt="<?php echo $agent_name. ' '.$agent_l_name; ?>" /></a>
                 <?php else: ?>
                 <img src="<?php echo $wpl_user['second_email_url']; ?>" alt="<?php echo $agent_name. ' '.$agent_l_name; ?>" />
                 <?php endif; ?>

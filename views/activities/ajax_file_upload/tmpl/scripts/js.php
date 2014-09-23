@@ -10,6 +10,8 @@ function <?php echo $this->js_function; ?>()
 	ext = filename.split('.').pop();
 	ext = ext.toLowerCase();
     
+    if(ext == filename) ext = '';
+    
 	if(<?php $i = 1; $count = count($this->valid_extensions); foreach($this->valid_extensions as $valid_extension){ echo "ext != '".$valid_extension."'".($i < $count ? ' && ' : ''); $i++; } ?>)
 	{
 		wpl_show_messages('<?php echo __('File extension does not match.', WPL_TEXTDOMAIN); ?>', '<?php echo $this->html_path_message; ?>', 'wpl_red_msg');

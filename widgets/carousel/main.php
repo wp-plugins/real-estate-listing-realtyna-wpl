@@ -121,7 +121,7 @@ class wpl_carousel_widget extends wpl_widget
 		$this->listing_fields = $model->get_plisting_fields();
 		$this->select = $model->generate_select($this->listing_fields, 'p');
 		$this->limit = $data['limit'];
-		$this->order = $data['orderby']." ".$data['order'];
+		$this->order = urldecode($data['orderby'])." ".$data['order'];
 		
 		$this->where = " AND p.`deleted`='0' AND p.`finalized`='1' AND p.`confirmed`='1'";
 		

@@ -36,7 +36,7 @@ $this->_wpl_import($this->tpl_path . '.scripts.css');
                     <th scope="col" class="manage-column"><?php echo __('Layout', WPL_TEXTDOMAIN); ?></th>
                     <th scope="col" class="manage-column"><?php echo __('Position', WPL_TEXTDOMAIN); ?></th>
                     <th></th>
-                    <th scope="col" class="manage-column"><?php echo __('Actions', WPL_TEXTDOMAIN); ?></th>
+                    <th id="wpl_actions_td_thead" scope="col" class="manage-column wpl_actions_td"><?php echo __('Actions', WPL_TEXTDOMAIN); ?></th>
                 </tr>
             </thead>
             <tfoot>

@@ -11,7 +11,7 @@ include _wpl_import("widgets.agents.scripts.js", true, true);
         $agent_name   = (isset($profile['materials']['first_name']['value']) ? $profile['materials']['first_name']['value'] : '') ;
         $agent_l_name = (isset($profile['materials']['last_name']['value']) ? $profile['materials']['last_name']['value'] : '');
         ?>
-        <li class="wpl_profile_box" id="wpl_profile_container<?php echo $profile['data']['id']; ?>">
+        <li class="wpl_profile_box" id="wpl_profile_container<?php echo $profile['data']['id']; ?>" itemscope>
             <div class="profile_left">
                 <a class="more_info" href="<?php echo $profile['profile_link']; ?>" class="view_properties">
                     <span 
@@ -20,7 +20,7 @@ include _wpl_import("widgets.agents.scripts.js", true, true);
                         <?php
                         if(isset($profile['profile_picture']['url']))
                         {
-                            echo '<img src="'.$profile['profile_picture']['url'].'" alt="'.$agent_name.' '.$agent_l_name.'" />';
+                            echo '<img itemprop="image" src="'.$profile['profile_picture']['url'].'" alt="'.$agent_name.' '.$agent_l_name.'" />';
                         }
                         else
                         {
@@ -33,23 +33,23 @@ include _wpl_import("widgets.agents.scripts.js", true, true);
             <div class="profile_right">
                  <ul>
                     <?php
-                    echo '<li class="title">'.$agent_name.' '.$agent_l_name.'</li>';
+                    echo '<li class="title" itemprop="name">'.$agent_name.' '.$agent_l_name.'</li>';
                     if(isset($profile['main_email_url'])) echo '<li class="email"><img src="'.$profile["main_email_url"].'" alt="'.$agent_name.' '.$agent_l_name.'" /></li>';
 
                     if(isset($profile['materials']['website']['value'])): ?>
                         <li class="website">
-                            <a href="<?php
+                            <a itemprop="url" href="<?php
                             $urlStr = $profile['materials']['website']['value'];
                             $parsed = parse_url($urlStr);
                             if (empty($parsed['scheme'])) {
                                 $urlStr = 'http://' . ltrim($urlStr, '/');
                             }
                             echo $urlStr;
-                            ?>" target="_blank"><?php echo $profile['materials']['website']['value']; ?></a>
+                            ?>" target="_blank"><?php echo __('View website', WPL_TEXTDOMAIN) ?></a>
                         </li>
                     <?php endif; ?>
                     <?php if(isset($profile['materials']['tel']['value'])): ?>
-                        <li class="phone"><?php echo $profile['materials']['tel']['value']; ?></li>
+                        <li itemprop="telephone" class="phone"><?php echo $profile['materials']['tel']['value']; ?></li>
                     <?php endif; ?>
                 </ul>
             </div>

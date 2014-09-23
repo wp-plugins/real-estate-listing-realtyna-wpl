@@ -32,28 +32,18 @@ if($type == 'textarea' and !$done_this)
 				include $path;
 			?>
             <?php endif; ?>
+            <?php if(wpl_global::check_addon('pro')): ?>
 			<div class="fanc-row fanc-inline-title">
 				<?php echo __('Editor Settings', WPL_TEXTDOMAIN); ?>
 			</div>
 			<div class="fanc-row">
 				<label for="<?php echo $__prefix; ?>opt_advanced_editor"><?php echo __('Advanced Editor', WPL_TEXTDOMAIN); ?></label>
-				<select name="<?php echo $__prefix; ?>opt_advanced_editor" id="<?php echo $__prefix; ?>opt_advanced_editor">
+                <select name="<?php echo $__prefix; ?>opt_advanced_editor" id="<?php echo $__prefix; ?>opt_advanced_editor">
 					<option value="1" <?php if (isset($options['advanced_editor']) and $options['advanced_editor'] == 1) echo 'selected="selected"'; ?>><?php echo __('Yes', WPL_TEXTDOMAIN); ?></option>
 					<option value="0" <?php if (isset($options['advanced_editor']) and $options['advanced_editor'] == 0) echo 'selected="selected"'; ?>><?php echo __('No', WPL_TEXTDOMAIN); ?></option>
 				</select>
 			</div>
-			<div class="fanc-row">
-				<label for="<?php echo $__prefix; ?>opt_cols"><?php echo __('Column width', WPL_TEXTDOMAIN); ?></label>
-				<input type="text" name="<?php echo $__prefix; ?>opt_cols" id="<?php echo $__prefix; ?>opt_cols" value="<?php echo (isset($options['cols']) ? $options['cols'] : 40); ?>" />
-			</div>
-			<div class="fanc-row">
-				<label for="<?php echo $__prefix; ?>opt_cols"><?php echo __('Column width', WPL_TEXTDOMAIN); ?></label>
-				<input type="text" name="<?php echo $__prefix; ?>opt_cols" id="<?php echo $__prefix; ?>opt_cols" value="<?php echo (isset($options['cols']) ? $options['cols'] : 40); ?>" />
-			</div>
-			<div class="fanc-row">
-				<label for="<?php echo $__prefix; ?>opt_rows"><?php echo __('Row width', WPL_TEXTDOMAIN); ?></label>
-				<input type="text" name="<?php echo $__prefix; ?>opt_rows" id="<?php echo $__prefix; ?>opt_rows" value="<?php echo (isset($options['rows']) ? $options['rows'] : 6); ?>" />
-			</div>
+            <?php endif; ?>
 		</div>
 	</div>
 </div>

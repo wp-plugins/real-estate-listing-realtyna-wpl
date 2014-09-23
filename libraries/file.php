@@ -245,6 +245,182 @@ class wpl_file
 	}
 }
 
+/**
+ * XML File Library
+ * @author Howard <howard@realtyna.com>
+ * @since WPL1.8.1
+ * @date 09/20/2014
+ */
+class wpl_xml
+{
+    /**
+     * Full path of XML file
+     * @var string 
+     */
+    public $path = NULL;
+    
+    /**
+     * Node of single property
+     * @var string 
+     */
+    public $node;
+    
+    /**
+     * XML string
+     * @var type 
+     */
+    public $string = NULL;
+    
+    /**
+     * DOM object
+     * @var object 
+     */
+    private $dom;
+    
+    /**
+     * fieldPath=>[value1][value2] array
+     * @var array 
+     */
+    public $values;
+    
+    /**
+     * Constructor method
+     * @author Howard <howard@realtyna.com>
+     * @since WPL1.8.1
+     * @param string $path
+     * @param string $node
+     */
+    public function __construct($path = NULL, $node = NULL)
+    {
+        if($path) $this->path = $path;
+        if($node) $this->node = $node;
+    }
+    
+    /**
+     * Get DOM object childs
+     * @author Howard <howard@realtyna.com>
+     * @since WPL1.8.1
+     * @param DOM object $object
+     * @param string $path
+     * @return string|array
+     */
+    public function childs($object, $path = '')
+    {
+        if($object->hasChildNodes())
+        {
+            if($object->childNodes->length == 1)
+            {
+                if($object->nodeType != XML_TEXT_NODE)
+                {
+                    $childs = '['.$object->nodeValue.']';
+                    
+                    if(!isset($this->values[$path])) $this->values[$path] = '['.$object->nodeValue.']';
+                    else $this->values[$path] .= '['.$object->nodeValue.']';
+                }
+            }
+            else
+            {
+                foreach($object->childNodes as $childNode)
+                {
+                    if($childNode->nodeType == XML_TEXT_NODE) continue;
+                    $result = $this->childs($childNode, ($path.$childNode->nodeName.'/'));
+                    
+                    if(!isset($childs[$path.$childNode->nodeName.'/']))
+                    {
+                        $childs[$path.$childNode->nodeName.'/'] = $result;
+                    }
+                    else
+                    {
+                        if(is_string($result)) $childs[$path.$childNode->nodeName.'/'] = $childs[$path.$childNode->nodeName.'/'].$result;
+                    }
+                }
+            }
+        }
+        elseif($object->nodeType != XML_TEXT_NODE)
+        {
+            $childs = '['.$object->nodeValue.']';
+            
+            if(!isset($this->values[$path])) $this->values[$path] = '['.$object->nodeValue.']';
+            else $this->values[$path] .= '['.$object->nodeValue.']';
+        }
+        
+        return $childs;
+    }
+    
+    /**
+     * 
+     * @param type $limit
+     * @param string $Path
+     * @return type
+     */
+    public function path($limit = 1, $Path = '')
+    {
+        /** First Validation **/
+        if(!trim($this->node)) return array();
+        
+        $this->dom = new DOMDocument;
+        
+        if($this->path) $this->dom->load($this->path);
+        elseif($this->string)
+        {
+            $this->dom = new DOMDocument;
+            @$this->dom->loadXML($this->string);
+        }
+        
+        /** reset values array **/
+        $this->values = array();
+        
+        $categories = $this->dom->getElementsByTagName($this->node);
+        $tree = array();
+        if(!trim($Path)) $Path = '/'.$this->node.'/';
+        
+        for($i = 0; $i < $categories->length; $i++)
+        {
+            if($i >= $limit) break;
+
+            $cat = $categories->item($i);
+            
+            $childs = array();
+            foreach($cat->childNodes AS $child)
+            {
+                if($child->nodeType == XML_TEXT_NODE) continue;
+                $childs[$Path.$child->nodeName.'/'] = $this->childs($child, $Path.$child->nodeName.'/');
+            }
+
+            $tree[$i] = $childs;
+        }
+        
+        return $tree;
+    }
+    
+    /**
+     * Convert Paths array to cleaned Path=>Values
+     * @author Howard <howard@realtyna.com>
+     * @since WPL1.8.1
+     * @param array $paths
+     * @param array $keys
+     * @return array
+     */
+    public function keys($paths, $keys = array())
+    {
+        if(!is_array($paths)) return $keys;
+        
+        foreach($paths as $key=>$value)
+        {
+            if(is_array($value)) $keys = $this->keys($value, $keys);
+            else $keys[$key] = $value;
+        }
+        
+        return $keys;
+    }
+}
+
+/**
+ * Chunk Library
+ * @author Howard <howard@realtyna.com>
+ * @since WPL1.8.1
+ * @date 09/20/2014
+ */
 class wpl_chunk
 {
     /**
@@ -382,7 +558,7 @@ class wpl_chunk
         }
         else
         {
-              $element = '';
+            $element = '';
         }
 
         // initialize the buffer
@@ -408,7 +584,7 @@ class wpl_chunk
         else
         {
             // set up the strings to find
-            $open = '<'.$element;
+            $open = '<'.$element.'>';
             $close = '</'.$element.'>';
 
             // let the script know we're reading

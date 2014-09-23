@@ -17,7 +17,7 @@
             autoplay_slideshow: false, /* true/false */
             opacity: 0.80, /* Value between 0 and 1 */
             show_title: true, /* true/false */
-            allow_resize: true, /* Resize the photos bigger than viewport. true/false */
+            allow_resize: false, /* Resize the photos bigger than viewport. true/false */
             allow_expand: true, /* Allow the user to expand a resized image. true/false */
             default_width: 500,
             default_height: 344,
@@ -656,7 +656,7 @@
             // Define them in case there's no resize needed
             imageWidth = width, imageHeight = height;
 
-            if (((pp_containerWidth > windowWidth) || (pp_containerHeight > windowHeight)) && doresize && settings.allow_resize && !percentBased) {
+            /*if (((pp_containerWidth > windowWidth) || (pp_containerHeight > windowHeight)) && doresize && settings.allow_resize && !percentBased) {
                 resized = true, fitting = false;
 
                 while (!fitting) {
@@ -683,7 +683,7 @@
 
                 _getDimensions(imageWidth, imageHeight);
             }
-            ;
+            ;*/
 
             return {
                 width: Math.floor(imageWidth),

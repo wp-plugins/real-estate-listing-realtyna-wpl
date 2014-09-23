@@ -32,16 +32,19 @@ $this->_wpl_import($this->tpl_path.'.scripts.pshow', true, true);
     }
     else
     {
+
         echo '<ul class="bxslider" id="bxslider_'.$this->property_id.'">';
         $i = 0;
         $pager_box = '';
-		
+
         foreach($this->gallery as $image)
         {
 
             $image_url = $image['url'];
             $image_thumbnail_url = $image['url'];
-            
+            if(isset($image['item_extra2'])) $image_alt = $image['item_extra2'];
+            else $image_alt = $wpl_properties['current']['raw']['meta_keywords'];
+
             if($this->resize and $this->image_width and $this->image_height and $image['category'] != 'external')
             {
                 /** set resize method parameters **/
@@ -55,10 +58,10 @@ $this->_wpl_import($this->tpl_path.'.scripts.pshow', true, true);
                 $image_url           = wpl_images::create_gallary_image($this->image_width, $this->image_height, $params, $this->watermark, $this->rewrite);
                 $image_thumbnail_url = wpl_images::create_gallary_image(100, 80, $params, $this->watermark, $this->rewrite);
             }
-            
+
             /** start loading images **/
-            echo '<li><img src="'.$image_url.'" title="" class="wpl_gallery_image '.$this->image_class.'" id="wpl_gallery_image'.$image['raw']['id'].'" width="'.$this->image_width.'" height="'.$this->image_height.'" alt="'.$image['title'].'" /></li>';
-            $pager_box .= '<a data-slide-index="'.$i.'" href=""><img src="'.$image_thumbnail_url.'" width="100" height="80" style="width: 100px; height: 80px;" alt="'.$image['title'].'" /></a>';
+            echo '<li><img src="'.$image_url.'" itemprop="image" class="wpl_gallery_image '.$this->image_class.'" id="wpl_gallery_image'.$image['raw']['id'].'" width="'.$this->image_width.'" height="'.$this->image_height.'" alt="'.$image_alt.'" /></li>';
+            $pager_box .= '<a data-slide-index="'.$i.'" href=""><img src="'.$image_thumbnail_url.'" width="100" height="80" style="width: 100px; height: 80px;" itemprop="image" alt="'.$image_alt.'" /></a>';
         	$i++;
         }
 		

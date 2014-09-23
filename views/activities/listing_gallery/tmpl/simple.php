@@ -13,6 +13,7 @@ $this->image_class = isset($params['image_class']) ? $params['image_class'] : ''
 $this->resize = (isset($params['resize']) and trim($params['resize']) != '') ? $params['resize'] : 1;
 $this->rewrite = (isset($params['rewrite']) and trim($params['rewrite']) != '') ? $params['rewrite'] : 0;
 $this->watermark = (isset($params['watermark']) and trim($params['watermark']) != '') ? $params['watermark'] : 0;
+$this->img_category = (isset($image['category']) and trim($image['category']) != '') ? $image['category'] : '';
 
 /** Property tags **/
 $features = '';
@@ -28,8 +29,6 @@ if(isset($wpl_properties['current']['materials']['sp_forclosure']) and $wpl_prop
 /** render gallery **/
 $raw_gallery = isset($wpl_properties['current']['items']['gallery']) ? $wpl_properties['current']['items']['gallery'] : array();
 $gallery = wpl_items::render_gallery($raw_gallery);
-
-$this->img_category = (isset($gallery[0]['category']) and trim($gallery[0]['category']) != '') ? $gallery[0]['category'] : '';
 ?>
 <div class="wpl_gallery_container" id="wpl_gallery_container<?php echo $this->property_id; ?>">
     <?php
@@ -40,7 +39,9 @@ $this->img_category = (isset($gallery[0]['category']) and trim($gallery[0]['cate
     else
     {
         $image_url = $gallery[0]['url'];
-        
+        if(isset($gallery[0]['item_extra2'])) $image_alt = $gallery[0]['item_extra2'];
+        elseif(isset($wpl_properties['current']['raw']['meta_keywords'])) $image_alt = $wpl_properties['current']['raw']['meta_keywords'];
+
         if($this->resize and $this->image_width and $this->image_height and $this->img_category != 'external')
         {
             /** set resize method parameters **/
@@ -54,7 +55,7 @@ $this->img_category = (isset($gallery[0]['category']) and trim($gallery[0]['cate
             $image_url = wpl_images::create_gallary_image($this->image_width, $this->image_height, $params, $this->watermark, $this->rewrite);
         }
         
-        echo '<img id="wpl_gallery_image'.$this->property_id .'" src="'.$image_url.'" class="wpl_gallery_image '.$this->image_class.'" alt="'.$params['image_name'].'" width="'.$this->image_width.'" height="'.$this->image_height.'" style="width: '.$this->image_width.'px; height: '.$this->image_height.'px;" />';
+        echo '<img itemprop="image" id="wpl_gallery_image'.$this->property_id .'" src="'.$image_url.'" class="wpl_gallery_image '.$this->image_class.'" alt="'.$image_alt.'" width="'.$this->image_width.'" height="'.$this->image_height.'" style="width: '.$this->image_width.'px; height: '.$this->image_height.'px;" />';
     }
 	
     /* Property tags */

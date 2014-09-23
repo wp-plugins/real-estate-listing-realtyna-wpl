@@ -196,3 +196,51 @@ class wpl_request
 		}
 	}
 }
+
+/**
+ * Session Library
+ * @author Howard <howard@realtyna.com>
+ * @since WPL1.8.1
+ * @date 23/09/2014
+ */
+class wpl_session
+{
+    /**
+     * Set a variable to session
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $key
+     * @param mixed $value
+     * @param boolean $override
+     * @return mixed
+     */
+    public static function set($key, $value = NULL, $override = true)
+    {
+        $apply = false;
+        if(!isset($_SESSION[$key]))
+        {
+            $apply = true;
+            $_SESSION[$key] = $value;
+        }
+        elseif(isset($_SESSION[$key]) and $override)
+        {
+            $apply = true;
+            $_SESSION[$key] = $value;
+        }
+        
+        return ($apply ? $value : NULL);
+    }
+    
+    /**
+     * Get a session variable
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $key
+     * @return mixed
+     */
+    public static function get($key = NULL)
+    {
+        if($key) return (isset($_SESSION[$key]) ? $_SESSION[$key] : NULL);
+        return $_SESSION;
+    }
+}

@@ -627,7 +627,7 @@ class wpl_global
 		@return array response
 		@author Howard
 	**/
-	public static function upload($file, $dest = '', $ext_array = array('jpg','png','gif','jpeg'), $max_file_size = 512000)
+	public static function upload($file, $dest = '', $ext_array = array('jpg','png','gif','jpeg'), $max_file_size = 512000, $extension = NULL)
 	{
 		$error = '';
 		$msg = '';
@@ -638,9 +638,9 @@ class wpl_global
 		}
 		else
 		{
-			$extention = strtolower(wpl_file::getExt($file['name']));
-			
-			if(!in_array($extention, $ext_array))
+			if(is_null($extension)) $extension = strtolower(wpl_file::getExt($file['name']));
+            
+			if(!in_array($extension, $ext_array))
 			{
 				$error .= __('File extension is not valid.', WPL_TEXTDOMAIN);
 			}
@@ -958,6 +958,17 @@ class wpl_global
 		return get_current_blog_id();
 	}
 	
+    /**
+     * Returns current locale of WordPress. This must be called after plugins_init hook
+     * @author Howard R. <howard@realtyna.com>
+     * @static
+     * @return string
+     */
+    public static function get_current_language()
+    {
+        return apply_filters('plugin_locale', get_locale(), WPL_TEXTDOMAIN);
+    }
+    
 	/**
 		@input void
 		@return WPL base path for uploaded files

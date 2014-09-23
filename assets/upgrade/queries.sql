@@ -261,3 +261,90 @@ UPDATE `#__wpl_dbst` SET `searchmod`='1' WHERE `id`='313';
 
 ALTER TABLE `#__wpl_properties` CHANGE `last_modified_time_stamp` `last_modified_time_stamp` TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
 ALTER TABLE `#__wpl_users` ADD `last_modified_time_stamp` TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `rendered`;
+
+UPDATE `#__wpl_dbst` SET `index`='1.00' WHERE `id`='308';
+UPDATE `#__wpl_dbst` SET `index`='0.50' WHERE `id`='313';
+UPDATE `#__wpl_dbst` SET `index`='0.60' WHERE `id`='312';
+
+INSERT INTO `#__wpl_extensions` (`id`, `type`, `title`, `parent`, `description`, `enabled`, `param1`, `param2`, `param3`, `param4`, `param5`, `params`, `editable`, `index`, `client`) VALUES
+(36, 'service', 'Tips Service', 0, 'For running WPL Tips', 1, 'init', 'tips->run', '9999', '', '', '', 0, 99.99, 1);
+
+ALTER TABLE `#__wpl_dbcat` ADD `params` TEXT NULL;
+ALTER TABLE `#__wpl_dbcat` DROP `icon`, DROP `rankable`;
+
+UPDATE `#__wpl_dbst` SET `deletable`='0' WHERE `id`='41';
+UPDATE `#__wpl_dbst` SET `deletable`='0' WHERE `id`='911';
+UPDATE `#__wpl_dbst` SET `deletable`='0' WHERE `id`='53';
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+ALTER TABLE `#__wpl_users` CHANGE `id` `id` INT(10) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `#__wpl_location1` ADD `abbr` VARCHAR(100) NULL AFTER `name`;
+ALTER TABLE `#__wpl_location2` ADD `abbr` VARCHAR(100) NULL AFTER `name`;
+ALTER TABLE `#__wpl_location3` ADD `abbr` VARCHAR(100) NULL AFTER `name`;
+ALTER TABLE `#__wpl_location4` ADD `abbr` VARCHAR(100) NULL AFTER `name`;
+ALTER TABLE `#__wpl_location5` ADD `abbr` VARCHAR(100) NULL AFTER `name`;
+ALTER TABLE `#__wpl_location6` ADD `abbr` VARCHAR(100) NULL AFTER `name`;
+ALTER TABLE `#__wpl_location7` ADD `abbr` VARCHAR(100) NULL AFTER `name`;
+
+UPDATE `#__wpl_location1` SET `abbr`='US' WHERE `id`='254';
+UPDATE `#__wpl_location2` SET `abbr`='AL' WHERE `id`='6001';
+UPDATE `#__wpl_location2` SET `abbr`='AK' WHERE `id`='6002';
+UPDATE `#__wpl_location2` SET `abbr`='AS' WHERE `id`='6003';
+UPDATE `#__wpl_location2` SET `abbr`='AZ' WHERE `id`='6004';
+UPDATE `#__wpl_location2` SET `abbr`='AR' WHERE `id`='6005';
+UPDATE `#__wpl_location2` SET `abbr`='CA' WHERE `id`='6006';
+UPDATE `#__wpl_location2` SET `abbr`='CO' WHERE `id`='6007';
+UPDATE `#__wpl_location2` SET `abbr`='CT' WHERE `id`='6008';
+UPDATE `#__wpl_location2` SET `abbr`='DE' WHERE `id`='6009';
+UPDATE `#__wpl_location2` SET `abbr`='DC' WHERE `id`='6010';
+UPDATE `#__wpl_location2` SET `abbr`='FM' WHERE `id`='6011';
+UPDATE `#__wpl_location2` SET `abbr`='FL' WHERE `id`='6012';
+UPDATE `#__wpl_location2` SET `abbr`='GA' WHERE `id`='6013';
+UPDATE `#__wpl_location2` SET `abbr`='GU' WHERE `id`='6014';
+UPDATE `#__wpl_location2` SET `abbr`='HI' WHERE `id`='6015';
+UPDATE `#__wpl_location2` SET `abbr`='ID' WHERE `id`='6016';
+UPDATE `#__wpl_location2` SET `abbr`='IL' WHERE `id`='6017';
+UPDATE `#__wpl_location2` SET `abbr`='IN' WHERE `id`='6018';
+UPDATE `#__wpl_location2` SET `abbr`='IA' WHERE `id`='6019';
+UPDATE `#__wpl_location2` SET `abbr`='KS' WHERE `id`='6020';
+UPDATE `#__wpl_location2` SET `abbr`='KY' WHERE `id`='6021';
+UPDATE `#__wpl_location2` SET `abbr`='LA' WHERE `id`='6022';
+UPDATE `#__wpl_location2` SET `abbr`='ME' WHERE `id`='6023';
+UPDATE `#__wpl_location2` SET `abbr`='MH' WHERE `id`='6024';
+UPDATE `#__wpl_location2` SET `abbr`='MD' WHERE `id`='6025';
+UPDATE `#__wpl_location2` SET `abbr`='MA' WHERE `id`='6026';
+UPDATE `#__wpl_location2` SET `abbr`='MI' WHERE `id`='6027';
+UPDATE `#__wpl_location2` SET `abbr`='MN' WHERE `id`='6028';
+UPDATE `#__wpl_location2` SET `abbr`='UM' WHERE `id`='6029';
+UPDATE `#__wpl_location2` SET `abbr`='MS' WHERE `id`='6030';
+UPDATE `#__wpl_location2` SET `abbr`='MO' WHERE `id`='6031';
+UPDATE `#__wpl_location2` SET `abbr`='MT' WHERE `id`='6032';
+UPDATE `#__wpl_location2` SET `abbr`='NE' WHERE `id`='6033';
+UPDATE `#__wpl_location2` SET `abbr`='NV' WHERE `id`='6034';
+UPDATE `#__wpl_location2` SET `abbr`='NH' WHERE `id`='6035';
+UPDATE `#__wpl_location2` SET `abbr`='NJ' WHERE `id`='6036';
+UPDATE `#__wpl_location2` SET `abbr`='NM' WHERE `id`='6037';
+UPDATE `#__wpl_location2` SET `abbr`='NY' WHERE `id`='6038';
+UPDATE `#__wpl_location2` SET `abbr`='NC' WHERE `id`='6039';
+UPDATE `#__wpl_location2` SET `abbr`='ND' WHERE `id`='6040';
+UPDATE `#__wpl_location2` SET `abbr`='MP' WHERE `id`='6041';
+UPDATE `#__wpl_location2` SET `abbr`='OH' WHERE `id`='6042';
+UPDATE `#__wpl_location2` SET `abbr`='OK' WHERE `id`='6043';
+UPDATE `#__wpl_location2` SET `abbr`='OR' WHERE `id`='6044';
+UPDATE `#__wpl_location2` SET `abbr`='PW' WHERE `id`='6045';
+UPDATE `#__wpl_location2` SET `abbr`='PA' WHERE `id`='6046';
+UPDATE `#__wpl_location2` SET `abbr`='PR' WHERE `id`='6047';
+UPDATE `#__wpl_location2` SET `abbr`='RI' WHERE `id`='6048';
+UPDATE `#__wpl_location2` SET `abbr`='SC' WHERE `id`='6049';
+UPDATE `#__wpl_location2` SET `abbr`='SD' WHERE `id`='6050';
+UPDATE `#__wpl_location2` SET `abbr`='TN' WHERE `id`='6051';
+UPDATE `#__wpl_location2` SET `abbr`='TX' WHERE `id`='6052';
+UPDATE `#__wpl_location2` SET `abbr`='UT' WHERE `id`='6053';
+UPDATE `#__wpl_location2` SET `abbr`='VT' WHERE `id`='6054';
+UPDATE `#__wpl_location2` SET `abbr`='VI' WHERE `id`='6055';
+UPDATE `#__wpl_location2` SET `abbr`='VA' WHERE `id`='6056';
+UPDATE `#__wpl_location2` SET `abbr`='WA' WHERE `id`='6057';
+UPDATE `#__wpl_location2` SET `abbr`='WV' WHERE `id`='6058';
+UPDATE `#__wpl_location2` SET `abbr`='WI' WHERE `id`='6059';
+UPDATE `#__wpl_location2` SET `abbr`='WY' WHERE `id`='6060';

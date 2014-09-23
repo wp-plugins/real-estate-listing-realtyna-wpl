@@ -10,20 +10,16 @@ if($type == 'locations' and !$done_this)
 	
 	switch($field['type'])
 	{
-		case 'locationtextsearch':
-			$show = 'locationtextsearch';
-		break;
-		
-		case 'radiussearch':
-			$show = 'radiussearch';
-		break;
-		
 		case 'simple' and $location_settings['location_method'] == 2:
 			$show = 'simple_location_database';
 		break;
 		
 		case 'simple' and $location_settings['location_method'] == 1:
 			$show = 'simple_location_text';
+		break;
+    
+        default:
+			$show = $field['type'];
 		break;
 	}
 	

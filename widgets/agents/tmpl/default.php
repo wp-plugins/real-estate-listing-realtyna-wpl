@@ -11,7 +11,7 @@ include _wpl_import("widgets.agents.scripts.js", true, true);
         $agent_name   = (isset($profile['materials']['first_name']['value']) ? $profile['materials']['first_name']['value'] : '') ;
         $agent_l_name = (isset($profile['materials']['last_name']['value']) ? $profile['materials']['last_name']['value'] : '');
         ?>
-        <div class="wpl_profile_container" id="wpl_profile_container<?php echo $profile['data']['id']; ?>">
+        <div class="wpl_profile_container" id="wpl_profile_container<?php echo $profile['data']['id']; ?>" itemscope>
             <div class="wpl_profile_picture"
                 <?php 
                 echo 'style="'.(isset($profile['profile_picture']['image_width']) ? 'width:'.$profile['profile_picture']['image_width'].'px;' : '').(isset($profile['profile_picture']['image_height']) ? 'height:'.$profile['profile_picture']['image_height'].'px;' : '').'"'; ?>>
@@ -21,7 +21,7 @@ include _wpl_import("widgets.agents.scripts.js", true, true);
 
                     if(isset($profile['profile_picture']['url']))
                     {
-                        echo '<img src="'.$profile['profile_picture']['url'].'" alt="'.$agent_name.' '.$agent_l_name.'" />';
+                        echo '<img itemprop="image" src="'.$profile['profile_picture']['url'].'" alt="'.$agent_name.' '.$agent_l_name.'" />';
                     }
                     else
                     {
@@ -30,21 +30,21 @@ include _wpl_import("widgets.agents.scripts.js", true, true);
                     ?>
                 </div>
                 <div class="back">
-                    <a href="<?php echo $profile['profile_link']; ?>" class="view_properties" <?php echo 'style="'.(isset($profile['profile_picture']['image_height']) ? 'line-height:'.$profile['profile_picture']['image_height'].'px;' : '').'"'; ?>><?php echo __('View properties', WPL_TEXTDOMAIN); ?></a>
+                    <a itemprop="url" href="<?php echo $profile['profile_link']; ?>" class="view_properties" <?php echo 'style="'.(isset($profile['profile_picture']['image_height']) ? 'line-height:'.$profile['profile_picture']['image_height'].'px;' : '').'"'; ?>><?php echo __('View properties', WPL_TEXTDOMAIN); ?></a>
                 </div>
             </div>
 
             <div class="wpl_profile_container_title">
                 <?php
                     
-                    echo '<div class="title">'.$agent_name.' '.$agent_l_name.'</div>';
+                    echo '<h2 class="title" itemprop="name">'.$agent_name.' '.$agent_l_name.'</h2>';
                     if(isset($profile['main_email_url'])) echo '<img src="'.$profile["main_email_url"].'" alt="'.$agent_name.' '.$agent_l_name.'" />';
                 ?>
             </div>
             <ul>
                 <?php if(isset($profile['materials']['website']['value'])): ?>
                     <li class="website" data-toggle="tooltip" title="<?php echo $profile['materials']['website']['value']; ?>">
-                        <a href="<?php
+                        <a itemprop="url" href="<?php
                         $urlStr = $profile['materials']['website']['value'];
                         $parsed = parse_url($urlStr);
                         if (empty($parsed['scheme'])) {
@@ -55,13 +55,13 @@ include _wpl_import("widgets.agents.scripts.js", true, true);
                     </li>
                 <?php endif; ?>
                 <?php if(isset($profile['materials']['tel']['value'])): ?>
-                    <li class="phone" data-toggle="tooltip" title="<?php echo $profile['materials']['tel']['value']; ?>"></li>
+                    <li itemprop="telephone" class="phone" data-toggle="tooltip" title="<?php echo $profile['materials']['tel']['value']; ?>"></li>
                 <?php endif; ?>
                 <?php if(isset($profile['materials']['mobile']['value'])): ?>
-                    <li class="mobile" data-toggle="tooltip" title="<?php echo $profile['materials']['mobile']['value']; ?>"></li>
+                    <li itemprop="telephone" class="mobile" data-toggle="tooltip" title="<?php echo $profile['materials']['mobile']['value']; ?>"></li>
                 <?php endif; ?>
                 <?php if(isset($profile['materials']['fax']['value'])): ?>
-                    <li class="fax" data-toggle="tooltip" title="<?php echo $profile['materials']['fax']['value']; ?>"></li>
+                    <li itemprop="faxNumber" class="fax" data-toggle="tooltip" title="<?php echo $profile['materials']['fax']['value']; ?>"></li>
                 <?php endif ;?>
             </ul>
         </div>

@@ -4,7 +4,7 @@ Donate link: http://wpl.realtyna.com/
 Tags: Real estate, Listing, Vertical Market, MLS, Property listing, RETS, Listings, Broker, Realtor, Property, IDX, Multiple Listing Service, Property Management, Properties
 Requires at least: 3.0.1
 Tested up to: 4.0
-Stable tag: 1.8.1
+Stable tag: 1.8.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,15 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 
 == Changelog ==
 
+= 1.8.3 =
+* [PRO] WYSIWYG Editor for property description and text-area fields.
+* SEO optimizations for WPL core.
+* Added twitter meta tags on single property page.
+* Added location abbreviation in location manager for importer add-ons.
+* Fixed an issue in WPL light-box.
+* Fixed an issue for showing specified fields on single property page.
+* Fixed some issues on rooms feature.
+
 = 1.8.1 =
 * Added Similar properties feature to WPL carousel widget.
 * Fixed shortcode wizard iframe issue.
@@ -67,7 +76,7 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 * Fixed some PHP notices.
 
 = 1.8.0 =
-* [PRO] Added Sitemap feature for WPL items (Listings/Agents).
+* [PRO] Added sitemap feature for WPL items (Listings/Agents).
 * [PRO] Added Dublin Core meta tags for SEO purposes.
 * [PRO] Added an ability for hiding a numeric field when its value is zero.
 * [PRO] Added Call for price feature when the price sets to zero.

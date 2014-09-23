@@ -24,7 +24,9 @@ foreach($wpl_properties as $key=>$gallery)
 
         if(isset($gallery['materials']['field_313']) and trim($gallery['materials']['field_313']['value']) != '') $image_title = $gallery['materials']['field_313']['value'];
         else $image_title = $gallery['materials']['property_type']['value'].' '.$gallery['materials']['listing']['value'];
-		
+        if(isset($gallery['items']['gallery'][0]->item_extra2) and trim($gallery['items']['gallery'][0]->item_extra2) != '') $image_alt = $gallery['items']['gallery'][0]->item_extra2;
+        else $image_alt = $gallery['raw']['meta_keywords'];
+
 		$image_description	= $gallery["items"]["gallery"][0]->item_extra2;
         
         if($gallery["items"]["gallery"][0]->item_cat != 'external')
@@ -38,10 +40,10 @@ foreach($wpl_properties as $key=>$gallery)
 
 		$images .= '
 		<div class="item">
-            <img src="'.$image_url.'" alt="'.$image_title.'" width="'.$image_width.'" height="'.$image_height.'" style="width: '.$image_width.'px; height: '.$image_height.'px;" />
+            <img itemprop="image" src="'.$image_url.'" alt="'.$image_alt.'" width="'.$image_width.'" height="'.$image_height.'" style="width: '.$image_width.'px; height: '.$image_height.'px;" />
             <div class="title">
-                <h3>'.$image_title.'</h3>
-                <a class="more_info" href="'.$gallery["property_link"].'">'. __('More', WPL_TEXTDOMAIN).'</a>
+                <h3 itemprop="name">'.$image_title.'</h3>
+                <a itemprop="url" class="more_info" href="'.$gallery["property_link"].'">'. __('More', WPL_TEXTDOMAIN).'</a>
             </div>
         </div>';
 

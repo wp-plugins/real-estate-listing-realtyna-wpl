@@ -32,38 +32,38 @@ $agent_name               = (isset($wpl_user['materials']['first_name']['value']
 $agent_l_name             = (isset($wpl_user['materials']['last_name']['value']) ? $wpl_user['materials']['last_name']['value'] : '');
 $company_name             = (isset($wpl_user['materials']['company_name']['value']) ? $wpl_user['materials']['company_name']['value'] : '');
 ?>
-<div class="wpl_agent_info clearfix" id="wpl_agent_info">
+<div class="wpl_agent_info clearfix" id="wpl_agent_info" itemscope>
 	<div class="wpl_agent_info_l">
         <?php
-			if(isset($wpl_user['profile_picture'])) echo '<img src="'.$profile_image.'" alt="'.$agent_name. ' '.$agent_l_name.'" />';
-			else echo '<div class="no_image"></div>';
+			if(isset($wpl_user['profile_picture'])) echo '<img itemprop="image" src="'.$profile_image.'" alt="'.$agent_name. ' '.$agent_l_name.'" />';
+			else echo '<div class="no_image" style="width:'.$picture_width.'px;height: '.$picture_height.'px;"></div>';
         ?>
 	</div>
 	<div class="wpl_agent_info_c col-md-7 clearfix">
-        <div class="wpl_profile_container_title">
+        <div class="wpl_profile_container_title" itemprop="name" >
             <?php echo $agent_name. ' '.$agent_l_name; ?>
         </div>
 		<ul>
 			<?php if(isset($wpl_user['materials']['website']['value'])): ?>
-            <li class="website"><a href="<?php echo $wpl_user['materials']['website']['value']; ?>" target="_blank"><?php echo $wpl_user['materials']['website']['value']; ?></a></li>
+            <li class="website"><a itemprop="url" href="<?php echo $wpl_user['materials']['website']['value']; ?>" target="_blank"><?php echo __('View website', WPL_TEXTDOMAIN) ?></a></li>
 			<?php endif; ?>
             
             <?php if(isset($wpl_user['materials']['tel']['value'])): ?>
-			<li class="tel"><?php echo $wpl_user['materials']['tel']['value']; ?></li>
+			<li class="tel" itemprop="telephone" ><?php echo $wpl_user['materials']['tel']['value']; ?></li>
 			<?php endif; ?>
             
 			<?php if(isset($wpl_user['materials']['mobile']['value'])): ?>
-			<li class="mobile"><?php echo $wpl_user['materials']['mobile']['value']; ?></li>
+			<li class="mobile" itemprop="telephone" ><?php echo $wpl_user['materials']['mobile']['value']; ?></li>
 			<?php endif; ?>
 			
 			<?php if(isset($wpl_user['materials']['fax']['value'])): ?>
-			<li class="fax"><?php echo $wpl_user['materials']['fax']['value']; ?></li>
+			<li class="fax" itemprop="faxNumber"><?php echo $wpl_user['materials']['fax']['value']; ?></li>
 			<?php endif; ?>
 			
 			<?php if(isset($wpl_user['main_email_url'])): ?>
 			<li class="email">
                 <?php if($mailto): ?>
-                <a href="mailto:<?php echo $wpl_user['materials']['main_email']['value']; ?>"><img src="<?php echo $wpl_user['main_email_url']; ?>" alt="<?php echo $agent_name. ' '.$agent_l_name; ?>" /></a>
+                <a itemprop="email" href="mailto:<?php echo $wpl_user['materials']['main_email']['value']; ?>"><img src="<?php echo $wpl_user['main_email_url']; ?>" alt="<?php echo $agent_name. ' '.$agent_l_name; ?>" /></a>
                 <?php else: ?>
                 <img src="<?php echo $wpl_user['main_email_url']; ?>" alt="<?php echo $agent_name. ' '.$agent_l_name; ?>" />
                 <?php endif; ?>
@@ -73,7 +73,7 @@ $company_name             = (isset($wpl_user['materials']['company_name']['value
 			<?php if(isset($wpl_user['second_email_url'])): ?>
 			<li class="second_email">
                 <?php if($mailto): ?>
-                <a href="mailto:<?php echo $wpl_user['materials']['secondary_email']['value']; ?>"><img src="<?php echo $wpl_user['second_email_url']; ?>" alt="<?php echo $agent_name. ' '.$agent_l_name; ?>" /></a>
+                <a itemprop="email" href="mailto:<?php echo $wpl_user['materials']['secondary_email']['value']; ?>"><img src="<?php echo $wpl_user['second_email_url']; ?>" alt="<?php echo $agent_name. ' '.$agent_l_name; ?>" /></a>
                 <?php else: ?>
                 <img src="<?php echo $wpl_user['second_email_url']; ?>" alt="<?php echo $agent_name. ' '.$agent_l_name; ?>" />
                 <?php endif; ?>
@@ -83,9 +83,9 @@ $company_name             = (isset($wpl_user['materials']['company_name']['value
 	</div>
 	<div class="wpl_agent_info_r col-md-2">
 		<?php
-		if(isset($wpl_user['company_logo'])) echo '<img src="'.$logo_image.'" alt="'.$company_name.'" />';
-		if(trim($company_name) != '') echo '<div class="company">'.$company_name.'</div>';
-        if(isset($wpl_user['data']['company_address'])) echo '<div class="location">'.$wpl_user['data']['company_address'].'</div>';
+		if(isset($wpl_user['company_logo'])) echo '<img itemprop="logo" src="'.$logo_image.'" alt="'.$company_name.'" />';
+		if(trim($company_name) != '') echo '<div class="company" itemprop="name">'.$company_name.'</div>';
+        if(isset($wpl_user['data']['company_address'])) echo '<div class="location" itemprop="address">'.$wpl_user['data']['company_address'].'</div>';
         ?>
 	</div>
 </div>

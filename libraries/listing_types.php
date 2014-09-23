@@ -52,7 +52,7 @@ class wpl_listing_types
      * @param type $gicon
      * @return type
      */
-	public static function insert_listing_type($parent, $name, $gicon)
+	public static function insert_listing_type($parent, $name, $gicon = NULL)
 	{
 		$query = "INSERT INTO `#__wpl_listing_types` (`parent`,`enabled`,`editable`,`gicon`,`name`) VALUE ('1','1','2','$gicon','$name')";
 		$id = wpl_db::q($query, 'insert');

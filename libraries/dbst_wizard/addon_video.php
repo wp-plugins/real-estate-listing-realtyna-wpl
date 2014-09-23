@@ -168,7 +168,7 @@ if(wpl_settings::get('video_uploader'))
 								<i class="action-btn icon-recycle"></i>
 							</div>
 							<?php
-							if($image->enabled)
+							if($video->enabled)
 								echo '<div class="action-gal-btn" id="active_video_tag_' . $video->index . '" onclick="wpl_video_enabled(\'' . $video->item_name . '\',' . $video->index . ');"><i class="action-btn icon-enabled"></i></div>';
 							else
 								echo '<div class="action-gal-btn" id="active_video_tag_' . $video->index . '" onclick="wpl_video_enabled(\'' . $video->item_name . '\',' . $video->index . ');"><i class="action-btn icon-disabled"></i></div>';

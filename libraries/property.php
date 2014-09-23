@@ -311,10 +311,35 @@ class wpl_property
 		$files = wpl_folder::files($path, '.php$', false, false, $finds);
 		$values = (array) $property;
 		
+        $prp_listing = isset($values['listing']) ? $values['listing'] : NULL;
+        $prp_property_type = isset($values['property_type']) ? $values['property_type'] : NULL;
+        
 		foreach($fields as $key=>$field)
 		{
 			if(trim($field->type) == '') continue;
 			
+            /** Take care for property type specific **/
+            if(trim($field->property_type_specific) and $prp_property_type)
+            {
+                $ex = explode(',', $field->property_type_specific);
+                if(!in_array($prp_property_type, $ex))
+                {
+                    $values[$field->table_column] = NULL;
+                    continue;
+                }
+            }
+            
+            /** Take care for listing type specific **/
+            if(trim($field->listing_specific) and $prp_listing)
+            {
+                $ex = explode(',', $field->listing_specific);
+                if(!in_array($prp_listing, $ex))
+                {
+                    $values[$field->table_column] = NULL;
+                    continue;
+                }
+            }
+            
 			$value = isset($values[$field->table_column]) ? $values[$field->table_column] : NULL;
 			
 			$done_this = false;

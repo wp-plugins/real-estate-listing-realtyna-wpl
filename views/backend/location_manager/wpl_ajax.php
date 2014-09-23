@@ -35,11 +35,12 @@ class wpl_location_manager_controller extends wpl_controller
 		elseif($function == 'save_location')
 		{
 			$name = wpl_request::getVar('name');
+            $abbr = wpl_request::getVar('abbr');
 			$level = wpl_request::getVar('level');
 			$parent = wpl_request::getVar('parent');
 			$location_id = wpl_request::getVar('location_id');
 			
-			self::save_location($name, $level, $parent, $location_id);
+			self::save_location($name, $abbr, $level, $parent, $location_id);
 		}
 		elseif($function == 'delete_location')
 		{
@@ -57,12 +58,12 @@ class wpl_location_manager_controller extends wpl_controller
 		}
 	}
 	
-	private function save_location($name, $level, $parent, $location_id = '')
+	private function save_location($name, $abbr, $level, $parent, $location_id = '')
 	{
 		/** edit method **/
-		if(trim($location_id) != '') $res = wpl_locations::edit_location($name, $level, $location_id);
+		if(trim($location_id) != '') $res = wpl_locations::edit_location($name, $abbr, $level, $location_id);
 		/** add method **/
-		else $res = wpl_locations::add_location($name, $level, $parent);
+		else $res = wpl_locations::add_location($name, $abbr, $level, $parent);
 		
 		/** trigger event **/
 		wpl_global::event_handler('location_modified', array('name'=>$name, 'level'=>$level, 'parent'=>$parent, 'location_id'=>$location_id));
