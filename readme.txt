@@ -76,7 +76,7 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 * Fixed some PHP notices.
 
 = 1.8.0 =
-* [PRO] Added sitemap feature for WPL items (Listings/Agents).
+* [PRO] Added site-map feature for WPL items (Listings/Agents).
 * [PRO] Added Dublin Core meta tags for SEO purposes.
 * [PRO] Added an ability for hiding a numeric field when its value is zero.
 * [PRO] Added Call for price feature when the price sets to zero.
