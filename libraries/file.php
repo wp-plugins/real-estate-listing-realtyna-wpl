@@ -166,7 +166,7 @@ class wpl_file
      * @param string $buffer
      * @return boolean
      */
-	public static function write($file, &$buffer)
+	public static function write($file, &$buffer, $append = false)
 	{
 		@set_time_limit(ini_get('max_execution_time'));
 
@@ -177,7 +177,9 @@ class wpl_file
 		}
 
 		$file = wpl_path::clean($file);
-		$ret = is_int(file_put_contents($file, $buffer)) ? true : false;
+        
+        if($append) $ret = is_int(file_put_contents($file, $buffer, FILE_APPEND)) ? true : false;
+		else $ret = is_int(file_put_contents($file, $buffer)) ? true : false;
 
 		return $ret;
 	}

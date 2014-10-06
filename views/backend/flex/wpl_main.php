@@ -53,4 +53,12 @@ class wpl_flex_controller extends wpl_controller
 		/** import tpl **/
 		parent::render($this->tpl_path, $tpl);
 	}
+    
+    protected function include_tabs()
+    {
+        $this->kinds = wpl_flex::get_kinds(NULL);
+        
+        /** include the layout **/
+		parent::render($this->tpl_path, 'internal_tabs');
+    }
 }

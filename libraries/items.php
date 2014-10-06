@@ -303,9 +303,9 @@ class wpl_items
      */
 	public static function get_folder($parent_id, $kind = 0)
 	{
-		if($kind == 2) return wpl_global::get_wp_site_url().'wp-content/uploads/WPL/users/'.$parent_id.'/';
+		if($kind == 2) return wpl_global::get_upload_base_url().'users/'.$parent_id.'/';
 		else
-			return wpl_global::get_wp_site_url().'wp-content/uploads/WPL/'.$parent_id.'/';
+			return wpl_global::get_upload_base_url().$parent_id.'/';
 	}
 	
     /**

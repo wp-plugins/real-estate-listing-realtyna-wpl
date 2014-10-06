@@ -5,41 +5,38 @@ defined('_WPLEXEC') or die('Restricted access');
 <script type="text/javascript">
 wplj(document).ready(function()
 {
-	wplj(function()
-	{
-		wplj(".sortable").sortable(
-		{
-			handle: 'span.icon-move',
-			cursor: "move" ,
-			update : function(e, ui)
+    wplj(".sortable").sortable(
+    {
+        handle: 'span.icon-move',
+        cursor: "move" ,
+        update : function(e, ui)
+        {
+            var stringDiv = "";
+            wplj(this).children("tr").each(function(i)
             {
-				var stringDiv = "";
-				wplj(this).children("tr").each(function(i)
-				{
-					var tr = wplj(this);
-					var tr_id = tr.attr("id").split("_");
-					
-					if(i != 0) stringDiv += ",";
-					stringDiv += tr_id[2];
-				});
-				
-				request_str = 'wpl_format=b:flex:ajax&wpl_function=sort_flex&sort_ids='+stringDiv;
-				
-				wplj.ajax(
-				{
-					type: "POST",
-					url: '<?php echo wpl_global::get_full_url(); ?>',
-					data: request_str,
-					success: function(data)
-					{},
-					error: function(jqXHR, textStatus, errorThrown)
-					{
-						wpl_show_messages('<?php echo __('Error Occured.', WPL_TEXTDOMAIN); ?>', '.wpl_flex_list .wpl_show_message', 'wpl_red_msg');
-					}
-				})
-			}
-		});
-	})
+                var tr = wplj(this);
+                var tr_id = tr.attr("id").split("_");
+
+                if(i != 0) stringDiv += ",";
+                stringDiv += tr_id[2];
+            });
+
+            request_str = 'wpl_format=b:flex:ajax&wpl_function=sort_flex&sort_ids='+stringDiv;
+
+            wplj.ajax(
+            {
+                type: "POST",
+                url: '<?php echo wpl_global::get_full_url(); ?>',
+                data: request_str,
+                success: function(data)
+                {},
+                error: function(jqXHR, textStatus, errorThrown)
+                {
+                    wpl_show_messages('<?php echo __('Error Occured.', WPL_TEXTDOMAIN); ?>', '.wpl_flex_list .wpl_show_message', 'wpl_red_msg');
+                }
+            })
+        }
+    });
 });
 
 function wpl_dbst_mandatory(dbst_id, mandatory_status)
@@ -186,7 +183,7 @@ function save_dbst(prefix, dbst_id)
 			});
 		}
 		
-		request_str += "&fld_listing_specific="+listing_specific+"&fld_property_type_specific=";
+		request_str += "&fld_listing_specific="+listing_specific+"&fld_property_type_specific=&fld_user_specific=";
 	}
 	else if(specificable == 2) /** property type specific **/
 	{
@@ -200,11 +197,25 @@ function save_dbst(prefix, dbst_id)
 			});
 		}
 		
-		request_str += "&fld_property_type_specific="+property_type_specific+"&fld_listing_specific=";
+		request_str += "&fld_property_type_specific="+property_type_specific+"&fld_listing_specific=&fld_user_specific=";
+	}
+    else if(specificable == 3) /** user type specific **/
+	{
+		user_specific = '';
+		
+		if(!wplj("#wpl_flex_user_checkbox_all").is(':checked'))
+		{
+			wplj(".wpl_user_specific_ul input[type='checkbox']").each(function(index, element)
+			{
+				if(element.id != "wpl_flex_v_checkbox_all" && element.checked) { user_specific += element.value +','; }
+			});
+		}
+		
+		request_str += "&fld_user_specific="+user_specific+"&fld_listing_specific=&fld_property_type_specific=";
 	}
 	else if(specificable == 0) /** No specific **/
 	{
-		request_str += "&fld_property_type_specific=&fld_listing_specific=";
+		request_str += "&fld_property_type_specific=&fld_listing_specific=&fld_user_specific=";
 	}
 	
 	/** specific options **/
@@ -329,6 +340,24 @@ function wpl_property_type_specific_all(checked)
 	else
 	{
 		wplj(".wpl_property_type_specific_ul input[type='checkbox']").each(function(index, element)
+		{
+			if(element.id != "") { element.disabled = false; }
+		});
+	}
+}
+
+function wpl_user_specific_all(checked)
+{
+	if(checked)
+	{
+		wplj(".wpl_user_specific_ul input[type='checkbox']").each(function(index, element)
+		{
+			if(element.id != "wpl_flex_user_checkbox_all") { element.checked = true; element.disabled = true; }
+		});
+	}
+	else
+	{
+		wplj(".wpl_user_specific_ul input[type='checkbox']").each(function(index, element)
 		{
 			if(element.id != "") { element.disabled = false; }
 		});

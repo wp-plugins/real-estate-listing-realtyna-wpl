@@ -40,7 +40,7 @@ class wpl_listing_controller extends wpl_controller
 			/** generate new property **/
 			$this->property_id = wpl_property::create_property_default('', $this->kind);
 		}
-		
+        
 		$this->values = wpl_property::get_property_raw_data($this->property_id);
 		$this->finalized = isset($this->values['finalized']) ? $this->values['finalized'] : 0;
         $this->kind = isset($this->values['kind']) ? $this->values['kind'] : 0;

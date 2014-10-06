@@ -30,8 +30,6 @@ class wpl_activity_main_qrcode extends wpl_activity
             $QRcode->png($url, $file_path, 'L', $size, $outer_margin);
 		}
 		
-		$file_url = wpl_global::get_wpl_upload_url().'qrcode/'.$file_name;
-		
-		return $file_url;
+		return wpl_global::get_upload_base_url().'qrcode/'.$file_name;
 	}
 }

@@ -112,31 +112,45 @@ class wpl_carousel_widget extends wpl_widget
 		include $path;
 		echo $output = ob_get_clean();
 	}
-	
-	private function query($instance)
+    
+    private function query($instance)
 	{
-        $model = new wpl_property();
+        /** property listing model **/
+		$model = new wpl_property;
 		$data = $instance['data'];
-		
-		$this->listing_fields = $model->get_plisting_fields();
-		$this->select = $model->generate_select($this->listing_fields, 'p');
-		$this->limit = $data['limit'];
-		$this->order = urldecode($data['orderby'])." ".$data['order'];
-		
-		$this->where = " AND p.`deleted`='0' AND p.`finalized`='1' AND p.`confirmed`='1'";
-		
-        if(isset($data['kind']) and (trim($data['kind']) != '' or trim($data['kind']) != '-1')) $this->where .= " AND p.`kind`='".$data['kind']."'";
-        else $this->where .= " AND p.`kind`='0'";
         
-		if(trim($data['listing']) and $data['listing'] != '-1') $this->where .= " AND p.`listing`='".$data['listing']."'";
-		if(trim($data['property_type']) and $data['property_type'] != '-1') $this->where .= " AND p.`property_type`='".$data['property_type']."'";
-		if(trim($data['property_ids'])) $this->where .= " AND p.`id` IN (".trim($data['property_ids'], ', ').")";
-		if(trim($data['only_featured'])) $this->where .= " AND p.`sp_featured`='1'";
-		if(trim($data['only_hot'])) $this->where .= " AND p.`sp_hot`='1'";
-		if(trim($data['only_openhouse'])) $this->where .= " AND p.`sp_openhouse`='1'";
-		if(trim($data['only_forclosure'])) $this->where .= " AND p.`sp_forclosure`='1'";
+		$this->start = 0;
+		$this->limit = $data['limit'];
+		$this->orderby = urldecode($data['orderby']);
+        $this->order = $data['order'];
+        
+		/** detect kind **/
+        if(isset($data['kind']) and (trim($data['kind']) != '' or trim($data['kind']) != '-1')) $kind = $data['kind'];
+        else $kind = 0;
 		
-		if(isset($data['random']) and trim($data['random']) and trim($data['property_ids']) == '')
+        $where = array('sf_select_confirmed'=>1, 'sf_select_finalized'=>1, 'sf_select_deleted'=>0, 'sf_select_kind'=>$kind);
+        
+        if(trim($data['listing']) and $data['listing'] != '-1') $where['sf_select_listing'] = $data['listing'];
+		if(trim($data['property_type']) and $data['property_type'] != '-1') $where['sf_select_property_type'] = $data['property_type'];
+		if(trim($data['property_ids'])) $where['sf_multiple_id'] = trim($data['property_ids'], ', ');
+		if(trim($data['only_featured'])) $where['sf_select_sp_featured'] = 1;
+		if(trim($data['only_hot'])) $where['sf_select_sp_hot'] = 1;
+		if(trim($data['only_openhouse'])) $where['sf_select_sp_openhouse'] = 1;
+		if(trim($data['only_forclosure'])) $where['sf_select_sp_forclosure'] = 1;
+        
+        /** Parent **/
+        if(isset($data['parent']) and trim($data['parent'])) $where['sf_parent'] = $data['parent'];
+        if(isset($data['auto_parent']) and trim($data['auto_parent']))
+        {
+            /** current proeprty id - This features works only in single property page **/
+            $property_data = NULL;
+            $pid = wpl_request::getVar('pid', 0);
+            if($pid) $property_data = $model->get_property_raw_data($pid);
+            
+            if(isset($property_data['mls_id'])) $where['sf_parent'] = $property_data['mls_id'];
+        }
+		
+        if(isset($data['random']) and trim($data['random']) and trim($data['property_ids']) == '')
 		{
 			$query_rand = "SELECT p.`id` FROM `#__wpl_properties` AS p WHERE 1 ".$this->where." ORDER BY RAND() LIMIT ".$this->limit;
 			$results = wpl_db::select($query_rand);
@@ -144,13 +158,13 @@ class wpl_carousel_widget extends wpl_widget
 			$rand_ids = array();
 			foreach($results as $result) $rand_ids[] = $result->id;
 			
-			$this->where .= " AND p.`id` IN (".implode(',', $rand_ids).")";
+            $where['sf_multiple_id'] = implode(',', $rand_ids);
 		}
-		
+        
         /** Similar properties **/
         if(isset($data['sml_only_similars']) and $data['sml_only_similars']) # sml = similar
         {
-            $sml_where = '';
+            $sml_where = array('sf_select_confirmed'=>1, 'sf_select_finalized'=>1, 'sf_select_deleted'=>0);
             
             /** current proeprty id - This features works only in single property page **/
             $pid = wpl_request::getVar('pid', 0);
@@ -158,10 +172,10 @@ class wpl_carousel_widget extends wpl_widget
             
             if($property_data)
             {
-                $sml_where .= " AND p.`kind`='".$property_data['kind']."'";
+                $sml_where['sf_select_kind'] = $property_data['kind'];
             
-                if(isset($data['sml_inc_listing']) and $data['sml_inc_listing']) $sml_where .= " AND p.`listing`='".$property_data['listing']."'";
-                if(isset($data['sml_inc_property_type']) and $data['sml_inc_property_type']) $sml_where .= " AND p.`property_type`='".$property_data['property_type']."'";
+                if(isset($data['sml_inc_listing']) and $data['sml_inc_listing']) $sml_where['sf_select_listing'] = $property_data['listing'];
+                if(isset($data['sml_inc_property_type']) and $data['sml_inc_property_type']) $sml_where['sf_select_property_type'] = $property_data['property_type'];
 
                 if(isset($data['sml_inc_price']) and $data['sml_inc_price'])
                 {
@@ -170,8 +184,9 @@ class wpl_carousel_widget extends wpl_widget
 
                     $price_down_range = $property_data['price_si']*$down_rate;
                     $price_up_range = $property_data['price_si']*$up_rate;
-
-                    $sml_where .= " AND p.`price_si` BETWEEN '".$price_down_range."' AND '".$price_up_range."'";
+                    
+                    $sml_where['sf_tmin_price_si'] = $price_down_range;
+                    $sml_where['sf_tmax_price_si'] = $price_up_range;
                 }
 
                 if(isset($data['sml_inc_radius']) and $data['sml_inc_radius'])
@@ -183,23 +198,22 @@ class wpl_carousel_widget extends wpl_widget
                     
                     if($latitude and $longitude and $radius and $unit_id)
                     {
-                        $unit = wpl_units::get_unit($unit_id);
-
-                        if($unit)
-                        {
-                            $tosi =  (6371*1000)/$unit['tosi'];
-                            $radius_si = $radius*$unit['tosi'];
-
-                            $sml_where .= " AND (( ".$tosi." * acos( cos( radians(".$latitude.") ) * cos( radians( p.googlemap_lt ) ) * cos( radians( p.googlemap_ln ) - radians(".$longitude.") ) + sin( radians(".$latitude.") ) * sin( radians( p.googlemap_lt ) ) ) ) < ".($radius) .')';
-                        }
+                        $sml_where['sf_radiussearchunit'] = $unit_id;
+                        $sml_where['sf_radiussearch_lat'] = $latitude;
+                        $sml_where['sf_radiussearch_lng'] = $longitude;
+                        $sml_where['sf_radiussearchradius'] = $radius;
                     }
                 }
             }
             
-            /** overwrite $this->where if similar where is correct **/
-            if(trim($sml_where) != '') $this->where = $sml_where;
+            /** overwrite $where if similar where is correct **/
+            if(count($sml_where) > 3) $where = $sml_where;
         }
         
-		return $query = "SELECT ".$this->select." FROM `#__wpl_properties` AS p WHERE 1 ".$this->where." ORDER BY ".$this->order." LIMIT ".$this->limit;
+		/** start search **/
+		$model->start($this->start, $this->limit, $this->orderby, $this->order, $where);
+		
+		/** run the search **/
+		return $query = $model->query();
 	}
 }

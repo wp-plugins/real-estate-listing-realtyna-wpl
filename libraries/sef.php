@@ -294,7 +294,8 @@ class wpl_sef
 			elseif(strpos($post_content, '[wpl_my_profile') !== false) $wplview = 'profile_wizard';
 			elseif(strpos($post_content, '[wpl_add_edit_listing') !== false) $wplview = 'property_wizard';
 			elseif(strpos($post_content, '[wpl_listing_manager') !== false) $wplview = 'property_manager';
-			
+			elseif(strpos($post_content, '[wpl_custom_') !== false) $wplview = 'wpl_custom_view';
+            
 			/** set view **/
 			if(trim($wplview) != '') wpl_request::setVar('wplview', $wplview);
             

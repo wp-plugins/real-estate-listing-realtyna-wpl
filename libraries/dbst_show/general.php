@@ -58,7 +58,7 @@ elseif($type == 'textarea' and !$done_this) //////////////////////////// textare
 		$return['type'] = $field->type;
 		$return['name'] = __($field->name, WPL_TEXTDOMAIN);
 		
-        $return['value'] = nl2br($value);
+        $return['value'] = nl2br(stripslashes($value));
 	}
 	
 	$done_this = true;
@@ -184,7 +184,8 @@ elseif($type == 'price' and !$done_this)  //////////////////////////// Price ///
 	$return['name'] = __($field->name, WPL_TEXTDOMAIN);
 	$return['value'] = wpl_render::render_price($value, $values[$field->table_column.'_unit']);
 	
-    $price_period = wpl_property::render_field($values['price_period'], wpl_flex::get_dbst_id('price_period', $field->kind));
+    $price_period = array();
+    if(isset($values[$field->table_column.'_period'])) $price_period = wpl_property::render_field($values[$field->table_column.'_period'], wpl_flex::get_dbst_id($field->table_column.'_period', $field->kind));
     if(isset($price_period['value'])) $return['value'] .= ' '.$price_period['value'];
     
     if(isset($options['if_zero']) and $options['if_zero'] == 2 and $value == 0) $return['value'] = __($options['call_text'], WPL_TEXTDOMAIN);

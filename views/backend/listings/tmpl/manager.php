@@ -9,7 +9,9 @@ $this->_wpl_import($this->tpl_path.'.scripts.js');
     <header>
         <div id="icon-pmanager" class="icon48"></div>
         <h2><?php echo __(ucfirst($this->kind_label).' Manager', WPL_TEXTDOMAIN); ?></h2>
+        <a href="<?php echo wpl_global::add_qs_var('kind', $this->kind, wpl_global::get_wpl_admin_menu('wpl_admin_add_listing')); ?>" class="action-btn icon-plus" title="<?php echo __('Add Listing', WPL_TEXTDOMAIN); ?>"></a>
     </header>
+    <?php $this->include_tabs(); ?>
     <div class="wpl_property_manager_list"><div class="wpl_show_message"></div></div>
     <div class="pmanager-cnt">
         

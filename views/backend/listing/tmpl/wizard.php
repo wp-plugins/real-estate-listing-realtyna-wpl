@@ -8,18 +8,14 @@ $this->finds = array();
 ?>
 <div class="wrap wpl-wp pwizard-wp">
     <header>
-        <div id="icon-pwizard" class="icon48">
-        </div>
+        <div id="icon-pwizard" class="icon48"></div>
         <h2><?php echo __('Add/Edit '.ucfirst($this->kind_label), WPL_TEXTDOMAIN); ?></h2>
     </header>
-
     <div class="wpl_listing_list"><div class="wpl_show_message"></div></div>
-
     <div class="finilize-message <?php echo ($this->finalized ? 'hide' : ''); ?>" id="wpl_listing_remember_to_finalize" title="<?php echo __('Click to finalize property ...', WPL_TEXTDOMAIN); ?>" onclick="wplj('#wpl_slide_label_id10000').trigger('click');">
         <i class="icon-warning"></i>
         <span><?php echo __('Remember to finalize!', WPL_TEXTDOMAIN); ?></span>
     </div>
-
     <div class="sidebar-wp">
         <div class="side-2 side-tabs-wp">
             <ul>
@@ -58,9 +54,7 @@ $this->finds = array();
                     <?php
                 }
                 ?>
-
             </ul>
-
         </div>
         <div class="side-12 side-content-wp">
             <?php foreach ($this->field_categories as $category): ?>
@@ -84,17 +78,19 @@ $this->finds = array();
                                     $property_link = wpl_property::get_property_link('', $this->property_id, $listing_target_page);
                                     $new_link = wpl_global::remove_qs_var('pid', wpl_global::get_full_url());
                                     if($this->kind) $new_link = wpl_global::add_qs_var('kind', $this->kind, $new_link);
+                                    
+                                    $manager_link = NULL;
+                                    if(wpl_global::get_client() == 1) $manager_link = wpl_global::add_qs_var('kind', $this->kind, wpl_global::get_wpl_admin_menu('wpl_admin_listings'));
                                 ?>
                                 <a class="wpl-button button-2" href="<?php echo $property_link; ?>"><?php echo __('View this listing', WPL_TEXTDOMAIN); ?></a>
                                 <a class="wpl-button button-2" href="<?php echo $new_link; ?>"><?php echo __('Add new listing', WPL_TEXTDOMAIN); ?></a>
+                                <?php if($manager_link): ?><a class="wpl-button button-2" href="<?php echo $manager_link; ?>"><?php echo __($this->kind_label.' Manager', WPL_TEXTDOMAIN); ?></a><?php endif; ?>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
     <div id="wpl_listing_edit_div" class="wpl_lightbox fanc-box-wp wpl_hidden_element"></div>
     <footer>
@@ -102,112 +98,105 @@ $this->finds = array();
     </footer>
 </div>
 <script type="text/javascript">
-    (function($){$(function(){isWPL();})})(jQuery);
-</script>
+(function($){$(function(){isWPL();})})(jQuery);
+var finalized = <?php echo $this->finalized; ?>;
 
-<script type="text/javascript">
-    var finalized = <?php echo $this->finalized; ?>;
-
-    function wpl_listing_changed(id)
+function wpl_listing_changed(id)
+{
+    <?php
+    /** Tabs **/
+    foreach($category_listing_specific_array as $id => $cat_arr)
     {
-<?php
-/** Tabs **/
-foreach ($category_listing_specific_array as $id => $cat_arr) {
-    $cond = array();
-    foreach ($cat_arr as $cati)
-        $cond[] = 'id == ' . $cati;
-
-    echo "if(" . implode('||', $cond) . ') wplj("#wpl_slide_label_id' . $id . '").slideDown(500); else wplj("#wpl_slide_label_id' . $id . '").slideUp(500);';
-}
-
-/** Fields **/
-foreach (wpl_flex::$category_listing_specific_array as $id => $fld_arr) {
-    $cond = array();
-    foreach ($fld_arr as $fldi)
-        $cond[] = 'id == ' . $fldi;
-
-    echo "if(" . implode('||', $cond) . ') wplj("#wpl_listing_field_container' . $id . '").slideDown(500); else wplj("#wpl_listing_field_container' . $id . '").slideUp(500);';
-}
-?>
+        $cond = array();
+        foreach ($cat_arr as $cati) $cond[] = 'id == ' . $cati;
+        echo "if(" . implode('||', $cond) . ') wplj("#wpl_slide_label_id' . $id . '").slideDown(500); else wplj("#wpl_slide_label_id' . $id . '").slideUp(500);';
     }
 
-    function wpl_property_type_changed(id)
+    /** Fields **/
+    foreach(wpl_flex::$category_listing_specific_array as $id => $fld_arr)
     {
-<?php
-/** Tabs **/
-foreach ($category_property_type_specific_array as $id => $cat_arr) {
-    $cond = array();
-    foreach ($cat_arr as $cati)
-        $cond[] = 'id == ' . $cati;
-
-    echo "if(" . implode('||', $cond) . ') wplj("#wpl_slide_label_id' . $id . '").slideDown(500); else wplj("#wpl_slide_label_id' . $id . '").slideUp(500);';
+        $cond = array();
+        foreach ($fld_arr as $fldi) $cond[] = 'id == ' . $fldi;
+        echo "if(" . implode('||', $cond) . ') wplj("#wpl_listing_field_container' . $id . '").slideDown(500); else wplj("#wpl_listing_field_container' . $id . '").slideUp(500);';
+    }
+    ?>
 }
 
-/** Fields **/
-foreach (wpl_flex::$category_property_type_specific_array as $id => $fld_arr) {
-    $cond = array();
-    foreach ($fld_arr as $fldi)
-        $cond[] = 'id == ' . $fldi;
-
-    echo "if(" . implode('||', $cond) . ') wplj("#wpl_listing_field_container' . $id . '").slideDown(500); else wplj("#wpl_listing_field_container' . $id . '").slideUp(500);';
-}
-?>
+function wpl_property_type_changed(id)
+{
+    <?php
+    /** Tabs **/
+    foreach($category_property_type_specific_array as $id => $cat_arr)
+    {
+        $cond = array();
+        foreach ($cat_arr as $cati) $cond[] = 'id == ' . $cati;
+        echo "if(" . implode('||', $cond) . ') wplj("#wpl_slide_label_id' . $id . '").slideDown(500); else wplj("#wpl_slide_label_id' . $id . '").slideUp(500);';
     }
 
-    function wpl_get_tinymce_content(html_element_id)
+    /** Fields **/
+    foreach(wpl_flex::$category_property_type_specific_array as $id => $fld_arr)
     {
-        if (wplj("#wp-" + html_element_id + "-wrap").hasClass("tmce-active"))
+        $cond = array();
+        foreach ($fld_arr as $fldi) $cond[] = 'id == ' . $fldi;
+        echo "if(" . implode('||', $cond) . ') wplj("#wpl_listing_field_container' . $id . '").slideDown(500); else wplj("#wpl_listing_field_container' . $id . '").slideUp(500);';
+    }
+    ?>
+}
+
+function wpl_get_tinymce_content(html_element_id)
+{
+    if(wplj("#wp-" + html_element_id + "-wrap").hasClass("tmce-active"))
+    {
+        return tinyMCE.activeEditor.getContent();
+    }
+    else
+    {
+        return wplj("#" + html_element_id).val();
+    }
+}
+
+function wpl_finalize(slide_id, item_id)
+{
+    /** validate form **/
+    if (!wpl_validation_check()) return;
+
+    //wpl_go_slide(slide_id);
+    rta.internal.slides.open(slide_id, '.side-tabs-wp', '.wpl_slide_container', 'currentTab');
+
+    wplj("#wpl_slide_container_id10000_befor_save").show();
+    wplj("#wpl_slide_container_id10000_after_save").hide();
+
+    request_str = 'wpl_format=b:listing:ajax&wpl_function=finalize&item_id=' + item_id + '&mode=<?php echo $this->mode; ?>';
+
+    /** run ajax query **/
+    ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str);
+    ajax.success(function(data)
+    {
+        if (data.success == 1)
         {
-            return tinyMCE.activeEditor.getContent();
+            wplj("#wpl_slide_container_id10000_befor_save").hide();
+            wplj("#wpl_slide_container_id10000_after_save").show();
+
+            finalized = 1;
+            wplj("#wpl_listing_remember_to_finalize").hide();
         }
-        else
+        else if (data.success != 1)
         {
-            return wplj("#" + html_element_id).val();
+            wplj("#wpl_slide_container_id10000_befor_save").hide();
+            wplj("#wpl_slide_container_id10000_after_save").show();
         }
-    }
-
-    function wpl_finalize(slide_id, item_id)
-    {
-        /** validate form **/
-        if (!wpl_validation_check()) return;
-
-        //wpl_go_slide(slide_id);
-        rta.internal.slides.open(slide_id, '.side-tabs-wp', '.wpl_slide_container', 'currentTab');
-
-        wplj("#wpl_slide_container_id10000_befor_save").show();
-        wplj("#wpl_slide_container_id10000_after_save").hide();
-
-        request_str = 'wpl_format=b:listing:ajax&wpl_function=finalize&item_id=' + item_id + '&mode=<?php echo $this->mode; ?>';
-
-        /** run ajax query **/
-        ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str);
-        ajax.success(function(data)
-        {
-            if (data.success == 1)
-            {
-                wplj("#wpl_slide_container_id10000_befor_save").hide();
-                wplj("#wpl_slide_container_id10000_after_save").show();
-
-                finalized = 1;
-                wplj("#wpl_listing_remember_to_finalize").hide();
-            }
-            else if (data.success != 1)
-            {
-                wplj("#wpl_slide_container_id10000_befor_save").hide();
-                wplj("#wpl_slide_container_id10000_after_save").show();
-            }
-        });
-    }
-
-    function wpl_validation_check()
-    {
-<?php
-foreach (wpl_flex::$wizard_js_validation as $js_validation) {
-    if (trim($js_validation) == '')
-        continue;
-    echo $js_validation;
+    });
 }
-?>
-        return true;
+
+function wpl_validation_check()
+{
+    <?php
+    foreach(wpl_flex::$wizard_js_validation as $js_validation)
+    {
+        if(trim($js_validation) == '') continue;
+        echo $js_validation;
     }
+    ?>
+    return true;
+}
 </script>

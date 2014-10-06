@@ -87,6 +87,17 @@ function wpl_carousel_toggle<?php echo $this->widget_id; ?>(element_id)
         </select>
     </div>
     
+    <?php if(wpl_global::check_addon('complex')): ?>
+    <div>
+    	<label for="<?php echo $this->get_field_id('data_parent'); ?>"><?php echo __('Parent', WPL_TEXTDOMAIN); ?>: </label>
+        <input type="text" id="<?php echo $this->get_field_id('data_parent'); ?>" title="<?php echo __('Listing ID of parent property', WPL_TEXTDOMAIN); ?>" name="<?php echo $this->get_field_name('data'); ?>[parent]" value="<?php echo isset($instance['data']['parent']) ? $instance['data']['parent'] : ''; ?>" />
+    </div>
+    <div>
+    	<input <?php if(isset($instance['data']['auto_parent']) and $instance['data']['auto_parent']) echo 'checked="checked"'; ?> value="1" type="checkbox" id="<?php echo $this->get_field_id('data_auto_parent'); ?>" name="<?php echo $this->get_field_name('data'); ?>[auto_parent]" />
+    	<label for="<?php echo $this->get_field_id('data_auto_parent'); ?>" title="<?php echo __('For single property pages.', WPL_TEXTDOMAIN); ?>"><?php echo __('Detect parent automatically.', WPL_TEXTDOMAIN); ?></label>
+    </div>
+    <?php endif; ?>
+    
     <div>
     	<label for="<?php echo $this->get_field_id('data_property_ids'); ?>"><?php echo __('Property IDs', WPL_TEXTDOMAIN); ?>: </label>
         <input type="text" id="<?php echo $this->get_field_id('data_property_ids'); ?>" name="<?php echo $this->get_field_name('data'); ?>[property_ids]" value="<?php echo isset($instance['data']['property_ids']) ? $instance['data']['property_ids'] : ''; ?>" />

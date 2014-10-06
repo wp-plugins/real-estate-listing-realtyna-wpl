@@ -73,6 +73,7 @@ if($type == 'gallery' and !$done_this)
         $gall_items = wpl_items::get_items($item_id, 'gallery', $this->kind, '', '');
 		
         $image_folder = wpl_items::get_folder($item_id, $this->kind);
+        $image_path = wpl_items::get_path($item_id, $this->kind);
         $image_categories = wpl_items::get_item_categories('gallery', $this->kind);
         $max_img_index = 0;
 		
@@ -86,7 +87,7 @@ if($type == 'gallery' and !$done_this)
 			$params['image_name'] = $image->item_name;
 			$params['image_parentid'] = $image->parent_id;
 			$params['image_parentkind'] = $image->parent_kind;
-			$params['image_source'] = $image_folder.$image->item_name;
+			$params['image_source'] = $image_path.$image->item_name;
 			
 			$image_thumbnail_url = wpl_images::create_gallary_image(80, 60, $params, 1, 0);
             if($image->item_cat == 'external') $image_thumbnail_url = $image->item_extra3;

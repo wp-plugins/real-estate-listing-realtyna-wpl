@@ -4,6 +4,14 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.8.5 (<span class="wpl_log_date">10/05/2014</span> <span class="wpl_log_revision">revision 853</span>)</h4>
+        -- <strong>[PRO]</strong> Added Google auto suggest to search widget location options.<br />
+        -- <strong>[PRO]</strong> Added map layout for carousel widget.<br />
+        -- Fixed some issues on multisite installation.<br />
+        -- Fixed an issue on creating location levels.<br />
+        -- Fixed some issue on elastic layout of carousel widget.<br />
+        -- Fixed an issue on open house feature.
+        
         <h4>WPL1.8.3 (<span class="wpl_log_date">9/23/2014</span> <span class="wpl_log_revision">revision 803</span>)</h4>
         -- <strong>[PRO]</strong> WYSIWYG Editor for property description and text-area fields.<br />
         -- SEO optimizations for WPL core.<br />

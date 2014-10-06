@@ -58,7 +58,7 @@ class wpl_listing_controller extends wpl_controller
 		$ext_str = rtrim($ext_str, ';');
 		$custom_op = array(
             'upload_dir' => wpl_global::get_upload_base_path(),
-            'upload_url' => wpl_global::get_wpl_upload_url(),
+            'upload_url' => wpl_global::get_upload_base_url(),
             'accept_file_types' => '/\.('.$ext_str.')$/i',
             'max_file_size' => $params['accept_ext']['file_size'] * 1000 ,
             'min_file_size' => 1,

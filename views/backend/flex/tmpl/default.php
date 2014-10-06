@@ -5,13 +5,12 @@ defined('_WPLEXEC') or die('Restricted access');
 $this->_wpl_import($this->tpl_path . '.scripts.css');
 $this->_wpl_import($this->tpl_path . '.scripts.js');
 ?>
-
 <div class="wrap wpl-wp flex-wp<?php echo ($this->kind == 2 ? ' user-flex': ''); ?>">
     <header>
-        <div id="icon-flex" class="icon48">
-        </div>
+        <div id="icon-flex" class="icon48"></div>
         <h2><?php echo __(ucfirst($this->kind_label) . ' Data Structure', WPL_TEXTDOMAIN); ?></h2>
     </header>
+    <?php $this->include_tabs(); ?>
     <div class="wpl_flex_list"><div class="wpl_show_message"></div></div>
     <div class="sidebar-wp">
         <!-- sidebar1 -->

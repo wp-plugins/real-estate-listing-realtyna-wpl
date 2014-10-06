@@ -22,16 +22,14 @@ if(in_array($type, array('price', 'mmprice')) and !$done_this)
 			?>
 		</div>
 		<div class="col-fanc-right" id="wpl_flex_specific_options">
-            <?php if($kind != 2): ?>
 			<div class="fanc-row fanc-inline-title">
 				<?php echo __('Specific Options', WPL_TEXTDOMAIN); ?>
 			</div>
 			<?php
 				/** include specific file * */
-				$path = _wpl_import('libraries.dbst_modify.main.specific', true, true);
+				$path = _wpl_import('libraries.dbst_modify.main.'.($kind == 2 ? 'user' : '').'specific', true, true);
 				include $path;
 			?>
-            <?php endif; ?>
             <?php if(wpl_global::check_addon('pro')): ?>
             <div class="fanc-row fanc-inline-title">
 				<span>
@@ -43,11 +41,11 @@ if(in_array($type, array('price', 'mmprice')) and !$done_this)
                 <select name="<?php echo $__prefix; ?>opt_if_zero" id="<?php echo $__prefix; ?>opt_if_zero">
                     <option <?php echo (isset($options['if_zero']) and $options['if_zero'] == 1) ? 'selected="selected"' : ''; ?> value="1"><?php echo __('Show', WPL_TEXTDOMAIN); ?></option>
                     <option <?php echo (isset($options['if_zero']) and $options['if_zero'] == 0) ? 'selected="selected"' : ''; ?> value="0"><?php echo __('Hide', WPL_TEXTDOMAIN); ?></option>
-                    <option <?php echo (isset($options['if_zero']) and $options['if_zero'] == 2) ? 'selected="selected"' : ''; ?> value="2"><?php echo __('Show Call', WPL_TEXTDOMAIN); ?></option>
+                    <option <?php echo (isset($options['if_zero']) and $options['if_zero'] == 2) ? 'selected="selected"' : ''; ?> value="2"><?php echo __('Show Text', WPL_TEXTDOMAIN); ?></option>
                 </select>
 			</div>
             <div class="fanc-row">
-				<label for="<?php echo $__prefix; ?>opt_call_text"><?php echo __('Call Text', WPL_TEXTDOMAIN); ?></label>
+				<label for="<?php echo $__prefix; ?>opt_call_text"><?php echo __('Text', WPL_TEXTDOMAIN); ?></label>
                 <input type="text" name="<?php echo $__prefix; ?>opt_call_text" id="<?php echo $__prefix; ?>opt_call_text" value="<?php echo ($options['call_text'] ? $options['call_text'] : 'Call'); ?>" />
 			</div>
             <?php endif; ?>

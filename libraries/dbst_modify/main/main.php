@@ -27,7 +27,7 @@ defined('_WPLEXEC') or die('Restricted access');
     </select>
 </div>
 <div class="fanc-row">
-    <label for="<?php echo $__prefix; ?>pshow"><?php echo __('Single Property', WPL_TEXTDOMAIN); ?></label>
+    <label for="<?php echo $__prefix; ?>pshow"><?php echo __('Detail Page', WPL_TEXTDOMAIN); ?></label>
     <select name="<?php echo $__prefix; ?>pshow" id="<?php echo $__prefix; ?>pshow">
         <option value="1" <?php if (isset($values->pshow) and $values->pshow == '1') echo 'selected="selected"'; ?>><?php echo __('Show', WPL_TEXTDOMAIN); ?></option>
         <option value="0" <?php if (isset($values->pshow) and $values->pshow == '0') echo 'selected="selected"'; ?>><?php echo __('Hide', WPL_TEXTDOMAIN); ?></option>

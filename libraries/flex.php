@@ -13,6 +13,7 @@ class wpl_flex
 	public static $category_listing_specific_array = array();
 	public static $category_property_type_specific_array = array();
 	public static $wizard_js_validation = array();
+    public static $category_user_specific_array = array();
 	
     /**
      * Returns dbst fields
@@ -293,6 +294,7 @@ class wpl_flex
 		$dbcats = self::get_categories(0, $kind);
 		$listings = wpl_listing_types::get_listing_types();
 		$property_types = wpl_property_types::get_property_types();
+        $user_types = wpl_users::get_user_types(1, 'loadAssocList');
 		
 		/** get files **/
 		$dbst_modifypath = WPL_ABSPATH . DS . 'libraries' . DS . 'dbst_modify';
@@ -402,7 +404,7 @@ class wpl_flex
 	{
 		/** first validation **/
 		if(!$fields) return;
-		
+        
 		/** get files **/
 		$path = WPL_ABSPATH .DS. 'libraries' .DS. 'dbst_wizard';
 		$files = array();
@@ -430,6 +432,12 @@ class wpl_flex
 				$specified_property_types = explode(',', trim($field->property_type_specific, ', '));
 				self::$category_property_type_specific_array[$field->id] = $specified_property_types;
 				if(!in_array($values['property_type'], $specified_property_types)) $display = 'display: none;';
+			}
+            elseif(trim($field->user_specific) != '')
+			{
+				$specified_user_types = explode(',', trim($field->user_specific, ', '));
+				self::$category_user_specific_array[$field->id] = $specified_user_types;
+				if(!in_array($values['membership_type'], $specified_user_types)) $display = 'display: none;';
 			}
 			
 			/** js validation **/
@@ -504,7 +512,7 @@ class wpl_flex
      */
 	public static function sort_flex($sort_ids)
 	{
-		$query = "SELECT DISTINCT  `category`  FROM `#__wpl_dbst` WHERE `id` IN ($sort_ids) ORDER BY `index` ASC";
+		$query = "SELECT DISTINCT `category`  FROM `#__wpl_dbst` WHERE `id` IN ($sort_ids) ORDER BY `index` ASC";
 		$flex_category = wpl_db::select($query, 'loadAssoc');
 		
 		$conter = 0;

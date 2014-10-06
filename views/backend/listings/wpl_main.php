@@ -118,4 +118,12 @@ class wpl_listings_controller extends wpl_controller {
         
         parent::render($this->tpl_path, 'search_form');
     }
+    
+    protected function include_tabs()
+    {
+        $this->kinds = wpl_flex::get_kinds();
+        
+        /** include the layout **/
+		parent::render($this->tpl_path, 'internal_tabs');
+    }
 }

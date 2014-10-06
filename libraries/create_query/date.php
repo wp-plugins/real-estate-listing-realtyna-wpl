@@ -7,7 +7,7 @@ if($format == 'datemin' and !$done_this)
 	_wpl_import('libraries.render');
 	
 	$min = $value;
-	$max = wpl_request::getVar('sf_datemax_'.$table_column, '');
+	$max = isset($vars['sf_datemax_'.$table_column]) ? $vars['sf_datemax_'.$table_column] : '';
 
 	if(trim($min) != '')
 	{

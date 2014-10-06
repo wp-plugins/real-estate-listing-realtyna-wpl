@@ -14,7 +14,7 @@ if(!count($rooms) or !is_array($rooms)) return;
 		<?php foreach($rooms as $room): ?>
         <li class="wpl_rooms_room wpl_rooms_type<?php echo $room->item_cat; ?> room_<?php echo $room->item_cat?>" id="wpl_rooms_room<?php echo $room->id; ?>">
 			<?php 
-			echo '<div class="room_name">'.$room->item_name.'</div>';
+			echo '<div class="room_name">'.__($room->item_name, WPL_TEXTDOMAIN).'</div>';
 			if($room->item_extra1 and $room->item_extra2) echo '<div class="room_size">( '.$room->item_extra1.'x'.$room->item_extra2.' )</div>';
 			?>
 		</li>

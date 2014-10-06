@@ -55,16 +55,14 @@ function wpl_flex_disable_param(param_id)
 			?>
 		</div>
 		<div class="col-fanc-right" id="wpl_flex_specific_options">
-            <?php if($kind != 2): ?>
 			<div class="fanc-row fanc-inline-title">
 				<?php echo __('Specific Options', WPL_TEXTDOMAIN); ?>
 			</div>
 			<?php
 				/** include specific file * */
-				$path = _wpl_import('libraries.dbst_modify.main.specific', true, true);
+				$path = _wpl_import('libraries.dbst_modify.main.'.($kind == 2 ? 'user' : '').'specific', true, true);
 				include $path;
 			?>
-            <?php endif; ?>
 			<div class="fanc-row fanc-inline-title">
 				<span>
 					<?php echo __('Params', WPL_TEXTDOMAIN); ?>    

@@ -190,11 +190,14 @@ class wpl_search_widget extends wpl_widget
 		uasort($fields, array('wpl_global', 'wpl_array_sort'));
 		
 		$rendered = array();
-		foreach($fields as $field)
+		foreach($fields as $key=>$field)
 		{
 			/** proceed to next field if field is not enabled **/
 			if($field['enable'] != 'enable') continue;
 			
+            /** Fix empty id issue **/
+            if(!$field['id'] and $key) $field['id'] = $key;
+            
 			$field_data = (array) wpl_flex::get_field($field['id']);
 			$field['name'] = $field_data['name'];
 			
@@ -255,7 +258,7 @@ class wpl_search_widget extends wpl_widget
 			$rendered[$field_id]['html'] = $html;
 			$rendered[$field_id]['display'] = $display;
 		}
-		
+        
 		return $rendered;
 	}
 	

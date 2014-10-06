@@ -61,7 +61,7 @@ elseif($type == 1)
 			
 			$html .= ' '.$sort_type;
 		}
-		
+        
 		$html .= '" onclick="wpl_page_sortchange(\'wplorderby='.urlencode($sort_option['field_name']).'&amp;wplorder='.$order.'\');">'.__($sort_option['name'], WPL_TEXTDOMAIN);
 		$html .= '</div></li>';
 	}
@@ -73,3 +73,4 @@ $result_array['html'] = $html;
 
 if($return_array) $result = $result_array;
 else $result = $html;
+

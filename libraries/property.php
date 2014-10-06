@@ -70,8 +70,8 @@ class wpl_property
 		_wpl_import('libraries.filters');
 		@extract(wpl_filters::apply('create_default_property', array('query'=>$query, 'values'=>$values, 'user_id'=>$user_id, 'kind'=>$kind)));
 		
-       	$query = "INSERT INTO  `#__wpl_properties` (".(trim($query) != '' ? $query.", " : '')."`kind`, `user_id`, `finalized`, `add_date`, `mls_id`) VALUES (".(trim($values) != '' ? $values.", " : '')."'$kind', '$user_id', '0', NOW(), '".self::get_new_mls_id()."')";
-		return wpl_db::q($query, 'insert');
+       	$query = "INSERT INTO  `#__wpl_properties` (".(trim($query) != '' ? $query.", " : '')."`kind`, `user_id`, `finalized`, `add_date`, `mls_id`) VALUES (".(trim($values) != '' ? $values.", " : '')."'$kind', '$user_id', '0', '".date("Y-m-d H:i:s")."', '".self::get_new_mls_id()."')";
+        return wpl_db::q($query, 'insert');
     }
 	
 	/**
@@ -495,9 +495,11 @@ class wpl_property
         foreach($data as $field=>$value)
 		{
             if(!strstr($field, '_unit')) continue;
+            if(!isset($units[$value])) continue;
 			
 			$core_field = str_replace('_unit', '', $field);
             if(!array_key_exists($core_field.'_si', $data)) continue;
+            if(!isset($data[$core_field])) continue;
 			
 			$si_value = $units[$value]['tosi'] * $data[$core_field];
 			$query .= "`".$core_field."_si`='".$si_value."',";
@@ -867,7 +869,7 @@ class wpl_property
 		/** checking if the property user himself viewing not adding the counter **/
 		if($current_user_id != $property_user)
 		{
-			$query = "UPDATE `#__wpl_properties` SET `visit_time`=visit_time+1, `visit_date`=NOW() WHERE `id`='$property_id'";
+			$query = "UPDATE `#__wpl_properties` SET `visit_time`=visit_time+1, `visit_date`='".date("Y-m-d H:i:s")."' WHERE `id`='$property_id'";
 			wpl_db::q($query, 'update');
 		}
 	}
@@ -1095,12 +1097,14 @@ class wpl_property
 		@return property ids
 		@author Howard
 	**/
-	public static function import($properties_to_import, $wpl_unique_field = 'mls_id', $user_id = '', $source = 'mls', $finalize = true)
+	public static function import($properties_to_import, $wpl_unique_field = 'mls_id', $user_id = '', $source = 'mls', $finalize = true, $log_params = array())
 	{
 		if(!$user_id) $user_id = wpl_users::get_cur_user_id();
 		$pids = array();
-		$possible_columns = wpl_db::columns('wpl_properties');
+		$added = array(); // Used for logging result
+		$updated = array(); // Used for logging result
 		
+		$possible_columns = wpl_db::columns('wpl_properties');
 		foreach($properties_to_import as $property_to_import)
 		{
 			$q = '';
@@ -1139,8 +1143,18 @@ class wpl_property
 				$mode = $exists ? 'edit' : 'add';
 				wpl_property::finalize($pid, $mode, $user_id);
 			}
+            
+			if($exists) $added[] = $unique_value;
+            else $updated[] = $unique_value;
 		}
-		
+        
+		/** createing log row **/
+		if($source == 'mls' and wpl_global::check_addon('mls'))
+		{
+            _wpl_import('libraries.addon_mls');
+            if(method_exists('wpl_addon_mls', 'log')) wpl_addon_mls::log($added, $updated, $log_params);
+		}
+        
 		return $pids;
 	}
 	

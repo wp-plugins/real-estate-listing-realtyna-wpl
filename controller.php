@@ -9,6 +9,7 @@ class wpl_controller
 	public $_wpl_class;
 	public $_wpl_function;
 	public $_wpl_clients = array('b'=>'backend', 'f'=>'frontend', 'c'=>'basics');
+    public static $_run = 0;
 	
 	public function __call($method, $args)
 	{

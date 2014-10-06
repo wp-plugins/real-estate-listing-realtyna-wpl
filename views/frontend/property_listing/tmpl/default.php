@@ -28,10 +28,10 @@ $this->_wpl_import($this->tpl_path.'.scripts.js', true, true);
         /** set current property **/
         $this->wpl_properties['current'] = $property;
 
-        $room    = '<div class="bedroom">'.$property['materials']['bedrooms']['value'].'</div>';
-        if($property['materials']['bedrooms']['value'] == 0 and $property['materials']['rooms']['value'] != 0) $room = '<div class="bedroom">'.$property['materials']['rooms']['value'].'</div>';
+        $room    = isset($property['materials']['bedrooms']) ? '<div class="bedroom">'.$property['materials']['bedrooms']['value'].'</div>' : '';
+        if((!isset($property['materials']['bedrooms']) or (isset($property['materials']['bedrooms']) and $property['materials']['bedrooms']['value'] == 0)) and (isset($property['materials']['rooms']) and $property['materials']['rooms']['value'] != 0)) $room = '<div class="room">'.$property['materials']['rooms']['value'].'</div>';
         
-        $bathroom   = '<div class="bathroom">'.$property['materials']['bathrooms']['value'].'</div>';
+        $bathroom   = isset($property['materials']['bathrooms']) ? '<div class="bathroom">'.$property['materials']['bathrooms']['value'].'</div>' : '';
         $parking    = '<div class="parking">'.($property['raw']['f_150'] == 1 ? $property['raw']['f_150_options'] : 0).'</div>';
         $pic_count  = '<div class="pic_count">'.$property['raw']['pic_numb'].'</div>';
 		?>
@@ -51,7 +51,7 @@ $this->_wpl_import($this->tpl_path.'.scripts.js', true, true);
                 ?>
                 <div class="wpl_prp_listing_icon_box"><?php echo $room . $bathroom . $parking . $pic_count; ?></div>
             </div>
-            <div class="price_box"><span itemprop="price" content="<?php echo $property['materials']['price']['value']; ?>"><?php echo $property['materials']['price']['value'].(isset($property['materials']['price_period']['value']) ? ' '.$property['materials']['price_period']['value'] : ''); ?></span></div>
+            <div class="price_box"><span itemprop="price" content="<?php echo $property['materials']['price']['value']; ?>"><?php echo $property['materials']['price']['value']; ?></span></div>
 		</div>
 		<?php
     }

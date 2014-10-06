@@ -65,7 +65,6 @@ INSERT INTO `#__wpl_units` (`id`, `name`, `type`, `enabled`, `tosi`, `index`, `e
 (7, 'Hectare', 2, 0, 10000, 7, '', '', '', '', '', '', 0);
 
 ALTER TABLE `#__wpl_settings` CHANGE `setting_value` `setting_value` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;
-UPDATE `#__wpl_dbst` SET `name`='Property Page Title' WHERE `id`='312';
 
 INSERT INTO `#__wpl_dbst` (`id`, `kind`, `mandatory`, `name`, `type`, `options`, `enabled`, `pshow`, `plisting`, `searchmod`, `editable`, `deletable`, `index`, `css`, `style`, `specificable`, `listing_specific`, `property_type_specific`, `table_name`, `table_column`, `category`, `rankable`, `rank_point`, `comments`, `pwizard`, `text_search`, `params`) VALUES
 (313, 0, 3, 'Property Title', 'text', 'null', 1, '0', 1, 0, 1, 0, 1.00, '', '', 1, '', '', 'wpl_properties', 'field_313', 1, 0, 0, '', '1', 0, '[]');
@@ -83,6 +82,7 @@ UPDATE `#__wpl_dbst_types` SET `kind`='[0][1][2]' WHERE `id`='1';
 UPDATE `#__wpl_dbst_types` SET `kind`='[0][1][2]' WHERE `id`='2';
 UPDATE `#__wpl_dbst_types` SET `kind`='[0][1][2]' WHERE `id`='3';
 UPDATE `#__wpl_dbst_types` SET `kind`='[0][1][2]' WHERE `id`='5';
+UPDATE `#__wpl_dbst_types` SET `kind`='[0][1][2]' WHERE `id`='6';
 UPDATE `#__wpl_dbst_types` SET `kind`='[0][1][2]' WHERE `id`='11';
 UPDATE `#__wpl_dbst_types` SET `kind`='[0][1][2]' WHERE `id`='12';
 UPDATE `#__wpl_dbst_types` SET `kind`='[0][1][2]' WHERE `id`='13';
@@ -139,17 +139,6 @@ UPDATE `#__wpl_dbst_types` SET `queries_add`='ALTER TABLE `#__[TABLE_NAME]` ADD 
 UPDATE `#__wpl_dbst_types` SET `queries_add`='ALTER TABLE `#__[TABLE_NAME]` ADD `field_[FIELD_ID]` datetime NULL; UPDATE `#__wpl_dbst` SET `table_name`=''[TABLE_NAME]'', `table_column`=''field_[FIELD_ID]'' WHERE id=[FIELD_ID];' WHERE `id`='13';
 UPDATE `#__wpl_dbst_types` SET `queries_add`='ALTER TABLE `#__[TABLE_NAME]` ADD `field_[FIELD_ID]` varchar(50) NULL; UPDATE `#__wpl_dbst` SET `table_name`=''[TABLE_NAME]'', `table_column`=''field_[FIELD_ID]'' WHERE id=[FIELD_ID];' WHERE `id`='14';
 UPDATE `#__wpl_dbst` SET `deletable`='0' WHERE `id`='18';
-
-UPDATE `#__wpl_dbst` SET `name`='Coffee Shop' WHERE `id`='106';
-UPDATE `#__wpl_dbst` SET `options`='{"type":"single","values":[{"key":"1","value":"Fully Equipped"},{"key":"2","value":"Semi Equipped"},{"key":"3","value":"Not Equipped"}]}' WHERE `id`='141';
-UPDATE `#__wpl_dbst` SET `name`='High Ceiling' WHERE `id`='148';
-UPDATE `#__wpl_dbst` SET `name`='Refrigerator' WHERE `id`='153';
-UPDATE `#__wpl_dbst` SET `name`='Foreclosure' WHERE `id`='403';
-
-UPDATE `#__wpl_dbst` SET `name`='Ref ID' WHERE `id`='4';
-UPDATE `#__wpl_dbst` SET `name`='Listing ID' WHERE `id`='5';
-UPDATE `#__wpl_dbst` SET `name`='Jacuzzi' WHERE `id`='132';
-UPDATE `#__wpl_dbst` SET `name`='Open House Dates' WHERE `id`='404';
 
 CREATE TABLE IF NOT EXISTS `#__wpl_notifications` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -348,3 +337,30 @@ UPDATE `#__wpl_location2` SET `abbr`='WA' WHERE `id`='6057';
 UPDATE `#__wpl_location2` SET `abbr`='WV' WHERE `id`='6058';
 UPDATE `#__wpl_location2` SET `abbr`='WI' WHERE `id`='6059';
 UPDATE `#__wpl_location2` SET `abbr`='WY' WHERE `id`='6060';
+
+ALTER TABLE `#__wpl_user_group_types` ADD `editable` TINYINT(4) UNSIGNED NOT NULL DEFAULT '1', ADD `deletable` TINYINT(4) UNSIGNED NOT NULL DEFAULT '1', ADD `index` FLOAT(5, 2) NOT NULL DEFAULT '99.00';
+ALTER TABLE `#__wpl_user_group_types` ADD `params` TEXT NULL, ADD `enabled` TINYINT(4) NOT NULL DEFAULT '1';
+
+UPDATE `#__wpl_user_group_types` SET `editable`='0', `deletable`='0', `index`='1.00' WHERE `id`='1';
+UPDATE `#__wpl_user_group_types` SET `editable`='0', `deletable`='0', `index`='2.00' WHERE `id`='2';
+
+UPDATE `#__wpl_dbst` SET `editable`='1' WHERE `id`='906';
+UPDATE `#__wpl_dbst_types` SET `kind`='[0][1][2]' WHERE `id`='6';
+
+UPDATE `#__wpl_dbst` SET `specificable`='1' WHERE `id`='912';
+UPDATE `#__wpl_dbst` SET `specificable`='1' WHERE `id`='913';
+ALTER TABLE `#__wpl_dbst` ADD `user_specific` VARCHAR(200) NULL AFTER `property_type_specific`;
+
+UPDATE `#__wpl_dbst` SET `category`='10' WHERE `id`='912';
+UPDATE `#__wpl_dbst` SET `category`='10' WHERE `id`='911';
+UPDATE `#__wpl_dbst` SET `category`='10' WHERE `id`='913';
+
+INSERT INTO `#__wpl_user_group_types` (`id`, `name`, `editable`, `deletable`, `index`, `params`, `enabled`) VALUES (3, 'Guests', 0, 0, 0.50, NULL, 1);
+UPDATE `#__wpl_users` SET `membership_type`='3' WHERE `id`='-2';
+UPDATE `#__wpl_users` SET `membership_type`='3' WHERE `id`='0';
+
+ALTER TABLE `#__wpl_users` DROP `maccess_rank_start`, DROP `maccess_attach`;
+ALTER TABLE `#__wpl_users` DROP `maccess_renewal_period`;
+
+ALTER TABLE `#__wpl_properties` CHANGE `field_312` `field_312` VARCHAR(70) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+CHANGE `field_313` `field_313` VARCHAR(70) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;

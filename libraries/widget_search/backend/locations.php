@@ -20,6 +20,7 @@ if($type == 'locations' and !$done_this)
                 <option value="locationtextsearch" <?php if (isset($value['type']) and $value['type'] == 'locationtextsearch') echo 'selected="selected"' ?>><?php echo __('Location textsearch', WPL_TEXTDOMAIN); ?></option>
                 <?php if(wpl_global::check_addon('pro')): ?>
 				<option value="radiussearch" <?php if (isset($value['type']) and $value['type'] == 'radiussearch') echo 'selected="selected"' ?>><?php echo __('Radius Search', WPL_TEXTDOMAIN); ?></option>
+                <option value="googleautosuggest" <?php if (isset($value['type']) and $value['type'] == 'googleautosuggest') echo 'selected="selected"' ?>><?php echo __('Google Auto Suggest', WPL_TEXTDOMAIN); ?></option>
                 <?php endif; ?>
 			</select>
 		</div>

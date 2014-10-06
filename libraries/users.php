@@ -40,20 +40,22 @@ class wpl_users
         
 		return $result;
 	}
-	
-	/**
-		@input {user_id}
-		@return boolean result
-		@description for adding user to wpl
-		@author Howard
-	**/
-	public static function add_user_to_wpl($user_id)
+    
+    /**
+     * Adds WordPress user to WPL
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $user_id
+     * @param int $group_id
+     * @return boolean
+     */
+	public static function add_user_to_wpl($user_id, $group_id = -1)
 	{
 		/** first validation **/
 		if(wpl_users::get_wpl_user($user_id)) return true;
 		
 		$user_data = wpl_users::get_user($user_id);
-		$default_data = wpl_users::get_wpl_data(-1);
+		$default_data = wpl_users::get_wpl_data($group_id);
 		
 		$forbidden_fields = array('id', 'first_name', 'last_name');
 		$auto_query1 = '';
@@ -363,21 +365,90 @@ class wpl_users
 		
 		return $memberships;
 	}
-	
-	/**
-		@input void
-		@return object membership types
-		@description for getting membership types
-		@author Morgan
-	**/
+    
+    /**
+     * Use wpl_users::get_user_types instead
+     * @deprecated since version 1.8.3
+     * @return array of objects
+     */
 	public static function get_membership_types()
 	{
-		$query = "SELECT * FROM `#__wpl_user_group_types`";
-		$result = wpl_db::select($query);
-		
-		return $result;
+		return self::get_user_types();
 	}
 	
+    /**
+     * Returns WPL user types
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $enabled
+     * @return array of objects
+     */
+    public static function get_user_types($enabled = 1, $return_type = 'loadObjectList')
+    {
+        $query = "SELECT * FROM `#__wpl_user_group_types` WHERE `enabled`>='$enabled' ORDER BY `index` ASC";
+		return wpl_db::select($query, $return_type);
+    }
+    
+    /**
+     * Returns one user type record
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $id
+     * @param int $enabled
+     * @return object
+     */
+    public static function get_user_type($id = 1, $enabled = 0)
+    {
+        $query = "SELECT * FROM `#__wpl_user_group_types` WHERE `id`='$id' AND `enabled`>='$enabled'";
+		return wpl_db::select($query, 'loadObject');
+    }
+    
+    /**
+     * Creates a new user type and returns its id
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @return int $id
+     */
+    public static function create_default_user_type()
+    {
+        $id = self::get_new_user_type_id();
+        wpl_db::q("INSERT INTO `#__wpl_user_group_types` (`id`,`editable`,`deletable`,`index`,`enabled`) VALUES ('$id','1','1','$id','1')", 'INSERT');
+        
+        return $id;
+    }
+    
+    /**
+     * Returns id for new user type
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @return int
+     */
+    public static function get_new_user_type_id()
+    {
+        $query = "SELECT MAX(id) as max_id FROM `#__wpl_user_group_types`";
+		$result = wpl_db::select($query, 'loadResult');
+		$id = max($result, 100);
+        
+		/** generate new user type id **/
+		return ($id+1);
+    }
+    
+    public static function remove_user_type($id)
+	{
+        $user_type = self::get_user_type($id);
+        
+		/** don't remove undeletable user types **/
+		if(!$user_type or ($user_type and !$user_type->deletable)) return false;
+        
+        /** trigger event **/
+		wpl_global::event_handler('user_type_removed', array('id'=>$id));
+        
+		wpl_db::q("DELETE FROM `#__wpl_user_group_types` WHERE `id`='$id'", 'DELETE');
+        wpl_db::q("UPDATE `#__wpl_users` SET `membership_type`='' WHERE `membership_type`='$id'", 'UPDATE');
+        
+		return true;
+	}
+    
 	/**
 		@input void
 		@return in membership id

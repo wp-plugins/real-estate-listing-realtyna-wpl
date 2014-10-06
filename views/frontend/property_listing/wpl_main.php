@@ -19,6 +19,14 @@ class wpl_property_listing_controller extends wpl_controller
 	
 	public function display($instance = array())
 	{
+        /** check access **/
+		if(!wpl_users::check_access('propertylisting'))
+		{
+			/** import message tpl **/
+			$this->message = __("You don't have access to this part!", WPL_TEXTDOMAIN);
+			return parent::render($this->tpl_path, 'message', false, true);
+		}
+        
         $this->tpl = wpl_request::getVar('tpl');
         
         /** global settings **/

@@ -48,7 +48,7 @@ foreach($wpl_properties as $key=>$gallery)
             <img itemprop="image" src="'.$image_url.'" alt="'.$image_alt.'" width="'.$image_width.'" height="'.$image_height.'" style="width: '.$image_width.'px; height: '.$image_height.'px;" />
             <div class="ei-title">
                 <h2>'.$image_title.'</h2>
-                <h3>'.$gallery['materials']['living_area']['value'].' - '.$gallery["location_text"].'</h3>
+                <h3>'.(isset($gallery['materials']['living_area']) ? $gallery['materials']['living_area']['value'].' - ' : '').$gallery["location_text"].'</h3>
                 <a itemprop="url" class="more_info" href="'.$gallery["property_link"].'">'. __('More info', WPL_TEXTDOMAIN).'</a>
             </div>
         </li>';
@@ -61,7 +61,7 @@ foreach($wpl_properties as $key=>$gallery)
 wplj(function()
 {
     <?php if(count($wpl_properties) > 1): ?>
-	wplj('#ei-slider').eislideshow(
+	wplj('#ei-slider<?php echo $this->widget_id; ?>').eislideshow(
 	{
 		animation			: 'center',
 		autoplay			: true,
@@ -72,12 +72,12 @@ wplj(function()
 });
 </script>
 <div class="wpl_carousel_container">
-	<div id="ei-slider" class="ei-slider">
+	<div id="ei-slider<?php echo $this->widget_id; ?>" class="ei-slider">
 	    <ul class="ei-slider-large">
 	    	<?php echo $larg_images; ?>
 	    </ul><!-- ei-slider-large -->
 	    <ul class="ei-slider-thumbs">
-	        <li class="ei-slider-element">Current</li>
+	        <li class="ei-slider-element"><?php echo __('Current', WPL_TEXTDOMAIN); ?></li>
 	        <?php echo $thumbnail; ?>
 	    </ul><!-- ei-slider-thumbs -->
 	</div><!-- ei-slider -->

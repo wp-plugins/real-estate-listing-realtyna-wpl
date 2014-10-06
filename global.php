@@ -10,6 +10,13 @@ defined('_WPLEXEC') or die('Restricted access');
  */
 class wpl_global
 {
+    /**
+     * Used for caching in check_addon function
+     * @static
+     * @var array 
+     */
+    public static $wpl_addons = array();
+    
 	/**
 		Developed by : Howard
 		Inputs : {parameter}
@@ -252,10 +259,15 @@ class wpl_global
 		return self::get_wp_url('WPL');
 	}
 	
-	/** developed by howard 08/11/2013 **/
+    /**
+     * Use wpl_global::get_upload_base_url instead
+     * @author Howard <howard@realtyna.com>
+     * @deprecated since version 1.8.3
+     * @return string
+     */
 	public static function get_wpl_upload_url()
 	{
-		return self::get_wp_url('upload');
+		return self::get_upload_base_url();
 	}
 	
 	/** developed by howard 04/15/2013 **/
@@ -366,7 +378,7 @@ class wpl_global
 		if(!is_numeric($x))
 			$w = '#';
 		elseif(fmod($x, 1) != 0)
-			$w = '#'; 
+			$w = '#';
 		else
 		{
 			if($x < 0)
@@ -382,42 +394,42 @@ class wpl_global
 			elseif($x < 100)
 			{
 				$w .= $nwords[10 * floor($x/10)];
-				$r = fmod($x, 10); 
+				$r = fmod($x, 10);
 				if($r > 0)
 					$w .= '-'. $nwords[$r];
-			} 
+			}
 			elseif($x < 1000)
 			{
-				$w .= $nwords[floor($x/100)] .' hundred'; 
+				$w .= $nwords[floor($x/100)] .' hundred';
 				$r = fmod($x, 100);
 				if($r > 0)
 					$w .= ' and '. self::number_to_word($r);
-			} 
-			elseif($x < 1000000) 
+			}
+			elseif($x < 1000000)
 			{
 				$w .= self::number_to_word(floor($x/1000)) .' thousand';
 				$r = fmod($x, 1000);
 				
 				if($r > 0)
 				{
-					$w .= ' '; 
+					$w .= ' ';
 					if($r < 100)
 					   $w .= 'and ';
 					$w .= self::number_to_word($r);
-				} 
-			} 
-			else 
+				}
+			}
+			else
 			{
 				$w .= self::number_to_word(floor($x/1000000)) .' million';
 				$r = fmod($x, 1000000);
 				
 				if($r > 0)
 				{
-					$w .= ' '; 
+					$w .= ' ';
 					if($r < 100)
 					   $word .= 'and ';
 					$w .= self::number_to_word($r);
-				} 
+				}
 			}
 		}
 		
@@ -460,12 +472,12 @@ class wpl_global
 	}
 	
 	/** developed by howard 08/11/2012 **/
-	public static function trouble_shooting_log($log_msg, $path = '')
+	public static function trouble_shooting_log($log_msg, $path = '', $append = false)
 	{
 		if(trim($path) == '') $path = WPL_ABSPATH. 'libraries' .DS. 'troubleshooting.txt';
-		if(wpl_file::exists($path)) wpl_file::delete($path);
+		if(wpl_file::exists($path) and !$append) wpl_file::delete($path);
 		
-		wpl_file::write($path, $log_msg);
+		wpl_file::write($path, $log_msg, $append);
 	}
 	
 	/**
@@ -727,11 +739,21 @@ class wpl_global
 	{
 		/** first validation **/
 		if(trim($addon_name) == '') return false;
+        
+        /** return from cache if exists **/
+		if(isset(self::$wpl_addons[$addon_name])) return true;
 		
-		$query = "SELECT `id` FROM `#__wpl_addons` WHERE `addon_name`='$addon_name'";
-		$addon_id = wpl_db::select($query, 'loadResult');
+		$query = "SELECT * FROM `#__wpl_addons` WHERE 1";
+		$results = wpl_db::select($query, 'loadAssocList');
 		
-		if($addon_id) return true;
+        $addons = array();
+        foreach($results as $result) $addons[$result['addon_name']] = $result;
+        
+        /** add to cache **/
+		self::$wpl_addons = $addons;
+        
+		/** return from cache if exists **/
+		if(isset(self::$wpl_addons[$addon_name])) return true;
 		else return false;
 	}
 	
@@ -1001,13 +1023,13 @@ class wpl_global
 	{
 		if(!$blog_id) $blog_id = wpl_global::get_current_blog_id();
 		
-		if(!$blog_id or $blog_id == 1) return get_site_url().'/wp-content/uploads/WPL/';
+		if(!$blog_id or $blog_id == 1) return wpl_global::get_wp_site_url().'wp-content/uploads/WPL/';
 		else
 		{
 			$path = rtrim(WPL_UP_ABSPATH, DS).$blog_id. DS;
 			if(!wpl_folder::exists($path)) wpl_folder::create($path);
             
-			return get_site_url().'/wp-content/uploads/WPL'.$blog_id.'/';
+			return wpl_global::get_wp_site_url().'wp-content/uploads/WPL'.$blog_id.'/';
 		}
 	}
 	
@@ -1153,5 +1175,23 @@ class wpl_global
         }
         
         return $links;
+    }
+    
+    /**
+     * For debugging the variables
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param mixed $var
+     * @param boolean $exit
+     * @param boolean $var_dump
+     * @return void
+     */
+    public static function debug($var, $exit = true, $var_dump = false)
+    {
+        echo '<pre class="wpl-debug">';
+        if($var_dump) var_dump($var);
+        else print_r($var);
+        echo '</pre>';
+        if($exit) exit;
     }
 }
