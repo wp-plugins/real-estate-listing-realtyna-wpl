@@ -360,7 +360,7 @@ class wpl_users
 	**/
 	public static function get_wpl_memberships()
 	{
-		$query = "SELECT * FROM `#__wpl_users` WHERE `id` < 0 ORDER BY `id` DESC";
+		$query = "SELECT * FROM `#__wpl_users` WHERE `id` < 0 ORDER BY `index` ASC";
 		$memberships = wpl_db::select($query);
 		
 		return $memberships;
@@ -433,6 +433,13 @@ class wpl_users
 		return ($id+1);
     }
     
+    /**
+     * Removes user types
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $id
+     * @return boolean
+     */
     public static function remove_user_type($id)
 	{
         $user_type = self::get_user_type($id);
@@ -829,6 +836,23 @@ class wpl_users
 		return wpl_property::render_property($profile, $fields, $finds, $material);
 	}
 	
+    /**
+     * Register a new user into the WordPress
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $username
+     * @param string $email
+     * @param string $password
+     * @return mixed user id or error object
+     */
+    public static function register_user($username, $email, $password = NULL)
+    {
+        /** first validation **/
+        if(!trim($username) or !trim($email)) return false;
+        
+        return wp_create_user($username, $password, $email);
+    }
+    
 	/**
 		@inputs {user_id}
 		@description This function finalizes user profile and triggering events

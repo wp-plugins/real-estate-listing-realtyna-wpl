@@ -109,11 +109,14 @@ class wpl_flex
      * @author Howard R <howard@realtyna.com>
      * @static
      * @param int $category_id
+     * @param string $condition
      * @return object
      */
-	public static function get_category($category_id)
+	public static function get_category($category_id, $condition = '')
 	{
-		$query = "SELECT * FROM `#__wpl_dbcat` WHERE `id`='$category_id'";
+        if(trim($condition) == '') $condition = " AND `id`='$category_id'";
+        
+		$query = "SELECT * FROM `#__wpl_dbcat` WHERE 1 ".$condition;
 		return wpl_db::select($query, 'loadObject');
 	}
 	
@@ -331,7 +334,18 @@ class wpl_flex
 	{
 		$dbst_type_data = self::get_dbst_type(0, $dbst_kind, $dbst_type);
 		$kind_table = self::get_kind_table($dbst_kind);
-		
+		if($query_type == 'add') $options = self::get_field_options($dbst_id);
+        
+        /** Configure dbst columns if add mode **/
+        if($query_type == 'add' and $dbst_type_data->options)
+        {
+            $dbst_type_options = json_decode($dbst_type_data->options, true);
+            $q = '';
+            
+            foreach($dbst_type_options as $key=>$value) $q .= "`$key`='$value',";
+            if(trim($q)) wpl_db::q("UPDATE `#__wpl_dbst` SET ".trim($q, ', ')." WHERE `id`='$dbst_id'");
+        }
+        
 		/** running all necessary queries **/
 		if($query_type == 'add') $queries = $dbst_type_data->queries_add;
 		elseif($query_type == 'delete') $queries = $dbst_type_data->queries_delete;
@@ -343,7 +357,10 @@ class wpl_flex
 			
 			$query = str_replace('[TABLE_NAME]', $kind_table, $query);
 			$query = str_replace('[FIELD_ID]', $dbst_id, $query);
-			
+            
+            /** Set default value if exists **/
+			if(isset($options['default_value'])) $query = str_replace('[DEFAULT_VALUE]', $options['default_value'], $query);
+            
 			wpl_db::q($query);
 		}
 	}

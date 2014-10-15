@@ -29,6 +29,7 @@ class wpl_settings_controller extends wpl_controller
 			self::save_watermark_image($file);
 		}
 		elseif($function == 'clear_cache') $this->clear_cache();
+        elseif($function == 'remove_upload') $this->remove_upload();
 	}
 	
 	private function save($setting_name, $setting_value, $setting_category)
@@ -53,26 +54,26 @@ class wpl_settings_controller extends wpl_controller
 	 */
 	private function save_watermark_image($file)
 	{
-		$filename = $file['name'];
+		$filename = wpl_global::normalize_string($file['name']);
 		$ext_array = array('jpg','png','gif','jpeg');
-		$error = "";
-		$message = "";
-
+		$error = '';
+		$message = '';
+        
 		if(!empty($file['error']) or (empty($file['tmp_name']) or ($file['tmp_name'] == 'none')))
 		{
-			$error = __("An error ocurred uploading your file.", WPL_TEXTDOMAIN);
+			$error = __('An error ocurred uploading your file.', WPL_TEXTDOMAIN);
 		}
 		else 
 		{
 			// check the extention
 			$extention = strtolower(wpl_file::getExt($file['name']));
 
-			if (!in_array($extention,$ext_array))
+			if(!in_array($extention, $ext_array))
 			{
-				$error = __("File extension should be jpg, png or gif.", WPL_TEXTDOMAIN);
+				$error = __('File extension should be jpg, png or gif.', WPL_TEXTDOMAIN);
 			}
 
-			if ($error == "")
+			if($error == '')
 			{
 				$dest = WPL_ABSPATH. 'assets' .DS. 'img' .DS. 'system' .DS. $filename;
 				wpl_file::upload($file['tmp_name'], $dest);
@@ -100,4 +101,23 @@ class wpl_settings_controller extends wpl_controller
 		echo json_encode($response);
 		exit;
 	}
+    
+    private function remove_upload()
+    {
+        $setting_name = wpl_request::getVar('setting_name', '');
+        $settings_value = wpl_settings::get($setting_name);
+        $upload_src = wpl_global::get_wpl_asset_url('img/system/'.$settings_value);
+        
+        wpl_settings::save_setting($setting_name, NULL);
+        wpl_file::delete($upload_src);
+        
+        /** Remove Thumbnails **/
+        wpl_settings::clear_cache('listings_thumbnails');
+        wpl_settings::clear_cache('users_thumbnails');
+        
+        $response = array('success'=>1, 'message'=>__('Uploaded file removed successfully!', WPL_TEXTDOMAIN));
+		
+		echo json_encode($response);
+		exit;
+    }
 }

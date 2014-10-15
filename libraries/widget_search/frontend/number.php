@@ -141,7 +141,7 @@ if($type == 'number' and !$done_this)
 		
 		while($i < $max_value)
 		{
-			$html .= '<option value="'.$i.'">'.$i.'+</option>';
+			$html .= '<option value="'.$i.'" '.($current_min_value == $i ? 'selected="selected"' : '').'>'.$i.'+</option>';
 			$i += $division;
 		}
 		

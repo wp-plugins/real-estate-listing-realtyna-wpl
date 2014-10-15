@@ -25,7 +25,7 @@ class wpl_images
     public static function resize_image($source, $dest, $width, $height, $crop = 0)
     {
         /** set memory limit **/
-        ini_set('memory_limit', '-1');
+        @ini_set('memory_limit', '-1');
         
         $extension = wpl_file::getExt(strtolower($source));
 
@@ -213,8 +213,6 @@ class wpl_images
         $watermark = WPL_ABSPATH . 'assets' . DS . 'img' . DS . 'system' . DS;
 
         if(trim($options['url']) != '') $watermark .= trim($options['url']);
-        $watermark = strtolower($watermark);
-        
         if(!wpl_file::exists($watermark)) return;
 
         $source = strtolower($source);

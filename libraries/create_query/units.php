@@ -11,8 +11,8 @@ if($format == 'unit' and !$done_this)
 	{
 		$unit_data = wpl_units::get_unit($value);
 		
-		$min = $vars['sf_min_'.$table_column];
-		$max = $vars['sf_max_'.$table_column];
+		$min = isset($vars['sf_min_'.$table_column]) ? $vars['sf_min_'.$table_column] : 0;
+		$max = isset($vars['sf_max_'.$table_column]) ? $vars['sf_max_'.$table_column] : 0;
 		
 		$si_value_min = $unit_data['tosi'] * $min;
 		$si_value_max = $unit_data['tosi'] * $max;

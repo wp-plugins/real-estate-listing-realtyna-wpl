@@ -32,7 +32,7 @@ if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->w
                     <?php /** load position gallery **/ wpl_activity::load_position('pshow_gallery', array('wpl_properties'=>$this->wpl_properties)); ?>
                 </div>
                 <?php endif; ?>
-                <?php if($pshow_googlemap_activities): ?>
+                <?php if($pshow_googlemap_activities and $this->wpl_properties['current']['raw']['show_address']): ?>
                 <div id="tabs-2" class="tabs_contents">
                     <?php /** load position googlemap **/ wpl_activity::load_position('pshow_googlemap', array('wpl_properties'=>$this->wpl_properties)); ?>
                 </div>
@@ -48,7 +48,7 @@ if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->w
                 	<?php if($pshow_gallery_activities): ?>
                     <li><a href="#tabs-1"><?php echo __('Pictures', WPL_TEXTDOMAIN) ?></a></li>
                     <?php endif; ?>
-                    <?php if($pshow_googlemap_activities): ?>
+                    <?php if($pshow_googlemap_activities and $this->wpl_properties['current']['raw']['show_address']): ?>
                     <li><a href="#tabs-2" data-init-googlemap="1"><?php echo __('Google Map', WPL_TEXTDOMAIN) ?></a></li>
                     <?php endif; ?>
                     <?php if($pshow_video_activities): ?>
@@ -78,10 +78,15 @@ if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->w
                 <?php
                 $i = 0;
                 $details_boxes_num = count($this->wpl_properties['current']['rendered']);
+                
                 foreach($this->wpl_properties['current']['rendered'] as $values)
 				{
+                    /** skip empty categories **/
 					if(!count($values['data'])) continue;
-					
+                    
+                    /** skip location if property address is hiden **/
+					if($values['self']['prefix'] == 'ad' and !$this->wpl_properties['current']['raw']['show_address']) continue;
+                    
                     echo '<div class="wpl_prp_show_detail_boxes">
                             <div class="wpl_prp_show_detail_boxes_title">'.__($values['self']['name'], WPL_TEXTDOMAIN).'</div>
                             <div class="wpl_prp_show_detail_boxes_cont">';

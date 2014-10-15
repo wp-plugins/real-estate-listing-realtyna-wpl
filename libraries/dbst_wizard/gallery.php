@@ -33,7 +33,7 @@ if($type == 'gallery' and !$done_this)
         </div>
     </div>
     <div id="wpl_gallery_external" class="wpl_gallery_method_container" style="display: none;">
-        <?php if(!wpl_global::check_addon('PRO')): ?>
+        <?php if(!wpl_global::check_addon('pro')): ?>
         <div class="field-desc">
             <?php echo __('Pro addon must be installed for this!', WPL_TEXTDOMAIN); ?>
         </div>

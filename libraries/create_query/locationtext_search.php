@@ -35,7 +35,7 @@ if($format == 'locationtextsearch' and !$done_this)
             $qqq[] = '('.implode(' AND ', $qq).')';
         }
 
-        $query .= ' AND ('.implode(' OR ', $qqq).')';
+        $query .= " AND (".implode(' OR ', $qqq).") AND `show_address`='1'";
 	}
 	
 	$done_this = true;
@@ -94,7 +94,7 @@ if($format == 'multiplelocationtextsearch' and !$done_this)
             }
         }
         
-        $query .= ' AND ('.implode(' OR ', $qqqq).')';
+        $query .= " AND (".implode(' OR ', $qqqq).") AND `show_address`='1'";
 	}
     
     $done_this = true;

@@ -13,17 +13,17 @@ class wpl_global
     /**
      * Used for caching in check_addon function
      * @static
-     * @var array 
+     * @var array
      */
     public static $wpl_addons = array();
     
-	/**
-		Developed by : Howard
-		Inputs : {parameter}
-		Outputs : cleaned parameter
-		Date : 2014-03-20
-		Description : use this function for cleaning any variable
-     **/
+    /**
+     * Use this function for cleaning any variable
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param mixed $parameter
+     * @return mixed
+     */
     public static function clean($parameter)
     {
 		$return_data = '';
@@ -45,13 +45,15 @@ class wpl_global
         return wpl_db::escape($return_data);
     }
 	
-	/**
-		Developed by : Howard
-		Inputs : string $view, string $query_string
-		Outputs : void
-		Date : 2013-08-14
-		Description : This is a function for loading view
-	**/
+    /**
+     * This is a function for loading view
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $view
+     * @param string $query_string
+     * @param array $instance
+     * @return string
+     */
 	public static function load($view = 'property_listing', $query_string = '', $instance = array())
 	{
 		/** first validations **/
@@ -65,7 +67,14 @@ class wpl_global
 		return call_user_func(array($controller, $function), $instance);
 	}
 	
-	/** developed by howard 07/30/2013 **/
+    /**
+     * Returns Property Types
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $property_type_id
+     * @param int $enabled
+     * @return mixed
+     */
 	public static function get_property_types($property_type_id = '', $enabled = 1)
 	{
 		if(!trim($property_type_id))
@@ -78,8 +87,15 @@ class wpl_global
 			return wpl_db::get('*', 'wpl_property_types', 'id', $property_type_id);
 		}
 	}
-	
-	/** developed by howard 07/30/2013 **/
+    
+    /**
+     * Returns Listing Types
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $listing_id
+     * @param int $enabled
+     * @return mixed
+     */
 	public static function get_listings($listing_id = '', $enabled = 1)
 	{
 		if(!trim($listing_id))
@@ -93,7 +109,16 @@ class wpl_global
 		}
 	}
 	
-	/** developed by howard 04/17/2013 **/
+    /**
+     * Returns Params
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $table
+     * @param mixed $value
+     * @param string $params_field
+     * @param string $key
+     * @return array
+     */
 	public static function get_params($table, $value, $params_field = 'params', $key = 'id')
 	{
 		if(trim($table) == '' or trim($value) == '') return array();
@@ -102,7 +127,17 @@ class wpl_global
 		return json_decode($params, true);
 	}
 	
-	/** developed by howard 04/17/2013 **/
+    /**
+     * Sets Params
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $table
+     * @param string $value
+     * @param array $values
+     * @param string $params_field
+     * @param string $key
+     * @return boolean
+     */
 	public static function set_params($table, $value, $values = array(), $params_field = 'params', $key = 'id')
 	{
 		if(trim($table) == '' or trim($value) == '') return false;
@@ -111,18 +146,31 @@ class wpl_global
 		$query = "UPDATE `#__".$table."` SET `$params_field`='$params' WHERE `$key`='$value'";
 		return wpl_db::q($query, 'update');
 	}
-	
-	/** developed by howard 03/06/2013 **/
+    
+    /**
+     * Returns WPL menus
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $type
+     * @param string $client
+     * @param int $enabled
+     * @param int $dashboard
+     * @return objects
+     */
 	public static function get_menus($type = 'menu', $client = 'backend', $enabled = 1, $dashboard = 0)
 	{
 		$query = "SELECT * FROM `#__wpl_menus` WHERE `client`='$client' AND `type`='$type' AND `enabled`='$enabled' AND `dashboard`>='$dashboard' ORDER BY `index` ASC";
 		return wpl_db::select($query);
 	}
 	
-	/**
-		@description Remove any variable from Query String
-		@author Howard
-	**/
+    /**
+     * Remove any variable from Query String
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $key
+     * @param string $url
+     * @return string
+     */
 	public static function remove_qs_var($key, $url = '')
 	{
 		if(trim($url) == '') $url = self::get_full_url();
@@ -131,11 +179,16 @@ class wpl_global
 		$url = substr($url, 0, -1);
 		return $url;
 	}
-	
-	/**
-		@description Add any variable to Query String
-		@author Howard
-	**/
+    
+    /**
+     * Adds any variable to Query String
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $key
+     * @param string $value
+     * @param string $url
+     * @return string
+     */
 	public static function add_qs_var($key, $value, $url = '')
 	{
 		if(trim($url) == '') $url = self::get_full_url();
@@ -149,7 +202,12 @@ class wpl_global
 			return $url.'&'.$key.'='.$value;
 	}
 	
-	/** developed by howard 10/4/2012 **/
+    /**
+     * Returns current full URL
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @return string
+     */
 	public static function get_full_url()
 	{
 		/** get $_SERVER **/
@@ -740,6 +798,8 @@ class wpl_global
 		/** first validation **/
 		if(trim($addon_name) == '') return false;
         
+        $addon_name = strtolower($addon_name);
+        
         /** return from cache if exists **/
 		if(isset(self::$wpl_addons[$addon_name])) return true;
 		
@@ -747,7 +807,7 @@ class wpl_global
 		$results = wpl_db::select($query, 'loadAssocList');
 		
         $addons = array();
-        foreach($results as $result) $addons[$result['addon_name']] = $result;
+        foreach($results as $result) $addons[strtolower($result['addon_name'])] = $result;
         
         /** add to cache **/
 		self::$wpl_addons = $addons;
@@ -1194,4 +1254,21 @@ class wpl_global
         echo '</pre>';
         if($exit) exit;
     }
+    
+    /**
+     * Normalize strings
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $name
+     * @return string
+     */
+    public static function normalize_string($name)
+    {
+		$name = strtolower(trim($name));
+		$search = array("/\+/","/\:/","/\(/","/\)/","/\"/","/\//","/\!/","/\"/","/\-+/","/\s+/");
+		$replace = array(" "," "," "," "," "," "," "," "," ","_");
+	
+		$name = preg_replace($search, $replace, $name);
+		return trim($name, ' _');
+	}
 }

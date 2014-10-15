@@ -32,7 +32,7 @@ if($format == 'radiussearchunit' and !$done_this)
 			$tosi =  (6371*1000)/$unit['tosi'];
 			$radius_si = $radius*$unit['tosi'];
 			
-			$query .= " AND (( ".$tosi." * acos( cos( radians(".$latitude.") ) * cos( radians( p.googlemap_lt ) ) * cos( radians( p.googlemap_ln ) - radians(".$longitude.") ) + sin( radians(".$latitude.") ) * sin( radians( p.googlemap_lt ) ) ) ) < ".($radius) .')';
+			$query .= " AND (( ".$tosi." * acos( cos( radians(".$latitude.") ) * cos( radians( p.googlemap_lt ) ) * cos( radians( p.googlemap_ln ) - radians(".$longitude.") ) + sin( radians(".$latitude.") ) * sin( radians( p.googlemap_lt ) ) ) ) < ".($radius) .") AND `show_address`='1'";
 		}
 	}
 

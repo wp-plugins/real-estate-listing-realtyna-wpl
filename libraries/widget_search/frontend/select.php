@@ -60,26 +60,6 @@ if($type == 'select' and !$done_this)
 	}
 	elseif($show == 'multiple')
     {
-		/** add scripts and style sheet **/
-		$js = (object) array('param1'=>'jquery-multiselect-script', 'param2'=>'js/jquery.ui/multiselect/jquery.multiselect.js');
-		wpl_extensions::import_javascript($js);
-		
-		$style = (object) array('param1'=>'jquery-multiselect-style', 'param2'=>'js/jquery.ui/multiselect/jquery.multiselect.css');
-		wpl_extensions::import_style($style);
-		
-        $html .= '
-		<script type="text/javascript">
-		wplj(document).ready(function()
-		{
-			wplj("#sf'.$widget_id.'_multiple_'.$field_data['table_column'].'").multiselect({
-				noneSelectedText: "'.__('Any', WPL_TEXTDOMAIN).'",
-				checkAllText: "'.__('Check All', WPL_TEXTDOMAIN).'",
-				uncheckAllText: "'.__('Uncheck All', WPL_TEXTDOMAIN).'",
-				multiple: true
-			});
-		});
-		</script>';
-		
 		/** current value **/
 		$current_values = explode(',', wpl_request::getVar('sf_multiple_'.$field_data['table_column']));
 	

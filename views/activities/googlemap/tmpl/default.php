@@ -15,30 +15,7 @@ $this->default_zoom = isset($params['default_zoom']) ? $params['default_zoom'] :
 /** unset current key **/
 unset($wpl_properties['current']);
 
-$listings = wpl_global::return_in_id_array(wpl_global::get_listings());
-$this->markers = array();
-
-$i = 0;
-foreach($wpl_properties as $property)
-{
-    if(!$property['raw']['googlemap_lt'] or !$property['raw']['googlemap_ln'])
-    {
-        $LatLng = wpl_locations::update_LatLng(NULL, $property['raw']['id']);
-        
-        $property['raw']['googlemap_lt'] = $LatLng[0];
-        $property['raw']['googlemap_ln'] = $LatLng[1];
-    }
-            
-	$this->markers[$i]['id'] = $property['raw']['id'];
-	$this->markers[$i]['googlemap_lt'] = $property['raw']['googlemap_lt'];
-	$this->markers[$i]['googlemap_ln'] = $property['raw']['googlemap_ln'];
-	$this->markers[$i]['title'] = $property['raw']['googlemap_title'];
-	
-	$this->markers[$i]['pids'] = $property['raw']['id'];
-	$this->markers[$i]['gmap_icon'] = (isset($listings[$property['raw']['listing']]['gicon']) and $listings[$property['raw']['listing']]['gicon']) ? $listings[$property['raw']['listing']]['gicon'] : 'default.png';
-	
-	$i++;
-}
+$this->markers = wpl_property::render_markers($wpl_properties);
 
 /** load js codes **/
 $this->_wpl_import($this->tpl_path.'.scripts.js', true, true);

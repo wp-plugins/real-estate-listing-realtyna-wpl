@@ -4,6 +4,13 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.8.8 (<span class="wpl_log_date">10/15/2014</span> <span class="wpl_log_revision">revision 866</span>)</h4>
+        -- <strong>[PRO]</strong> Added hide address feature.<br />
+        -- <strong>[PRO]</strong> Added mortgage calculator activity.<br />
+        -- Added Boolean field type.<br />
+        -- Fixed some issues on watermark feature.<br />
+        -- Make latitude and longitude editable.
+        
         <h4>WPL1.8.5 (<span class="wpl_log_date">10/05/2014</span> <span class="wpl_log_revision">revision 853</span>)</h4>
         -- <strong>[PRO]</strong> Added Google auto suggest to search widget location options.<br />
         -- <strong>[PRO]</strong> Added map layout for carousel widget.<br />

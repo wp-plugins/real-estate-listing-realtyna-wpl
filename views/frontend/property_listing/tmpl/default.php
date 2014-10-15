@@ -7,9 +7,13 @@ $this->_wpl_import($this->tpl_path.'.scripts.js', true, true);
 <div class="wpl_property_listing_container" id="wpl_property_listing_container">
 	<?php /** load position1 **/ wpl_activity::load_position('plisting_position1', array('wpl_properties'=>$this->wpl_properties)); ?>
     
-    <?php if(is_active_sidebar('wpl-plisting-top')): ?>
+    <?php if(is_active_sidebar('wpl-plisting-top') and $this->kind == 0): ?>
     <div class="wpl_plisting_top_sidebar_container">
         <?php dynamic_sidebar('wpl-plisting-top'); ?>
+    </div>
+    <?php elseif(is_active_sidebar('wpl-complex-plisting-top') and $this->kind == 1): ?>
+    <div class="wpl_plisting_top_sidebar_container">
+        <?php dynamic_sidebar('wpl-complex-plisting-top'); ?>
     </div>
     <?php endif; ?>
     

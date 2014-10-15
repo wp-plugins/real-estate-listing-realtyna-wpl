@@ -7,7 +7,6 @@ $wpl_profiles = isset($params['wpl_profiles']) ? $params['wpl_profiles'] : array
 
 $this->user_id = isset($params['user_id']) ? $params['user_id'] : NULL;
 $this->user_id = isset($wpl_properties['current']['data']['id']) ? $wpl_properties['current']['data']['id'] : $this->user_id;
-
 $this->top_comment = isset($params['top_comment']) ? $params['top_comment'] : '';
 
 include_once _wpl_import($this->tpl_path.'.scripts.js', true, true);

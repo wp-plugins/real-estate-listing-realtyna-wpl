@@ -43,7 +43,7 @@ class UploadHandler
     function __construct($options = null, $initialize = true, $error_messages = null)
     {
         /** set memory limit **/
-        ini_set('memory_limit', '-1');
+        @ini_set('memory_limit', '-1');
         
 		global $pid;
 		//echo $this->get_full_url();

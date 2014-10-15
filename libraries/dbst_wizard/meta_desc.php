@@ -146,7 +146,7 @@ function metatag_desc_creator()
     ajax_save('<?php echo $field->table_name; ?>', '<?php echo $field->table_column; ?>', meta, '<?php echo $item_id; ?>', '<?php echo $field->id; ?>');
 }
 
-var meta_desc_pro_addon = <?php echo (wpl_global::check_addon('PRO') ? '1' : '0'); ?>;
+var meta_desc_pro_addon = <?php echo (wpl_global::check_addon('pro') ? '1' : '0'); ?>;
 function meta_desc_manual()
 {
     if (!wplj("#wpl_c_<?php echo $field->id; ?>_manual").is(':checked')) {

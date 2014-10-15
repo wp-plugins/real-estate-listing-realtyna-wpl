@@ -54,6 +54,12 @@ class wpl_property
 		return wpl_flex::get_fields($category, $enabled, $kind, 'pshow', '1');
 	}
 	
+    public static function get_specialties_fields($kind = 0)
+	{
+        $category = wpl_flex::get_category(NULL, " AND `prefix`='sp' AND `kind`='$kind'");
+		return wpl_flex::get_fields(NULL, NULL, NULL, NULL, NULL, " AND `category`='{$category->id}' AND `enabled`>='1' AND `plisting`>='1' AND `type`='checkbox' AND `kind`='$kind'");
+	}
+    
 	/**
 		@inputs {user_id}, [temp]
 		@return property id
@@ -424,6 +430,46 @@ class wpl_property
     }
     
     /**
+     * Render Google markers
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param array $wpl_properties
+     * @return array
+     */
+    public static function render_markers($wpl_properties)
+    {
+        $listings = wpl_global::return_in_id_array(wpl_global::get_listings());
+        $markers = array();
+        
+        $i = 0;
+        foreach($wpl_properties as $property)
+        {
+            /** skip to next if address is hidden **/
+            if(!$property['raw']['show_address']) continue;
+
+            if(!$property['raw']['googlemap_lt'] or !$property['raw']['googlemap_ln'])
+            {
+                $LatLng = wpl_locations::update_LatLng(NULL, $property['raw']['id']);
+
+                $property['raw']['googlemap_lt'] = $LatLng[0];
+                $property['raw']['googlemap_ln'] = $LatLng[1];
+            }
+
+            $markers[$i]['id'] = $property['raw']['id'];
+            $markers[$i]['googlemap_lt'] = $property['raw']['googlemap_lt'];
+            $markers[$i]['googlemap_ln'] = $property['raw']['googlemap_ln'];
+            $markers[$i]['title'] = $property['raw']['googlemap_title'];
+
+            $markers[$i]['pids'] = $property['raw']['id'];
+            $markers[$i]['gmap_icon'] = (isset($listings[$property['raw']['listing']]['gicon']) and $listings[$property['raw']['listing']]['gicon']) ? $listings[$property['raw']['listing']]['gicon'] : 'default.png';
+
+            $i++;
+        }
+        
+        return $markers;
+    }
+    
+    /**
      * @return number of properties according to query condition
      * @author Francis
      */
@@ -742,6 +788,15 @@ class wpl_property
 	{
 		/** fetch property data if property id is setted **/
 		if($property_id) $property_data = self::get_property_raw_data($property_id);
+        
+        /** Return empty if address of property is hidden **/
+        if(isset($property_data['show_address']) and !$property_data['show_address'])
+        {
+            $location_hidden_keyword = wpl_global::get_setting('location_hidden_keyword', 3);
+            $placeholder = trim($location_hidden_keyword) ? $location_hidden_keyword : 'Address not available!';
+            
+            return __($placeholder, WPL_TEXTDOMAIN);
+        }
         
 		$locations = array();
         

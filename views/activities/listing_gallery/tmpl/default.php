@@ -34,11 +34,11 @@ $this->_wpl_import($this->tpl_path.'.scripts.default', true, true, true);
 ?>
 <div class="wpl_gallery_container" id="wpl_gallery_container<?php echo $this->property_id; ?>" >
     <?php 
-    if(!count($gallery)) 
+    if(!count($gallery))
     {
         echo '<div class="no_image_box"></div>';
     }
-    else 
+    else
     {
         $i = 0;
         $images_total = count($gallery);

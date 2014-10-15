@@ -4,7 +4,7 @@ Donate link: http://wpl.realtyna.com/
 Tags: Real estate, Listing, Vertical Market, MLS, Property listing, RETS, Listings, Broker, Realtor, Property, IDX, Multiple Listing Service, Property Management, Properties
 Requires at least: 3.0.1
 Tested up to: 4.0
-Stable tag: 1.8.5
+Stable tag: 1.8.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -59,6 +59,13 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 6. External Responsive Template: Agent listing
 
 == Changelog ==
+
+= 1.8.8 =
+* [PRO] Added hide address feature.
+* [PRO] Added mortgage calculator activity.
+* Added Boolean field type.
+* Fixed some issues on watermark feature.
+* Make latitude and longitude editable.
 
 = 1.8.5 =
 * [PRO] Added Google auto suggest to search widget location options.

@@ -199,6 +199,8 @@ class wpl_search_widget extends wpl_widget
             if(!$field['id'] and $key) $field['id'] = $key;
             
 			$field_data = (array) wpl_flex::get_field($field['id']);
+            if(!$field_data) continue;
+            
 			$field['name'] = $field_data['name'];
 			
 			$type = $field_data['type'];

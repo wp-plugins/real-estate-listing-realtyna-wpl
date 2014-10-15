@@ -5,7 +5,7 @@ defined('_WPLEXEC') or die('Restricted access');
 $js = (object) array('param1'=>'wpl-tinymce-popup', 'param2'=>wpl_global::get_wp_site_url().'wp-includes/js/tinymce/tiny_mce_popup.js', 'external'=>true);
 wpl_extensions::import_javascript($js);
 ?>
-<div class="short-code-wp wpl_shortcode_wizard_container" id="wpl_shortcode_wizard_container">
+<div class="short-code-wp wpl_shortcode_wizard_container" id="wpl_shortcode_wizard_container" style="margin: 0 20px;">
     <h2>
         <i class="icon-shortcode"></i>
         <span><?php echo __('WPL Shortcodes', WPL_TEXTDOMAIN); ?></span>

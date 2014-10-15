@@ -62,6 +62,29 @@ class wpl_units
 	}
 	
     /**
+     * Returns default unit
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param type $type
+     * @param type $enabled
+     * @param type $condition
+     * @return type
+     */
+    public static function get_default_unit($type = 4, $enabled = 1, $condition = '')
+	{
+		if(trim($condition) == '')
+		{
+			$condition = '';
+			
+			if(trim($type) != '') $condition .= " AND `type`='$type'";
+			if(trim($enabled) != '') $condition .= " AND `enabled`>='$enabled'";
+		}
+		
+		$query = "SELECT * FROM `#__wpl_units` WHERE 1 ".$condition." ORDER BY `index` ASC LIMIT 1";
+		return wpl_db::select($query, 'loadAssoc');
+	}
+    
+    /**
      * Sorts units
      * @author Howard <howard@realtyna.com>
      * @static

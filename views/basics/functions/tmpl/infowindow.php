@@ -51,7 +51,7 @@ foreach($this->wpl_properties as $key => $property)
 		</div>
 		<div class="main_infowindow_r">
 			<div class="main_infowindow_r_t">
-				<?php echo '<a itemprop="url" class="main_infowindow_title" href="'.$property['property_link'].'">'.$property['materials']['property_type']['value'].' '.$property['materials']['listing']['value'].'</a>'; ?>
+				<?php echo '<a itemprop="url" class="main_infowindow_title" href="'.$property['property_link'].'">'.((isset($property['materials']['field_313']) and trim($property['materials']['field_313']['value']) != '') ? $property['materials']['field_313']['value'] : $property['materials']['property_type']['value'].' - '.$property['materials']['listing']['value']).'</a>'; ?>
 				<div class="main_infowindow_location" itemprop="address" ><?php echo $locations; ?></div>
 			</div>
 			<div class="main_infowindow_r_b">
