@@ -62,7 +62,6 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 
 = 1.8.8 =
 * [PRO] Added hide address feature.
-* [PRO] Added mortgage calculator activity.
 * Added Boolean field type.
 * Fixed some issues on watermark feature.
 * Make latitude and longitude editable.
