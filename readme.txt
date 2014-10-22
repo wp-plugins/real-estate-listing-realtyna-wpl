@@ -63,8 +63,8 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 = 1.8.8 =
 * [PRO] Added hide address feature.
 * Added Boolean field type.
-* Fixed some issues on watermark feature.
 * Make latitude and longitude editable.
+* Fixed some issues on watermark feature.
 
 = 1.8.5 =
 * [PRO] Added Google auto suggest to search widget location options.
