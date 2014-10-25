@@ -100,6 +100,22 @@ class wpl_controller
             wpl_html::set_footer(ob_get_clean());
         }
 	}
+    
+    /** for rendering and returning section contents **/
+	protected function _wpl_render($include, $override = true, $once = false)
+	{
+		$path = _wpl_import($include, $override, true);
+        
+		/** check exists **/
+		if(!wpl_file::exists($path)) return;
+        
+        ob_start();
+            
+        if(!$once) include $path;
+        else include_once $path;
+        
+        return ob_get_clean();
+	}
 	
 	protected function load($method)
 	{

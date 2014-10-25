@@ -139,9 +139,12 @@ if($type == 'number' and !$done_this)
 		$html .= '<select name="sf'.$widget_id.'_tmin_'.$field_data['table_column'].'" id="sf'.$widget_id.'_tmin_'.$field_data['table_column'].'">';
 		$html .= '<option value="-1" '.($current_min_value == $i ? 'selected="selected"' : '').'>'.__($field['name'], WPL_TEXTDOMAIN).'</option>';
 		
+        $selected_printed = false;
+        if($current_min_value == $i) $selected_printed = true;
+        
 		while($i < $max_value)
 		{
-			$html .= '<option value="'.$i.'" '.($current_min_value == $i ? 'selected="selected"' : '').'>'.$i.'+</option>';
+			$html .= '<option value="'.$i.'" '.(($current_min_value == $i and !$selected_printed) ? 'selected="selected"' : '').'>'.$i.'+</option>';
 			$i += $division;
 		}
 		

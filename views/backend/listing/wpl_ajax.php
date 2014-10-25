@@ -194,7 +194,7 @@ class wpl_listing_controller extends wpl_controller
         
         foreach($parents as $parent)
         {
-            $label = '#'.$parent['mls_id'].' - '.(trim($parent['field_313']) ? $parent['field_313'] : $parent['field_312']);
+            $label = '#'.$parent['mls_id'].' - '.wpl_property::update_property_title(NULL, $parent['id']);
             $results[$parent['id']] = array('id'=>$parent['id'], 'label'=>$label, 'value'=>$parent['mls_id']);
         }
         

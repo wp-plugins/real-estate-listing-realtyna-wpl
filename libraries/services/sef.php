@@ -108,9 +108,8 @@ class wpl_service_sef
         $current_link_url = wpl_global::get_full_url();
 		$property_data = wpl_property::get_property_raw_data($proeprty_id);
 		
-        if(trim($property_data['field_312']) != '') $this->property_title = $property_data['field_312'];
-		elseif(trim($property_data['property_title']) == '') $this->property_title = wpl_property::generate_property_title($property_data);
-		else $this->property_title = $property_data['property_title'];
+        if(trim($property_data['field_312']) != '') $this->property_page_title = $property_data['field_312'];
+		else $this->property_page_title = wpl_property::update_property_page_title($property_data);
         
         $this->property_keywords = $property_data['meta_keywords'];
         $this->property_description = $property_data['meta_description'];
@@ -118,7 +117,7 @@ class wpl_service_sef
 		$html = wpl_html::getInstance();
 		
 		/** set title **/
-		$html->set_title($this->property_title);
+		$html->set_title($this->property_page_title);
 		
 		/** set meta keywords **/
 		$html->set_meta_keywords($this->property_keywords);
@@ -134,11 +133,11 @@ class wpl_service_sef
         $html->set_custom_tag('<meta property="og:locale" content="'.$locale.'" />');
         
         $html->set_custom_tag('<meta property="og:url" content="'.str_replace('&', '&amp;', $current_link_url).'" />');
-        $html->set_custom_tag('<meta property="og:title" data-page-subject="true" content="'.$this->property_title.'" />');
+        $html->set_custom_tag('<meta property="og:title" data-page-subject="true" content="'.$this->property_page_title.'" />');
         $html->set_custom_tag('<meta property="og:description" content="'.strip_tags($property_data['field_308']).'" />');
         
         $html->set_custom_tag('<meta property="twitter:card" content="summary" />');
-        $html->set_custom_tag('<meta property="twitter:title" content="'.$this->property_title.'" />');
+        $html->set_custom_tag('<meta property="twitter:title" content="'.$this->property_page_title.'" />');
         $html->set_custom_tag('<meta property="twitter:description" content="'.strip_tags($property_data['field_308']).'" />');
         $html->set_custom_tag('<meta property="twitter:url" content="'.str_replace('&', '&amp;', $current_link_url).'" />');
         
@@ -255,8 +254,8 @@ class wpl_service_sef
             $property_data = wpl_property::get_property_raw_data($proeprty_id);
             $user_data = (array) wpl_users::get_user($property_data['user_id']);
             
-            $html->set_custom_tag('<meta name="DC.title" content="'.$this->property_title.'" />');
-            $html->set_custom_tag('<meta name="DC.subject" content="'.$this->property_title.'" />');
+            $html->set_custom_tag('<meta name="DC.title" content="'.$this->property_page_title.'" />');
+            $html->set_custom_tag('<meta name="DC.subject" content="'.$this->property_page_title.'" />');
             $html->set_custom_tag('<meta name="DC.description" content="'.$this->property_description.'" />');
             $html->set_custom_tag('<meta name="DC.date" content="'.$property_data['add_date'].'" />');
             $html->set_custom_tag('<meta name="DC.creator" content="'.$user_data['data']->user_login.'" />');

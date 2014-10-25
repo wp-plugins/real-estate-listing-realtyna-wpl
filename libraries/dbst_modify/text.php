@@ -30,6 +30,25 @@ if($type == 'text' and !$done_this)
 				$path = _wpl_import('libraries.dbst_modify.main.'.($kind == 2 ? 'user' : '').'specific', true, true);
 				include $path;
 			?>
+            <?php if(wpl_global::check_addon('pro')): ?>
+            <div class="fanc-row fanc-inline-title">
+                <span>
+                    <?php echo __('Params', WPL_TEXTDOMAIN); ?>
+                </span>
+			</div>
+			<div class="fanc-row">
+				<label for="<?php echo $__prefix; ?>opt_if_zero"><?php echo __('If Zero', WPL_TEXTDOMAIN); ?></label>
+                <select name="<?php echo $__prefix; ?>opt_if_zero" id="<?php echo $__prefix; ?>opt_if_zero">
+                    <option <?php echo (isset($options['if_zero']) and $options['if_zero'] == 1) ? 'selected="selected"' : ''; ?> value="1"><?php echo __('Show', WPL_TEXTDOMAIN); ?></option>
+                    <option <?php echo (isset($options['if_zero']) and $options['if_zero'] == 0) ? 'selected="selected"' : ''; ?> value="0"><?php echo __('Hide', WPL_TEXTDOMAIN); ?></option>
+                    <option <?php echo (isset($options['if_zero']) and $options['if_zero'] == 2) ? 'selected="selected"' : ''; ?> value="2"><?php echo __('Show Text', WPL_TEXTDOMAIN); ?></option>
+                </select>
+			</div>
+            <div class="fanc-row">
+				<label for="<?php echo $__prefix; ?>opt_call_text"><?php echo __('Text', WPL_TEXTDOMAIN); ?></label>
+                <input type="text" name="<?php echo $__prefix; ?>opt_call_text" id="<?php echo $__prefix; ?>opt_call_text" value="<?php echo (isset($options['call_text']) ? $options['call_text'] : 'Call'); ?>" />
+			</div>
+            <?php endif; ?>
 		</div>
 	</div>
 </div>

@@ -58,6 +58,47 @@ wpl_extensions::import_javascript($js);
             </select>
         </div>
         
+        <!-- View Layouts -->
+        <div class="plugin-row wpl_shortcode_parameter wpl_hidden_element pr_property_listing">
+            <?php $property_listing_layouts = wpl_global::get_layouts('property_listing', array('message.php'), 'frontend'); ?>
+            <label for="pr_tpl_selectbox"><?php echo __('Layout', WPL_TEXTDOMAIN); ?></label>
+            <select id="pr_tpl_selectbox" name="tpl">
+                <?php foreach($property_listing_layouts as $layout): ?>
+				<option value="<?php echo $layout; ?>" <?php if($layout == 'default') echo 'selected="selected"'; ?>><?php echo __($layout, WPL_TEXTDOMAIN); ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        
+        <div class="plugin-row wpl_shortcode_parameter wpl_hidden_element pr_property_show">
+            <?php $property_show_layouts = wpl_global::get_layouts('property_show', array('message.php'), 'frontend'); ?>
+            <label for="pr_tpl_selectbox"><?php echo __('Layout', WPL_TEXTDOMAIN); ?></label>
+            <select id="pr_tpl_selectbox" name="tpl">
+                <?php foreach($property_show_layouts as $layout): ?>
+				<option value="<?php echo $layout; ?>" <?php if($layout == 'default') echo 'selected="selected"'; ?>><?php echo __($layout, WPL_TEXTDOMAIN); ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        
+        <div class="plugin-row wpl_shortcode_parameter wpl_hidden_element pr_profile_listing">
+            <?php $profile_listing_layouts = wpl_global::get_layouts('profile_listing', array('message.php'), 'frontend'); ?>
+            <label for="pr_tpl_selectbox"><?php echo __('Layout', WPL_TEXTDOMAIN); ?></label>
+            <select id="pr_tpl_selectbox" name="tpl">
+                <?php foreach($profile_listing_layouts as $layout): ?>
+				<option value="<?php echo $layout; ?>" <?php if($layout == 'default') echo 'selected="selected"'; ?>><?php echo __($layout, WPL_TEXTDOMAIN); ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        
+        <div class="plugin-row wpl_shortcode_parameter wpl_hidden_element pr_profile_show">
+            <?php $profile_show_layouts = wpl_global::get_layouts('profile_show', array('message.php'), 'frontend'); ?>
+            <label for="pr_tpl_selectbox"><?php echo __('Layout', WPL_TEXTDOMAIN); ?></label>
+            <select id="pr_tpl_selectbox" name="tpl">
+                <?php foreach($profile_show_layouts as $layout): ?>
+				<option value="<?php echo $layout; ?>" <?php if($layout == 'default') echo 'selected="selected"'; ?>><?php echo __($layout, WPL_TEXTDOMAIN); ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        
         <div class="plugin-row wpl_shortcode_parameter wpl_hidden_element pr_property_listing">
             <?php $location_settings = wpl_global::get_settings('3'); # location settings ?>
             <label for="pr_location_textsearch"><?php echo __('Location', WPL_TEXTDOMAIN); ?></label>
@@ -126,14 +167,23 @@ wpl_extensions::import_javascript($js);
         
         <div class="plugin-row wpl_shortcode_parameter wpl_hidden_element pr_property_listing pr_profile_listing">
             <?php $page_sizes = explode(',', trim($this->settings['page_sizes'], ', ')); ?>
-            <label for="pr_limit_selectbox"><?php echo __('Listing per page', WPL_TEXTDOMAIN); ?></label>
+            <label for="pr_limit_selectbox"><?php echo __('Page Size', WPL_TEXTDOMAIN); ?></label>
             <select id="pr_limit_selectbox" name="limit">
                 <?php foreach($page_sizes as $page_size): ?>
                     <option value="<?php echo $page_size; ?>" <?php if($this->settings['default_page_size'] == $page_size) echo 'selected="selected"'; ?>><?php echo $page_size; ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
-
+        
+        <?php if(wpl_global::check_addon('pro')): ?>
+        <div class="plugin-row wpl_shortcode_parameter wpl_hidden_element pr_property_listing pr_profile_listing pr_profile_show">
+            <label for="pr_wplpagination_selectbox"><?php echo __('Pagination Type', WPL_TEXTDOMAIN); ?></label>
+            <select id="pr_wplpagination_selectbox" name="wplpagination">
+                <option value="">-----</option>
+                <option value="scroll"><?php echo __('Scroll Pagination'); ?></option>
+            </select>
+        </div>
+        <?php endif; ?>
         <div class="plugin-row wpl_shortcode_parameter wpl_hidden_element pr_property_listing">
             <?php $sort_options = wpl_sort_options::get_sort_options(0, 1);/** getting enaled sort options **/ ?>
             <label for="pr_orderby_selectbox"><?php echo __('Order by', WPL_TEXTDOMAIN); ?></label>

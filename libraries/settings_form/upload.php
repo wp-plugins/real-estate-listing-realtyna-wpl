@@ -13,7 +13,7 @@ if ($type == 'upload' and !$done_this)
 		<?php wpl_global::import_activity('ajax_file_upload', '', $params); ?>
 		<span class="ajax-inline-save" id="wpl_ajax_loader_<?php echo $setting_record->id; ?>"></span>
         <?php if($setting_record->setting_value): ?>
-		<div class="upload-preview">
+		<div class="upload-preview wpl-upload-setting">
 			<img id="wpl_upload_image<?php echo $setting_record->id; ?>" src="<?php echo $src; ?>" />
             <div class="preview-remove-button">
                 <span class="action-btn icon-recycle" onclick="wpl_remove_upload<?php echo $setting_record->id; ?>();"></span>

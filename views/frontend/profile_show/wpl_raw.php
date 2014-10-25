@@ -6,5 +6,5 @@ _wpl_import('views.frontend.profile_show.wpl_abstract');
 
 class wpl_profile_show_controller extends wpl_profile_show_controller_abstract
 {
-    public $wplraw = 0;
+    public $wplraw = 1;
 }

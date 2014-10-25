@@ -168,7 +168,7 @@ INSERT INTO `#__wpl_settings` (`id`, `setting_name`, `setting_value`, `showable`
 
 INSERT INTO `#__wpl_settings` (`id`, `setting_name`, `setting_value`, `showable`, `category`, `type`, `title`, `params`, `options`, `index`) VALUES
 (55, 'property_location_pattern', '[street_no] [street][glue] [location4_name][glue] [location3_name][glue] [location2_name][glue] [location1_name] [zip_name]', 1, 3, 'text', 'Property Location Pattern', NULL, '', 123.00),
-(56, 'user_location_pattern', '[street_no] [street][glue] [location4_name][glue] [location3_name][glue] [location2_name][glue] [location1_name] [zip_name]', 1, 3, 'text', 'User Location Pattern', NULL, '', 124.00);
+(56, 'user_location_pattern', '[location5_name][glue][location4_name][glue][location3_name][glue][location2_name][glue][location1_name] [zip_name]', 1, 3, 'text', 'User Location Pattern', NULL, '', 124.00);
 
 UPDATE `#__wpl_extensions` SET `param2`='https://maps.google.com/maps/api/js?libraries=places&sensor=true' WHERE `id`='94';
 UPDATE `#__wpl_settings` SET `type`='wppages' WHERE `id`='25';
@@ -379,3 +379,7 @@ ALTER TABLE `#__wpl_users` ADD `index` FLOAT(5, 2) NOT NULL DEFAULT '99.00' AFTE
 
 UPDATE `#__wpl_dbst` SET `editable`='1', `specificable`='0' WHERE `id`='51';
 UPDATE `#__wpl_dbst` SET `editable`='1', `specificable`='0' WHERE `id`='52';
+
+ALTER TABLE `#__wpl_users` ADD `access_receive_notifications` TINYINT(4) NOT NULL DEFAULT '1' AFTER `access_change_user`;
+ALTER TABLE `#__wpl_items` ADD `item_extra4` TEXT NULL AFTER `item_extra3`, ADD `item_extra5` TEXT NULL AFTER `item_extra4`;
+ALTER TABLE `#__wpl_properties` ADD `source` VARCHAR(100) NOT NULL DEFAULT 'wpl' AFTER `alias`, ADD `last_sync_date` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00' AFTER `source`;

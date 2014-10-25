@@ -130,8 +130,8 @@ if($type == 'gallery' and !$done_this)
                             <i class="action-btn icon-recycle"></i>
                         </div>
                         <?php
-                        if($image->enabled) echo '<div class="action-gal-btn" id="active_image_tag_' . $image->index . '" onclick="wpl_image_enabled(\'' . $image->item_name . '\',' . $image->index . ');"><i class="action-btn icon-enabled"></i></div>';
-                        else echo '<div class="action-gal-btn" id="active_image_tag_' . $image->index . '" onclick="wpl_image_enabled(\'' . $image->item_name . '\',' . $image->index . ');"><i class="action-btn icon-disabled"></i></div>';
+                        if($image->enabled) echo '<div class="action-gal-btn" id="active_image_tag_' . $image->index . '" onclick="wpl_image_enabled(\'' . $image->item_name . '\',' . $image->index . ');"><i class="action-btn icon-enabled" title="'.__('Enabled', WPL_TEXTDOMAIN).'"></i></div>';
+                        else echo '<div class="action-gal-btn" id="active_image_tag_' . $image->index . '" onclick="wpl_image_enabled(\'' . $image->item_name . '\',' . $image->index . ');"><i class="action-btn icon-disabled" title="'.__('Disabled', WPL_TEXTDOMAIN).'"></i></div>';
                         ?>
                         <input type="hidden" id="enabled_image_field_<?php echo $image->index; ?>" value="<?php echo $image->enabled; ?>"/>
                     </div>  
@@ -192,6 +192,7 @@ wplj(document).ready(function()
                     var dynTem = rta.template.bind({
                         index: img_counter,
                         name: file.name,
+                        enabled_title: '<?php echo __('Enabled', WPL_TEXTDOMAIN) ?>',
                         selectOptions: '<?php echo $image_categories_html ?>',
                         imageFolder: '<?php echo $image_folder; ?>',
                         lblImageTitle: '<?php echo __('Image Title', WPL_TEXTDOMAIN) ?>',
@@ -262,9 +263,9 @@ function wpl_image_enabled(gallery, id)
 	ajax.success(function(data)
 	{
 		if (status == 0)
-			wplj("#active_image_tag_" + id).html('<i class="action-btn icon-disabled"></i>');
+			wplj("#active_image_tag_" + id).html('<i class="action-btn icon-disabled" title="<?php echo __('Disabled', WPL_TEXTDOMAIN); ?>"></i>');
 		else
-			wplj("#active_image_tag_" + id).html('<i class="action-btn icon-enabled"></i>');
+			wplj("#active_image_tag_" + id).html('<i class="action-btn icon-enabled" title="<?php echo __('Enabled', WPL_TEXTDOMAIN); ?>"></i>');
 	});
 }
 

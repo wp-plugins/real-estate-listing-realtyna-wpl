@@ -113,6 +113,10 @@ $this->_wpl_import($this->tpl_path.'.scripts.js');
                     <div class="info-action-wp">
                         <div class="property-detailes">
                             
+                            <?php if(isset($property['property_title']) and trim($property['property_title'])): ?>
+							<span class="detail p-title"><span class="value"><?php echo $property['property_title']; ?></span></span>
+                            <?php endif; ?>
+                            
 							<?php if(trim($details_string) != ''): ?>
 							<span class="detail p-types"><?php echo $details_string; ?></span>
                             <?php endif; ?>
@@ -123,11 +127,7 @@ $this->_wpl_import($this->tpl_path.'.scripts.js');
                             
                             <div class="detail p-add-date">
                                 <span class="title"><?php echo __('Add date', WPL_TEXTDOMAIN).' : '; ?></span>
-                                <span class="value"><?php echo $property['data']['add_date']; ?></span>
-                            </div>
-                            <div class="detail p-visit-time">
-                                <span class="title"><?php echo __('Visited times', WPL_TEXTDOMAIN).' : '; ?></span>
-                                <span class="value"><?php echo $property['data']['visit_time']; ?></span>
+                                <span class="value" title="<?php echo __('Visited times', WPL_TEXTDOMAIN).' : '.$property['data']['visit_time']; ?>"><?php echo $property['data']['add_date']; ?></span>
                             </div>
 
                             <?php if(!$property['data']['finalized']): ?>

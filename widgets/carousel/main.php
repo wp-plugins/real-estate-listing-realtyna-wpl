@@ -49,6 +49,9 @@ class wpl_carousel_widget extends wpl_widget
         $model = new wpl_property();
 		$properties = $model->search($query);
 		
+        /** return if no property found **/
+        if(!count($properties)) return;
+        
 		$plisting_fields = $model->get_plisting_fields();
 		$wpl_properties = array();
         $render_params['wpltarget'] = isset($instance['wpltarget']) ? $instance['wpltarget'] : 0;

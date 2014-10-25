@@ -91,8 +91,8 @@ if($type == 'attachments' and !$done_this)
                     </div>
 
                     <?php
-                    if($attachment->enabled) echo '<div class="action-gal-btn" id="active_attachment_tag_' . $attachment->index . '" onclick="wpl_attachment_enabled(\'' . $attachment->item_name . '\',' . $attachment->index . ');"><i class="action-btn icon-enabled wpl_actions_btn wpl_show"></i></div>';
-                    else echo '<div class="action-gal-btn" id="active_attachment_tag_' . $attachment->index . '" onclick="wpl_attachment_enabled(\'' . $attachment->item_name . '\',' . $attachment->index . ');"><i class="action-btn icon-disabled wpl_actions_btn  wpl_show"></i></div>';
+                    if($attachment->enabled) echo '<div class="action-gal-btn" id="active_attachment_tag_' . $attachment->index . '" onclick="wpl_attachment_enabled(\'' . $attachment->item_name . '\',' . $attachment->index . ');"><i class="action-btn icon-enabled wpl_actions_btn wpl_show" title="'.__('Enabled', WPL_TEXTDOMAIN).'"></i></div>';
+                    else echo '<div class="action-gal-btn" id="active_attachment_tag_' . $attachment->index . '" onclick="wpl_attachment_enabled(\'' . $attachment->item_name . '\',' . $attachment->index . ');"><i class="action-btn icon-disabled wpl_actions_btn  wpl_show" title="'.__('Disabled', WPL_TEXTDOMAIN).'"></i></div>';
                     ?>
 
                     <input type="hidden" id="enabled_attachment_field_<?php echo $attachment->index; ?>" value="<?php echo $attachment->enabled; ?>"/>
@@ -155,6 +155,7 @@ wplj(document).ready(function()
                     {
                         att_counter: att_counter,
                         fileName: file.name,
+                        enabled_title: '<?php echo __('Enabled', WPL_TEXTDOMAIN); ?>',
                         subFileName: file.name.substr((file.name.lastIndexOf('.') + 1)),
                         lblTitle: '<?php echo __('Attachment Title', WPL_TEXTDOMAIN); ?>',
                         lblDesc: '<?php echo __('Attachment Description', WPL_TEXTDOMAIN); ?>',
@@ -226,8 +227,8 @@ function wpl_attachment_enabled(attachment, id)
 
 	ajax.success(function (data)
 	{
-		if (status == 0) wplj("#active_attachment_tag_" + id).html('<i class="action-btn icon-disabled wpl_actions_btn  wpl_show"></i>');
-		else wplj("#active_attachment_tag_" + id).html('<i class="action-btn icon-enabled wpl_actions_btn wpl_show"></i>');
+		if (status == 0) wplj("#active_attachment_tag_" + id).html('<i class="action-btn icon-disabled wpl_actions_btn wpl_show" title="<?php echo __('Disabled', WPL_TEXTDOMAIN); ?>"></i>');
+		else wplj("#active_attachment_tag_" + id).html('<i class="action-btn icon-enabled wpl_actions_btn wpl_show" title="<?php echo __('Enabled', WPL_TEXTDOMAIN); ?>"></i>');
 	});
 }
 </script>

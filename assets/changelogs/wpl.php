@@ -4,12 +4,19 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL1.9.0 (<span class="wpl_log_date">10/25/2014</span> <span class="wpl_log_revision">revision 882</span>)</h4>
+        -- <strong>[PRO]</strong> Added Scroll pagination.<br />
+        -- Added layout option in shortcode wizard.<br />
+        -- Added category query types for searching on listings by categories.<br />
+        -- Added "if zero" feature to text field type. <br />
+        -- Fixed some issues related to property page title and property title fields.<br />
+        -- Fixed a label/placeholder issue on search widget.
+        
         <h4>WPL1.8.8 (<span class="wpl_log_date">10/15/2014</span> <span class="wpl_log_revision">revision 866</span>)</h4>
         -- <strong>[PRO]</strong> Added hide address feature.<br />
-        -- <strong>[PRO]</strong> Added mortgage calculator activity.<br />
         -- Added Boolean field type.<br />
         -- Fixed some issues on watermark feature.<br />
-        -- Make latitude and longitude editable.
+        -- Make latitude and longitude fields editable on flex menu.
         
         <h4>WPL1.8.5 (<span class="wpl_log_date">10/05/2014</span> <span class="wpl_log_revision">revision 853</span>)</h4>
         -- <strong>[PRO]</strong> Added Google auto suggest to search widget location options.<br />

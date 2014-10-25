@@ -4,7 +4,7 @@ Donate link: http://wpl.realtyna.com/
 Tags: Real estate, Listing, Vertical Market, MLS, Property listing, RETS, Listings, Broker, Realtor, Property, IDX, Multiple Listing Service, Property Management, Properties
 Requires at least: 3.0.1
 Tested up to: 4.0
-Stable tag: 1.8.8
+Stable tag: 1.9.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,6 +23,7 @@ Download [WPL manual](http://wpl.realtyna.com/wassets/wpl-manual.pdf) and check 
 *   Have necessary database fields for further MLS Integration ([MLS Coverage](http://wpl.realtyna.com/mls-coverage/)) (integrating MLS / IDX / RETS / VOW / XML / DDF servers into WPL - Wordpress directly) - Extra customization may be needed. http://rpl.realtyna.com/Add-ons/MLS-IDX-Integration
 *   Native Custom Brand Mobile App http://rpl.realtyna.com/add-ons/real-estate-iphone/android-app
 *   Demographic Package http://rpl.realtyna.com/add-ons/real-estate-demographic-information-add-ons
+*   Listhub Integration add-on
 *   Cloud Hosting (Starting from $24.95 per month) http://hosting.realtyna.com
 *   Option for Multisite Franchise Solution http://rpl.realtyna.com/add-ons/multi-website-solution-for-real-estate-franchises
 *   Support for Responsive Templates http://rpl.realtyna.com/design
@@ -60,11 +61,19 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 
 == Changelog ==
 
+= 1.9.0 = 
+* [PRO] Added Scroll pagination.
+* Added layout option in shortcode wizard.
+* Added category query types for searching on listings by categories.
+* Added if zero feature to text field type.
+* Fixed some issues related to property page title and property title fields.
+* Fixed a label/placeholder issue on search widget.
+
 = 1.8.8 =
 * [PRO] Added hide address feature.
 * Added Boolean field type.
-* Make latitude and longitude editable.
 * Fixed some issues on watermark feature.
+* Make latitude and longitude editable.
 
 = 1.8.5 =
 * [PRO] Added Google auto suggest to search widget location options.

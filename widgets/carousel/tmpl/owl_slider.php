@@ -14,40 +14,38 @@ foreach($js as $javascript) wpl_extensions::import_javascript($javascript);
 $images = NULL;
 foreach($wpl_properties as $key=>$gallery)
 {
-	if(isset($gallery["items"]["gallery"][0]))
-	{
-		$params = array();
-        $params['image_name'] 		= $gallery["items"]["gallery"][0]->item_name;
-        $params['image_parentid'] 	= $gallery["items"]["gallery"][0]->parent_id;
-        $params['image_parentkind'] = $gallery["items"]["gallery"][0]->parent_kind;
-        $params['image_source'] 	= wpl_global::get_upload_base_path().$params['image_parentid'].DS.$params['image_name'];
+	if(!isset($gallery["items"]["gallery"][0])) continue;
+    
+	$params = array();
+    $params['image_name'] 		= $gallery["items"]["gallery"][0]->item_name;
+    $params['image_parentid'] 	= $gallery["items"]["gallery"][0]->parent_id;
+    $params['image_parentkind'] = $gallery["items"]["gallery"][0]->parent_kind;
+    $params['image_source'] 	= wpl_global::get_upload_base_path().$params['image_parentid'].DS.$params['image_name'];
 
-        if(isset($gallery['materials']['field_313']) and trim($gallery['materials']['field_313']['value']) != '') $image_title = $gallery['materials']['field_313']['value'];
-        else $image_title = $gallery['materials']['property_type']['value'].' '.$gallery['materials']['listing']['value'];
-        if(isset($gallery['items']['gallery'][0]->item_extra2) and trim($gallery['items']['gallery'][0]->item_extra2) != '') $image_alt = $gallery['items']['gallery'][0]->item_extra2;
-        else $image_alt = $gallery['raw']['meta_keywords'];
+    $image_title = isset($gallery['property_title']) ? $gallery['property_title'] : wpl_property::update_property_title($gallery['raw']);
+    
+    if(isset($gallery['items']['gallery'][0]->item_extra2) and trim($gallery['items']['gallery'][0]->item_extra2) != '') $image_alt = $gallery['items']['gallery'][0]->item_extra2;
+    else $image_alt = $gallery['raw']['meta_keywords'];
 
-		$image_description	= $gallery["items"]["gallery"][0]->item_extra2;
-        
-        if($gallery["items"]["gallery"][0]->item_cat != 'external')
-        {
-            $image_url 			= wpl_images::create_gallary_image($image_width, $image_height, $params);
-        }
-        else
-        {
-            $image_url 			= $gallery["items"]["gallery"][0]->item_extra3;
-        }
+    $image_description	= $gallery["items"]["gallery"][0]->item_extra2;
 
-		$images .= '
-		<div class="item">
-            <img itemprop="image" src="'.$image_url.'" alt="'.$image_alt.'" width="'.$image_width.'" height="'.$image_height.'" style="width: '.$image_width.'px; height: '.$image_height.'px;" />
-            <div class="title">
-                <h3 itemprop="name">'.$image_title.'</h3>
-                <a itemprop="url" class="more_info" href="'.$gallery["property_link"].'">'. __('More', WPL_TEXTDOMAIN).'</a>
-            </div>
-        </div>';
+    if($gallery["items"]["gallery"][0]->item_cat != 'external')
+    {
+        $image_url 			= wpl_images::create_gallary_image($image_width, $image_height, $params);
+    }
+    else
+    {
+        $image_url 			= $gallery["items"]["gallery"][0]->item_extra3;
+    }
 
-	}
+    $images .= '
+    <div class="item">
+        <img itemprop="image" src="'.$image_url.'" alt="'.$image_alt.'" width="'.$image_width.'" height="'.$image_height.'" style="width: '.$image_width.'px; height: '.$image_height.'px;" />
+        <div class="title">
+            <h3 itemprop="name">'.$image_title.'</h3>
+            <a itemprop="url" class="more_info" href="'.$gallery["property_link"].'">'. __('More', WPL_TEXTDOMAIN).'</a>
+        </div>
+    </div>';
 }
 ?>
 <script type="text/javascript">

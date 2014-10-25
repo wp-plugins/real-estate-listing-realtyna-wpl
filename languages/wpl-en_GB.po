@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wpl\n"
-"POT-Creation-Date: 2014-10-15 17:33+0330\n"
-"PO-Revision-Date: 2014-10-15 17:34+0330\n"
+"POT-Creation-Date: 2014-10-24 20:34+0330\n"
+"PO-Revision-Date: 2014-10-24 20:35+0330\n"
 "Last-Translator: Howard <howard@realtyna.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -13,27 +13,27 @@ msgstr ""
 "X-Poedit-Basepath: I:\\realtyna\\xampp\\htdocs\\wp\\wp-content\\plugins\\\n"
 "X-Poedit-SearchPath-0: real-estate-listing-realtyna-wpl\n"
 
-#: real-estate-listing-realtyna-wpl/extensions.php:649
+#: real-estate-listing-realtyna-wpl/extensions.php:653
 msgid "WPL Listing"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/extensions.php:762
+#: real-estate-listing-realtyna-wpl/extensions.php:766
 msgid "Page"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/extensions.php:794
+#: real-estate-listing-realtyna-wpl/extensions.php:798
 #: real-estate-listing-realtyna-wpl/languages/keywords.php:355
 #: real-estate-listing-realtyna-wpl/languages/keywords.php:356
 #: real-estate-listing-realtyna-wpl/views/backend/location_manager/tmpl/default.php:12
 msgid "Settings"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/extensions.php:795
+#: real-estate-listing-realtyna-wpl/extensions.php:799
 #: real-estate-listing-realtyna-wpl/views/backend/wpl/tmpl/internal_support.php:10
 msgid "WPL Manual"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/extensions.php:796
+#: real-estate-listing-realtyna-wpl/extensions.php:800
 msgid "WPL Add-ons"
 msgstr ""
 
@@ -56,27 +56,27 @@ msgstr ""
 msgid "File size is not valid!"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/global.php:833
+#: real-estate-listing-realtyna-wpl/global.php:870
 msgid "Error: #U200, Addon is not valid!"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/global.php:834
+#: real-estate-listing-realtyna-wpl/global.php:871
 msgid "Error: #U201, Addon is not updatable for this domain or update key!"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/global.php:878
+#: real-estate-listing-realtyna-wpl/global.php:915
 msgid "A new update found. please wait ..."
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/global.php:878
+#: real-estate-listing-realtyna-wpl/global.php:915
 msgid "Your addon is up to date!"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/global.php:934
+#: real-estate-listing-realtyna-wpl/global.php:971
 msgid "Credentials verified."
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/global.php:934
+#: real-estate-listing-realtyna-wpl/global.php:971
 msgid "Invalid credentials!"
 msgstr ""
 
@@ -132,7 +132,7 @@ msgstr ""
 #: real-estate-listing-realtyna-wpl/views/backend/listings/tmpl/search_form.php:38
 #: real-estate-listing-realtyna-wpl/views/backend/listings/tmpl/scripts/js.php:277
 #: real-estate-listing-realtyna-wpl/views/backend/listings/tmpl/scripts/js.php:281
-#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:107
+#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:148
 #: real-estate-listing-realtyna-wpl/_ADDONS/exporter/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_exporter/tmpl/property_search.php:37
 #: real-estate-listing-realtyna-wpl/_DOCS/Sample_Installer_Packages/Exporterv1.0.0/temporary_dir/files/views/backend/addon_exporter/tmpl/property_search.php:37
 #: real-estate-listing-realtyna-wpl/_DOCS/Sample_Installer_Packages/wplexporter.v1.0.0.phpne/temporary_dir/files/views/backend/addon_exporter/tmpl/property_search.php:37
@@ -239,7 +239,7 @@ msgstr ""
 #: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/meta_key.php:145
 #: real-estate-listing-realtyna-wpl/views/backend/addon_exporter/tmpl/property_search.php:73
 #: real-estate-listing-realtyna-wpl/views/backend/listings/tmpl/search_form.php:74
-#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:166
+#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:216
 #: real-estate-listing-realtyna-wpl/views/frontend/property_show/tmpl/default.php:152
 #: real-estate-listing-realtyna-wpl/_ADDONS/exporter/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_exporter/tmpl/property_search.php:73
 #: real-estate-listing-realtyna-wpl/_DOCS/Sample_Installer_Packages/Exporterv1.0.0/temporary_dir/files/views/backend/addon_exporter/tmpl/property_search.php:73
@@ -249,7 +249,7 @@ msgstr ""
 
 #: real-estate-listing-realtyna-wpl/languages/keywords.php:31
 #: real-estate-listing-realtyna-wpl/languages/keywords.php:285
-#: real-estate-listing-realtyna-wpl/libraries/property.php:899
+#: real-estate-listing-realtyna-wpl/libraries/property.php:912
 msgid "Price"
 msgstr ""
 
@@ -383,7 +383,7 @@ msgstr ""
 #: real-estate-listing-realtyna-wpl/languages/keywords.php:273
 #: real-estate-listing-realtyna-wpl/views/backend/addon_exporter/tmpl/property_search.php:80
 #: real-estate-listing-realtyna-wpl/views/backend/listings/tmpl/search_form.php:81
-#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:63
+#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:104
 #: real-estate-listing-realtyna-wpl/_ADDONS/exporter/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_exporter/tmpl/property_search.php:80
 #: real-estate-listing-realtyna-wpl/_DOCS/Sample_Installer_Packages/Exporterv1.0.0/temporary_dir/files/views/backend/addon_exporter/tmpl/property_search.php:80
 #: real-estate-listing-realtyna-wpl/_DOCS/Sample_Installer_Packages/wplexporter.v1.0.0.phpne/temporary_dir/files/views/backend/addon_exporter/tmpl/property_search.php:80
@@ -703,7 +703,7 @@ msgstr ""
 #: real-estate-listing-realtyna-wpl/views/activities/listing_gallery/form.php:34
 #: real-estate-listing-realtyna-wpl/views/backend/activity_manager/tmpl/internal_modify.php:39
 #: real-estate-listing-realtyna-wpl/views/backend/activity_manager/tmpl/scripts/js.php:117
-#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:39
+#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:59
 #: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/scripts/js.php:89
 #: real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_setting_advanced.php:21
 #: real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_setting_advanced.php:43
@@ -727,11 +727,12 @@ msgstr ""
 #: real-estate-listing-realtyna-wpl/views/backend/settings/tmpl/scripts/js.php:120
 #: real-estate-listing-realtyna-wpl/views/backend/settings/tmpl/scripts/js.php:153
 #: real-estate-listing-realtyna-wpl/views/backend/settings/tmpl/scripts/js.php:186
+#: real-estate-listing-realtyna-wpl/views/backend/settings/tmpl/scripts/js.php:219
 #: real-estate-listing-realtyna-wpl/views/backend/users/tmpl/internal_setting_advanced.php:25
 #: real-estate-listing-realtyna-wpl/views/backend/users/tmpl/internal_setting_advanced.php:47
 #: real-estate-listing-realtyna-wpl/views/backend/users/tmpl/scripts/js.php:77
-#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:91
-#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:100
+#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:132
+#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:141
 #: real-estate-listing-realtyna-wpl/widgets/carousel/form.php:114
 #: real-estate-listing-realtyna-wpl/widgets/carousel/form.php:122
 #: real-estate-listing-realtyna-wpl/widgets/carousel/form.php:130
@@ -743,13 +744,14 @@ msgstr ""
 #: real-estate-listing-realtyna-wpl/widgets/carousel/form.php:192
 #: real-estate-listing-realtyna-wpl/widgets/favorites/form.php:48
 #: real-estate-listing-realtyna-wpl/widgets/favorites/form.php:56
-#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:39
+#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:59
 #: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/scripts/js.php:89
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_setting_advanced.php:25
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_setting_advanced.php:47
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_setting_advanced.php:21
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_setting_advanced.php:43
 #: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_setting_pricing.php:25
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:107
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:307
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_setting_pricing.php:41
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:138
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:338
 #: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/users/tmpl/internal_setting_advanced.php:25
 #: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/users/tmpl/internal_setting_advanced.php:47
 #: real-estate-listing-realtyna-wpl/_ADDONS/MLS/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_mls/wpl_ajax.php:319
@@ -1001,7 +1003,7 @@ msgstr ""
 #: real-estate-listing-realtyna-wpl/languages/keywords.php:170
 #: real-estate-listing-realtyna-wpl/languages/keywords.php:250
 #: real-estate-listing-realtyna-wpl/views/backend/wpl_sample/tmpl/default.php:77
-#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:88
+#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:129
 #: real-estate-listing-realtyna-wpl/_ADDONS/wpl_sample/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/wpl_sample/tmpl/default.php:77
 #: real-estate-listing-realtyna-wpl/_DOCS/Sample_Installer_Packages/Samplev1.0/temporary_dir/files/views/backend/wpl_sample/tmpl/default.php:77
 msgid "Featured"
@@ -1310,8 +1312,8 @@ msgid "Exporter Addon"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/languages/keywords.php:391
-#: real-estate-listing-realtyna-wpl/libraries/property.php:854
-#: real-estate-listing-realtyna-wpl/libraries/property.php:896
+#: real-estate-listing-realtyna-wpl/libraries/property.php:860
+#: real-estate-listing-realtyna-wpl/libraries/property.php:909
 #: real-estate-listing-realtyna-wpl/views/frontend/property_show/tmpl/default.php:153
 msgid "Bedroom"
 msgstr ""
@@ -1329,8 +1331,8 @@ msgid "Laundry room"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/languages/keywords.php:396
-#: real-estate-listing-realtyna-wpl/libraries/property.php:855
-#: real-estate-listing-realtyna-wpl/libraries/property.php:897
+#: real-estate-listing-realtyna-wpl/libraries/property.php:861
+#: real-estate-listing-realtyna-wpl/libraries/property.php:910
 #: real-estate-listing-realtyna-wpl/views/frontend/property_show/tmpl/default.php:154
 msgid "Bathroom"
 msgstr ""
@@ -1481,7 +1483,7 @@ msgstr ""
 #: real-estate-listing-realtyna-wpl/views/activities/listing_gallery/form.php:35
 #: real-estate-listing-realtyna-wpl/views/backend/activity_manager/tmpl/internal_modify.php:38
 #: real-estate-listing-realtyna-wpl/views/backend/activity_manager/tmpl/scripts/js.php:117
-#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:40
+#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:60
 #: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/scripts/js.php:89
 #: real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_setting_advanced.php:22
 #: real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_setting_advanced.php:44
@@ -1505,11 +1507,12 @@ msgstr ""
 #: real-estate-listing-realtyna-wpl/views/backend/settings/tmpl/scripts/js.php:120
 #: real-estate-listing-realtyna-wpl/views/backend/settings/tmpl/scripts/js.php:153
 #: real-estate-listing-realtyna-wpl/views/backend/settings/tmpl/scripts/js.php:186
+#: real-estate-listing-realtyna-wpl/views/backend/settings/tmpl/scripts/js.php:219
 #: real-estate-listing-realtyna-wpl/views/backend/users/tmpl/internal_setting_advanced.php:26
 #: real-estate-listing-realtyna-wpl/views/backend/users/tmpl/internal_setting_advanced.php:48
 #: real-estate-listing-realtyna-wpl/views/backend/users/tmpl/scripts/js.php:77
-#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:92
-#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:101
+#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:133
+#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:142
 #: real-estate-listing-realtyna-wpl/widgets/carousel/form.php:115
 #: real-estate-listing-realtyna-wpl/widgets/carousel/form.php:123
 #: real-estate-listing-realtyna-wpl/widgets/carousel/form.php:131
@@ -1521,13 +1524,14 @@ msgstr ""
 #: real-estate-listing-realtyna-wpl/widgets/carousel/form.php:193
 #: real-estate-listing-realtyna-wpl/widgets/favorites/form.php:47
 #: real-estate-listing-realtyna-wpl/widgets/favorites/form.php:55
-#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:40
+#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:60
 #: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/scripts/js.php:89
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_setting_advanced.php:26
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_setting_advanced.php:48
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_setting_advanced.php:22
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_setting_advanced.php:44
 #: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_setting_pricing.php:26
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:107
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:307
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_setting_pricing.php:42
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:138
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:338
 #: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/users/tmpl/internal_setting_advanced.php:26
 #: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/users/tmpl/internal_setting_advanced.php:48
 #: real-estate-listing-realtyna-wpl/_ADDONS/MLS/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_mls/wpl_ajax.php:318
@@ -1671,8 +1675,16 @@ msgstr ""
 #: real-estate-listing-realtyna-wpl/languages/keywords.php:489
 #: real-estate-listing-realtyna-wpl/languages/keywords.php:499
 #: real-estate-listing-realtyna-wpl/languages/keywords.php:515
+#: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/attachments.php:95
+#: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/attachments.php:230
+#: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/gallery.php:134
+#: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/gallery.php:266
 #: real-estate-listing-realtyna-wpl/libraries/settings_form/sitemap.php:13
 #: real-estate-listing-realtyna-wpl/views/backend/activity_manager/tmpl/internal_modify.php:46
+#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:10
+#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:36
+#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:10
+#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:36
 #: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/libraries/settings_form/sitemap.php:13
 msgid "Disabled"
 msgstr ""
@@ -1684,12 +1696,22 @@ msgstr ""
 #: real-estate-listing-realtyna-wpl/languages/keywords.php:490
 #: real-estate-listing-realtyna-wpl/languages/keywords.php:500
 #: real-estate-listing-realtyna-wpl/languages/keywords.php:516
+#: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/attachments.php:94
+#: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/attachments.php:158
+#: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/attachments.php:231
+#: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/gallery.php:133
+#: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/gallery.php:195
+#: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/gallery.php:268
 #: real-estate-listing-realtyna-wpl/views/backend/activity_manager/tmpl/internal_modify.php:45
+#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:11
+#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:37
 #: real-estate-listing-realtyna-wpl/views/backend/addon_mobile/tmpl/internal_dashboard_settings.php:12
 #: real-estate-listing-realtyna-wpl/views/backend/data_structure/tmpl/internal_room_types.php:17
 #: real-estate-listing-realtyna-wpl/views/backend/data_structure/tmpl/internal_sort_options.php:11
 #: real-estate-listing-realtyna-wpl/views/backend/data_structure/tmpl/internal_unit_manager_currency.php:9
 #: real-estate-listing-realtyna-wpl/views/backend/data_structure/tmpl/internal_unit_manager_general.php:9
+#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:11
+#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:37
 #: real-estate-listing-realtyna-wpl/_ADDONS/mobileapp/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_mobile/tmpl/internal_dashboard_settings.php:12
 msgid "Enabled"
 msgstr ""
@@ -1830,7 +1852,7 @@ msgid "Global"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/languages/keywords.php:511
-#: real-estate-listing-realtyna-wpl/libraries/services/sef.php:191
+#: real-estate-listing-realtyna-wpl/libraries/services/sef.php:190
 msgid "Listings"
 msgstr ""
 
@@ -1949,21 +1971,21 @@ msgstr ""
 msgid "Per Page "
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/libraries/property.php:654
+#: real-estate-listing-realtyna-wpl/libraries/property.php:660
 msgid "MINUTES"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/libraries/property.php:654
+#: real-estate-listing-realtyna-wpl/libraries/property.php:660
 msgid "BY"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/libraries/property.php:853
-#: real-estate-listing-realtyna-wpl/libraries/property.php:895
+#: real-estate-listing-realtyna-wpl/libraries/property.php:859
+#: real-estate-listing-realtyna-wpl/libraries/property.php:908
 msgid "Room"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/libraries/users.php:1169
-#: real-estate-listing-realtyna-wpl/libraries/users.php:1200
+#: real-estate-listing-realtyna-wpl/libraries/users.php:1182
+#: real-estate-listing-realtyna-wpl/libraries/users.php:1213
 msgid "ERROR : Requirement fileds invalid"
 msgstr ""
 
@@ -1986,6 +2008,7 @@ msgstr ""
 #: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/libraries/addon_importer/types/csv.php:99
 #: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/libraries/addon_importer/types/listhub.php:130
 #: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/libraries/addon_importer/types/xml.php:125
+#: real-estate-listing-realtyna-wpl/_ADDONS/listhub/wp-content/plugins/real-estate-listing-realtyna-wpl/libraries/addon_importer/types/listhub.php:130
 #: real-estate-listing-realtyna-wpl/_DOCS/Sample_Installer_Packages/Importerv1.0.0/temporary_dir/files/libraries/addon_importer/types/csv.php:80
 msgid "File does not exists!"
 msgstr ""
@@ -1996,6 +2019,7 @@ msgstr ""
 #: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/libraries/addon_importer/types/csv.php:104
 #: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/libraries/addon_importer/types/listhub.php:141
 #: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/libraries/addon_importer/types/xml.php:136
+#: real-estate-listing-realtyna-wpl/_ADDONS/listhub/wp-content/plugins/real-estate-listing-realtyna-wpl/libraries/addon_importer/types/listhub.php:141
 #: real-estate-listing-realtyna-wpl/_DOCS/Sample_Installer_Packages/Importerv1.0.0/temporary_dir/files/libraries/addon_importer/types/csv.php:85
 msgid "Importer addon finds "
 msgstr ""
@@ -2007,6 +2031,7 @@ msgstr ""
 #: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/libraries/addon_importer/types/csv.php:137
 #: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/libraries/addon_importer/types/listhub.php:174
 #: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/libraries/addon_importer/types/xml.php:169
+#: real-estate-listing-realtyna-wpl/_ADDONS/listhub/wp-content/plugins/real-estate-listing-realtyna-wpl/libraries/addon_importer/types/listhub.php:174
 #: real-estate-listing-realtyna-wpl/_ADDONS/MLS/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_mls/wpl_ajax.php:437
 #: real-estate-listing-realtyna-wpl/_DOCS/Sample_Installer_Packages/Importerv1.0.0/temporary_dir/files/libraries/addon_importer/types/csv.php:114
 msgid "Listings imported"
@@ -2097,6 +2122,7 @@ msgstr ""
 #: real-estate-listing-realtyna-wpl/libraries/dbst_modify/number.php:37
 #: real-estate-listing-realtyna-wpl/libraries/dbst_modify/parent.php:36
 #: real-estate-listing-realtyna-wpl/libraries/dbst_modify/select.php:68
+#: real-estate-listing-realtyna-wpl/libraries/dbst_modify/text.php:36
 #: real-estate-listing-realtyna-wpl/libraries/dbst_modify/units.php:36
 #: real-estate-listing-realtyna-wpl/libraries/dbst_modify/url.php:35
 msgid "Params"
@@ -2154,6 +2180,7 @@ msgid "If zero"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/libraries/dbst_modify/number.php:43
+#: real-estate-listing-realtyna-wpl/libraries/dbst_modify/text.php:42
 #: real-estate-listing-realtyna-wpl/libraries/dbst_modify/units.php:42
 #: real-estate-listing-realtyna-wpl/libraries/dbst_modify/main/main.php:32
 #: real-estate-listing-realtyna-wpl/libraries/dbst_modify/main/main.php:39
@@ -2161,6 +2188,7 @@ msgid "Show"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/libraries/dbst_modify/number.php:44
+#: real-estate-listing-realtyna-wpl/libraries/dbst_modify/text.php:43
 #: real-estate-listing-realtyna-wpl/libraries/dbst_modify/units.php:43
 #: real-estate-listing-realtyna-wpl/libraries/dbst_modify/main/main.php:33
 #: real-estate-listing-realtyna-wpl/libraries/dbst_modify/main/main.php:40
@@ -2168,11 +2196,13 @@ msgid "Hide"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/libraries/dbst_modify/number.php:45
+#: real-estate-listing-realtyna-wpl/libraries/dbst_modify/text.php:44
 #: real-estate-listing-realtyna-wpl/libraries/dbst_modify/units.php:44
 msgid "Show Text"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/libraries/dbst_modify/number.php:49
+#: real-estate-listing-realtyna-wpl/libraries/dbst_modify/text.php:48
 #: real-estate-listing-realtyna-wpl/libraries/dbst_modify/units.php:48
 #: real-estate-listing-realtyna-wpl/libraries/widget_search/backend/number.php:19
 #: real-estate-listing-realtyna-wpl/libraries/widget_search/backend/text.php:23
@@ -2184,16 +2214,17 @@ msgstr ""
 msgid "Parent Kind"
 msgstr ""
 
+#: real-estate-listing-realtyna-wpl/libraries/dbst_modify/text.php:40
+#: real-estate-listing-realtyna-wpl/libraries/dbst_modify/units.php:40
+msgid "If Zero"
+msgstr ""
+
 #: real-estate-listing-realtyna-wpl/libraries/dbst_modify/textarea.php:35
 msgid "Editor Settings"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/libraries/dbst_modify/textarea.php:38
 msgid "Advanced Editor"
-msgstr ""
-
-#: real-estate-listing-realtyna-wpl/libraries/dbst_modify/units.php:40
-msgid "If Zero"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/libraries/dbst_modify/url.php:39
@@ -2292,6 +2323,7 @@ msgstr ""
 #: real-estate-listing-realtyna-wpl/widgets/carousel/form.php:72
 #: real-estate-listing-realtyna-wpl/widgets/carousel/form.php:83
 #: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_edit_membership.php:56
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_setting_pricing.php:48
 #: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/membership/tmpl/internal_edit_membership.php:53
 msgid "All"
 msgstr ""
@@ -2340,8 +2372,8 @@ msgstr ""
 
 #: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/addon_video.php:75
 #: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/addon_video.php:278
-#: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/attachments.php:211
-#: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/gallery.php:245
+#: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/attachments.php:212
+#: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/gallery.php:246
 msgid "Are you sure?"
 msgstr ""
 
@@ -2370,8 +2402,8 @@ msgid "Video Category"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/addon_video.php:255
-#: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/attachments.php:188
-#: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/gallery.php:222
+#: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/attachments.php:189
+#: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/gallery.php:223
 msgid "Error occured"
 msgstr ""
 
@@ -2385,17 +2417,17 @@ msgid "To attach files click on the \"Select files\" button."
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/attachments.php:64
-#: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/attachments.php:159
+#: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/attachments.php:160
 msgid "Attachment Title"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/attachments.php:68
-#: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/attachments.php:160
+#: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/attachments.php:161
 msgid "Attachment Description"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/attachments.php:72
-#: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/attachments.php:161
+#: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/attachments.php:162
 msgid "Attachment Category"
 msgstr ""
 
@@ -2650,17 +2682,17 @@ msgid "Enter each image link in a new line"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/gallery.php:104
-#: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/gallery.php:197
+#: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/gallery.php:198
 msgid "Image Title"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/gallery.php:108
-#: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/gallery.php:198
+#: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/gallery.php:199
 msgid "Image Description"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/gallery.php:112
-#: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/gallery.php:199
+#: real-estate-listing-realtyna-wpl/libraries/dbst_wizard/gallery.php:200
 msgid "Image Category"
 msgstr ""
 
@@ -2794,11 +2826,11 @@ msgid ""
 "upgrade!"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/libraries/services/sef.php:168
+#: real-estate-listing-realtyna-wpl/libraries/services/sef.php:167
 msgid "Listings of"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/libraries/services/sef.php:193
+#: real-estate-listing-realtyna-wpl/libraries/services/sef.php:192
 msgid "which is located in"
 msgstr ""
 
@@ -2956,8 +2988,8 @@ msgstr ""
 #: real-estate-listing-realtyna-wpl/libraries/widget_search/frontend/property_types.php:106
 #: real-estate-listing-realtyna-wpl/libraries/widget_search/frontend/property_types.php:124
 #: real-estate-listing-realtyna-wpl/libraries/widget_search/frontend/select.php:93
-#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:90
-#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:99
+#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:131
+#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:140
 msgid "Any"
 msgstr ""
 
@@ -3161,15 +3193,15 @@ msgstr ""
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:80
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:81
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:82
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:24
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:25
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:26
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:57
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:58
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:59
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:80
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:81
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:82
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:24
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:25
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:26
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:57
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:58
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:59
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:80
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:81
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:82
 msgid "selected=\"selected\""
 msgstr ""
 
@@ -3346,47 +3378,47 @@ msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:17
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:45
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:17
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:45
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:17
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:45
 msgid "Total Price"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:22
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:22
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:22
 msgid "Down Payment Type"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:24
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:57
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:80
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:24
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:57
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:80
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:24
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:57
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:80
 msgid "Percent"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:25
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:58
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:81
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:25
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:58
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:81
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:25
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:58
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:81
 msgid "Amount"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:26
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:59
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:82
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:26
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:59
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:82
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:26
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:59
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:82
 msgid "Both"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:31
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:52
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:31
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:52
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:31
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:52
 msgid "Down Payment"
 msgstr ""
 
@@ -3398,71 +3430,71 @@ msgstr ""
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:76
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:89
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:104
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:40
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:51
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:73
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:96
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:61
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:76
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:89
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:104
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:40
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:51
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:73
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:96
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:61
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:76
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:89
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:104
 msgid "%"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:45
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:66
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:45
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:66
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:45
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:66
 msgid "Loan Term"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:46
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:69
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:46
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:69
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:46
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:69
 msgid "years"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:50
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:73
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:50
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:73
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:50
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:73
 msgid "Interest Rate"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:55
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:55
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:55
 msgid "Tax Type"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:64
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:80
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:64
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:80
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:64
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:80
 msgid "Tax"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:78
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:78
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:78
 msgid "Insurance Type"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:87
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:95
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:87
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:95
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/form.php:87
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:95
 msgid "Insurance"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:90
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:105
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:90
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:105
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:90
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:105
 msgid "per year"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:111
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:111
+#: real-estate-listing-realtyna-wpl/_ADDONS/mortgage_calculator/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/mortgage_calculator/tmpl/default.php:111
 msgid "Monthly Payment"
 msgstr ""
 
@@ -3553,8 +3585,8 @@ msgstr ""
 #: real-estate-listing-realtyna-wpl/views/backend/listing/wpl_ajax.php:114
 #: real-estate-listing-realtyna-wpl/views/backend/listing/wpl_ajax.php:148
 #: real-estate-listing-realtyna-wpl/views/backend/listing/wpl_ajax.php:177
-#: real-estate-listing-realtyna-wpl/views/backend/listing/wpl_rooms.php:44
-#: real-estate-listing-realtyna-wpl/views/backend/listing/wpl_rooms.php:59
+#: real-estate-listing-realtyna-wpl/views/backend/listing/wpl_rooms.php:38
+#: real-estate-listing-realtyna-wpl/views/backend/listing/wpl_rooms.php:55
 #: real-estate-listing-realtyna-wpl/views/backend/location_manager/wpl_ajax.php:72
 #: real-estate-listing-realtyna-wpl/views/backend/location_manager/wpl_ajax.php:86
 #: real-estate-listing-realtyna-wpl/views/backend/location_manager/wpl_ajax.php:128
@@ -3587,18 +3619,19 @@ msgstr ""
 #: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/scripts/js_mapping.php:43
 #: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/scripts/js_mapping.php:99
 #: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/scripts/js_mapping.php:141
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/wpl_ajax.php:110
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/wpl_ajax.php:124
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/wpl_ajax.php:138
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/wpl_ajax.php:97
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/wpl_ajax.php:111
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/wpl_ajax.php:125
 #: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:33
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:63
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:90
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:131
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:176
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:263
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:296
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:337
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:373
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:64
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:94
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:121
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:162
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:207
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:294
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:327
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:368
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:404
 #: real-estate-listing-realtyna-wpl/_ADDONS/MLS/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/scripts/js.php:32
 #: real-estate-listing-realtyna-wpl/_ADDONS/MLS/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/scripts/js.php:72
 #: real-estate-listing-realtyna-wpl/_ADDONS/MLS/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/scripts/js.php:113
@@ -3728,8 +3761,8 @@ msgstr ""
 msgid "Horizontal"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/views/activities/walkscore/tmpl/default.php:21
-#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/walkscore/tmpl/default.php:21
+#: real-estate-listing-realtyna-wpl/views/activities/walkscore/tmpl/default.php:25
+#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/activities/walkscore/tmpl/default.php:25
 msgid "No Walkscore license key!"
 msgstr ""
 
@@ -3755,9 +3788,9 @@ msgstr ""
 #: real-estate-listing-realtyna-wpl/views/backend/settings/wpl_ajax.php:96
 #: real-estate-listing-realtyna-wpl/views/backend/users/wpl_ajax.php:168
 #: real-estate-listing-realtyna-wpl/views/backend/users/wpl_ajax.php:225
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/wpl_ajax.php:110
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/wpl_ajax.php:124
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/wpl_ajax.php:138
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/wpl_ajax.php:97
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/wpl_ajax.php:111
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/wpl_ajax.php:125
 #: real-estate-listing-realtyna-wpl/_ADDONS/mobileapp/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_mobile/wpl_ajax.php:34
 #: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/membership/wpl_ajax.php:108
 #: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/membership/wpl_ajax.php:122
@@ -3810,6 +3843,10 @@ msgstr ""
 #: real-estate-listing-realtyna-wpl/views/backend/activity_manager/tmpl/default.php:36
 #: real-estate-listing-realtyna-wpl/views/backend/activity_manager/tmpl/default.php:47
 #: real-estate-listing-realtyna-wpl/views/backend/activity_manager/tmpl/internal_modify.php:23
+#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:64
+#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:74
+#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:84
+#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:94
 #: real-estate-listing-realtyna-wpl/widgets/agents/form.php:17
 #: real-estate-listing-realtyna-wpl/widgets/carousel/form.php:23
 #: real-estate-listing-realtyna-wpl/widgets/favorites/form.php:15
@@ -3837,7 +3874,7 @@ msgstr ""
 #: real-estate-listing-realtyna-wpl/views/backend/users/tmpl/default.php:33
 #: real-estate-listing-realtyna-wpl/views/backend/users/tmpl/default.php:44
 #: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/default.php:33
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/default.php:34
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/default.php:33
 #: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/user_types.php:31
 #: real-estate-listing-realtyna-wpl/_ADDONS/MLS/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/default.php:32
 #: real-estate-listing-realtyna-wpl/_ADDONS/MLS/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/query.php:31
@@ -3924,8 +3961,8 @@ msgstr ""
 #: real-estate-listing-realtyna-wpl/views/backend/location_manager/tmpl/scripts/js.php:188
 #: real-estate-listing-realtyna-wpl/views/backend/users/tmpl/scripts/js.php:76
 #: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/scripts/js.php:88
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:106
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:306
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:137
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:337
 #: real-estate-listing-realtyna-wpl/_ADDONS/MLS/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/scripts/js.php:88
 #: real-estate-listing-realtyna-wpl/_ADDONS/MLS/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/scripts/js_query.php:204
 #: real-estate-listing-realtyna-wpl/_ADDONS/mobileapp/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_mobile/tmpl/scripts/internal_dashboard_settings_js.php:41
@@ -3982,8 +4019,8 @@ msgstr ""
 #: real-estate-listing-realtyna-wpl/views/backend/listing/wpl_main.php:22
 #: real-estate-listing-realtyna-wpl/views/backend/listings/wpl_main.php:23
 #: real-estate-listing-realtyna-wpl/views/backend/users/wpl_main.php:43
-#: real-estate-listing-realtyna-wpl/views/frontend/property_listing/wpl_main.php:26
-#: real-estate-listing-realtyna-wpl/views/frontend/property_show/wpl_main.php:31
+#: real-estate-listing-realtyna-wpl/views/frontend/property_listing/wpl_abstract.php:26
+#: real-estate-listing-realtyna-wpl/views/frontend/property_show/wpl_abstract.php:31
 #: real-estate-listing-realtyna-wpl/_ADDONS/complex/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_complex/wpl_main.php:19
 msgid "You don't have access to this part!"
 msgstr ""
@@ -4151,14 +4188,14 @@ msgstr ""
 msgid "Select Export Format!"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/wpl_ajax.php:148
-#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/wpl_ajax.php:148
+#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/wpl_ajax.php:149
+#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/wpl_ajax.php:149
 #: real-estate-listing-realtyna-wpl/_DOCS/Sample_Installer_Packages/Importerv1.0.0/temporary_dir/files/views/backend/addon_importer/wpl_ajax.php:148
 msgid "Sample file is uploaded"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/wpl_ajax.php:219
-#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/wpl_ajax.php:219
+#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/wpl_ajax.php:220
+#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/wpl_ajax.php:220
 #: real-estate-listing-realtyna-wpl/_DOCS/Sample_Installer_Packages/Importerv1.0.0/temporary_dir/files/views/backend/addon_importer/wpl_ajax.php:217
 msgid "Import file is uploaded"
 msgstr ""
@@ -4375,84 +4412,137 @@ msgstr ""
 msgid "Required for import!"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:7
-#: real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/internal_modify_mls.php:32
-#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:7
-#: real-estate-listing-realtyna-wpl/_ADDONS/MLS/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/internal_modify_mls.php:32
-#: real-estate-listing-realtyna-wpl/_DOCS/Sample_Installer_Packages/Importerv1.0.0/temporary_dir/files/views/backend/addon_importer/tmpl/internal_setting_advanced.php:7
-msgid "URL"
-msgstr ""
-
-#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:11
-#: real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/internal_modify_mls.php:36
-#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:11
-#: real-estate-listing-realtyna-wpl/_ADDONS/MLS/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/internal_modify_mls.php:36
-#: real-estate-listing-realtyna-wpl/_DOCS/Sample_Installer_Packages/Importerv1.0.0/temporary_dir/files/views/backend/addon_importer/tmpl/internal_setting_advanced.php:11
-msgid "Username"
-msgstr ""
-
-#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:15
-#: real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/internal_modify_mls.php:40
-#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:15
-#: real-estate-listing-realtyna-wpl/_ADDONS/MLS/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/internal_modify_mls.php:40
-#: real-estate-listing-realtyna-wpl/_DOCS/Sample_Installer_Packages/Importerv1.0.0/temporary_dir/files/views/backend/addon_importer/tmpl/internal_setting_advanced.php:15
-msgid "Password"
-msgstr ""
-
-#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:19
+#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_modify_structure.php:58
 #: real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/internal_modify_query.php:69
-#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:19
+#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_modify_structure.php:58
 #: real-estate-listing-realtyna-wpl/_ADDONS/MLS/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/internal_modify_query.php:69
 #: real-estate-listing-realtyna-wpl/_DOCS/Sample_Installer_Packages/Importerv1.0.0/temporary_dir/files/views/backend/addon_importer/tmpl/internal_setting_advanced.php:19
 msgid "Limit"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:23
-#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:23
+#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_modify_structure.php:62
+#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_modify_structure.php:62
 #: real-estate-listing-realtyna-wpl/_DOCS/Sample_Installer_Packages/Importerv1.0.0/temporary_dir/files/views/backend/addon_importer/tmpl/internal_setting_advanced.php:23
 msgid "Offset"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:26
-#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:26
-msgid "XML / Listhub"
+#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_modify_structure.php:66
+#: real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/internal_modify_query.php:56
+#: real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/query.php:29
+#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_modify_structure.php:66
+#: real-estate-listing-realtyna-wpl/_ADDONS/MLS/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/internal_modify_query.php:56
+#: real-estate-listing-realtyna-wpl/_ADDONS/MLS/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/query.php:29
+msgid "Default User"
+msgstr ""
+
+#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_modify_structure.php:74
+#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_modify_structure.php:74
+msgid "Image Count"
+msgstr ""
+
+#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:6
+#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:6
+msgid "Sync options"
+msgstr ""
+
+#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:8
+#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:8
+msgid "Sync Status"
+msgstr ""
+
+#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:16
+#: real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/internal_modify_query.php:73
+#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:16
+#: real-estate-listing-realtyna-wpl/_ADDONS/MLS/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/internal_modify_query.php:73
+msgid "Sync Period"
+msgstr ""
+
+#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:17
+#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:43
+#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:17
+#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:43
+msgid "Hours"
+msgstr ""
+
+#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:20
+#: real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/internal_modify_mls.php:32
+#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:20
+#: real-estate-listing-realtyna-wpl/_ADDONS/MLS/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/internal_modify_mls.php:32
+#: real-estate-listing-realtyna-wpl/_DOCS/Sample_Installer_Packages/Importerv1.0.0/temporary_dir/files/views/backend/addon_importer/tmpl/internal_setting_advanced.php:7
+msgid "URL"
+msgstr ""
+
+#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:24
+#: real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/internal_modify_mls.php:36
+#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:24
+#: real-estate-listing-realtyna-wpl/_ADDONS/MLS/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/internal_modify_mls.php:36
+#: real-estate-listing-realtyna-wpl/_DOCS/Sample_Installer_Packages/Importerv1.0.0/temporary_dir/files/views/backend/addon_importer/tmpl/internal_setting_advanced.php:11
+msgid "Username"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:28
+#: real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/internal_modify_mls.php:40
 #: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:28
-msgid "Property Node"
+#: real-estate-listing-realtyna-wpl/_ADDONS/MLS/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/internal_modify_mls.php:40
+#: real-estate-listing-realtyna-wpl/_DOCS/Sample_Installer_Packages/Importerv1.0.0/temporary_dir/files/views/backend/addon_importer/tmpl/internal_setting_advanced.php:15
+msgid "Password"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:32
 #: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:32
+msgid "Purge options"
+msgstr ""
+
+#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:34
+#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:34
+msgid "Purge Status"
+msgstr ""
+
+#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:42
+#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:42
+msgid "Purge Period"
+msgstr ""
+
+#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:46
+#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:46
+msgid "XML / Listhub"
+msgstr ""
+
+#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:48
+#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:48
+msgid "Property Node"
+msgstr ""
+
+#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:52
+#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:52
 msgid "Image Node"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:35
-#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:35
+#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:55
+#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:55
 msgid "Profiles (Listhub)"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:37
-#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:37
+#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:57
+#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:57
 msgid "Import Profiles"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:45
-#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:45
+#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:65
+#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:65
 msgid "Profile Node"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:49
+#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:69
 #: real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/internal_modify_mls.php:54
-#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:49
+#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:69
 #: real-estate-listing-realtyna-wpl/_ADDONS/MLS/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/internal_modify_mls.php:54
 #: real-estate-listing-realtyna-wpl/_DOCS/Sample_Installer_Packages/Importerv1.0.0/temporary_dir/files/views/backend/addon_importer/tmpl/default.php:30
 msgid "Unique Field"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:53
-#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:53
+#: real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:73
+#: real-estate-listing-realtyna-wpl/_ADDONS/importer/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_importer/tmpl/internal_setting_advanced.php:73
 msgid "Default Membership"
 msgstr ""
 
@@ -4605,28 +4695,28 @@ msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/backend/addon_membership/wpl_ajax.php:253
 #: real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:322
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/wpl_ajax.php:248
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:291
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/wpl_ajax.php:253
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:322
 msgid "User Type modified."
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/backend/addon_membership/wpl_ajax.php:262
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/wpl_ajax.php:257
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/wpl_ajax.php:262
 msgid "User Type removed."
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/backend/addon_membership/wpl_ajax.php:262
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/wpl_ajax.php:257
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/wpl_ajax.php:262
 msgid "User Type is not deletable."
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/backend/addon_membership/wpl_ajax.php:276
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/wpl_ajax.php:271
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/wpl_ajax.php:276
 msgid "User Type enabled."
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/backend/addon_membership/wpl_ajax.php:276
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/wpl_ajax.php:271
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/wpl_ajax.php:276
 msgid "User Type disabled."
 msgstr ""
 
@@ -4670,7 +4760,7 @@ msgstr ""
 #: real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_edit_membership.php:57
 #: real-estate-listing-realtyna-wpl/views/backend/users/tmpl/default.php:66
 #: real-estate-listing-realtyna-wpl/views/backend/users/tmpl/edit.php:33
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/default.php:44
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/default.php:43
 #: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_edit_membership.php:45
 #: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_edit_membership.php:57
 #: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/membership/tmpl/default.php:58
@@ -4682,10 +4772,9 @@ msgstr ""
 #: real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/default.php:50
 #: real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/default.php:51
 #: real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/default.php:52
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/default.php:50
 #: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/default.php:51
 #: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/default.php:52
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/default.php:53
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/default.php:54
 #: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/membership/tmpl/default.php:65
 #: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/membership/tmpl/default.php:66
 #: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/membership/tmpl/default.php:67
@@ -4755,7 +4844,7 @@ msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_setting_advanced.php:19
 #: real-estate-listing-realtyna-wpl/views/backend/users/tmpl/internal_setting_advanced.php:23
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_setting_advanced.php:23
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_setting_advanced.php:19
 #: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/users/tmpl/internal_setting_advanced.php:23
 #: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/membership/tmpl/internal_setting_advanced.php:23
 #: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/users/tmpl/internal_setting_advanced.php:23
@@ -4766,8 +4855,8 @@ msgstr ""
 #: real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_setting_advanced.php:49
 #: real-estate-listing-realtyna-wpl/views/backend/users/tmpl/internal_setting_advanced.php:31
 #: real-estate-listing-realtyna-wpl/views/backend/users/tmpl/internal_setting_advanced.php:54
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_setting_advanced.php:31
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_setting_advanced.php:53
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_setting_advanced.php:27
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_setting_advanced.php:49
 #: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/users/tmpl/internal_setting_advanced.php:31
 #: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/users/tmpl/internal_setting_advanced.php:54
 #: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/membership/tmpl/internal_setting_advanced.php:31
@@ -4779,7 +4868,7 @@ msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_setting_advanced.php:41
 #: real-estate-listing-realtyna-wpl/views/backend/users/tmpl/internal_setting_advanced.php:45
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_setting_advanced.php:45
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_setting_advanced.php:41
 #: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/users/tmpl/internal_setting_advanced.php:45
 #: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/membership/tmpl/internal_setting_advanced.php:45
 #: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/users/tmpl/internal_setting_advanced.php:45
@@ -4822,10 +4911,12 @@ msgid "Renew Price"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_setting_pricing.php:39
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_setting_pricing.php:39
 msgid "Can Change Membership?"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_setting_pricing.php:45
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_setting_pricing.php:45
 msgid "Change Membership to"
 msgstr ""
 
@@ -4847,31 +4938,31 @@ msgid "Add a new user type"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:131
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:100
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:131
 #: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/membership/tmpl/scripts/js.php:66
 msgid "Invalid Membership Id"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:158
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:127
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:158
 #: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/membership/tmpl/scripts/js.php:93
 msgid "Membership deleted."
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:171
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:140
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:171
 #: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/membership/tmpl/scripts/js.php:106
 msgid "Invalid Membership name"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:202
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:171
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:202
 #: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/membership/tmpl/scripts/js.php:137
 msgid "Membership modified."
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:305
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:274
+#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/scripts/js.php:305
 msgid "Invalid user type name!"
 msgstr ""
 
@@ -5008,13 +5099,6 @@ msgstr ""
 msgid "Server Class"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/internal_modify_query.php:56
-#: real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/query.php:29
-#: real-estate-listing-realtyna-wpl/_ADDONS/MLS/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/internal_modify_query.php:56
-#: real-estate-listing-realtyna-wpl/_ADDONS/MLS/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/query.php:29
-msgid "Default User"
-msgstr ""
-
 #: real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/internal_modify_query.php:64
 #: real-estate-listing-realtyna-wpl/views/backend/addon_mobile/tmpl/internal_dashboard_settings.php:103
 #: real-estate-listing-realtyna-wpl/_ADDONS/MLS/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/internal_modify_query.php:64
@@ -5025,11 +5109,6 @@ msgstr ""
 #: real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/internal_modify_query.php:66
 #: real-estate-listing-realtyna-wpl/_ADDONS/MLS/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/internal_modify_query.php:66
 msgid "Insert -1 for unlimited"
-msgstr ""
-
-#: real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/internal_modify_query.php:73
-#: real-estate-listing-realtyna-wpl/_ADDONS/MLS/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/internal_modify_query.php:73
-msgid "Sync Period"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/backend/addon_mls/tmpl/internal_modify_query.php:75
@@ -5236,7 +5315,7 @@ msgstr ""
 #: real-estate-listing-realtyna-wpl/views/backend/listing/wpl_ajax.php:97
 #: real-estate-listing-realtyna-wpl/views/backend/listing/wpl_ajax.php:148
 #: real-estate-listing-realtyna-wpl/views/backend/listing/wpl_ajax.php:177
-#: real-estate-listing-realtyna-wpl/views/backend/listing/wpl_rooms.php:44
+#: real-estate-listing-realtyna-wpl/views/backend/listing/wpl_rooms.php:38
 #: real-estate-listing-realtyna-wpl/views/backend/settings/wpl_ajax.php:40
 #: real-estate-listing-realtyna-wpl/views/backend/users/wpl_ajax.php:210
 #: real-estate-listing-realtyna-wpl/views/backend/users/wpl_ajax.php:251
@@ -5476,7 +5555,7 @@ msgstr ""
 msgid "You can not edit this property."
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/views/backend/listing/wpl_rooms.php:59
+#: real-estate-listing-realtyna-wpl/views/backend/listing/wpl_rooms.php:55
 msgid "Deleted."
 msgstr ""
 
@@ -5575,8 +5654,8 @@ msgid "User changed."
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/backend/listings/wpl_main.php:70
-#: real-estate-listing-realtyna-wpl/views/frontend/profile_listing/wpl_main.php:42
-#: real-estate-listing-realtyna-wpl/views/frontend/property_listing/wpl_main.php:63
+#: real-estate-listing-realtyna-wpl/views/frontend/profile_listing/wpl_abstract.php:42
+#: real-estate-listing-realtyna-wpl/views/frontend/property_listing/wpl_abstract.php:68
 msgid "Invalid Request!"
 msgstr ""
 
@@ -5596,11 +5675,11 @@ msgstr ""
 msgid "Change User to"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/views/backend/listings/tmpl/manager.php:125
+#: real-estate-listing-realtyna-wpl/views/backend/listings/tmpl/manager.php:129
 msgid "Add date"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/views/backend/listings/tmpl/manager.php:129
+#: real-estate-listing-realtyna-wpl/views/backend/listings/tmpl/manager.php:130
 msgid "Visited times"
 msgstr ""
 
@@ -5796,6 +5875,10 @@ msgid "Clear listing thumbnails"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/backend/settings/tmpl/internal_maintenance.php:40
+msgid "Clear users cached data"
+msgstr ""
+
+#: real-estate-listing-realtyna-wpl/views/backend/settings/tmpl/internal_maintenance.php:47
 msgid "Clear user thumbnails"
 msgstr ""
 
@@ -5804,7 +5887,7 @@ msgid "Requirement"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/backend/settings/tmpl/internal_requirements.php:11
-#: real-estate-listing-realtyna-wpl/widgets/carousel/tmpl/elastic.php:80
+#: real-estate-listing-realtyna-wpl/widgets/carousel/tmpl/elastic.php:79
 msgid "Current"
 msgstr ""
 
@@ -5905,6 +5988,10 @@ msgstr ""
 msgid "Are you sure you would like to remove unfinalized listings?"
 msgstr ""
 
+#: real-estate-listing-realtyna-wpl/views/backend/settings/tmpl/scripts/js.php:218
+msgid "Are you sure you would like to remove users' cached data?"
+msgstr ""
+
 #: real-estate-listing-realtyna-wpl/views/backend/users/wpl_ajax.php:103
 msgid "User added to WPL successfully."
 msgstr ""
@@ -5941,7 +6028,6 @@ msgid "Edit User"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/backend/users/tmpl/internal_setting_advanced.php:19
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/internal_setting_advanced.php:19
 #: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/users/tmpl/internal_setting_advanced.php:19
 #: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/membership/tmpl/internal_setting_advanced.php:19
 #: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/users/tmpl/internal_setting_advanced.php:19
@@ -6179,7 +6265,7 @@ msgid "Random"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/backend/wpl_sample/tmpl/default.php:78
-#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:97
+#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:138
 #: real-estate-listing-realtyna-wpl/_ADDONS/wpl_sample/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/wpl_sample/tmpl/default.php:78
 #: real-estate-listing-realtyna-wpl/_DOCS/Sample_Installer_Packages/Samplev1.0/temporary_dir/files/views/backend/wpl_sample/tmpl/default.php:78
 msgid "Hot"
@@ -6211,7 +6297,7 @@ msgid "Insert"
 msgstr ""
 
 #: real-estate-listing-realtyna-wpl/views/basics/features/wpl_pdf.php:43
-#: real-estate-listing-realtyna-wpl/views/frontend/property_show/wpl_main.php:52
+#: real-estate-listing-realtyna-wpl/views/frontend/property_show/wpl_abstract.php:52
 #: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/basics/features/wpl_pdf.php:43
 msgid "No property found or it's not available now!"
 msgstr ""
@@ -6244,23 +6330,23 @@ msgstr ""
 msgid "Widget Shortcode"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:64
+#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:105
 msgid ", "
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:68
+#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:109
 msgid "Price (Min)"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:73
+#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:114
 msgid "Price (Max)"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:79
+#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:120
 msgid "Price Unit"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:118
+#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:159
 #: real-estate-listing-realtyna-wpl/widgets/agents/form.php:32
 #: real-estate-listing-realtyna-wpl/widgets/carousel/form.php:30
 #: real-estate-listing-realtyna-wpl/widgets/favorites/form.php:22
@@ -6269,36 +6355,44 @@ msgstr ""
 msgid "Target page"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:129
-msgid "Listing per page"
+#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:170
+msgid "Page Size"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:139
-#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:149
+#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:180
+msgid "Pagination Type"
+msgstr ""
+
+#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:183
+msgid "Scroll Pagination"
+msgstr ""
+
+#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:189
+#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:199
 #: real-estate-listing-realtyna-wpl/widgets/agents/form.php:87
 #: real-estate-listing-realtyna-wpl/widgets/carousel/form.php:218
 msgid "Order by"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:158
+#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:208
 #: real-estate-listing-realtyna-wpl/widgets/agents/form.php:96
 #: real-estate-listing-realtyna-wpl/widgets/carousel/form.php:227
 msgid "Order"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:160
+#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:210
 #: real-estate-listing-realtyna-wpl/widgets/agents/form.php:99
 #: real-estate-listing-realtyna-wpl/widgets/carousel/form.php:230
 msgid "DESC"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:161
+#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:211
 #: real-estate-listing-realtyna-wpl/widgets/agents/form.php:98
 #: real-estate-listing-realtyna-wpl/widgets/carousel/form.php:229
 msgid "ASC"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:172
+#: real-estate-listing-realtyna-wpl/views/basics/functions/tmpl/shortcode_wizard.php:222
 msgid "Widget"
 msgstr ""
 
@@ -6314,16 +6408,23 @@ msgstr ""
 msgid "Information sent to agent."
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/views/frontend/profile_listing/tmpl/default.php:9
+#: real-estate-listing-realtyna-wpl/views/frontend/profile_listing/tmpl/default.php:18
 msgid "Sort Option"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/views/frontend/profile_listing/tmpl/default.php:36
+#: real-estate-listing-realtyna-wpl/views/frontend/profile_listing/tmpl/assets/default_profiles.php:27
 #: real-estate-listing-realtyna-wpl/widgets/agents/tmpl/default.php:33
 msgid "View properties"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/views/frontend/profile_show/wpl_main.php:29
+#: real-estate-listing-realtyna-wpl/views/frontend/profile_listing/tmpl/scripts/js_scroll.php:36
+#: real-estate-listing-realtyna-wpl/views/frontend/property_listing/tmpl/scripts/js_scroll.php:35
+#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/frontend/profile_listing/tmpl/scripts/js_scroll.php:36
+#: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/frontend/property_listing/tmpl/scripts/js_scroll.php:35
+msgid "Loading ..."
+msgstr ""
+
+#: real-estate-listing-realtyna-wpl/views/frontend/profile_show/wpl_abstract.php:29
 msgid "No profile found or it's not available now!"
 msgstr ""
 
@@ -6337,13 +6438,11 @@ msgstr ""
 msgid "Error sending!"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/views/frontend/property_listing/tmpl/default.php:21
-#: real-estate-listing-realtyna-wpl/views/frontend/property_listing/tmpl/scroll.php:10
+#: real-estate-listing-realtyna-wpl/views/frontend/property_listing/tmpl/default.php:30
 msgid "Sort Option:"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/views/frontend/property_listing/tmpl/default.php:48
-#: real-estate-listing-realtyna-wpl/views/frontend/property_listing/tmpl/scroll.php:37
+#: real-estate-listing-realtyna-wpl/views/frontend/property_listing/tmpl/assets/default_listings.php:28
 msgid "More Details"
 msgstr ""
 
@@ -6385,15 +6484,15 @@ msgstr ""
 msgid "Showing specific agents."
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/widgets/agents/main.php:88
-#: real-estate-listing-realtyna-wpl/widgets/carousel/main.php:71
+#: real-estate-listing-realtyna-wpl/widgets/agents/main.php:91
+#: real-estate-listing-realtyna-wpl/widgets/carousel/main.php:74
 #: real-estate-listing-realtyna-wpl/widgets/favorites/main.php:46
 #: real-estate-listing-realtyna-wpl/widgets/search/main.php:63
 #: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/widgets/favorites/main.php:46
 msgid "Widget Layout Not Found!"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/widgets/agents/main.php:122
+#: real-estate-listing-realtyna-wpl/widgets/agents/main.php:125
 msgid "Featured Agents"
 msgstr ""
 
@@ -6485,7 +6584,7 @@ msgstr ""
 msgid "Showing specific properties."
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/widgets/carousel/main.php:105
+#: real-estate-listing-realtyna-wpl/widgets/carousel/main.php:108
 msgid "Featured Properties"
 msgstr ""
 
@@ -6580,7 +6679,6 @@ msgstr ""
 msgid "Less options"
 msgstr ""
 
-#: real-estate-listing-realtyna-wpl/_ADDONS/membership/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/addon_membership/tmpl/default.php:33
 #: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/membership/tmpl/default.php:35
 #: real-estate-listing-realtyna-wpl/_ADDONS/PRO/wp-content/plugins/real-estate-listing-realtyna-wpl/views/backend/membership/tmpl/default.php:47
 msgid "#Images"

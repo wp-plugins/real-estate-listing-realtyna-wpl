@@ -15,18 +15,11 @@ class wpl_listing_controller extends wpl_controller
 		
 		$function = wpl_request::getVar('wpl_function');
 		
-		if($function == 'save_room')
-		{
-			self::save_room();
-		}
-		elseif($function == 'delete_room')
-		{
-			$item_id = wpl_request::getVar('item_id');
-			self::delete_room($item_id);
-		}
+		if($function == 'save_room') self::save_room();
+		elseif($function == 'delete_room') self::delete_room();
 	}
 	
-	function save_room()
+	public static function save_room()
 	{
 		$pid = wpl_request::getVar('pid');
 		$kind = wpl_request::getVar('kind');
@@ -34,9 +27,10 @@ class wpl_listing_controller extends wpl_controller
 		$room_type_id = wpl_request::getVar('room_type_id');
 		$x = wpl_request::getVar('x_param');
 		$y = wpl_request::getVar('y_param');
-		
+		$index = floatval(wpl_items::get_maximum_index($pid, 'rooms', $kind))+1.00;
+        
 		$item = array('parent_id'=>$pid, 'parent_kind'=>$kind, 'item_type'=>'rooms', 'item_cat'=>$room_type_id, 'item_name'=>$room_name, 
-					  'creation_date'=>date("Y-m-d H:i:s"), 'index'=>'1.00', 'item_extra1'=>$x, 'item_extra2'=>$y);
+					  'creation_date'=>date("Y-m-d H:i:s"), 'index'=>$index, 'item_extra1'=>$x, 'item_extra2'=>$y);
 		
 		$id = wpl_items::save($item);
 		
@@ -50,8 +44,10 @@ class wpl_listing_controller extends wpl_controller
 		exit;
 	}
 	
-	function delete_room($item_id)
+	public static function delete_room()
 	{
+        $item_id = wpl_request::getVar('item_id');
+        
 		/** deleting the room **/
 		if($item_id != -1) $result = wpl_items::delete($item_id);
 		

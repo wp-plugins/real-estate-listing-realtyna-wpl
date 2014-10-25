@@ -46,6 +46,9 @@ elseif($type == 'text' and !$done_this) //////////////////////////// text //////
 			$return['value'] = wpl_render::render_latitude($value);
 		else
 			$return['value'] = __($value, WPL_TEXTDOMAIN);
+        
+        if(isset($options['if_zero']) and $options['if_zero'] == 2 and $value == 0) $return['value'] = __($options['call_text'], WPL_TEXTDOMAIN);
+        if(isset($options['if_zero']) and !$options['if_zero'] and $value == 0) $return = array();
 	}
 	
 	$done_this = true;
@@ -57,8 +60,12 @@ elseif($type == 'textarea' and !$done_this) //////////////////////////// textare
 		$return['field_id'] = $field->id;
 		$return['type'] = $field->type;
 		$return['name'] = __($field->name, WPL_TEXTDOMAIN);
-		
-        $return['value'] = nl2br(stripslashes($value));
+        
+        $value = stripslashes($value);
+        if(in_array($field->id, array(308, 1160))) $value = apply_filters('the_content', $value);
+        $value = do_shortcode($value);
+        
+        $return['value'] = $value;
 	}
 	
 	$done_this = true;
@@ -143,25 +150,28 @@ elseif($type == 'checkbox' and !$done_this) //////////////////////////// checkbo
 	
 	$done_this = true;
 }
-elseif(($type == 'volume' or $type == 'area' or $type == 'length') and !$done_this) //////////////////////////// volume, area, length ////////////////////////////
+elseif(($type == 'volume' or $type == 'area' or $type == 'length') and !$done_this) //////////////////////////// Volume, Area, Length ////////////////////////////
 {
-	if(trim($value) != '0')
+	if(trim($value) != '')
 	{
 		$return['field_id'] = $field->id;
 		$return['type'] = $field->type;
 		$return['name'] = __($field->name, WPL_TEXTDOMAIN);
 		$return['value'] = ($value == round($value) ? number_format($value, 0) : number_format($value, 2));
-		
+        
 		/** adding unit **/
 		$unit = wpl_units::get_unit($values[$field->table_column.'_unit']);
 		if($unit) $return['value'] .= ' '.$unit['name'];
+        
+        if(isset($options['if_zero']) and $options['if_zero'] == 2 and $value == 0) $return['value'] = __($options['call_text'], WPL_TEXTDOMAIN);
+        if(isset($options['if_zero']) and !$options['if_zero'] and $value == 0) $return = array();
 	}
 	
 	$done_this = true;
 }
-elseif(($type == 'mmvolume' or $type == 'mmarea' or $type == 'mmlength') and !$done_this) //////////////////////////// volume, area, length ////////////////////////////
+elseif(($type == 'mmvolume' or $type == 'mmarea' or $type == 'mmlength') and !$done_this) //////////////////////////// Min/Max Volume, Area, Length ////////////////////////////
 {
-	if(trim($value) != '0' or trim($values[$field->table_column.'_max']) != '0')
+	if(trim($value) != '' or trim($values[$field->table_column.'_max']) != '')
 	{
 		$return['field_id'] = $field->id;
 		$return['type'] = $field->type;
@@ -173,6 +183,9 @@ elseif(($type == 'mmvolume' or $type == 'mmarea' or $type == 'mmlength') and !$d
 		/** adding unit **/
 		$unit = wpl_units::get_unit($values[$field->table_column.'_unit']);
 		if($unit) $return['value'] .= ' '.$unit['name'];
+        
+        if(isset($options['if_zero']) and $options['if_zero'] == 2 and $value == 0 and $values[$field->table_column.'_max'] == 0) $return['value'] = __($options['call_text'], WPL_TEXTDOMAIN);
+        if(isset($options['if_zero']) and !$options['if_zero'] and $value == 0 and $values[$field->table_column.'_max'] == 0) $return = array();
 	}
 	
 	$done_this = true;
@@ -193,7 +206,7 @@ elseif($type == 'price' and !$done_this)  //////////////////////////// Price ///
         
 	$done_this = true;
 }
-elseif($type == 'mmprice' and !$done_this)  //////////////////////////// Price ////////////////////////////
+elseif($type == 'mmprice' and !$done_this)  //////////////////////////// Min/Max Price ////////////////////////////
 {
 	$return['field_id'] = $field->id;
 	$return['type'] = $field->type;
@@ -229,14 +242,14 @@ elseif($type == 'url' and !$done_this)  //////////////////////////// URL ///////
     
 	$done_this = true;
 }
-elseif($type == 'parent' and !$done_this)  //////////////////////////// URL ////////////////////////////
+elseif($type == 'parent' and !$done_this)  //////////////////////////// Parent ////////////////////////////
 {
     if(trim($value))
 	{
         $return['field_id'] = $field->id;
         $return['type'] = $field->type;
         $return['name'] = __($field->name, WPL_TEXTDOMAIN);
-        $return['value'] = wpl_property::get_property_field('field_313', $value);
+        $return['value'] = wpl_property::update_property_title(NULL, $value);
     }
     
 	$done_this = true;

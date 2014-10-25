@@ -187,6 +187,10 @@ class wpl_extensions
 		
 		/** generate object **/
 		_wpl_import('libraries.services.'.$class_file);
+        
+        /** return if service file is not exists **/
+        if(!class_exists($class_name)) return false;
+        
 		$class_obj = new $class_name();
 		$function_name = $ex[1];
 		$priority = trim($extension->param3) != '' ? $extension->param3 : 10;
@@ -417,7 +421,7 @@ class wpl_extensions
 			include $script_file;
 			
 			/** delete script file **/
-			wpl_file::delete($query_file);
+			wpl_file::delete($script_file);
 		}
 		
 		if(function_exists('is_multisite') and is_multisite() and wpl_global::check_addon('multisite'))
@@ -475,8 +479,8 @@ class wpl_extensions
 			/** Add admin user to WPL **/
 			wpl_users::add_user_to_wpl(1);
 		}
-		
-		/** upgrade WPL **/
+        
+        /** upgrade WPL **/
 		self::upgrade_wpl();
     }
 	
@@ -548,11 +552,11 @@ class wpl_extensions
 			include $script_file;
 			
 			/** delete script file **/
-			wpl_file::delete($query_file);
+			wpl_file::delete($script_file);
 		}
 		
 		/** update WPL version in db **/
-		update_option('wpl_version', WPL_VERSION);
+		update_option('wpl_version', wpl_global::wpl_version());
     }
 	
 	/**

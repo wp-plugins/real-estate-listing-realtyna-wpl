@@ -298,7 +298,7 @@ class wpl_settings
         
 		if($cache_type == 'properties_cached_data' or $cache_type == 'all')
 		{
-			$query = "UPDATE `#__wpl_properties` SET `location_text`='', `rendered`=''";
+			$query = "UPDATE `#__wpl_properties` SET `location_text`='', `rendered`='', `alias`=''";
 			wpl_db::q($query);
 		}
         
@@ -323,6 +323,12 @@ class wpl_settings
                     wpl_file::delete($thumbnail);
                 }
             }
+		}
+        
+        if($cache_type == 'users_cached_data' or $cache_type == 'all')
+		{
+			$query = "UPDATE `#__wpl_users` SET `location_text`='', `rendered`=''";
+			wpl_db::q($query);
 		}
         
         if($cache_type == 'users_thumbnails' or $cache_type == 'all')

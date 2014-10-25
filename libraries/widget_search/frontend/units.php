@@ -189,11 +189,14 @@ if(($type == 'area' or $type == 'price' or $type == 'volume' or $type == 'length
 	}
 	elseif($show == 'minmax_selectbox_plus')
 	{
+        $i = $min_value;
+        
 		$html .= '<select name="sf'.$widget_id.'_min_'.$field_data['table_column'].'" id="sf'.$widget_id.'_min_'.$field_data['table_column'].'">';
-		
-		$i = $min_value;
-		
 		$html .= '<option value="-1" '.($current_min_value == $i ? 'selected="selected"' : '').'>'.__($field['name'], WPL_TEXTDOMAIN).'</option>';
+        
+        $selected_printed = false;
+        if($current_min_value == $i) $selected_printed = true;
+        
 		while($i < $max_value)
 		{
             if($i == '0')
@@ -202,7 +205,7 @@ if(($type == 'area' or $type == 'price' or $type == 'volume' or $type == 'length
 				continue;
 			}
             
-			$html .= '<option value="'.$i.'" '.(($current_min_value == $i and $i != $default_min_value) ? 'selected="selected"' : '').'>'.number_format($i, 0, '.', ',').'+</option>';
+			$html .= '<option value="'.$i.'" '.(($current_min_value == $i and !$selected_printed) ? 'selected="selected"' : '').'>'.number_format($i, 0, '.', ',').'+</option>';
 			$i += $division;
 		}
 		

@@ -4,6 +4,7 @@ defined('_WPLEXEC') or die('Restricted access');
 
 _wp_import('wp-includes.pluggable');
 _wpl_import('libraries.items');
+_wpl_import('libraries.flex');
 
 /**
  * Users Library
@@ -57,7 +58,7 @@ class wpl_users
 		$user_data = wpl_users::get_user($user_id);
 		$default_data = wpl_users::get_wpl_data($group_id);
 		
-		$forbidden_fields = array('id', 'first_name', 'last_name');
+		$forbidden_fields = array('id', 'first_name', 'last_name', 'main_email');
 		$auto_query1 = '';
 		$auto_query2 = '';
 		
@@ -71,8 +72,8 @@ class wpl_users
 		
 		if($user_data)
 		{
-			$auto_query1 .= "`first_name`,`last_name`,";
-			$auto_query2 .= "'".$user_data->data->meta['first_name']."','".$user_data->data->meta['last_name']."',";
+			$auto_query1 .= "`first_name`,`last_name`,`main_email`,";
+			$auto_query2 .= "'".$user_data->data->meta['first_name']."','".$user_data->data->meta['last_name']."','".$user_data->data->user_email."',";
 		}
 		
 		$auto_query1 = trim($auto_query1, ', ');
@@ -83,6 +84,9 @@ class wpl_users
 		
         /** trigger event **/
 		wpl_global::event_handler('user_added_to_wpl', array('id'=>$user_id));
+        
+        /** finalize user **/
+        wpl_users::finalize($user_id);
         
 		return $result;
 	}
@@ -920,7 +924,7 @@ class wpl_users
 			{
 				$value = $data['name'] .' '. $data['value'];
 			}
-			elseif($type == 'locations')
+			elseif($type == 'locations' and isset($data['locations']) and is_array($data['locations']))
 			{
 				$location_value = '';
 				foreach($data['locations'] as $location_level=>$value)
@@ -958,10 +962,13 @@ class wpl_users
 		/** import library **/
 		_wpl_import('libraries.images');
 		
-        $user_data = (array) wpl_users::get_wpl_user($user_id);
-		
-		if(trim($user_data['main_email']) != '') wpl_images::text_to_image($user_data['main_email'], '000000', wpl_items::get_path($user_id, 2).'main_email.png');
-		if(trim($user_data['secondary_email']) != '') wpl_images::text_to_image($user_data['secondary_email'], '000000', wpl_items::get_path($user_id, 2).'second_email.png');
+        $user_data = (array) wpl_users::get_user($user_id);
+		$path = wpl_items::get_path($user_id, 2);
+        
+		if(trim($user_data['data']->wpl_data->main_email) != '') wpl_images::text_to_image($user_data['data']->wpl_data->main_email, '000000', $path.'main_email.png');
+        else wpl_images::text_to_image($user_data['data']->user_email, '000000', $path.'main_email.png');
+        
+		if(trim($user_data['data']->wpl_data->secondary_email) != '') wpl_images::text_to_image($user_data['data']->wpl_data->secondary_email, '000000', $path.'second_email.png');
     }
 	
 	/**
@@ -988,6 +995,8 @@ class wpl_users
 		
 		/** update **/
 		wpl_db::q($query, 'update');
+        
+        return $result;
 	}
 	
 	/**
@@ -1048,21 +1057,26 @@ class wpl_users
 		$raw_data = (array) self::get_wpl_user($user_id);
 		if(!$profile) $profile = (object) $raw_data;
 		
-		$rendered = json_decode($raw_data['rendered'], true);
+        /** generate rendered data if rendered data is empty **/
+        if(!trim($raw_data['rendered']) and wpl_settings::get('cache')) $rendered = json_decode(wpl_users::generate_rendered_data($user_id), true);
+        else $rendered = json_decode($raw_data['rendered'], true);
+        
 		$result = array();
-		
 		$result['data'] = (array) $profile;
 		$result['items'] = wpl_items::get_items($profile->id, '', 2, '', 1);
 		$result['raw'] = $raw_data;
 		
-        /** render data **/
-        $find_files = array();
-        $rendered_fields = self::render_profile($profile, $plisting_fields, $find_files, true);
+        if(!isset($rendered['rendered']) or !isset($rendered['materials']))
+        {
+            /** render data on the fly **/
+            $find_files = array();
+            $rendered_fields = self::render_profile($profile, $plisting_fields, $find_files, true);
+        }
         
 		if($rendered['rendered']) $result['rendered'] = $rendered['rendered'];
 		else $result['rendered'] = $rendered_fields['ids'];
         
-        if($rendered['materials']) $result['materials'] = $rendered['materials'];
+        if(isset($rendered['materials']) and $rendered['materials']) $result['materials'] = $rendered['materials'];
 		else $result['materials'] = $rendered_fields['columns'];
         
 		/** location text **/

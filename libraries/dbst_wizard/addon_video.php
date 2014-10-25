@@ -63,7 +63,7 @@ function add_embed_video()
 
 function video_embed_save(id)
 {
-	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', "wpl_format=b:listing:videos&wpl_function=embed_video&pid=<?php echo $item_id; ?>&kind=<?php echo $this->kind; ?>&item_id="+wplj("#vid_emb"+id).val()+"&title="+wplj("#embed_vid_title"+id).val()+"&desc="+wplj("#embed_vid_desc"+id).val()+"&embedcode="+wplj("#embed_vid_code"+id).val());
+	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', "wpl_format=b:listing:videos&wpl_function=embed_video&pid=<?php echo $item_id; ?>&kind=<?php echo $this->kind; ?>&item_id="+wplj("#vid_emb"+id).val()+"&title="+wplj("#embed_vid_title"+id).val()+"&desc="+wplj("#embed_vid_desc"+id).val()+"&embedcode="+encodeURIComponent(wplj("#embed_vid_code"+id).val()));
 	ajax.success(function (data)
     {
 		if(wplj("#vid_emb" + id).val() == -1) wplj("#vid_emb" + id).val(data);

@@ -43,6 +43,9 @@ class wpl_agents_widget extends wpl_widget
         $model = new wpl_users();
 		$profiles = $model->search($query);
 		
+        /** return if no property found **/
+        if(!count($profiles)) return;
+        
 		$plisting_fields = $model->get_plisting_fields();
 		$wpl_profiles = array();
         $render_params['wpltarget'] = isset($instance['wpltarget']) ? $instance['wpltarget'] : 0;

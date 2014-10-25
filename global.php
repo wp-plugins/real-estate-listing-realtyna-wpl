@@ -732,11 +732,14 @@ class wpl_global
 		return array('error'=>$error, 'message'=>$message);
 	}
 	
-	/**
-		@input full path of file and full path of dest
-		@return boolean
-		@author Howard
-	**/
+    /**
+     * Extract a Zip file
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $file full path
+     * @param string $dest full path
+     * @return boolean
+     */
 	public static function zip_extract($file, $dest)
 	{
 		$zip = new ZipArchive;
@@ -749,6 +752,40 @@ class wpl_global
 		}
 		
 		return false;
+	}
+    
+    /**
+     * Extract a GZip file
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $file full path
+     * @param string $dest
+     * @return string destination full path
+     */
+	public static function gzip_extract($file, $dest = NULL)
+	{
+        if(!$dest)
+        {
+            $ex = explode('/', $file);
+            $file_name = end($ex);
+            $out_file_name = str_replace('.gz', '', $file_name);
+            
+            $dest = str_replace($file_name, $out_file_name, $file);
+        }
+        
+        $buffer_size = 4096;
+        $fh = gzopen($file, 'rb');
+        $ofh = fopen($dest, 'wb'); 
+        
+        while(!gzeof($fh))
+        {
+            fwrite($ofh, gzread($fh, $buffer_size));
+        }
+        
+        fclose($ofh);
+        gzclose($fh);
+        
+        return $dest;
 	}
 	
 	/**
@@ -960,7 +997,7 @@ class wpl_global
 		@return string content
 		@author Howard
 	**/
-	public static function get_web_page($url, $post = '')
+	public static function get_web_page($url, $post = '', $authentication = false)
 	{
 		$result = false;
 		
@@ -976,17 +1013,25 @@ class wpl_global
 				curl_setopt($ch, CURLOPT_AUTOREFERER, true);
 				curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 120);
 				curl_setopt($ch, CURLOPT_TIMEOUT, 120);
+                
+                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 				curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
-				
+                
 				curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 		
-				if($post != '')
+				if($post)
 				{
 					curl_setopt($ch, CURLOPT_POST, true);
 					curl_setopt($ch, CURLOPT_POSTFIELDS, (is_array($post) === true) ? http_build_query($post) : $post);
 				}
-				
+                
+                /** login needed **/
+                if($authentication)
+                {
+                    curl_setopt($ch, CURLOPT_USERPWD, $authentication);
+                }
+                
 				$result = curl_exec($ch);
 				curl_close($ch);
 			}
@@ -1271,4 +1316,27 @@ class wpl_global
 		$name = preg_replace($search, $replace, $name);
 		return trim($name, ' _');
 	}
+    
+    /**
+     * Get layouts
+     * @author Howard <howard@realtyna.com>
+     * @param string $view
+     * @param array $exclude
+     * @param string $client
+     * @return array
+     */
+    public static function get_layouts($view = 'property_listing', $exclude = array('message.php'), $client = 'frontend')
+    {
+        $path = WPL_ABSPATH. 'views' .DS. $client .DS. $view .DS. 'tmpl';
+        $files = wpl_folder::files($path, '.php', false, false);
+        
+        $layouts = array();
+        foreach($files as $file)
+        {
+            if(in_array($file, $exclude)) continue;
+            $layouts[] = strtolower(basename($file, '.php'));
+        }
+        
+        return $layouts;
+    }
 }

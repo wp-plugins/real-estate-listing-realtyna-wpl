@@ -17,44 +17,43 @@ foreach($js as $javascript) wpl_extensions::import_javascript($javascript);
 $larg_images = $thumbnail = NULL;
 foreach($wpl_properties as $key=>$gallery)
 {
-	if(isset($gallery["items"]["gallery"][0]))
-	{
-		$params = array();
-        $params['image_name'] 		= $gallery["items"]["gallery"][0]->item_name;
-        $params['image_parentid'] 	= $gallery["items"]["gallery"][0]->parent_id;
-        $params['image_parentkind'] = $gallery["items"]["gallery"][0]->parent_kind;
-        $params['image_source'] 	= wpl_global::get_upload_base_path().$params['image_parentid'].DS.$params['image_name'];
+	if(!isset($gallery["items"]["gallery"][0])) continue;
+	
+    $params = array();
+    $params['image_name'] 		= $gallery["items"]["gallery"][0]->item_name;
+    $params['image_parentid'] 	= $gallery["items"]["gallery"][0]->parent_id;
+    $params['image_parentkind'] = $gallery["items"]["gallery"][0]->parent_kind;
+    $params['image_source'] 	= wpl_global::get_upload_base_path().$params['image_parentid'].DS.$params['image_name'];
 
-        if(isset($gallery['materials']['field_313']) and trim($gallery['materials']['field_313']['value']) != '') $image_title = $gallery['materials']['field_313']['value'];
-        else $image_title = $gallery['materials']['property_type']['value'] .' '.$gallery['materials']['listing']['value'];
-        if(isset($gallery['items']['gallery'][0]->item_extra2) and trim($gallery['items']['gallery'][0]->item_extra2) != '') $image_alt = $gallery['items']['gallery'][0]->item_extra2;
-        else $image_alt = $gallery['raw']['meta_keywords'];
+    $image_title = isset($gallery['property_title']) ? $gallery['property_title'] : wpl_property::update_property_title($gallery['raw']);
 
-		$image_description	= $gallery["items"]["gallery"][0]->item_extra2;
-        
-        if($gallery["items"]["gallery"][0]->item_cat != 'external')
-        {
-            $image_url 			= wpl_images::create_gallary_image($image_width, $image_height, $params);
-            $thumbnail_url 		= wpl_images::create_gallary_image($thumbnail_width, $thumbnail_height, $params);
-        }
-        else
-        {
-            $image_url 			= $gallery["items"]["gallery"][0]->item_extra3;
-            $thumbnail_url 		= $gallery["items"]["gallery"][0]->item_extra3;
-        }
+    if(isset($gallery['items']['gallery'][0]->item_extra2) and trim($gallery['items']['gallery'][0]->item_extra2) != '') $image_alt = $gallery['items']['gallery'][0]->item_extra2;
+    else $image_alt = $gallery['raw']['meta_keywords'];
 
-		$larg_images .= '
-		<li>
-            <img itemprop="image" src="'.$image_url.'" alt="'.$image_alt.'" width="'.$image_width.'" height="'.$image_height.'" style="width: '.$image_width.'px; height: '.$image_height.'px;" />
-            <div class="ei-title">
-                <h2>'.$image_title.'</h2>
-                <h3>'.(isset($gallery['materials']['living_area']) ? $gallery['materials']['living_area']['value'].' - ' : '').$gallery["location_text"].'</h3>
-                <a itemprop="url" class="more_info" href="'.$gallery["property_link"].'">'. __('More info', WPL_TEXTDOMAIN).'</a>
-            </div>
-        </li>';
+    $image_description	= $gallery["items"]["gallery"][0]->item_extra2;
 
-        $thumbnail	.='<li><a href="#">'.$image_title.'</a><img src="'.$thumbnail_url.'" alt="'.$image_alt.'" width="'.$thumbnail_width.'" height="'.$thumbnail_height.'" style="width: '.$thumbnail_width.'px; height: '.$thumbnail_height.'px;" /></li>';
-	}
+    if($gallery["items"]["gallery"][0]->item_cat != 'external')
+    {
+        $image_url 			= wpl_images::create_gallary_image($image_width, $image_height, $params);
+        $thumbnail_url 		= wpl_images::create_gallary_image($thumbnail_width, $thumbnail_height, $params);
+    }
+    else
+    {
+        $image_url 			= $gallery["items"]["gallery"][0]->item_extra3;
+        $thumbnail_url 		= $gallery["items"]["gallery"][0]->item_extra3;
+    }
+
+    $larg_images .= '
+    <li>
+        <img itemprop="image" src="'.$image_url.'" alt="'.$image_alt.'" width="'.$image_width.'" height="'.$image_height.'" style="width: '.$image_width.'px; height: '.$image_height.'px;" />
+        <div class="ei-title">
+            <h2>'.$image_title.'</h2>
+            <h3>'.(isset($gallery['materials']['living_area']) ? $gallery['materials']['living_area']['value'].' - ' : '').$gallery["location_text"].'</h3>
+            <a itemprop="url" class="more_info" href="'.$gallery["property_link"].'">'. __('More info', WPL_TEXTDOMAIN).'</a>
+        </div>
+    </li>';
+
+    $thumbnail	.='<li><a href="#">'.$image_title.'</a><img src="'.$thumbnail_url.'" alt="'.$image_alt.'" width="'.$thumbnail_width.'" height="'.$thumbnail_height.'" style="width: '.$thumbnail_width.'px; height: '.$thumbnail_height.'px;" /></li>';
 }
 ?>
 <script type="text/javascript">

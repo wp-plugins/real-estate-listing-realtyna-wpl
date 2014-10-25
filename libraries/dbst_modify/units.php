@@ -2,7 +2,7 @@
 /** no direct access * */
 defined('_WPLEXEC') or die('Restricted access');
 
-if(in_array($type, array('price', 'mmprice')) and !$done_this)
+if(in_array($type, array('price', 'mmprice', 'area', 'mmarea', 'length', 'mmlength', 'volume')) and !$done_this)
 {
 ?>
 <div class="fanc-body">
@@ -46,7 +46,7 @@ if(in_array($type, array('price', 'mmprice')) and !$done_this)
 			</div>
             <div class="fanc-row">
 				<label for="<?php echo $__prefix; ?>opt_call_text"><?php echo __('Text', WPL_TEXTDOMAIN); ?></label>
-                <input type="text" name="<?php echo $__prefix; ?>opt_call_text" id="<?php echo $__prefix; ?>opt_call_text" value="<?php echo ($options['call_text'] ? $options['call_text'] : 'Call'); ?>" />
+                <input type="text" name="<?php echo $__prefix; ?>opt_call_text" id="<?php echo $__prefix; ?>opt_call_text" value="<?php echo (isset($options['call_text']) ? $options['call_text'] : 'Call'); ?>" />
 			</div>
             <?php endif; ?>
 		</div>

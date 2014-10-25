@@ -442,8 +442,10 @@ class wpl_property
         $markers = array();
         
         $i = 0;
-        foreach($wpl_properties as $property)
+        foreach($wpl_properties as $key=>$property)
         {
+            if($key == 'current' and !count($property)) continue;
+            
             /** skip to next if address is hidden **/
             if(!$property['raw']['show_address']) continue;
 
@@ -503,7 +505,9 @@ class wpl_property
         wpl_property::update_location_text_search_field($pid);
 		wpl_property::update_alias($property, $pid);
 		wpl_property::update_numbs($pid, $property);
-		
+        wpl_property::update_property_page_title($property);
+        wpl_property::update_property_title($property);
+        
 		/** generate rendered data **/
 		if(wpl_settings::get('cache')) wpl_property::generate_rendered_data($pid);
 		
@@ -584,6 +588,8 @@ class wpl_property
 		
 		/** update **/
 		wpl_db::q($query, 'update');
+        
+        return $result;
 	}
 	
 	/**
@@ -873,14 +879,21 @@ class wpl_property
     }
 	
 	/**
-		@inputs [property_data], [property_id]
-		@return string property_alias
-		@author Howard
-	**/
-	public static function generate_property_title($property_data, $property_id = 0)
+     * Updates property page title
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param array $property_data
+     * @param int $property_id
+     * @param boolean $force
+     * @return string
+     */
+	public static function update_property_page_title($property_data, $property_id = 0, $force = false)
 	{
-		/** fetch property data if property id is setted **/
+        /** fetch property data if property id is setted **/
 		if($property_id) $property_data = self::get_property_raw_data($property_id);
+        
+        /** return current page title if exists **/
+        if(isset($property_data['field_312']) and trim($property_data['field_312']) != '' and !$force) return $property_data['field_312'];
         
         /** firstvalidation **/
 		if(!$property_data) return '';
@@ -903,8 +916,58 @@ class wpl_property
 		
 		/** apply filters **/
 		_wpl_import('libraries.filters');
+		@extract(wpl_filters::apply('generate_property_page_title', array('title'=>$title, 'title_str'=>$title_str)));
+        
+        /** update **/
+		$query = "UPDATE `#__wpl_properties` SET `field_312`='".$title_str."' WHERE `id`='".$property_data['id']."'";
+		wpl_db::q($query, 'update');
+        
+		return $title_str;
+    }
+    
+    /**
+     * Updates property title
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param array $property_data
+     * @param int $property_id
+     * @param boolean $force
+     * @return string
+     */
+    public static function update_property_title($property_data, $property_id = 0, $force = false)
+	{
+        /** fetch property data if property id is setted **/
+		if($property_id) $property_data = self::get_property_raw_data($property_id);
+        
+        /** return current title if exists **/
+        if(isset($property_data['field_313']) and trim($property_data['field_313']) != '' and !$force) return $property_data['field_313'];
+        
+        /** first validation **/
+		if(!$property_data) return '';
+        
+		$listing = wpl_global::get_listings($property_data['listing'])->name;
+		$property_type = wpl_global::get_property_types($property_data['property_type'])->name;
+		
+		$title = array();
+		$title['property_type'] = __($property_type, WPL_TEXTDOMAIN);
+		$title['listing'] = __($listing, WPL_TEXTDOMAIN);
+		
+        if($property_data['kind'])
+        {
+            $kind_label = wpl_flex::get_kind_label($property_data['kind']);
+            if(trim($kind_label)) $title['kind'] = '('.__($kind_label, WPL_TEXTDOMAIN).')';
+        }
+        
+		$title_str = implode(' ', $title);
+		
+		/** apply filters **/
+		_wpl_import('libraries.filters');
 		@extract(wpl_filters::apply('generate_property_title', array('title'=>$title, 'title_str'=>$title_str)));
-
+        
+        /** update **/
+		$query = "UPDATE `#__wpl_properties` SET `field_313`='".$title_str."' WHERE `id`='".$property_data['id']."'";
+		wpl_db::q($query, 'update');
+        
 		return $title_str;
     }
 	
@@ -1094,16 +1157,21 @@ class wpl_property
 		$raw_data = self::get_property_raw_data($property_id);
 		if(!$property) $property = (object) $raw_data;
 		
-		$rendered = json_decode($raw_data['rendered'], true);
+        /** generate rendered data if rendered data is empty **/
+        if(!trim($raw_data['rendered']) and wpl_settings::get('cache')) $rendered = json_decode(wpl_property::generate_rendered_data($property_id), true);
+        else $rendered = json_decode($raw_data['rendered'], true);
+        
 		$result = array();
-		
 		$result['data'] = (array) $property;
 		
-		/** render data **/
-        $find_files = array();
-        $rendered_fields = self::render_property($property, $plisting_fields, $find_files, true);
+        if(!isset($rendered['rendered']) or !isset($rendered['materials']))
+        {
+            /** render data on the fly **/
+            $find_files = array();
+            $rendered_fields = self::render_property($property, $plisting_fields, $find_files, true);
+        }
         
-		if($rendered['rendered']) $result['rendered'] = $rendered['rendered'];
+		if(isset($rendered['rendered']) and $rendered['rendered']) $result['rendered'] = $rendered['rendered'];
 		else $result['rendered'] = $rendered_fields['ids'];
         
         if(isset($rendered['materials']) and $rendered['materials']) $result['materials'] = $rendered['materials'];
@@ -1119,6 +1187,7 @@ class wpl_property
 		/** property full link **/
         $target_page = isset($params['wpltarget']) ? $params['wpltarget'] : 0;
 		$result['property_link'] = self::get_property_link($raw_data, NULL, $target_page);
+        $result['property_title'] = self::update_property_title($raw_data);
 		
 		return $result;
 	}
@@ -1147,18 +1216,29 @@ class wpl_property
 		return wpl_db::get('mls_id', 'wpl_properties', $key, $value);
 	}
 	
-	/**
-		@input WPL structural data, wpl_unique_field
-		@return property ids
-		@author Howard
-	**/
+    /**
+     * This function is for importing/updating properties into the WPL. It uses WPL standard format for importing
+     * This function must call in everywhere that we need to import properties like MLS and IMPORTER Addons.
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param array $properties_to_import
+     * @param string $wpl_unique_field
+     * @param int $user_id
+     * @param string $source
+     * @param boolean $finalize
+     * @param array $log_params
+     * @return array property IDs
+     */
 	public static function import($properties_to_import, $wpl_unique_field = 'mls_id', $user_id = '', $source = 'mls', $finalize = true, $log_params = array())
 	{
 		if(!$user_id) $user_id = wpl_users::get_cur_user_id();
 		$pids = array();
-		$added = array(); // Used for logging result
-		$updated = array(); // Used for logging result
+		$added = array(); // Used for logging results
+		$updated = array(); // Used for logging results
 		
+        /** model **/
+        $model = new wpl_property();
+        
 		$possible_columns = wpl_db::columns('wpl_properties');
 		foreach($properties_to_import as $property_to_import)
 		{
@@ -1182,13 +1262,20 @@ class wpl_property
 				$q .= "`$wpl_field`='".wpl_db::escape($wpl_value)."',";
 			}
             
-			$exists = wpl_property::get_properties_count(" AND `$wpl_unique_field`='$unique_value'");
-			if(!$exists) $pid = wpl_property::create_property_default($user_id);
-			else $pid = wpl_property::pid($unique_value, $wpl_unique_field);
+			$exists = $model->get_properties_count(" AND `$wpl_unique_field`='$unique_value'");
+			if(!$exists) $pid = $model->create_property_default($user_id);
+			else $pid = $model->pid($unique_value, $wpl_unique_field);
 			
 			/** add property id to return **/
 			$pids[] = $pid;
 			
+            /** Add source and last sync date **/
+            if(in_array('source', $possible_columns) and in_array('last_sync_date', $possible_columns))
+            {
+                $q .= "`source`='$source',";
+                $q .= "`last_sync_date`='".date('Y-m-d H:i:s')."',";
+            }
+            
 			$q = trim($q, ', ');
 			$query = "UPDATE `#__wpl_properties` SET ".$q." WHERE `id`='".$pid."'";
 			wpl_db::q($query);
@@ -1196,7 +1283,7 @@ class wpl_property
 			if($finalize)
 			{
 				$mode = $exists ? 'edit' : 'add';
-				wpl_property::finalize($pid, $mode, $user_id);
+				$model->finalize($pid, $mode, $user_id);
 			}
             
 			if($exists) $added[] = $unique_value;

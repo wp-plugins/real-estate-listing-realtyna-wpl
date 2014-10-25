@@ -86,25 +86,13 @@ class wpl_listings_controller extends wpl_controller {
 		
         /** set pagination according to the number of items and limit **/
         $this->pagination = wpl_pagination::get_pagination($properties_count, $limit);
-		
+		$plisting_fields = $this->model->get_plisting_fields();
+        
         $wpl_properties = array();
-        foreach($properties as $property)
-        {
-            $raw_data = $this->model->get_property_raw_data($property->id);
-            $rendered = json_decode($raw_data['rendered'], true);
-
-            $wpl_properties[$property->id]['data'] = (array) $property;
-
-            /** render data **/
-            $wpl_properties[$property->id]['rendered'] = $rendered['rendered'];
-
-            $wpl_properties[$property->id]['items'] = wpl_items::get_items($property->id, '', $property->kind, '', 1);
-            $wpl_properties[$property->id]['raw'] = $raw_data;
-
-            /** location text **/
-            if($rendered['location_text']) $wpl_properties[$property->id]['location_text'] = $rendered['location_text'];
-            else $wpl_properties[$property->id]['location_text'] = $this->model->generate_location_text($raw_data);
-        }
+		foreach($properties as $property)
+		{
+			$wpl_properties[$property->id] = $this->model->full_render($property->id, $plisting_fields, $property);
+		}
 		
         $this->wpl_properties = $wpl_properties;
         return true;

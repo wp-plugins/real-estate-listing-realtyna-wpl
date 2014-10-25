@@ -1569,7 +1569,7 @@ CHANGE `field_7` `field_7` INT( 11 ) NOT NULL DEFAULT '0',
 CHANGE `half_bathrooms` `half_bathrooms` FLOAT NOT NULL DEFAULT '0',
 CHANGE `field_55` `field_55` FLOAT NOT NULL DEFAULT '0';
 
-ALTER TABLE `#__wpl_properties` DROP `mls_server_id`, DROP `mls_class_id`, DROP `mls_query_id`;
+ALTER TABLE `#__wpl_properties` DROP `field_3000`, DROP `mls_server_id`, DROP `mls_class_id`, DROP `mls_query_id`;
 ALTER TABLE `#__wpl_properties` CHANGE `add_date` `add_date` DATETIME NULL, CHANGE `visit_date` `visit_date` DATETIME NULL;
 ALTER TABLE `#__wpl_properties` CHANGE `textsearch` `textsearch` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL, CHANGE `rendered` `rendered` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL, CHANGE `alias` `alias` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL;
 

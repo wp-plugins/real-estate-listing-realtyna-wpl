@@ -13,7 +13,7 @@ $listing_id         = isset($this->wpl_properties['current']['materials']['mls_i
 $price              = isset($this->wpl_properties['current']['materials']['price']['value']) ? $this->wpl_properties['current']['materials']['price']['value'] : '';
 $price_type         = isset($this->wpl_properties['current']['materials']['price_period']['value']) ? $this->wpl_properties['current']['materials']['price_period']['value'] : '';
 $location_string 	= isset($this->wpl_properties['current']['location_text']) ? $this->wpl_properties['current']['location_text'] : '';
-$prp_title          = (isset($this->wpl_properties['current']['raw']['field_313']) and trim($this->wpl_properties['current']['raw']['field_313']) != '') ? $this->wpl_properties['current']['raw']['field_313'] : $prp_type .' '.$prp_listings;
+$prp_title          = isset($this->wpl_properties['current']['property_title']) ? $this->wpl_properties['current']['property_title'] : '';
 
 $pshow_gallery_activities = count(wpl_activity::get_activities('pshow_gallery', 1));
 $pshow_googlemap_activities = count(wpl_activity::get_activities('pshow_googlemap', 1));
@@ -70,7 +70,7 @@ if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->w
                 <div class="wpl_prp_show_detail_boxes">
                     <div class="wpl_prp_show_detail_boxes_title"><?php echo __('Property Description', WPL_TEXTDOMAIN) ?></div>
                     <div class="wpl_prp_show_detail_boxes_cont" itemprop="description">
-                        <?php echo nl2br($this->wpl_properties['current']['data']['field_308']); ?>
+                        <?php echo apply_filters('the_content', $this->wpl_properties['current']['data']['field_308']); ?>
                     </div>
                 </div>
                 <?php endif; ?>

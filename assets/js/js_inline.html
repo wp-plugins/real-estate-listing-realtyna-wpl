@@ -63,7 +63,7 @@ and open the template in the editor.
                     <i class="action-btn icon-recycle"></i>
                 </div>
                 <div class="action-gal-btn" id="active_image_tag_${index}"
-                     onclick="wpl_image_enabled('${name}', '${index}');"><i class="action-btn icon-enabled"></i></div>
+                     onclick="wpl_image_enabled('${name}', '${index}');"><i class="action-btn icon-enabled" title="${enabled_title}"></i></div>
                 <input type="hidden" id="enabled_image_field_${index}" value="1"/>
             </div>
         </div>
@@ -152,7 +152,7 @@ and open the template in the editor.
 
                 <div class="action-gal-btn" id="active_attachment_tag_${att_counter}"
                      onclick="wpl_attachment_enabled('${fileName}','${att_counter}');">
-                    <i class="action-btn icon-enabled"></i>
+                    <i class="action-btn icon-enabled" title="${enabled_title}"></i>
                 </div>
 
                 <input type="hidden" id="enabled_attachment_field_${att_counter}"

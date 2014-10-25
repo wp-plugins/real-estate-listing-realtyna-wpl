@@ -33,6 +33,13 @@ defined('_WPLEXEC') or die('Restricted access');
                 <?php echo __('Clear listing thumbnails', WPL_TEXTDOMAIN); ?>
             </span>
         </li>
+        <li onclick="wpl_clear_users_cached_datas(0);">
+            <i class="icon-trash"></i>
+            <span class="wpl_ajax_loader" id="wpl_users_cached_ajax_loader"></span>
+            <span class="title">
+                <?php echo __('Clear users cached data', WPL_TEXTDOMAIN); ?>
+            </span>
+        </li>
         <li onclick="wpl_clear_users_thumbnails(0);">
             <i class="icon-trash"></i>
             <span class="wpl_ajax_loader" id="wpl_users_thumbnails_ajax_loader"></span>
