@@ -27,6 +27,10 @@ class wpl_property_listing_controller extends wpl_controller
         {
             $this->contact_listing_user();
         }
+        elseif($function == 'set_pcc')
+        {
+            $this->set_pcc();
+        }
     }
 
     private function get_locations($location_level = '', $parent = '', $current_location_id = '', $widget_id)
@@ -112,6 +116,17 @@ class wpl_property_listing_controller extends wpl_controller
         }
         
         echo json_encode($returnData);
+        exit;
+    }
+    
+    private function set_pcc()
+    {
+        $pcc = wpl_request::getVar('pcc', '');
+        
+        setcookie('wplpcc', $pcc, time()+(86400*30), '/');
+        wpl_request::setVar('wplpcc', $pcc, 'COOKIE');
+        
+        echo json_encode(array('success'=>1));
         exit;
     }
 }

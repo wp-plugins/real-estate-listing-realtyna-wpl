@@ -34,7 +34,7 @@ elseif($type == 'listings' and !$done_this) //////////////////////////// listing
 }
 elseif($type == 'text' and !$done_this) //////////////////////////// text ////////////////////////////
 {
-	if(trim($value) != '')
+    if(trim($value) != '')
 	{
 		$return['field_id'] = $field->id;
 		$return['type'] = $field->type;
@@ -45,7 +45,17 @@ elseif($type == 'text' and !$done_this) //////////////////////////// text //////
 		elseif($field->id == '52') #Latitude
 			$return['value'] = wpl_render::render_latitude($value);
 		else
-			$return['value'] = __($value, WPL_TEXTDOMAIN);
+        {
+            if($field->multilingual and wpl_global::check_multilingual_status())
+            {
+                $current_language = wpl_global::get_current_language();
+                $lang_column = wpl_addon_pro::get_column_lang_name($field->table_column, $current_language, false);
+                
+                if(isset($values[$lang_column])) $value = $values[$lang_column];
+            }
+            
+            $return['value'] = $value;
+        }
         
         if(isset($options['if_zero']) and $options['if_zero'] == 2 and $value == 0) $return['value'] = __($options['call_text'], WPL_TEXTDOMAIN);
         if(isset($options['if_zero']) and !$options['if_zero'] and $value == 0) $return = array();
@@ -60,6 +70,14 @@ elseif($type == 'textarea' and !$done_this) //////////////////////////// textare
 		$return['field_id'] = $field->id;
 		$return['type'] = $field->type;
 		$return['name'] = __($field->name, WPL_TEXTDOMAIN);
+        
+        if($field->multilingual and wpl_global::check_multilingual_status())
+        {
+            $current_language = wpl_global::get_current_language();
+            $lang_column = wpl_addon_pro::get_column_lang_name($field->table_column, $current_language, false);
+
+            if(isset($values[$lang_column])) $value = $values[$lang_column];
+        }
         
         $value = stripslashes($value);
         if(in_array($field->id, array(308, 1160))) $value = apply_filters('the_content', $value);
@@ -195,7 +213,10 @@ elseif($type == 'price' and !$done_this)  //////////////////////////// Price ///
 	$return['field_id'] = $field->id;
 	$return['type'] = $field->type;
 	$return['name'] = __($field->name, WPL_TEXTDOMAIN);
-	$return['value'] = wpl_render::render_price($value, $values[$field->table_column.'_unit']);
+    
+	$rendered_price = wpl_render::render_price($value, $values[$field->table_column.'_unit']);
+    $return['value'] = $rendered_price;
+    $return['price_only'] = $rendered_price;
 	
     $price_period = array();
     if(isset($values[$field->table_column.'_period'])) $price_period = wpl_property::render_field($values[$field->table_column.'_period'], wpl_flex::get_dbst_id($field->table_column.'_period', $field->kind));
@@ -211,12 +232,16 @@ elseif($type == 'mmprice' and !$done_this)  //////////////////////////// Min/Max
 	$return['field_id'] = $field->id;
 	$return['type'] = $field->type;
 	$return['name'] = __($field->name, WPL_TEXTDOMAIN);
-	$return['value'] = wpl_render::render_price($value, $values[$field->table_column.'_unit']);
+    
+	$rendered_price = wpl_render::render_price($value, $values[$field->table_column.'_unit']);
 	
     if(trim($values[$field->table_column.'_max']))
     {
-        $return['value'] .= ' - '.wpl_render::render_price($values[$field->table_column.'_max'], $values[$field->table_column.'_unit']);
+        $rendered_price .= ' - '.wpl_render::render_price($values[$field->table_column.'_max'], $values[$field->table_column.'_unit']);
     }
+    
+    $return['value'] = $rendered_price;
+    $return['price_only'] = $rendered_price;
     
     $price_period = wpl_property::render_field($values['price_period'], wpl_flex::get_dbst_id('price_period', $field->kind));
     if(isset($price_period['value'])) $return['value'] .= ' '.$price_period['value'];

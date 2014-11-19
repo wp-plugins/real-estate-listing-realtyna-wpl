@@ -4,7 +4,7 @@ Donate link: http://wpl.realtyna.com/
 Tags: Real estate, Listing, Vertical Market, MLS, Property listing, RETS, Listings, Broker, Realtor, Property, IDX, Multiple Listing Service, Property Management, Properties
 Requires at least: 3.0.1
 Tested up to: 4.0
-Stable tag: 1.9.0
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,17 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 6. External Responsive Template: Agent listing
 
 == Changelog ==
+
+= 2.0.0 =
+* [PRO] Added full multilingual support.
+* Added List/Grid switcher to property listing page.
+* Added Pattern for property alias.
+* Added map type feature for Google map.
+* Added mouseover feature for map markers.
+* Added overview option for Google map.
+* Added slide interval time option to carousel widget.
+* Enhanced WPL notification system.
+* Fixed an issue on scroll pagination.
 
 = 1.9.0 = 
 * [PRO] Added Scroll pagination.

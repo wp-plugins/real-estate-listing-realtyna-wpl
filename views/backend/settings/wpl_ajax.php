@@ -1,7 +1,9 @@
 <?php
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
+
 _wpl_import('libraries.settings');
+_wpl_import('libraries.flex');
 
 class wpl_settings_controller extends wpl_controller
 {
@@ -21,13 +23,15 @@ class wpl_settings_controller extends wpl_controller
 			$setting_value = wpl_request::getVar('setting_value');
 			$setting_category = wpl_request::getVar('setting_category');
 			
-			self::save($setting_name, $setting_value, $setting_category);
+			$this->save($setting_name, $setting_value, $setting_category);
 		}
 		elseif($function == 'save_watermark_image')
 		{
 			$file = $_FILES['wpl_watermark_uploader'];
-			self::save_watermark_image($file);
+			$this->save_watermark_image($file);
 		}
+        elseif($function == 'save_languages') $this->save_languages();
+        elseif($function == 'generate_language_keywords') $this->generate_language_keywords();
 		elseif($function == 'clear_cache') $this->clear_cache();
         elseif($function == 'remove_upload') $this->remove_upload();
 	}
@@ -116,6 +120,48 @@ class wpl_settings_controller extends wpl_controller
         wpl_settings::clear_cache('users_thumbnails');
         
         $response = array('success'=>1, 'message'=>__('Uploaded file removed successfully!', WPL_TEXTDOMAIN));
+		
+		echo json_encode($response);
+		exit;
+    }
+    
+    private function save_languages()
+    {
+        $raws = wpl_request::getVar('wpllangs', array());
+        
+        $langs = array();
+        $lang_options = array();
+        
+        foreach($raws as $key=>$raw)
+        {
+            if(!trim($raw['full_code'])) continue;
+            
+            $langs[$key] = $raw['full_code'];
+            $lang_options[$key] = $raw;
+        }
+        
+        wpl_settings::save_setting('lang_options', json_encode($lang_options));
+        wpl_addon_pro::save_languages($langs);
+		
+		$res = 1;
+		$message = $res ? __('Saved.', WPL_TEXTDOMAIN) : __('Error Occured.', WPL_TEXTDOMAIN);
+		$data = NULL;
+		
+		$response = array('success'=>$res, 'message'=>$message, 'data'=>$data);
+		
+		echo json_encode($response);
+		exit;
+    }
+    
+    private function generate_language_keywords()
+    {
+        wpl_addon_pro::generate_dynamic_keywords();
+		
+		$res = 1;
+		$message = $res ? __('Language strings are generated.', WPL_TEXTDOMAIN) : __('Error Occured.', WPL_TEXTDOMAIN);
+		$data = NULL;
+		
+		$response = array('success'=>$res, 'message'=>$message, 'data'=>$data);
 		
 		echo json_encode($response);
 		exit;

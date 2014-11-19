@@ -742,6 +742,9 @@ class wpl_global
      */
 	public static function zip_extract($file, $dest)
 	{
+        /** return false if ZipArchive class doesn't exists **/
+        if(!class_exists('ZipArchive')) return false;
+        
 		$zip = new ZipArchive;
 		if($zip->open($file) === true)
 		{
@@ -1243,8 +1246,8 @@ class wpl_global
     public static function url_encode($url)
     {
 		$url = trim($url);
-		$search = array("/\.+/","/\+/","/\:/","/\(/","/\)/","/\"/","/\//","/\!/","/\"/","/\-+/","/\s+/");
-		$replace = array(" "," "," "," "," "," "," "," "," "," ","-");
+		$search = array("/\.+/","/\+/","/\:/","/\(/","/\)/","/\"/","/\//","/\!/","/\"/","/\-+/","/,/","/\s+/");
+		$replace = array(" "," "," "," "," "," "," "," "," "," ","","-");
 	
 		$url = preg_replace($search, $replace, $url);
 		return trim($url, ' -');
@@ -1255,9 +1258,10 @@ class wpl_global
      * @author Howard <howard@realtyna.com>
      * @static
      * @since 1.8.0
+     * @param array $exclude
      * @return array
      */
-    public static function get_wpl_item_links()
+    public static function get_wpl_item_links($exclude = array())
     {
         $links = array();
         
@@ -1265,6 +1269,9 @@ class wpl_global
         $properties = wpl_property::select_active_properties(NULL, '`id`');
         foreach($properties as $property)
         {
+            /** exclude **/
+            if(isset($exclude['properties']) and in_array($property['id'], $exclude['properties'])) continue;
+            
             $property_data = wpl_db::select("SELECT `id`,`alias`,`last_modified_time_stamp` FROM `#__wpl_properties` WHERE `id`='".$property['id']."'", 'loadAssoc');
             
             $link = wpl_property::get_property_link($property_data);
@@ -1275,6 +1282,9 @@ class wpl_global
         $profiles = wpl_users::get_wpl_users();
         foreach($profiles as $profile)
         {
+            /** exclude **/
+            if(isset($exclude['profiles']) and in_array($profile->ID, $exclude['profiles'])) continue;
+            
             $link = wpl_users::get_profile_link($profile->ID);
             $links[] = array('link'=>$link, 'time'=>strtotime($profile->last_modified_time_stamp));
         }
@@ -1320,6 +1330,7 @@ class wpl_global
     /**
      * Get layouts
      * @author Howard <howard@realtyna.com>
+     * @static
      * @param string $view
      * @param array $exclude
      * @param string $client
@@ -1339,4 +1350,21 @@ class wpl_global
         
         return $layouts;
     }
+    
+    /**
+     * Check Multilingual Status
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @return boolean
+     */
+    public static function check_multilingual_status()
+	{
+		$pro = wpl_global::check_addon('pro');
+        
+        $status = 0;
+        if($pro) $status = wpl_global::get_setting('multilingual_status');
+        
+        if($pro and $status) return true;
+        else return false;
+	}
 }

@@ -741,7 +741,7 @@ class wpl_property
             }
             else
             {
-                $url .= $alias;
+                $url .= $property_id.'-'.$alias;
             }
         }
 		
@@ -845,11 +845,11 @@ class wpl_property
 		@return string property_alias
 		@author Howard
 	**/
-	public static function update_alias($property_data, $property_id = 0)
+	public static function update_alias($property_data, $property_id = 0, $glue = '-', $force = false)
 	{
 		/** fetch property data if property id is setted **/
 		if($property_id) $property_data = self::get_property_raw_data($property_id);
-		
+        
 		$alias = array();
 		$alias['id'] = $property_data['id'];
 		if(trim($property_data['property_type'])) $alias['property_type'] = __(wpl_global::get_property_types($property_data['property_type'])->name, WPL_TEXTDOMAIN);
@@ -861,13 +861,25 @@ class wpl_property
 		if(trim($property_data['bathrooms'])) $alias['bathrooms'] = $property_data['bathrooms'].__('Bathroom'.($property_data['bathrooms'] > 1 ? 's': ''), WPL_TEXTDOMAIN);
 		
 		$unit_data = wpl_units::get_unit($property_data['price_unit']);
-		$alias['price'] = $property_data['price'].$unit_data['extra'];
-		$alias_str = implode('-', $alias);
+		$alias['price'] = wpl_render::render_price($property_data['price'], $unit_data['id'], $unit_data['extra']);
 		
 		/** apply filters **/
 		_wpl_import('libraries.filters');
 		@extract(wpl_filters::apply('generate_property_alias', array('alias'=>$alias, 'alias_str'=>$alias_str)));
-		
+        
+        $alias_pattern = wpl_global::get_setting('property_alias_pattern');
+        if(trim($alias_pattern) == '') $alias_pattern = '[property_type][glue][listing_type][glue][location][glue][rooms][glue][bedrooms][glue][bathrooms][glue][price]';
+        
+        $alias_str = '';
+		$alias_str = isset($alias['property_type']) ? str_replace('[property_type]', $alias['property_type'], $alias_pattern) : str_replace('[property_type]', '', $alias_pattern);
+        $alias_str = isset($alias['listing']) ? str_replace('[listing_type]', $alias['listing'], $alias_str) : str_replace('[listing_type]', '', $alias_str);
+        $alias_str = isset($alias['location']) ? str_replace('[location]', $alias['location'], $alias_str) : str_replace('[location]', '', $alias_str);
+        $alias_str = isset($alias['rooms']) ? str_replace('[rooms]', $alias['rooms'], $alias_str) : str_replace('[rooms]', '', $alias_str);
+        $alias_str = isset($alias['bedrooms']) ? str_replace('[bedrooms]', $alias['bedrooms'], $alias_str) : str_replace('[bedrooms]', '', $alias_str);
+        $alias_str = isset($alias['bathrooms']) ? str_replace('[bathrooms]', $alias['bathrooms'], $alias_str) : str_replace('[bathrooms]', '', $alias_str);
+        $alias_str = isset($alias['price']) ? str_replace('[price]', $alias['price'], $alias_str) : str_replace('[price]', '', $alias_str);
+        $alias_str = str_replace('[glue]', $glue, $alias_str);
+        
 		/** escape **/
 		$alias_str = wpl_db::escape(wpl_global::url_encode($alias_str));
 		
@@ -892,10 +904,13 @@ class wpl_property
         /** fetch property data if property id is setted **/
 		if($property_id) $property_data = self::get_property_raw_data($property_id);
         
-        /** return current page title if exists **/
-        if(isset($property_data['field_312']) and trim($property_data['field_312']) != '' and !$force) return $property_data['field_312'];
+        $column = 'field_312';
+        if(wpl_global::check_multilingual_status()) $column = wpl_addon_pro::get_column_lang_name($column, wpl_global::get_current_language(), false);
         
-        /** firstvalidation **/
+        /** return current page title if exists **/
+        if(isset($property_data[$column]) and trim($property_data[$column]) != '' and !$force) return $property_data[$column];
+        
+        /** first validation **/
 		if(!$property_data) return '';
         
 		$listing = wpl_global::get_listings($property_data['listing'])->name;
@@ -919,8 +934,11 @@ class wpl_property
 		@extract(wpl_filters::apply('generate_property_page_title', array('title'=>$title, 'title_str'=>$title_str)));
         
         /** update **/
-		$query = "UPDATE `#__wpl_properties` SET `field_312`='".$title_str."' WHERE `id`='".$property_data['id']."'";
-		wpl_db::q($query, 'update');
+        if(wpl_db::columns('wpl_properties', 'field_312'))
+        {
+            $query = "UPDATE `#__wpl_properties` SET `field_312`='".$title_str."' WHERE `id`='".$property_data['id']."'";
+            wpl_db::q($query, 'update');
+        }
         
 		return $title_str;
     }
@@ -939,8 +957,11 @@ class wpl_property
         /** fetch property data if property id is setted **/
 		if($property_id) $property_data = self::get_property_raw_data($property_id);
         
+        $column = 'field_313';
+        if(wpl_global::check_multilingual_status()) $column = wpl_addon_pro::get_column_lang_name($column, wpl_global::get_current_language(), false);
+        
         /** return current title if exists **/
-        if(isset($property_data['field_313']) and trim($property_data['field_313']) != '' and !$force) return $property_data['field_313'];
+        if(isset($property_data[$column]) and trim($property_data[$column]) != '' and !$force) return $property_data[$column];
         
         /** first validation **/
 		if(!$property_data) return '';
@@ -965,8 +986,11 @@ class wpl_property
 		@extract(wpl_filters::apply('generate_property_title', array('title'=>$title, 'title_str'=>$title_str)));
         
         /** update **/
-		$query = "UPDATE `#__wpl_properties` SET `field_313`='".$title_str."' WHERE `id`='".$property_data['id']."'";
-		wpl_db::q($query, 'update');
+        if(wpl_db::columns('wpl_properties', 'field_313'))
+        {
+            $query = "UPDATE `#__wpl_properties` SET `field_313`='".$title_str."' WHERE `id`='".$property_data['id']."'";
+            wpl_db::q($query, 'update');
+        }
         
 		return $title_str;
     }
@@ -1159,6 +1183,7 @@ class wpl_property
 		
         /** generate rendered data if rendered data is empty **/
         if(!trim($raw_data['rendered']) and wpl_settings::get('cache')) $rendered = json_decode(wpl_property::generate_rendered_data($property_id), true);
+        elseif(!wpl_settings::get('cache')) $rendered = array();
         else $rendered = json_decode($raw_data['rendered'], true);
         
 		$result = array();
@@ -1181,7 +1206,7 @@ class wpl_property
 		$result['raw'] = $raw_data;
 		
 		/** location text **/
-		if($rendered['location_text']) $result['location_text'] = $rendered['location_text'];
+		if(isset($rendered['location_text'])) $result['location_text'] = $rendered['location_text'];
 		else $result['location_text'] = self::generate_location_text($raw_data);
 		
 		/** property full link **/

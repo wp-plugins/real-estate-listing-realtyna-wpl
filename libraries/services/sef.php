@@ -55,8 +55,14 @@ class wpl_service_sef
                 
 			$this->set_profile_page_params($user_id);
 		}
-		elseif($this->view == 'property_listing'){}
-		elseif($this->view == 'profile_listing'){}
+		elseif($this->view == 'property_listing')
+        {
+            $this->set_property_listing_page_params();
+        }
+		elseif($this->view == 'profile_listing')
+        {
+            $this->set_profile_listing_page_params();
+        }
 		elseif($this->view == 'features')
 		{
 			$function = str_replace('features/', '', $wpl_qs);
@@ -84,7 +90,7 @@ class wpl_service_sef
 		
 		/** check property alias for avoiding duplicate content **/
 		$called_alias = $wpl_qs;
-		$property_alias = urldecode(wpl_db::get('alias', 'wpl_properties', 'id', $proeprty_id));
+		$property_alias = $proeprty_id.'-'.urldecode(wpl_db::get('alias', 'wpl_properties', 'id', $proeprty_id));
 		
 		if(trim($property_alias) != '' and $called_alias != $property_alias)
 		{
@@ -107,9 +113,8 @@ class wpl_service_sef
         
         $current_link_url = wpl_global::get_full_url();
 		$property_data = wpl_property::get_property_raw_data($proeprty_id);
-		
-        if(trim($property_data['field_312']) != '') $this->property_page_title = $property_data['field_312'];
-		else $this->property_page_title = wpl_property::update_property_page_title($property_data);
+        
+		$this->property_page_title = wpl_property::update_property_page_title($property_data);
         
         $this->property_keywords = $property_data['meta_keywords'];
         $this->property_description = $property_data['meta_description'];
@@ -132,13 +137,16 @@ class wpl_service_sef
         $locale = wpl_global::get_current_language();
         $html->set_custom_tag('<meta property="og:locale" content="'.$locale.'" />');
         
+        $content_column = 'field_308';
+        if(wpl_global::check_multilingual_status()) $content_column = wpl_addon_pro::get_column_lang_name($content_column, $locale, false);
+        
         $html->set_custom_tag('<meta property="og:url" content="'.str_replace('&', '&amp;', $current_link_url).'" />');
         $html->set_custom_tag('<meta property="og:title" data-page-subject="true" content="'.$this->property_page_title.'" />');
-        $html->set_custom_tag('<meta property="og:description" content="'.strip_tags($property_data['field_308']).'" />');
+        $html->set_custom_tag('<meta property="og:description" content="'.strip_tags($property_data[$content_column]).'" />');
         
         $html->set_custom_tag('<meta property="twitter:card" content="summary" />');
         $html->set_custom_tag('<meta property="twitter:title" content="'.$this->property_page_title.'" />');
-        $html->set_custom_tag('<meta property="twitter:description" content="'.strip_tags($property_data['field_308']).'" />');
+        $html->set_custom_tag('<meta property="twitter:description" content="'.strip_tags($property_data[$content_column]).'" />');
         $html->set_custom_tag('<meta property="twitter:url" content="'.str_replace('&', '&amp;', $current_link_url).'" />');
         
         $gallery = wpl_items::get_gallery($proeprty_id, $property_data['kind']);
@@ -204,6 +212,27 @@ class wpl_service_sef
 		$html->set_meta_description($this->user_description);
 	}
     
+    /**
+     * Sets property listing page parameters
+     * @author Howard <howard@realtyna.com>
+     */
+    public function set_property_listing_page_params()
+    {
+    }
+    
+    /**
+     * Sets profile listing page parameters
+     * @author Howard <howard@realtyna.com>
+     */
+    public function set_profile_listing_page_params()
+    {
+    }
+    
+    /**
+     * Sets Geo Meta Tags
+     * @author Howard <howard@realtyna.com>
+     * @return boolean
+     */
     public function geotags()
     {
         $settings = wpl_global::get_settings();
@@ -219,6 +248,11 @@ class wpl_service_sef
         if(trim($settings['geotag_latitude']) and trim($settings['geotag_longitude'])) $html->set_custom_tag('<meta name="ICBM" content="'.$settings['geotag_latitude'].', '.$settings['geotag_longitude'].'" />');
     }
     
+    /**
+     * Sets Dublin Core Meta Tags
+     * @author Howard <howard@realtyna.com>
+     * @return boolean
+     */
     public function dublincore()
     {
         $settings = wpl_global::get_settings();

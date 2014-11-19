@@ -90,6 +90,7 @@ class wpl_users_controller extends wpl_controller
 			
 			self::delete_file($field_id, $user_id);
 		}
+        elseif($function == 'save_multilingual') self::save_multilingual();
 	}
 	
 	private function add_user_to_wpl($user_id)
@@ -207,6 +208,35 @@ class wpl_users_controller extends wpl_controller
 		$res = wpl_db::set($table_name, $item_id, $table_column, $value, 'id');
 		
 		$res = (int) $res;
+		$message = $res ? __('Saved.', WPL_TEXTDOMAIN) : __('Error Occured.', WPL_TEXTDOMAIN);
+		$data = NULL;
+		
+		$response = array('success'=>$res, 'message'=>$message, 'data'=>$data);
+		
+		echo json_encode($response);
+		exit;
+	}
+    
+    private function save_multilingual()
+	{
+		$dbst_id = wpl_request::getVar('dbst_id');
+        $value = wpl_db::escape(wpl_request::getVar('value'));
+        $item_id = wpl_request::getVar('item_id');
+        $lang = wpl_request::getVar('lang');
+        
+        $field = wpl_flex::get_field($dbst_id);
+        
+        $table_name = $field->table_name;
+        $table_column1 = wpl_addon_pro::get_column_lang_name($field->table_column, $lang, false);
+        $default_language = wpl_addon_pro::get_default_language();
+        
+        $table_column2 = NULL;
+        if(strtolower($default_language) == strtolower($lang)) $table_column2 = wpl_addon_pro::get_column_lang_name($field->table_column, $lang, true);
+        
+		wpl_db::set($table_name, $item_id, $table_column1, $value, 'id');
+        if($table_column2) wpl_db::set($table_name, $item_id, $table_column2, $value, 'id');
+        
+		$res = 1;
 		$message = $res ? __('Saved.', WPL_TEXTDOMAIN) : __('Error Occured.', WPL_TEXTDOMAIN);
 		$data = NULL;
 		

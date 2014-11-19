@@ -4,6 +4,17 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL2.0.0 (<span class="wpl_log_date">11/19/2014</span> <span class="wpl_log_revision">revision 919</span>)</h4>
+        -- <strong>[PRO]</strong> Added full multilingual support.<br />
+        -- Added List/Grid switcher to property listing page.<br />
+        -- Added Pattern for property alias.<br />
+        -- Added map type feature for Google map.<br />
+        -- Added mouseover feature for map markers.<br />
+        -- Added overview option for Google map.<br />
+        -- Added slide interval time option to carousel widget.<br />
+        -- Enhanced WPL notification system.<br />
+        -- Fixed an issue on scroll pagination.
+        
         <h4>WPL1.9.0 (<span class="wpl_log_date">10/25/2014</span> <span class="wpl_log_revision">revision 882</span>)</h4>
         -- <strong>[PRO]</strong> Added Scroll pagination.<br />
         -- Added layout option in shortcode wizard.<br />

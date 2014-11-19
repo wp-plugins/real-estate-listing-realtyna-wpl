@@ -7,6 +7,8 @@ include _wpl_import('widgets.carousel.scripts.js', true, true);
 $image_width = isset($this->instance['data']['image_width']) ? $this->instance['data']['image_width'] : 1920;
 $image_height = isset($this->instance['data']['image_height']) ? $this->instance['data']['image_height'] : 558;
 
+$slide_interval = isset($this->instance['data']['slide_interval']) ? $this->instance['data']['slide_interval'] : 3000;
+
 /** add Layout js **/
 $js[] = (object) array('param1'=>'bx.slider', 'param2'=>'js/jquery.bxslider.min.js');
 foreach($js as $javascript) wpl_extensions::import_javascript($javascript);
@@ -22,7 +24,8 @@ wplj(document).ready(function()
 		auto: true,
 		captions: true,
 		nextText: '',
-		prevText: ''
+		prevText: '',
+        pause: <?php echo $slide_interval; ?>
 	});
     <?php endif; ?>
 });

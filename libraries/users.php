@@ -965,9 +965,11 @@ class wpl_users
         $user_data = (array) wpl_users::get_user($user_id);
 		$path = wpl_items::get_path($user_id, 2);
         
-		if(trim($user_data['data']->wpl_data->main_email) != '') wpl_images::text_to_image($user_data['data']->wpl_data->main_email, '000000', $path.'main_email.png');
-        else wpl_images::text_to_image($user_data['data']->user_email, '000000', $path.'main_email.png');
+        /** delete images **/
+        if(wpl_file::exists($path.'main_email.png')) wpl_file::delete($path.'main_email.png');
+        if(wpl_file::exists($path.'second_email.png')) wpl_file::delete($path.'second_email.png');
         
+		if(trim($user_data['data']->wpl_data->main_email) != '') wpl_images::text_to_image($user_data['data']->wpl_data->main_email, '000000', $path.'main_email.png');
 		if(trim($user_data['data']->wpl_data->secondary_email) != '') wpl_images::text_to_image($user_data['data']->wpl_data->secondary_email, '000000', $path.'second_email.png');
     }
 	
@@ -1059,6 +1061,7 @@ class wpl_users
 		
         /** generate rendered data if rendered data is empty **/
         if(!trim($raw_data['rendered']) and wpl_settings::get('cache')) $rendered = json_decode(wpl_users::generate_rendered_data($user_id), true);
+        elseif(!wpl_settings::get('cache')) $rendered = array();
         else $rendered = json_decode($raw_data['rendered'], true);
         
 		$result = array();
@@ -1073,14 +1076,14 @@ class wpl_users
             $rendered_fields = self::render_profile($profile, $plisting_fields, $find_files, true);
         }
         
-		if($rendered['rendered']) $result['rendered'] = $rendered['rendered'];
+		if(isset($rendered['rendered'])) $result['rendered'] = $rendered['rendered'];
 		else $result['rendered'] = $rendered_fields['ids'];
         
         if(isset($rendered['materials']) and $rendered['materials']) $result['materials'] = $rendered['materials'];
 		else $result['materials'] = $rendered_fields['columns'];
         
 		/** location text **/
-		if($rendered['location_text']) $result['location_text'] = $rendered['location_text'];
+		if(isset($rendered['location_text'])) $result['location_text'] = $rendered['location_text'];
 		else $result['location_text'] = self::generate_location_text($raw_data);
 		
 		/** profile full link **/

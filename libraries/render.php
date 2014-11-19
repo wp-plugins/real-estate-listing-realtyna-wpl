@@ -159,9 +159,10 @@ class wpl_render
      * @static
      * @param int $price
      * @param int $unit_id
+     * @param string $symbol
      * @return string
      */
-	public static function render_price($price, $unit_id = '')
+	public static function render_price($price, $unit_id = '', $symbol = '')
 	{
 		/** in case of empty unit just do it with default currency **/
 		if(trim($unit_id) == '')
@@ -172,7 +173,8 @@ class wpl_render
 		
 		/** get currency **/
 		$currency = wpl_units::get_unit($unit_id);
-		$symbol = $currency['name'];
+        
+		if(!trim($symbol)) $symbol = $currency['name'];
 		$decimal = 2;
 		$return = '';
 		

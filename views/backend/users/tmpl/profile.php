@@ -3,18 +3,40 @@
 defined('_WPLEXEC') or die('Restricted access');
 $this->_wpl_import($this->tpl_path . '.scripts.js');
 $this->_wpl_import($this->tpl_path . '.scripts.css');
+
+$my_profile_top_activities = count(wpl_activity::get_activities('my_profile_top', 1));
+$my_profile_bottom_activities = count(wpl_activity::get_activities('my_profile_bottom', 1));
 ?>
 <div class="wrap wpl-wp profile-wp">
     <header>
-        <div id="icon-profile" class="icon48">
-        </div>
+        <div id="icon-profile" class="icon48"></div>
         <h2><?php echo __('Profile', WPL_TEXTDOMAIN); ?></h2>
     </header>
     <div class="wpl_user_profile"><div class="wpl_show_message"></div></div>
+    
+    <?php if($my_profile_top_activities): ?>
+    <div id="my_profile_top_container">
+        <?php
+            $activities = wpl_activity::get_activities('my_profile_top', 1);
+            foreach($activities as $activity)
+            {
+                $content = wpl_activity::render_activity($activity, array('user_data'=>$this->user_data));
+                if(trim($content) == '') continue;
+        ?>
+        <div class="panel-wp margin-top-1p">
+            <?php if($activity->show_title and trim($activity->title) != ''): ?>
+            <h3><?php echo __($activity->title, WPL_TEXTDOMAIN); ?></h3>
+            <?php endif; ?>
+            <div class="panel-body"><?php echo $content; ?></div>
+        </div>
+        <?php
+            }
+        ?>
+    </div>
+    <?php endif; ?>
+    
     <div class="panel-wp margin-top-1p">
-        <h3>
-            <?php echo __('Profile', WPL_TEXTDOMAIN); ?>
-        </h3>
+        <h3><?php echo __('Profile', WPL_TEXTDOMAIN); ?></h3>
         <div class="panel-body">
             <div class="pwizard-panel">
                 <div class="pwizard-section">
@@ -31,6 +53,28 @@ $this->_wpl_import($this->tpl_path . '.scripts.css');
             </div>
         </div>
     </div>
+    
+    <?php if($my_profile_bottom_activities): ?>
+    <div id="my_profile_bottom_container">
+        <?php
+            $activities = wpl_activity::get_activities('my_profile_bottom', 1);
+            foreach($activities as $activity)
+            {
+                $content = wpl_activity::render_activity($activity, array('user_data'=>$this->user_data));
+                if(trim($content) == '') continue;
+        ?>
+        <div class="panel-wp margin-top-1p">
+            <?php if($activity->show_title and trim($activity->title) != ''): ?>
+            <h3><?php echo __($activity->title, WPL_TEXTDOMAIN); ?></h3>
+            <?php endif; ?>
+            <div class="panel-body"><?php echo $content; ?></div>
+        </div>
+        <?php
+            }
+        ?>
+    </div>
+    <?php endif; ?>
+    
     <footer>
         <div class="logo"></div>
     </footer>

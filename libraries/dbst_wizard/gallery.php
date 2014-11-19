@@ -192,12 +192,12 @@ wplj(document).ready(function()
                     var dynTem = rta.template.bind({
                         index: img_counter,
                         name: file.name,
-                        enabled_title: '<?php echo __('Enabled', WPL_TEXTDOMAIN) ?>',
-                        selectOptions: '<?php echo $image_categories_html ?>',
-                        imageFolder: '<?php echo $image_folder; ?>',
-                        lblImageTitle: '<?php echo __('Image Title', WPL_TEXTDOMAIN) ?>',
-                        lblImageDesc: '<?php echo __('Image Description', WPL_TEXTDOMAIN); ?>',
-                        lblImageCat: '<?php echo __('Image Category', WPL_TEXTDOMAIN); ?>',
+                        enabled_title: "<?php echo addslashes(__('Enabled', WPL_TEXTDOMAIN)) ?>",
+                        selectOptions: "<?php echo addslashes($image_categories_html) ?>",
+                        imageFolder: "<?php echo addslashes($image_folder); ?>",
+                        lblImageTitle: "<?php echo addslashes(__('Image Title', WPL_TEXTDOMAIN)); ?>",
+                        lblImageDesc: "<?php echo addslashes(__('Image Description', WPL_TEXTDOMAIN)); ?>",
+                        lblImageCat: "<?php echo addslashes(__('Image Category', WPL_TEXTDOMAIN)); ?>"
                     }, 'newImage');
 
                     wplj(dynTem).appendTo('#ajax_gal_sortable');
@@ -220,7 +220,7 @@ wplj(document).ready(function()
         processfail: function(e, data)
         {
             wplj('#progress_img').hide('fast');
-            wplj("#error_ajax_img").html("<span color='red'><?php echo __('Error occured', WPL_TEXTDOMAIN) ?> : " + data.files[data.index].name + " " + data.files[data.index].error + "</span>");
+            wplj("#error_ajax_img").html("<span color='red'><?php echo addslashes(__('Error occured', WPL_TEXTDOMAIN)) ?> : " + data.files[data.index].name + " " + data.files[data.index].error + "</span>");
             wplj("#error_ajax_img").show('slow');
         }
     });
@@ -243,7 +243,7 @@ function ajax_gallery_cat_update(image, value)
 
 function ajax_gallery_image_delete(image, id)
 {
-	if(!confirm('<?php echo __('Are you sure?', WPL_TEXTDOMAIN) ?>')) return;
+	if(!confirm("<?php echo addslashes(__('Are you sure?', WPL_TEXTDOMAIN)); ?>")) return;
 	
     ajax = wpl_run_ajax_query("<?php echo wpl_global::get_full_url(); ?>", "wpl_format=b:listing:gallery&wpl_function=delete_image&pid=<?php echo $item_id; ?>&image="+encodeURIComponent(image)+"&kind=<?php echo $this->kind; ?>");
     ajax.success(function()
@@ -263,9 +263,9 @@ function wpl_image_enabled(gallery, id)
 	ajax.success(function(data)
 	{
 		if (status == 0)
-			wplj("#active_image_tag_" + id).html('<i class="action-btn icon-disabled" title="<?php echo __('Disabled', WPL_TEXTDOMAIN); ?>"></i>');
+			wplj("#active_image_tag_" + id).html('<i class="action-btn icon-disabled" title="<?php echo addslashes(__('Disabled', WPL_TEXTDOMAIN)); ?>"></i>');
 		else
-			wplj("#active_image_tag_" + id).html('<i class="action-btn icon-enabled" title="<?php echo __('Enabled', WPL_TEXTDOMAIN); ?>"></i>');
+			wplj("#active_image_tag_" + id).html('<i class="action-btn icon-enabled" title="<?php echo addslashes(__('Enabled', WPL_TEXTDOMAIN)); ?>"></i>');
 	});
 }
 

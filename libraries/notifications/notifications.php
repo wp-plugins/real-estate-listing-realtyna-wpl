@@ -46,21 +46,18 @@ class wpl_notifications
      * Returns email instance
      * @author Howard R <howard@realtyna.com>
      * @static
-     * @return \PHPMailer
+     * @return Object
      */
-    public static function get_mailer()
+    public function get_mailer()
     {
-        _wp_import('wp-includes.class-phpmailer');
-        
-        $handler = new PHPMailer();
-        $handler->IsHTML();
-        $handler->CharSet = 'UTF-8';
-        
+        $mailer = new stdClass();
+        $mailer->ContentType = 'text/html';
+        $mailer->Charset = 'UTF-8';
+
         $sender = self::get_sender();
-        if(is_string($sender)) $handler->setFrom($sender);
-        elseif(is_array($sender)) $handler->setFrom($sender[0], $sender[1]);
-        
-        return $handler;
+        $mailer->Sender = $sender;
+
+        return $mailer;
     }
     
     /**
@@ -110,17 +107,27 @@ class wpl_notifications
      */
     public function send()
     {
-        $this->handler->Subject = $this->notification_data['subject'];
-        $this->handler->MsgHTML($this->rendered_content);
+        $mail_subject = $this->notification_data['subject'];
+        $mail_message = $this->rendered_content;
+        $mail_headers = $this->get_mail_headers();
         
         foreach($this->recipients as $recipient)
         {
-            if(is_array($recipient)) $email = $recipient[1];
-            else $email = $recipient;
+            if(is_array($recipient))
+            {
+                $mail_to = $recipient[1];
+                $user_id = $recipient[0];
+            }
+            else
+            {
+                $mail_to = $recipient;
+                $user_id = wpl_users::get_id_by_email($mail_to);
+            }
+			
+            // Check receive notification access level
+            if($user_id > 0 and !wpl_users::check_access('receive_notifications', 0, $user_id)) continue;
             
-            $this->handler->clearAllRecipients();
-            $this->handler->AddAddress($email);
-            $this->handler->Send();
+            $this->wp_mail($mail_to, $mail_subject, $mail_message, $mail_headers);
         }
     }
     
@@ -299,7 +306,7 @@ class wpl_notifications
     
     /**
      * update notification
-     * @author Kevin J <kevin@realtyna.com>
+     * @author Kevin J <kevin@realtyna.com> 
      * @static
      * @param integer $id ID of Notification to Update
      * @param string $key field Key must to change
@@ -316,7 +323,7 @@ class wpl_notifications
     
     /**
      * save notification data
-     * @author Kevin J <kevin@realtyna.com>
+     * @author Kevin J <kevin@realtyna.com> 
      * @static
      * @param array $data notification data to save reperesantion in arrray
      * @return boolean
@@ -334,7 +341,7 @@ class wpl_notifications
     
     /**
      * extract parameter from html with marked by ##test##
-     * @author Kevin J <kevin@realtyna.com>
+     * @author Kevin J <kevin@realtyna.com> 
      * @static
      * @param string $template
      * @return array $data[0] containt name of parameter with out ## and $data[1] with ##
@@ -344,5 +351,42 @@ class wpl_notifications
         $matches = NULL;
         preg_match_all('/##([^#]*)##/', $template, $matches);
         return $matches;
+    }
+
+    /**
+     * Generate mail headers string
+     * @author Peter P <peter@realtyna.com>
+     * @return string
+     */
+    public function get_mail_headers()
+    {
+        $headers = '';
+
+        if(is_string($this->handler->Sender))
+        {
+            $headers .= 'From: '.$this->handler->Sender."\n";
+        }
+        elseif(is_array($this->handler->Sender)) 
+        {
+            $headers .= 'From: '.$this->handler->Sender[0].' <'.$this->handler->Sender[1] ."> \n";
+        }
+
+        $headers .= 'Content-Type: '.$this->handler->ContentType.'; charset='.$this->handler->Charset."\n";
+		
+        return $headers;
+    }
+    
+    /**
+     * Wrapper for wp_mail function
+     * @author Howard <howard@realtyna.com>
+     * @param string $mail_to
+     * @param string $mail_subject
+     * @param string $mail_message
+     * @param mixed $mail_headers
+     * @return mixed
+     */
+    public function wp_mail($mail_to, $mail_subject, $mail_message, $mail_headers)
+    {
+        return wp_mail($mail_to, wp_specialchars_decode($mail_subject), $mail_message, $mail_headers);
     }
 }

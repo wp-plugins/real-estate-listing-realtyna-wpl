@@ -2,7 +2,6 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 ?>
-
 <div class="fanc-row">
     <label for="<?php echo $__prefix; ?>category"><?php echo __('Data category', WPL_TEXTDOMAIN); ?></label>
     <select id="<?php echo $__prefix; ?>category" name="<?php echo $__prefix; ?>data_category">
@@ -26,6 +25,15 @@ defined('_WPLEXEC') or die('Restricted access');
         <option value="0" <?php if (isset($values->text_search) and $values->text_search == '0') echo 'selected="selected"'; ?>><?php echo __('No', WPL_TEXTDOMAIN); ?></option>
     </select>
 </div>
+<?php if(wpl_global::check_multilingual_status() and (in_array($type, array('text', 'textarea')) or (isset($values->type) and in_array($values->type, array('text', 'textarea'))))): ?>
+<div class="fanc-row">
+    <label for="<?php echo $__prefix; ?>multilingual"><?php echo __('Multilingual', WPL_TEXTDOMAIN); ?></label>
+    <select name="<?php echo $__prefix; ?>multilingual" id="<?php echo $__prefix; ?>multilingual">
+        <option value="0" <?php if (isset($values->multilingual) and $values->multilingual == '0') echo 'selected="selected"'; ?>><?php echo __('No', WPL_TEXTDOMAIN); ?></option>
+        <option value="1" <?php if (isset($values->multilingual) and $values->multilingual == '1') echo 'selected="selected"'; ?>><?php echo __('Yes', WPL_TEXTDOMAIN); ?></option>
+    </select>
+</div>
+<?php endif; ?>
 <div class="fanc-row">
     <label for="<?php echo $__prefix; ?>pshow"><?php echo __('Detail Page', WPL_TEXTDOMAIN); ?></label>
     <select name="<?php echo $__prefix; ?>pshow" id="<?php echo $__prefix; ?>pshow">

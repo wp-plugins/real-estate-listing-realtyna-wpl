@@ -20,4 +20,5 @@ defined('_WPLEXEC') or die('Restricted access');
 .wpl_server_offers{margin-top: 10px; text-align: center;}
 .separator-name{padding-left: 30px; margin: 10px 0;}
 hr{margin-bottom: 0;}
+input.long{width: 400px;}
 </style>

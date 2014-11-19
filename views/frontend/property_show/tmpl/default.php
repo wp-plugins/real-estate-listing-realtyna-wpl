@@ -6,7 +6,7 @@ $this->_wpl_import($this->tpl_path.'.scripts.js', true, true);
 
 $prp_type           = isset($this->wpl_properties['current']['materials']['property_type']['value']) ? $this->wpl_properties['current']['materials']['property_type']['value'] : '';
 $prp_listings       = isset($this->wpl_properties['current']['materials']['listing']['value']) ? $this->wpl_properties['current']['materials']['listing']['value'] : '';
-$build_up_area      = isset($this->wpl_properties['current']['materials']['living_area']['value']) ? $this->wpl_properties['current']['materials']['living_area']['value'] : '';
+$build_up_area      = isset($this->wpl_properties['current']['materials']['living_area']['value']) ? $this->wpl_properties['current']['materials']['living_area']['value'] : (isset($this->wpl_properties['current']['materials']['lot_area']['value']) ? $this->wpl_properties['current']['materials']['lot_area']['value'] : '');
 $bedroom            = isset($this->wpl_properties['current']['materials']['bedrooms']['value']) ? $this->wpl_properties['current']['materials']['bedrooms']['value'] : '';
 $bathroom           = isset($this->wpl_properties['current']['materials']['bathrooms']['value']) ? $this->wpl_properties['current']['materials']['bathrooms']['value'] : '';
 $listing_id         = isset($this->wpl_properties['current']['materials']['mls_id']['value']) ? $this->wpl_properties['current']['materials']['mls_id']['value'] : '';
@@ -61,16 +61,21 @@ if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->w
             <div class="wpl_prp_container_content_title">
                 <?php
                 echo '<h1 class="title_text">'.$prp_title.'</h1>';
-                echo '<h2 class="location_build_up">'.$build_up_area.' - <span itemprop="address">'. $location_string .'</span></h2>';
+                echo '<h2 class="location_build_up">'.(trim($build_up_area) ? $build_up_area.' - ' : '').'<span itemprop="address">'. $location_string .'</span></h2>';
 				
                 /** load QR Code **/ wpl_activity::load_position('pshow_qr_code', array('wpl_properties'=>$this->wpl_properties)); ?>
             </div>
             <div class="wpl_prp_container_content_left">
-				<?php if($this->wpl_properties['current']['data']['field_308']): ?>
+				<?php
+                    $description_column = 'field_308';
+                    if(wpl_global::check_multilingual_status()) $description_column = wpl_addon_pro::get_column_lang_name($description_column, wpl_global::get_current_language(), false);
+                    
+                    if($this->wpl_properties['current']['data'][$description_column]):
+                ?>
                 <div class="wpl_prp_show_detail_boxes">
                     <div class="wpl_prp_show_detail_boxes_title"><?php echo __('Property Description', WPL_TEXTDOMAIN) ?></div>
                     <div class="wpl_prp_show_detail_boxes_cont" itemprop="description">
-                        <?php echo apply_filters('the_content', $this->wpl_properties['current']['data']['field_308']); ?>
+                        <?php echo apply_filters('the_content', $this->wpl_properties['current']['data'][$description_column]); ?>
                     </div>
                 </div>
                 <?php endif; ?>

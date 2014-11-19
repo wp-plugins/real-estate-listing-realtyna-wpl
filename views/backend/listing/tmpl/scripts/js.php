@@ -6,6 +6,46 @@ defined('_WPLEXEC') or die('Restricted access');
 wplj(document).ready(function(){
 });
 
+function ajax_multilingual_save(field_id, lang, value, item_id)
+{
+    var wpl_function = 'save_multilingual';
+	var form_element_id = "#wpl_c_"+field_id+"_"+lang;
+	
+	var current_element_status = wplj(form_element_id).attr("disabled");
+	wplj(form_element_id).attr("disabled", "disabled");
+	
+	var ajax_loader_element = '#wpl_listing_saved_span_'+field_id+"_"+lang;
+	wplj(ajax_loader_element).html('<img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader3.gif'); ?>" />');
+	
+	request_str = 'wpl_format=b:listing:ajax&wpl_function='+wpl_function+'&dbst_id='+field_id+'&value='+encodeURIComponent(value)+'&item_id='+item_id+'&lang='+lang;
+	
+	/** run ajax query **/
+	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str, ajax_loader_element);
+	ajax.success(function(data)
+	{
+		if(current_element_status != 'disabled') wplj(form_element_id).removeAttr("disabled");
+		
+		if(data.success == 1)
+		{
+			wplj(ajax_loader_element).html('');
+			
+			/** unfinalize property **/
+			if(finalized)
+			{
+				ajax_save('', '', '0', item_id, '', '', 'finalize');
+				finalized = 0;
+				wplj("#wpl_listing_remember_to_finalize").show();
+			}
+		}
+		else if(data.success != 1)
+		{
+			try{eval(data.js)} catch(err){}
+  
+			wplj(ajax_loader_element).html('');
+		}
+	});
+}
+
 function ajax_save(table_name, table_column, value, item_id, field_id, form_element_id, wpl_function)
 {
 	if(!wpl_function) wpl_function = 'save';

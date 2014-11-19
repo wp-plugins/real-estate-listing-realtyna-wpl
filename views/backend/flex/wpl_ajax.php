@@ -87,13 +87,13 @@ class wpl_flex_controller extends wpl_controller
 			$mode = 'add';
 			$dbst_id = wpl_flex::create_default_dbst();
 		}
-		
+        
 		$q = '';
 		foreach($post as $field=>$value)
 		{
 			if(substr($field, 0 ,4) != 'fld_') continue;
 			$key = substr($field, 4);
-			
+            
 			$q .= "`$key`='$value', ";
 		}
 		
@@ -111,7 +111,10 @@ class wpl_flex_controller extends wpl_controller
 		
 		/** run queries **/
 		if($mode == 'add') wpl_flex::run_dbst_type_queries($dbst_id, $dbst_type, $dbst_kind, 'add');
-		
+        
+        /** Multilingual **/
+		if(wpl_global::check_addon('pro')) wpl_addon_pro::multilingual($dbst_id);
+        
 		/** trigger event **/
 		wpl_global::event_handler('dbst_modified', array('id'=>$dbst_id, 'mode'=>$mode, 'kind'=>$dbst_kind, 'type'=>$dbst_type));
 		
@@ -140,7 +143,7 @@ class wpl_flex_controller extends wpl_controller
 			
 			/** run queries **/
 			wpl_flex::run_dbst_type_queries($dbst_id, $dbst_type, $dbst_kind, 'delete');
-			
+        
 			/** trigger event **/
 			wpl_global::event_handler('dbst_deleted', array('id'=>$dbst_id, 'kind'=>$dbst_kind, 'type'=>$dbst_type));
 			

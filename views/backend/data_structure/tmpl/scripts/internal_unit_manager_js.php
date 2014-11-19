@@ -5,41 +5,38 @@ defined('_WPLEXEC') or die('Restricted access');
 <script type="text/javascript">
 wplj(document).ready(function()
 {
-	wplj(function()
-	{
-		wplj(".sortable_unit").sortable(
-		{
-			handle: 'span.icon-move',
-			cursor: "move" ,
-			update : function(e, ui)
-			{
-				var stringDiv = "";
-				wplj(this).children("tr").each(function(i)
-				{
-					var tr = wplj(this);
-					var tr_id = tr.attr("id").split("_");
-					if(i != 0) stringDiv += ",";
-					stringDiv += tr_id[2];
-				});
-				
-				request_str = 'wpl_format=b:data_structure:ajax_unit_manager&wpl_function=sort_units&sort_ids='+stringDiv;
-				
-				wplj.ajax(
-				{
-					type: "POST",
-					url: '<?php echo wpl_global::get_full_url(); ?>',
-					data: request_str,
-					success: function(data)
-					{
-					},
-					error: function(jqXHR, textStatus, errorThrown)
-					{
-						wpl_show_messages('<?php echo __('Error Occured.', WPL_TEXTDOMAIN); ?>', '.wpl_data_structure_list .wpl_show_message', 'wpl_red_msg');
-					}
-				});
-			}
-		});
-	})
+	wplj(".sortable_unit").sortable(
+    {
+        handle: 'span.icon-move',
+        cursor: "move" ,
+        update : function(e, ui)
+        {
+            var stringDiv = "";
+            wplj(this).children("tr").each(function(i)
+            {
+                var tr = wplj(this);
+                var tr_id = tr.attr("id").split("_");
+                if(i != 0) stringDiv += ",";
+                stringDiv += tr_id[2];
+            });
+
+            request_str = 'wpl_format=b:data_structure:ajax_unit_manager&wpl_function=sort_units&sort_ids='+stringDiv;
+
+            wplj.ajax(
+            {
+                type: "POST",
+                url: '<?php echo wpl_global::get_full_url(); ?>',
+                data: request_str,
+                success: function(data)
+                {
+                },
+                error: function(jqXHR, textStatus, errorThrown)
+                {
+                    wpl_show_messages('<?php echo __('Error Occured.', WPL_TEXTDOMAIN); ?>', '.wpl_data_structure_list .wpl_show_message', 'wpl_red_msg');
+                }
+            });
+        }
+    });
 });
 
 //load new category whene select box changed for category show

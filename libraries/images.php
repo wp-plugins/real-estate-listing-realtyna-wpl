@@ -351,7 +351,7 @@ class wpl_images
 
         // write the string at the top left
         imagestring($im, 4, 1, 0, $text, $textcolor);
-
+        
         // output the image
         imagepng($im, $dest);
     }
@@ -457,5 +457,203 @@ class wpl_images
 		}
 		
 		return $image_url;
+    }
+}
+
+/**
+ * Color Library
+ * @author Howard R <howard@realtyna.com>
+ * @since WPL2.0.0
+ * @date 11/19/2014
+ */
+class wpl_color
+{
+    /**
+     * Convert a hex color to lighter or darker version based on radiance
+     * @author Howard R <howard@realtyna.com>
+     * @param string $hex
+     * @param int $radiance
+     * @param boolean $trim
+     * @return string
+     */
+    public function convert($hex, $radiance, $trim = false)
+    {
+        $RGB = $this->hex2rgb($hex);
+        $result = $this->rgb2hex($this->radiance($RGB, $radiance));
+        
+        if($trim) $result = trim($result, '# ');
+        return $result;
+    }
+    
+    /**
+     * Convert hex color to RGB color
+     * @author Howard R <howard@realtyna.com>
+     * @param string $hex
+     * @return type
+     */
+    public function hex2rgb($hex)
+    {
+        if($hex[0] == '#')
+            $hex = substr($hex, 1);
+
+        if(strlen($hex) == 3)
+        {
+            $hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
+        }
+
+        $r = hexdec($hex[0] . $hex[1]);
+        $g = hexdec($hex[2] . $hex[3]);
+        $b = hexdec($hex[4] . $hex[5]);
+
+        return $b + ($g << 0x8) + ($r << 0x10);
+    }
+
+    /**
+     * Converts RGB to hex color
+     * @author Howard R <howard@realtyna.com>
+     * @param type $RGB
+     * @return string
+     */
+    public function rgb2hex($RGB)
+    {
+        $r = 0xFF & ($RGB >> 0x10);
+        $g = 0xFF & ($RGB >> 0x8);
+        $b = 0xFF & $RGB;
+
+        $r = dechex($r);
+        $g = dechex($g);
+        $b = dechex($b);
+
+        return "#" . str_pad($r, 2, "0", STR_PAD_LEFT) . str_pad($g, 2, "0", STR_PAD_LEFT) . str_pad($b, 2, "0", STR_PAD_LEFT);
+    }
+    
+    /**
+     * Creates lighter or darker version of an RGB color
+     * @author Howard R <howard@realtyna.com>
+     * @param type $RGB
+     * @param int $radiance
+     * @return type
+     */
+    public function radiance($RGB, $radiance)
+    {
+        $HSL = self::rgb2hsl($RGB);
+        $NewHSL = (int)(((float) $radiance / 100) * 255) + (0xFFFF00 & $HSL);
+        return self::hsl2rgb($NewHSL);
+    }
+    
+    /**
+     * Converts RGB to HSL
+     * @author Howard R <howard@realtyna.com>
+     * @param type $RGB
+     * @return type
+     */
+    public function rgb2hsl($RGB)
+    {
+        $r = 0xFF & ($RGB >> 0x10);
+        $g = 0xFF & ($RGB >> 0x8);
+        $b = 0xFF & $RGB;
+
+        $r = ((float) $r) / 255.0;
+        $g = ((float) $g) / 255.0;
+        $b = ((float) $b) / 255.0;
+
+        $maxC = max($r, $g, $b);
+        $minC = min($r, $g, $b);
+
+        $l = ($maxC + $minC) / 2.0;
+
+        if($maxC == $minC)
+        {
+            $s = 0;
+            $h = 0;
+        }
+        else
+        {
+            if($l < .5) $s = ($maxC - $minC) / ($maxC + $minC);
+            else $s = ($maxC - $minC) / (2.0 - $maxC - $minC);
+            
+            if($r == $maxC) $h = ($g - $b) / ($maxC - $minC);
+            if($g == $maxC) $h = 2.0 + ($b - $r) / ($maxC - $minC);
+            if($b == $maxC) $h = 4.0 + ($r - $g) / ($maxC - $minC);
+
+            $h = $h / 6.0; 
+        }
+
+        $h = (int) round(255.0 * $h);
+        $s = (int) round(255.0 * $s);
+        $l = (int) round(255.0 * $l);
+
+        $HSL = $l + ($s << 0x8) + ($h << 0x10);
+        return $HSL;
+    }
+
+    /**
+     * Converts HSL to RGB
+     * @author Howard R <howard@realtyna.com>
+     * @param type $HSL
+     * @return type
+     */
+    public function hsl2rgb($HSL)
+    {
+        $h = 0xFF & ($HSL >> 0x10);
+        $s = 0xFF & ($HSL >> 0x8);
+        $l = 0xFF & $HSL;
+
+        $h = ((float) $h) / 255.0;
+        $s = ((float) $s) / 255.0;
+        $l = ((float) $l) / 255.0;
+
+        if($s == 0)
+        {
+            $r = $l;
+            $g = $l;
+            $b = $l;
+        }
+        else
+        {
+            if($l < .5)
+            {
+                $t2 = $l * (1.0 + $s);
+            }
+            else
+            {
+                $t2 = ($l + $s) - ($l * $s);
+            }
+            
+            $t1 = 2.0 * $l - $t2;
+
+            $rt3 = $h + 1.0/3.0;
+            $gt3 = $h;
+            $bt3 = $h - 1.0/3.0;
+
+            if($rt3 < 0) $rt3 += 1.0;
+            if($rt3 > 1) $rt3 -= 1.0;
+            if($gt3 < 0) $gt3 += 1.0;
+            if($gt3 > 1) $gt3 -= 1.0;
+            if($bt3 < 0) $bt3 += 1.0;
+            if($bt3 > 1) $bt3 -= 1.0;
+
+            if(6.0 * $rt3 < 1) $r = $t1 + ($t2 - $t1) * 6.0 * $rt3;
+            elseif(2.0 * $rt3 < 1) $r = $t2;
+            elseif(3.0 * $rt3 < 2) $r = $t1 + ($t2 - $t1) * ((2.0/3.0) - $rt3) * 6.0;
+            else $r = $t1;
+
+            if(6.0 * $gt3 < 1) $g = $t1 + ($t2 - $t1) * 6.0 * $gt3;
+            elseif(2.0 * $gt3 < 1) $g = $t2;
+            elseif(3.0 * $gt3 < 2) $g = $t1 + ($t2 - $t1) * ((2.0/3.0) - $gt3) * 6.0;
+            else $g = $t1;
+
+            if(6.0 * $bt3 < 1) $b = $t1 + ($t2 - $t1) * 6.0 * $bt3;
+            elseif(2.0 * $bt3 < 1) $b = $t2;
+            elseif(3.0 * $bt3 < 2) $b = $t1 + ($t2 - $t1) * ((2.0/3.0) - $bt3) * 6.0;
+            else $b = $t1;
+        }
+
+        $r = (int) round(255.0 * $r);
+        $g = (int) round(255.0 * $g);
+        $b = (int) round(255.0 * $b);
+
+        $RGB = $b + ($g << 0x8) + ($r << 0x10);
+        return $RGB;
     }
 }

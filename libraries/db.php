@@ -262,27 +262,44 @@ class wpl_db
 		$query = "UPDATE `#__$table` SET ".$update_str." WHERE `$where_key`='$where_value'";
 		return wpl_db::q($query, 'update');
 	}
-	
+    
     /**
-     * Fetch list of table columns
+     * Fetch list of table columns or check existence of a column in a table
      * @author Howard <howard@realtyna.com>
      * @param string $table
-     * @return array
+     * @param string $column
+     * @return mixed
      */
-	public static function columns($table = 'wpl_properties')
+	public static function columns($table = 'wpl_properties', $column = NULL)
 	{
 		$query = "SHOW COLUMNS FROM `#__".$table."`";
 		$results = wpl_db::q($query, "select");
 		
-		$array = array();
-		foreach($results as $key=>$result)
-		{
-			$array[] = $result->Field;
-		}
+		$columns = array();
+		foreach($results as $key=>$result) $columns[] = $result->Field;
 		
-		return $array;
+        if(trim($column) and in_array($column, $columns)) return true;
+        elseif(trim($column)) return false;
+        
+		return $columns;
 	}
 	
+    /**
+     * Use this function for checking existence of a record on a table
+     * @author Howard <howard@realtyna.com>
+     * @since 1.9.0
+     * @param mixed $value
+     * @param string $table
+     * @param xtring $column
+     * @return int
+     */
+	public static function exists($value, $table, $column = 'id')
+	{
+		$query = "SELECT COUNT(*) FROM `#__$table` WHERE `$column`='$value'";
+        return self::num($query);
+        
+	}
+    
     /**
      * Use this function for escaping any variable
      * @author Howard <howard@realtyna.com>
@@ -313,7 +330,18 @@ class wpl_db
 
         return $return_data;
     }
-
+    
+    /**
+     * Checks for invalid UTF-8, Convert single < characters to entity, strip all tags, remove line breaks, tabs and extra white space, strip octets. 
+     * @author Chris <chris@realtyna.com>
+     * @param mixed $input
+     * @return mixed
+     */
+	public static function sanitize($input)
+	{
+		return sanitize_text_field($input);
+	}
+    
     /**
      * Use this function for replacing fake prefix with real one
      * @author Howard <howard@realtyna.com>
@@ -341,16 +369,5 @@ class wpl_db
 	{
 		global $wpdb;
 		return $wpdb;
-	}
-	
-    /**
-     * Checks for invalid UTF-8, Convert single < characters to entity, strip all tags, remove line breaks, tabs and extra white space, strip octets. 
-     * @author Chris <chris@realtyna.com>
-     * @param mixed $input
-     * @return mixed
-     */
-	public static function sanitize($input)
-	{
-		return sanitize_text_field($input);
 	}
 }

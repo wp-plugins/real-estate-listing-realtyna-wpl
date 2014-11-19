@@ -33,6 +33,7 @@ _wpl_import($this->tpl_path.'.scripts.css');
         </div>
         
         <div class="clearit"></div>
+
         <div class="wpl-bottom-nav">
         	
             <div class="side-9 side-maintenance">

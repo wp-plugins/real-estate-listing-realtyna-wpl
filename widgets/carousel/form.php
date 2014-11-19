@@ -8,12 +8,12 @@ include _wpl_import("widgets.carousel.scripts.js_backend", true, true);
 <script type="text/javascript">
 function wpl_carousel_toggle<?php echo $this->widget_id; ?>(element_id)
 {
-    wplj("#"+element_id).toggle();
+    wplj('#'+element_id).toggle();
 }
 </script>
 <div class="wpl_carousel_widget_backend_form" id="<?php echo $this->get_field_id('wpl_carousel_widget_container'); ?>">
     
-    <h4><?php echo __('Widget Configurations'); ?></h4>
+    <h4><?php echo __('Widget Configurations', WPL_TEXTDOMAIN); ?></h4>
     <div>
         <label for="<?php echo $this->get_field_id('title'); ?>"><?php echo __('Title', WPL_TEXTDOMAIN); ?>: </label>
         <input type="text" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" value="<?php echo isset($instance['title']) ? $instance['title'] : ''; ?>" />
@@ -53,8 +53,13 @@ function wpl_carousel_toggle<?php echo $this->widget_id; ?>(element_id)
         <label for="<?php echo $this->get_field_id('thumbnail_height'); ?>"><?php echo __('Thumbnail Height', WPL_TEXTDOMAIN); ?>: </label>
         <input type="text" id="<?php echo $this->get_field_id('thumbnail_height'); ?>" name="<?php echo $this->get_field_name('data'); ?>[thumbnail_height]" value="<?php echo isset($instance['data']['thumbnail_height']) ? $instance['data']['thumbnail_height'] : '60'; ?>" />
     </div>
+
+    <div>
+        <label for="<?php echo $this->get_field_id('slide_interval'); ?>"><?php echo __('Slide Interval (ms)', WPL_TEXTDOMAIN); ?>: </label>
+        <input type="text" id="<?php echo $this->get_field_id('slide_interval'); ?>" name="<?php echo $this->get_field_name('data'); ?>[slide_interval]" value="<?php echo isset($instance['data']['slide_interval']) ? $instance['data']['slide_interval'] : '3000'; ?>" />
+    </div>
     
-    <h4><?php echo __('Filter Properties'); ?></h4>
+    <h4><?php echo __('Filter Properties', WPL_TEXTDOMAIN); ?></h4>
     <div>
         <?php $kinds = wpl_flex::get_kinds('wpl_properties'); ?>
         <label for="<?php echo $this->get_field_id('data_kind'); ?>"><?php echo __('Kind', WPL_TEXTDOMAIN); ?>: </label>
@@ -140,7 +145,7 @@ function wpl_carousel_toggle<?php echo $this->widget_id; ?>(element_id)
         </select>
     </div>
     
-    <h4><?php echo __('Similar Properties'); ?></h4>
+    <h4><?php echo __('Similar Properties', WPL_TEXTDOMAIN); ?></h4>
     <div>
     	<label for="<?php echo $this->get_field_id('data_sml_only_similars'); ?>"><?php echo __('Only Similars', WPL_TEXTDOMAIN); ?>: </label>
         <select id="<?php echo $this->get_field_id('data_sml_only_similars'); ?>" name="<?php echo $this->get_field_name('data'); ?>[sml_only_similars]" onchange="wpl_carousel_toggle<?php echo $this->widget_id; ?>('<?php echo $this->get_field_id('data_sml_fields_container'); ?>');">
@@ -212,7 +217,7 @@ function wpl_carousel_toggle<?php echo $this->widget_id; ?>(element_id)
         </div>
     </div>
     
-    <h4><?php echo __('Sort and Limit'); ?></h4>
+    <h4><?php echo __('Sort and Limit', WPL_TEXTDOMAIN); ?></h4>
     <?php $sort_options = wpl_sort_options::get_sort_options(0); ?>
     <div>
     	<label for="<?php echo $this->get_field_id('data_orderby'); ?>"><?php echo __('Order by', WPL_TEXTDOMAIN); ?>: </label>

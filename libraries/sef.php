@@ -336,6 +336,38 @@ class wpl_sef
     }
     
     /**
+     * Returns WPL Main rewrite rule
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @return string
+     */
+    public static function get_main_rewrite_rule()
+    {
+        $main_permalink = wpl_sef::get_wpl_permalink();
+        $wpl_rules = array();
+        
+        if(wpl_global::check_multilingual_status())
+        {
+            $lang_options = wpl_addon_pro::get_wpl_language_options();
+            
+            $lang_str = '.+';
+            foreach($lang_options as $lang_option) $lang_str .= $lang_option['shortcode'].'|';
+            $lang_str = trim($lang_str, '|.+ ');
+            
+            $wpl_rules[] = array('regex'=>'('.$lang_str.')/('.$main_permalink.')/(.+)$', 'url'=>'index.php?pagename=$matches[2]&wpl_qs=$matches[3]');
+            $wpl_rules[] = array('regex'=>'language/('.$lang_str.')/('.$main_permalink.')/(.+)$', 'url'=>'index.php?pagename=$matches[2]&wpl_qs=$matches[3]');
+        }
+        
+        $wpl_rules[] = array('regex'=>'('.$main_permalink.')/(.+)$', 'url'=>'index.php?pagename=$matches[1]&wpl_qs=$matches[2]');
+        
+        /** apply filters (This filter must place after all proccess) **/
+		_wpl_import('libraries.filters');
+		@extract(wpl_filters::apply('main_rewrite_rule', array('wpl_rules'=>$wpl_rules)));
+        
+        return $wpl_rules;
+    }
+    
+    /**
      * Checks WordPress permalink
      * @author Howard R <howard@realtyna.com>
      * @static
@@ -370,6 +402,14 @@ class wpl_sef
     public static function get_wpl_permalink($full = false)
     {
         $main_permalink = wpl_global::get_setting('main_permalink');
+        
+        /** Multilingual **/
+        if(wpl_global::check_multilingual_status())
+        {
+            $lang_permalink = wpl_addon_pro::get_lang_main_page();
+            if($lang_permalink) $main_permalink = $lang_permalink;
+        }
+        
         if(is_numeric($main_permalink)) $main_permalink = wpl_sef::get_post_name($main_permalink);
         
         if($full)

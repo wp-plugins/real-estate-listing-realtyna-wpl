@@ -32,14 +32,12 @@ $this->_wpl_import($this->tpl_path.'.scripts.pshow', true, true);
     }
     else
     {
-
         echo '<ul class="bxslider" id="bxslider_'.$this->property_id.'">';
         $i = 0;
         $pager_box = '';
 
         foreach($this->gallery as $image)
         {
-
             $image_url = $image['url'];
             $image_thumbnail_url = $image['url'];
             if(isset($image['item_extra2'])) $image_alt = $image['item_extra2'];

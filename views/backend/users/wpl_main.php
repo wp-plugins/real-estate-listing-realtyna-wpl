@@ -1,8 +1,10 @@
 <?php
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
+
 _wpl_import('libraries.pagination');
 _wpl_import('libraries.flex');
+_wpl_import('libraries.activities');
 
 class wpl_users_controller extends wpl_controller
 {

@@ -68,7 +68,7 @@ if(trim($wpl_format) != '')
 	/** actiob fur triggering request **/
     $client = wpl_global::get_client();
     
-    if($client == 1) $hook = 'plugins_loaded'; # WordPress Backend
+    if($client == 1) $hook = 'init'; # WordPress Backend
     elseif($client == 0) $hook = 'init'; # WordPress Frontend
     
 	add_action($hook, array($wpl_request_controller, 'run'), 1);

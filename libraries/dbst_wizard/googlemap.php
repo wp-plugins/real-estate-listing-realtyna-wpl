@@ -63,7 +63,7 @@ function wpl_initialize()
 		position: myLatlng,
 		map: pw_map,
 		draggable: true,
-		title: "Position of property"
+		title: "<?php echo addslashes(__('Position of property', WPL_TEXTDOMAIN)); ?>"
 	});
 
 	google.maps.event.addListener(pw_marker, "dragend", function(event)
@@ -111,7 +111,7 @@ function wpl_code_address(address)
 		}
 		else
 		{
-			wpl_alert("<?php echo __('Geocode was not successful for the following reason', WPL_TEXTDOMAIN); ?> : " + status);
+			wpl_alert("<?php echo addslashes(__('Geocode was not successful for the following reason', WPL_TEXTDOMAIN)); ?> : " + status);
 		}
 	});
 }
@@ -200,7 +200,7 @@ function wpl_address_creator()
 	<div class="map-form-wp">
 		<label for="wpl_map_address<?php echo $field->id; ?>"><?php echo __('Map point', WPL_TEXTDOMAIN); ?> :</label>
 		<input class="text-address" id="wpl_map_address<?php echo $field->id; ?>" type="text" name="address" value="" />
-		<button class="wpl-button button-1" onclick="wpl_code_address(wplj('#wpl_map_address<?php echo $field->id; ?>').val());"><?php echo __('Go', WPL_TEXTDOMAIN); ?></button>
+		<button class="wpl-button button-1" onclick="wpl_code_address(wplj('#wpl_map_address<?php echo $field->id; ?>').val());"><?php echo addslashes(__('Go', WPL_TEXTDOMAIN)); ?></button>
 	</div>
 	<div class="map-canvas-wp">
 		<div id="wpl_map_canvas<?php echo $field->id; ?>"></div>

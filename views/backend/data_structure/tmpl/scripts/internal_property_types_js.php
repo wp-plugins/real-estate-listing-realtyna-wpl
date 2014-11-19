@@ -5,46 +5,42 @@ defined('_WPLEXEC') or die('Restricted access');
 <script type="text/javascript">
 wplj(document).ready(function()
 {
-	wplj(function()
-	{
-		wplj(".sortable_property_type").sortable(
-		{
-			handle: 'span.icon-move',
-			cursor: "move",
-			update: function(e, ui)
-			{
-				var stringDiv = "";
-				wplj(this).children("tr").each(function(i)
-				{
-					var tr = wplj(this);
-					var tr_id = tr.attr("id").split("_");
-					if (i != 0) stringDiv += ",";
-					stringDiv += tr_id[2];
-				});
+	wplj(".sortable_property_type").sortable(
+    {
+        handle: 'span.icon-move',
+        cursor: "move",
+        update: function(e, ui)
+        {
+            var stringDiv = "";
+            wplj(this).children("tr").each(function(i)
+            {
+                var tr = wplj(this);
+                var tr_id = tr.attr("id").split("_");
+                if (i != 0) stringDiv += ",";
+                stringDiv += tr_id[2];
+            });
 
-				request_str = 'wpl_format=b:data_structure:ajax_property_types&wpl_function=sort_property_types&sort_ids=' + stringDiv;
+            request_str = 'wpl_format=b:data_structure:ajax_property_types&wpl_function=sort_property_types&sort_ids=' + stringDiv;
 
-				wplj.ajax(
-				{
-					type: "POST",
-					url: '<?php echo wpl_global::get_full_url(); ?>',
-					data: request_str,
-					success: function(data)
-					{
-					},
-					error: function(jqXHR, textStatus, errorThrown)
-					{
-						wpl_show_messages('<?php echo __('Error Occured.', WPL_TEXTDOMAIN); ?>', '.wpl_data_structure_list .wpl_show_message', 'wpl_red_msg');
-					}
-				});
-			}
-		});
-	})
+            wplj.ajax(
+            {
+                type: "POST",
+                url: '<?php echo wpl_global::get_full_url(); ?>',
+                data: request_str,
+                success: function(data)
+                {
+                },
+                error: function(jqXHR, textStatus, errorThrown)
+                {
+                    wpl_show_messages('<?php echo __('Error Occured.', WPL_TEXTDOMAIN); ?>', '.wpl_data_structure_list .wpl_show_message', 'wpl_red_msg');
+                }
+            });
+        }
+    });
 });
 
 function wpl_remove_property_type(property_type_id, confirmed)
 {
-
 	if (!property_type_id)
 	{
 		wpl_show_messages("<?php echo __('Invalid Property Types', WPL_TEXTDOMAIN); ?>", '.wpl_data_structure_list .wpl_show_message');
@@ -205,6 +201,7 @@ function wpl_ajax_save_property_type(key, element, id)
 		}
 	});
 }
+
 function wpl_ajax_insert_property_type(id)
 {
 	if(id != '10000') return;
@@ -244,6 +241,7 @@ function wpl_ajax_insert_property_type(id)
 		}
 	});
 }
+
 function purge_properties_property_type(property_type_id)
 {
 	request_str = 'wpl_format=b:data_structure:ajax_property_types&wpl_function=purge_related_property&property_type_id=' + property_type_id;
@@ -266,6 +264,7 @@ function purge_properties_property_type(property_type_id)
 		}
 	});
 }
+
 function assign_properties_property_type(property_type_id)
 {
 	var select_id = wplj('#property_type_select').val();
@@ -293,6 +292,7 @@ function assign_properties_property_type(property_type_id)
 		}
 	});
 }
+
 function show_opt_2_property_type()
 {
 	wplj('#pt-del-options').fadeOut(200,function(){

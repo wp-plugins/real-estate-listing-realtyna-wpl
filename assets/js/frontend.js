@@ -1525,6 +1525,8 @@ function wpl_update_qs(key, value, url) {
     else {
         if (value) {
             var separator = url.indexOf('?') !== -1 ? '&' : '?';
+            if(url.indexOf('?') === -1 && url.indexOf('&') !== -1) separator = '&';
+            
             var hash = url.split('#');
             url = hash[0] + separator + key + '=' + value;
             if (hash[1])
@@ -1575,4 +1577,13 @@ function wpl_alert(string) {
 
 function wpl_ucfirst(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function wpl_change_field_language(field_id, lang)
+{
+    wplj("#wpl_langs_tabs"+field_id+" li").removeClass('wpl-active-lang');
+    wplj("#wpl_langs_tabs"+field_id+" li#wpl_langs_tab_"+field_id+"_"+lang).addClass('wpl-active-lang');
+    
+    wplj("#wpl_langs_cnts"+field_id+" div.wpl-lang-cnt").css('display', 'none');
+    wplj("#wpl_langs_cnts"+field_id+" div#wpl_langs_cnt_"+field_id+"_"+lang).css('display', '');
 }

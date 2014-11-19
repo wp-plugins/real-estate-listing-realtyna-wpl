@@ -58,7 +58,7 @@ function wpl_dbst_mandatory(dbst_id, mandatory_status)
 		if(data.success == 1)
 		{
 			wpl_show_messages(data.message, '.wpl_flex_list .wpl_show_message', 'wpl_green_msg');
-			wplj(ajax_loader_element).html('');		
+			wplj(ajax_loader_element).html('');
 			
 			if(mandatory_status == 0)
 			{

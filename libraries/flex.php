@@ -266,6 +266,9 @@ class wpl_flex
 		/** first validation **/
 		if(!$dbst_id) return false;
 		
+        /** Multilingual **/
+        if(wpl_global::check_addon('pro')) wpl_addon_pro::remove_multilingual($dbst_id);
+            
 		wpl_db::delete("wpl_dbst", $dbst_id);
 	}
 	
@@ -428,6 +431,8 @@ class wpl_flex
 		
 		if(wpl_folder::exists($path)) $files = wpl_folder::files($path, '.php$', false, false, $finds);
 		
+        $wpllangs = wpl_global::check_addon('pro') ? wpl_addon_pro::get_wpl_languages() : array();
+        
 		foreach($fields as $key=>$field)
 		{
 			if(!$field) return;

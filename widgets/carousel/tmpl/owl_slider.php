@@ -7,6 +7,8 @@ include _wpl_import("widgets.carousel.scripts.js", true, true);
 $image_width = isset($this->instance['data']['image_width']) ? $this->instance['data']['image_width'] : 310;
 $image_height = isset($this->instance['data']['image_height']) ? $this->instance['data']['image_height'] : 220;
 
+$slide_interval = isset($this->instance['data']['slide_interval']) ? $this->instance['data']['slide_interval'] : 3000;
+
 /** add Layout js **/
 $js[] = (object) array('param1'=>'owl.slider', 'param2'=>'js/owl_slider/owl.carousel.min.js');
 foreach($js as $javascript) wpl_extensions::import_javascript($javascript);
@@ -55,7 +57,7 @@ wplj(function()
         items : 3,
         lazyLoad : true,
         navigation : true,
-        slideSpeed : 500,
+        slideSpeed : <?php echo $slide_interval; ?>,
         navigationText : false,
         pagination : false,
         itemsTablet: [768,2],

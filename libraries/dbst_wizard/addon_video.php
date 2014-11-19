@@ -24,23 +24,23 @@ if($type == 'addon_video' and !$done_this)
 <div class="content-wp" id="embed">
 	<button class="wpl-button button-1" onclick="add_embed_video();"><?php echo __('Add video', WPL_TEXTDOMAIN) ?></button>
 	<?php foreach ($vid_embed_items as $vid_embed_item): ?>
-		<div class="video-embed-wp" id="video-embed-<?php echo $vid_embed_count; ?>">
-			<div class="row">
-				<label id="title_label" for="embed_vid_title<?php echo $vid_embed_count; ?>"><?php echo __('Video title', WPL_TEXTDOMAIN); ?></label>
-				<input type="text" name="embed_vid_title<?php echo $vid_embed_count; ?>" id="embed_vid_title<?php echo $vid_embed_count; ?>" value="<?php echo $vid_embed_item->item_name; ?>" onblur="video_embed_save(<?php echo $vid_embed_count; ?>);" />
-			</div>
-			<div class="row">
-				<label id="desc_label" for="embed_vid_desc<?php echo $vid_embed_count; ?>"><?php echo __('Video description', WPL_TEXTDOMAIN); ?></label>
-				<input type="text" name="embed_vid_desc<?php echo $vid_embed_count; ?>" id="embed_vid_desc<?php echo $vid_embed_count; ?>" value="<?php echo $vid_embed_item->item_extra1; ?>" onblur="video_embed_save(<?php echo $vid_embed_count; ?>);" />
-			</div>
-			<div class="row">
-				<label id="embed_label" for="embed_vid_code<?php echo $vid_embed_count; ?>"><?php echo __('Video embed code', WPL_TEXTDOMAIN); ?></label>
-				<textarea name="embed_vid_code<?php echo $vid_embed_count; ?>" rows="5" cols="50" id="embed_vid_code<?php echo $vid_embed_count; ?>" onblur="video_embed_save(<?php echo $vid_embed_count; ?>);"><?php echo $vid_embed_item->item_extra2; ?></textarea>
-			</div>
-			<div class="actions-wp"><a onclick="embed_video_delete('<?php echo $vid_embed_count; ?>');"><i class="action-btn icon-recycle"></i></a></div>
-			<input type="hidden" id="vid_emb<?php echo $vid_embed_count; ?>" value="<?php echo $vid_embed_item->id; ?>" />
-		</div>
-		<?php $vid_embed_count++; endforeach; ?>
+    <div class="video-embed-wp" id="video-embed-<?php echo $vid_embed_count; ?>">
+        <div class="row">
+            <label id="title_label" for="embed_vid_title<?php echo $vid_embed_count; ?>"><?php echo __('Video title', WPL_TEXTDOMAIN); ?></label>
+            <input type="text" name="embed_vid_title<?php echo $vid_embed_count; ?>" id="embed_vid_title<?php echo $vid_embed_count; ?>" value="<?php echo $vid_embed_item->item_name; ?>" onblur="video_embed_save(<?php echo $vid_embed_count; ?>);" />
+        </div>
+        <div class="row">
+            <label id="desc_label" for="embed_vid_desc<?php echo $vid_embed_count; ?>"><?php echo __('Video description', WPL_TEXTDOMAIN); ?></label>
+            <input type="text" name="embed_vid_desc<?php echo $vid_embed_count; ?>" id="embed_vid_desc<?php echo $vid_embed_count; ?>" value="<?php echo $vid_embed_item->item_extra1; ?>" onblur="video_embed_save(<?php echo $vid_embed_count; ?>);" />
+        </div>
+        <div class="row">
+            <label id="embed_label" for="embed_vid_code<?php echo $vid_embed_count; ?>"><?php echo __('Video embed code', WPL_TEXTDOMAIN); ?></label>
+            <textarea name="embed_vid_code<?php echo $vid_embed_count; ?>" rows="5" cols="50" id="embed_vid_code<?php echo $vid_embed_count; ?>" onblur="video_embed_save(<?php echo $vid_embed_count; ?>);"><?php echo $vid_embed_item->item_extra2; ?></textarea>
+        </div>
+        <div class="actions-wp"><a onclick="embed_video_delete('<?php echo $vid_embed_count; ?>');"><i class="action-btn icon-recycle"></i></a></div>
+        <input type="hidden" id="vid_emb<?php echo $vid_embed_count; ?>" value="<?php echo $vid_embed_item->id; ?>" />
+    </div>
+    <?php $vid_embed_count++; endforeach; ?>
 </div>
 <script type="text/javascript">
 var vid_embed_count = <?php echo $vid_embed_count; ?>;
@@ -48,9 +48,9 @@ function add_embed_video()
 {
 	var embedVideo = rta.template.bind({
 		count: vid_embed_count,
-		title: '<?php echo __('Video title', WPL_TEXTDOMAIN); ?>',
-		desc: '<?php echo __('Video description', WPL_TEXTDOMAIN); ?>',
-		embedCode: '<?php echo __('Video embed code', WPL_TEXTDOMAIN); ?>',
+		title: "<?php echo addslashes(__('Video title', WPL_TEXTDOMAIN)); ?>",
+		desc: "<?php echo addslashes(__('Video description', WPL_TEXTDOMAIN)); ?>",
+		embedCode: "<?php echo addslashes(__('Video embed code', WPL_TEXTDOMAIN)); ?>",
 		item_name: '',
 		item_extra1: '',
 		item_extra2: '',
@@ -72,7 +72,7 @@ function video_embed_save(id)
 
 function embed_video_delete(id)
 {
-	if (confirm('<?php echo __('Are you sure?', WPL_TEXTDOMAIN); ?>'))
+	if (confirm("<?php echo addslashes(__('Are you sure?', WPL_TEXTDOMAIN)); ?>"))
     {
 		ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', "wpl_format=b:listing:videos&wpl_function=del_embed_video&pid=<?php echo $item_id; ?>&kind=<?php echo $this->kind; ?>&item_id="+wplj("#vid_emb"+id).val());
 		ajax.success(function (data)
@@ -229,11 +229,11 @@ wplj(document).ready(function()
                 else {
                     wplj(rta.template.bind({
                         vid_counter: vid_counter,
-                        lblTitle: '<?php echo __('Video Title', WPL_TEXTDOMAIN); ?>',
-                        lblDesc: '<?php echo __('Video Description', WPL_TEXTDOMAIN); ?>',
-                        lblCat: '<?php echo __('Video Category', WPL_TEXTDOMAIN); ?>',
+                        lblTitle: "<?php echo addslashes(__('Video Title', WPL_TEXTDOMAIN)); ?>",
+                        lblDesc: "<?php echo addslashes(__('Video Description', WPL_TEXTDOMAIN)); ?>",
+                        lblCat: "<?php echo addslashes(__('Video Category', WPL_TEXTDOMAIN)); ?>",
                         name: file.name,
-                        select: '<?php echo $video_categories_html; ?>'
+                        select: "<?php echo addslashes($video_categories_html); ?>"
                     }, 'dbst-wizard-videos')).appendTo('#ajax_vid_sortable');
 
                     vid_counter++;
@@ -275,7 +275,7 @@ function ajax_video_cat_update(video, value)
 
 function ajax_video_delete(video, id)
 {
-	if (confirm('<?php echo __('Are you sure?', WPL_TEXTDOMAIN) ?>'))
+	if (confirm("<?php echo addslashes(__('Are you sure?', WPL_TEXTDOMAIN)); ?>"))
 	{
 		ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', "wpl_format=b:listing:videos&wpl_function=delete_video&pid=<?php echo $item_id; ?>&video="+encodeURIComponent(video)+"&kind=<?php echo $this->kind; ?>");
 		ajax.success(function (data)

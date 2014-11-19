@@ -228,8 +228,8 @@ class wpl_extensions
 	{
 		add_action('wp_loaded', array($this, 'wpl_flush_rules'), 1);
 		add_filter('rewrite_rules_array', array($this, 'wpl_insert_rewrite_rules'));
-		add_filter('query_vars', array($this, 'wpl_insert_query_vars'));
-		
+        add_filter('query_vars', array($this, 'wpl_insert_query_vars'));
+        
 		$sef = new wpl_sef();
 		add_shortcode('WPL', array($sef, 'process'));
 	}
@@ -268,14 +268,17 @@ class wpl_extensions
 	public function wpl_flush_rules()
 	{
 		$rules = get_option('rewrite_rules');
-	
-        $main_permalink = wpl_sef::get_wpl_permalink();
+        $wpl_rules = wpl_sef::get_main_rewrite_rule();
         
-		if(!isset($rules['('.$main_permalink.')/(.+)$']))
-		{
-			global $wp_rewrite;
-			$wp_rewrite->flush_rules();
-		}
+        $flushed = false;
+        foreach($wpl_rules as $wpl_rule)
+        {
+            if($flushed or isset($rules[$wpl_rule['regex']])) continue;
+            
+            global $wp_rewrite;
+            $wp_rewrite->flush_rules();
+            $flushed = true;
+        }
 	}
 	
 	/**
@@ -285,11 +288,11 @@ class wpl_extensions
 	**/
 	public function wpl_insert_rewrite_rules($rules)
 	{
-        $main_permalink = wpl_sef::get_wpl_permalink();
+        $wpl_rules = wpl_sef::get_main_rewrite_rule();
         
 		$newrules = array();
-		$newrules['('.$main_permalink.')/(.+)$'] = 'index.php?pagename=$matches[1]&wpl_qs=$matches[2]';
-
+		foreach($wpl_rules as $wpl_rule) $newrules[$wpl_rule['regex']] = $wpl_rule['url'];
+        
 		return $newrules + $rules;
 	}
 	

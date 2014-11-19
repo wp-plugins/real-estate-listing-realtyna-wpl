@@ -18,7 +18,11 @@ function wpl_initialize<?php echo $this->activity_id; ?>()
 	bounds = new google.maps.LatLngBounds();
 	var mapOptions = {
 		scrollwheel: false,
-		mapTypeId: google.maps.MapTypeId.ROADMAP
+		mapTypeId: google.maps.MapTypeId.<?php echo (isset($this->googlemap_view) ? $this->googlemap_view : 'ROADMAP'); ?>,
+        <?php if(isset($this->overviewmap) and $this->overviewmap): ?>
+        overviewMapControl: true,
+        overviewMapControlOptions: {opened: true}
+        <?php endif; ?>
 	}
     
 	/** init map **/
@@ -28,6 +32,7 @@ function wpl_initialize<?php echo $this->activity_id; ?>()
 	/** load markers **/
 	wpl_load_markers<?php echo $this->activity_id; ?>(markers);
 	
+    <?php if(isset($this->googlemap_view) and $this->googlemap_view == 'WPL'): ?>
     var styles =
     [
         {
@@ -91,9 +96,10 @@ function wpl_initialize<?php echo $this->activity_id; ?>()
 
     wpl_map.mapTypes.set('map_style', styledMap);
     wpl_map.setMapTypeId('map_style');
+    <?php endif; ?>
 
     /* Check Google Places */
-	if((typeof google_place != 'undefined') && (google_place == 1) )
+	if((typeof google_place != 'undefined') && (google_place == 1))
 	{
         var request = {
             location: marker.position,
@@ -103,6 +109,12 @@ function wpl_initialize<?php echo $this->activity_id; ?>()
 		var service = new google.maps.places.PlacesService(wpl_map);
 		service.search(request, wpl_gplace_callback<?php echo $this->activity_id; ?>);
 	}
+    
+    if(typeof wpl_dmgfc_init != 'undefined')
+    {
+        setTimeout('wpl_dmgfc_init()', 1000);
+        jQuery('.wpl_map_canvas').append('<div class="wpl_dmgfc_container"></div>');
+    }
 }
 
 function wpl_marker<?php echo $this->activity_id; ?>(dataMarker)
@@ -123,7 +135,7 @@ function wpl_marker<?php echo $this->activity_id; ?>(dataMarker)
 	loaded_markers.push(dataMarker.id);
   	markers_array.push(marker);
 	
-	google.maps.event.addListener(marker, "click", function(event)
+	google.maps.event.addListener(marker, "<?php echo $this->infowindow_event; ?>", function(event)
 	{
 		if(this.html)
 		{

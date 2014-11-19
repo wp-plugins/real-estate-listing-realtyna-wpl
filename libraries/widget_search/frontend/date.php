@@ -42,10 +42,10 @@ if($type == 'date' and !$done_this)
 		{
 			wplj("#sf'.$widget_id.'_datemax_'.$field_data['table_column'].'").datepicker(
 			{ 
-				dayNamesMin: ["'.__('SU', WPL_TEXTDOMAIN).'", "'.__('MO', WPL_TEXTDOMAIN).'", "'.__('TU', WPL_TEXTDOMAIN).'", "'.__('WE', WPL_TEXTDOMAIN).'", "'.__('TH', WPL_TEXTDOMAIN).'", "'.__('FR', WPL_TEXTDOMAIN).'", "'.__('SA', WPL_TEXTDOMAIN).'"],
-				dayNames: 	 ["'.__('Sunday', WPL_TEXTDOMAIN).'", "'.__('Monday', WPL_TEXTDOMAIN).'", "'.__('Tuesday', WPL_TEXTDOMAIN).'", "'.__('Wednesday', WPL_TEXTDOMAIN).'", "'.__('Thursday', WPL_TEXTDOMAIN).'", "'.__('Friday', WPL_TEXTDOMAIN).'", "'.__('Saturday', WPL_TEXTDOMAIN).'"],
-				monthNames:  ["'.__('January', WPL_TEXTDOMAIN).'", "'.__('February', WPL_TEXTDOMAIN).'", "'.__('March', WPL_TEXTDOMAIN).'", "'.__('April', WPL_TEXTDOMAIN).'", "'.__('May', WPL_TEXTDOMAIN).'", "'.__('June', WPL_TEXTDOMAIN).'", "'.__('July', WPL_TEXTDOMAIN).'", "'.__('August', WPL_TEXTDOMAIN).'", "'.__('September', WPL_TEXTDOMAIN).'", "'.__('October', WPL_TEXTDOMAIN).'", "'.__('November', WPL_TEXTDOMAIN).'", "'.__('December', WPL_TEXTDOMAIN).'"],
-				dateFormat: "'.$jqdate_format.'",
+				dayNamesMin: ["'.addslashes(__('SU', WPL_TEXTDOMAIN)).'", "'.addslashes(__('MO', WPL_TEXTDOMAIN)).'", "'.addslashes(__('TU', WPL_TEXTDOMAIN)).'", "'.addslashes(__('WE', WPL_TEXTDOMAIN)).'", "'.addslashes(__('TH', WPL_TEXTDOMAIN)).'", "'.addslashes(__('FR', WPL_TEXTDOMAIN)).'", "'.addslashes(__('SA', WPL_TEXTDOMAIN)).'"],
+				dayNames: 	 ["'.addslashes(__('Sunday', WPL_TEXTDOMAIN)).'", "'.addslashes(__('Monday', WPL_TEXTDOMAIN)).'", "'.addslashes(__('Tuesday', WPL_TEXTDOMAIN)).'", "'.addslashes(__('Wednesday', WPL_TEXTDOMAIN)).'", "'.addslashes(__('Thursday', WPL_TEXTDOMAIN)).'", "'.addslashes(__('Friday', WPL_TEXTDOMAIN)).'", "'.addslashes(__('Saturday', WPL_TEXTDOMAIN)).'"],
+				monthNames:  ["'.addslashes(__('January', WPL_TEXTDOMAIN)).'", "'.addslashes(__('February', WPL_TEXTDOMAIN)).'", "'.addslashes(__('March', WPL_TEXTDOMAIN)).'", "'.addslashes(__('April', WPL_TEXTDOMAIN)).'", "'.addslashes(__('May', WPL_TEXTDOMAIN)).'", "'.addslashes(__('June', WPL_TEXTDOMAIN)).'", "'.addslashes(__('July', WPL_TEXTDOMAIN)).'", "'.addslashes(__('August', WPL_TEXTDOMAIN)).'", "'.addslashes(__('September', WPL_TEXTDOMAIN)).'", "'.addslashes(__('October', WPL_TEXTDOMAIN)).'", "'.addslashes(__('November', WPL_TEXTDOMAIN)).'", "'.addslashes(__('December', WPL_TEXTDOMAIN)).'"],
+				dateFormat: "'.addslashes($jqdate_format).'",
 				gotoCurrent: true,
 				minDate: new Date('.$mindate[0].', '.intval($mindate[1]).'-1, '.$mindate[2].'),
 				maxDate: new Date('.$maxdate[0].', '.intval($maxdate[1]).'-1, '.$maxdate[2].'),
@@ -57,10 +57,10 @@ if($type == 'date' and !$done_this)
 
 			wplj("#sf'.$widget_id.'_datemin_'.$field_data['table_column'].'").datepicker(
 			{ 
-				dayNamesMin: ["'.__('SU', WPL_TEXTDOMAIN).'", "'.__('MO', WPL_TEXTDOMAIN).'", "'.__('TU', WPL_TEXTDOMAIN).'", "'.__('WE', WPL_TEXTDOMAIN).'", "'.__('TH', WPL_TEXTDOMAIN).'", "'.__('FR', WPL_TEXTDOMAIN).'", "'.__('SA', WPL_TEXTDOMAIN).'"],
-				dayNames: 	 ["'.__('Sunday', WPL_TEXTDOMAIN).'", "'.__('Monday', WPL_TEXTDOMAIN).'", "'.__('Tuesday', WPL_TEXTDOMAIN).'", "'.__('Wednesday', WPL_TEXTDOMAIN).'", "'.__('Thursday', WPL_TEXTDOMAIN).'", "'.__('Friday', WPL_TEXTDOMAIN).'", "'.__('Saturday', WPL_TEXTDOMAIN).'"],
-				monthNames:  ["'.__('January', WPL_TEXTDOMAIN).'", "'.__('February', WPL_TEXTDOMAIN).'", "'.__('March', WPL_TEXTDOMAIN).'", "'.__('April', WPL_TEXTDOMAIN).'", "'.__('May', WPL_TEXTDOMAIN).'", "'.__('June', WPL_TEXTDOMAIN).'", "'.__('July', WPL_TEXTDOMAIN).'", "'.__('August', WPL_TEXTDOMAIN).'", "'.__('September', WPL_TEXTDOMAIN).'", "'.__('October', WPL_TEXTDOMAIN).'", "'.__('November', WPL_TEXTDOMAIN).'", "'.__('December', WPL_TEXTDOMAIN).'"],
-				dateFormat: "'.$jqdate_format.'",
+				dayNamesMin: ["'.addslashes(__('SU', WPL_TEXTDOMAIN)).'", "'.addslashes(__('MO', WPL_TEXTDOMAIN)).'", "'.addslashes(__('TU', WPL_TEXTDOMAIN)).'", "'.addslashes(__('WE', WPL_TEXTDOMAIN)).'", "'.addslashes(__('TH', WPL_TEXTDOMAIN)).'", "'.addslashes(__('FR', WPL_TEXTDOMAIN)).'", "'.addslashes(__('SA', WPL_TEXTDOMAIN)).'"],
+				dayNames: 	 ["'.addslashes(__('Sunday', WPL_TEXTDOMAIN)).'", "'.addslashes(__('Monday', WPL_TEXTDOMAIN)).'", "'.addslashes(__('Tuesday', WPL_TEXTDOMAIN)).'", "'.addslashes(__('Wednesday', WPL_TEXTDOMAIN)).'", "'.addslashes(__('Thursday', WPL_TEXTDOMAIN)).'", "'.addslashes(__('Friday', WPL_TEXTDOMAIN)).'", "'.addslashes(__('Saturday', WPL_TEXTDOMAIN)).'"],
+				monthNames:  ["'.addslashes(__('January', WPL_TEXTDOMAIN)).'", "'.addslashes(__('February', WPL_TEXTDOMAIN)).'", "'.addslashes(__('March', WPL_TEXTDOMAIN)).'", "'.addslashes(__('April', WPL_TEXTDOMAIN)).'", "'.addslashes(__('May', WPL_TEXTDOMAIN)).'", "'.addslashes(__('June', WPL_TEXTDOMAIN)).'", "'.addslashes(__('July', WPL_TEXTDOMAIN)).'", "'.addslashes(__('August', WPL_TEXTDOMAIN)).'", "'.addslashes(__('September', WPL_TEXTDOMAIN)).'", "'.addslashes(__('October', WPL_TEXTDOMAIN)).'", "'.addslashes(__('November', WPL_TEXTDOMAIN)).'", "'.addslashes(__('December', WPL_TEXTDOMAIN)).'"],
+				dateFormat: "'.addslashes($jqdate_format).'",
 				gotoCurrent: true,
 				minDate: new Date('.$mindate[0].', '.intval($mindate[1]).'-1, '.$mindate[2].'),
 				maxDate: new Date('.$maxdate[0].', '.intval($maxdate[1]).'-1, '.$maxdate[2].'),

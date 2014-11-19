@@ -10,7 +10,7 @@ var _j = wplj = jQuery.noConflict();
 // Global variables
 var _rta_app_dirs = {js: 'js/', libs: 'libs/'},
     _rta_baseUrl = wpl_baseUrl,
-    _rta_urlAssets = 'wp-content/plugins/'+wpl_baseName+'/assets/',
+    _rta_urlAssets = 'wp-content/plugins/' + wpl_baseName + '/assets/',
     _rta_urlJs = _rta_baseUrl + _rta_urlAssets + _rta_app_dirs.js,
     _rta_urlJsLibs = _rta_baseUrl + _rta_urlAssets + _rta_app_dirs.js + ((_rta_app_dirs.js == _rta_app_dirs.libs) ? '' : _rta_app_dirs.libs),
     _rta_frontViews = {},
@@ -82,21 +82,21 @@ Date.prototype.timeNow = function () {
 
 // Add unique method to concat array
 /*
-Array.prototype.unique = function () {
-    var a = this.concat();
-    for (var i = 0; i < a.length; ++i) {
-        for (var j = i + 1; j < a.length; ++j) {
-            if (a[i] === a[j])
-                a.splice(j--, 1);
-        }
-    }
+ Array.prototype.unique = function () {
+ var a = this.concat();
+ for (var i = 0; i < a.length; ++i) {
+ for (var j = i + 1; j < a.length; ++j) {
+ if (a[i] === a[j])
+ a.splice(j--, 1);
+ }
+ }
 
-    return a;
-};
-*/
+ return a;
+ };
+ */
 
-function isWPL(){
-    _j('html').attr('data-wpl-plugin','');
+function isWPL() {
+    _j('html').attr('data-wpl-plugin', '');
 }
 
 /**
@@ -261,10 +261,10 @@ function isWPL(){
             topPosition = 0,
             elCount = $(this).length,
             elIndex = 0,
-            removeHeightAttr= removeHeightAttr || false;
+            removeHeightAttr = removeHeightAttr || false;
 
-        if(removeHeightAttr)
-            $(this).css('height','');
+        if (removeHeightAttr)
+            $(this).css('height', '');
 
 
         $(this).each(function () {
@@ -297,8 +297,8 @@ function isWPL(){
             }
 
             elIndex++;
-            if(elIndex === elCount){
-                if(typeof(callBack) !== undefined && $.isFunction(callBack)){
+            if (elIndex === elCount) {
+                if (typeof(callBack) !== undefined && $.isFunction(callBack)) {
                     callBack.call();
                 }
             }
@@ -349,20 +349,20 @@ function isWPL(){
     /**
      * Custome Plugins for handle fancybox missing functionality
      */
-    if(!$.fancybox)
+    if (!$.fancybox)
         $.fancybox = {};
 
     $.fn.openLiBo = function (options, callBack, cbOptions) {
         var __opts = {},
             __liBo = null;
 
-        if ($.prettyPhoto){
+        if ($.prettyPhoto) {
             if (options && $.isPlainObject(options))
                 __opts = $.extend({}, rta.config.LB, options);
 
             __liBo = $(this).prettyPhoto(__opts);
 
-        }else if ($.fancybox){
+        } else if ($.fancybox) {
             if (options && $.isPlainObject(options))
                 __opts = $.extend({}, rta.config.fancybox, options);
 
@@ -381,32 +381,32 @@ function isWPL(){
     }
 
     $.LiBo = {
-        open: function(selector,options){
-            if(!selector)
+        open: function (selector, options) {
+            if (!selector)
                 return false;
 
             var __opts = options || {};
-            __opts = $.extend({},rta.config.liBo,__opts);
+            __opts = $.extend({}, rta.config.liBo, __opts);
 
             __optsObj = {
                 horizontal_padding: __opts.horizontal_padding,
                 default_width: __opts.default_width,
                 default_height: __opts.default_height,
                 social_tools: '',
-                markup: __opts.tmpl.wrap.replaceAll('${sample}',rta.config.liBo.tmpl.sample),
+                markup: __opts.tmpl.wrap.replaceAll('${sample}', rta.config.liBo.tmpl.sample),
                 inline_markup: __opts.tmpl.inline
             };
 
-            $.prettyPhoto.open(selector,__optsObj);
+            $.prettyPhoto.open(selector, __optsObj);
         }
     }
 
-    $.fn.closeLiBo = $.fancybox.close = function (callBack,cbOptions) {
+    $.fn.closeLiBo = $.fancybox.close = function (callBack, cbOptions) {
 
-        if ($.prettyPhoto){
+        if ($.prettyPhoto) {
             $.prettyPhoto.close();
 
-        }else if ($.fancybox){
+        } else if ($.fancybox) {
             $.fancybox.close();
         }
 
@@ -417,20 +417,20 @@ function isWPL(){
                 callBack.call();
         }
 
-        if(rta.config.fancybox.reloadAfterClose)
+        if (rta.config.fancybox.reloadAfterClose)
             location.reload();
     }
 
-    $.prettyPhoto.close = function(){
+    $.prettyPhoto.close = function () {
         $.prettyPhoto.prototype.close.call(this);
-        if(rta.config.fancybox.reloadAfterClose)
+        if (rta.config.fancybox.reloadAfterClose)
             location.reload();
     }
     /**
      * End
      */
 
-    // RTA declaration Declarations
+        // RTA declaration Declarations
     rta = {
         version: '0.3.5',
         name: 'RTA',
@@ -704,40 +704,40 @@ function isWPL(){
             horizontal_padding: 20,
             default_width: 800,
             default_height: 120,
-            tmpl:{
+            tmpl: {
                 sample: '<div class="pp_inline pp_details fancybox-inner">' +
-                            '<div class="fanc-content size-width-1">' +
-                                '<div class="fanc-body">' +
-                                    '<div class="fanc-row pp-sample">' +
-                                        '<div class="pp-ajax-loading"></div>' +
-                                        '<span>Please wait to load content ...</span>' +
-                                    '</div>' +
-                                '</div>' +
-                            '</div>' +
-                        '</div>',
+                '<div class="fanc-content size-width-1">' +
+                '<div class="fanc-body">' +
+                '<div class="fanc-row pp-sample">' +
+                '<div class="pp-ajax-loading"></div>' +
+                '<span>Please wait to load content ...</span>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>',
 
                 inline: '<a title="Close" class="fancybox-item fancybox-close pp_close"></a>' +
-                        '<div class="pp_inline pp_details fancybox-inner" id="{cID}"></div>',
+                '<div class="pp_inline pp_details fancybox-inner" id="{cID}"></div>',
 
-                inlineSample : '<div class="fanc-content size-width-1">' +
-                                    '<div class="fanc-body">' +
-                                        '<div class="fanc-row pp-sample">' +
-                                            '<div class="pp-ajax-loading"></div>' +
-                                            '<span>Please wait to load content ...</span>' +
-                                        '</div>' +
-                                    '</div>' +
-                                '</div>',
+                inlineSample: '<div class="fanc-content size-width-1">' +
+                '<div class="fanc-body">' +
+                '<div class="fanc-row pp-sample">' +
+                '<div class="pp-ajax-loading"></div>' +
+                '<span>Please wait to load content ...</span>' +
+                '</div>' +
+                '</div>' +
+                '</div>',
 
                 wrap: '<div class="pp_pic_holder">' +
-                            '<div class="fancybox-wrap">' +
-                                '<div class="fancybox-skin">' +
-                                    '<div class="fancybox-outer">' +
-                                        '<div id="pp_full_res">${sample}</div>' +
-                                    '</div>' +
-                                '</div>' +
-                            '</div>' +
-                        '</div>' +
-                        '<div class="pp_overlay"></div>'
+                '<div class="fancybox-wrap">' +
+                '<div class="fancybox-skin">' +
+                '<div class="fancybox-outer">' +
+                '<div id="pp_full_res">${sample}</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '<div class="pp_overlay"></div>'
             }
         }
     };
@@ -895,10 +895,10 @@ function isWPL(){
                 }
                 var expires_date = new Date(today.getTime() + (expires));
                 document.cookie = name + "=" + escape(value) +
-                    ((expires) ? ";expires=" + expires_date.toGMTString() : "") +
-                    ((path) ? ";path=" + path : "") +
-                    ((domain) ? ";domain=" + domain : "") +
-                    ((secure) ? ";secure" : "");
+                ((expires) ? ";expires=" + expires_date.toGMTString() : "") +
+                ((path) ? ";path=" + path : "") +
+                ((domain) ? ";domain=" + domain : "") +
+                ((secure) ? ";secure" : "");
             },
             /**
              * Steve.M
@@ -911,9 +911,9 @@ function isWPL(){
             deleteCookie: function (name, path, domain) {
                 if (getCookie(name))
                     document.cookie = name + "=" +
-                        ((path) ? ";path=" + path : "") +
-                        ((domain) ? ";domain=" + domain : "") +
-                        ";expires=Thu, 01-Jan-1970 00:00:01 GMT";
+                    ((path) ? ";path=" + path : "") +
+                    ((domain) ? ";domain=" + domain : "") +
+                    ";expires=Thu, 01-Jan-1970 00:00:01 GMT";
             },
             /**
              * Steve.M
@@ -1082,16 +1082,16 @@ function isWPL(){
                 }
             },
 
-            equalPanel: function(resetHeight){
+            equalPanel: function (resetHeight) {
                 var __resetHeight = resetHeight || false;
-                $('.rt-same-height .panel-wp').equalHeight(function(){
-                    $('.rt-same-height .js-full-height').each(function(){
+                $('.rt-same-height .panel-wp').equalHeight(function () {
+                    $('.rt-same-height .js-full-height').each(function () {
                         var __height = $(this).find('.panel-wp').height();
-                        if($(this).attr('data-minuse-size'))
+                        if ($(this).attr('data-minuse-size'))
                             __height -= parseInt($(this).attr('data-minuse-size'));
-                        $(this).find('.panel-body').css('max-height',__height);
+                        $(this).find('.panel-body').css('max-height', __height);
                     });
-                },__resetHeight);
+                }, __resetHeight);
             }
 
         };
@@ -1149,7 +1149,7 @@ function isWPL(){
                 }
             },
             initChosen: function () {
-                    $("select[data-has-chosen],.prow select, .panel-body > select, .fanc-row > select").chosen(rta.config.chosen);
+                $("select[data-has-chosen],.prow select, .panel-body > select, .fanc-row > select").chosen(rta.config.chosen);
             }
         }
     })();
@@ -1244,7 +1244,7 @@ function isWPL(){
             _rightH = rta.config.templates.rightHolder,
             _idAttr = rta.config.templates.idAttr;
 
-        return{
+        return {
             bind: function (object, templateName) {
                 if (!object)
                     return false;
@@ -1275,7 +1275,7 @@ function isWPL(){
 
             },
             initPage: function () {
-                $.get(_rta_urlJs +  rta.config.templates.fileName).done(function (data) {
+                $.get(_rta_urlJs + rta.config.templates.fileName).done(function (data) {
                     $(data).filter(_tag).each(function () {
                         var __id = $(this).attr(_idAttr);
 
@@ -1333,11 +1333,11 @@ function isWPL(){
             default_width: rta.config.liBo.default_width,
             default_height: rta.config.liBo.default_height,
             social_tools: '',
-            markup: rta.config.liBo.tmpl.wrap.replaceAll('${sample}',rta.config.liBo.tmpl.sample),
+            markup: rta.config.liBo.tmpl.wrap.replaceAll('${sample}', rta.config.liBo.tmpl.sample),
             inline_markup: rta.config.liBo.tmpl.inline,
             inline_sample_markup: rta.config.liBo.tmpl.inlineSample,
             keyboard_shortcuts: false,
-            ajaxcallback: function(){
+            ajaxcallback: function () {
                 var __callerID = $('.fancybox-inner').attr('id'),
                     __specConfig = (rta.config.fancySpecificOptions.hasOwnProperty(__callerID)) ? rta.config.fancySpecificOptions[__callerID] : null;
 
@@ -1353,7 +1353,7 @@ function isWPL(){
         });
 
         /*$( document ).ajaxComplete(function( event,request, settings ) {
-            console.log(settings);
+         console.log(settings);
          });*/
         //rta.util.showMultiFancy();
 
@@ -1424,11 +1424,267 @@ function isWPL(){
         rta.init();
     });
 
-    $(window).ready(function(){
+    $(window).ready(function () {
 
     });
 
+
 })(window, document, jQuery);
+
+
+/**
+ * Specifics Events
+ */
+
+_j(function () {
+
+    //@start Multilingual events
+
+    function openCurrentMultilingBox(_self, _parent, _next, _before, _params) {
+
+        var _nextHeight = _next.outerHeight(),
+            _nextWidth = _next.outerWidth(),
+            _beforeHeight = _before.outerHeight(),
+            _final = (-1 * (_nextHeight / 2)) + 15,
+            _parentHeight = _parent.outerHeight(),
+            _parentWidth = _parent.outerWidth();
+
+
+        _self.fadeOut(200);
+        _before.fadeOut(200, function () {
+            _parent.attr({
+                'data-wpl-init-h': _parentHeight,
+                'data-wpl-init-w': _parentWidth
+            }).css({
+                height: _parentHeight,
+                width: _parentWidth,
+                position: 'absolute',
+                'z-index': 9999
+            }).animate({
+                height: _nextHeight,
+                width: _nextWidth,
+                top: _final
+            }, 200, 'easeInCirc', function () {
+                _next.fadeIn();
+
+                if (_params) {
+                    _next.find('#' + _params.attr('data-wpl-field')).focus();
+                }
+            });
+        });
+
+    }
+
+    function closeAllMultilingTextBox(callback) {
+        _j('.wpl-multiling-text').removeClass('wpl-multiling-opened');
+
+        var _openCount = _j('.wpl-multiling-text').find('.wpl-multilang-field-cnt').length;
+
+        _j('.wpl-multiling-text .wpl-multilang-field-cnt').each(function () {
+
+            _j(this).fadeOut(100, function () {
+                var _self = _j(this),
+                    _parent = _self.parent(),
+                    _parentHeight = _parent.attr('data-wpl-init-h'),
+                    _parentWidth = _parent.attr('data-wpl-init-w');
+
+                _parent.removeAttr('data-wpl-init-h data-wpl-init-w');
+
+                _parent.animate({
+                    height: _parentHeight,
+                    width: _parentWidth,
+                    top: 0
+                }, 200, function () {
+                    _parent.css({
+                        position: 'relative',
+                        zIndex: 0
+                    });
+                    _parent.find('.wpl-multiling-flag-cnt,.wpl-multiling-edit-btn').fadeIn();
+                    _openCount--;
+
+                    if (_openCount == 0 && typeof callback != "undefined" && _j.isFunction(callback)) {
+                        callback.call();
+                    }
+                });
+            });
+
+        });
+    }
+
+    function closeAllMultilingTextAreaBox(callback) {
+        _j('.wpl-multiling-textarea').removeClass('wpl-multiling-opened');
+
+        var _openCount = _j('.wpl-multiling-textarea').find('.wpl-multilang-field-cnt').length;
+
+        _j('.wpl-multiling-textarea').each(function () {
+            var _slef =  _j(this);
+
+            _j(this).find('.wpl-multiling-flag').removeClass('wpl-multiling-active');
+            _j(this).find('.wpl-lang-cnt').hide(function(){
+                _slef.find('.wpl-multiling-flags-wp').removeClass('wpl-multiling-opened')
+            });
+
+        });
+
+    }
+
+    // For Text Field Only
+    _j('.wpl-multiling-text').find('.wpl-multiling-edit-btn').on('click', function (ev, params) {
+        ev.stopPropagation();
+
+        var _self = _j(this),
+            _parent = _self.parent(),
+            _next = _j(this).next('.wpl-multilang-field-cnt'),
+            _before = _j(this).prev('.wpl-multiling-flag-cnt'),
+            _params = _j(params) || null;
+
+        if (_next.is(":visible") == true)
+            return false;
+
+
+        if (_j('.wpl-multiling-opened').length > 0) {
+            closeAllMultilingTextBox(function () {
+                _parent.addClass('wpl-multiling-opened');
+                openCurrentMultilingBox(_self, _parent, _next, _before, _params);
+            });
+        } else {
+            _parent.addClass('wpl-multiling-opened');
+            openCurrentMultilingBox(_self, _parent, _next, _before, _params);
+        }
+
+    });
+
+    // For Text Field Only
+    _j('.wpl-multiling-text').find('.wpl-multiling-flag').on('click', function (ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+
+        var _parent = _j(this).parents('.wpl-multiling-flags-wp'),
+            _btn = _parent.find('.wpl-multiling-edit-btn');
+
+        _btn.trigger('click', _j(this));
+    });
+
+
+    _j('.wpl-lang-cnt > input').on('mouseup focus', function () {
+        this.select();
+    });
+
+    _j('.wpl-lang-cnt > input').on('blur', function () {
+        var _self = _j(this),
+            _selfID = _self.attr('id'),
+            _parent = _self.parents('.wpl-multiling-field');
+
+        if (_self.val() == '') {
+            _parent.find('.wpl-multiling-flag').filter('[data-wpl-field=' + _selfID + ']').addClass('wpl-multiling-empty');
+        } else {
+            _parent.find('.wpl-multiling-flag').filter('[data-wpl-field=' + _selfID + ']').removeClass('wpl-multiling-empty');
+        }
+    });
+
+    _j('.wpl-lang-cnt > textarea').on('blur', function () {
+
+        var _self = _j(this),
+            _selfID = _self.attr('id'),
+            _parent = _self.parents('.wpl-multiling-field');
+
+        if (_self.val() == '') {
+            _parent.find('.wpl-multiling-flag').filter('[data-wpl-field-id=' + _selfID + ']').addClass('wpl-multiling-empty');
+        } else {
+            _parent.find('.wpl-multiling-flag').filter('[data-wpl-field-id=' + _selfID + ']').removeClass('wpl-multiling-empty');
+        }
+
+    });
+    
+    _j('.wpl-multiling-save-pro').on('click', function (ev) {
+        var _self = _j(this),
+            _parent = _self.parents('.wpl-multiling-field'),
+            _selfID = _self.parent().attr('id');
+
+        if(tinymce.activeEditor.getContent() == ''){
+            _parent.find('.wpl-multiling-flag').filter('[data-wpl-field=' + _selfID + ']').addClass('wpl-multiling-empty');
+        }else{
+            _parent.find('.wpl-multiling-flag').filter('[data-wpl-field=' + _selfID + ']').removeClass('wpl-multiling-empty');
+        }
+
+    })
+
+    _j('.wpl-multiling-label.wpl-multiling-text').on('click', function (ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+
+        var _self = _j(this),
+            _nextBtn = _self.next('.wpl-multiling-field').find('.wpl-multiling-edit-btn');
+
+        _nextBtn.trigger('click');
+    });
+
+    // For TextArea Field Only
+    _j('.wpl-multiling-textarea').find('.wpl-multiling-flag').on('click', function (ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+
+        var _self = _j(this),
+            _parentSelf = _self.parent(),
+            _containerParentSelf = _parentSelf.next(),
+            _tabs = _parentSelf.find('.wpl-multiling-flag'),
+            _containers = _containerParentSelf.find('.wpl-lang-cnt');
+
+        if (_self.hasClass('wpl-multiling-active')) {
+            return false;
+        }
+        else {
+            // Close other tabs
+            _tabs.removeClass('wpl-multiling-active');
+            _containers.hide();
+        }
+
+        var _container = _j('#' + _self.attr('data-wpl-field')),
+            _parent = _j(this).parents('.wpl-multiling-flags-wp');
+
+        _self.addClass('wpl-multiling-active');
+        _parent.addClass('wpl-multiling-opened');
+        _container.fadeIn();
+
+    });
+    //@end
+
+    _j(document).on('click', function (ev) {
+        ev.stopPropagation();
+
+
+        if (!_j(ev.target).hasClass('wpl-multilang-field-cnt') && !(_j(ev.target).parents('.wpl-multilang-field-cnt').length > 0)) {
+
+            /**
+             * Multilingual Fields
+             */
+            closeAllMultilingTextBox();
+
+            closeAllMultilingTextAreaBox();
+        }
+    });
+
+    _j('[data-wpl-title!=""]').qtip({ // Grab all elements with a non-blank data-tooltip attr.
+        content: {
+            attr: 'data-wpl-title' // Tell qTip2 to look inside this attr for its content
+        },
+        style: {
+            classes: 'qtip-tipsy qtip-shadow'
+        },
+        position: {
+            my: 'bottom center',  // Position my top left...
+            at: 'top center'
+            //target: _j(this)
+        },
+        events: {
+            render: function (event, api) {
+                // Grab the tip element
+                var elem = api.elements.tip;
+            }
+        }
+    });
+
+});
 
 
 /***************************** Old JS *****************************************/
@@ -1442,8 +1698,7 @@ wplj(document).ready(function () {
         wplj('.wpl_help').hover(
             function () {
                 wplj(this).children(".wpl_help_description").show();
-            }
-            ,
+            },
             function () {
                 wplj(this).children(".wpl_help_description").hide();
             }
@@ -1491,7 +1746,7 @@ function wpl_remove_message(html_element) {
         return;
     wplj(html_element).removeClass(wpl_show_messages_cur_class);
     wplj(html_element).html('');
-	wplj(html_element).hide();
+    wplj(html_element).hide();
     wpl_show_messages_cur_class = '';
 }
 
@@ -1529,6 +1784,8 @@ function wpl_update_qs(key, value, url) {
     else {
         if (value) {
             var separator = url.indexOf('?') !== -1 ? '&' : '?';
+            if (url.indexOf('?') === -1 && url.indexOf('&') !== -1) separator = '&';
+
             var hash = url.split('#');
             url = hash[0] + separator + key + '=' + value;
             if (hash[1])
@@ -1579,4 +1836,12 @@ function wpl_alert(string) {
 
 function wpl_ucfirst(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function wpl_change_field_language(field_id, lang) {
+    wplj("#wpl_langs_tabs" + field_id + " li").removeClass('wpl-active-lang');
+    wplj("#wpl_langs_tabs" + field_id + " li#wpl_langs_tab_" + field_id + "_" + lang).addClass('wpl-active-lang');
+
+    wplj("#wpl_langs_cnts" + field_id + " div.wpl-lang-cnt").css('display', 'none');
+    wplj("#wpl_langs_cnts" + field_id + " div#wpl_langs_cnt_" + field_id + "_" + lang).css('display', '');
 }

@@ -230,4 +230,27 @@ class wpl_units
 			return $x2;
 		}
 	}
+    
+    /**
+     * Converts a value from a currency to another one using WPL units table
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param double $value
+     * @param int $unit_from
+     * @param int $unit_to
+     * @return double
+     */
+	public static function convert($value, $unit_from, $unit_to)
+	{
+        /** Returns $value when both of currencies are same **/
+        if($unit_from == $unit_to) return $value;
+        
+		$unit_from_data = self::get_unit($unit_from);
+        $unit_to_data = self::get_unit($unit_to);
+        
+        $value_si = $value*$unit_from_data['tosi'];
+        $value_final = $value_si/$unit_to_data['tosi'];
+        
+        return $value_final;
+	}
 }

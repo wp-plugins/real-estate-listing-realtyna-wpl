@@ -2,6 +2,9 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 
+$description_column = 'field_308';
+if(wpl_global::check_multilingual_status()) $description_column = wpl_addon_pro::get_column_lang_name($description_column, wpl_global::get_current_language(), false);
+                    
 foreach($this->wpl_properties as $key=>$property)
 {
     if($key == 'current') continue;
@@ -19,7 +22,7 @@ foreach($this->wpl_properties as $key=>$property)
     $parking    = '<div class="parking">'.($property['raw']['f_150'] == 1 ? $property['raw']['f_150_options'] : 0).'</div>';
     $pic_count  = '<div class="pic_count">'.$property['raw']['pic_numb'].'</div>';
     ?>
-    <div class="wpl_prp_cont" id="wpl_prp_cont<?php echo $property['data']['id']; ?>">
+    <div class="wpl_prp_cont <?php echo (isset($this->property_css_class) ? $this->property_css_class : ''); ?>" id="wpl_prp_cont<?php echo $property['data']['id']; ?>">
         <div class="wpl_prp_top">
             <div class="wpl_prp_top_boxes front">
                 <?php wpl_activity::load_position('wpl_property_listing_image', array('wpl_properties'=>$this->wpl_properties)); ?>
@@ -34,6 +37,7 @@ foreach($this->wpl_properties as $key=>$property)
             echo '<h4 class="wpl_prp_listing_location">'.$property['location_text'].'</h4>';
             ?>
             <div class="wpl_prp_listing_icon_box"><?php echo $room . $bathroom . $parking . $pic_count; ?></div>
+            <div class="wpl_prp_desc"><?php echo substr($property['raw'][$description_column], 0, strrpos(substr($property['raw'][$description_column], 0, 400), '.', -1) + 1); ?></div>
         </div>
         <div class="price_box"><span itemprop="price" content="<?php echo $property['materials']['price']['value']; ?>"><?php echo $property['materials']['price']['value']; ?></span></div>
     </div>

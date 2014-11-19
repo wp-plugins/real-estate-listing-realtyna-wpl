@@ -155,12 +155,12 @@ wplj(document).ready(function()
                     {
                         att_counter: att_counter,
                         fileName: file.name,
-                        enabled_title: '<?php echo __('Enabled', WPL_TEXTDOMAIN); ?>',
+                        enabled_title: "<?php echo addslashes(__('Enabled', WPL_TEXTDOMAIN)); ?>",
                         subFileName: file.name.substr((file.name.lastIndexOf('.') + 1)),
-                        lblTitle: '<?php echo __('Attachment Title', WPL_TEXTDOMAIN); ?>',
-                        lblDesc: '<?php echo __('Attachment Description', WPL_TEXTDOMAIN); ?>',
-                        lblCat: '<?php echo __('Attachment Category', WPL_TEXTDOMAIN); ?>',
-                        attachCat: '<?php echo $attachment_categories_html ?>'
+                        lblTitle: "<?php echo addslashes(__('Attachment Title', WPL_TEXTDOMAIN)); ?>",
+                        lblDesc: "<?php echo addslashes(__('Attachment Description', WPL_TEXTDOMAIN)); ?>",
+                        lblCat: "<?php echo addslashes(__('Attachment Category', WPL_TEXTDOMAIN)); ?>",
+                        attachCat: "<?php echo addslashes($attachment_categories_html); ?>"
                     }, 'dbst-wizard-attachment')).appendTo('#ajax_att_sortable');
 
                     att_counter++;
@@ -227,8 +227,8 @@ function wpl_attachment_enabled(attachment, id)
 
 	ajax.success(function (data)
 	{
-		if (status == 0) wplj("#active_attachment_tag_" + id).html('<i class="action-btn icon-disabled wpl_actions_btn wpl_show" title="<?php echo __('Disabled', WPL_TEXTDOMAIN); ?>"></i>');
-		else wplj("#active_attachment_tag_" + id).html('<i class="action-btn icon-enabled wpl_actions_btn wpl_show" title="<?php echo __('Enabled', WPL_TEXTDOMAIN); ?>"></i>');
+		if (status == 0) wplj("#active_attachment_tag_" + id).html('<i class="action-btn icon-disabled wpl_actions_btn wpl_show" title="<?php echo addslashes(__('Disabled', WPL_TEXTDOMAIN)); ?>"></i>');
+		else wplj("#active_attachment_tag_" + id).html('<i class="action-btn icon-enabled wpl_actions_btn wpl_show" title="<?php echo addslashes(__('Enabled', WPL_TEXTDOMAIN)); ?>"></i>');
 	});
 }
 </script>

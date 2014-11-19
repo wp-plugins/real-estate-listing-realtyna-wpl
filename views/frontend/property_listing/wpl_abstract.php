@@ -40,6 +40,12 @@ abstract class wpl_property_listing_controller_abstract extends wpl_controller
 		$this->orderby = wpl_request::getVar('wplorderby', $settings['default_orderby'], '', true);
 		$this->order = wpl_request::getVar('wplorder', $settings['default_order'], '', true);
         
+        /** Set Property CSS class **/
+        $this->property_css_class = wpl_request::getVar('wplpcc', NULL);
+        if(!$this->property_css_class) $this->property_css_class = wpl_request::getVar('wplpcc', 'grid_box', 'COOKIE');
+        
+        $this->property_css_class_switcher = wpl_request::getVar('wplpcc_switcher', '1');
+        
         /** load mapview without any server proccess **/
         if($this->tpl == 'mapview')
         {

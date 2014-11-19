@@ -10,6 +10,8 @@ $image_height = isset($this->instance['data']['image_height']) ? $this->instance
 $thumbnail_width = isset($this->instance['data']['thumbnail_width']) ? $this->instance['data']['thumbnail_width'] : 150;
 $thumbnail_height = isset($this->instance['data']['thumbnail_height']) ? $this->instance['data']['thumbnail_height'] : 60;
 
+$slide_interval = isset($this->instance['data']['slide_interval']) ? $this->instance['data']['slide_interval'] : 3000;
+
 /** add Layout js **/
 $js[] = (object) array('param1'=>'elastic.slideshow', 'param2'=>'js/elastic_slideshow/jquery.eislideshow.js');
 foreach($js as $javascript) wpl_extensions::import_javascript($javascript);
@@ -64,7 +66,7 @@ wplj(function()
 	{
 		animation			: 'center',
 		autoplay			: true,
-		slideshow_interval	: 3000,
+		slideshow_interval	: <?php echo $slide_interval; ?>,
 		titlesFactor		: 0
 	});
     <?php endif; ?>

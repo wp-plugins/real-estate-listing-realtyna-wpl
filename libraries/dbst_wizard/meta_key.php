@@ -78,7 +78,7 @@ function metatag_key_creator()
     // bedrooms
     try {
         if (wplj.trim(wplj(".wpl_c_bedrooms").val()) != '0' && wplj.trim(wplj(".wpl_c_bedrooms").val()) != '')
-            start = wplj(".wpl_c_bedrooms").val() + ' <?php echo __('Bedrooms', WPL_TEXTDOMAIN);?>, ';
+            start = wplj(".wpl_c_bedrooms").val() + ' <?php echo addslashes(__('Bedrooms', WPL_TEXTDOMAIN));?>, ';
     }
     catch (err) {
     }
@@ -86,7 +86,7 @@ function metatag_key_creator()
     // rooms
     try {
         if (wplj.trim(wplj(".wpl_c_rooms").val()) != '0' && wplj.trim(wplj(".wpl_c_rooms").val()) != '')
-            start += wplj(".wpl_c_rooms").val() + ' <?php echo __('Rooms', WPL_TEXTDOMAIN);?>, ';
+            start += wplj(".wpl_c_rooms").val() + ' <?php echo addslashes(__('Rooms', WPL_TEXTDOMAIN));?>, ';
     }
     catch (err) {
     }
@@ -126,7 +126,7 @@ function metatag_key_creator()
     // floor
     try {
         if (wplj.trim(wplj(".wpl_c_field_55").val()) != '0' && wplj.trim(wplj(".wpl_c_field_55").val()) != '')
-            start += number_to_th(wplj(".wpl_c_field_55").val()) + " <?php echo __('Floor', WPL_TEXTDOMAIN); ?>, ";
+            start += number_to_th(wplj(".wpl_c_field_55").val()) + " <?php echo addslashes(__('Floor', WPL_TEXTDOMAIN)); ?>, ";
     }
     catch (err) {
     }
@@ -134,7 +134,7 @@ function metatag_key_creator()
     // bathrooms
     try {
         if (wplj.trim(wplj(".wpl_c_bathrooms").val()) != '0' && wplj.trim(wplj(".wpl_c_bathrooms").val()) != '')
-            start += wplj(".wpl_c_bathrooms").val() + " <?php echo __('Bathrooms', WPL_TEXTDOMAIN); ?>, ";
+            start += wplj(".wpl_c_bathrooms").val() + " <?php echo addslashes(__('Bathrooms', WPL_TEXTDOMAIN)); ?>, ";
     }
     catch (err) {
     }
@@ -142,7 +142,7 @@ function metatag_key_creator()
     // Listing id
     try {
         if (wplj.trim(wplj(".wpl_c_mls_id").val()) != '0' || wplj.trim(wplj(".wpl_c_mls_id").val()) != '-1')
-            start += "<?php echo __('Listing ID', WPL_TEXTDOMAIN); ?> " + wplj(".wpl_c_mls_id").val();
+            start += "<?php echo addslashes(__('Listing ID', WPL_TEXTDOMAIN)); ?> " + wplj(".wpl_c_mls_id").val();
     }
     catch (err) {
     }
@@ -172,7 +172,7 @@ function meta_key_manual()
 
     if (!meta_key_pro_addon)
     {
-        wpl_show_messages("<?php echo __('Pro addon must be installed for this!', WPL_TEXTDOMAIN); ?>", '#wpl_c_<?php echo $field->id; ?>_message', 'wpl_red_msg');
+        wpl_show_messages("<?php echo addslashes(__('Pro addon must be installed for this!', WPL_TEXTDOMAIN)); ?>", '#wpl_c_<?php echo $field->id; ?>_message', 'wpl_red_msg');
         setTimeout(function () {
             wpl_remove_message('#wpl_c_<?php echo $field->id; ?>_message');
         }, 3000);

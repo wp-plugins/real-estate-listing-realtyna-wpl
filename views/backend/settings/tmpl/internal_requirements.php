@@ -96,6 +96,16 @@ defined('_WPLEXEC') or die('Restricted access');
             	<i class="icon-<?php echo $curl ? 'confirm' : 'warning'; ?>"></i>
             </span>
 		</li>
+        <!-- ZipArchive -->
+        <?php $zip_extension = class_exists('ZipArchive') ? true : false; ?>
+        <li>
+        	<span class="wpl-requirement-name"><?php echo __('ZipArchive', WPL_TEXTDOMAIN); ?></span>
+            <span class="wpl-requirement-require"><?php echo __('Installed', WPL_TEXTDOMAIN); ?></span>
+            <span class="wpl-requirement-current"><?php echo $zip_extension ? __('Installed', WPL_TEXTDOMAIN) : __('Not Installed', WPL_TEXTDOMAIN); ?></span>
+            <span class="wpl-requirement-status p-action-btn">
+            	<i class="icon-<?php echo $zip_extension ? 'confirm' : 'warning'; ?>"></i>
+            </span>
+		</li>
         <!-- Safe Mode -->
         <?php $safe = ini_get('safe_mode'); $safe_mode = (!$safe or strtolower($safe) == 'off') ? true : false; ?>
         <li>
@@ -104,6 +114,16 @@ defined('_WPLEXEC') or die('Restricted access');
             <span class="wpl-requirement-current"><?php echo $safe_mode ? __('Off', WPL_TEXTDOMAIN) : __('On', WPL_TEXTDOMAIN); ?></span>
             <span class="wpl-requirement-status p-action-btn">
             	<i class="icon-<?php echo $safe_mode ? 'confirm' : 'warning'; ?>"></i>
+            </span>
+		</li>
+        <!-- Magic Quote -->
+        <?php $magic_quote = get_magic_quotes_gpc(); $magic_quote_status = (!$magic_quote) ? true : false; ?>
+        <li>
+        	<span class="wpl-requirement-name"><?php echo __('Magic Quote', WPL_TEXTDOMAIN); ?></span>
+            <span class="wpl-requirement-require"><?php echo __('Off', WPL_TEXTDOMAIN); ?></span>
+            <span class="wpl-requirement-current"><?php echo $magic_quote_status ? __('Off', WPL_TEXTDOMAIN) : __('On', WPL_TEXTDOMAIN); ?></span>
+            <span class="wpl-requirement-status p-action-btn">
+            	<i class="icon-<?php echo $magic_quote_status ? 'confirm' : 'danger'; ?>"></i>
             </span>
 		</li>
         <!-- Memory Limit -->
