@@ -301,4 +301,24 @@ function wpl_change_membership(id)
 		}
 	});
 }
+
+function wpl_get_tinymce_content(html_element_id)
+{
+	if(wplj("#wp-"+html_element_id+"-wrap").hasClass("tmce-active"))
+	{
+		return tinyMCE.activeEditor.getContent();
+	}
+	else
+	{
+		return wplj("#"+html_element_id).val();
+	}
+}
+
+function wpl_reset_users_form()
+{
+    wplj('#sf_filter').val('');
+    wplj('#show_all').val('');
+    wplj('#membership_id').val('');
+    wplj('#wpl_users_search_form').submit();
+}
 </script>

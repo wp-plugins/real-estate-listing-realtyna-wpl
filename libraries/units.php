@@ -62,6 +62,21 @@ class wpl_units
 	}
 	
     /**
+     * Returns unit ID by desired key=value criteria
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param mixed $value
+     * @param string $by
+     * @param int $type
+     * @return int
+     */
+    public static function id($value, $by = 'extra', $type = 4)
+    {
+        $query = "SELECT `id` FROM `#__wpl_units` WHERE `$by`='$value' AND `type`='$type'";
+        return wpl_db::select($query, 'loadResult');
+    }
+    
+    /**
      * Returns default unit
      * @author Howard <howard@realtyna.com>
      * @static

@@ -8,11 +8,11 @@ if($type == 'property_types' and !$done_this) //////////////////////////// prope
 	{
 		/** get property type **/
 		$property_type = wpl_global::get_property_types($value);
-		
+        
 		$return['field_id'] = $field->id;
 		$return['type'] = $field->type;
 		$return['name'] = __($field->name, WPL_TEXTDOMAIN);
-		$return['value'] = __($property_type->name, WPL_TEXTDOMAIN);
+		$return['value'] = is_object($property_type) ? __($property_type->name, WPL_TEXTDOMAIN) : NULL;
 	}
 	
 	$done_this = true;
@@ -27,7 +27,7 @@ elseif($type == 'listings' and !$done_this) //////////////////////////// listing
 		$return['field_id'] = $field->id;
 		$return['type'] = $field->type;
 		$return['name'] = __($field->name, WPL_TEXTDOMAIN);
-		$return['value'] = __($listing_type->name, WPL_TEXTDOMAIN);
+		$return['value'] = is_object($listing_type) ? __($listing_type->name, WPL_TEXTDOMAIN) : NULL;
 	}
 	
 	$done_this = true;

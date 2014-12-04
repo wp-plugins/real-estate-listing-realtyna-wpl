@@ -3,6 +3,8 @@
 defined('_WPLEXEC') or die('Restricted access');
 ?>
 <style type="text/css">
+.wpl-users-search-form{margin: 20px 0 0;}
+.wpl-users-search-form input.long{width: 300px;}
 #wpl_profile_wizard_container label{display: inline-block; width: 140px;}
 #wpl_profile_wizard_container .wpl_listing_field_container_locations label{display: none;}
 #wpl_profile_wizard_container .wpl_listing_field_container_locations .wpl_listing_location_level_keyword{display: inline-block; width: 140px;}

@@ -429,9 +429,9 @@ class wpl_flex
 		$path = WPL_ABSPATH .DS. 'libraries' .DS. 'dbst_wizard';
 		$files = array();
 		
-		if(wpl_folder::exists($path)) $files = wpl_folder::files($path, '.php$', false, false, $finds);
+		if(wpl_folder::exists($path)) $files = wpl_folder::files($path, '.php$', false, false);
 		
-        $wpllangs = wpl_global::check_addon('pro') ? wpl_addon_pro::get_wpl_languages() : array();
+        $wpllangs = wpl_global::check_multilingual_status() ? wpl_addon_pro::get_wpl_languages() : array();
         
 		foreach($fields as $key=>$field)
 		{
@@ -464,7 +464,7 @@ class wpl_flex
 			
 			/** js validation **/
 			self::$wizard_js_validation[$field->id] = self::generate_js_validation($field);
-			
+            
 			if(isset($finds[$type]))
 			{
 				echo '<div class="prow wpl_listing_field_container prow-'.$type.'" id="wpl_listing_field_container'.$field->id.'" style="'.$display.'">';

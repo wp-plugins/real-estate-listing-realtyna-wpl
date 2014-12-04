@@ -1172,18 +1172,15 @@ class wpl_users
 		{
 			foreach($user_data as $key=>$value)
 			{
-				if(in_array($key, $acceptable_fileds))
-				{
-					$insert_data[$key] = $value;
-				}
+				if(!in_array($key, $acceptable_fileds)) continue;
+				$insert_data[$key] = $value;
 			}
             
-			$insert_user = wp_insert_user($insert_data);
-			return $insert_user;
+			return  wp_insert_user($insert_data);
 		}
 		else
 		{
-			return new WP_Error('broke', __("ERROR : Requirement fileds invalid", WPL_TEXTDOMAIN));
+			return new WP_Error('broke', __("ERROR: Required fileds are invalid!", WPL_TEXTDOMAIN));
 		}
 	}
 	
@@ -1194,7 +1191,7 @@ class wpl_users
 		Date : 2014-06-29
 		Description : Authenticates a user with option to remember credentials
 	**/
-	public static function login_user($user_data)
+	public static function login_user($user_data, $secure_cookie = false)
 	{
 		$acceptable_fileds = array('user_login', 'user_password', 'remember');
 		$login_data = array();
@@ -1203,18 +1200,15 @@ class wpl_users
 		{
 			foreach($user_data as $key=>$value)
 			{
-				if(in_array($key, $acceptable_fileds))
-				{
-					$login_data[$key] = $value;
-				}
+				if(!in_array($key, $acceptable_fileds)) continue;
+                $login_data[$key] = $value;
 			}
             
-			$login_user = wp_signon($login_data, false);
-			return $login_user;
+			return wp_signon($login_data, $secure_cookie);
 		}
 		else
 		{
-			return new WP_Error('broke', __("ERROR : Requirement fileds invalid", WPL_TEXTDOMAIN));
+			return new WP_Error('broke', __('ERROR: Required fileds are invalid!', WPL_TEXTDOMAIN));
 		}
 	}
 	
@@ -1254,4 +1248,61 @@ class wpl_users
         
         return true;
 	}
+    
+    /**
+     * Wrapper for WordPress wp_logout function
+     * @author Howard <howard@realtyna.com>
+     * @static
+     */
+    public static function wp_logout()
+    {
+        wp_logout();
+    }
+    
+    /**
+     * Validate activation key
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $key
+     * @return int User ID
+     */
+    public static function validate_activation_key($key)
+    {
+        /** first validation **/
+        if(!trim($key)) return 0;
+        
+        $query = "SELECT `id` FROM `#__users` WHERE `user_activation_key`='$key'";
+        $id = wpl_db::select($query, 'loadResult');
+        
+        if($id) return $id;
+        return 0;
+    }
+    
+    /**
+     * Wrapper for WordPress wp_set_password function
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $user_id
+     * @param string $password
+     * @return void
+     */
+    public static function set_password($user_id, $password)
+    {
+        wp_set_password($password, $user_id);
+    }
+    
+    /**
+     * Wrapper for WordPress update_user_option function
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $user_id
+     * @param string $option_name
+     * @param mixed $newvalue
+     * @param boolean $global
+     * @return boolean
+     */
+    public static function update_user_option($user_id, $option_name, $newvalue, $global = false)
+    {
+        return update_user_option($user_id, $option_name, $newvalue, $global);
+    }
 }

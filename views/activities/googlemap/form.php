@@ -129,6 +129,13 @@ defined('_WPLEXEC') or die('Restricted access');
                 <option value="population" <?php echo ((isset($this->options->demographic_auto_color) and $this->options->demographic_auto_color == 'population') ? 'selected="selected"' : ''); ?>><?php echo __('Population', WPL_TEXTDOMAIN); ?></option>
             </select>
         </div>
+        <div class="fanc-row">
+            <label for="wpl_o_demographic_show_map_guide"><?php echo __('Show Map Guide', WPL_TEXTDOMAIN); ?></label>
+            <select id="wpl_o_demographic_show_map_guide" name="option[demographic_show_map_guide]">
+                <option value="0" <?php echo ((isset($this->options->demographic_show_map_guide) and $this->options->demographic_show_map_guide == 0) ? 'selected="selected"' : ''); ?>><?php echo __('No', WPL_TEXTDOMAIN); ?></option>
+                <option value="1" <?php echo ((isset($this->options->demographic_show_map_guide) and $this->options->demographic_show_map_guide == 1) ? 'selected="selected"' : ''); ?>><?php echo __('Yes', WPL_TEXTDOMAIN); ?></option>
+            </select>
+        </div>
     </div>
 </div>
 <?php endif; ?>

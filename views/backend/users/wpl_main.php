@@ -22,14 +22,22 @@ class wpl_users_controller extends wpl_controller
 		$order = in_array(strtoupper(wpl_request::getVar('order')), array('ASC','DESC')) ? wpl_request::getVar('order') : 'ASC';
 		
 		$page_size = trim(wpl_request::getVar('page_size')) != '' ? wpl_request::getVar('page_size') : NULL;
-		
+        $this->show_all = wpl_request::getVar('show_all', 0);
+		$this->filter = wpl_request::getVar('filter', '');
+        $this->membership_id = wpl_request::getVar('membership_id', '');
+        
 		$where_query = wpl_db::create_query();
-		$num_result = wpl_db::num("SELECT COUNT(id) FROM `#__users` WHERE 1 $where_query");
+        if(trim($this->filter)) $where_query = " AND (`user_login` LIKE '%".$this->filter."%' OR `user_email` LIKE '%".$this->filter."%' OR `first_name` LIKE '%".$this->filter."%' OR `last_name` LIKE '%".$this->filter."%')";
+        if(trim($this->membership_id)) $where_query = " AND `membership_id`='".$this->membership_id."'";
+        
+		$num_result = wpl_db::num("SELECT COUNT(u.ID) FROM `#__users` AS u ".($this->show_all ? 'LEFT' : 'INNER')." JOIN `#__wpl_users` AS wpl ON u.ID = wpl.id WHERE 1 $where_query");
         
 		$this->pagination = wpl_pagination::get_pagination($num_result, $page_size);
-		
 		$where_query .= " ORDER BY $orderby $order ".$this->pagination->limit_query;
-		$this->wp_users = wpl_users::get_wp_users($where_query);
+		
+        if($this->show_all) $this->wp_users = wpl_users::get_wp_users($where_query);
+        else $this->wp_users = wpl_users::get_wpl_users($where_query);
+        
 		$this->memberships = wpl_users::get_wpl_memberships();
 		
 		/** import tpl **/

@@ -314,7 +314,7 @@ class wpl_property
 		$materials = array();
         
 		$path = WPL_ABSPATH .DS. 'libraries' .DS. 'dbst_show';
-		$files = wpl_folder::files($path, '.php$', false, false, $finds);
+		$files = wpl_folder::files($path, '.php$', false, false);
 		$values = (array) $property;
 		
         $prp_listing = isset($values['listing']) ? $values['listing'] : NULL;
@@ -861,7 +861,7 @@ class wpl_property
 		if(trim($property_data['bathrooms'])) $alias['bathrooms'] = $property_data['bathrooms'].__('Bathroom'.($property_data['bathrooms'] > 1 ? 's': ''), WPL_TEXTDOMAIN);
 		
 		$unit_data = wpl_units::get_unit($property_data['price_unit']);
-		$alias['price'] = wpl_render::render_price($property_data['price'], $unit_data['id'], $unit_data['extra']);
+		$alias['price'] = str_replace('.', '', wpl_render::render_price($property_data['price'], $unit_data['id'], $unit_data['extra']));
 		
 		/** apply filters **/
 		_wpl_import('libraries.filters');
@@ -905,7 +905,10 @@ class wpl_property
 		if($property_id) $property_data = self::get_property_raw_data($property_id);
         
         $column = 'field_312';
-        if(wpl_global::check_multilingual_status()) $column = wpl_addon_pro::get_column_lang_name($column, wpl_global::get_current_language(), false);
+        $field_id = wpl_flex::get_dbst_id($column, $property_data['kind']);
+        $field = wpl_flex::get_field($field_id);
+        
+        if($field->multilingual and wpl_global::check_multilingual_status()) $column = wpl_addon_pro::get_column_lang_name($column, wpl_global::get_current_language(), false);
         
         /** return current page title if exists **/
         if(isset($property_data[$column]) and trim($property_data[$column]) != '' and !$force) return $property_data[$column];
@@ -934,9 +937,9 @@ class wpl_property
 		@extract(wpl_filters::apply('generate_property_page_title', array('title'=>$title, 'title_str'=>$title_str)));
         
         /** update **/
-        if(wpl_db::columns('wpl_properties', 'field_312'))
+        if(wpl_db::columns('wpl_properties', $column))
         {
-            $query = "UPDATE `#__wpl_properties` SET `field_312`='".$title_str."' WHERE `id`='".$property_data['id']."'";
+            $query = "UPDATE `#__wpl_properties` SET `".$column."`='".$title_str."' WHERE `id`='".$property_data['id']."'";
             wpl_db::q($query, 'update');
         }
         
@@ -958,7 +961,10 @@ class wpl_property
 		if($property_id) $property_data = self::get_property_raw_data($property_id);
         
         $column = 'field_313';
-        if(wpl_global::check_multilingual_status()) $column = wpl_addon_pro::get_column_lang_name($column, wpl_global::get_current_language(), false);
+        $field_id = wpl_flex::get_dbst_id($column, $property_data['kind']);
+        $field = wpl_flex::get_field($field_id);
+        
+        if($field->multilingual and wpl_global::check_multilingual_status()) $column = wpl_addon_pro::get_column_lang_name($column, wpl_global::get_current_language(), false);
         
         /** return current title if exists **/
         if(isset($property_data[$column]) and trim($property_data[$column]) != '' and !$force) return $property_data[$column];
@@ -986,9 +992,9 @@ class wpl_property
 		@extract(wpl_filters::apply('generate_property_title', array('title'=>$title, 'title_str'=>$title_str)));
         
         /** update **/
-        if(wpl_db::columns('wpl_properties', 'field_313'))
+        if(wpl_db::columns('wpl_properties', $column))
         {
-            $query = "UPDATE `#__wpl_properties` SET `field_313`='".$title_str."' WHERE `id`='".$property_data['id']."'";
+            $query = "UPDATE `#__wpl_properties` SET `".$column."`='".$title_str."' WHERE `id`='".$property_data['id']."'";
             wpl_db::q($query, 'update');
         }
         

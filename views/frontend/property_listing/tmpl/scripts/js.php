@@ -104,7 +104,7 @@ function wpl_set_property_css_class(pcc)
         url: '<?php echo wpl_global::get_full_url(); ?>',
         data: 'wpl_format=f:property_listing:ajax&wpl_function=set_pcc&pcc='+pcc,
         type: 'GET',
-        dataType: 'jSON',
+        dataType: 'json',
         cache: false,
         success: function(data)
         {

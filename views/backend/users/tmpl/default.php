@@ -10,11 +10,32 @@ _wpl_import($this->tpl_path . '.scripts.css');
         <div id="icon-user" class="icon48">
         </div>
         <h2><?php echo __('User Manager', WPL_TEXTDOMAIN); ?></h2>
-        <?php if(wpl_global::check_addon('pro')): ?>
+        <?php if(wpl_global::check_addon('membership')): ?>
             <a href="<?php echo wpl_global::add_qs_var('kind', wpl_flex::get_kind_id('user'), wpl_global::get_wpl_admin_menu('wpl_admin_flex')); ?>" class="setting-toolbar-btn button" title="<?php echo __('Manage User Data Structure', WPL_TEXTDOMAIN); ?>"><?php echo __('Manage User Data Structure', WPL_TEXTDOMAIN); ?></a>
         <?php endif; ?>
     </header>
     <div class="wpl_user_list"><div class="wpl_show_message"></div></div>
+    <div class="wpl-users-search-form">
+        <form method="GET" id="wpl_users_search_form">
+            <input type="hidden" name="page" value="wpl_admin_user_manager" />
+            <label for="sf_filter"><?php echo __('Filter', WPL_TEXTDOMAIN); ?>: </label>
+            <input type="text" id="sf_filter" name="filter" value="<?php echo $this->filter; ?>" placeholder="<?php echo __('Name, Email', WPL_TEXTDOMAIN); ?>" class="long" />
+            <select name="show_all" id="show_all">
+                <option value="0" <?php if($this->show_all == 0) echo 'selected="selected"'; ?>><?php echo __('Only WPL users'); ?></option>
+                <option value="1" <?php if($this->show_all == 1) echo 'selected="selected"'; ?>><?php echo __('All WordPress users'); ?></option>
+            </select>
+            <?php if(wpl_global::check_addon('membership')): ?>
+            <select name="membership_id" id="membership_id">
+                <option value=""><?php echo __('Membership', WPL_TEXTDOMAIN); ?></option>
+                <?php foreach($this->memberships as $membership): ?>
+                <option value="<?php echo $membership->id; ?>" <?php if(isset($this->membership_id) and $membership->id == $this->membership_id) echo 'selected="selected"'; ?>><?php echo __($membership->membership_name, WPL_TEXTDOMAIN); ?></option>
+                <?php endforeach; ?>
+            </select>
+            <?php endif; ?>
+            <button class="button button-1"><?php echo __('Search', WPL_TEXTDOMAIN); ?></button>
+            <button type="reset" class="button button-1" onclick="wpl_reset_users_form();"><?php echo __('Reset', WPL_TEXTDOMAIN); ?></button>
+        </form>
+    </div>
     <div class="sidebar-wp">
         <?php if(isset($this->pagination->max_page) and $this->pagination->max_page > 1): ?>
         <div class="pagination-wp">

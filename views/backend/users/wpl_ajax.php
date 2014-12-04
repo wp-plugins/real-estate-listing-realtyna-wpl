@@ -182,15 +182,16 @@ class wpl_users_controller extends wpl_controller
 		/** edit user **/
 		$query = "";
 		$id = $inputs['id'];
-		
+		$columns = wpl_db::columns('wpl_users');
+        
 		/** set restriction to none **/
 		if(!$inputs['maccess_lrestrict']) $inputs['maccess_listings'] = '';
 		if(!$inputs['maccess_ptrestrict']) $inputs['maccess_property_types'] = '';
 		
 		foreach($inputs as $field=>$value)
 		{
-			if(in_array($field, $restricted_fields)) continue;
-			
+			if(in_array($field, $restricted_fields) or !in_array($field, $columns)) continue;
+            
 			$query .= "`".$field."`='" .$value. "', ";
 		}
 		

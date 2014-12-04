@@ -2,15 +2,63 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 
+/**
+ * Main WPL Controller
+ * @author Howard <howard@realtyna.com>
+ * @since 1.0.0
+ * @package WPL
+ */
 class wpl_controller
 {
+    /**
+     *
+     * @var string 
+     */
 	public $_wpl_client;
+    
+    /**
+     *
+     * @var string
+     */
 	public $_wpl_folder;
+    
+    /**
+     *
+     * @var string
+     */
 	public $_wpl_class;
+    
+    /**
+     *
+     * @var string
+     */
 	public $_wpl_function;
+    
+    /**
+     *
+     * @var array
+     */
 	public $_wpl_clients = array('b'=>'backend', 'f'=>'frontend', 'c'=>'basics');
+    
+    /**
+     *
+     * @var int
+     */
     public static $_run = 0;
+    
+    /**
+     * Wrapper class for some views
+     * @var boolean
+     */
+    public $wrapper = 0;
 	
+    /**
+     * Calls WPL views
+     * @author Howard <howard@realtyna.com>
+     * @param string $method
+     * @param array $args
+     * @return mixed
+     */
 	public function __call($method, $args)
 	{
 		$ex = explode(':', $method);
@@ -37,10 +85,21 @@ class wpl_controller
 			return $result;
 		}
 		
-		/** call the function **/
-		$result = $_wpl_obj->$_wpl_function($instance);
+        if($this->_wpl_client == 'backend') $_wpl_obj->wrapper = 1;
+        
+        /** call the function **/
+		$_wpl_obj->$_wpl_function($instance);
 	}
 	
+    /**
+     * Renders a layout of WPL view
+     * @author Howard <howard@realtyna.com>
+     * @param string $path
+     * @param string $tpl
+     * @param boolean $return_path
+     * @param boolean $string_output
+     * @return mixed
+     */
 	public function render($path, $tpl = '', $return_path = false, $string_output = false)
 	{
 		$_wpl_tpl = trim($tpl) != '' ? $tpl : wpl_request::getVar('tpl', '', 'GET');
@@ -67,17 +126,42 @@ class wpl_controller
 		
 		/** including before start file **/
 		if(wpl_file::exists($before_start)) include $before_start;
-		include $path;
+        
+        if($this->wrapper == 1) $this->wrapper($path);
+		else include $path;
 	}
+    
+    /**
+     * Wrapper file for backend views
+     * @author Howard <howard@realtyna.com>
+     * @param string $path
+     */
+    public function wrapper($path)
+    {
+        $this->wrapper++;
+        include _wpl_import('views.basics.wrapper.default', true, true);
+    }
 	
-	/** add separator betweens submenus **/
+    /**
+     * Adds separator betweens submenus
+     * @author Howard <howard@realtyna.com>
+     * @return string
+     */
 	public function wpl_add_separator()
 	{
 		include _wpl_import('views.basics.separator.default', true, true);
 		return $separator_str;
 	}
-	
-	/** for importing internal files in object mode **/
+    
+    /**
+     * For importing internal files in object mode
+     * @author Howard <howard@realtyna.com>
+     * @param string $include
+     * @param boolean $override
+     * @param boolean $set_footer
+     * @param boolean $once
+     * @return void
+     */
 	protected function _wpl_import($include, $override = true, $set_footer = false, $once = false)
 	{
 		$path = _wpl_import($include, $override, true);
@@ -101,7 +185,14 @@ class wpl_controller
         }
 	}
     
-    /** for rendering and returning section contents **/
+    /**
+     * For rendering and returning section contents
+     * @author Howard <howard@realtyna.com>
+     * @param string $include
+     * @param boolean $override
+     * @param boolean $once
+     * @return string
+     */
 	protected function _wpl_render($include, $override = true, $once = false)
 	{
 		$path = _wpl_import($include, $override, true);
@@ -117,6 +208,12 @@ class wpl_controller
         return ob_get_clean();
 	}
 	
+    /**
+     * Loads WPL views
+     * @author Howard <howard@realtyna.com>
+     * @param string $method
+     * @return mixed
+     */
 	protected function load($method)
 	{
 		$ex = explode(':', $method);
@@ -132,8 +229,12 @@ class wpl_controller
 		$_wpl_obj = new $this->_wpl_class(true);
 		return $_wpl_obj->$_wpl_function();
 	}
-	
-	/** for showing data like iframe **/
+    
+    /**
+     * For showing data like iframe
+     * @author Howard <howard@realtyna.com>
+     * @param string $function
+     */
 	public function _wpl_plugin($function)
 	{
 		include _wpl_import('views.basics.plugin.iframe', true, true);

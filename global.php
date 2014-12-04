@@ -223,11 +223,16 @@ class wpl_global
 		
 		return $page_url;
 	}
-	
-	/**
-		@description create order link used in tables for listing records
-		@author Howard
-	**/
+    
+    /**
+     * Creates order link used in tables for listing records
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $thName
+     * @param string $orderBy
+     * @param boolean $class
+     * @param string $url
+     */
 	public static function order_table($thName, $orderBy, $class = true, $url = '')
 	{
 		if(trim($url) == '') $url = self::get_full_url();
@@ -244,33 +249,95 @@ class wpl_global
 		echo '<a href="'.$url.'" '.$class.'>'.$thName.'</a>';
 	}
 	
-	/** developed by howard 03/10/2013 **/
+    /**
+     * Returns full URL of assets
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $asset relative path
+     * @return string full url address
+     */
 	public static function get_wpl_asset_url($asset)
 	{
 		return plugins_url('assets/'.$asset, __FILE__);
 	}
+    
+    /**
+     * Include a SVG image into the web page
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $image relative path of svg image
+     * @param string $id desired ID for svg tag
+     * @param array $params
+     * @param string $path
+     * @return string
+     */
+    public static function svg($image, $id = NULL, $params = array(), $path = NULL)
+    {
+        /** First validation **/
+        if(!trim($image)) return '';
+        
+        if(!trim($path)) $path = wpl_global::get_wpl_root_path().'assets'.DS.'img'.DS;
+        if(strpos($image, '.svg') === false) $image .= '.svg';
+        
+        $image = str_replace('/', DS, $image);
+        $fullpath = $path.(ltrim($image, DS));
+        
+        $content = wpl_file::read($fullpath);
+        
+        $pos1 = strpos($content, '<svg');
+        $pos2 = strpos($content, '</svg', $pos1)+6;
+        $svg = substr($content, $pos1, ($pos2-$pos1));
+        
+        $pos1 = 0;
+        $pos2 = strpos($svg, '>', $pos1)+1;
+        
+        $tag = substr($svg, $pos1, ($pos2-$pos1));
+        $remain_svg = substr($svg, $pos2);
+        
+        /** Push array to params **/
+        $params['id'] = $id;
+        
+        foreach($params as $key=>$value)
+        {
+            if($value and strpos($tag, $key.'="') !== false) $tag = preg_replace('/'.$key.'="(.*?)"/', $key.'="'.$value.'"', $tag);
+            elseif($value) $tag = str_replace('<svg', '<svg '.$key.'="'.$value.'"', $tag);
+        }
+        
+        return $tag.$remain_svg;
+    }
 	
-	/**
-		@input {option_name} and [default]
-		@return option value
-		@author Howard
-	**/
+    /**
+     * Returns WordPress option
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $option_name
+     * @param mixed $default
+     * @return mixed
+     */
 	public static function get_wp_option($option_name, $default = false)
 	{
 		return get_option($option_name, $default);
 	}
-	
-	/**
-		@input {option_name}
-		@return option value
-		@author Howard
-	**/
+    
+    /**
+     * Returns WordPress Query var
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $var_name
+     * @return mixed
+     */
 	public static function get_wp_qvar($var_name = 'wpl_qs')
 	{
 		return get_query_var($var_name);
 	}
-	
-	/** developed by howard 04/14/2013 **/
+    
+    /**
+     * Returns WordPress URLs
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $type
+     * @return string
+     */
 	public static function get_wp_url($type = 'site')
 	{
 		/** make it lowercase **/
@@ -286,32 +353,57 @@ class wpl_global
 		
 		return $url;
 	}
-	
-	/** developed by howard 04/10/2013 **/
+    
+    /**
+     * Returns WordPress Root Path
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @return string
+     */
 	public static function get_wp_root_path()
 	{
 		return ABSPATH;
 	}
-	
-	/** developed by howard 04/10/2013 **/
+    
+    /**
+     * Returns WPL Root Path
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @return string
+     */
 	public static function get_wpl_root_path()
 	{
 		return WPL_ABSPATH;
 	}
 	
-	/** developed by howard 04/14/2013 **/
+    /**
+     * Returns WordPress frontend URL
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @return string
+     */
 	public static function get_wp_site_url()
 	{
 		return self::get_wp_url('site');
 	}
 	
-	/** developed by howard 04/14/2013 **/
+    /**
+     * Returns WordPress backend URL
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @return string
+     */
 	public static function get_wp_admin_url()
 	{
 		return self::get_wp_url('admin');
 	}
 	
-	/** developed by howard 04/15/2013 **/
+    /**
+     * Returns WPL backend URL
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @return string
+     */
 	public static function get_wpl_url()
 	{
 		return self::get_wp_url('WPL');
@@ -328,24 +420,40 @@ class wpl_global
 		return self::get_upload_base_url();
 	}
 	
-	/** developed by howard 04/15/2013 **/
+    /**
+     * Returns WordPress backend menu URL
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $admin_menu_slug
+     * @return string
+     */
 	public static function get_wpl_admin_menu($admin_menu_slug)
 	{
 		$admin_url = self::get_wp_url('admin');
 		return $admin_url.'admin.php?page='.$admin_menu_slug;
 	}
 	
-	/** developed by martin 04/15/2013 **/
+    /**
+     * Returns icons by a path
+     * @author Martin <martin@realtyna.com>
+     * @static
+     * @param string $path
+     * @param string $regex
+     * @return array
+     */
 	public static function get_icons($path, $regex = '.png$|.gif$|.jpg$|.jpeg$')
 	{
 		return wpl_folder::files($path, $regex, false, false);
 	}
-	
-	/**
-		@input [role] and [user_id]
-		@return option value
-		@author Howard
-	**/
+    
+    /**
+     * Check if user has a role or not
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $role
+     * @param int $user_id
+     * @return boolean
+     */
 	public static function has_permission($role = 'guest', $user_id = '')
 	{
 		/** get user id **/
@@ -367,12 +475,14 @@ class wpl_global
 		
 		return false;
 	}
-	
-	/**
-		@input [role] and [user_id]
-		@return option value
-		@author Howard
-	**/
+    
+    /**
+     * Blocks user access based on WPL user role
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $role
+     * @param int $user_id
+     */
 	public static function min_access($role = 'guest', $user_id = '')
 	{
 		if(!wpl_global::has_permission($role, $user_id))
@@ -382,11 +492,14 @@ class wpl_global
 		}
 	}
 	
-	/**
-		@input [role] and [user_id]
-		@return option value
-		@author Howard
-	**/
+    /**
+     * Makes an array accessible by ID
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param array|object $inputs
+     * @param boolean $is_object
+     * @return array|object
+     */
 	public static function return_in_id_array($inputs, $is_object = false)
 	{
 		$return = array();
@@ -399,12 +512,15 @@ class wpl_global
 		
 		return $return;
 	}
-	
-	/**
-		@input {access} and [user_id]
-		@return true or false
-		@author Howard
-	**/
+    
+    /**
+     * Check user access to a certain section
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $access
+     * @param int $user_id
+     * @return int
+     */
 	public static function check_access($access, $user_id = '')
 	{
 		if($access == '') return 1000;
@@ -995,11 +1111,14 @@ class wpl_global
 		return $ex2[0];
 	}
 	
-	/**
-		@input string url, array post data
-		@return string content
-		@author Howard
-	**/
+    /**
+     * Returns content of a web page
+     * @author Howard R. <howard@realtyna.com>
+     * @param string $url
+     * @param array $post
+     * @param string $authentication
+     * @return string content
+     */
 	public static function get_web_page($url, $post = '', $authentication = false)
 	{
 		$result = false;
@@ -1056,33 +1175,37 @@ class wpl_global
 		return $result;
 	}
 	
-	/**
-		@input string $key, object $params
-		@return string value
-		@author Howard
-	**/
+    /**
+     * Isset wrapper for object
+     * @author Howard R. <howard@realtyna.com>
+     * @param string $key
+     * @param object $params
+     * @return null
+     */
 	public static function isset_object($key, $params)
 	{
 		if(isset($params->{$key})) return $params->{$key};
 		else return NULL;
 	}
 	
-	/**
-		@input string $key, array $params
-		@return string value
-		@author Howard
-	**/
+    /**
+     * Isset wrapper for array
+     * @author Howard R. <howard@realtyna.com>
+     * @param string $key
+     * @param array $params
+     * @return mixed
+     */
 	public static function isset_array($key, $params)
 	{
 		if(isset($params[$key])) return $params[$key];
 		else return NULL;
 	}
 	
-	/**
-		@input void
-		@return current blog id, it returns 1 if multisite is off
-		@author Howard
-	**/
+    /**
+     * Returns current blog ID
+     * @author Howard R. <howard@realtyna.com>
+     * @return int current blog id, it returns 1 if multisite is off
+     */
 	public static function get_current_blog_id()
 	{
 		return get_current_blog_id();
@@ -1099,11 +1222,12 @@ class wpl_global
         return apply_filters('plugin_locale', get_locale(), WPL_TEXTDOMAIN);
     }
     
-	/**
-		@input void
-		@return WPL base path for uploaded files
-		@description this functions will take care of multisite usage
-	**/
+    /**
+     * This functions will take care of multisite usage
+     * @author Howard <howard@realtyna.com>
+     * @param int $blog_id
+     * @return string WPL base path for uploaded files
+     */
 	public static function get_upload_base_path($blog_id = NULL)
 	{
 		if(!$blog_id) $blog_id = wpl_global::get_current_blog_id();
@@ -1121,12 +1245,13 @@ class wpl_global
 			return $path;
 		}
 	}
-	
-	/**
-		@input void
-		@return WPL base url for uploaded files
-		@description this functions will take care of multisite usage
-	**/
+    
+    /**
+     * This functions will take care of multisite usage
+     * @author Howard <howard@realtyna.com>
+     * @param type $blog_id
+     * @return string WPL base url for uploaded files
+     */
 	public static function get_upload_base_url($blog_id = NULL)
 	{
 		if(!$blog_id) $blog_id = wpl_global::get_current_blog_id();
@@ -1140,35 +1265,33 @@ class wpl_global
 			return wpl_global::get_wp_site_url().'wp-content/uploads/WPL'.$blog_id.'/';
 		}
 	}
-	
-	
-	/**
-		Developed by : Chris
-		Inputs : {lenght}{special_chars}{extra_special_chars}
-		Outputs : randomize password
-		Date : 2014-06-29
-		Description : Generates a random password drawn from the defined set of characters. 
-	**/
+    
+    /**
+     * Generates a random password drawn from the defined set of characters. 
+     * @author Chris <chris@realtyna.com>
+     * @param string $lenght
+     * @param string $special_chars
+     * @param string $extra_special_chars
+     * @return string
+     */
 	public static function generate_password($lenght, $special_chars = NULL, $extra_special_chars = NULL)
 	{
 		return wp_generate_password($lenght, $special_chars, $extra_special_chars);
 	}
 	
-	/**
-		Developed by : Chris
-		Inputs : {iteration_count}{key}
-		Outputs : hashed passowrd
-		Date : 2014-06-29
-		Description : Creates a hash of a plain text password
-	**/
+    /**
+     * Creates a hash of a plain text password
+     * @author Chris <chris@realtyna.com>
+     * @param int $iteration_count
+     * @param string $key
+     * @return string hashed key
+     */
 	public static function wpl_hasher($iteration_count, $key)
 	{
 		_wp_import('wp-includes.class-phpass');
         
 		$wpl_hasher = new PasswordHash($iteration_count, true);
-		$hashed_key = $wpl_hasher->HashPassword($key);
-        
-		return $hashed_key;
+		return $wpl_hasher->HashPassword($key);
 	}
     
     /**

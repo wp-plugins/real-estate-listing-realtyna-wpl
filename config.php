@@ -2,7 +2,14 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 
-/** wpl import function it used for importing overrided files automatically **/
+/**
+ * WPL import function. It used for importing overrided files automatically
+ * @author Howard <howard@realtyna.com>
+ * @param string $include
+ * @param boolean $override
+ * @param boolean $return_path
+ * @return mixed
+ */
 function _wpl_import($include, $override = true, $return_path = false)
 {
 	$original_exploded = explode('.', $include);
@@ -49,7 +56,14 @@ function _wpl_import($include, $override = true, $return_path = false)
 	if(file_exists($path)) require_once $path;
 }
 
-/** import wordpress files **/
+/**
+ * Imports wordpress files
+ * @author Howard <howard@realtyna.com>
+ * @param string $include
+ * @param boolean $override
+ * @param boolean $return_path
+ * @return string
+ */
 function _wp_import($include, $override = true, $return_path = false)
 {
 	$original_exploded = explode('.', $include);

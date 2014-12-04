@@ -3,30 +3,39 @@
 defined('_WPLEXEC') or die('Restricted access');
 
 /**
-** Extensions Library
-** Developed 03/16/2013
-**/
-
+ * Extensions Library
+ * @author Howard <howard@realtyna.com>
+ * @package WPL
+ * @since 1.0.0
+ */
 class wpl_extensions
 {
-	var $extensions;
+    /**
+     *
+     * @var objects
+     */
+	public $extensions;
 	
-	/**
-		@inputs {extension_id}
-		@description for getting an extension
-		@author Howard
-	**/
+    /**
+     * For getting an extension
+     * @author Howard <howard@realtyna.com>
+     * @param int $extension_id
+     * @return object
+     */
 	public function get_extension($extension_id)
 	{
 		$results = wpl_db::get('*', 'wpl_extensions', 'id', $extension_id);
 		return $results;
 	}
 	
-	/**
-		@inputs [enabled] and [extension type]
-		@description for getting extensions
-		@author Howard
-	**/
+    /**
+     * For getting extensions
+     * @author Howard <howard@realtyna.com>
+     * @param int $enabled
+     * @param string $type
+     * @param int $client
+     * @return objects
+     */
 	public function get_extensions($enabled = 1, $type = '', $client = '')
 	{
 		$query = "SELECT * FROM `#__wpl_extensions` WHERE `enabled`>='$enabled' ".(trim($type) != '' ? "AND `type`='$type'" : "")." ".(trim($client) != '' ? "AND (`client`='$client' OR `client`='2')" : "")." ORDER BY `index` ASC";
@@ -35,11 +44,11 @@ class wpl_extensions
 		return $this->extensions;
 	}
 	
-	/**
-		@inputs void
-		@description for importing extensions automatically
-		@author Howard
-	**/
+    /**
+     * For importing extensions automatically
+     * @author Howard <howard@realtyna.com>
+     * @return void
+     */
 	public function import_extensions()
 	{
 		if(!$this->extensions) return;
@@ -55,22 +64,24 @@ class wpl_extensions
 		}
 	}
 	
-	/**
-		@inputs enabled
-		@description for getting extension types
-		@author Howard
-	**/
+    /**
+     * Returns extension types
+     * @author Howard <howard@realtyna.com>
+     * @param int $enabled
+     * @return objects
+     */
 	public function get_extensions_types($enabled = 0)
 	{
 		$query = "SELECT `id`, `type` FROM `#__wpl_extensions` WHERE `enabled`>='$enabled' GROUP BY `type` ORDER BY `type` ASC";
 		return $extension_types = wpl_db::select($query);
 	}
 	
-	/**
-		@inputs object $extension
-		@description for importing extension
-		@author Howard
-	**/
+    /**
+     * for importing actions
+     * @author Howard <howard@realtyna.com>
+     * @param object $extension
+     * @return void
+     */
 	public function import_action($extension)
 	{
 		if(strpos($extension->param2, '->') === false)
@@ -91,11 +102,12 @@ class wpl_extensions
 		}
 	}
 	
-	/**
-		@inputs object $extension
-		@description for importing extension
-		@author Howard
-	**/
+    /**
+     * Imports a shortcode
+     * @author Howard <howard@realtyna.com>
+     * @param object $extension
+     * @return void
+     */
 	public function import_shortcode($extension)
 	{
 		if(strpos($extension->param2, '->') === false)
@@ -114,12 +126,13 @@ class wpl_extensions
 			add_shortcode($extension->param1, array($class_obj, $function_name));
 		}
 	}
-	
-	/**
-		@inputs object $extension
-		@description for importing extension
-		@author Howard
-	**/
+    
+    /**
+     * Imports a stylesheet
+     * @author Howard <howard@realtyna.com>
+     * @param object $extension
+     * @return void
+     */
 	public static function import_style($extension)
 	{
 		/** render style_url **/
@@ -128,12 +141,14 @@ class wpl_extensions
 		if(trim($extension->param2) != '') wp_register_style($extension->param1, $style_url);
     	wp_enqueue_style($extension->param1);
 	}
-	
-	/**
-		@inputs object $extension
-		@description for importing extension
-		@author Howard
-	**/
+    
+    /**
+     * Import a JS file
+     * @author Howard <howard@realtyna.com>
+     * @param object $extension
+     * @param boolean $footer
+     * @return void
+     */
 	public static function import_javascript($extension, $footer = false)
 	{
 		/** render script_url **/
@@ -144,22 +159,24 @@ class wpl_extensions
 	    wp_enqueue_script($extension->param1);
 	}
 	
-	/**
-		@inputs object $extension
-		@description for importing extension
-		@author Howard
-	**/
+    /**
+     * Include a PHP library
+     * @author Howard <howard@realtyna.com>
+     * @param object $extension
+     * @return void
+     */
 	public function import_library($extension)
 	{
 		$function_name = $extension->param2;
 		$function_name($extension->param1);
 	}
 	
-	/**
-		@inputs object $extension
-		@description for importing extension
-		@author Howard
-	**/
+    /**
+     * Imports a widget
+     * @author Howard <howard@realtyna.com>
+     * @param object $extension
+     * @return void
+     */
 	public function import_widget($extension)
 	{
 		$path = _wpl_import($extension->param1, true, true);
@@ -171,11 +188,12 @@ class wpl_extensions
 		}
 	}
 	
-	/**
-		@inputs object $extension
-		@description for importing extension
-		@author Howard
-	**/
+    /**
+     * Imports a service
+     * @author Howard <howard@realtyna.com>
+     * @param object $extension
+     * @return boolean
+     */
 	public function import_service($extension)
 	{
 		$ex = explode('->', $extension->param2);
@@ -197,12 +215,12 @@ class wpl_extensions
 		
 		add_action($extension->param1, array($class_obj, $function_name), $priority);
 	}
-	
-	/**
-		@inputs void
-		@description for importing language
-		@author Howard
-	**/
+    
+    /**
+     * Imports a language file
+     * @author Howard <howard@realtyna.com>
+     * @return void
+     */
 	public function import_language()
 	{
         $locale = apply_filters('plugin_locale', get_locale(), WPL_TEXTDOMAIN);
@@ -219,11 +237,11 @@ class wpl_extensions
         }
 	}
 	
-	/**
-		@inputs void
-		@description for importing permalink
-		@author Howard
-	**/
+    /**
+     * For importing permalink
+     * @author Howard <howard@realtyna.com>
+     * @return void
+     */
 	public function import_permalink()
 	{
 		add_action('wp_loaded', array($this, 'wpl_flush_rules'), 1);
@@ -235,10 +253,11 @@ class wpl_extensions
 	}
 	
     /**
-		@inputs object $extension
-		@description for importing sidebar
-		@author Howard
-	**/
+     * For importing sidebar
+     * @author Howard <howard@realtyna.com>
+     * @param object $extension
+     * @return void
+     */
 	public function import_sidebar($extension)
 	{
         $name = isset($extension->title) ? $extension->title : 'WPL sidebar';
@@ -260,11 +279,12 @@ class wpl_extensions
 		));
 	}
     
-	/**
-		@inputs void
-		@description flush_rules() if our rules are not yet included
-		@author Howard
-	**/
+    /**
+     * Flushes Rewrite rules if WPL rules are not yet included
+     * @author Howard <howard@realtyna.com>
+     * @global object $wp_rewrite
+     * @return void
+     */
 	public function wpl_flush_rules()
 	{
 		$rules = get_option('rewrite_rules');
@@ -281,11 +301,12 @@ class wpl_extensions
         }
 	}
 	
-	/**
-		@inputs void
-		@description Adding a new rule
-		@author Howard
-	**/
+    /**
+     * Adds WPL rewrite rukes
+     * @author Howard <howard@realtyna.com>
+     * @param array $rules
+     * @return array
+     */
 	public function wpl_insert_rewrite_rules($rules)
 	{
         $wpl_rules = wpl_sef::get_main_rewrite_rule();
@@ -296,22 +317,22 @@ class wpl_extensions
 		return $newrules + $rules;
 	}
 	
-	/**
-		@inputs void
-		@description Adding the wpl query string var so that WP recognizes it
-		@author Howard
-	**/
+    /**
+     * Adding the wpl query string var so that WP recognizes it
+     * @author Howard <howard@realtyna.com>
+     * @param array $vars
+     * @return array
+     */
 	public function wpl_insert_query_vars($vars)
 	{
 		array_push($vars, 'wpl_qs');
 		return $vars;
 	}
 	
-	/**
-		@inputs void
-		@description Adding wpl TinyMCE buttons
-		@author Howard
-	**/
+    /**
+     * Adding wpl TinyMCE buttons
+     * @author Howard <howard@realtyna.com>
+     */
 	public function import_mce_buttons()
 	{
         if(current_user_can('edit_posts') or current_user_can('edit_pages'))
@@ -321,34 +342,35 @@ class wpl_extensions
         }
     }
 	
-	/**
-		@inputs $buttons
-		@description Adding shortcode wizard
-		@author Howard
-	**/
+    /**
+     * Adding shortcode wizard
+     * @author Howard <howard@realtyna.com>
+     * @param array $buttons
+     * @return array
+     */
 	public function add_shortcode_wizard($buttons)
 	{
 		array_push($buttons, 'wplshortcode');
         return $buttons;
     }
 	
-	/**
-		@inputs $plugin_array
-		@description Registering shortcode buttons
-		@author Howard
-	**/
+    /**
+     * Registering shortcode buttons
+     * @author Howard <howard@realtyna.com>
+     * @param array $plugin_array
+     * @return array
+     */
 	public function register_shortcode_buttons($plugin_array)
 	{
 		$plugin_array['wplbuttons'] = wpl_global::get_wpl_asset_url('js/mce_editor/wpl.js');
         return $plugin_array;
     }
 	
-	/**
-		@inputs void
-		@returns void
-		@description Registering active and deactive functions for WPl
-		@author Howard
-	**/
+    /**
+     * Registering active and deactive functions for WPl
+     * @author Howard <howard@realtyna.com>
+     * @return void
+     */
 	public function wpl_active_deactive()
 	{
 		register_activation_hook(WPL_ABSPATH.'WPL.php', array($this, 'activate_wpl'));
@@ -356,12 +378,11 @@ class wpl_extensions
 		register_uninstall_hook(WPL_ABSPATH.'WPL.php', array('wpl_extensions', 'uninstall_wpl'));
     }
 	
-	/**
-		@inputs void
-		@returns void
-		@description Running installation queries and initializing WPL
-		@author Howard
-	**/
+    /**
+     * Running installation queries and initializing WPL
+     * @author Howard <howard@realtyna.com>
+     * @return void
+     */
 	public function activate_wpl()
 	{
 		if(wpl_folder::exists(WPL_ABSPATH. 'assets' .DS. 'install' .DS. 'files'))
@@ -487,12 +508,11 @@ class wpl_extensions
 		self::upgrade_wpl();
     }
 	
-	/**
-		@inputs void
-		@returns void
-		@description Running necesarry queries and functions for upgrading
-		@author Howard
-	**/
+    /**
+     * Running necesarry queries and functions for upgrading
+     * @author Howard <howard@realtyna.com>
+     * @return void
+     */
 	public function upgrade_wpl()
 	{
 		if(wpl_folder::exists(WPL_ABSPATH. 'assets' .DS. 'upgrade' .DS. 'files'))
@@ -562,22 +582,19 @@ class wpl_extensions
 		update_option('wpl_version', wpl_global::wpl_version());
     }
 	
-	/**
-		@inputs void
-		@returns void
-		@description Deactivating WPL
-		@author Howard
-	**/
+    /**
+     * Deactivating WPL
+     * @author Howard <howard@realtyna.com>
+     */
 	public function deactivate_wpl()
 	{
 	}
 	
-	/**
-		@inputs void
-		@returns void
-		@description Uninstalling WPL
-		@author Howard
-	**/
+    /**
+     * Uninstalling WPL
+     * @author Howard <howard@realtyna.com>
+     * @return boolean
+     */
 	public function uninstall_wpl()
 	{
         $tables = wpl_db::select('SHOW TABLES');
@@ -624,12 +641,11 @@ class wpl_extensions
         return true;
 	}
 	
-	/**
-		@inputs void
-		@returns void
-		@description Adding js dynamic vars to the head of page
-		@author Howard
-	**/
+    /**
+     * Adding js dynamic vars to the head of page
+     * @author Howard <howard@realtyna.com>
+     * @return void
+     */
 	public function import_dynamic_js()
 	{
 		echo '<script type="text/javascript">';
@@ -637,13 +653,13 @@ class wpl_extensions
 		echo 'wpl_baseName="'.WPL_BASENAME.'";';
 		echo '</script>';
 	}
-	
-	/**
-		@inputs void
-		@returns void
-		@description Adding js dynamic vars to the head of page
-		@author Howard
-	**/
+    
+    /**
+     * Adding js dynamic vars to the head of page
+     * @author Howard <howard@realtyna.com>
+     * @param object $wp_admin_bar
+     * @return void
+     */
 	public function plus_new_menu($wp_admin_bar)
 	{
 		$cur_user_id = wpl_users::get_cur_user_id();
@@ -660,11 +676,10 @@ class wpl_extensions
 		}
 	}
 	
-	/**
-		@inputs void
-		@description for creating admin pages
-		@author Howard
-	**/
+    /**
+     * For creating admin pages
+     * @author Howard <howard@realtyna.com>
+     */
 	public function wpl_admin_pages()
 	{
 		$cur_user_id = wpl_users::get_cur_user_id();
@@ -700,11 +715,11 @@ class wpl_extensions
 		}
 	}
 	
-	/**
-		@inputs void
-		@description for creating admin bar menu
-		@author Howard
-	**/
+    /**
+     * For creating admin bar menu
+     * @author Howard <howard@realtyna.com>
+     * @global object $wp_admin_bar
+     */
 	public function wpl_admin_bar_menu()
 	{
 		$cur_user_id = wpl_users::get_cur_user_id();
@@ -751,11 +766,12 @@ class wpl_extensions
 		}
 	}
 	
-	/**
-		@inputs title
-		@description for adding page number to listing pages
-		@author Howard
-	**/
+    /**
+     * for adding page number to listing pages
+     * @author Howard <howard@realtyna.com>
+     * @param string $title
+     * @return string
+     */
 	public function wp_title($title)
 	{
 		$wplview = wpl_request::getVar('wplview');
@@ -771,12 +787,12 @@ class wpl_extensions
 		
 		return $title;
 	}
-	
-	/**
-		@inputs void
-		@description for adding styles and scripts
-		@author Howard
-	**/
+    
+    /**
+     * For adding styles and scripts
+     * @author Howard <howard@realtyna.com>
+     * @return void
+     */
 	public static function import_styles_scripts()
 	{
 		$wpl_extensions = new wpl_extensions();
@@ -794,6 +810,13 @@ class wpl_extensions
 		}
 	}
     
+    /**
+     * 
+     * @author Howard <howard@realtyna.com>
+     * @param array $links
+     * @param string $file
+     * @return array
+     */
     public static function wpl_plugin_links($links, $file)
     {
         if(strpos($file, WPL_BASENAME) !== false)

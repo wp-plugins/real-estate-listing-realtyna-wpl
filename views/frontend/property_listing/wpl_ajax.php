@@ -1,7 +1,7 @@
 <?php
-/** no direct access * */
+/** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
-_wpl_import("libraries.locations");
+_wpl_import('libraries.locations');
 
 class wpl_property_listing_controller extends wpl_controller
 {

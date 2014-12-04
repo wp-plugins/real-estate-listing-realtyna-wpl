@@ -261,39 +261,39 @@ class wpl_images
         switch($position) 
         {
             case 'center':
-                imagecopymerge($w_dest, $w_src, ($w_width - $markwidth) >> 1, ($w_height - $markheight) >> 1, 0, 0, $markwidth, $markheight, $opacity);
+                wpl_images::imagecopymerge_alpha($w_dest, $w_src, ($w_width - $markwidth) >> 1, ($w_height - $markheight) >> 1, 0, 0, $markwidth, $markheight, $opacity);
                 break;
 
             case 'left':
-                imagecopymerge($w_dest, $w_src, ($w_width - $markwidth) > 1, ($w_height - $markheight) >> 1, 0, 0, $markwidth, $markheight, $opacity);
+                wpl_images::imagecopymerge_alpha($w_dest, $w_src, ($w_width - $markwidth) > 1, ($w_height - $markheight) >> 1, 0, 0, $markwidth, $markheight, $opacity);
                 break;
 
             case 'right':
-                imagecopymerge($w_dest, $w_src, ($w_width - $markwidth), ($w_height - $markheight) >> 1, 0, 0, $markwidth, $markheight, $opacity);
+                wpl_images::imagecopymerge_alpha($w_dest, $w_src, ($w_width - $markwidth), ($w_height - $markheight) >> 1, 0, 0, $markwidth, $markheight, $opacity);
                 break;
 
             case 'top':
-                imagecopymerge($w_dest, $w_src, ($w_width - $markwidth) >> 1, ($w_height - $markheight) > 1, 0, 0, $markwidth, $markheight, $opacity);
+                wpl_images::imagecopymerge_alpha($w_dest, $w_src, ($w_width - $markwidth) >> 1, ($w_height - $markheight) > 1, 0, 0, $markwidth, $markheight, $opacity);
                 break;
 
             case 'bottom':
-                imagecopymerge($w_dest, $w_src, ($w_width - $markwidth) >> 1, ($w_height - $markheight), 0, 0, $markwidth, $markheight, $opacity);
+                wpl_images::imagecopymerge_alpha($w_dest, $w_src, ($w_width - $markwidth) >> 1, ($w_height - $markheight), 0, 0, $markwidth, $markheight, $opacity);
                 break;
 
             case 'top-left':
-                imagecopymerge($w_dest, $w_src, ($w_width - $markwidth) > 1, ($w_height - $markheight) > 1, 0, 0, $markwidth, $markheight, $opacity);
+                wpl_images::imagecopymerge_alpha($w_dest, $w_src, ($w_width - $markwidth) > 1, ($w_height - $markheight) > 1, 0, 0, $markwidth, $markheight, $opacity);
                 break;
 
             case 'top-right':
-                imagecopymerge($w_dest, $w_src, ($w_width - $markwidth), ($w_height - $markheight) > 1, 0, 0, $markwidth, $markheight, $opacity);
+                wpl_images::imagecopymerge_alpha($w_dest, $w_src, ($w_width - $markwidth), ($w_height - $markheight) > 1, 0, 0, $markwidth, $markheight, $opacity);
                 break;
 
             case 'bottom-left':
-                imagecopymerge($w_dest, $w_src, ($w_width - $markwidth) > 1, ($w_height - $markheight), 0, 0, $markwidth, $markheight, $opacity);
+                wpl_images::imagecopymerge_alpha($w_dest, $w_src, ($w_width - $markwidth) > 1, ($w_height - $markheight), 0, 0, $markwidth, $markheight, $opacity);
                 break;
 
             case 'bottom-right':
-                imagecopymerge($w_dest, $w_src, ($w_width - $markwidth), ($w_height - $markheight), 0, 0, $markwidth, $markheight, $opacity);
+                wpl_images::imagecopymerge_alpha($w_dest, $w_src, ($w_width - $markwidth), ($w_height - $markheight), 0, 0, $markwidth, $markheight, $opacity);
                 break;
         }
 
@@ -324,6 +324,31 @@ class wpl_images
         
         // Return Destination
         return $source;
+    }
+
+    
+    /**
+     * Same as imagecopymerge but it handles alpha channel and PNG images well!
+     * @author Peter P <peter@realtyna.com>
+     * @param type $w_dest  Destination image link resource.
+     * @param type $w_src   Source image link resource.
+     * @param type $dst_x   x-coordinate of destination point.
+     * @param type $dst_y   y-coordinate of destination point.
+     * @param type $src_x   x-coordinate of source point.   
+     * @param type $src_y   y-coordinate of destination point.
+     * @param type $src_w   Source width.
+     * @param type $src_h   Source height.
+     * @param type $opacity Transparency 
+     */
+    public static function imagecopymerge_alpha($w_dest, $w_src, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h, $opacity)
+    {
+        // creating a cut resource
+        $cut = imagecreatetruecolor($src_w, $src_h);
+        // copying that section of the background to the cut
+        imagecopy($cut, $w_dest, 0, 0, $dst_x, $dst_y, $src_w, $src_h);
+        // placing the watermark now
+        imagecopy($cut, $w_src, 0, 0, $src_x, $src_y, $src_w, $src_h);
+        imagecopymerge($w_dest, $cut, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h, $opacity);
     }
     
     /**

@@ -2,16 +2,61 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 
+/**
+ * WPL main ajax controller
+ * @author Howard <howard@realtyna.com>
+ * @since 1.0.0
+ * @package WPL
+ */
 class wpl_request_controller
 {
+    /**
+     *
+     * @var string
+     */
 	public $_wpl_request_format;
+    
+    /**
+     *
+     * @var string
+     */
 	public $_wpl_client;
+    
+    /**
+     *
+     * @var string
+     */
 	public $_wpl_folder;
+    
+    /**
+     *
+     * @var string
+     */
 	public $_wpl_class;
+    
+    /**
+     *
+     * @var string
+     */
 	public $_wpl_function;
+    
+    /**
+     *
+     * @var string
+     */
 	public $_wpl_plugin;
+    
+    /**
+     *
+     * @var array
+     */
 	public $_wpl_clients = array('b'=>'backend', 'f'=>'frontend', 'c'=>'basics', 'a'=>'activities');
 	
+    /**
+     * Constructor method
+     * @author Howard <howard@realtyna.com>
+     * @param string $format
+     */
 	function __construct($format)
 	{
 		$this->_wpl_request_format = $format;
@@ -27,6 +72,10 @@ class wpl_request_controller
 		_wpl_import(self::get_class_path($ex));
 	}
 	
+    /**
+     * Runs Controller
+     * @author Howard <howard@realtyna.com>
+     */
 	public function run()
 	{
 		$_wpl_request_obj = new $this->_wpl_class();
@@ -45,12 +94,24 @@ class wpl_request_controller
 		exit;
 	}
 	
+    /**
+     * Returns controller name
+     * @author Howard <howard@realtyna.com>
+     * @param array $exploded_str
+     * @return string
+     */
 	private function get_class_name($exploded_str)
 	{
 		if($this->_wpl_client == 'activities') return 'wpl_activity_'.$exploded_str[2].'_'.$exploded_str[1];
 		else return 'wpl_'.$exploded_str[1].'_controller';
 	}
 	
+    /**
+     * Returns WPL path of controller
+     * @author Howard <howard@realtyna.com>
+     * @param array $exploded_str
+     * @return string
+     */
 	private function get_class_path($exploded_str)
 	{
 		if($this->_wpl_client == 'activities') return 'views.'.$this->_wpl_client.'.'.$this->_wpl_folder.'.'.$exploded_str[2];

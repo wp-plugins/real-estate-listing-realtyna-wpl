@@ -33,11 +33,11 @@ class wpl_notifications_controller extends wpl_controller
         $this->additional_memberships = explode(',', $this->notification->additional_memberships);
 		$this->additional_users = explode(',', $this->notification->additional_users);
 		$this->additional_emails = explode(',', $this->notification->additional_emails);
+        
 		$this->users = wpl_users::get_wpl_users();
 		$this->memberships = wpl_users::get_wpl_memberships();
 		$this->memberships_array = self::unset_additional_receipts($this->additional_memberships, $this->memberships);
 		$this->users_array = self::unset_additional_receipts($this->additional_users, $this->users);
-		
 
 		$this->template_path = wpl_notifications::get_template_path($this->notification->template);
         $this->template = wpl_notifications::get_template_content($this->template_path, true);

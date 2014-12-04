@@ -6,6 +6,9 @@ defined('_WPLEXEC') or die('Restricted access');
     <div class="panel-wp">
         <h3><?php echo __('Documentation / Support', WPL_TEXTDOMAIN); ?></h3>
         <div class="panel-body">
+            <p>
+                <strong><a target="_blank" href="http://wpl.realtyna.com/articles/wpl-translation-offer"> -- <?php echo __('WPL Translation Offer', WPL_TEXTDOMAIN); ?> -- </a></strong>
+            </p>
         	<p>
 				<?php echo __('You can download', WPL_TEXTDOMAIN); ?>&nbsp;<a href="http://wpl.realtyna.com/wassets/wpl-manual.pdf" target="_blank"><?php echo __('WPL Manual', WPL_TEXTDOMAIN); ?></a>
                 <?php echo __('and check', WPL_TEXTDOMAIN); ?>&nbsp;<a href="https://support.realtyna.com/index.php?/Default/Knowledgebase/List/Index/28/wpl---wordpress-property-listing" target="_blank"><?php echo __('WPL Knowledge base', WPL_TEXTDOMAIN); ?></a>.

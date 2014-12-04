@@ -40,8 +40,7 @@ if($format == 'locationtextsearch' and !$done_this)
 	
 	$done_this = true;
 }
-
-if($format == 'multiplelocationtextsearch' and !$done_this)
+elseif($format == 'multiplelocationtextsearch' and !$done_this)
 {
     $values_raw = explode(':', $value);
 	$multiple_values = array();

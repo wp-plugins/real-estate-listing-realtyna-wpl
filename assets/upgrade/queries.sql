@@ -406,3 +406,5 @@ VALUES (110, 'javascript', 'qTips', '0', '', '1', 'qtips', 'js/qtips/jquery.qtip
 
 INSERT INTO `#__wpl_extensions` (`id`, `type`, `title`, `parent`, `description`, `enabled`, `param1`, `param2`, `param3`, `param4`, `param5`, `params`, `editable`, `index`, `client`)
 VALUES (111, 'javascript', 'ImageLoaded', '0', '', '1', 'imageloaded', 'js/qtips/imagesloaded.pkg.min.js', '', '', '', '', '0', '110.01', '1');
+
+ALTER TABLE `#__wpl_user_group_types` ADD `default_membership_id` INT(10) NOT NULL DEFAULT '-1' AFTER `name`;
