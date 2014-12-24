@@ -26,7 +26,7 @@ class wpl_functions_controller extends wpl_controller
 		$select = $wpl_property->generate_select($listing_fields, 'p');
 		$property_ids = wpl_request::getVar('property_ids', '');
 		
-		$query = "SELECT ".$select." FROM `#__wpl_properties` AS p WHERE 1 AND p.`deleted`='0' AND p.`finalized`='1' AND p.`confirmed`='1' AND p.`expired`='1' AND p.`id` IN (".$property_ids.")";
+		$query = "SELECT ".$select." FROM `#__wpl_properties` AS p WHERE 1 AND p.`deleted`='0' AND p.`finalized`='1' AND p.`confirmed`='1' AND p.`expired`='0' AND p.`id` IN (".$property_ids.")";
 		$properties = $wpl_property->search($query);
 		
 		/** plisting fields **/
