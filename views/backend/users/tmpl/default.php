@@ -20,19 +20,19 @@ _wpl_import($this->tpl_path . '.scripts.css');
             <input type="hidden" name="page" value="wpl_admin_user_manager" />
             <label for="sf_filter"><?php echo __('Filter', WPL_TEXTDOMAIN); ?>: </label>
             <input type="text" id="sf_filter" name="filter" value="<?php echo $this->filter; ?>" placeholder="<?php echo __('Name, Email', WPL_TEXTDOMAIN); ?>" class="long" />
-            <select name="show_all" id="show_all">
+            <select name="show_all" id="show_all" data-has-chosen="">
                 <option value="0" <?php if($this->show_all == 0) echo 'selected="selected"'; ?>><?php echo __('Only WPL users'); ?></option>
                 <option value="1" <?php if($this->show_all == 1) echo 'selected="selected"'; ?>><?php echo __('All WordPress users'); ?></option>
             </select>
             <?php if(wpl_global::check_addon('membership')): ?>
-            <select name="membership_id" id="membership_id">
+            <select name="membership_id" id="membership_id" data-has-chosen="">
                 <option value=""><?php echo __('Membership', WPL_TEXTDOMAIN); ?></option>
                 <?php foreach($this->memberships as $membership): ?>
                 <option value="<?php echo $membership->id; ?>" <?php if(isset($this->membership_id) and $membership->id == $this->membership_id) echo 'selected="selected"'; ?>><?php echo __($membership->membership_name, WPL_TEXTDOMAIN); ?></option>
                 <?php endforeach; ?>
             </select>
             <?php endif; ?>
-            <button class="button button-1"><?php echo __('Search', WPL_TEXTDOMAIN); ?></button>
+            <button class="wpl-button button-1"><?php echo __('Search', WPL_TEXTDOMAIN); ?></button>
             <button type="reset" class="button button-1" onclick="wpl_reset_users_form();"><?php echo __('Reset', WPL_TEXTDOMAIN); ?></button>
         </form>
     </div>

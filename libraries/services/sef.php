@@ -16,16 +16,13 @@ class wpl_service_sef
      */
 	public function run()
 	{
-		/** setting view from post content by shortcode **/
-		wpl_sef::set_view();
-		
 		/** get global settings **/
 		$settings = wpl_global::get_settings();
 		$wpl_qs = urldecode(wpl_global::get_wp_qvar('wpl_qs'));
-        
-		/** get view **/
-		$this->view = wpl_sef::get_view($wpl_qs, $settings['sef_main_separator']);
 		
+        /** get view **/
+		$this->view = wpl_sef::get_view($wpl_qs, $settings['sef_main_separator']);
+        
 		/** set vars **/
 		wpl_sef::setVars($this->view, $wpl_qs);
         
@@ -66,11 +63,21 @@ class wpl_service_sef
 		elseif($this->view == 'features')
 		{
 			$function = str_replace('features/', '', $wpl_qs);
+            
 			if(!trim($function)) $function = wpl_request::getVar('wpltype');
 			_wpl_import('views.basics.features.wpl_'.$function);
+            
 			$obj = new wpl_features_controller();
 			$obj->display();
 		}
+        elseif($this->view == 'payments')
+        {
+            $this->set_payments_page_params();
+        }
+        elseif($this->view == 'addon_membership')
+        {
+            $this->set_addon_membership_page_params();
+        }
         
         /** Print Geo Meta Tags **/
         $this->geotags();
@@ -94,10 +101,10 @@ class wpl_service_sef
 		
 		if(trim($property_alias) != '' and $called_alias != $property_alias)
 		{
-			$url = wpl_sef::get_wpl_permalink(true)."/".urlencode($property_alias);
+			$url = wpl_sef::get_wpl_permalink(true).'/'.urlencode($property_alias);
 			
-			header("HTTP/1.1 301 Moved Permanently");
-			header("Location: ".$url);
+			header('HTTP/1.1 301 Moved Permanently');
+			header('Location: '.$url);
 			exit;
 		}
 	}
@@ -114,10 +121,18 @@ class wpl_service_sef
         $current_link_url = wpl_global::get_full_url();
 		$property_data = wpl_property::get_property_raw_data($proeprty_id);
         
+        $locale = wpl_global::get_current_language();
 		$this->property_page_title = wpl_property::update_property_page_title($property_data);
         
-        $this->property_keywords = $property_data['meta_keywords'];
-        $this->property_description = $property_data['meta_description'];
+        $meta_keywords_column = 'meta_keywords';
+        if(wpl_global::check_multilingual_status() and wpl_addon_pro::get_multiligual_status_by_column($meta_keywords_column, $property_data['kind'])) $meta_keywords_column = wpl_addon_pro::get_column_lang_name($meta_keywords_column, $locale, false);
+        
+        $this->property_keywords = $property_data[$meta_keywords_column];
+        
+        $meta_description_column = 'meta_description';
+        if(wpl_global::check_multilingual_status() and wpl_addon_pro::get_multiligual_status_by_column($meta_description_column, $property_data['kind'])) $meta_description_column = wpl_addon_pro::get_column_lang_name($meta_description_column, $locale, false);
+        
+        $this->property_description = $property_data[$meta_description_column];
         
 		$html = wpl_html::getInstance();
 		
@@ -134,11 +149,10 @@ class wpl_service_sef
         wpl_html::$canonical = str_replace('&', '&amp;', $current_link_url);
         $html->set_custom_tag('<meta property="og:type" content="property" />');
         
-        $locale = wpl_global::get_current_language();
         $html->set_custom_tag('<meta property="og:locale" content="'.$locale.'" />');
         
         $content_column = 'field_308';
-        if(wpl_global::check_multilingual_status()) $content_column = wpl_addon_pro::get_column_lang_name($content_column, $locale, false);
+        if(wpl_global::check_multilingual_status() and wpl_addon_pro::get_multiligual_status_by_column($content_column, $property_data['kind'])) $content_column = wpl_addon_pro::get_column_lang_name($content_column, $locale, false);
         
         $html->set_custom_tag('<meta property="og:url" content="'.str_replace('&', '&amp;', $current_link_url).'" />');
         $html->set_custom_tag('<meta property="og:title" data-page-subject="true" content="'.$this->property_page_title.'" />');
@@ -226,6 +240,30 @@ class wpl_service_sef
      */
     public function set_profile_listing_page_params()
     {
+    }
+    
+    /**
+     * Sets payments page parameters
+     * @author Howard <howard@realtyna.com>
+     */
+    public function set_payments_page_params()
+    {
+        $html = wpl_html::getInstance();
+        
+		/** set title **/
+		$html->set_title(__('Payments', WPL_TEXTDOMAIN));
+    }
+    
+    /**
+     * Sets addon membership page parameters
+     * @author Howard <howard@realtyna.com>
+     */
+    public function set_addon_membership_page_params()
+    {
+        $html = wpl_html::getInstance();
+        
+		/** set title **/
+		$html->set_title(__('Members', WPL_TEXTDOMAIN));
     }
     
     /**

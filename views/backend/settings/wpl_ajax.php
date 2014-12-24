@@ -34,6 +34,8 @@ class wpl_settings_controller extends wpl_controller
         elseif($function == 'generate_language_keywords') $this->generate_language_keywords();
 		elseif($function == 'clear_cache') $this->clear_cache();
         elseif($function == 'remove_upload') $this->remove_upload();
+        elseif($function == 'clear_calendar_data') $this->clear_calendar_data();
+        
 	}
 	
 	private function save($setting_name, $setting_value, $setting_category)
@@ -163,6 +165,17 @@ class wpl_settings_controller extends wpl_controller
 		
 		$response = array('success'=>$res, 'message'=>$message, 'data'=>$data);
 		
+		echo json_encode($response);
+		exit;
+    }
+    
+    private function clear_calendar_data()
+    {
+        _wpl_import('libraries.addon_calendar');
+        
+        $res = wpl_addon_calendar::clear_calendar_data();
+        
+        $response = array('success'=>$res, 'message'=>$message, 'data'=>$data);
 		echo json_encode($response);
 		exit;
     }

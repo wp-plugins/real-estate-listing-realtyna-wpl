@@ -22,6 +22,9 @@ _wpl_import($this->tpl_path . '.scripts.css');
                     <li>
                         <a href="#advanced" class="tab-advanced" id="wpl_slide_label_id_advanced" onclick="rta.internal.slides.open('_advanced','.fanc-tabs-wp','.fanc-content-body');"><?php echo __('Advanced', WPL_TEXTDOMAIN); ?></a>
                     </li>
+                    <li>
+                        <a href="#pricing" class="tab-pricing" id="wpl_slide_label_id_pricing" onclick="rta.internal.slides.open('_pricing','.fanc-tabs-wp','.fanc-content-body');"><?php echo __('Pricing', WPL_TEXTDOMAIN); ?></a>
+                    </li>
                 </ul>
             </div>
             <div class="col-fanc-right fanc-content-wp" id="wpl_edit_user">
@@ -47,7 +50,14 @@ _wpl_import($this->tpl_path . '.scripts.css');
                     </div>
                 </div>
                 <div class="fanc-content-body" id="wpl_slide_container_id_advanced" style="display: none">
-                    <?php $this->generate_advanced_tab($this->user_data->id); ?>
+                    <div id="tab_setting_advance">
+                        <?php $this->generate_tab('internal_setting_advanced'); ?>
+                    </div>
+                </div>
+                <div class="fanc-content-body" id="wpl_slide_container_id_pricing" style="display: none">
+                    <div id="tab_setting_pricing">
+                        <?php $this->generate_tab('internal_setting_pricing'); ?>
+                    </div>
                 </div>
             </div>
         </div>

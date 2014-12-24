@@ -47,5 +47,14 @@ defined('_WPLEXEC') or die('Restricted access');
                 <?php echo __('Clear user thumbnails', WPL_TEXTDOMAIN); ?>
             </span>
         </li>
+        <?php if(wpl_global::check_addon('calendar')): ?>
+        <li onclick="wpl_clear_calendar_data(0);">
+            <i class="icon-trash"></i>
+            <span class="wpl_ajax_loader" id="wpl_calendar_data_ajax_loader"></span>
+            <span class="title">
+                <?php echo __('Clear listings calendar data', WPL_TEXTDOMAIN); ?>
+            </span>
+        </li>
+        <?php endif; ?>
     </ul>
 </div>

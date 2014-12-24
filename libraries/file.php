@@ -444,6 +444,7 @@ class wpl_chunk
      * @access public
      */
     public $file = '';
+    
     /**
      * pointer
      *
@@ -459,6 +460,7 @@ class wpl_chunk
      * @access private
      */
     private $handle = null;
+    
     /**
      * reading
      *
@@ -466,6 +468,7 @@ class wpl_chunk
      * @access private
      */
     private $reading = false;
+    
     /**
      * readBuffer
      * 

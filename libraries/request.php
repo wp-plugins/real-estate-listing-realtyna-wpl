@@ -244,3 +244,33 @@ class wpl_session
         return $_SESSION;
     }
 }
+
+class wpl_security
+{
+    private $salt = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789';
+    
+    public function token()
+    {
+        $random_key = substr(str_shuffle($this->salt), 0, 10);
+        $token = md5($random_key.time());
+        
+        $query = "INSERT INTO `#__wpl_items` (`parent_kind`,`item_type`,`item_cat`,`item_name`,`creation_date`) VALUES ('-1','security','token','$token','".date("Y-m-d H:i:s")."')";
+        wpl_db::q($query, 'INSERT');
+        
+        return $token;
+    }
+    
+    public function validate_token($token, $delete = false)
+    {
+        $query = "SELECT COUNT(*) FROM `#__wpl_items` WHERE `item_name`='$token' AND `parent_kind`='-1'";
+        $num = wpl_db::num($query);
+        
+        if($num and $delete)
+        {
+            $query = "DELETE FROM `#__wpl_items` WHERE `parent_kind`='-1' AND `item_name`='$token'";
+            wpl_db::q($query, 'DELETE');
+        }
+        
+        return $num ? true : false;
+    }
+}

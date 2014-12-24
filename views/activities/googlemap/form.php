@@ -97,7 +97,7 @@ defined('_WPLEXEC') or die('Restricted access');
         ?>
         <div class="fanc-row">
             <label for="wpl_o_demographic_category"><?php echo __('Category', WPL_TEXTDOMAIN); ?></label>
-            <select name="option[demographic_category]" id="wpl_o_demographic_category">
+            <select class="text_box" name="option[demographic_category]" id="wpl_o_demographic_category">
                 <option value=""><?php echo __('All', WPL_TEXTDOMAIN); ?></option>
                 <?php foreach($this->categories as $category): ?>
                 <option value="<?php echo $category; ?>" <?php echo ((isset($this->options->demographic_category) and $this->options->demographic_category == $category) ? 'selected="selected"' : ''); ?>><?php echo __($category, WPL_TEXTDOMAIN); ?></option>
@@ -106,23 +106,23 @@ defined('_WPLEXEC') or die('Restricted access');
         </div>
         <div class="fanc-row">
             <label for="wpl_o_demographic_color"><?php echo __('Color', WPL_TEXTDOMAIN); ?></label>
-            <input type="text" name="option[demographic_color]" id="wpl_o_demographic_color" value="<?php echo isset($this->options->demographic_color) ? $this->options->demographic_color : '88c1e1'; ?>" />
+            <input class="text_box" type="text" name="option[demographic_color]" id="wpl_o_demographic_color" value="<?php echo isset($this->options->demographic_color) ? $this->options->demographic_color : '88c1e1'; ?>" />
         </div>
         <div class="fanc-row">
             <label for="wpl_o_demographic_bcolor"><?php echo __('Border Color', WPL_TEXTDOMAIN); ?></label>
-            <input type="text" name="option[demographic_bcolor]" id="wpl_o_demographic_bcolor" value="<?php echo isset($this->options->demographic_bcolor) ? $this->options->demographic_bcolor : '549cf2'; ?>" />
+            <input class="text_box" type="text" name="option[demographic_bcolor]" id="wpl_o_demographic_bcolor" value="<?php echo isset($this->options->demographic_bcolor) ? $this->options->demographic_bcolor : '549cf2'; ?>" />
         </div>
         <div class="fanc-row">
             <label for="wpl_o_demographic_hcolor"><?php echo __('Hover Color', WPL_TEXTDOMAIN); ?></label>
-            <input type="text" name="option[demographic_hcolor]" id="wpl_o_demographic_hcolor" value="<?php echo isset($this->options->demographic_hcolor) ? $this->options->demographic_hcolor : 'fefefe'; ?>" />
+            <input class="text_box" type="text" name="option[demographic_hcolor]" id="wpl_o_demographic_hcolor" value="<?php echo isset($this->options->demographic_hcolor) ? $this->options->demographic_hcolor : 'fefefe'; ?>" />
         </div>
         <div class="fanc-row">
             <label for="wpl_o_demographic_fill_opacity"><?php echo __('Fill Opacity', WPL_TEXTDOMAIN); ?></label>
-            <input type="text" name="option[demographic_fill_opacity]" id="wpl_o_demographic_fill_opacity" value="<?php echo isset($this->options->demographic_fill_opacity) ? $this->options->demographic_fill_opacity : '0.25'; ?>" />
+            <input class="text_box" type="text" name="option[demographic_fill_opacity]" id="wpl_o_demographic_fill_opacity" value="<?php echo isset($this->options->demographic_fill_opacity) ? $this->options->demographic_fill_opacity : '0.25'; ?>" />
         </div>
         <div class="fanc-row">
             <label for="wpl_o_demographic_auto_color"><?php echo __('Auto Color', WPL_TEXTDOMAIN); ?></label>
-            <select id="wpl_o_demographic_auto_color" name="option[demographic_auto_color]">
+            <select class="text_box" id="wpl_o_demographic_auto_color" name="option[demographic_auto_color]">
                 <option value="0"><?php echo __('Disabled', WPL_TEXTDOMAIN); ?></option>
                 <option value="average_home_value" <?php echo ((isset($this->options->demographic_auto_color) and $this->options->demographic_auto_color == 'average_home_value') ? 'selected="selected"' : ''); ?>><?php echo __('Average Home Value', WPL_TEXTDOMAIN); ?></option>
                 <option value="median_income" <?php echo ((isset($this->options->demographic_auto_color) and $this->options->demographic_auto_color == 'median_income') ? 'selected="selected"' : ''); ?>><?php echo __('Median Income', WPL_TEXTDOMAIN); ?></option>
@@ -131,7 +131,7 @@ defined('_WPLEXEC') or die('Restricted access');
         </div>
         <div class="fanc-row">
             <label for="wpl_o_demographic_show_map_guide"><?php echo __('Show Map Guide', WPL_TEXTDOMAIN); ?></label>
-            <select id="wpl_o_demographic_show_map_guide" name="option[demographic_show_map_guide]">
+            <select class="text_box" id="wpl_o_demographic_show_map_guide" name="option[demographic_show_map_guide]">
                 <option value="0" <?php echo ((isset($this->options->demographic_show_map_guide) and $this->options->demographic_show_map_guide == 0) ? 'selected="selected"' : ''); ?>><?php echo __('No', WPL_TEXTDOMAIN); ?></option>
                 <option value="1" <?php echo ((isset($this->options->demographic_show_map_guide) and $this->options->demographic_show_map_guide == 1) ? 'selected="selected"' : ''); ?>><?php echo __('Yes', WPL_TEXTDOMAIN); ?></option>
             </select>

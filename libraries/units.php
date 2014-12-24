@@ -58,7 +58,7 @@ class wpl_units
 		if(trim($id) == '') return array();
 		
 		$unit = wpl_units::get_units('', '', " AND `id`='".$id."'");
-		return $unit[0];
+		return (isset($unit[0]) ? $unit[0] : NULL);
 	}
 	
     /**

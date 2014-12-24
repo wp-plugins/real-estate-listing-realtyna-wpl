@@ -69,7 +69,6 @@ class wpl_data_structure_controller extends wpl_controller
 		{
 			self::assign_related_properties();
 		}
-		
 	}
 	
 	private function sort_property_types($sort_ids)
@@ -195,7 +194,7 @@ class wpl_data_structure_controller extends wpl_controller
 		exit;
 	}
     
-	function purge_related_property()
+	private function purge_related_property()
 	{
 		$property_type_id = wpl_request::getVar('property_type_id');
 		$properties_list = wpl_property::get_properties_list('property_type', $property_type_id);
@@ -204,7 +203,7 @@ class wpl_data_structure_controller extends wpl_controller
 		self::remove_property_type($property_type_id, 1);
 	}
     
-	function assign_related_properties()
+	private function assign_related_properties()
 	{
 		$property_type_id = wpl_request::getVar('property_type_id');
 		$select_id = wpl_request::getVar('select_id');

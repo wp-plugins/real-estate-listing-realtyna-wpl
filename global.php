@@ -1490,4 +1490,32 @@ class wpl_global
         if($pro and $status) return true;
         else return false;
 	}
+    
+     /**
+     * Returns Listing Types by Parent id
+     * @author Peter <peter@realtyna.com>
+     * @static
+     * @param int $parent
+     * @param int $enabled
+     * @return array
+     */
+	public static function get_listing_types_by_parent($parent, $enabled = 1)
+	{
+		$query = "SELECT * FROM `#__wpl_listing_types` WHERE `parent` IN ($parent) AND `enabled`>='$enabled' AND `name`!='' ORDER BY `index` ASC";
+        return wpl_db::select($query, 'loadAssocList');
+	}
+    
+    /**
+     * Returns Listing Types by parent id
+     * @author Peter <peter@realtyna.com>
+     * @static
+     * @param int $parent 
+     * @param int $enabled
+     * @return mixed
+     */
+    public static function get_property_types_by_parent($parent, $enabled = 1)
+	{
+        $query = "SELECT * FROM `#__wpl_property_types` WHERE `parent` IN ($parent) `enabled`>='$enabled' AND `name`!='' ORDER BY `index` ASC";
+        return wpl_db::select($query, 'loadAssocList');
+	}
 }

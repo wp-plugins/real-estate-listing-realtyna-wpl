@@ -137,7 +137,7 @@ class wpl_io_cmd_search extends wpl_io_global
 			return false;
 		}
 		
-		$default_where = array('sf_select_confirmed'=>1, 'sf_select_finalized'=>1, 'sf_select_deleted'=>0, 'sf_select_kind'=>$this->kind);
+		$default_where = array('sf_select_confirmed'=>1, 'sf_select_finalized'=>1, 'sf_select_deleted'=>0, 'sf_select_expired'=>0, 'sf_select_kind'=>$this->kind);
 		$this->where = array_merge($default_where, $this->where);
 		
 		/** start search **/

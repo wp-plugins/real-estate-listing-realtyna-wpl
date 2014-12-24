@@ -4,6 +4,13 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL2.1.0 (<span class="wpl_log_date">12/24/2014</span> <span class="wpl_log_revision">revision 1014</span>)</h4>
+        -- <strong>[PRO]</strong> Added online payments system.<br />
+        -- <strong>[PRO]</strong> Added Multilingual support for meta description and mets keywords fields.<br />
+        -- Added ability to define feature field type options.<br />
+        -- Fixed an issue in creating new listing types.<br />
+        -- Fixed some tiny design issues.
+        
         <h4>WPL2.0.3 (<span class="wpl_log_date">12/04/2014</span> <span class="wpl_log_revision">revision 966</span>)</h4>
         -- Added search form on manage users menu.<br />
         -- Enhanced WPL form generation speed.<br />

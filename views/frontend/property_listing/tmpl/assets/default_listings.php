@@ -21,6 +21,8 @@ foreach($this->wpl_properties as $key=>$property)
     $bathroom   = isset($property['materials']['bathrooms']) ? '<div class="bathroom">'.$property['materials']['bathrooms']['value'].'</div>' : '';
     $parking    = '<div class="parking">'.($property['raw']['f_150'] == 1 ? $property['raw']['f_150_options'] : 0).'</div>';
     $pic_count  = '<div class="pic_count">'.$property['raw']['pic_numb'].'</div>';
+    
+    $description = strip_tags($property['raw'][$description_column]);
     ?>
     <div class="wpl_prp_cont <?php echo (isset($this->property_css_class) ? $this->property_css_class : ''); ?>" id="wpl_prp_cont<?php echo $property['data']['id']; ?>">
         <div class="wpl_prp_top">
@@ -37,7 +39,7 @@ foreach($this->wpl_properties as $key=>$property)
             echo '<h4 class="wpl_prp_listing_location">'.$property['location_text'].'</h4>';
             ?>
             <div class="wpl_prp_listing_icon_box"><?php echo $room . $bathroom . $parking . $pic_count; ?></div>
-            <div class="wpl_prp_desc"><?php echo substr($property['raw'][$description_column], 0, strrpos(substr($property['raw'][$description_column], 0, 400), '.', -1) + 1); ?></div>
+            <div class="wpl_prp_desc"><?php echo substr($description, 0, strrpos(substr($description, 0, 400), '.', -1) + 1); ?></div>
         </div>
         <div class="price_box"><span itemprop="price" content="<?php echo $property['materials']['price']['value']; ?>"><?php echo $property['materials']['price']['value']; ?></span></div>
     </div>

@@ -225,7 +225,7 @@ class wpl_search_widget extends wpl_widget
 			
 			if(isset($finds[$type]))
 			{
-				$html .= '<div class="wpl_search_field_container '.((isset($field['type']) and $field['type'] == 'predefined') ? 'wpl_hidden' : '').'" id="wpl'.$widget_id.'_search_field_container_'.$field['id'].'">';
+				$html .= '<div class="wpl_search_field_container '.$field['type'].' '.((isset($field['type']) and $field['type'] == 'predefined') ? 'wpl_hidden' : '').'" id="wpl'.$widget_id.'_search_field_container_'.$field['id'].'">';
 				include($path .DS. $finds[$type]);
 				$html .= '</div>';
 				
@@ -239,7 +239,7 @@ class wpl_search_widget extends wpl_widget
 				continue;
 			}
 			
-			$html .= '<div class="wpl_search_field_container '.((isset($field['type']) and $field['type'] == 'predefined') ? 'wpl_hidden' : '').'" id="wpl'.$widget_id.'_search_field_container_'.$field['id'].'" style="'.$display.'">';
+			$html .= '<div class="wpl_search_field_container '.$field['type'].' '.((isset($field['type']) and $field['type'] == 'predefined') ? 'wpl_hidden' : '').'" id="wpl'.$widget_id.'_search_field_container_'.$field['id'].'" style="'.$display.'">';
 			foreach($files as $file)
 			{
 				include($path .DS. $file);

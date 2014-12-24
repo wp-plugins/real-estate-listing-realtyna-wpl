@@ -25,7 +25,7 @@ defined('_WPLEXEC') or die('Restricted access');
         <option value="0" <?php if (isset($values->text_search) and $values->text_search == '0') echo 'selected="selected"'; ?>><?php echo __('No', WPL_TEXTDOMAIN); ?></option>
     </select>
 </div>
-<?php if(wpl_global::check_multilingual_status() and (in_array($type, array('text', 'textarea')) or (isset($values->type) and in_array($values->type, array('text', 'textarea'))))): ?>
+<?php if(wpl_global::check_multilingual_status() and (in_array($type, array('text', 'textarea', 'meta_key', 'meta_desc')) or (isset($values->type) and in_array($values->type, array('text', 'textarea', 'meta_key', 'meta_desc'))))): ?>
 <div class="fanc-row">
     <label for="<?php echo $__prefix; ?>multilingual"><?php echo __('Multilingual', WPL_TEXTDOMAIN); ?></label>
     <select name="<?php echo $__prefix; ?>multilingual" id="<?php echo $__prefix; ?>multilingual">

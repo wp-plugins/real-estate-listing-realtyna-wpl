@@ -972,8 +972,11 @@ class wpl_property
         /** first validation **/
 		if(!$property_data) return '';
         
-		$listing = wpl_global::get_listings($property_data['listing'])->name;
-		$property_type = wpl_global::get_property_types($property_data['property_type'])->name;
+        $listing_data = wpl_global::get_listings($property_data['listing']);
+		$listing = isset($listing_data->name) ? $listing_data->name : '';
+        
+        $property_type_data = wpl_global::get_property_types($property_data['property_type']);
+		$property_type = isset($property_type_data->name) ? $property_type_data->name : '';
 		
 		$title = array();
 		$title['property_type'] = __($property_type, WPL_TEXTDOMAIN);
@@ -1152,7 +1155,7 @@ class wpl_property
 	**/
 	public static function select_active_properties($extra_condition = '', $select = '*', $output = 'loadAssocList', $limit = 0, $order = '`id` ASC')
 	{
-		$condition = " AND `deleted`='0' AND `finalized`='1' AND `confirmed`='1'";
+		$condition = " AND `deleted`='0' AND `finalized`='1' AND `confirmed`='1' AND `expired`='0'";
 		if(trim($extra_condition) != '') $condition .= $extra_condition;
 		
 		$query = "SELECT ".$select." FROM `#__wpl_properties` WHERE 1 ".$condition." ORDER BY $order ".($limit ? "LIMIT $limit" : '');

@@ -75,7 +75,7 @@ abstract class wpl_property_listing_controller_abstract extends wpl_controller
 			return parent::render($this->tpl_path, 'message', false, true);
 		}
 		
-		$where = array('sf_select_confirmed'=>1, 'sf_select_finalized'=>1, 'sf_select_deleted'=>0, 'sf_select_kind'=>$this->kind);
+		$where = array('sf_select_confirmed'=>1, 'sf_select_finalized'=>1, 'sf_select_deleted'=>0, 'sf_select_expired'=>0, 'sf_select_kind'=>$this->kind);
 		
 		/** start search **/
 		$this->model->start($this->start, $this->limit, $this->orderby, $this->order, $where);

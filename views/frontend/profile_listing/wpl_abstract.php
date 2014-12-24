@@ -47,7 +47,7 @@ abstract class wpl_profile_listing_controller_abstract extends wpl_controller
         $this->wplpagination = wpl_request::getVar('wplpagination', 'normal', '', true);
         wpl_request::setVar('wplpagination', $this->wplpagination);
         
-		$where = array('sf_tmin_id'=>1, 'sf_select_access_public_profile'=>1);
+		$where = array('sf_tmin_id'=>1, 'sf_select_access_public_profile'=>1, 'sf_select_expired'=>0);
 		
 		/** start search **/
 		$this->model->start($this->start, $this->limit, $this->orderby, $this->order, $where);

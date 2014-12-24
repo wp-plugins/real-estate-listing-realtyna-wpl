@@ -297,7 +297,6 @@ class wpl_db
 	{
 		$query = "SELECT COUNT(*) FROM `#__$table` WHERE `$column`='$value'";
         return self::num($query);
-        
 	}
     
     /**

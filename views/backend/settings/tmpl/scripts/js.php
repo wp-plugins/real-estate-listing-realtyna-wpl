@@ -243,4 +243,37 @@ function wpl_clear_users_cached_datas(confirmed)
 		}
 	});
 }
+
+function wpl_clear_calendar_data(confirmed)
+{
+    if(!confirmed)
+	{
+		message = "<?php echo __("Are you sure you would like to remove listings calendar data?", WPL_TEXTDOMAIN); ?>";
+		message += '&nbsp;<span class="wpl_actions" onclick="wpl_clear_calendar_data(1);"><?php echo __('Yes', WPL_TEXTDOMAIN); ?></span>&nbsp;<span class="wpl_actions" onclick="wpl_remove_message();"><?php echo __('No', WPL_TEXTDOMAIN); ?></span>';
+		
+		wpl_show_messages(message, '.wpl_maintenance .wpl_show_message');
+		return false;
+	}
+	else if(confirmed) wpl_remove_message();
+	
+	ajax_loader_element = '#wpl_calendar_data_ajax_loader';
+	wplj(ajax_loader_element).html('<img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader3.gif'); ?>" />');
+	
+	request_str = 'wpl_format=b:settings:ajax&wpl_function=clear_calendar_data';
+	
+	/** run ajax query **/
+	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str, ajax_loader_element);
+	
+	ajax.success(function(data)
+	{
+		if(data.success == 1)
+		{
+			wplj(ajax_loader_element).html('');
+		}
+		else if(data.success != 1)
+		{
+			wplj(ajax_loader_element).html('');
+		}
+	});
+}
 </script>

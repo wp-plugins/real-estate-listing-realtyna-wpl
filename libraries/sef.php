@@ -45,7 +45,7 @@ class wpl_sef
 		/** first validations **/
 		if(trim($query_string) == '') $query_string = wpl_global::get_wp_qvar('wpl_qs');
 		if(trim($separator) == '') $separator = wpl_global::get_setting('sef_main_separator');
-		
+        
 		if(trim($query_string) != '')
         {
             $ex = explode($separator, $query_string);
@@ -56,8 +56,12 @@ class wpl_sef
                 $exp = explode('-', $ex[0]);
 
                 if(is_numeric($exp[0])) $view = 'property_show';
-                elseif($ex[0] == 'agents') $view = 'profile_listing';
                 elseif($ex[0] == 'features') $view = 'features';
+                elseif($ex[0] == 'v')
+                {
+                    if($ex[1] == 'members') $view = 'addon_membership';
+                    else $view = $ex[1];
+                }
                 elseif(strpos($ex[0], ':') === false) $view = 'profile_show';
                 else $view = 'property_listing';
             }
@@ -69,7 +73,9 @@ class wpl_sef
             
             $view = wpl_request::getVar('wplview', '');
         }
-		
+        
+        /** Set View **/
+        wpl_request::setVar('wplview', $view);
 		
 		return $view;
 	}
@@ -88,7 +94,7 @@ class wpl_sef
 		
 		$separator = wpl_global::get_setting('sef_main_separator'); /** default value is "/" character **/
 		$ex = explode($separator, $query_string);
-		
+        
 		/** set view **/
 		wpl_request::setVar('wplview', $view, 'method', false);
 		
@@ -154,7 +160,7 @@ class wpl_sef
 				}
 				elseif(count($detected) == 3)
 				{
-					$types[0]  = strtolower($detected[0]);
+                    $types[0]  = strtolower($detected[0]);
 					$fields[0] = $detected[1];
 					$values[0] = $detected[2];
 				}
@@ -244,7 +250,7 @@ class wpl_sef
 			if($location_id != 'zips') $location_fields['location'.$location_id.'_id'] = self::parse_field($location_value);
 			else $location_fields['zip_id'] = self::parse_field($location_value);
 		}
-		
+        
 		foreach($parameters as $parameter)
 		{
 			$ex = explode(':', $parameter);
@@ -252,7 +258,7 @@ class wpl_sef
 			if(count($ex) == 2) $rendered_parameters[self::parse_field(urldecode($ex[0]))] = $ex[1];
 			elseif(count($ex) == 3) $rendered_parameters[self::parse_field(urldecode($ex[1]))] = $ex[2];
 		}
-		
+        
 		foreach($location_fields as $column=>$location_field)
 		{
 			if(!isset($rendered_parameters[$location_field])) continue;
@@ -280,59 +286,59 @@ class wpl_sef
         if(trim($wplview) != '') return;
         
 		/** checking wordpress post type (post, page, any kind of posts and ...) **/
-		if(is_page() or is_single())
-		{
-			/** getting the post id and post content **/
-			$post_id = wpl_global::get_the_ID();
-			$post_content = wpl_db::get('post_content', 'posts', 'id', $post_id);
-			$wplview = '';
-			
-			if(strpos($post_content, '[wpl_property_listings') !== false or strpos($post_content, '[WPL') !== false) $wplview = 'property_listing';
-			elseif(strpos($post_content, '[wpl_property_show') !== false) $wplview = 'property_show';
-            elseif(strpos($post_content, '[wpl_profile_listing') !== false) $wplview = 'profile_listing';
-            elseif(strpos($post_content, '[wpl_profile_show') !== false) $wplview = 'profile_show';
-			elseif(strpos($post_content, '[wpl_my_profile') !== false) $wplview = 'profile_wizard';
-			elseif(strpos($post_content, '[wpl_add_edit_listing') !== false) $wplview = 'property_wizard';
-			elseif(strpos($post_content, '[wpl_listing_manager') !== false) $wplview = 'property_manager';
-            elseif(strpos($post_content, '[wpl_payments') !== false) $wplview = 'payments';
-			elseif(strpos($post_content, '[wpl_addon_') !== false)
+		if(!is_page() and !is_single()) return;
+        
+        /** getting the post id and post content **/
+        $post_id = wpl_global::get_the_ID();
+        $post_content = wpl_db::get('post_content', 'posts', 'id', $post_id);
+        $wplview = '';
+
+        if(strpos($post_content, '[wpl_property_listings') !== false or strpos($post_content, '[WPL') !== false) $wplview = 'property_listing';
+        elseif(strpos($post_content, '[wpl_property_show') !== false) $wplview = 'property_show';
+        elseif(strpos($post_content, '[wpl_profile_listing') !== false) $wplview = 'profile_listing';
+        elseif(strpos($post_content, '[wpl_profile_show') !== false) $wplview = 'profile_show';
+        elseif(strpos($post_content, '[wpl_my_profile') !== false) $wplview = 'profile_wizard';
+        elseif(strpos($post_content, '[wpl_add_edit_listing') !== false) $wplview = 'property_wizard';
+        elseif(strpos($post_content, '[wpl_listing_manager') !== false) $wplview = 'property_manager';
+        elseif(strpos($post_content, '[wpl_payments') !== false) $wplview = 'payments';
+        elseif(strpos($post_content, '[wpl_addon_') !== false)
+        {
+            $pos1 = strpos($post_content, '[wpl_addon_');
+            $pos2 = strpos($post_content, ' ', $pos1);
+            if($pos2 === false) $pos2 = strpos($post_content, ']', $pos1);
+
+            $shortcode = trim(substr($post_content, $pos1, ($pos2-$pos1)), '[_ ]');
+            $shortcode = str_replace('wpl_', '', $shortcode);
+
+            $wplview = $shortcode;
+        }
+        elseif(strpos($post_content, '[wpl_custom_') !== false) $wplview = 'wpl_custom_view';
+
+        /** set view **/
+        if(trim($wplview) != '') wpl_request::setVar('wplview', $wplview);
+
+        $pattern = get_shortcode_regex();
+        preg_match('/'.$pattern.'/s', $post_content, $matches);
+        
+        $wpl_shortcodes = array('WPL', 'wpl_property_listings', 'wpl_property_show', 'wpl_profile_listing', 'wpl_profile_show', 'wpl_my_profile', 'wpl_add_edit_listing', 'wpl_listing_manager');
+        if(is_array($matches) and isset($matches[2]) and in_array($matches[2], $wpl_shortcodes))
+        {
+            $shortcode = $matches[0];
+            $params_str = trim($matches[3], ', ');
+
+            if(trim($params_str) != '')
             {
-                $pos1 = strpos($post_content, '[wpl_addon_');
-                $pos2 = strpos($post_content, ' ', $pos1);
-                if($pos2 === false) $pos2 = strpos($post_content, ']', $pos1);
-                
-                $shortcode = trim(substr($post_content, $pos1, ($pos2-$pos1)), '[_ ]');
-                $shortcode = str_replace('wpl_', '', $shortcode);
-                
-                $wplview = $shortcode;
+                $params_str_ex = explode(' ', $params_str);
+                foreach($params_str_ex as $param)
+                {
+                    $param_ex = explode('=', $param);
+                    $key = $param_ex[0];
+                    $value = isset($param_ex[1]) ? trim($param_ex[1], '" ') : '';
+
+                    if(trim($key) != '') wpl_request::setVar($key, $value, 'method', false);
+                }
             }
-            elseif(strpos($post_content, '[wpl_custom_') !== false) $wplview = 'wpl_custom_view';
-            
-			/** set view **/
-			if(trim($wplview) != '') wpl_request::setVar('wplview', $wplview);
-            
-            $pattern = get_shortcode_regex();
-            preg_match('/'.$pattern.'/s', $post_content, $matches);
-            
-            $wpl_shortcodes = array('WPL', 'wpl_property_listings', 'wpl_property_show', 'wpl_profile_listing', 'wpl_profile_show', 'wpl_my_profile', 'wpl_add_edit_listing', 'wpl_listing_manager');
-            if(is_array($matches) and isset($matches[2]) and in_array($matches[2], $wpl_shortcodes))
-            {
-               $shortcode = $matches[0];
-               $params_str = trim($matches[3], ', ');
-               if(trim($params_str) != '')
-               {
-                   $params_str_ex = explode(' ', $params_str);
-                   foreach($params_str_ex as $param)
-                   {
-                       $param_ex = explode('=', $param);
-                       $key = $param_ex[0];
-                       $value = isset($param_ex[1]) ? trim($param_ex[1], '" ') : '';
-                       
-                       if(trim($key) != '') wpl_request::setVar($key, $value, 'method', false);
-                   }
-               }
-            }
-		}
+        }
 	}
     
     /**

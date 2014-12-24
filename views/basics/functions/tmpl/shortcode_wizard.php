@@ -64,7 +64,7 @@ wpl_extensions::import_javascript($js);
             <label for="pr_tpl_selectbox"><?php echo __('Layout', WPL_TEXTDOMAIN); ?></label>
             <select id="pr_tpl_selectbox" name="tpl">
                 <?php foreach($property_listing_layouts as $layout): ?>
-				<option value="<?php echo $layout; ?>" <?php if($layout == 'default') echo 'selected="selected"'; ?>><?php echo __($layout, WPL_TEXTDOMAIN); ?></option>
+				<option value="<?php echo ($layout != 'default' ? $layout : ''); ?>" <?php if($layout == 'default') echo 'selected="selected"'; ?>><?php echo __($layout, WPL_TEXTDOMAIN); ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
@@ -74,7 +74,7 @@ wpl_extensions::import_javascript($js);
             <label for="pr_tpl_selectbox"><?php echo __('Layout', WPL_TEXTDOMAIN); ?></label>
             <select id="pr_tpl_selectbox" name="tpl">
                 <?php foreach($property_show_layouts as $layout): ?>
-				<option value="<?php echo $layout; ?>" <?php if($layout == 'default') echo 'selected="selected"'; ?>><?php echo __($layout, WPL_TEXTDOMAIN); ?></option>
+				<option value="<?php echo ($layout != 'default' ? $layout : ''); ?>" <?php if($layout == 'default') echo 'selected="selected"'; ?>><?php echo __($layout, WPL_TEXTDOMAIN); ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
@@ -84,7 +84,7 @@ wpl_extensions::import_javascript($js);
             <label for="pr_tpl_selectbox"><?php echo __('Layout', WPL_TEXTDOMAIN); ?></label>
             <select id="pr_tpl_selectbox" name="tpl">
                 <?php foreach($profile_listing_layouts as $layout): ?>
-				<option value="<?php echo $layout; ?>" <?php if($layout == 'default') echo 'selected="selected"'; ?>><?php echo __($layout, WPL_TEXTDOMAIN); ?></option>
+				<option value="<?php echo ($layout != 'default' ? $layout : ''); ?>" <?php if($layout == 'default') echo 'selected="selected"'; ?>><?php echo __($layout, WPL_TEXTDOMAIN); ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
@@ -94,7 +94,7 @@ wpl_extensions::import_javascript($js);
             <label for="pr_tpl_selectbox"><?php echo __('Layout', WPL_TEXTDOMAIN); ?></label>
             <select id="pr_tpl_selectbox" name="tpl">
                 <?php foreach($profile_show_layouts as $layout): ?>
-				<option value="<?php echo $layout; ?>" <?php if($layout == 'default') echo 'selected="selected"'; ?>><?php echo __($layout, WPL_TEXTDOMAIN); ?></option>
+				<option value="<?php echo ($layout != 'default' ? $layout : ''); ?>" <?php if($layout == 'default') echo 'selected="selected"'; ?>><?php echo __($layout, WPL_TEXTDOMAIN); ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
@@ -235,7 +235,7 @@ wpl_extensions::import_javascript($js);
 <script type="text/javascript">
 wplj(document).ready(function()
 {
-	wpl_view_selected(wplj("#view_selectbox").val());
+    setTimeout(wpl_view_selected(wplj("#view_selectbox").val()), 1000);
 });
 
 function insert_shortcode()

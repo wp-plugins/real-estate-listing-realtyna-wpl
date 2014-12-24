@@ -54,7 +54,7 @@ class wpl_listing_types
      */
 	public static function insert_listing_type($parent, $name, $gicon = NULL)
 	{
-		$query = "INSERT INTO `#__wpl_listing_types` (`parent`,`enabled`,`editable`,`gicon`,`name`) VALUE ('1','1','2','$gicon','$name')";
+		$query = "INSERT INTO `#__wpl_listing_types` (`parent`,`enabled`,`editable`,`gicon`,`name`) VALUE ('$parent','1','2','$gicon','$name')";
 		$id = wpl_db::q($query, 'insert');
 		
 		$query = "UPDATE `#__wpl_listing_types` SET `index`='$id.00' WHERE `id`='$id'";

@@ -34,14 +34,12 @@ function _wpl_import($include, $override = true, $return_path = false)
 			$theme_path = $wp_theme_path .DS. implode(DS, $theme_exploded) . '.php';
 			
 			if(file_exists($theme_path)) $path = $theme_path;
-			
+            
 			/** child theme **/
-			$wp_stylesheet = get_option('stylesheet');
-			if(strpos($wp_stylesheet, '-child') !== false)
+			if(is_child_theme())
 			{
-				$wp_theme_name = get_option('template');
-				$child_theme_path = $wp_theme_path. '-child' .DS. implode(DS, $theme_exploded) . '.php';
-				$child_theme_path = str_replace($wp_theme_name. '-child', $wp_stylesheet, $child_theme_path);
+                $wp_stylesheet_path = get_stylesheet_directory();
+				$child_theme_path = $wp_stylesheet_path .DS. implode(DS, $theme_exploded) . '.php';
 				
 				if(file_exists($child_theme_path)) $path = $child_theme_path;
 			}

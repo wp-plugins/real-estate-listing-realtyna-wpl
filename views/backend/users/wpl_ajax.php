@@ -1,7 +1,11 @@
 <?php
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
+
 _wpl_import('libraries.items');
+_wpl_import('libraries.units');
+_wpl_import('libraries.listing_types');
+_wpl_import('libraries.property_types');
 
 class wpl_users_controller extends wpl_controller
 {
@@ -131,34 +135,32 @@ class wpl_users_controller extends wpl_controller
 	private function generate_edit_page($user_id = '')
 	{
 		$this->user_info = wpl_users::get_user($user_id);
-		$this->user_data = wpl_users::get_wpl_user($user_id);
 		$this->fields = wpl_db::columns('wpl_users');
+        
+        $this->user_data = wpl_users::get_wpl_user($user_id);
+        $this->data = $this->user_data;
+        
+        $this->units = wpl_units::get_units(4);
+		$this->listings = wpl_listing_types::get_listing_types();
+		$this->property_types = wpl_property_types::get_property_types();
+		$this->memberships = wpl_users::get_wpl_memberships();
+		$this->membership_types = wpl_users::get_membership_types();
 		
 		parent::render($this->tpl_path, 'edit');
 		exit;
 	}
-	
-	public function generate_advanced_tab($id)
+    
+    public function generate_tab($tpl = 'internal_setting_advanced')
 	{
-		/** checking PRO addon **/
-		if(!wpl_global::check_addon('pro'))
+        /** checking PRO addon **/
+		if(!wpl_global::check_addon('membership'))
 		{
-			echo __('Pro addon must be installed for this!', WPL_TEXTDOMAIN);
-			exit;
+			echo __('Membership addon must be installed for this!', WPL_TEXTDOMAIN);
+			return;
 		}
-		
-		_wpl_import('libraries.units');
-		_wpl_import('libraries.listing_types');
-		_wpl_import('libraries.property_types');
-		
-		$this->data = wpl_users::get_wpl_user($id);
-		$this->memberships = wpl_users::get_wpl_memberships();
-		$this->units = wpl_units::get_units();
-		$this->listings = wpl_listing_types::get_listing_types();
-		$this->property_types = wpl_property_types::get_property_types();
-		
-		parent::render($this->tpl_path, 'internal_setting_advanced');
-		exit;
+        
+		/** include the layout **/
+		parent::render($this->tpl_path, $tpl);
 	}
 	
 	private function save_user($inputs)

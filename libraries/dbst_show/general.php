@@ -32,6 +32,70 @@ elseif($type == 'listings' and !$done_this) //////////////////////////// listing
 	
 	$done_this = true;
 }
+elseif($type == 'feature' and !$done_this) //////////////////////////// Features ////////////////////////////
+{
+	if($values[$field->table_column] != 0) 
+	{
+		$return['field_id'] = $field->id;
+		$return['type'] = $field->type;
+		$return['name'] = __($field->name, WPL_TEXTDOMAIN);
+		
+		/** options of property column **/
+		$column_options = $values[$field->table_column.'_options'];
+		$column_values = explode(',', $column_options);
+		$i = 0;
+		
+		if(isset($options['values']))
+		{
+			foreach($options['values'] as $field_option)
+			{
+				if(in_array($field_option['key'], $column_values))
+				{
+					$return['values'][$i] = __($field_option['value'], WPL_TEXTDOMAIN);
+					$i++;
+				}
+			}
+		}
+		else
+		{
+			$return['value'] = 1;
+		}
+	}
+	
+	$done_this = true;       
+}
+elseif($type == 'neighborhood' and !$done_this) //////////////////////////// Neighborhood ////////////////////////////
+{
+	if($values[$field->table_column] == '1')
+	{
+		$return['field_id'] = $field->id;
+		$return['type'] = $field->type;
+		$return['name'] = __($field->name, WPL_TEXTDOMAIN);
+		
+		if($values[$field->table_column.'_distance'] != 0 and $values[$field->table_column.'_distance_by'] != 0)
+		{
+			$return['distance'] = $values[$field->table_column.'_distance'];
+			
+			if($values[$field->table_column.'_distance_by'] == '1')
+            {
+                $return['vehicle_type'] = 'Walk';
+                $return['by'] = __('Walk', WPL_TEXTDOMAIN);
+            }
+			elseif($values[$field->table_column.'_distance_by'] == '2')
+            {
+                $return['vehicle_type'] = 'Car';
+                $return['by'] = __('Car', WPL_TEXTDOMAIN);
+            }
+			elseif($values[$field->table_column.'_distance_by'] == '3')
+            {
+                $return['vehicle_type'] = 'Train';
+                $return['by'] = __('Train', WPL_TEXTDOMAIN);
+            }
+		}
+	}
+	
+	$done_this = true;
+}
 elseif($type == 'text' and !$done_this) //////////////////////////// text ////////////////////////////
 {
     if(trim($value) != '')
@@ -57,8 +121,8 @@ elseif($type == 'text' and !$done_this) //////////////////////////// text //////
             $return['value'] = $value;
         }
         
-        if(isset($options['if_zero']) and $options['if_zero'] == 2 and $value == 0) $return['value'] = __($options['call_text'], WPL_TEXTDOMAIN);
-        if(isset($options['if_zero']) and !$options['if_zero'] and $value == 0) $return = array();
+        if(isset($options['if_zero']) and $options['if_zero'] == 2 and $value == '0') $return['value'] = __($options['call_text'], WPL_TEXTDOMAIN);
+        if(isset($options['if_zero']) and !$options['if_zero'] and $value == '0') $return = array();
 	}
 	
 	$done_this = true;
@@ -133,8 +197,8 @@ elseif($type == 'number' and !$done_this) //////////////////////////// number //
 		$return['name'] = __($field->name, WPL_TEXTDOMAIN);
 		$return['value'] = $value;
         
-        if(isset($options['if_zero']) and $options['if_zero'] == 2 and $value == 0) $return['value'] = __($options['call_text'], WPL_TEXTDOMAIN);
-        if(isset($options['if_zero']) and !$options['if_zero'] and $value == 0) $return = array();
+        if(isset($options['if_zero']) and $options['if_zero'] == 2 and $value == '0') $return['value'] = __($options['call_text'], WPL_TEXTDOMAIN);
+        if(isset($options['if_zero']) and !$options['if_zero'] and $value == '0') $return = array();
 	}
 	
 	$done_this = true;
@@ -150,8 +214,37 @@ elseif($type == 'mmnumber' and !$done_this) //////////////////////////// Min/Max
         
         if(trim($values[$field->table_column.'_max'])) $return['value'] .= ' - '. $values[$field->table_column.'_max'];
         
-        if(isset($options['if_zero']) and $options['if_zero'] == 2 and $value == 0 and $values[$field->table_column.'_max'] == 0) $return['value'] = __($options['call_text'], WPL_TEXTDOMAIN);
-        if(isset($options['if_zero']) and !$options['if_zero'] and $value == 0 and $values[$field->table_column.'_max'] == 0) $return = array();
+        if(isset($options['if_zero']) and $options['if_zero'] == 2 and $value == '0' and $values[$field->table_column.'_max'] == '0') $return['value'] = __($options['call_text'], WPL_TEXTDOMAIN);
+        if(isset($options['if_zero']) and !$options['if_zero'] and $value == '0' and $values[$field->table_column.'_max'] == '0') $return = array();
+	}
+	
+	$done_this = true;
+}
+elseif($type == 'locations' and !$done_this) //////////////////////////// Locations ////////////////////////////
+{
+	_wpl_import('libraries.locations');
+	$location_settings = wpl_global::get_settings('3'); # location settings
+	
+	$return['field_id'] = $field->id;
+	$return['type'] = $field->type;
+	$return['name'] = __($field->name, WPL_TEXTDOMAIN);
+	
+	for($i=1; $i<=7; $i++)
+	{
+		$location_id = isset($values['location'.$i.'_id']) ? $values['location'.$i.'_id'] : NULL;
+		if(!isset($values['location'.$i.'_name'])) continue;
+		if(!trim($values['location'.$i.'_name'])) continue;
+		
+		$return['location_ids'][$i] = $location_id;
+		$return['locations'][$i] = $values['location'.$i.'_name'];
+		$return['keywords'][$i] = $location_settings['location'.$i.'_keyword'];
+	}
+	
+	if(trim($values['zip_name']))
+	{
+		$return['location_ids']['zips'] = $values['zip_id'];
+		$return['locations']['zips'] = $values['zip_name'];
+		$return['keywords']['zips'] = $location_settings['locationzips_keyword'];
 	}
 	
 	$done_this = true;
@@ -181,8 +274,8 @@ elseif(($type == 'volume' or $type == 'area' or $type == 'length') and !$done_th
 		$unit = wpl_units::get_unit($values[$field->table_column.'_unit']);
 		if($unit) $return['value'] .= ' '.$unit['name'];
         
-        if(isset($options['if_zero']) and $options['if_zero'] == 2 and $value == 0) $return['value'] = __($options['call_text'], WPL_TEXTDOMAIN);
-        if(isset($options['if_zero']) and !$options['if_zero'] and $value == 0) $return = array();
+        if(isset($options['if_zero']) and $options['if_zero'] == 2 and $value == '0') $return['value'] = __($options['call_text'], WPL_TEXTDOMAIN);
+        if(isset($options['if_zero']) and !$options['if_zero'] and $value == '0') $return = array();
 	}
 	
 	$done_this = true;
@@ -202,13 +295,13 @@ elseif(($type == 'mmvolume' or $type == 'mmarea' or $type == 'mmlength') and !$d
 		$unit = wpl_units::get_unit($values[$field->table_column.'_unit']);
 		if($unit) $return['value'] .= ' '.$unit['name'];
         
-        if(isset($options['if_zero']) and $options['if_zero'] == 2 and $value == 0 and $values[$field->table_column.'_max'] == 0) $return['value'] = __($options['call_text'], WPL_TEXTDOMAIN);
-        if(isset($options['if_zero']) and !$options['if_zero'] and $value == 0 and $values[$field->table_column.'_max'] == 0) $return = array();
+        if(isset($options['if_zero']) and $options['if_zero'] == 2 and $value == '0' and $values[$field->table_column.'_max'] == '0') $return['value'] = __($options['call_text'], WPL_TEXTDOMAIN);
+        if(isset($options['if_zero']) and !$options['if_zero'] and $value == '0' and $values[$field->table_column.'_max'] == '0') $return = array();
 	}
 	
 	$done_this = true;
 }
-elseif($type == 'price' and !$done_this)  //////////////////////////// Price ////////////////////////////
+elseif($type == 'price' and !$done_this) //////////////////////////// Price ////////////////////////////
 {
 	$return['field_id'] = $field->id;
 	$return['type'] = $field->type;
@@ -222,12 +315,12 @@ elseif($type == 'price' and !$done_this)  //////////////////////////// Price ///
     if(isset($values[$field->table_column.'_period'])) $price_period = wpl_property::render_field($values[$field->table_column.'_period'], wpl_flex::get_dbst_id($field->table_column.'_period', $field->kind));
     if(isset($price_period['value'])) $return['value'] .= ' '.$price_period['value'];
     
-    if(isset($options['if_zero']) and $options['if_zero'] == 2 and $value == 0) $return['value'] = __($options['call_text'], WPL_TEXTDOMAIN);
-    if(isset($options['if_zero']) and !$options['if_zero'] and $value == 0) $return = array();
+    if(isset($options['if_zero']) and $options['if_zero'] == 2 and $value == '0') $return['value'] = __($options['call_text'], WPL_TEXTDOMAIN);
+    if(isset($options['if_zero']) and !$options['if_zero'] and $value == '0') $return = array();
         
 	$done_this = true;
 }
-elseif($type == 'mmprice' and !$done_this)  //////////////////////////// Min/Max Price ////////////////////////////
+elseif($type == 'mmprice' and !$done_this) //////////////////////////// Min/Max Price ////////////////////////////
 {
 	$return['field_id'] = $field->id;
 	$return['type'] = $field->type;
@@ -246,12 +339,12 @@ elseif($type == 'mmprice' and !$done_this)  //////////////////////////// Min/Max
     $price_period = wpl_property::render_field($values['price_period'], wpl_flex::get_dbst_id('price_period', $field->kind));
     if(isset($price_period['value'])) $return['value'] .= ' '.$price_period['value'];
     
-    if(isset($options['if_zero']) and $options['if_zero'] == 2 and $value == 0 and $values[$field->table_column.'_max'] == 0) $return['value'] = __($options['call_text'], WPL_TEXTDOMAIN);
-    if(isset($options['if_zero']) and !$options['if_zero'] and $value == 0 and $values[$field->table_column.'_max'] == 0) $return = array();
+    if(isset($options['if_zero']) and $options['if_zero'] == 2 and $value == '0' and $values[$field->table_column.'_max'] == '0') $return['value'] = __($options['call_text'], WPL_TEXTDOMAIN);
+    if(isset($options['if_zero']) and !$options['if_zero'] and $value == '0' and $values[$field->table_column.'_max'] == '0') $return = array();
             
 	$done_this = true;
 }
-elseif($type == 'url' and !$done_this)  //////////////////////////// URL ////////////////////////////
+elseif($type == 'url' and !$done_this) //////////////////////////// URL ////////////////////////////
 {
     if(trim($value) != '')
 	{
@@ -267,7 +360,7 @@ elseif($type == 'url' and !$done_this)  //////////////////////////// URL ///////
     
 	$done_this = true;
 }
-elseif($type == 'parent' and !$done_this)  //////////////////////////// Parent ////////////////////////////
+elseif($type == 'parent' and !$done_this) //////////////////////////// Parent ////////////////////////////
 {
     if(trim($value))
 	{
@@ -277,5 +370,23 @@ elseif($type == 'parent' and !$done_this)  //////////////////////////// Parent /
         $return['value'] = wpl_property::update_property_title(NULL, $value);
     }
     
+	$done_this = true;
+}
+elseif($type == 'date' and !$done_this) //////////////////////////// Date ////////////////////////////
+{
+	$return['field_id'] = $field->id;
+	$return['type'] = $field->type;
+	$return['name'] = __($field->name, WPL_TEXTDOMAIN);
+	$return['value'] = wpl_render::render_date($value);
+	
+	$done_this = true;
+}
+elseif($type == 'datetime' and !$done_this) //////////////////////////// Date Time ////////////////////////////
+{
+	$return['field_id'] = $field->id;
+	$return['type'] = $field->type;
+	$return['name'] = __($field->name, WPL_TEXTDOMAIN);
+	$return['value'] = wpl_render::render_datetime($value);
+	
 	$done_this = true;
 }

@@ -239,7 +239,7 @@ class wpl_flex
 		if(trim($key) == '' or trim($dbst_id) == '') return false;
 		
 		$dbst_data = self::get_field($dbst_id);
-		return $dbst_data->$key;
+		return (isset($dbst_data->$key) ? $dbst_data->$key : NULL);
 	}
 	
     /**

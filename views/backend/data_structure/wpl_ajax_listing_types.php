@@ -226,7 +226,7 @@ class wpl_data_structure_controller extends wpl_controller
 		$name = wpl_request::getVar('name');
 		$gicon = wpl_request::getVar('gicon');
 		
-		$res = wpl_listing_types::insert_listing_type($parent,$name,$gicon);
+		$res = wpl_listing_types::insert_listing_type($parent, $name, $gicon);
 		$res = (int) $res;
 		
 		if($res > 0) $res = 1;
@@ -273,7 +273,7 @@ class wpl_data_structure_controller extends wpl_controller
 		exit;
 	}
     
-	function purge_related_property()
+	private function purge_related_property()
 	{
 		$listing_type_id = wpl_request::getVar('listing_type_id');
 		$properties_list = wpl_property::get_properties_list('listing', $listing_type_id);
@@ -282,7 +282,7 @@ class wpl_data_structure_controller extends wpl_controller
 		self::remove_listing_type($listing_type_id, 1);
 	}
     
-	function assign_related_properties()
+	private function assign_related_properties()
 	{
 		$listing_type_id = wpl_request::getVar('listing_type_id');
 		$select_id = wpl_request::getVar('select_id');

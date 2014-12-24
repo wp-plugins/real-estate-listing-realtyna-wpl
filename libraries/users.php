@@ -362,12 +362,10 @@ class wpl_users
 		@description for getting wpl memberships
 		@author Morgan
 	**/
-	public static function get_wpl_memberships()
+	public static function get_wpl_memberships($condition = NULL)
 	{
-		$query = "SELECT * FROM `#__wpl_users` WHERE `id` < 0 ORDER BY `index` ASC";
-		$memberships = wpl_db::select($query);
-		
-		return $memberships;
+		$query = "SELECT * FROM `#__wpl_users` WHERE 1 AND `id` < 0 ".(trim($condition) ? $condition : '')." ORDER BY `index` ASC";
+		return wpl_db::select($query);
 	}
     
     /**
@@ -584,15 +582,22 @@ class wpl_users
 	public static function change_membership($user_id, $membership_id = -1, $trigger_event = true)
 	{
 		$user_data = wpl_users::get_wpl_data($user_id);
+        
+        /** Add user to WPL if not added **/
+        if(!$user_data)
+        {
+            wpl_users::add_user_to_wpl($user_id);
+            $user_data = wpl_users::get_wpl_data($user_id);
+        }
+        
+        $method = (isset($user_data->membership_id) and $user_data->membership_id != $membership_id) ? 'membership_changed' : 'access_updated';
+        
 		$membership_data = wpl_users::get_wpl_data($membership_id);
-	
-		$forbidden_fields = array('id');
 		$query1 = '';
 		
 		foreach($membership_data as $key=>$value)
 		{
 			if(substr($key, 0, 7) != 'access_' and substr($key, 0, 8) != 'maccess_') continue;
-			
 			$query1 .= "`$key`='$value', ";
 		}
 		
@@ -600,9 +605,21 @@ class wpl_users
 		$query = "UPDATE `#__wpl_users` SET ".$query1.", `membership_id`='".$membership_id."' WHERE `id`='".$user_id."'";
 		wpl_db::q($query);
 		
+        /** user assigned to a new group **/
+        if($method == 'membership_changed' and wpl_global::check_addon('membership'))
+        {
+            /** Import library **/
+            _wpl_import('libraries.addon_membership');
+            
+            $membership = new wpl_addon_membership();
+            $membership->update_expiry_date($user_id, NULL, true);
+        }
+        
 		/** trigger event **/
-		if($trigger_event and isset($user_data->membership_id) and $user_data->membership_id == $membership_id) wpl_global::event_handler('user_access_updated', array('user_id'=>$user_id, 'previous_membership'=>$user_data->membership_id, 'new_membership'=>$membership_id));
-		elseif($trigger_event and isset($user_data->membership_id) and $user_data->membership_id != $membership_id) wpl_global::event_handler('user_group_changed', array('user_id'=>$user_id, 'previous_membership'=>$user_data->membership_id, 'new_membership'=>$membership_id));
+        $params = array('user_id'=>$user_id, 'previous_membership'=>$user_data->membership_id, 'new_membership'=>$membership_id);
+        
+		if($trigger_event and $method == 'access_updated') wpl_global::event_handler('user_access_updated', $params);
+		elseif($trigger_event and $method == 'membership_changed') wpl_global::event_handler('user_membership_changed', $params);
 	}
 	
 	/**
@@ -717,7 +734,7 @@ class wpl_users
         $this->query .= " FROM ".$this->main_table;
         $this->query .= $this->join_query;
 		$this->query .= " WHERE 1 ".$this->where;
-		$this->query .= $this->create_groupby();
+		$this->query .= $this->groupby_query;
         $this->query .= " ORDER BY ".$this->orderby." ".$this->order;
         $this->query .= " LIMIT ".$this->start.", ".$this->limit;
 		$this->query  = trim($this->query, ', ');
@@ -1168,7 +1185,7 @@ class wpl_users
 		$acceptable_fileds = array('ID', 'user_pass', 'user_login', 'user_nicename', 'user_url', 'user_email', 'display_name', 'nickname', 'first_name', 'last_name', 'description', 'rich_editing', 'user_registered', 'role', 'jabber', 'aim', 'yim');
 		$insert_data = array();
         
-		if((array_key_exists('user_login', $user_data)) && (array_key_exists('user_email', $user_data)) && (array_key_exists('user_pass', $user_data)))
+		if((array_key_exists('user_login', $user_data)) and (array_key_exists('user_email', $user_data)) and (array_key_exists('user_pass', $user_data)))
 		{
 			foreach($user_data as $key=>$value)
 			{
@@ -1176,7 +1193,7 @@ class wpl_users
 				$insert_data[$key] = $value;
 			}
             
-			return  wp_insert_user($insert_data);
+			return wp_insert_user($insert_data);
 		}
 		else
 		{
@@ -1304,5 +1321,47 @@ class wpl_users
     public static function update_user_option($user_id, $option_name, $newvalue, $global = false)
     {
         return update_user_option($user_id, $option_name, $newvalue, $global);
+    }
+    
+    /**
+     * Check if username exists or not
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $username
+     * @return boolean
+     */
+    public static function username_exists($username)
+    {
+        /** first validation **/
+        if(!trim($username)) return true;
+        
+        return username_exists($username);
+    }
+    
+    /**
+     * Check if email exists or not
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $email
+     * @return boolean
+     */
+    public static function email_exists($email)
+    {
+        /** first validation **/
+        if(!trim($email)) return true;
+        
+        return email_exists($email);
+    }
+    
+    /**
+     * Wrapper function for WordPress wp_insert_user
+     * @author Howard R <Howard@realtyna.com>
+     * @static
+     * @param array $userdata
+     * @return mixed
+     */
+    public static function wp_insert_user($userdata = array())
+    {
+        return wp_insert_user($userdata);
     }
 }

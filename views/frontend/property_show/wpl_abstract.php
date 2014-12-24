@@ -46,7 +46,7 @@ abstract class wpl_property_show_controller_abstract extends wpl_controller
 		$property = $this->model->get_property_raw_data($this->pid);
 		
 		/** no property found **/
-		if(!$property or $property['finalized'] == 0 or $property['confirmed'] == 0 or $property['deleted'] == 1)
+		if(!$property or $property['finalized'] == 0 or $property['confirmed'] == 0 or $property['deleted'] == 1 or $property['expired'] >= 1)
 		{
 			/** import message tpl **/
 			$this->message = __("No property found or it's not available now!", WPL_TEXTDOMAIN);

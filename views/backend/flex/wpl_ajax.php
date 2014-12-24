@@ -93,6 +93,7 @@ class wpl_flex_controller extends wpl_controller
 		{
 			if(substr($field, 0 ,4) != 'fld_') continue;
 			$key = substr($field, 4);
+            if(trim($key) == '') continue;
             
 			$q .= "`$key`='$value', ";
 		}

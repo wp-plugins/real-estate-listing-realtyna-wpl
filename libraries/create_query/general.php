@@ -16,7 +16,16 @@ elseif($format == 'ptcategory' and !$done_this)
 	if($value != '-1' and trim($value) != '')
 	{
         $category_id = wpl_db::select("SELECT `id` FROM `#__wpl_property_types` WHERE LOWER(name)='".strtolower($value)."' AND `parent`='0'", 'loadResult');
-		$query .= " AND `property_type` IN (SELECT `id` FROM `#__wpl_property_types` WHERE `parent`='$category_id')";
+        $property_types = wpl_db::select("SELECT `id` FROM `#__wpl_property_types` WHERE `parent`='$category_id'", 'loadAssocList');
+		
+        $property_types_str = '';
+        if(count($property_types))
+        {
+            foreach($property_types as $property_type) $property_types_str .= $property_type['id'].',';
+            $property_types_str = trim($property_types_str, ', ');
+        }
+        
+        if(trim($property_types_str)) $query .= " AND `property_type` IN ($property_types_str)";
 	}
 	
 	$done_this = true;
@@ -26,7 +35,16 @@ elseif($format == 'ltcategory' and !$done_this)
 	if($value != '-1' and trim($value) != '')
 	{
         $category_id = wpl_db::select("SELECT `id` FROM `#__wpl_listing_types` WHERE LOWER(name)='".strtolower($value)."' AND `parent`='0'", 'loadResult');
-		$query .= " AND `listing` IN (SELECT `id` FROM `#__wpl_listing_types` WHERE `parent`='$category_id')";
+        $listing_types = wpl_db::select("SELECT `id` FROM `#__wpl_listing_types` WHERE `parent`='$category_id'", 'loadAssocList');
+		
+        $listing_types_str = '';
+        if(count($listing_types))
+        {
+            foreach($listing_types as $listing_type) $listing_types_str .= $listing_type['id'].',';
+            $listing_types_str = trim($listing_types_str, ', ');
+        }
+        
+        if(trim($listing_types_str)) $query .= " AND `listing` IN ($listing_types_str)";
 	}
 	
 	$done_this = true;

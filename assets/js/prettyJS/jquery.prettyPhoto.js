@@ -430,8 +430,7 @@
                         // Show content
                         _showContent();
                     }
-                }
-                ;
+                };
             });
 
             return false;
@@ -566,6 +565,37 @@
             });
         };
 
+        //
+        $.prettyPhoto.resetPos = function() {
+            _resetPos();
+        }
+
+        // Opened callback queue
+
+        var openedQueue = [];
+
+        $.prettyPhoto.addOpenedCallback = function(func){
+
+            if($.isFunction(func))
+                openedQueue.push(func);
+
+        }
+
+        function _callShowComplete(){
+
+            for(var i=0;i < openedQueue.length;++i){
+                openedQueue[i].call();
+            }
+
+            // Reset the size and position of the box
+            _resetPos();
+        }
+
+        function _resetPos(){
+            _center_overlay();
+            _resize_overlay();
+        }
+
         /**
          * Set the proper sizes on the containers and animate the content in.
          */
@@ -614,11 +644,14 @@
 
                 settings.changepicturecallback(); // Callback!
 
+                _callShowComplete(); // Call all on complete functions
+
                 pp_open = true;
             });
 
             _insert_gallery();
             pp_settings.ajaxcallback();
+
         };
 
         /**

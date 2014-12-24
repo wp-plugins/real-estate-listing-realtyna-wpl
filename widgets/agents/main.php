@@ -143,7 +143,7 @@ class wpl_agents_widget extends wpl_widget
         $this->limit = $data['limit'];
 		$this->order = $data['orderby']." ".$data['order'];
 		
-		$this->where = " AND p.`access_public_profile`='1'";
+		$this->where = " AND p.`access_public_profile`='1' AND p.`expired`='0'";
 		
 		if(trim($data['user_type']) and $data['user_type'] != '-1') $this->where .= " AND p.`membership_type`='".$data['user_type']."'";
 		if(trim($data['membership']) and $data['membership'] != '') $this->where .= " AND p.`membership_id`='".$data['membership']."'";

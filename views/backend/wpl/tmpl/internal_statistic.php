@@ -7,7 +7,7 @@ defined('_WPLEXEC') or die('Restricted access');
         <h3><?php echo __('Properties by listing types', WPL_TEXTDOMAIN); ?></h3>
         <div class="panel-body">
         	<?php
-				$properties = wpl_db::select("SELECT COUNT(*) as count, `listing` FROM `#__wpl_properties` WHERE `finalized`='1' AND `confirmed`='1' AND `deleted`='0' AND `listing`!='0' GROUP BY `listing`", 'loadAssocList');
+				$properties = wpl_db::select("SELECT COUNT(*) as count, `listing` FROM `#__wpl_properties` WHERE `finalized`='1' AND `confirmed`='1' AND `expired`='0' AND `deleted`='0' AND `listing`!='0' GROUP BY `listing`", 'loadAssocList');
 				
 				$data = array();
 				foreach($properties as $property)
@@ -35,7 +35,7 @@ defined('_WPLEXEC') or die('Restricted access');
         <h3><?php echo __('Properties by property types', WPL_TEXTDOMAIN); ?></h3>
         <div class="panel-body">
         	<?php
-				$properties = wpl_db::select("SELECT COUNT(*) as count, `property_type` FROM `#__wpl_properties` WHERE `finalized`='1' AND `confirmed`='1' AND `deleted`='0' AND `property_type`!='0' GROUP BY `property_type`", 'loadAssocList');
+				$properties = wpl_db::select("SELECT COUNT(*) as count, `property_type` FROM `#__wpl_properties` WHERE `finalized`='1' AND `expired`='0' AND `confirmed`='1' AND `deleted`='0' AND `property_type`!='0' GROUP BY `property_type`", 'loadAssocList');
 				
 				$data = array();
 				foreach($properties as $property)

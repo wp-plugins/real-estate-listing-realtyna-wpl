@@ -110,7 +110,7 @@ elseif($type == 'feature' and !$done_this)
 		$html .= '<input value="1" '.($current_value == 1 ? 'checked="checked"' : '').' name="sf'.$widget_id.'_select_'.$field_data['table_column'].'" type="checkbox" id="sf'.$widget_id.'_select_'.$field_data['table_column'].'" class="wpl_search_widget_field_'.$field['id'].'_check" />
         	<label for="sf'.$widget_id.'_select_'.$field_data['table_column'].'">'.__($field['name'], WPL_TEXTDOMAIN).'</label>';
 	}
-	if($show == 'yesno')
+	elseif($show == 'yesno')
 	{
 		$html .= '<input value="1" '.($current_value == 1 ? 'checked="checked"' : '').' name="sf'.$widget_id.'_select_'.$field_data['table_column'].'" type="checkbox" id="sf'.$widget_id.'_select_'.$field_data['table_column'].'" class="wpl_search_widget_field_'.$field['id'].'_check yesno" />
         	<label for="sf'.$widget_id.'_select_'.$field_data['table_column'].'">'.__($field['name'], WPL_TEXTDOMAIN).'</label>';
@@ -152,7 +152,7 @@ elseif($type == 'checkbox' and !$done_this)
 		$html .= '<input value="1" '.($current_value == 1 ? 'checked="checked"' : '').' name="sf'.$widget_id.'_select_'.$field_data['table_column'].'" type="checkbox" id="sf'.$widget_id.'_select_'.$field_data['table_column'].'" class="wpl_search_widget_field_'.$field['id'].'_check" />
         	<label for="sf'.$widget_id.'_select_'.$field_data['table_column'].'">'.__($field['name'], WPL_TEXTDOMAIN).'</label>';
 	}
-	if($show == 'yesno')
+	elseif($show == 'yesno')
 	{
 		$html .= '<input value="1" '.($current_value == 1 ? 'checked="checked"' : '').' name="sf'.$widget_id.'_select_'.$field_data['table_column'].'" type="checkbox" id="sf'.$widget_id.'_select_'.$field_data['table_column'].'" class="wpl_search_widget_field_'.$field['id'].'_check yesno" />
         	<label for="sf'.$widget_id.'_select_'.$field_data['table_column'].'">'.__($field['name'], WPL_TEXTDOMAIN).'</label>';
@@ -323,7 +323,7 @@ elseif($type == 'neighborhood' and !$done_this)
     	$html .= '<input value="1" '.($current_value == 1 ? 'checked="checked"' : '').' name="sf'.$widget_id.'_select_'.$field_data['table_column'].'" type="checkbox" id="sf'.$widget_id.'_select_'.$field_data['table_column'].'" class="wpl_search_widget_field_'.$field['id'].'_check" />
         	<label for="sf'.$widget_id.'_select_'.$field_data['table_column'].'">'.__($field['name'], WPL_TEXTDOMAIN).'</label>';
 	}
-	if($show == 'yesno')
+	elseif($show == 'yesno')
 	{
     	$html .= '<input value="1" '.($current_value == 1 ? 'checked="checked"' : '').' name="sf'.$widget_id.'_select_'.$field_data['table_column'].'" type="checkbox" id="sf'.$widget_id.'_select_'.$field_data['table_column'].'" class="wpl_search_widget_field_'.$field['id'].'_check yesno" />
         	<label for="sf'.$widget_id.'_select_'.$field_data['table_column'].'">'.__($field['name'], WPL_TEXTDOMAIN).'</label>';
@@ -372,7 +372,7 @@ elseif($type == 'number' and !$done_this)
 	/** MIN/MAX extoptions **/
 	$extoptions = isset($field['extoption']) ? explode(',', $field['extoption']) : array();
     
-	$min_value = isset($extoptions[0]) ? $extoptions[0] : 0;
+	$min_value = (isset($extoptions[0]) and trim($extoptions[0]) != '') ? $extoptions[0] : 0;
 	$max_value = isset($extoptions[1]) ? $extoptions[1] : 100000;
 	$division = isset($extoptions[2]) ? $extoptions[2] : 1000;
 	$separator = isset($extoptions[3]) ? $extoptions[3] : ',';
@@ -414,7 +414,7 @@ elseif($type == 'number' and !$done_this)
 					{
 						step: '.$division.',
 						range: true,
-						min: '.$min_value.',
+						min: '.(is_numeric($min_value) ? $min_value : 0).',
 						max: '.$max_value.',
                         field_id: '.$field['id'].',
 						values: ['.$current_min_value.', '.$current_max_value.'],
@@ -422,7 +422,7 @@ elseif($type == 'number' and !$done_this)
 						{
 							v1 = wpl_th_sep'.$widget_id.'(ui.values[0]);
 							v2 = wpl_th_sep'.$widget_id.'(ui.values[1]);
-							wplj("#slider'.$widget_id.'_showvalue_'.$field_data['table_column'].'" ).html(v1+" - "+ v2);
+							wplj("#slider'.$widget_id.'_showvalue_'.$field_data['table_column'].'").html(v1+" - "+ v2);
 						},
 						stop: function(event, ui)
 						{
@@ -777,7 +777,7 @@ elseif(($type == 'area' or $type == 'price' or $type == 'volume' or $type == 'le
 	/** MIN/MAX extoptions **/
 	$extoptions = explode(',', $field['extoption']);
 	
-	$min_value = isset($extoptions[0]) ? $extoptions[0] : $default_min_value;
+    $min_value = (isset($extoptions[0]) and trim($extoptions[0]) != '') ? $extoptions[0] : 0;
 	$max_value = isset($extoptions[1]) ? $extoptions[1] : $default_max_value;
 	$division = isset($extoptions[2]) ? $extoptions[2] : $default_division_value;
 	$separator = isset($extoptions[3]) ? $extoptions[3] : ',';
@@ -840,7 +840,7 @@ elseif(($type == 'area' or $type == 'price' or $type == 'volume' or $type == 'le
 					{
 						step: '.$division.',
 						range: true,
-						min: '.$min_value.',
+						min: '.(is_numeric($min_value) ? $min_value : 0).',
 						max: '.$max_value.',
                         field_id: '.$field['id'].',
 						values: ['.$current_min_value.', '.$current_max_value.'],
@@ -1003,6 +1003,50 @@ elseif($type == 'textsearch' and !$done_this)
 	{
 		$html .= '<textarea name="sf'.$widget_id.'_textsearch_'.$field_data['table_column'].'" id="sf'.$widget_id.'_textsearch_'.$field_data['table_column'].'">'.$current_value.'</textarea>';
 	}
+	
+	$done_this = true;
+}
+elseif($type == 'addon_calendar' and !$done_this)
+{
+	/** system date format **/
+	$date_format_arr = explode(':', wpl_global::get_setting('main_date_format'));
+	$jqdate_format = $date_format_arr[1];
+	
+	/** MIN/MAX extoptions **/
+	$extoptions = explode(',', $field['extoption']);
+	
+	$min_value = date("Y-m-d");
+	$mindate = explode('-', $min_value);
+    $show_icon = 0;
+    
+	/** current value **/
+    $current_checkin_value  = wpl_request::getVar('sf_calendarcheckin', '');
+    $current_checkout_value = wpl_request::getVar('sf_calendarcheckout', '');
+
+    $html .= '<div class="wpl_search_widget_calendar_search_container">';
+    $html .= '<input type="text" name="sf'.$widget_id.'_calendarcheckin" id="sf'.$widget_id.'_calendarcheckin" value="'.($current_checkin_value != '' ? $current_checkin_value : '').'" placeholder="'.__('Check In', WPL_TEXTDOMAIN).'" />';
+    $html .= '<input type="text" name="sf'.$widget_id.'_calendarcheckout" id="sf'.$widget_id.'_calendarcheckout" value="'.($current_checkout_value != '' ? $current_checkout_value : '').'" placeholder="'.__('Check Out', WPL_TEXTDOMAIN).'" />';
+    $html .= '</div>';
+    
+    $html .= '
+    <script type="text/javascript">
+    wplj(document).ready(function()
+    {
+        wplj("#sf'.$widget_id.'_calendarcheckin, #sf'.$widget_id.'_calendarcheckout").datepicker(
+        {
+            dayNamesMin: ["'.addslashes(__('SU', WPL_TEXTDOMAIN)).'", "'.addslashes(__('MO', WPL_TEXTDOMAIN)).'", "'.addslashes(__('TU', WPL_TEXTDOMAIN)).'", "'.addslashes(__('WE', WPL_TEXTDOMAIN)).'", "'.addslashes(__('TH', WPL_TEXTDOMAIN)).'", "'.addslashes(__('FR', WPL_TEXTDOMAIN)).'", "'.addslashes(__('SA', WPL_TEXTDOMAIN)).'"],
+            dayNames: 	 ["'.addslashes(__('Sunday', WPL_TEXTDOMAIN)).'", "'.addslashes(__('Monday', WPL_TEXTDOMAIN)).'", "'.addslashes(__('Tuesday', WPL_TEXTDOMAIN)).'", "'.addslashes(__('Wednesday', WPL_TEXTDOMAIN)).'", "'.addslashes(__('Thursday', WPL_TEXTDOMAIN)).'", "'.addslashes(__('Friday', WPL_TEXTDOMAIN)).'", "'.addslashes(__('Saturday', WPL_TEXTDOMAIN)).'"],
+            monthNames:  ["'.addslashes(__('January', WPL_TEXTDOMAIN)).'", "'.addslashes(__('February', WPL_TEXTDOMAIN)).'", "'.addslashes(__('March', WPL_TEXTDOMAIN)).'", "'.addslashes(__('April', WPL_TEXTDOMAIN)).'", "'.addslashes(__('May', WPL_TEXTDOMAIN)).'", "'.addslashes(__('June', WPL_TEXTDOMAIN)).'", "'.addslashes(__('July', WPL_TEXTDOMAIN)).'", "'.addslashes(__('August', WPL_TEXTDOMAIN)).'", "'.addslashes(__('September', WPL_TEXTDOMAIN)).'", "'.addslashes(__('October', WPL_TEXTDOMAIN)).'", "'.addslashes(__('November', WPL_TEXTDOMAIN)).'", "'.addslashes(__('December', WPL_TEXTDOMAIN)).'"],
+            dateFormat: "'.addslashes($jqdate_format).'",
+            gotoCurrent: true,
+            minDate: new Date('.$mindate[0].', '.intval($mindate[1]).'-1, '.$mindate[2].'),
+            changeYear: true,
+            '.($show_icon == '1' ? 'showOn: "both", buttonImage: "'.wpl_global::get_wpl_asset_url('img/system/calendar2.png').'",' : '').'
+            buttonImageOnly: true
+        });
+    });
+    </script>';
+	
 	
 	$done_this = true;
 }

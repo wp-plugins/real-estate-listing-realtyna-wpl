@@ -131,7 +131,7 @@ class wpl_carousel_widget extends wpl_widget
         if(isset($data['kind']) and (trim($data['kind']) != '' or trim($data['kind']) != '-1')) $kind = $data['kind'];
         else $kind = 0;
 		
-        $where = array('sf_select_confirmed'=>1, 'sf_select_finalized'=>1, 'sf_select_deleted'=>0, 'sf_select_kind'=>$kind);
+        $where = array('sf_select_confirmed'=>1, 'sf_select_finalized'=>1, 'sf_select_deleted'=>0, 'sf_select_expired'=>0, 'sf_select_kind'=>$kind);
         
         if(trim($data['listing']) and $data['listing'] != '-1') $where['sf_select_listing'] = $data['listing'];
 		if(trim($data['property_type']) and $data['property_type'] != '-1') $where['sf_select_property_type'] = $data['property_type'];
@@ -167,7 +167,7 @@ class wpl_carousel_widget extends wpl_widget
         /** Similar properties **/
         if(isset($data['sml_only_similars']) and $data['sml_only_similars']) # sml = similar
         {
-            $sml_where = array('sf_select_confirmed'=>1, 'sf_select_finalized'=>1, 'sf_select_deleted'=>0);
+            $sml_where = array('sf_select_confirmed'=>1, 'sf_select_finalized'=>1, 'sf_select_deleted'=>0, 'sf_select_expired'=>0);
             
             /** current proeprty id - This features works only in single property page **/
             $pid = wpl_request::getVar('pid', 0);
@@ -175,6 +175,7 @@ class wpl_carousel_widget extends wpl_widget
             
             if($property_data)
             {
+                $sml_where['sf_notselect_id'] = $pid;
                 $sml_where['sf_select_kind'] = $property_data['kind'];
             
                 if(isset($data['sml_inc_listing']) and $data['sml_inc_listing']) $sml_where['sf_select_listing'] = $property_data['listing'];

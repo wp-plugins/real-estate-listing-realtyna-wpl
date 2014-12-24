@@ -1,7 +1,7 @@
 /**
  * @preserve RTA Framework v.0.1.0
- * @Copyright Realtyna Inc. Co 2013
- * @Author Steve.M
+ * @Copyright Realtyna Inc. Co 2015
+ * @Author Steve M. | UI Department
  */
 
 // Declare custom jQuery handler
@@ -10,7 +10,7 @@ var _j = wplj = jQuery.noConflict();
 // Global variables
 var _rta_app_dirs = {js: 'js/', libs: 'libs/'},
     _rta_baseUrl = wpl_baseUrl,
-    _rta_urlAssets = 'wp-content/plugins/'+wpl_baseName+'/assets/',
+    _rta_urlAssets = 'wp-content/plugins/' + wpl_baseName + '/assets/',
     _rta_urlJs = _rta_baseUrl + _rta_urlAssets + _rta_app_dirs.js,
     _rta_urlJsLibs = _rta_baseUrl + _rta_urlAssets + _rta_app_dirs.js + ((_rta_app_dirs.js == _rta_app_dirs.libs) ? '' : _rta_app_dirs.libs),
     _rta_frontViews = {},
@@ -74,32 +74,26 @@ Date.prototype.timeNow = function () {
     return ((this.getHours() < 10) ? "0" : "") + this.getHours() + ":" + ((this.getMinutes() < 10) ? "0" : "") + this.getMinutes() + ":" + ((this.getSeconds() < 10) ? "0" : "") + this.getSeconds();
 };
 
-/**
- * Steve.M
- * Add some function to Array
- * @returns {Array.prototype.unique.a|Array.prototype.unique@call;concat}
- */
-// Add unique method to concat array
-Array.prototype.unique = function () {
-    var a = this.concat();
-    for (var i = 0; i < a.length; ++i) {
-        for (var j = i + 1; j < a.length; ++j) {
-            if (a[i] === a[j])
-                a.splice(j--, 1);
-        }
-    }
-
-    return a;
-};
-
-function isWPL(){
-    _j('html').attr('data-wpl-plugin','');
+function isWPL() {
+    _j('html').attr('data-wpl-plugin', '');
 }
 
 /**
  * RTA Framework
  */
 (function (window, document, $, undefined) {
+
+    window.opt2JSON = function (str) {
+        var strArray = str.split('|');
+        var myObject = {};
+
+        for(var i= 0; i < strArray.length; ++i){
+            var _sp = strArray[i].split(':');
+            myObject[_sp[0]] = $.isNumeric(_sp[1])? parseInt(_sp[1]): _sp[1];
+        }
+
+        return myObject;
+    }
 
     /* Unconditions functions - Start */
     function wpl_fancybox_afterShow_callback() {
@@ -250,14 +244,18 @@ function isWPL(){
      * Usage:
      $('div.bests').equalHeight();
      */
-    $.fn.equalHeight = function (callBack) {
+    $.fn.equalHeight = function (callBack, removeHeightAttr) {
         var currentTallest = 0,
             currentRowStart = 0,
             rowDivs = new Array(),
             $el,
             topPosition = 0,
             elCount = $(this).length,
-            elIndex = 0;
+            elIndex = 0,
+            removeHeightAttr = removeHeightAttr || false;
+
+        if (removeHeightAttr)
+            $(this).css('height', '');
 
         $(this).each(function () {
 
@@ -289,8 +287,8 @@ function isWPL(){
             }
 
             elIndex++;
-            if(elIndex === elCount){
-                if(typeof(callBack) !== undefined && $.isFunction(callBack)){
+            if (elIndex === elCount) {
+                if (typeof(callBack) !== undefined && $.isFunction(callBack)) {
                     callBack.call();
                 }
             }
@@ -341,20 +339,20 @@ function isWPL(){
     /**
      * Custome Plugins for handle fancybox missing functionality
      */
-    if(!$.fancybox)
+    if (!$.fancybox)
         $.fancybox = {};
 
     $.fn.openLiBo = function (options, callBack, cbOptions) {
         var __opts = {},
             __liBo = null;
 
-        if ($.prettyPhoto){
+        if ($.prettyPhoto) {
             if (options && $.isPlainObject(options))
                 __opts = $.extend({}, rta.config.LB, options);
 
             __liBo = $(this).prettyPhoto(__opts);
 
-        }else if ($.fancybox){
+        } else if ($.fancybox) {
             if (options && $.isPlainObject(options))
                 __opts = $.extend({}, rta.config.fancybox, options);
 
@@ -373,32 +371,32 @@ function isWPL(){
     }
 
     $.LiBo = {
-        open: function(selector,options){
-            if(!selector)
+        open: function (selector, options) {
+            if (!selector)
                 return false;
 
             var __opts = options || {};
-            __opts = $.extend({},rta.config.liBo,__opts);
+            __opts = $.extend({}, rta.config.liBo, __opts);
 
             __optsObj = {
                 horizontal_padding: __opts.horizontal_padding,
                 default_width: __opts.default_width,
                 default_height: __opts.default_height,
                 social_tools: '',
-                markup: __opts.tmpl.wrap.replaceAll('${sample}',rta.config.liBo.tmpl.sample),
+                markup: __opts.tmpl.wrap.replaceAll('${sample}', rta.config.liBo.tmpl.sample),
                 inline_markup: __opts.tmpl.inline
             };
 
-            $.prettyPhoto.open(selector,__optsObj);
+            $.prettyPhoto.open(selector, __optsObj);
         }
     }
 
-    $.fn.closeLiBo = $.fancybox.close = function (callBack,cbOptions) {
+    $.fn.closeLiBo = $.fancybox.close = function (callBack, cbOptions) {
 
-        if ($.prettyPhoto){
+        if ($.prettyPhoto) {
             $.prettyPhoto.close();
 
-        }else if ($.fancybox){
+        } else if ($.fancybox) {
             $.fancybox.close();
         }
 
@@ -409,13 +407,13 @@ function isWPL(){
                 callBack.call();
         }
 
-        if(rta.config.fancybox.reloadAfterClose)
+        if (rta.config.fancybox.reloadAfterClose)
             location.reload();
     }
 
-    $.prettyPhoto.close = function(){
+    $.prettyPhoto.close = function () {
         $.prettyPhoto.prototype.close.call(this);
-        if(rta.config.fancybox.reloadAfterClose)
+        if (rta.config.fancybox.reloadAfterClose)
             location.reload();
     }
     /**
@@ -696,40 +694,40 @@ function isWPL(){
             horizontal_padding: 20,
             default_width: 800,
             default_height: 120,
-            tmpl:{
+            tmpl: {
                 sample: '<div class="pp_inline pp_details fancybox-inner">' +
-                    '<div class="fanc-content size-width-1">' +
-                    '<div class="fanc-body">' +
-                    '<div class="fanc-row pp-sample">' +
-                    '<div class="pp-ajax-loading"></div>' +
-                    '<span>Please wait to load content ...</span>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>',
+                '<div class="fanc-content size-width-1">' +
+                '<div class="fanc-body">' +
+                '<div class="fanc-row pp-sample">' +
+                '<div class="pp-ajax-loading"></div>' +
+                '<span>Please wait to load content ...</span>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>',
 
                 inline: '<a title="Close" class="fancybox-item fancybox-close pp_close"></a>' +
-                    '<div class="pp_inline pp_details fancybox-inner" id="{cID}"></div>',
+                '<div class="pp_inline pp_details fancybox-inner" id="{cID}"></div>',
 
-                inlineSample : '<div class="fanc-content size-width-1">' +
-                    '<div class="fanc-body">' +
-                    '<div class="fanc-row pp-sample">' +
-                    '<div class="pp-ajax-loading"></div>' +
-                    '<span>Please wait to load content ...</span>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>',
+                inlineSample: '<div class="fanc-content size-width-1">' +
+                '<div class="fanc-body">' +
+                '<div class="fanc-row pp-sample">' +
+                '<div class="pp-ajax-loading"></div>' +
+                '<span>Please wait to load content ...</span>' +
+                '</div>' +
+                '</div>' +
+                '</div>',
 
                 wrap: '<div class="pp_pic_holder">' +
-                    '<div class="fancybox-wrap">' +
-                    '<div class="fancybox-skin">' +
-                    '<div class="fancybox-outer">' +
-                    '<div id="pp_full_res">${sample}</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '<div class="pp_overlay"></div>'
+                '<div class="fancybox-wrap">' +
+                '<div class="fancybox-skin">' +
+                '<div class="fancybox-outer">' +
+                '<div id="pp_full_res">${sample}</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '<div class="pp_overlay"></div>'
             }
         }
     };
@@ -887,10 +885,10 @@ function isWPL(){
                 }
                 var expires_date = new Date(today.getTime() + (expires));
                 document.cookie = name + "=" + escape(value) +
-                    ((expires) ? ";expires=" + expires_date.toGMTString() : "") +
-                    ((path) ? ";path=" + path : "") +
-                    ((domain) ? ";domain=" + domain : "") +
-                    ((secure) ? ";secure" : "");
+                ((expires) ? ";expires=" + expires_date.toGMTString() : "") +
+                ((path) ? ";path=" + path : "") +
+                ((domain) ? ";domain=" + domain : "") +
+                ((secure) ? ";secure" : "");
             },
             /**
              * Steve.M
@@ -903,9 +901,9 @@ function isWPL(){
             deleteCookie: function (name, path, domain) {
                 if (getCookie(name))
                     document.cookie = name + "=" +
-                        ((path) ? ";path=" + path : "") +
-                        ((domain) ? ";domain=" + domain : "") +
-                        ";expires=Thu, 01-Jan-1970 00:00:01 GMT";
+                    ((path) ? ";path=" + path : "") +
+                    ((domain) ? ";domain=" + domain : "") +
+                    ";expires=Thu, 01-Jan-1970 00:00:01 GMT";
             },
             /**
              * Steve.M
@@ -1072,6 +1070,18 @@ function isWPL(){
                         elm.checked = false;
                     });
                 }
+            },
+
+            equalPanel: function (resetHeight) {
+                var __resetHeight = resetHeight || false;
+                $('.rt-same-height .panel-wp').equalHeight(function () {
+                    $('.rt-same-height .js-full-height').each(function () {
+                        var __height = $(this).find('.panel-wp').height();
+                        if ($(this).attr('data-minuse-size'))
+                            __height -= parseInt($(this).attr('data-minuse-size'));
+                        $(this).find('.panel-body').css('max-height', __height);
+                    });
+                }, __resetHeight);
             }
 
         };
@@ -1129,7 +1139,26 @@ function isWPL(){
                 }
             },
             initChosen: function () {
-                $("select[data-has-chosen],.prow select, .panel-body > select, .fanc-row > select").chosen(rta.config.chosen);
+                $("select[data-has-chosen],.prow select, .panel-body > select, .fanc-row > select, .fanc-content-body select").not('[data-chosen-opt]').chosen(rta.config.chosen);
+
+                $('select[data-chosen-opt]').each(function () {
+
+                    var _options = opt2JSON($(this).attr('data-chosen-opt'));
+
+                    $(this).chosen($.extend({},rta.config.chosen,_options));
+
+                    if(_options.hasOwnProperty("width"))
+                        $(this).next().css({minWidth: _options.width});
+
+                    if($(this).parent().get(0).tagName == 'TD'){
+                        $(this).parent().css({overflow: 'visible'});
+                    }
+                });
+
+                $('td > select').not('[data-chosen-opt]').each(function () {
+                    $(this).parent().css({overflow: 'visible'});
+                    $(this).chosen(rta.config.chosen);
+                });
             }
         }
     })();
@@ -1224,7 +1253,7 @@ function isWPL(){
             _rightH = rta.config.templates.rightHolder,
             _idAttr = rta.config.templates.idAttr;
 
-        return{
+        return {
             bind: function (object, templateName) {
                 if (!object)
                     return false;
@@ -1255,7 +1284,7 @@ function isWPL(){
 
             },
             initPage: function () {
-                $.get(_rta_urlJs +  rta.config.templates.fileName).done(function (data) {
+                $.get(_rta_urlJs + rta.config.templates.fileName).done(function (data) {
                     $(data).filter(_tag).each(function () {
                         var __id = $(this).attr(_idAttr);
 
@@ -1313,11 +1342,11 @@ function isWPL(){
             default_width: rta.config.liBo.default_width,
             default_height: rta.config.liBo.default_height,
             social_tools: '',
-            markup: rta.config.liBo.tmpl.wrap.replaceAll('${sample}',rta.config.liBo.tmpl.sample),
+            markup: rta.config.liBo.tmpl.wrap.replaceAll('${sample}', rta.config.liBo.tmpl.sample),
             inline_markup: rta.config.liBo.tmpl.inline,
             inline_sample_markup: rta.config.liBo.tmpl.inlineSample,
             keyboard_shortcuts: false,
-            ajaxcallback: function(){
+            ajaxcallback: function () {
                 var __callerID = $('.fancybox-inner').attr('id'),
                     __specConfig = (rta.config.fancySpecificOptions.hasOwnProperty(__callerID)) ? rta.config.fancySpecificOptions[__callerID] : null;
 
@@ -1369,12 +1398,12 @@ function isWPL(){
         rta.template.init();
 
 
-        $('.rt-same-height .panel-wp').equalHeight(function(){
-            $('.rt-same-height .js-full-height').each(function(){
+        $('.rt-same-height .panel-wp').equalHeight(function () {
+            $('.rt-same-height .js-full-height').each(function () {
                 var __height = $(this).find('.panel-wp').height();
-                if($(this).attr('data-minuse-size'))
+                if ($(this).attr('data-minuse-size'))
                     __height -= parseInt($(this).attr('data-minuse-size'));
-                $(this).find('.panel-body').css('max-height',__height);
+                $(this).find('.panel-body').css('max-height', __height);
             });
         });
 
@@ -1412,8 +1441,65 @@ function isWPL(){
         rta.init();
     });
 
-    $(window).ready(function(){
 
+    ///// New Codes
+
+    var realtyna = {};
+
+    realtyna.options = {};
+    // Tab System
+
+    realtyna.options.tabs = {
+        // Class selectors
+        tabSystemClass: '.wpl-js-tab-system',
+        tabsClass: '.wpl-gen-tab-wp',
+        tabContentsClass: '.wpl-gen-tab-contents-wp',
+        tabContentClass: '.wpl-payment-content',
+
+        tabActiveClass: 'wpl-gen-tab-active', // Class Name
+
+        activeChildIndex: 0 // Active tab index
+    };
+
+    realtyna.tabs = function () {
+        var _tabOptions = realtyna.options.tabs;
+
+        var _tabs = $(_tabOptions.tabSystemClass).find(_tabOptions.tabsClass),
+            _tabContents = $(_tabOptions.tabSystemClass).find(_tabOptions.tabContentsClass);
+
+        // Tab click trigger
+        _tabs.find('a').on('click', function (e) {
+            e.preventDefault();
+
+            if ($(this).hasClass(_tabOptions.tabActiveClass))
+                return false;
+
+            // Hide previous tab and content
+            _tabs.find('a').removeClass(_tabOptions.tabActiveClass);
+            _tabContents.find('> div').hide();
+
+            // Show corrent tab
+            $(this).addClass(_tabOptions.tabActiveClass);
+            _tabContents.find($(this).attr('href')).fadeIn();
+
+        });
+
+        // Show first
+        _tabs.find('a').eq(_tabOptions.activeChildIndex).trigger('click');
+    };
+
+    // On document loaded
+    $(function () {
+        realtyna.tabs();
+
+        // On fancybox opened
+        $.prettyPhoto.addOpenedCallback(realtyna.tabs);
+        $.prettyPhoto.addOpenedCallback(rta.internal.initChosen);
+    });
+
+    $(document).ajaxComplete(function () {
+        realtyna.tabs();
+        rta.internal.initChosen();
     });
 
 })(window, document, jQuery);
@@ -1439,13 +1525,13 @@ wplj(document).ready(function () {
     };
     wplj('.wpl_help').wpl_help();
 
-    wplj(".wpl_prp_cont .wpl_prp_top_boxes.front .wpl_gallery_container img").promise().done(function() {
-        var font_size    = wplj(this).height() / 220;
+    wplj(".wpl_prp_cont .wpl_prp_top_boxes.front .wpl_gallery_container img").promise().done(function () {
+        var font_size = wplj(this).height() / 220;
         var no_image_box = wplj(".wpl_prp_cont .wpl_prp_top .wpl_prp_top_boxes .wpl_gallery_container .no_image_box");
         wplj(this).parents(".wpl_prp_top").width(wplj(this).width()).height(wplj(this).height());
-        wplj(this).parents(".wpl_prp_cont").children(".wpl_prp_top_boxes.back").find("a.view_detail").css("line-height", wplj(this).height()+"px");
+        wplj(this).parents(".wpl_prp_cont").children(".wpl_prp_top_boxes.back").find("a.view_detail").css("line-height", wplj(this).height() + "px");
         no_image_box.height(wplj(this).height());
-        if(font_size != 1) no_image_box.css("font-size", font_size+"em");
+        if (font_size != 1) no_image_box.css("font-size", font_size + "em");
     });
 });
 /** after show default function (don't remove it) **/
@@ -1525,8 +1611,8 @@ function wpl_update_qs(key, value, url) {
     else {
         if (value) {
             var separator = url.indexOf('?') !== -1 ? '&' : '?';
-            if(url.indexOf('?') === -1 && url.indexOf('&') !== -1) separator = '&';
-            
+            if (url.indexOf('?') === -1 && url.indexOf('&') !== -1) separator = '&';
+
             var hash = url.split('#');
             url = hash[0] + separator + key + '=' + value;
             if (hash[1])
@@ -1579,11 +1665,10 @@ function wpl_ucfirst(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-function wpl_change_field_language(field_id, lang)
-{
-    wplj("#wpl_langs_tabs"+field_id+" li").removeClass('wpl-active-lang');
-    wplj("#wpl_langs_tabs"+field_id+" li#wpl_langs_tab_"+field_id+"_"+lang).addClass('wpl-active-lang');
-    
-    wplj("#wpl_langs_cnts"+field_id+" div.wpl-lang-cnt").css('display', 'none');
-    wplj("#wpl_langs_cnts"+field_id+" div#wpl_langs_cnt_"+field_id+"_"+lang).css('display', '');
+function wpl_change_field_language(field_id, lang) {
+    wplj("#wpl_langs_tabs" + field_id + " li").removeClass('wpl-active-lang');
+    wplj("#wpl_langs_tabs" + field_id + " li#wpl_langs_tab_" + field_id + "_" + lang).addClass('wpl-active-lang');
+
+    wplj("#wpl_langs_cnts" + field_id + " div.wpl-lang-cnt").css('display', 'none');
+    wplj("#wpl_langs_cnts" + field_id + " div#wpl_langs_cnt_" + field_id + "_" + lang).css('display', '');
 }

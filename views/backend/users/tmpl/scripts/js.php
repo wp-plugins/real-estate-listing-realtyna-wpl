@@ -244,7 +244,7 @@ function wpl_check_all()
 {
 	wplj("#wpl_edit_user input:checkbox").each( function(ind,elm)
 	{
-		elm.checked=true;
+		elm.checked = true;
 	});
 }
 
@@ -252,7 +252,8 @@ function wpl_check_toggle()
 {
 	wplj("#wpl_edit_user input:checkbox").each( function(ind,elm)
 	{
-		if (elm.checked) elm.checked=false; else elm.checked=true;
+		if(elm.checked) elm.checked = false;
+        else elm.checked = true;
 	});
 }
 
@@ -260,7 +261,7 @@ function wpl_check_none()
 {
 	wplj("#wpl_edit_user input:checkbox").each( function(ind,elm)
 	{
-		elm.checked=false;
+		elm.checked = false;
 	});
 }
 	
@@ -320,5 +321,10 @@ function wpl_reset_users_form()
     wplj('#show_all').val('');
     wplj('#membership_id').val('');
     wplj('#wpl_users_search_form').submit();
+}
+
+function wpl_membership_toggle(selector)
+{
+    wplj(selector).toggle();
 }
 </script>

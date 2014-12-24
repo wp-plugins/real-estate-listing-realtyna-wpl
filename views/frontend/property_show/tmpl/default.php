@@ -154,11 +154,11 @@ if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->w
                         <div class="wpl_prp_right_boxe_details_top clearfix">
                             <div class="wpl_prp_right_boxe_details_left">
                                 <ul>
-                                    <?php if(trim($listing_id) != ''): ?><li><?php echo __('Listing ID', WPL_TEXTDOMAIN).' : <span itemprop="productID">'.$listing_id.'</span>'; ?></li><?php endif; ?>
-                                    <?php if(trim($bedroom) != ''): ?><li><?php echo __('Bedroom', WPL_TEXTDOMAIN).' : <span>'.$bedroom.'</span>'; ?></li><?php endif; ?>
-                                    <?php if(trim($bathroom) != ''): ?><li><?php echo __('Bathroom', WPL_TEXTDOMAIN).' : <span>'.$bathroom.'</span>'; ?></li><?php endif; ?>
-                                    <?php if(trim($build_up_area) != ''): ?><li><?php echo __('Built Up Area', WPL_TEXTDOMAIN).' : <span>'.$build_up_area.'</span>'; ?></li><?php endif; ?>
-                                    <?php if($price_type): ?><li><?php echo __('Price Type', WPL_TEXTDOMAIN).' : <span>'.$price_type.'</span>'; ?></li><?php endif; ?>
+                                    <?php if(trim($listing_id) != ''): ?><li><?php echo __($this->wpl_properties['current']['materials']['mls_id']['name'], WPL_TEXTDOMAIN).' : <span itemprop="productID">'.$listing_id.'</span>'; ?></li><?php endif; ?>
+                                    <?php if(trim($bedroom) != ''): ?><li><?php echo __($this->wpl_properties['current']['materials']['bedrooms']['name'], WPL_TEXTDOMAIN).' : <span>'.$bedroom.'</span>'; ?></li><?php endif; ?>
+                                    <?php if(trim($bathroom) != ''): ?><li><?php echo __($this->wpl_properties['current']['materials']['bathrooms']['name'], WPL_TEXTDOMAIN).' : <span>'.$bathroom.'</span>'; ?></li><?php endif; ?>
+                                    <?php if(trim($build_up_area) != ''): ?><li><?php echo __($this->wpl_properties['current']['materials']['living_area']['name'], WPL_TEXTDOMAIN).' : <span>'.$build_up_area.'</span>'; ?></li><?php endif; ?>
+                                    <?php if($price_type): ?><li><?php echo __($this->wpl_properties['current']['materials']['price_period']['name'], WPL_TEXTDOMAIN).' : <span>'.$price_type.'</span>'; ?></li><?php endif; ?>
                                 </ul>
                             </div>
                             <div class="wpl_prp_right_boxe_details_right">
@@ -176,35 +176,34 @@ if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->w
                         foreach($activities as $activity)
                         {
                             $content = wpl_activity::render_activity($activity, array('wpl_properties'=>$this->wpl_properties));
-                            if(trim($content) != '')
-                            {
-                                $activity_title =  explode(':', $activity->activity);
-                            ?> 
-                                <div class="wpl_prp_right_boxes <?php echo $activity_title[0]; ?>">
-                                    <?php
-                                    if($activity->show_title and trim($activity->title) != '')
-                                    {
-                                        $activity_box_title = NULL;
-                                        $title_parts        = explode(' ',$activity->title);
-                                        $i_part             = 0;
-                                        
-                                        foreach($title_parts as $title_part)
-                                        {
-                                            if($i_part == 0) $activity_box_title .= '<span>'.$title_part.'</span> ';
-                                            else $activity_box_title .= $title_part.' ';
-                                            
-                                            $i_part++;
-                                        }
+                            if(trim($content) == '') continue;
+                            
+                            $activity_title =  explode(':', $activity->activity);
+                            ?>
+                            <div class="wpl_prp_right_boxes <?php echo $activity_title[0]; ?>">
+                                <?php
+                                if($activity->show_title and trim($activity->title) != '')
+                                {
+                                    $activity_box_title = NULL;
+                                    $title_parts        = explode(' ',$activity->title);
+                                    $i_part             = 0;
 
-                                        echo '<div class="wpl_prp_right_boxes_title">'.__($activity_box_title, WPL_TEXTDOMAIN).'</div>';
+                                    foreach($title_parts as $title_part)
+                                    {
+                                        if($i_part == 0) $activity_box_title .= '<span>'.$title_part.'</span> ';
+                                        else $activity_box_title .= $title_part.' ';
+
+                                        $i_part++;
                                     }
-                                    ?>
-                                    <div class="wpl_prp_right_boxes_content clearfix">
-                                        <?php echo $content; ?>
-                                    </div>
+
+                                    echo '<div class="wpl_prp_right_boxes_title">'.__($activity_box_title, WPL_TEXTDOMAIN).'</div>';
+                                }
+                                ?>
+                                <div class="wpl_prp_right_boxes_content clearfix">
+                                    <?php echo $content; ?>
                                 </div>
+                            </div>
                             <?php
-                            }
                         }
                     ?>
                 </div>

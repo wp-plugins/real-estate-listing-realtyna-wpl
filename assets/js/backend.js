@@ -1,7 +1,7 @@
 /**
  * @preserve RTA Framework v.0.1.0
- * @Copyright Realtyna Inc. Co 2013
- * @Author Steve.M
+ * @Copyright Realtyna Inc. Co 2015
+ * @Author Steve M. | UI Department
  */
 
 // Declare custom jQuery handler
@@ -74,27 +74,6 @@ Date.prototype.timeNow = function () {
     return ((this.getHours() < 10) ? "0" : "") + this.getHours() + ":" + ((this.getMinutes() < 10) ? "0" : "") + this.getMinutes() + ":" + ((this.getSeconds() < 10) ? "0" : "") + this.getSeconds();
 };
 
-/**
- * Steve.M
- * Add some function to Array
- * @returns {Array.prototype.unique.a|Array.prototype.unique@call;concat}
- */
-
-// Add unique method to concat array
-/*
- Array.prototype.unique = function () {
- var a = this.concat();
- for (var i = 0; i < a.length; ++i) {
- for (var j = i + 1; j < a.length; ++j) {
- if (a[i] === a[j])
- a.splice(j--, 1);
- }
- }
-
- return a;
- };
- */
-
 function isWPL() {
     _j('html').attr('data-wpl-plugin', '');
 }
@@ -103,6 +82,18 @@ function isWPL() {
  * RTA Framework
  */
 (function (window, document, $, undefined) {
+
+    window.opt2JSON = function (str) {
+        var strArray = str.split('|');
+        var myObject = {};
+
+        for(var i= 0; i < strArray.length; ++i){
+            var _sp = strArray[i].split(':');
+            myObject[_sp[0]] = $.isNumeric(_sp[1])? parseInt(_sp[1]): _sp[1];
+        }
+
+        return myObject;
+    }
 
     /* Unconditions functions - Start */
     function wpl_fancybox_afterShow_callback() {
@@ -265,7 +256,6 @@ function isWPL() {
 
         if (removeHeightAttr)
             $(this).css('height', '');
-
 
         $(this).each(function () {
 
@@ -1149,7 +1139,26 @@ function isWPL() {
                 }
             },
             initChosen: function () {
-                $("select[data-has-chosen],.prow select, .panel-body > select, .fanc-row > select").chosen(rta.config.chosen);
+                $("select[data-has-chosen],.prow select, .panel-body > select, .fanc-row > select, .fanc-content-body select").not('[data-chosen-opt]').chosen(rta.config.chosen);
+
+                $('select[data-chosen-opt]').each(function () {
+
+                    var _options = opt2JSON($(this).attr('data-chosen-opt'));
+
+                    $(this).chosen($.extend({},rta.config.chosen,_options));
+
+                    if(_options.hasOwnProperty("width"))
+                        $(this).next().css({minWidth: _options.width});
+
+                    if($(this).parent().get(0).tagName == 'TD'){
+                        $(this).parent().css({overflow: 'visible'});
+                    }
+                });
+
+                $('td > select').not('[data-chosen-opt]').each(function () {
+                    $(this).parent().css({overflow: 'visible'});
+                    $(this).chosen(rta.config.chosen);
+                });
             }
         }
     })();
@@ -1424,8 +1433,65 @@ function isWPL() {
         rta.init();
     });
 
-    $(window).ready(function () {
 
+    ///// New Codes ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    var realtyna = {};
+
+    realtyna.options = {};
+    // Tab System
+
+    realtyna.options.tabs = {
+        // Class selectors
+        tabSystemClass: '.wpl-js-tab-system',
+        tabsClass: '.wpl-gen-tab-wp',
+        tabContentsClass: '.wpl-gen-tab-contents-wp',
+        tabContentClass: '.wpl-payment-content',
+
+        tabActiveClass: 'wpl-gen-tab-active', // Class Name
+
+        activeChildIndex: 0 // Active tab index
+    };
+
+    realtyna.tabs = function () {
+        var _tabOptions = realtyna.options.tabs;
+
+        var _tabs = $(_tabOptions.tabSystemClass).find(_tabOptions.tabsClass),
+            _tabContents = $(_tabOptions.tabSystemClass).find(_tabOptions.tabContentsClass);
+
+        // Tab click trigger
+        _tabs.find('a').on('click', function (e) {
+            e.preventDefault();
+
+            if ($(this).hasClass(_tabOptions.tabActiveClass))
+                return false;
+
+            // Hide previous tab and content
+            _tabs.find('a').removeClass(_tabOptions.tabActiveClass);
+            _tabContents.find('> div').hide();
+
+            // Show corrent tab
+            $(this).addClass(_tabOptions.tabActiveClass);
+            _tabContents.find($(this).attr('href')).fadeIn();
+
+        });
+
+        // Show first
+        _tabs.find('a').eq(_tabOptions.activeChildIndex).trigger('click');
+    };
+
+    // On document loaded
+    $(function () {
+        realtyna.tabs();
+
+        // On fancybox opened
+        $.prettyPhoto.addOpenedCallback(realtyna.tabs);
+        $.prettyPhoto.addOpenedCallback(rta.internal.initChosen);
+    });
+
+    $(document).ajaxComplete(function () {
+        realtyna.tabs();
+        rta.internal.initChosen();
     });
 
 
@@ -1517,10 +1583,10 @@ _j(function () {
         var _openCount = _j('.wpl-multiling-textarea').find('.wpl-multilang-field-cnt').length;
 
         _j('.wpl-multiling-textarea').each(function () {
-            var _slef =  _j(this);
+            var _slef = _j(this);
 
             _j(this).find('.wpl-multiling-flag').removeClass('wpl-multiling-active');
-            _j(this).find('.wpl-lang-cnt').hide(function(){
+            _j(this).find('.wpl-lang-cnt').hide(function () {
                 _slef.find('.wpl-multiling-flags-wp').removeClass('wpl-multiling-opened')
             });
 
@@ -1595,15 +1661,15 @@ _j(function () {
         }
 
     });
-    
+
     _j('.wpl-multiling-save-pro').on('click', function (ev) {
         var _self = _j(this),
             _parent = _self.parents('.wpl-multiling-field'),
             _selfID = _self.parent().attr('id');
 
-        if(tinymce.activeEditor.getContent() == ''){
+        if (tinymce.activeEditor.getContent() == '') {
             _parent.find('.wpl-multiling-flag').filter('[data-wpl-field=' + _selfID + ']').addClass('wpl-multiling-empty');
-        }else{
+        } else {
             _parent.find('.wpl-multiling-flag').filter('[data-wpl-field=' + _selfID + ']').removeClass('wpl-multiling-empty');
         }
 
@@ -1723,20 +1789,42 @@ function wpl_ajax_save(table, key, element, id, url) {
     return ajax;
 }
 
-function wpl_show_messages(message, html_element, msg_class) {
-    if (!msg_class)
-        msg_class = 'wpl_gold_msg';
-    if (!html_element)
-        html_element = '.wpl_show_message';
+function wpl_show_messages(message, html_element, msg_class,hide, focus, hideTimeout) {
+
+    msg_class = msg_class || 'wpl_gold_msg';
+    html_element = html_element || '.wpl_show_message';
+    hideTimeout = hideTimeout || 5000;
+
     if (!message)
         return;
-    wpl_show_messages_html_element = html_element;
+
+    // Add & show message
     wplj(html_element).html(message);
-    wplj(html_element).show();
+    wplj(html_element).fadeIn();
+
     wplj(html_element).addClass(msg_class);
+
+    // Change current class if different with the old one
     if (wpl_show_messages_cur_class && wpl_show_messages_cur_class != msg_class)
         wplj(html_element).removeClass(wpl_show_messages_cur_class);
+
     wpl_show_messages_cur_class = msg_class;
+
+    // Auto hide message after a while
+    if(typeof hide != "undefined" && hide == true){
+        setTimeout(function () {
+            wplj(html_element).fadeOut();
+        }, hideTimeout);
+    }
+
+    // Focus to message
+    if(typeof focus != "undefined" && focus == true){
+        wplj('html, body').animate({
+            scrollTop: wplj(html_element).offset().top - wplj(html_element).outerWidth()
+        }, 2000);
+    }
+
+
 }
 
 function wpl_remove_message(html_element) {
