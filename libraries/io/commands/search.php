@@ -140,6 +140,10 @@ class wpl_io_cmd_search extends wpl_io_global
 		$default_where = array('sf_select_confirmed'=>1, 'sf_select_finalized'=>1, 'sf_select_deleted'=>0, 'sf_select_expired'=>0, 'sf_select_kind'=>$this->kind);
 		$this->where = array_merge($default_where, $this->where);
 		
+		/** Add search conditions to the where **/
+        $vars = array_merge(wpl_request::get('POST'), wpl_request::get('GET'));
+		$this->where = array_merge($vars, $this->where);
+		
 		/** start search **/
 		$this->model->start($this->start, $this->limit, $this->orderby, $this->order, $this->where);
 		$this->model->total = $this->model->get_properties_count();

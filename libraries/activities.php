@@ -10,19 +10,48 @@ defined('_WPLEXEC') or die('Restricted access');
  */
 class wpl_activity
 {
-    const ACTIVITY_FRONTEND = 0;
-    const ACTIVITY_BACKEND = 1;
-
-    public static $_wpl_activity;
-    public static $_wpl_activity_layout;
-    public static $_wpl_activity_file;
-    public static $_wpl_activity_name;
-
     /**
-      @input {activity object}, [activity_id] and [params]
-      @return activity output
-      Developed by : Howard
-    **/
+     * Frontend Key
+     */
+    const ACTIVITY_FRONTEND = 0;
+    
+    /**
+     * Backend Key
+     */
+    const ACTIVITY_BACKEND = 1;
+    
+    /**
+     *
+     * @var string
+     */
+    public static $_wpl_activity;
+    
+    /**
+     *
+     * @var string
+     */
+    public static $_wpl_activity_layout;
+    
+    /**
+     *
+     * @var string
+     */
+    public static $_wpl_activity_file;
+    
+    /**
+     *
+     * @var string
+     */
+    public static $_wpl_activity_name;
+    
+    /**
+     * Renders an activity and returns its output
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param object $activity
+     * @param array $params
+     * @return string
+     */
     public static function render_activity($activity, $params = array())
     {
         $activity_params = array();
@@ -36,12 +65,14 @@ class wpl_activity
         $wpl_activity->import($activity->activity, $activity->id, $params);
         return $output = ob_get_clean();
     }
-
+    
     /**
-      @input {activity_name}, [activity_id] and [params]
-      @return void
-      Developed by : Howard
-    **/
+     * Loads a specific position
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $position
+     * @param array $params
+     */
     public static function load_position($position, $params = array())
     {
         $wpl_activity = new wpl_activity();
@@ -57,12 +88,16 @@ class wpl_activity
             $wpl_activity->import($activity->activity, $activity->id, $params);
         }
     }
-
+    
     /**
-      @input {activity_name}, [activity_id] and [params]
-      @return activity output
-      Developed by : Howard
-    **/
+     * Imports an activity
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $activity
+     * @param int $activity_id
+     * @param array $params
+     * @return mixed
+     */
     public static function import($activity, $activity_id = 0, $params = false)
     {
         self::$_wpl_activity = $activity;
@@ -95,7 +130,15 @@ class wpl_activity
         $activity_object->activity_id = $activity_id;
         $activity_object->start($layout, $params);
     }
-
+    
+    /**
+     * Returns params of activity
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $activity_id
+     * @param boolean $params
+     * @return array
+     */
     public static function get_params($activity_id, $params = false)
     {
         if(!$params)
@@ -111,21 +154,37 @@ class wpl_activity
         else
             return $params;
     }
-
+    
+    /**
+     * Get directory of activities
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @return string
+     */
     private static function get_activity_client()
     {
         return 'activities';
     }
-
+    
+    /**
+     * Returns some activity with specified criteria
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $position
+     * @param int $enabled
+     * @param string $condition
+     * @param string $result
+     * @return objects
+     */
     public static function get_activities($position, $enabled = 1, $condition = '', $result = 'loadObjectList')
     {
         if(trim($condition) == '')
         {
-            $condition = '';
-            if(trim($position) != '')
-                $condition .= " AND `position`='$position'";
-            if(trim($enabled) != '')
-                $condition .= " AND `enabled`>='$enabled'";
+            $client = wpl_global::get_client();
+            $condition = " AND `client` IN ($client, 2)";
+            
+            if(trim($position) != '') $condition .= " AND `position`='$position'";
+            if(trim($enabled) != '') $condition .= " AND `enabled`>='$enabled'";
             
             /** page associations **/
             if(is_page())
@@ -140,8 +199,16 @@ class wpl_activity
         $query = "SELECT * FROM `#__wpl_activities` WHERE 1 " . $condition;
         return wpl_db::select($query, $result);
     }
-
-    /** for importing internal files in object mode * */
+    
+    /**
+     * for importing internal files in object mode
+     * @author Howard <howard@realtyna.com>
+     * @param string $include
+     * @param boolean $override
+     * @param boolean $set_footer
+     * @param boolean $once
+     * @return void
+     */
     protected function _wpl_import($include, $override = true, $set_footer = false, $once = false)
     {
         $path = _wpl_import($include, $override, true);
@@ -358,7 +425,7 @@ class wpl_activity
         $query .= "`activity` = '{$information['activity']}',`position` = '{$information['position']}',`enabled` = {$information['enabled']},";
         $query .= "`params` = '{$information['params']}',`show_title` = {$information['show_title']},";
         $query .= "`title` = '{$information['title']}', `index` = ".(float)$information['index'].",";
-        $query .= "`association_type` = '{$information['association_type']}', `associations` = '{$information['associations']}'";
+        $query .= "`association_type` = '{$information['association_type']}', `associations` = '{$information['associations']}', `client` = '{$information['client']}'";
         $query .= " WHERE `id` = '".$information['activity_id']."'";
         
         /** trigger event **/
@@ -401,11 +468,10 @@ class wpl_activity
 		
         foreach($layouts as $layout)
         {
-            if (strpos($layout, '.html') == 0)
-            {
-                $file = basename($layout, ".php");
-                $activity_layouts[] = $file;
-            }
+            if(strpos($layout, '.html') !== false or strpos($layout, 'internal_') !== false) continue;
+            
+            $file = basename($layout, ".php");
+            $activity_layouts[] = $file;
         }
 		
         return $activity_layouts;

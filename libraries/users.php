@@ -58,7 +58,7 @@ class wpl_users
 		$user_data = wpl_users::get_user($user_id);
 		$default_data = wpl_users::get_wpl_data($group_id);
 		
-		$forbidden_fields = array('id', 'first_name', 'last_name', 'main_email');
+		$forbidden_fields = array('id', 'first_name', 'last_name', 'main_email', 'blog_id');
 		$auto_query1 = '';
 		$auto_query2 = '';
 		
@@ -414,7 +414,7 @@ class wpl_users
     public static function create_default_user_type()
     {
         $id = self::get_new_user_type_id();
-        wpl_db::q("INSERT INTO `#__wpl_user_group_types` (`id`,`editable`,`deletable`,`index`,`enabled`) VALUES ('$id','1','1','$id','1')", 'INSERT');
+        wpl_db::q("INSERT INTO `#__wpl_user_group_types` (`id`,`editable`,`deletable`,`index`,`enabled`) VALUES ('$id','2','1','$id','1')", 'INSERT');
         
         return $id;
     }
@@ -713,10 +713,7 @@ class wpl_users
 		
 		/** generate where condition **/
 		$where = (array) $where;
-		$vars = array_merge(wpl_request::get('POST'), wpl_request::get('GET'));
-		$vars = array_merge($vars, $where);
-		
-		$this->where = wpl_db::create_query($vars);
+		$this->where = wpl_db::create_query($where);
 		
 		/** generate select **/
 		$this->select = '*';
@@ -906,6 +903,10 @@ class wpl_users
 	public static function update_location_text_search_field($user_id)
 	{
         $user_data = (array) wpl_users::get_wpl_user($user_id);
+        
+        /** User Data is invalid **/
+        if(!isset($user_data['location1_name'])) return false;
+        
 		$location_text = $user_data['location7_name'].', '.$user_data['location6_name'].', '.$user_data['location5_name'].', '.
 						 $user_data['location4_name'].', '.$user_data['location3_name'].', '.$user_data['location2_name'].', '.$user_data['location1_name'];
 		
@@ -986,8 +987,8 @@ class wpl_users
         if(wpl_file::exists($path.'main_email.png')) wpl_file::delete($path.'main_email.png');
         if(wpl_file::exists($path.'second_email.png')) wpl_file::delete($path.'second_email.png');
         
-		if(trim($user_data['data']->wpl_data->main_email) != '') wpl_images::text_to_image($user_data['data']->wpl_data->main_email, '000000', $path.'main_email.png');
-		if(trim($user_data['data']->wpl_data->secondary_email) != '') wpl_images::text_to_image($user_data['data']->wpl_data->secondary_email, '000000', $path.'second_email.png');
+		if(is_object($user_data['data']) and trim($user_data['data']->wpl_data->main_email) != '') wpl_images::text_to_image($user_data['data']->wpl_data->main_email, '000000', $path.'main_email.png');
+		if(is_object($user_data['data']) and trim($user_data['data']->wpl_data->secondary_email) != '') wpl_images::text_to_image($user_data['data']->wpl_data->secondary_email, '000000', $path.'second_email.png');
     }
 	
 	/**
@@ -1029,7 +1030,8 @@ class wpl_users
 		if($user_id) $user_data = (array) wpl_users::get_wpl_user($user_id);
 		
 		$locations = array();
-        
+        if(isset($user_data['location7_name']) and trim($user_data['location7_name']) != '') $locations['location7_name'] = $user_data['location7_name'];
+        if(isset($user_data['location6_name']) and trim($user_data['location6_name']) != '') $locations['location6_name'] = $user_data['location6_name'];
 		if(isset($user_data['location5_name']) and trim($user_data['location5_name']) != '') $locations['location5_name'] = $user_data['location5_name'];
         if(isset($user_data['location4_name']) and trim($user_data['location4_name']) != '') $locations['location4_name'] = $user_data['location4_name'];
         if(isset($user_data['location3_name']) and trim($user_data['location3_name']) != '') $locations['location3_name'] = $user_data['location3_name'];
@@ -1041,6 +1043,8 @@ class wpl_users
         if(trim($location_pattern) == '') $location_pattern = '[location5_name][glue][location4_name][glue][location3_name][glue][location2_name][glue][location1_name] [zip_name]';
         
 		$location_text = '';
+        $location_text = isset($locations['location7_name']) ? str_replace('[location7_name]', $locations['location7_name'], $location_pattern) : str_replace('[location7_name]', '', $location_pattern);
+        $location_text = isset($locations['location6_name']) ? str_replace('[location6_name]', $locations['location6_name'], $location_pattern) : str_replace('[location6_name]', '', $location_pattern);
         $location_text = isset($locations['location5_name']) ? str_replace('[location5_name]', $locations['location5_name'], $location_pattern) : str_replace('[location5_name]', '', $location_pattern);
         $location_text = isset($locations['location4_name']) ? str_replace('[location4_name]', $locations['location4_name'], $location_text) : str_replace('[location4_name]', '', $location_text);
         $location_text = isset($locations['location3_name']) ? str_replace('[location3_name]', $locations['location3_name'], $location_text) : str_replace('[location3_name]', '', $location_text);
@@ -1228,14 +1232,14 @@ class wpl_users
 			return new WP_Error('broke', __('ERROR: Required fileds are invalid!', WPL_TEXTDOMAIN));
 		}
 	}
-	
-	/**
-		Developed by : Chris
-		Inputs : {field}{data}
-		Outputs : WP_User object or false if no user is found. Will also return false if $field does not exist. 
-		Date : 2014-06-29
-		Description : Get user data by field and data. The possible fields are shown below with the corresponding columns in the wp_users database table. 
-	**/
+    
+    /**
+     * Get user data by field and data. The possible fields are shown below with the corresponding columns in the wp_users database table. 
+     * @author Chris <chris@realtyna.com>
+     * @param string $field
+     * @param string $data
+     * @return mixed WP_User object or false if no user is found. Will also return false if $field does not exist.
+     */
 	public static function get_user_by($field, $data)
 	{
 		$acceptable_fileds = array('id', 'slug', 'email', 'login');
@@ -1363,5 +1367,30 @@ class wpl_users
     public static function wp_insert_user($userdata = array())
     {
         return wp_insert_user($userdata);
+    }
+    
+    /**
+     * Wrapper function for WordPress wp_set_password function
+     * @author Howard R <Howard@realtyna.com>
+     * @static
+     * @param string $password
+     * @param int $user_id
+     */
+    public static function wp_set_password($password, $user_id)
+    {
+        wp_set_password($password, $user_id);
+    }
+    
+    /**
+     * Check user/blog access to WPL menus
+     * @author Howard R <Howard@realtyna.com>
+     * @static
+     * @param string $menu_slug
+     * @param int $user_id
+     * @return boolean
+     */
+    public static function has_menu_access($menu_slug, $user_id = NULL)
+    {
+        return true;
     }
 }

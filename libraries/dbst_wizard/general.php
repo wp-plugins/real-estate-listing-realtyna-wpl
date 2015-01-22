@@ -7,7 +7,7 @@ if($type == 'boolean' and !$done_this)
     $true_label = isset($options['true_label']) ? $options['true_label'] : 'Yes';
     $false_label = isset($options['false_label']) ? $options['false_label'] : 'No';
 ?>
-<label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($field->name, WPL_TEXTDOMAIN); ?><?php if(in_array($field->mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>
+<label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($label, WPL_TEXTDOMAIN); ?><?php if(in_array($mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>
 <select class="wpl_c_<?php echo $field->table_column; ?>" id="wpl_c_<?php echo $field->id; ?>" onchange="ajax_save('<?php echo $field->table_name; ?>', '<?php echo $field->table_column; ?>', this.value, '<?php echo $item_id; ?>', '<?php echo $field->id; ?>');">
     <option value="1" <?php if(1 == $value) echo 'selected="selected"'; ?>><?php echo __($true_label, WPL_TEXTDOMAIN); ?></option>
     <option value="0" <?php if(0 == $value) echo 'selected="selected"'; ?>><?php echo __($false_label, WPL_TEXTDOMAIN); ?></option>
@@ -35,7 +35,7 @@ elseif($type == 'date' and !$done_this)
     $maxdate[2] = intval($maxdate[2]);
 ?>
 <div class="date-wp">
-    <label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($field->name, WPL_TEXTDOMAIN); ?><?php if (in_array($field->mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>
+    <label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($label, WPL_TEXTDOMAIN); ?><?php if (in_array($mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>
     <input type="text" id="wpl_c_<?php echo $field->id; ?>" value="<?php echo wpl_render::render_date($value); ?>" onchange="ajax_save('<?php echo $field->table_name; ?>', '<?php echo $field->table_column; ?>', this.value, '<?php echo $item_id; ?>', '<?php echo $field->id; ?>');" <?php echo ((isset($options['readonly']) and $options['readonly'] == 1) ? 'disabled="disabled"' : ''); ?> />
     <span id="wpl_listing_saved_span_<?php echo $field->id; ?>" class="ajax-inline-save"></span>
 </div>
@@ -74,7 +74,7 @@ elseif($type == 'checkbox' and !$done_this)
 ?>
 <div class="checkbox-wp">
     <input type="checkbox" class="wpl_c_<?php echo $field->table_column; ?>" id="wpl_c_<?php echo $field->id; ?>" value="1" <?php if($value) echo 'checked="checked"'; ?> onchange="if(this.checked) value = 1; else value = 0; ajax_save('<?php echo $field->table_name; ?>', '<?php echo $field->table_column; ?>', value, '<?php echo $item_id; ?>', '<?php echo $field->id; ?>');" <?php echo ($options['readonly'] == 1 ? 'disabled="disabled"' : ''); ?> />
-	<label class="checkbox-label" for="wpl_c_<?php echo $field->id; ?>"><?php echo __($field->name, WPL_TEXTDOMAIN); ?><?php if(in_array($field->mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>
+	<label class="checkbox-label" for="wpl_c_<?php echo $field->id; ?>"><?php echo __($label, WPL_TEXTDOMAIN); ?><?php if(in_array($mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>
 	<span id="wpl_listing_saved_span_<?php echo $field->id; ?>" class="ajax-inline-save"></span>
 </div>
 <?php
@@ -87,7 +87,7 @@ elseif($type == 'feature' and !$done_this)
 ?>
 <div class="checkbox-wp">
 	<input type="checkbox" id="wpl_c_<?php echo $field->id; ?>" <?php echo $checked; ?> onchange="wplj('#wpl_span_feature_<?php echo $field->id; ?>').slideToggle(400); ajax_save('<?php echo $field->table_name; ?>', '<?php echo $field->table_column; ?>', this.value, '<?php echo $item_id; ?>', '<?php echo $field->id; ?>');" />
-	<label class="checkbox-label" for="wpl_c_<?php echo $field->id; ?>"><?php echo __($field->name, WPL_TEXTDOMAIN); ?><?php if (in_array($field->mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>    
+	<label class="checkbox-label" for="wpl_c_<?php echo $field->id; ?>"><?php echo __($label, WPL_TEXTDOMAIN); ?><?php if (in_array($mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>    
 <?php
 	if($options['type'] != 'none')
 	{
@@ -139,7 +139,7 @@ elseif($type == 'listings' and !$done_this)
 	$lrestrict = $current_user->maccess_lrestrict;
 	$rlistings = explode(',', $current_user->maccess_listings);
 ?>
-<label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($field->name, WPL_TEXTDOMAIN); ?><?php if(in_array($field->mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>
+<label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($label, WPL_TEXTDOMAIN); ?><?php if(in_array($mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>
 <select class="wpl_c_<?php echo $field->table_column; ?>" id="wpl_c_<?php echo $field->id; ?>" onchange="wpl_listing_changed(this.value); ajax_save('<?php echo $field->table_name; ?>', '<?php echo $field->table_column; ?>', this.value, '<?php echo $item_id; ?>', '<?php echo $field->id; ?>');">
     <option value="-1"><?php echo __('Select', WPL_TEXTDOMAIN); ?></option>
     <?php foreach($listings as $listing): if($lrestrict and !in_array($listing['id'], $rlistings)) continue; ?>
@@ -157,7 +157,7 @@ elseif($type == 'neighborhood' and !$done_this)
 ?>
 <div class="checkbox-wp">
 	<input type="checkbox" id="wpl_c_<?php echo $field->id; ?>" <?php echo $checked; ?> onchange="wpl_neighborhood_select('<?php echo $field->table_name; ?>', '<?php echo $field->table_column; ?>', this.value, '<?php echo $item_id; ?>', '<?php echo $field->id; ?>');" />
-	<label class="checkbox-label" for="wpl_c_<?php echo $field->id; ?>"><?php echo __($field->name, WPL_TEXTDOMAIN); ?><?php if (in_array($field->mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>
+	<label class="checkbox-label" for="wpl_c_<?php echo $field->id; ?>"><?php echo __($label, WPL_TEXTDOMAIN); ?><?php if (in_array($mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>
 	<div class="distance-wp distance_items_box" id="wpl_span_dis_<?php echo $field->id; ?>" style="<?php echo $style; ?>">
 		<div class="distance-item distance-value">
 			<input type="text" id="wpl_c_<?php echo $field->id; ?>_distance" class="wpl_distance_text" value="<?php echo $values[$field->table_column.'_distance']; ?>" size='3' maxlength="4" onBlur="ajax_save('<?php echo $field->table_name; ?>', '<?php echo $field->table_column.'_distance'; ?>', this.value, '<?php echo $item_id; ?>', '<?php echo $field->id; ?>', '#n_<?php echo $field->id; ?>_distance');"  />
@@ -192,7 +192,7 @@ elseif($type == 'neighborhood' and !$done_this)
 elseif($type == 'number' and !$done_this)
 {
 ?>
-<label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($field->name, WPL_TEXTDOMAIN); ?><?php if(in_array($field->mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>
+<label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($label, WPL_TEXTDOMAIN); ?><?php if(in_array($mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>
 <input type="number" class="wpl_c_<?php echo $field->table_column; ?>" id="wpl_c_<?php echo $field->id; ?>" value="<?php echo $value; ?>" onchange="ajax_save('<?php echo $field->table_name; ?>', '<?php echo $field->table_column; ?>', this.value, '<?php echo $item_id; ?>', '<?php echo $field->id; ?>');" <?php echo ((isset($options['readonly']) and $options['readonly'] == 1) ? 'disabled="disabled"' : ''); ?> />
 <span id="wpl_listing_saved_span_<?php echo $field->id; ?>" class="wpl_listing_saved_span"></span>
 <?php
@@ -202,7 +202,7 @@ elseif($type == 'mmnumber' and !$done_this)
 {
     $value_max = isset($values[$field->table_column.'_max']) ? $values[$field->table_column.'_max'] : 0;
 ?>
-<label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($field->name, WPL_TEXTDOMAIN); ?><?php if(in_array($field->mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>
+<label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($label, WPL_TEXTDOMAIN); ?><?php if(in_array($mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>
 <input type="number" class="wpl_minmax_textbox wpl_c_<?php echo $field->table_column; ?>" id="wpl_c_<?php echo $field->id; ?>" value="<?php echo $value; ?>" onchange="ajax_save('<?php echo $field->table_name; ?>', '<?php echo $field->table_column; ?>', this.value, '<?php echo $item_id; ?>', '<?php echo $field->id; ?>');" <?php echo ((isset($options['readonly']) and $options['readonly'] == 1) ? 'disabled="disabled"' : ''); ?> />
  - <input type="number" class="wpl_minmax_textbox wpl_c_<?php echo $field->table_column; ?>_max" id="wpl_c_<?php echo $field->id; ?>_max" value="<?php echo $value_max; ?>" onchange="ajax_save('<?php echo $field->table_name; ?>', '<?php echo $field->table_column; ?>_max', this.value, '<?php echo $item_id; ?>', '<?php echo $field->id; ?>');" <?php echo ((isset($options['readonly']) and $options['readonly'] == 1) ? 'disabled="disabled"' : ''); ?> />
 <span id="wpl_listing_saved_span_<?php echo $field->id; ?>" class="wpl_listing_saved_span"></span>
@@ -216,7 +216,7 @@ elseif($type == 'property_types' and !$done_this)
 	$ptrestrict = $current_user->maccess_ptrestrict;
 	$rproperty_types = explode(',', $current_user->maccess_property_types);
 ?>
-<label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($field->name, WPL_TEXTDOMAIN); ?><?php if(in_array($field->mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>
+<label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($label, WPL_TEXTDOMAIN); ?><?php if(in_array($mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>
 <select class="wpl_c_<?php echo $field->table_column; ?>" id="wpl_c_<?php echo $field->id; ?>" onchange="wpl_property_type_changed(this.value); ajax_save('<?php echo $field->table_name; ?>', '<?php echo $field->table_column; ?>', this.value, '<?php echo $item_id; ?>', '<?php echo $field->id; ?>');">
     <option value="-1"><?php echo __('Select', WPL_TEXTDOMAIN); ?></option>
     <?php foreach($property_types as $property_type): if($ptrestrict and !in_array($property_type['id'], $rproperty_types)) continue; ?>
@@ -230,7 +230,7 @@ elseif($type == 'property_types' and !$done_this)
 elseif($type == 'select' and !$done_this)
 {
 ?>
-<label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($field->name, WPL_TEXTDOMAIN); ?><?php if(in_array($field->mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>
+<label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($label, WPL_TEXTDOMAIN); ?><?php if(in_array($mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>
 <select class="wpl_c_<?php echo $field->table_column; ?>" id="wpl_c_<?php echo $field->id; ?>" onchange="ajax_save('<?php echo $field->table_name; ?>', '<?php echo $field->table_column; ?>', this.value, '<?php echo $item_id; ?>', '<?php echo $field->id; ?>');">
     <option value="-1"><?php echo __('Select', WPL_TEXTDOMAIN); ?></option>
     <?php foreach($options['params'] as $key=>$select): if(!$select['enabled']) continue; ?>
@@ -257,7 +257,7 @@ elseif(in_array($type, array('price', 'volume', 'area', 'length')) and !$done_th
 	if($type == 'area') $units = wpl_units::get_units(2);
 	if($type == 'length') $units = wpl_units::get_units(1);
 ?>
-<label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($field->name, WPL_TEXTDOMAIN); ?><?php if(in_array($field->mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>
+<label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($label, WPL_TEXTDOMAIN); ?><?php if(in_array($mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>
 <input onkeyup="wpl_thousand_sep('wpl_c_<?php echo $field->id; ?>')" type="text" id="wpl_c_<?php echo $field->id; ?>" value="<?php echo number_format($value, 2); ?>" onblur="ajax_save('<?php echo $field->table_name; ?>', '<?php echo $field->table_column; ?>', wpl_de_thousand_sep(this.value), '<?php echo $item_id; ?>', '<?php echo $field->id; ?>');" <?php echo ((isset($options['readonly']) and $options['readonly']) == 1 ? 'disabled="disabled"' : ''); ?> />
 <?php
     if(count($units) <= 1) echo $units[0]['name'];
@@ -283,7 +283,7 @@ elseif(in_array($type, array('mmprice', 'mmvolume', 'mmarea', 'mmlength')) and !
     
     $value_max = isset($values[$field->table_column.'_max']) ? $values[$field->table_column.'_max'] : 0;
 ?>
-<label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($field->name, WPL_TEXTDOMAIN); ?><?php if(in_array($field->mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>
+<label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($label, WPL_TEXTDOMAIN); ?><?php if(in_array($mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>
 <input onkeyup="wpl_thousand_sep('wpl_c_<?php echo $field->id; ?>')" type="text" id="wpl_c_<?php echo $field->id; ?>" value="<?php echo number_format($value, 2); ?>" onblur="ajax_save('<?php echo $field->table_name; ?>', '<?php echo $field->table_column; ?>', wpl_de_thousand_sep(this.value), '<?php echo $item_id; ?>', '<?php echo $field->id; ?>');" <?php echo ((isset($options['readonly']) and $options['readonly']) == 1 ? 'disabled="disabled"' : ''); ?> />
 <input onkeyup="wpl_thousand_sep('wpl_c_<?php echo $field->id; ?>_max')" type="text" id="wpl_c_<?php echo $field->id; ?>_max" value="<?php echo number_format($value_max, 2); ?>" onblur="ajax_save('<?php echo $field->table_name; ?>', '<?php echo $field->table_column; ?>_max', wpl_de_thousand_sep(this.value), '<?php echo $item_id; ?>', '<?php echo $field->id; ?>');" <?php echo ((isset($options['readonly']) and $options['readonly']) == 1 ? 'disabled="disabled"' : ''); ?> />
 <?php
@@ -302,7 +302,7 @@ elseif(in_array($type, array('mmprice', 'mmvolume', 'mmarea', 'mmlength')) and !
 elseif($type == 'url' and !$done_this)
 {
 ?>
-<label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($field->name, WPL_TEXTDOMAIN); ?><?php if(in_array($field->mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>
+<label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($label, WPL_TEXTDOMAIN); ?><?php if(in_array($mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>
 <input type="text" id="wpl_c_<?php echo $field->id; ?>" value="<?php echo $value; ?>" onchange="ajax_save('<?php echo $field->table_name; ?>', '<?php echo $field->table_column; ?>', this.value, '<?php echo $item_id; ?>', '<?php echo $field->id; ?>');" <?php echo ((isset($options['readonly']) and $options['readonly'] == 1) ? 'disabled="disabled"' : ''); ?> />
 <span id="wpl_listing_saved_span_<?php echo $field->id; ?>" class="wpl_listing_saved_span"></span>
 <?php

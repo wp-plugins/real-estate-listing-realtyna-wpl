@@ -6,11 +6,14 @@ _wpl_import($this->tpl_path . '.scripts.css');
 _wpl_import($this->tpl_path . '.scripts.js');
 _wpl_import('libraries.activities');
 ?>
-<div class="wrap wpl-wp dashboard-wp">
+<div class="wrap wpl-wp wpl-dashboard-wp">
 
     <header>
-        <div id="icon-dashboard" class="icon48"></div>
-        <h2><?php echo __('WPL', WPL_TEXTDOMAIN); ?>&nbsp;<?php echo(wpl_global::check_addon('pro') ? 'PRO' : 'Basic'); ?><span class="wpl_version">v<?php echo wpl_global::wpl_version(); ?></span></h2>
+        <div class="wpl-icon-header wpl-icon-dashboard"></div>
+        <h2>
+            <?php echo __('WPL', WPL_TEXTDOMAIN); ?>&nbsp;<?php echo(wpl_global::check_addon('pro') ? 'PRO' : 'Basic'); ?>
+            <span class="wpl-dashboard-ver">v<?php echo wpl_global::wpl_version(); ?></span>
+        </h2>
     </header>
 
     <div id="dashboard-links-wp">

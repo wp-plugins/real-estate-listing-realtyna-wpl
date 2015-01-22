@@ -35,7 +35,8 @@ foreach($this->wpl_properties as $key=>$property)
         </div>
         <div class="wpl_prp_bot">
             <?php
-            echo '<h3 class="wpl_prp_title">'.$property['property_title'].'</h3>';
+            echo '<a id="prp_link_id_'.$property['data']['id'].'" href="'.$property['property_link'].'" class="view_detail" title="'.$property['property_title'].'">
+              <h3 class="wpl_prp_title">'.$property['property_title'].'</h3></a>';
             echo '<h4 class="wpl_prp_listing_location">'.$property['location_text'].'</h4>';
             ?>
             <div class="wpl_prp_listing_icon_box"><?php echo $room . $bathroom . $parking . $pic_count; ?></div>

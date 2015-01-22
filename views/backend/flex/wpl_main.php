@@ -37,7 +37,7 @@ class wpl_flex_controller extends wpl_controller
 	{
 		$tpl = 'internal_slide';
 		
-		$this->fields = wpl_flex::get_fields($category->id, 0, $this->kind);
+		$this->fields = wpl_flex::get_fields($category->id, 0, $this->kind, 'flex', 1);
 		$this->field_category = $category;
 		
 		/** import tpl **/

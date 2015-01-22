@@ -125,9 +125,8 @@ function wpl_edit_user(id)
 		},
 		error: function(jqXHR, textStatus, errorThrown)
 		{
-			wpl_show_messages('<?php echo __('Error Occured.', WPL_TEXTDOMAIN); ?>', '.wpl_data_structure_list .wpl_show_message', 'wpl_red_msg');			
-			fancybox_reload = false;
-			wplj.fancybox.close();
+			wpl_show_messages('<?php echo __('Error Occured.', WPL_TEXTDOMAIN); ?>', '.wpl_data_structure_list .wpl_show_message', 'wpl_red_msg');
+			wplj._realtyna.lightbox.close();
 		}
 	});
 }
@@ -229,13 +228,12 @@ function wpl_save_user()
 		success: function(data)
 		{
 			wpl_show_messages('<?php echo __('Membership add.', WPL_TEXTDOMAIN); ?>', '.wpl_data_structure_list .wpl_show_message', 'wpl_green_msg');
-			wplj.fancybox.close();
+			wplj._realtyna.lightbox.close();
 		},
 		error: function(jqXHR, textStatus, errorThrown)
 		{
 			wpl_show_messages('<?php echo __('Error Occured.', WPL_TEXTDOMAIN); ?>', '.wpl_data_structure_list .wpl_show_message', 'wpl_red_msg');
-			fancybox_reload = false;
-			wplj.fancybox.close();
+			wplj._realtyna.lightbox.close();
 		}
 	});
 }

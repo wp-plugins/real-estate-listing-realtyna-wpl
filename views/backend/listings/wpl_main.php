@@ -76,7 +76,12 @@ class wpl_listings_controller extends wpl_controller {
         $this->kind_label = wpl_flex::get_kind_label($this->kind);
         $where['sf_select_kind'] = $this->kind;
         
-        $this->model->start($start, $limit, $orderby, $order, $where);
+		/** Add search conditions to the where **/
+        $vars = array_merge(wpl_request::get('POST'), wpl_request::get('GET'));
+		$where = array_merge($vars, $where);
+		
+        $this->model->start($start, $limit, $orderby, $order, $where, $this->kind);
+        
         $query = $this->model->query();
         $properties = $this->model->search($query);
         $this->model->finish();

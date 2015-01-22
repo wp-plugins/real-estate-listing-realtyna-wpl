@@ -53,7 +53,7 @@ class wpl_property_types
      */
 	public static function insert_property_type($parent, $name)
 	{
-		$query = "INSERT INTO `#__wpl_property_types`(`parent`,`enabled`,`editable`,`index`,`listing`,`name`) VALUE ('$parent', '1', '2', '00.00', '0', '$name')";
+		$query = "INSERT INTO `#__wpl_property_types`(`parent`,`enabled`,`editable`,`index`,`listing`,`name`) VALUES ('$parent', '1', '2', '00.00', '0', '$name')";
 		$id = wpl_db::q($query, 'insert');
         
 		$query = "UPDATE `#__wpl_property_types` SET `index`='$id.00' WHERE `id`='$id'";

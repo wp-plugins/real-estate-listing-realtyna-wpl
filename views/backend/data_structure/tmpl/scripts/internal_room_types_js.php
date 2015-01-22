@@ -144,12 +144,11 @@ function wpl_generate_new_room_type()
 		success: function(data)
 		{
 			wplj("#wpl_new_room_type").html(data);
-			wplj('.wpl_help').wpl_help();
 		},
 		error: function(jqXHR, textStatus, errorThrown)
 		{
 			wpl_show_messages('<?php echo __('Error Occured.', WPL_TEXTDOMAIN); ?>', '.wpl_data_structure_list .wpl_show_message', 'wpl_red_msg');
-			wplj.fancybox.close();
+			wplj._realtyna.lightbox.close();
 		}
 	});
 }
@@ -202,15 +201,12 @@ function wpl_ajax_save_room_type()
 		success: function(data)
 		{
 			wpl_show_messages('<?php echo __('Room type added.', WPL_TEXTDOMAIN); ?>', '.wpl_data_structure_list .wpl_show_message', 'wpl_green_msg');
-			
-			/** refresh the fancybox **/
-			rta.config.fancybox.reloadAfterClose = true;
-			wplj.fancybox.close();
+			wplj._realtyna.lightbox.close();
 		},
 		error: function(jqXHR, textStatus, errorThrown)
 		{
 			wpl_show_messages('<?php echo __('Error Occured.', WPL_TEXTDOMAIN); ?>', '.wpl_data_structure_list .wpl_show_message', 'wpl_red_msg');
-			wplj.fancybox.close();
+			wplj._realtyna.lightbox.close();
 		}
 	});
 }

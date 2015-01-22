@@ -11,8 +11,8 @@ if($type == 'text' and !$done_this)
         wp_enqueue_script('jquery-effects-clip', false, array('jquery-effects-core'));
     ?>
     <label class="wpl-multiling-label wpl-multiling-text">
-        <?php echo __($field->name, WPL_TEXTDOMAIN); ?>
-        <?php if(in_array($field->mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?>
+        <?php echo __($label, WPL_TEXTDOMAIN); ?>
+        <?php if(in_array($mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?>
     </label>
 
     <div class="wpl-multiling-field wpl-multiling-text">
@@ -52,7 +52,7 @@ if($type == 'text' and !$done_this)
         </div>
     </div>
 <?php else: ?>
-    <label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($field->name, WPL_TEXTDOMAIN); ?><?php if(in_array($field->mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>
+    <label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($label, WPL_TEXTDOMAIN); ?><?php if(in_array($mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>
     <input type="text" class="wpl_c_<?php echo $field->table_column; ?>" id="wpl_c_<?php echo $field->id; ?>" value="<?php echo $value; ?>" onchange="ajax_save('<?php echo $field->table_name; ?>', '<?php echo $field->table_column; ?>', this.value, '<?php echo $item_id; ?>', '<?php echo $field->id; ?>');" <?php echo ((isset($options['readonly']) and $options['readonly'] == 1) ? 'disabled="disabled"' : ''); ?> />
     <span id="wpl_listing_saved_span_<?php echo $field->id; ?>" class="wpl_listing_saved_span"></span>
 <?php endif; ?>

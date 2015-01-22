@@ -439,6 +439,8 @@ class wpl_flex
 			
 			$done_this = false;
 			$type = $field->type;
+            $label = $field->name;
+            $mandatory = $field->mandatory;
 			$options = json_decode($field->options, true);
 			$value = isset($values[$field->table_column]) ? $values[$field->table_column] : NULL;
 			$display = '';
@@ -499,6 +501,9 @@ class wpl_flex
 	public static function generate_js_validation($field)
 	{
 		$field = (object) $field;
+        $label = $field->name;
+        $mandatory = $field->mandatory;
+        
 		$js_string = '';
 		
 		$path = WPL_ABSPATH .DS. 'libraries' .DS. 'dbst_wizard' .DS. 'js_validation' .DS. $field->type .'.php';

@@ -4,7 +4,7 @@ Donate link: http://wpl.realtyna.com/
 Tags: Real estate, Listing, Vertical Market, MLS, Property listing, RETS, Listings, Broker, Realtor, Property, IDX, Multiple Listing Service, Property Management, Properties
 Requires at least: 3.0.1
 Tested up to: 4.1
-Stable tag: 2.1.0
+Stable tag: 2.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,6 +27,14 @@ Download [WPL manual](http://wpl.realtyna.com/wassets/wpl-manual.pdf) and check 
 *   Cloud Hosting (Starting from $24.95 per month) http://hosting.realtyna.com
 *   Option for Multisite Franchise Solution http://rpl.realtyna.com/add-ons/multi-website-solution-for-real-estate-franchises
 *   Support for Responsive Templates http://rpl.realtyna.com/design
+
+**WPL PRO Translations**
+
+*   English
+*   Spanish
+*   Italian
+*   Serbian
+*   Croatian
 
 == Installation ==
 
@@ -61,9 +69,18 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 
 == Changelog ==
 
+= 2.2.0 =
+* [PRO] Added Multilingual support for property alias and property location texts.
+* Developed multiple Google map marker.
+* New look for WPL search widget.
+* New look for WPL dashboard.
+* New look for date picker.
+* Developed new WPL lightbox.
+* Fixed an issue on editing feature field parameters.
+
 = 2.1.0 =
 * [PRO] Added online payments system.
-* [PRO] Added Multilingual support for meta description and mets keywords fields.
+* [PRO] Added Multilingual support for meta description and meta keywords fields.
 * Added ability to define feature field type options.
 * Fixed an issue in creating new listing types.
 * Fixed some tiny design issues.

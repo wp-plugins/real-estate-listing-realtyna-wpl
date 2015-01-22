@@ -10,4 +10,4 @@ $this->_wpl_import($this->tpl_path.'.scripts.js', true, true);
 	</div>
     <?php if(is_active_sidebar('wpl-profileshow-top')) dynamic_sidebar('wpl-profileshow-top'); ?>
 </div>
-<?php /** loading propertylisting **/ echo wpl_global::load('property_listing'); ?>
+<?php /** loading property listing **/ echo wpl_global::load('property_listing'); ?>

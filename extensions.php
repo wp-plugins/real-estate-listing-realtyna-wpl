@@ -233,7 +233,7 @@ class wpl_extensions
         }
 		else
         {
-			load_plugin_textdomain(WPL_TEXTDOMAIN, false, dirname(plugin_basename( __FILE__ )) .DS. 'languages' .DS);
+			load_plugin_textdomain(WPL_TEXTDOMAIN, false, wpl_global::get_wpl_root_path() . 'languages' .DS);
         }
 	}
 	
@@ -362,7 +362,7 @@ class wpl_extensions
      */
 	public function register_shortcode_buttons($plugin_array)
 	{
-		$plugin_array['wplbuttons'] = wpl_global::get_wpl_asset_url('js/mce_editor/wpl.js');
+		$plugin_array['wplbuttons'] = wpl_global::get_wpl_asset_url('packages/mce_editor/wpl.js');
         return $plugin_array;
     }
 	
@@ -677,10 +677,10 @@ class wpl_extensions
 	}
 	
     /**
-     * For creating admin pages
+     * For creating admin menus
      * @author Howard <howard@realtyna.com>
      */
-	public function wpl_admin_pages()
+	public function wpl_admin_menus()
 	{
 		$cur_user_id = wpl_users::get_cur_user_id();
 		$cur_user_data = wpl_users::get_user($cur_user_id);
@@ -707,6 +707,8 @@ class wpl_extensions
 			/** add sub menus **/
 			foreach($submenus as $submenu)
 			{
+                if(!wpl_users::has_menu_access($submenu->menu_slug)) continue;
+                
 				$role = $submenu->capability == 'current' ? $cur_role : $wpl_roles[$submenu->capability];
 				$menu_title = $submenu->separator ? $controller->wpl_add_separator().__($submenu->menu_title, WPL_TEXTDOMAIN) : __($submenu->menu_title, WPL_TEXTDOMAIN);
 				
@@ -752,6 +754,7 @@ class wpl_extensions
 			/** add sub menus **/
 			foreach($submenus as $submenu)
 			{
+                if(!wpl_users::has_menu_access($submenu->menu_slug)) continue;
 				if(!wpl_users::is_administrator($cur_user_id) and $submenu->capability != 'current') continue;
 				
 				$menu_title = $submenu->separator ? $controller->wpl_add_separator().__($submenu->menu_title, WPL_TEXTDOMAIN) : __($submenu->menu_title, WPL_TEXTDOMAIN);

@@ -137,29 +137,30 @@ class wpl_agents_widget extends wpl_widget
 	{
         $model = new wpl_users();
 		$data = $instance['data'];
-		
-		$this->listing_fields = $model->get_plisting_fields();
-		$this->select = '*';
+        
+        $this->start = 0;
         $this->limit = $data['limit'];
-		$this->order = $data['orderby']." ".$data['order'];
+		$this->orderby = $data['orderby'];
+        $this->order = $data['order'];
 		
-		$this->where = " AND p.`access_public_profile`='1' AND p.`expired`='0'";
+        $where = array('sf_tmin_id'=>1, 'sf_select_access_public_profile'=>1, 'sf_select_expired'=>0);
 		
-		if(trim($data['user_type']) and $data['user_type'] != '-1') $this->where .= " AND p.`membership_type`='".$data['user_type']."'";
-		if(trim($data['membership']) and $data['membership'] != '') $this->where .= " AND p.`membership_id`='".$data['membership']."'";
-		if(trim($data['user_ids'])) $this->where .= " AND p.`id` IN (".trim($data['user_ids'], ', ').")";
+		if(trim($data['user_type']) and $data['user_type'] != '-1') $where['sf_select_membership_type'] = $data['user_type'];
+		if(trim($data['membership']) and $data['membership'] != '') $where['sf_select_membership_id'] = $data['membership'];
+		if(trim($data['user_ids'])) $where['sf_multiple_id'] = trim($data['user_ids'], ', ');
 		
         if(isset($data['random']) and trim($data['random']) and trim($data['user_ids']) == '')
 		{
-			$query_rand = "SELECT p.`id` FROM `#__users` AS u INNER JOIN `#__wpl_users` AS p ON u.ID = p.id WHERE 1 ".$this->where." ORDER BY RAND() LIMIT ".$this->limit;
+			$query_rand = "SELECT p.`id` FROM `#__wpl_users` AS p WHERE 1 ".wpl_db::create_query($where)." ORDER BY RAND() LIMIT ".$this->limit;
 			$results = wpl_db::select($query_rand);
 			
 			$rand_ids = array();
 			foreach($results as $result) $rand_ids[] = $result->id;
 			
-			$this->where .= " AND p.`id` IN (".implode(',', $rand_ids).")";
+            $where['sf_multiple_id'] = implode(',', $rand_ids);
 		}
         
-		return $query = "SELECT ".$this->select." FROM `#__users` AS u INNER JOIN `#__wpl_users` AS p ON u.ID = p.id WHERE 1 ".$this->where." ORDER BY ".$this->order." LIMIT ".$this->limit;
+        $model->start($this->start, $this->limit, $this->orderby, $this->order, $where);
+		return $model->query();
 	}
 }

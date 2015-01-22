@@ -3,7 +3,8 @@
 defined('_WPLEXEC') or die('Restricted access');
 ?>
 <script type="text/javascript">
-wplj(document).ready(function(){
+wplj(document).ready(function()
+{
 });
 
 function ajax_multilingual_save(field_id, lang, value, item_id)

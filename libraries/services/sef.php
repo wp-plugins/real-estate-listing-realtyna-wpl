@@ -97,7 +97,14 @@ class wpl_service_sef
 		
 		/** check property alias for avoiding duplicate content **/
 		$called_alias = $wpl_qs;
-		$property_alias = $proeprty_id.'-'.urldecode(wpl_db::get('alias', 'wpl_properties', 'id', $proeprty_id));
+        
+        $column = 'alias';
+        $field_id = wpl_flex::get_dbst_id($column, wpl_property::get_property_kind($proeprty_id));
+        $field = wpl_flex::get_field($field_id);
+        
+        if($field->multilingual and wpl_global::check_multilingual_status()) $column = wpl_addon_pro::get_column_lang_name($column, wpl_global::get_current_language(), false);
+        
+		$property_alias = $proeprty_id.'-'.urldecode(wpl_db::get($column, 'wpl_properties', 'id', $proeprty_id));
 		
 		if(trim($property_alias) != '' and $called_alias != $property_alias)
 		{

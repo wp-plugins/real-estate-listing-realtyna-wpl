@@ -5,8 +5,6 @@ defined('_WPLEXEC') or die('Restricted access');
 <script type="text/javascript">
 wplj(document).ready(function()
 {
-	rta.config.fancybox.reloadAfterClose = true;
-	
 	wplj("#activity_manager_filter").keyup(function()
 	{
         var term = wplj(this).val().toLowerCase();
@@ -29,40 +27,37 @@ wplj(document).ready(function()
 		}
 	});
 	
-	wplj(function()
-	{
-		wplj(".sortable_activity").sortable({
-			handle: 'span.icon-move',
-			cursor: "move",
-			update: function(e, ui)
-			{
-				var stringDiv = "";
-				wplj(this).children("tr").each(function(i)
-				{
-					var tr = wplj(this);
-					if (i != 0)
-						stringDiv += ",";
-					stringDiv += tr.attr("id") + ":" + i;
-				});
-				
-				request_str = 'wpl_format=b:activity_manager:ajax&wpl_function=sort_activities&sort_ids=' + stringDiv;
-				wplj.ajax(
-				{
-					type: "POST",
-					url: '<?php echo wpl_global::get_full_url(); ?>',
-					data: request_str,
-					success: function(data)
-					{
-						wpl_show_messages(data + ' <?php echo __('Activity Sorted!', WPL_TEXTDOMAIN); ?>', '.wpl_activity_manager_list .wpl_show_message', 'wpl_green_msg');
-					},
-					error: function(jqXHR, textStatus, errorThrown)
-					{
-						wpl_show_messages('<?php echo __('Error Occured.', WPL_TEXTDOMAIN); ?>', '.wpl_activity_manager_list .wpl_show_message', 'wpl_red_msg');
-					}
-				});
-			}
-		});
-	});
+	wplj(".sortable_activity").sortable(
+    {
+        handle: 'span.icon-move',
+        cursor: "move",
+        update: function(e, ui)
+        {
+            var stringDiv = "";
+            wplj(this).children("tr").each(function(i)
+            {
+                var tr = wplj(this);
+                if(i != 0) stringDiv += ",";
+                stringDiv += tr.attr("id") + ":" + i;
+            });
+
+            request_str = 'wpl_format=b:activity_manager:ajax&wpl_function=sort_activities&sort_ids=' + stringDiv;
+            wplj.ajax(
+            {
+                type: "POST",
+                url: '<?php echo wpl_global::get_full_url(); ?>',
+                data: request_str,
+                success: function(data)
+                {
+                    wpl_show_messages(data + ' <?php echo __('Activity Sorted!', WPL_TEXTDOMAIN); ?>', '.wpl_activity_manager_list .wpl_show_message', 'wpl_green_msg');
+                },
+                error: function(jqXHR, textStatus, errorThrown)
+                {
+                    wpl_show_messages('<?php echo __('Error Occured.', WPL_TEXTDOMAIN); ?>', '.wpl_activity_manager_list .wpl_show_message', 'wpl_red_msg');
+                }
+            });
+        }
+    });
 });
 
 function wpl_set_enabled_activity(activity_id, enabled_status)
@@ -75,6 +70,7 @@ function wpl_set_enabled_activity(activity_id, enabled_status)
 	
 	ajax_loader_element = '#wpl_ajax_loader_' + activity_id;
 	wplj(ajax_loader_element).html('<img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader3.gif'); ?>" />');
+    
 	request_str = 'wpl_format=b:activity_manager:ajax&wpl_function=set_enabled_activity&activity_id=' + activity_id + '&enabled_status=' + enabled_status;
 	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str, ajax_loader_element, 'JSON', 'POST');
    
@@ -125,8 +121,10 @@ function wpl_remove_activity(activity_id, confirmed)
 	
 	ajax_loader_element = '#wpl_ajax_loader_' + activity_id;
 	wplj(ajax_loader_element).html('<img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader3.gif'); ?>" />');
+    
 	request_str = 'wpl_format=b:activity_manager:ajax&wpl_function=remove_activity&activity_id=' + activity_id + '&wpl_confirmed=' + confirmed;
 	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str, ajax_loader_element);
+    
 	ajax.success(function(data)
 	{
 		if (data.success == 1)
@@ -161,8 +159,8 @@ function wpl_generate_modify_activity_page(activity_id)
 		request_str += '&activity_name='+activity_name;
 	}
 	
-	/** open fancybox **/
-	if(!activity_id) wplj("#wpl_fancybox_handler").trigger("click");
+	/** open lightbox **/
+    if(!activity_id) wplj._realtyna.lightbox.open("#wpl_lightbox_handler", {reloadPage: true});
 	
 	/** run ajax query **/
 	wplj.ajax(
@@ -177,7 +175,7 @@ function wpl_generate_modify_activity_page(activity_id)
 		error: function(jqXHR, textStatus, errorThrown)
 		{
 			wpl_show_messages('<?php echo __('Error Occured.', WPL_TEXTDOMAIN); ?>', '.wpl_activity_manager_list .wpl_show_message', 'wpl_red_msg');
-			wplj.fancybox.close();
+			wplj._realtyna.lightbox.close();
 		}
 	});
 }

@@ -242,7 +242,7 @@ elseif($type == 'listings' and !$done_this)
 		$current_values = explode(',', wpl_request::getVar('sf_multiple_'.$field_data['table_column']));
 	
         $html .= '<div class="wpl_searchwid_'.$field_data['table_column'].'_multiselect_container">
-		<select class="wpl_searchmod_'.$field_data['table_column'].'_multiselect" id="sf'.$widget_id.'_multiple_'.$field_data['table_column'].'" name="sf'.$widget_id.'_multiple_'.$field_data['table_column'].'" multiple="multiple">';
+		<select data-placeholder="'.__($field['name'], WPL_TEXTDOMAIN).'" class="wpl_searchmod_'.$field_data['table_column'].'_multiselect" id="sf'.$widget_id.'_multiple_'.$field_data['table_column'].'" name="sf'.$widget_id.'_multiple_'.$field_data['table_column'].'" multiple="multiple">';
 		
         foreach($listings as $listing)
 		{
@@ -567,7 +567,7 @@ elseif($type == 'property_types' and !$done_this)
 		$current_values = explode(',', wpl_request::getVar('sf_multiple_'.$field_data['table_column']));
 		
         $html .= '<div class="wpl_searchwid_'.$field_data['table_column'].'_multiselect_container">
-		<select class="wpl_searchmod_'.$field_data['table_column'].'_multiselect" id="sf'.$widget_id.'_multiple_'.$field_data['table_column'].'" name="sf'.$widget_id.'_multiple_'.$field_data['table_column'].'" multiple="multiple">';
+		<select data-placeholder="'.__($field['name'], WPL_TEXTDOMAIN).'" class="wpl_searchmod_'.$field_data['table_column'].'_multiselect" id="sf'.$widget_id.'_multiple_'.$field_data['table_column'].'" name="sf'.$widget_id.'_multiple_'.$field_data['table_column'].'" multiple="multiple">';
 		
         foreach($property_types as $property_type)
 		{
@@ -685,7 +685,7 @@ elseif($type == 'select' and !$done_this)
 		$current_values = explode(',', wpl_request::getVar('sf_multiple_'.$field_data['table_column']));
 	
         $html .= '<div class="wpl_searchwid_'.$field_data['table_column'].'_multiselect_container">
-		<select class="wpl_searchmod_'.$field_data['table_column'].'_multiselect" id="sf'.$widget_id.'_multiple_'.$field_data['table_column'].'" name="sf'.$widget_id.'_multiple_'.$field_data['table_column'].'" multiple="multiple">';
+		<select data-placeholder="'.__($field['name'], WPL_TEXTDOMAIN).'" class="wpl_searchmod_'.$field_data['table_column'].'_multiselect" id="sf'.$widget_id.'_multiple_'.$field_data['table_column'].'" name="sf'.$widget_id.'_multiple_'.$field_data['table_column'].'" multiple="multiple">';
 		
         foreach($options['params'] as $option)
 		{
@@ -1020,8 +1020,11 @@ elseif($type == 'addon_calendar' and !$done_this)
     $show_icon = 0;
     
 	/** current value **/
-    $current_checkin_value  = wpl_request::getVar('sf_calendarcheckin', '');
+    $current_checkin_value = wpl_request::getVar('sf_calendarcheckin', '');
     $current_checkout_value = wpl_request::getVar('sf_calendarcheckout', '');
+    
+    /** for opening more details **/
+    $current_value = $current_checkin_value;
 
     $html .= '<div class="wpl_search_widget_calendar_search_container">';
     $html .= '<input type="text" name="sf'.$widget_id.'_calendarcheckin" id="sf'.$widget_id.'_calendarcheckin" value="'.($current_checkin_value != '' ? $current_checkin_value : '').'" placeholder="'.__('Check In', WPL_TEXTDOMAIN).'" />';

@@ -30,7 +30,7 @@ function wpl_save_activity()
         wplj(ajax_loader_element).html('');
         wplj("#wpl_activity_submit_button").removeAttr("disabled");
 
-        wplj.fancybox.close();
+        wplj._realtyna.lightbox.close();
     });
 }
 

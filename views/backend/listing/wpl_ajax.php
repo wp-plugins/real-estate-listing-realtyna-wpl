@@ -157,7 +157,7 @@ class wpl_listing_controller extends wpl_controller
 			
 			foreach($location_data as $location)
 			{
-				$html .= '<option value="'.$location->id.'" '.($current_location_id == $location->id ? 'selected="selected"' : '').'>'.$location->name.'</option>';
+				$html .= '<option value="'.$location->id.'" '.($current_location_id == $location->id ? 'selected="selected"' : '').'>'.__($location->name, WPL_TEXTDOMAIN).'</option>';
 			}
 			
 			$html .= '</select>';

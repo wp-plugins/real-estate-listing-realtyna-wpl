@@ -9,7 +9,7 @@ $element_id = isset($params['element_id']) ? $params['element_id'] : 'wpl_params
 $html_path_message = isset($params['html_path_message']) ? $params['html_path_message'] : '.wpl_params_activity .wpl_show_message';
 $html_ajax_loader = isset($params['html_ajax_loader']) ? $params['html_ajax_loader'] : 'wpl_params_ajax_loader';
 $img_ajax_loader = isset($params['img_ajax_loader']) ? $params['img_ajax_loader'] : 'ajax-loader3.gif';
-$close_fancybox = isset($params['close_fancybox']) ? $params['close_fancybox'] : 0;
+$close_lightbox = isset($params['close_fancybox']) ? $params['close_fancybox'] : 0;
 
 $db_table = isset($params['table']) ? $params['table'] : '';
 $record_id = isset($params['id']) ? $params['id'] : '';
@@ -21,8 +21,8 @@ if (!$params_array) $params_array = array('' => '');
     <h2><?php echo __('Parameters', WPL_TEXTDOMAIN); ?></h2>
     <div class="fanc-body">
         <div class="fanc-row fanc-button-row-2">
-            <input class="wpl-button button-1" type="button" value="<?php echo __('Save', WPL_TEXTDOMAIN); ?>" onclick="<?php echo $js_function; ?>();" />
             <span class="ajax-inline-save" id="<?php echo $html_ajax_loader; ?>"></span>
+            <input class="wpl-button button-1" type="button" value="<?php echo __('Save', WPL_TEXTDOMAIN); ?>" onclick="<?php echo $js_function; ?>();" />
         </div>
         <div class="fanc-row">
             <span class="action-btn icon-plus" onclick="wpl_add_param();"></span>    
@@ -81,10 +81,8 @@ function <?php echo $js_function; ?>()
 			wpl_show_messages(data.message, '<?php echo $html_path_message; ?>', 'wpl_green_msg');
 			wplj(ajax_loader_element).html('');
 
-			<?php if ($close_fancybox): ?>
-			/** refresh the fancybox **/
-			rta.config.fancybox.reloadAfterClose = true;
-			wplj.fancybox.close();
+			<?php if ($close_lightbox): ?>
+			wplj._realtyna.lightbox.close();
 			<?php endif; ?>
 		}
 		else if (data.success != 1)

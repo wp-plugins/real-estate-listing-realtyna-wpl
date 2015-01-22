@@ -9,8 +9,8 @@ if($type == 'meta_key' and !$done_this)
         wp_enqueue_script('jquery-effects-clip', false, array('jquery-effects-core'));
 ?>
 <label class="wpl-multiling-label wpl-multiling-text">
-    <?php echo __($field->name, WPL_TEXTDOMAIN); ?>
-    <?php if(in_array($field->mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?>
+    <?php echo __($label, WPL_TEXTDOMAIN); ?>
+    <?php if(in_array($mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?>
 </label>
 <div class="wpl-multiling-field wpl-multiling-text">
 
@@ -33,7 +33,7 @@ if($type == 'meta_key' and !$done_this)
     </div>
 </div>
 <?php else: ?>
-<label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($field->name, WPL_TEXTDOMAIN); ?><?php if (in_array($field->mandatory, array(1, 2))): ?><span class="wpl_red_star">*</span><?php endif; ?></label>
+<label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($label, WPL_TEXTDOMAIN); ?><?php if (in_array($mandatory, array(1, 2))): ?><span class="wpl_red_star">*</span><?php endif; ?></label>
 <div id="wpl_c_<?php echo $field->id; ?>_container" class="wpl-meta-wp">
     <div class="wpl-top-row-wp">
         <input type="checkbox" id="wpl_c_<?php echo $field->id; ?>_manual" onchange="meta_key_manual();" <?php if (isset($values['meta_keywords_manual']) and $values['meta_keywords_manual']) echo 'checked="checked"'; ?> />

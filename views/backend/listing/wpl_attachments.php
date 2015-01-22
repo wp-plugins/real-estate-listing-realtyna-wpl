@@ -27,7 +27,7 @@ class wpl_listing_controller extends wpl_controller
 	public function upload()
 	{
 		/** import upload library **/
-		_wpl_import('assets.js.ajax_uploader.UploadHandler');
+		_wpl_import('assets.packages.ajax_uploader.UploadHandler');
 		$kind = wpl_request::getVar('kind', 0);
 		
 		$params = array();

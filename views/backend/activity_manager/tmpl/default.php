@@ -23,14 +23,14 @@ $this->_wpl_import($this->tpl_path . '.scripts.css');
                     <?php endforeach; ?>
                 </select>&nbsp;
                 <span class="wpl_create_new action-btn icon-plus" title="<?php echo __('Add Activity', WPL_TEXTDOMAIN); ?>" onclick="wpl_generate_modify_activity_page(0);"></span>
-                <span id="wpl_fancybox_handler" class="fancybox wpl_hidden_element" href="#wpl_activity_manager_edit_div"></span>
+                <span id="wpl_lightbox_handler" class="wpl_hidden_element" data-realtyna-href="#wpl_activity_manager_edit_div"></span>
             </div>
             <div class="clearfix"></div>
         </div>
         <table class="widefat page" id="wpl_activity_manager_table">
             <thead>
                 <tr>
-                    <th scope="col" class="manage-column"><?php echo '#'; ?></th>
+                    <th scope="col" class="manage-column"><?php echo __('ID', WPL_TEXTDOMAIN); ?></th>
                     <th scope="col" class="manage-column"><?php echo __('Title', WPL_TEXTDOMAIN); ?></th>
                     <th scope="col" class="manage-column"><?php echo __('Activity', WPL_TEXTDOMAIN); ?></th>
                     <th scope="col" class="manage-column"><?php echo __('Layout', WPL_TEXTDOMAIN); ?></th>
@@ -41,7 +41,7 @@ $this->_wpl_import($this->tpl_path . '.scripts.css');
             </thead>
             <tfoot>
                 <tr>
-                    <th scope="col" class="manage-column"><?php echo '#'; ?></th>
+                    <th scope="col" class="manage-column"><?php echo __('ID', WPL_TEXTDOMAIN); ?></th>
                     <th scope="col" class="manage-column"><?php echo __('Title', WPL_TEXTDOMAIN); ?></th>
                     <th scope="col" class="manage-column"><?php echo __('Activity', WPL_TEXTDOMAIN); ?></th>
                     <th scope="col" class="manage-column"><?php echo __('Layout', WPL_TEXTDOMAIN); ?></th>
@@ -58,7 +58,6 @@ $this->_wpl_import($this->tpl_path . '.scripts.css');
 					
                     /** Skip Backend Activity **/
                     if(wpl_activity::check_activity($activity_field_name[0], wpl_activity::ACTIVITY_BACKEND)) continue;
-                    
                     ?>
                     <tr id="<?php echo $activity->id; ?>">
                         <td class="size-1"><?php echo $activity->id; ?></td>
@@ -84,7 +83,7 @@ $this->_wpl_import($this->tpl_path . '.scripts.css');
                             ?>
                             <span class="action-btn icon-disabled <?php echo $activity_disable_class; ?>" id="activity_disable_<?php echo $activity->id; ?>" onclick="wpl_set_enabled_activity(<?php echo $activity->id ?>, 1);"></span>
                             <span class="action-btn icon-enabled <?php echo $activity_enable_class; ?>" id="activity_enable_<?php echo $activity->id; ?>" onclick="wpl_set_enabled_activity(<?php echo $activity->id ?>, 0);"></span>
-                            <span class="action-btn icon-edit wpl_show fancybox" href="#wpl_activity_manager_edit_div" onclick="wpl_generate_modify_activity_page(<?php echo $activity->id; ?>)"></span>
+                            <span data-realtyna-lightbox data-realtyna-lightbox-opts="reloadPage:true" data-realtyna-href="#wpl_activity_manager_edit_div" class="action-btn icon-edit" onclick="wpl_generate_modify_activity_page(<?php echo $activity->id; ?>)"></span>
                             <span class="action-btn icon-recycle wpl_show" onclick="wpl_remove_activity(<?php echo $activity->id; ?>);"></span>
                             <span class="action-btn icon-move" id="extension_move_1"></span>
                         </td>

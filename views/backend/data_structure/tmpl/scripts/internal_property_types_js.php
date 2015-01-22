@@ -51,9 +51,6 @@ function wpl_remove_property_type(property_type_id, confirmed)
     wpl_remove_message('.wpl_data_structure_list .wpl_show_message');
     request_str = 'wpl_format=b:data_structure:ajax_property_types&wpl_function=generate_delete_page&property_type_id='+property_type_id;
 
-    /** refresh the fancybox **/
-    rta.config.fancybox.reloadAfterClose = true;
-
     /** run ajax query **/
     wplj.ajax(
     {
@@ -63,13 +60,11 @@ function wpl_remove_property_type(property_type_id, confirmed)
         success: function(data)
         {
             wplj("#wpl_data_structure_edit_div").html(data);
-            wplj('.wpl_help').wpl_help();
-            wplj("#wpl_fancybox_handler").trigger("click");
+            wplj._realtyna.lightbox.open("#wpl_property_type_remove"+property_type_id, {reloadPage: true});
         },
         error: function(jqXHR, textStatus, errorThrown)
         {
             wpl_show_messages('<?php echo __('Error Occured.', WPL_TEXTDOMAIN); ?>', '.wpl_data_structure_list .wpl_show_message', 'wpl_red_msg');
-            wplj.fancybox.close();
         }
     });
 }
@@ -121,9 +116,6 @@ function wpl_generate_new_page_property_type()
 	wpl_remove_message('.wpl_data_structure_list .wpl_show_message');
 	request_str = 'wpl_format=b:data_structure:ajax_property_types&wpl_function=generate_new_page';
 	
-	/** refresh the fancybox **/
-	rta.config.fancybox.reloadAfterClose = true;
-	
 	/** run ajax query **/
 	wplj.ajax(
 	{
@@ -133,12 +125,11 @@ function wpl_generate_new_page_property_type()
 		success: function(data)
 		{
 			wplj("#wpl_data_structure_edit_div").html(data);
-			wplj('.wpl_help').wpl_help();
 		},
 		error: function(jqXHR, textStatus, errorThrown)
 		{
 			wpl_show_messages('<?php echo __('Error Occured.', WPL_TEXTDOMAIN); ?>', '.wpl_data_structure_list .wpl_show_message', 'wpl_red_msg');
-			wplj.fancybox.close();
+			wplj._realtyna.lightbox.close();
 		}
 	});
 }
@@ -150,9 +141,6 @@ function wpl_generate_edit_page_property_type(property_type_id)
 	wpl_remove_message('.wpl_data_structure_list .wpl_show_message');
 	request_str = 'wpl_format=b:data_structure:ajax_property_types&wpl_function=generate_edit_page&property_type_id=' + property_type_id;
     
-    /** refresh the fancybox **/
-	rta.config.fancybox.reloadAfterClose = true;
-    
 	/** run ajax query **/
 	wplj.ajax(
 	{
@@ -162,12 +150,11 @@ function wpl_generate_edit_page_property_type(property_type_id)
 		success: function(data)
 		{
 			wplj("#wpl_data_structure_edit_div").html(data);
-			wplj('.wpl_help').wpl_help();
 		},
 		error: function(jqXHR, textStatus, errorThrown)
 		{
 			wpl_show_messages('<?php echo __('Error Occured.', WPL_TEXTDOMAIN); ?>', '.wpl_data_structure_list .wpl_show_message', 'wpl_red_msg');
-			wplj.fancybox.close();
+			wplj._realtyna.lightbox.close();
 		}
 	});
 }
@@ -226,14 +213,14 @@ function wpl_ajax_insert_property_type(id)
 
 	ajax.success(function(data)
 	{
-		if (data.success == 1)
+		if(data.success == 1)
 		{
 			wpl_show_messages(data.message, '.wpl_show_message' + id, 'wpl_green_msg');
-			setTimeout(function() {   
-			    wplj(".fancybox-close").trigger("click");
-				 location.reload();
+			setTimeout(function()
+            {
+			    wplj._realtyna.lightbox.close();
+				location.reload();
 			}, 1000);
-			
 		}
 		else if (data.success != 1)
 		{
@@ -249,14 +236,13 @@ function purge_properties_property_type(property_type_id)
 
 	ajax.success(function(data)
 	{
-		if (data.success == 1)
+		if(data.success == 1)
 		{
 			wpl_show_messages(data.message, '.wpl_show_message' + property_type_id, 'wpl_green_msg');
-			setTimeout(function() {   
-			    wplj(".fancybox-close").trigger("click");
-				 location.reload();
+			setTimeout(function()
+            {
+			    wplj._realtyna.lightbox.close();
 			}, 1000);
-			
 		}
 		else if (data.success != 1)
 		{
@@ -269,8 +255,7 @@ function assign_properties_property_type(property_type_id)
 {
 	var select_id = wplj('#property_type_select').val();
 
-	if(select_id == -1)
-		return;
+	if(select_id == -1) return;
 	
 	request_str = 'wpl_format=b:data_structure:ajax_property_types&wpl_function=assign_related_properties&property_type_id=' + property_type_id+ '&select_id=' + select_id;
 	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str);
@@ -280,11 +265,10 @@ function assign_properties_property_type(property_type_id)
 		if (data.success == 1)
 		{
 			wpl_show_messages(data.message, '.wpl_show_message' + property_type_id, 'wpl_green_msg');
-			setTimeout(function() {   
-			    wplj(".fancybox-close").trigger("click");
-				 location.reload();
+			setTimeout(function()
+            {
+			    wplj._realtyna.lightbox.close();
 			}, 1000);
-			
 		}
 		else if (data.success != 1)
 		{
@@ -295,9 +279,9 @@ function assign_properties_property_type(property_type_id)
 
 function show_opt_2_property_type()
 {
-	wplj('#pt-del-options').fadeOut(200,function(){
+	wplj('#pt-del-options').fadeOut(200,function()
+    {
         wplj('#pt-del-plist').fadeIn();
     });
-
 }
 </script>

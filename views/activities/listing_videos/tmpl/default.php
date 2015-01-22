@@ -4,8 +4,8 @@ defined('_WPLEXEC') or die('Restricted access');
 
 $this->_wpl_import($this->tpl_path.'.scripts.js', true, true);
 
-$js = (object) array('param1'=>'jquery-video-js-script', 'param2'=>'js/video-js/video.js');
-$style = (object) array('param1'=>'ajax-video-js-style', 'param2'=>'js/video-js/video-js.min.css');
+$js = (object) array('param1'=>'jquery-video-js-script', 'param2'=>'packages/video-js/video.js');
+$style = (object) array('param1'=>'ajax-video-js-style', 'param2'=>'packages/video-js/video-js.min.css');
 
 /** import styles and javascripts **/
 wpl_extensions::import_javascript($js);
@@ -29,7 +29,7 @@ if(!count($videos) or !is_array($videos)) return;
         	<?php if($video['category'] == 'video'): ?>
             <video id="example_video_<?php echo $video['raw']['id']; ?>" class="video-js vjs-default-skin" controls preload="none" width="<?php echo $video_width; ?>" height="<?php echo $video_height; ?>" data-setup="{}">
                 <source src="<?php echo $video['url']; ?>" type='video/<?php echo pathinfo($video['url'], PATHINFO_EXTENSION); ?>' />
-                <track kind="captions" src="<?php echo wpl_global::get_wpl_asset_url('js/video-js/demo.captions.vtt'); ?>" srclang="en" label="<?php echo __('English', WPL_TEXTDOMAIN); ?>"></track>
+                <track kind="captions" src="<?php echo wpl_global::get_wpl_asset_url('packages/video-js/demo.captions.vtt'); ?>" srclang="en" label="<?php echo __('English', WPL_TEXTDOMAIN); ?>"></track>
             </video>
             <?php elseif($video['category'] == 'video_embed'): ?>
             <?php echo $video['url']; ?>

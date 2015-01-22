@@ -77,8 +77,12 @@ abstract class wpl_property_listing_controller_abstract extends wpl_controller
 		
 		$where = array('sf_select_confirmed'=>1, 'sf_select_finalized'=>1, 'sf_select_deleted'=>0, 'sf_select_expired'=>0, 'sf_select_kind'=>$this->kind);
 		
+        /** Add search conditions to the where **/
+        $vars = array_merge(wpl_request::get('POST'), wpl_request::get('GET'));
+		$where = array_merge($vars, $where);
+        
 		/** start search **/
-		$this->model->start($this->start, $this->limit, $this->orderby, $this->order, $where);
+		$this->model->start($this->start, $this->limit, $this->orderby, $this->order, $where, $this->kind);
 		$this->model->total = $this->model->get_properties_count();
 		
 		/** validation for page_number **/
@@ -92,7 +96,7 @@ abstract class wpl_property_listing_controller_abstract extends wpl_controller
 		/** finish search **/
 		$this->model->finish();
 		
-		$plisting_fields = $this->model->get_plisting_fields();
+		$plisting_fields = $this->model->get_plisting_fields('', $this->kind);
 		
 		$wpl_properties = array();
 		foreach($properties as $property)

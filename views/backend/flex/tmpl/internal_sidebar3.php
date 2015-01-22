@@ -10,6 +10,6 @@ defined('_WPLEXEC') or die('Restricted access');
                 <option value="<?php echo $dbst_type->type; ?>"><?php echo $dbst_type->type; ?></option>
             <?php endforeach; ?>
         </select>
-        <input href="#wpl_flex_edit_div" type="button" class="wpl-button button-1 fancybox" onclick="generate_modify_page(0);" value="<?php echo __('Add', WPL_TEXTDOMAIN); ?>" />
+        <input data-realtyna-lightbox data-realtyna-lightbox-opts="reloadPage:true" data-realtyna-href="#wpl_flex_edit_div" type="button" class="wpl-button button-1" onclick="generate_modify_page(0);" value="<?php echo __('Add', WPL_TEXTDOMAIN); ?>" />
     </div>
 </div>

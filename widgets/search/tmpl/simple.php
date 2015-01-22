@@ -2,11 +2,10 @@
 defined('_WPLEXEC') or die('Restricted access');
 
 /** add Layout js **/
-$js[] = (object) array('param1'=>'chosen.jQuery', 'param2'=>'js/chosen.jQuery/chosen.jquery.min.js');
-$js[] = (object) array('param1'=>'jquery.checkbox', 'param2'=>'js/jquery.ui/checkbox/jquery.checkbox.js');
-foreach ($js as $javascript) wpl_extensions::import_javascript($javascript);
+$js[] = (object) array('param1'=>'jquery.checkbox', 'param2'=>'packages/jquery.ui/checkbox/jquery.checkbox.js');
+foreach($js as $javascript) wpl_extensions::import_javascript($javascript);
 
-include _wpl_import('widgets.search.scripts.js', true, true);
+$bott_div_open = false;
 ?>
 <form action="<?php echo wpl_property::get_property_listing_link(); ?>" id="wpl_search_form_<?php echo $widget_id; ?>" method="GET" onsubmit="return wpl_do_search_<?php echo $widget_id; ?>();" class="wpl_search_from_box simple clearfix">
     <!-- Do not change the ID -->
@@ -24,3 +23,4 @@ include _wpl_import('widgets.search.scripts.js', true, true);
 	    </div>
 	</div>
 </form>
+<?php include _wpl_import('widgets.search.scripts.js', true, true); ?>

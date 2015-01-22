@@ -2,7 +2,7 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 
-_wpl_import('libraries.widgets');
+_wpl_import("libraries.widgets");
 _wpl_import("libraries.flex");
 _wpl_import("libraries.locations");
 _wpl_import("libraries.property");
@@ -46,10 +46,10 @@ class wpl_search_widget extends wpl_widget
 				
 		echo $args['before_widget'];
 
-		$title = apply_filters('widget_title', $instance['title']);
+		$title = apply_filters('widget_title', (isset($instance['title']) ? $instance['title'] : ''));
 		if(trim($title) != '') echo $args['before_title'] .$title. $args['after_title'];
 		
-		$layout = 'widgets.search.tmpl.'.$instance['layout'];
+		$layout = 'widgets.search.tmpl.'.(isset($instance['layout']) ? $instance['layout'] : 'default');
 		$layout = _wpl_import($layout, true, true);
 		$find_files = array();
 		
@@ -57,7 +57,7 @@ class wpl_search_widget extends wpl_widget
 		$this->rendered = $this->render_search_fields($instance, $widget_id, $find_files);
 		
 		if(!wpl_file::exists($layout)) $layout = _wpl_import('widgets.search.tmpl.default', true, true);
-		if(wpl_file::exists($layout)) 
+		if(wpl_file::exists($layout))
 			require $layout;
 		else
 			echo __('Widget Layout Not Found!', WPL_TEXTDOMAIN);
@@ -196,7 +196,7 @@ class wpl_search_widget extends wpl_widget
 			if($field['enable'] != 'enable') continue;
 			
             /** Fix empty id issue **/
-            if(!$field['id'] and $key) $field['id'] = $key;
+            if((!isset($field['id']) or (isset($field['id']) and !$field['id'])) and $key) $field['id'] = $key;
             
 			$field_data = (array) wpl_flex::get_field($field['id']);
             if(!$field_data) continue;
@@ -225,7 +225,7 @@ class wpl_search_widget extends wpl_widget
 			
 			if(isset($finds[$type]))
 			{
-				$html .= '<div class="wpl_search_field_container '.$field['type'].' '.((isset($field['type']) and $field['type'] == 'predefined') ? 'wpl_hidden' : '').'" id="wpl'.$widget_id.'_search_field_container_'.$field['id'].'">';
+				$html .= '<div class="wpl_search_field_container '.(!isset($field['type']) ? ' separator' : $field['type']).' '.((isset($field['type']) and $field['type'] == 'predefined') ? 'wpl_hidden' : '').'" id="wpl'.$widget_id.'_search_field_container_'.$field['id'].'">';
 				include($path .DS. $finds[$type]);
 				$html .= '</div>';
 				
@@ -234,12 +234,12 @@ class wpl_search_widget extends wpl_widget
 				$rendered[$field_id]['field_options'] = json_decode($field_data['options'], true);
 				$rendered[$field_id]['search_options'] = isset($field['extoption']) ? $field['extoption'] : NULL;
 				$rendered[$field_id]['html'] = $html;
+                $rendered[$field_id]['current_value'] = $current_value;
 				$rendered[$field_id]['display'] = $display;
-				
 				continue;
 			}
 			
-			$html .= '<div class="wpl_search_field_container '.$field['type'].' '.((isset($field['type']) and $field['type'] == 'predefined') ? 'wpl_hidden' : '').'" id="wpl'.$widget_id.'_search_field_container_'.$field['id'].'" style="'.$display.'">';
+			$html .= '<div class="wpl_search_field_container '.(!isset($field['type']) ? ' separator' : $field['type']).' '.((isset($field['type']) and $field['type'] == 'predefined') ? 'wpl_hidden' : '').'" id="wpl'.$widget_id.'_search_field_container_'.$field['id'].'" style="'.$display.'">';
 			foreach($files as $file)
 			{
 				include($path .DS. $file);
@@ -258,6 +258,7 @@ class wpl_search_widget extends wpl_widget
 			$rendered[$field_id]['field_options'] = json_decode($field_data['options'], true);
 			$rendered[$field_id]['search_options'] = isset($field['extoption']) ? $field['extoption'] : NULL;
 			$rendered[$field_id]['html'] = $html;
+            $rendered[$field_id]['current_value'] = $current_value;
 			$rendered[$field_id]['display'] = $display;
 		}
         

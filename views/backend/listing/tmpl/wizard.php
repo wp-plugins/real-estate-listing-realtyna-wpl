@@ -29,16 +29,16 @@ $this->finds = array();
                 $category_listing_specific_array = array();
                 $category_property_type_specific_array = array();
 
-                foreach ($this->field_categories as $category)
+                foreach($this->field_categories as $category)
 				{
                     $display = '';
 
-                    if (trim($category->listing_specific) != '')
+                    if(trim($category->listing_specific) != '')
 					{
-                        if (substr($category->listing_specific,0,5) == 'type=')
+                        if(substr($category->listing_specific, 0, 5) == 'type=')
                         {
-                            $specified_listings = wpl_global::get_listing_types_by_parent(substr($category->listing_specific,5));
-                            foreach ($specified_listings as $listing_type) 
+                            $specified_listings = wpl_global::get_listing_types_by_parent(substr($category->listing_specific, 5));
+                            foreach($specified_listings as $listing_type)
                                 $category_listing_specific_array[$category->id][] = $listing_type["id"];
                         }
                         else
@@ -47,27 +47,23 @@ $this->finds = array();
                             $category_listing_specific_array[$category->id] = $specified_listings;
                         }
                         
-                        if(!in_array($this->values['listing'], $category_listing_specific_array[$category->id])) 
+                        if(!in_array($this->values['listing'], $category_listing_specific_array[$category->id]))
                             $display = "display:none;";
                     }
                     elseif(trim($category->property_type_specific) != '')
 					{
-                        
-                        if (substr($category->property_type_specific,0,5) == 'type=')
+                        if(substr($category->property_type_specific, 0, 5) == 'type=')
                         {
                             $specified_property_types = wpl_global::get_property_types_by_parent(substr($category->property_type_specific,5));
-                            foreach ($specified_property_types as $property_type) 
-                                $category_listing_specific_array[$category->id][] = $property_type["id"];
+                            foreach($specified_property_types as $property_type) $category_listing_specific_array[$category->id][] = $property_type["id"];
                         }
                         else
                         {
                             $specified_property_types = explode(',', trim($category->property_type_specific, ', '));
                             $category_property_type_specific_array[$category->id] = $specified_property_types;
-                            if(!in_array($this->values['property_type'], $category_property_type_specific_array[$category->id]))    $display = "display:none;"; 
+                            if(!in_array($this->values['property_type'], $category_property_type_specific_array[$category->id])) $display = "display:none;";
                         }
-                        
                     }
-                    
                     ?>
                     <li>
                         <a style="<?php echo $display; ?>" href="#<?php echo $category->id; ?>" class="wpl_slide_label wpl_slide_label_prefix_<?php echo $category->prefix; ?>" id="wpl_slide_label_id<?php echo $category->id; ?>" onclick="rta.internal.slides.open('<?php echo $category->id; ?>', '.side-tabs-wp', '.wpl_slide_container', 'currentTab');" >
@@ -81,27 +77,23 @@ $this->finds = array();
         </div>
         <div class="side-12 side-content-wp">
             <?php 
-            foreach ($this->field_categories as $category)
+            foreach($this->field_categories as $category)
             {
-                $generate_slide = true;
-                        
+                $display = true;
+                
                 if(trim($category->listing_specific) != '' && !in_array($this->values['listing'], $category_listing_specific_array[$category->id])) 
                 {
-                    $generate_slide = false;
+                    $display = "display:none;";
                 }
                 elseif(trim($category->property_type_specific) != '' && !in_array($this->values['property_type'], $category_property_type_specific_array[$category->id]))
                 {
-                    $generate_slide = false;
+                    $display = "display:none;";
                 }
-               
-                if($generate_slide)
-                {
                 ?>
-                <div class="pwizard-panel wpl_slide_container wpl_slide_container<?php echo $category->id; ?>" id="wpl_slide_container_id<?php echo $category->id; ?>">
+                <div class="pwizard-panel wpl_slide_container wpl_slide_container<?php echo $category->id; ?>" id="wpl_slide_container_id<?php echo $category->id; ?>" style="<?php echo $display; ?>">
                     <?php $this->generate_slide($category); ?>
                 </div>
                 <?php 
-                }
             } 
             ?>
             <div class="wpl_slide_container wpl_slide_container10000" id="wpl_slide_container_id10000">
@@ -124,9 +116,9 @@ $this->finds = array();
                                     $manager_link = NULL;
                                     if(wpl_global::get_client() == 1) $manager_link = wpl_global::add_qs_var('kind', $this->kind, wpl_global::get_wpl_admin_menu('wpl_admin_listings'));
                                 ?>
-                                <a class="wpl-button button-2" href="<?php echo $property_link; ?>"><?php echo __('View this listing', WPL_TEXTDOMAIN); ?></a>
+                                <a class="wpl-button button-2" target="_blank" href="<?php echo $property_link; ?>"><?php echo __('View this listing', WPL_TEXTDOMAIN); ?></a>
                                 <a class="wpl-button button-2" href="<?php echo $new_link; ?>"><?php echo __('Add new listing', WPL_TEXTDOMAIN); ?></a>
-                                <?php if($manager_link): ?><a class="wpl-button button-2" href="<?php echo $manager_link; ?>"><?php echo __($this->kind_label.' Manager', WPL_TEXTDOMAIN); ?></a><?php endif; ?>
+                                <?php if($manager_link): ?><a class="wpl-button button-2" target="_blank" href="<?php echo $manager_link; ?>"><?php echo __($this->kind_label.' Manager', WPL_TEXTDOMAIN); ?></a><?php endif; ?>
                             </div>
                         </div>
                     </div>

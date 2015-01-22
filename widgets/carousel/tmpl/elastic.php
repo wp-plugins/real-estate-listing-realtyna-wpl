@@ -13,7 +13,7 @@ $thumbnail_height = isset($this->instance['data']['thumbnail_height']) ? $this->
 $slide_interval = isset($this->instance['data']['slide_interval']) ? $this->instance['data']['slide_interval'] : 3000;
 
 /** add Layout js **/
-$js[] = (object) array('param1'=>'elastic.slideshow', 'param2'=>'js/elastic_slideshow/jquery.eislideshow.js');
+$js[] = (object) array('param1'=>'elastic.slideshow', 'param2'=>'packages/elastic_slideshow/jquery.eislideshow.js');
 foreach($js as $javascript) wpl_extensions::import_javascript($javascript);
 
 $larg_images = $thumbnail = NULL;

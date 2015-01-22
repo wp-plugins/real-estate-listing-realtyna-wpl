@@ -11,4 +11,5 @@ defined('_WPLEXEC') or die('Restricted access');
 .clearfix{clear: both;}
 .gray_tip{font-style: italic; color: #999999; font-size: 13px;}
 .noti-wp .prow label{vertical-align: top !important;}
+.manager-wp .action-btn.disable{cursor: default;}
 </style>

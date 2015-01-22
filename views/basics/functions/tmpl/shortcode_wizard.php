@@ -154,6 +154,30 @@ wpl_extensions::import_javascript($js);
             </select>
         </div>
         
+        <div class="plugin-row wpl_shortcode_parameter wpl_hidden_element pr_profile_listing">
+            <?php $user_types = wpl_users::get_user_types(); ?>
+            <label for="pr_user_type_selectbox"><?php echo __('User Type', WPL_TEXTDOMAIN); ?></label>
+            <select id="pr_user_type_selectbox" name="sf_select_membership_type">
+                <option value="">-----</option>
+                <?php foreach($user_types as $user_type): ?>
+				<option value="<?php echo $user_type->id; ?>"><?php echo __($user_type->name, WPL_TEXTDOMAIN); ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        
+        <?php if(wpl_global::check_addon('membership')): ?>
+        <div class="plugin-row wpl_shortcode_parameter wpl_hidden_element pr_profile_listing">
+            <?php $memberships = wpl_users::get_wpl_memberships(); ?>
+            <label for="pr_membership_selectbox"><?php echo __('Membership', WPL_TEXTDOMAIN); ?></label>
+            <select id="pr_membership_selectbox" name="sf_select_membership_id">
+                <option value="">-----</option>
+                <?php foreach($memberships as $membership): ?>
+				<option value="<?php echo $membership->id; ?>"><?php echo __($membership->membership_name, WPL_TEXTDOMAIN); ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <?php endif; ?>
+        
         <div class="plugin-row wpl_shortcode_parameter pr_property_manager pr_property_listing pr_profile_listing pr_profile_show">
             <?php $pages = wpl_global::get_wp_pages(); ?>
             <label for="pr_target_page_selectbox"><?php echo __('Target page', WPL_TEXTDOMAIN); ?></label>

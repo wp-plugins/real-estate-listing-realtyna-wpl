@@ -2,8 +2,8 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 
-wpl_extensions::import_javascript((object) array('param1'=>'wpl-jqplot-barrenderer', 'param2'=>'js/jqplot/plugins/jqplot.barRenderer.min.js'));
-wpl_extensions::import_javascript((object) array('param1'=>'wpl-jqplot-categoryAxisRenderer', 'param2'=>'js/jqplot/plugins/jqplot.categoryAxisRenderer.min.js'));
+wpl_extensions::import_javascript((object) array('param1'=>'wpl-jqplot-barrenderer', 'param2'=>'packages/jqplot/plugins/jqplot.barRenderer.min.js'));
+wpl_extensions::import_javascript((object) array('param1'=>'wpl-jqplot-categoryAxisRenderer', 'param2'=>'packages/jqplot/plugins/jqplot.categoryAxisRenderer.min.js'));
 $this->data = $params;
 
 $this->chart_background = (isset($this->data['chart_background']) and trim($this->data['chart_background']) != '') ? $this->data['chart_background'] : '';

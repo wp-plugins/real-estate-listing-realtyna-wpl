@@ -3,7 +3,8 @@
 defined('_WPLEXEC') or die('Restricted access');
 ?>
 <script type="text/javascript">
-wplj(document).ready(function(){
+wplj(document).ready(function()
+{
 });
 
 function wpl_set_enabled_location(location_id, enabeled_status)
@@ -21,7 +22,6 @@ function wpl_set_enabled_location(location_id, enabeled_status)
 	
 	/** run ajax query **/
 	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str, ajax_loader_element);
-	
 	ajax.success(function(data)
 	{
 		if(data.success == 1)
@@ -71,17 +71,12 @@ function wpl_generate_modify_page(level, parent, location_id)
 		success: function(data)
 		{
 			wplj("#wpl_location_fancybox_cnt").html(data);
-			wplj('.wpl_help').wpl_help();
 			wplj("#wpl_location_name").focus();
 		},
 		error: function(jqXHR, textStatus, errorThrown)
 		{
 			wpl_show_messages('<?php echo __('Error Occured.', WPL_TEXTDOMAIN); ?>', '.wpl_location_list .wpl_show_message', 'wpl_red_msg');
-			
-			/** reload after fancybox **/
-			rta.config.fancybox.reloadAfterClose = false;
-			
-			wplj.fancybox.close();
+			wplj._realtyna.lightbox.close();
 		}
 	});
 }
@@ -102,19 +97,11 @@ function wpl_generate_params_page(level, location_id)
 		success: function(data)
 		{
 			wplj("#wpl_location_fancybox_cnt").html(data);
-			wplj('.wpl_help').wpl_help();
-			
-			/** for fixing horizontal scroll **/
-			wplj("#wpl_location_fancybox_cnt").width("auto");
 		},
 		error: function(jqXHR, textStatus, errorThrown)
 		{
 			wpl_show_messages('<?php echo __('Error Occured.', WPL_TEXTDOMAIN); ?>', '.wpl_location_list .wpl_show_message', 'wpl_red_msg');
-			
-			/** reload after fancybox **/
-			rta.config.fancybox.reloadAfterClose = false;
-			
-			wplj.fancybox.close();
+			wplj._realtyna.lightbox.close();
 		}
 	});
 }
@@ -143,10 +130,7 @@ function wpl_ajax_modify_location(level, parent, location_id)
 			wpl_show_messages(data.message, '.wpl_show_message_location', 'wpl_green_msg');
 			wplj(ajax_loader_element).html('');
 			
-			/** reload after fancybox **/
-			rta.config.fancybox.reloadAfterClose = true;
-			
-			wplj.fancybox.close();
+			wplj._realtyna.lightbox.close();
 		}
 		else if(data.success != 1)
 		{
@@ -221,7 +205,6 @@ function wpl_setting_save(setting_id, setting_name, setting_value, setting_categ
 	wplj("#wpl_st_form_element"+setting_id).attr("disabled", "disabled");
 	
 	element_type = wplj("#wpl_st_form_element"+setting_id).attr('type');
-	
 	if(element_type == 'checkbox')
 	{
 		if(wplj("#wpl_st_form_element"+setting_id).is(':checked')) setting_value = 1;
@@ -235,7 +218,6 @@ function wpl_setting_save(setting_id, setting_name, setting_value, setting_categ
 	
 	/** run ajax query **/
 	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str, ajax_loader_element);
-	
 	ajax.success(function(data)
 	{
 		wplj("#wpl_st_form_element"+setting_id).removeAttr("disabled");

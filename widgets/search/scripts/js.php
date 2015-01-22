@@ -1,10 +1,34 @@
 <script type="text/javascript">
 wplj(document).ready(function()
 {
-	wplj(".MD_SEP > .wpl_search_field_container:first-child").click(function()
+    wplj('.wpl_search_from_box #more_search_option<?php echo $widget_id; ?>').on('click', function()
 	{
-		wplj(this).siblings(".wpl_search_field_container").slideToggle(400)
+        var widget_id = wplj(this).attr('data-widget-id');
+        
+		if(wplj(this).hasClass('active'))
+		{
+			wplj(this).removeClass('active');
+			wplj('.wpl_search_from_box #wpl_search_from_box_bot'+widget_id).slideUp("fast");
+			wplj('.wpl_search_from_box #wpl_search_from_box_bot'+widget_id+' .wpl_search_field_container').animate({ marginLeft : 100 + 'px', opacity : 1 });
+			wplj(this).text("<?php echo __('More options', WPL_TEXTDOMAIN); ?>");
+		}
+		else
+		{
+			wplj(this).addClass('active');
+			wplj('.wpl_search_from_box #wpl_search_from_box_bot'+widget_id).fadeIn();
+			wplj('.wpl_search_from_box #wpl_search_from_box_bot'+widget_id+' .wpl_search_field_container').animate({ marginLeft : 0 + 'px', opacity : 1 });
+			wplj(this).text("<?php echo __('Less options', WPL_TEXTDOMAIN); ?>");
+		}
 	})
+    
+	wplj(".MD_SEP > .wpl_search_field_container:first-child").on('click', function()
+	{
+		wplj(this).siblings(".wpl_search_field_container").slideToggle(400);
+	})
+    
+    <?php if($bott_div_open): ?>
+    wplj(".wpl_search_from_box #more_search_option<?php echo $widget_id; ?>").trigger('click');
+    <?php endif; ?>
 });
 
 /** main search function **/
@@ -178,7 +202,7 @@ function wpl_do_reset<?php echo $widget_id; ?>(exclude, do_search)
                 
             case 'select-one':
 
-                wplj(this).val('');
+                wplj(this).val(wplj(this).find('option:first').val());
                 wplj(this).trigger("chosen:updated");
                 break;
                 

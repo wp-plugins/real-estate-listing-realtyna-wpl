@@ -101,9 +101,6 @@ class wpl_users_controller extends wpl_controller
 	{
 		$res = wpl_users::add_user_to_wpl($user_id);
 		
-		/** trigger event **/
-		wpl_global::event_handler('user_added_to_wpl', array('user_id'=>$user_id));
-		
 		$res = (int) $res;
 		$message = $res ? __('User added to WPL successfully.', WPL_TEXTDOMAIN) : __('Error Occured.', WPL_TEXTDOMAIN);
 		$data = NULL;
@@ -118,9 +115,6 @@ class wpl_users_controller extends wpl_controller
 	{
 		if($confirmed) $res = wpl_users::delete_user_from_wpl($user_id);
 		else $res = false;
-		
-		/** trigger event **/
-		wpl_global::event_handler('user_deleted_from_wpl', array('user_id'=>$user_id));
 		
 		$res = (int) $res;
 		$message = $res ? __('User removed from WPL successfully.', WPL_TEXTDOMAIN) : __('Error Occured.', WPL_TEXTDOMAIN);
@@ -158,6 +152,12 @@ class wpl_users_controller extends wpl_controller
 			echo __('Membership addon must be installed for this!', WPL_TEXTDOMAIN);
 			return;
 		}
+
+		if($tpl == 'internal_setting_crm' && !wpl_global::check_addon('crm'))
+		{
+			echo __('CRM addon must be installed for this!', WPL_TEXTDOMAIN);
+			return;
+		}
         
 		/** include the layout **/
 		parent::render($this->tpl_path, $tpl);
@@ -180,20 +180,29 @@ class wpl_users_controller extends wpl_controller
 	public function save_user_do($inputs)
 	{
 		$restricted_fields = array('page', 'wpl_format', 'wpl_function', 'function', 'id');
-		
+
 		/** edit user **/
 		$query = "";
 		$id = $inputs['id'];
 		$columns = wpl_db::columns('wpl_users');
-        
+        $crm_access = new stdClass();
+
 		/** set restriction to none **/
 		if(!$inputs['maccess_lrestrict']) $inputs['maccess_listings'] = '';
 		if(!$inputs['maccess_ptrestrict']) $inputs['maccess_property_types'] = '';
 		
 		foreach($inputs as $field=>$value)
 		{
+			if(substr($field, 0, 11) == 'crm_access_')
+			{
+				$data = explode('-', substr($field, 11));
+				if(!isset($crm_access->{$data[0]})) $crm_access->{$data[0]} = new stdClass();
+				$crm_access->{$data[0]}->{$data[1]} = $value;
+				continue;
+			}
+			
 			if(in_array($field, $restricted_fields) or !in_array($field, $columns)) continue;
-            
+				
 			$query .= "`".$field."`='" .$value. "', ";
 		}
 		
@@ -203,6 +212,14 @@ class wpl_users_controller extends wpl_controller
 		/** update user **/
 		wpl_db::q($query);
 		
+		/** update CRM access list if available **/
+		if(wpl_global::check_addon('crm'))
+		{
+			_wpl_import('libraries.addon_crm');
+			$crm = new wpl_addon_crm($id);
+			$crm->update_access_list($crm_access);
+		}
+
 		return true;
 	}
 	

@@ -53,12 +53,6 @@ class wpl_property
 	{
 		return wpl_flex::get_fields($category, $enabled, $kind, 'pshow', '1');
 	}
-	
-    public static function get_specialties_fields($kind = 0)
-	{
-        $category = wpl_flex::get_category(NULL, " AND `prefix`='sp' AND `kind`='$kind'");
-		return wpl_flex::get_fields(NULL, NULL, NULL, NULL, NULL, " AND `category`='{$category->id}' AND `enabled`>='1' AND `plisting`>='1' AND `type`='checkbox' AND `kind`='$kind'");
-	}
     
 	/**
 		@inputs {user_id}, [temp]
@@ -134,19 +128,22 @@ class wpl_property
 		@description for start property model use this function for configuration
 		@author Howard
 	**/
-	public function start($start, $limit, $orderby, $order, $where)
+	public function start($start, $limit, $orderby, $order, $where, $kind = 0)
     {
 		/** start time of model **/
 		$this->start_time = microtime(true);
 		
+        if(in_array($orderby, array('p.mls_id+0', 'p.mls_id'))) $orderby = 'cast(p.mls_id as unsigned)';
+        
 		/** pagination and order options **/
 		$this->start = $start;
 		$this->limit = $limit;
 		$this->orderby = $orderby;
 		$this->order = $order;
+        $this->kind = $kind;
 		
 		/** listing fields **/
-		$this->listing_fields = $this->get_plisting_fields();
+		$this->listing_fields = $this->get_plisting_fields('', $this->kind);
 		
 		/** main table **/
 		$this->main_table = "`#__wpl_properties` AS p";
@@ -157,10 +154,7 @@ class wpl_property
 		
 		/** generate where condition **/
 		$where = (array) $where;
-		$vars = array_merge(wpl_request::get('POST'), wpl_request::get('GET'));
-		$vars = array_merge($vars, $where);
-		
-		$this->where = wpl_db::create_query($vars);
+		$this->where = wpl_db::create_query($where);
 		
 		/** generate select **/
 		$this->select = $this->generate_select($this->listing_fields, 'p');
@@ -224,6 +218,8 @@ class wpl_property
         $this->time_taken = $this->finish_time - $this->start_time;
 		$this->total = $this->get_properties_count();
 		
+        if($this->orderby == 'cast(p.mls_id as unsigned)') $this->orderby = 'p.mls_id';
+        
 		return $this->time_taken;
 	}
 	
@@ -440,6 +436,7 @@ class wpl_property
     {
         $listings = wpl_global::return_in_id_array(wpl_global::get_listings());
         $markers = array();
+        $geo_points = array();
         
         $i = 0;
         foreach($wpl_properties as $key=>$property)
@@ -456,7 +453,16 @@ class wpl_property
                 $property['raw']['googlemap_lt'] = $LatLng[0];
                 $property['raw']['googlemap_ln'] = $LatLng[1];
             }
-
+            
+            if(isset($geo_points[$property['raw']['googlemap_lt'].','.$property['raw']['googlemap_ln']]))
+            {
+                $j = $geo_points[$property['raw']['googlemap_lt'].','.$property['raw']['googlemap_ln']];
+                $markers[$j]['pids'] .= ','.$property['raw']['id'];
+                $markers[$j]['gmap_icon'] = 'multiple.png';
+            
+                continue;
+            }
+            
             $markers[$i]['id'] = $property['raw']['id'];
             $markers[$i]['googlemap_lt'] = $property['raw']['googlemap_lt'];
             $markers[$i]['googlemap_ln'] = $property['raw']['googlemap_ln'];
@@ -464,7 +470,9 @@ class wpl_property
 
             $markers[$i]['pids'] = $property['raw']['id'];
             $markers[$i]['gmap_icon'] = (isset($listings[$property['raw']['listing']]['gicon']) and $listings[$property['raw']['listing']]['gicon']) ? $listings[$property['raw']['listing']]['gicon'] : 'default.png';
-
+            
+            $geo_points[$property['raw']['googlemap_lt'].','.$property['raw']['googlemap_ln']] = $i;
+            
             $i++;
         }
         
@@ -501,12 +509,18 @@ class wpl_property
 		$query = "UPDATE `#__wpl_properties` SET ".$update_query." WHERE `id`='$pid'";
 		wpl_db::q($query, 'update');
 		
+        /** Remove Property Cache **/
+        wpl_property::clear_property_cache($pid);
+        
 		wpl_property::update_text_search_field($pid);
         wpl_property::update_location_text_search_field($pid);
-		wpl_property::update_alias($property, $pid);
 		wpl_property::update_numbs($pid, $property);
+        wpl_property::update_alias($property);
         wpl_property::update_property_page_title($property);
         wpl_property::update_property_title($property);
+        
+        /** Fixes **/
+        wpl_property::fix_aliases($property, $pid);
         
 		/** generate rendered data **/
 		if(wpl_settings::get('cache')) wpl_property::generate_rendered_data($pid);
@@ -577,7 +591,7 @@ class wpl_property
 		$property_data = wpl_property::get_property_raw_data($pid);
 		
 		/** location text **/
-		$location_text = self::generate_location_text($property_data);
+		$location_text = self::generate_location_text($property_data, NULL, ',', true);
         
         /** rendered data **/
         $find_files = array();
@@ -714,7 +728,13 @@ class wpl_property
         
         $url = wpl_sef::get_wpl_permalink(true);
         
-		if(trim($property_data['alias']) != '') $alias = urlencode($property_data['alias']);
+        $alias_column = 'alias';
+        $alias_field_id = wpl_flex::get_dbst_id($alias_column, $property_data['kind']);
+        $alias_field = wpl_flex::get_field($alias_field_id);
+        
+        if($alias_field->multilingual and wpl_global::check_multilingual_status()) $alias_column = wpl_addon_pro::get_column_lang_name($alias_column, wpl_global::get_current_language(), false);
+        
+		if(trim($property_data[$alias_column]) != '') $alias = urlencode($property_data[$alias_column]);
 		else $alias = urlencode(self::update_alias($property_data, $property_id));
 		
         $home_type = wpl_global::get_wp_option('show_on_front', 'posts');
@@ -760,7 +780,11 @@ class wpl_property
         
         $nosef = wpl_sef::is_permalink_default();
         
-        if($nosef)
+        $home_type = wpl_global::get_wp_option('show_on_front', 'posts');
+        $home_id = wpl_global::get_wp_option('page_on_front', 0);
+        $wpl_main_page_id = wpl_sef::get_wpl_main_page_id();
+        
+        if($nosef  or ($home_type == 'page' and $home_id == $wpl_main_page_id))
         {
             $url = wpl_sef::get_wpl_permalink(true);
             $url = wpl_global::add_qs_var('wplview', 'features', $url);
@@ -790,12 +814,13 @@ class wpl_property
 		@return string location_text
 		@author Howard
 	**/
-	public static function generate_location_text($property_data, $property_id = 0, $glue = ',')
+	public static function generate_location_text($property_data, $property_id = 0, $glue = ',', $force = false)
 	{
 		/** fetch property data if property id is setted **/
 		if($property_id) $property_data = self::get_property_raw_data($property_id);
+        if(!$property_id) $property_id = $property_data['id'];
         
-        /** Return empty if address of property is hidden **/
+        /** Return hidex_keyword if address of property is hidden **/
         if(isset($property_data['show_address']) and !$property_data['show_address'])
         {
             $location_hidden_keyword = wpl_global::get_setting('location_hidden_keyword', 3);
@@ -804,15 +829,32 @@ class wpl_property
             return __($placeholder, WPL_TEXTDOMAIN);
         }
         
+        $column = 'location_text';
+        $field_id = wpl_flex::get_dbst_id($column, $property_data['kind']);
+        $field = wpl_flex::get_field($field_id);
+        $base_column = NULL;
+        
+        if(isset($field->multilingual) and $field->multilingual and wpl_global::check_multilingual_status())
+        {
+            $base_column = wpl_global::get_current_language() == wpl_addon_pro::get_default_language() ? $column : NULL;
+            $column = wpl_addon_pro::get_column_lang_name($column, wpl_global::get_current_language(), false);
+        }
+        
+        /** return current location text if exists **/
+        if(isset($property_data[$column]) and trim($property_data[$column]) != '' and !$force) return $property_data[$column];
+        
 		$locations = array();
         
-		if(isset($property_data['street_no']) and trim($property_data['street_no']) != '') $locations['street_no'] = $property_data['street_no'];
-        if(isset($property_data['field_42']) and trim($property_data['field_42']) != '') $locations['street'] = $property_data['field_42'];
-        if(isset($property_data['location4_name']) and trim($property_data['location4_name']) != '') $locations['location4_name'] = $property_data['location4_name'];
-        if(isset($property_data['location3_name']) and trim($property_data['location3_name']) != '') $locations['location3_name'] = $property_data['location3_name'];
-        if(isset($property_data['location2_name']) and trim($property_data['location2_name']) != '') $locations['location2_name'] = $property_data['location2_name'];
-        if(isset($property_data['zip_name']) and trim($property_data['zip_name']) != '') $locations['zip_name'] = $property_data['zip_name'];
-        if(isset($property_data['location1_name']) and trim($property_data['location1_name']) != '') $locations['location1_name'] = $property_data['location1_name'];
+		if(isset($property_data['street_no']) and trim($property_data['street_no']) != '') $locations['street_no'] = __($property_data['street_no'], WPL_TEXTDOMAIN);
+        if(isset($property_data['field_42']) and trim($property_data['field_42']) != '') $locations['street'] = __($property_data['field_42'], WPL_TEXTDOMAIN);
+        if(isset($property_data['location7_name']) and trim($property_data['location7_name']) != '') $locations['location7_name'] = __($property_data['location7_name'], WPL_TEXTDOMAIN);
+        if(isset($property_data['location6_name']) and trim($property_data['location6_name']) != '') $locations['location6_name'] = __($property_data['location6_name'], WPL_TEXTDOMAIN);
+        if(isset($property_data['location5_name']) and trim($property_data['location5_name']) != '') $locations['location5_name'] = __($property_data['location5_name'], WPL_TEXTDOMAIN);
+        if(isset($property_data['location4_name']) and trim($property_data['location4_name']) != '') $locations['location4_name'] = __($property_data['location4_name'], WPL_TEXTDOMAIN);
+        if(isset($property_data['location3_name']) and trim($property_data['location3_name']) != '') $locations['location3_name'] = __($property_data['location3_name'], WPL_TEXTDOMAIN);
+        if(isset($property_data['location2_name']) and trim($property_data['location2_name']) != '') $locations['location2_name'] = __($property_data['location2_name'], WPL_TEXTDOMAIN);
+        if(isset($property_data['zip_name']) and trim($property_data['zip_name']) != '') $locations['zip_name'] = __($property_data['zip_name'], WPL_TEXTDOMAIN);
+        if(isset($property_data['location1_name']) and trim($property_data['location1_name']) != '') $locations['location1_name'] = __($property_data['location1_name'], WPL_TEXTDOMAIN);
         
         $location_pattern = wpl_global::get_setting('property_location_pattern');
         if(trim($location_pattern) == '') $location_pattern = '[street_no] [street][glue] [location4_name][glue] [location3_name][glue] [location2_name][glue] [location1_name] [zip_name]';
@@ -820,6 +862,10 @@ class wpl_property
 		$location_text = '';
 		$location_text = isset($locations['street_no']) ? str_replace('[street_no]', $locations['street_no'], $location_pattern) : str_replace('[street_no]', '', $location_pattern);
         $location_text = isset($locations['street']) ? str_replace('[street]', $locations['street'], $location_text) : str_replace('[street]', '', $location_text);
+        
+        $location_text = isset($locations['location7_name']) ? str_replace('[location7_name]', $locations['location7_name'], $location_text) : str_replace('[location7_name]', '', $location_text);
+        $location_text = isset($locations['location6_name']) ? str_replace('[location6_name]', $locations['location6_name'], $location_text) : str_replace('[location6_name]', '', $location_text);
+        $location_text = isset($locations['location5_name']) ? str_replace('[location5_name]', $locations['location5_name'], $location_text) : str_replace('[location5_name]', '', $location_text);
         $location_text = isset($locations['location4_name']) ? str_replace('[location4_name]', $locations['location4_name'], $location_text) : str_replace('[location4_name]', '', $location_text);
         $location_text = isset($locations['location3_name']) ? str_replace('[location3_name]', $locations['location3_name'], $location_text) : str_replace('[location3_name]', '', $location_text);
         $location_text = isset($locations['location2_name']) ? str_replace('[location2_name]', $locations['location2_name'], $location_text) : str_replace('[location2_name]', '', $location_text);
@@ -827,17 +873,32 @@ class wpl_property
         $location_text = isset($locations['location1_name']) ? str_replace('[location1_name]', $locations['location1_name'], $location_text) : str_replace('[location1_name]', '', $location_text);
         $location_text = str_replace('[glue]', $glue, $location_text);
         
+        /** apply filters **/
+		_wpl_import('libraries.filters');
+		@extract(wpl_filters::apply('generate_property_location_text', array('location_text'=>$location_text, 'glue'=>$glue, 'property_data'=>$property_data)));
+        
         $final = '';
         $ex = explode($glue, $location_text);
         
         foreach($ex as $value)
         {
             if(trim($value) == '') continue;
-            
             $final .= trim($value).$glue.' ';
         }
+        
+        $location_text = trim($final, ', ');
+        
+        /** update **/
+		$query = "UPDATE `#__wpl_properties` SET `$column`='".$location_text."' WHERE `id`='".$property_id."'";
+		wpl_db::q($query, 'update');
+        
+        if($base_column)
+        {
+            $query = "UPDATE `#__wpl_properties` SET `$base_column`='".$location_text."' WHERE `id`='".$property_id."'";
+            wpl_db::q($query, 'update');
+        }
 		
-		return trim($final, ', ');
+		return $location_text;
     }
 	
 	/**
@@ -849,9 +910,24 @@ class wpl_property
 	{
 		/** fetch property data if property id is setted **/
 		if($property_id) $property_data = self::get_property_raw_data($property_id);
+        if(!$property_id) $property_id = $property_data['id'];
+        
+        $column = 'alias';
+        $field_id = wpl_flex::get_dbst_id($column, $property_data['kind']);
+        $field = wpl_flex::get_field($field_id);
+        $base_column = NULL;
+        
+        if(isset($field->multilingual) and $field->multilingual and wpl_global::check_multilingual_status())
+        {
+            $base_column = wpl_global::get_current_language() == wpl_addon_pro::get_default_language() ? $column : NULL;
+            $column = wpl_addon_pro::get_column_lang_name($column, wpl_global::get_current_language(), false);
+        }
+        
+        /** return current alias if exists **/
+        if(isset($property_data[$column]) and trim($property_data[$column]) != '' and !$force) return $property_data[$column];
         
 		$alias = array();
-		$alias['id'] = $property_data['id'];
+		$alias['id'] = $property_id;
 		if(trim($property_data['property_type'])) $alias['property_type'] = __(wpl_global::get_property_types($property_data['property_type'])->name, WPL_TEXTDOMAIN);
 		if(trim($property_data['listing'])) $alias['listing'] = __(wpl_global::get_listings($property_data['listing'])->name, WPL_TEXTDOMAIN);
 		$alias['location'] = self::generate_location_text($property_data, $property_id, '-');
@@ -861,7 +937,7 @@ class wpl_property
 		if(trim($property_data['bathrooms'])) $alias['bathrooms'] = $property_data['bathrooms'].__('Bathroom'.($property_data['bathrooms'] > 1 ? 's': ''), WPL_TEXTDOMAIN);
 		
 		$unit_data = wpl_units::get_unit($property_data['price_unit']);
-		$alias['price'] = str_replace('.', '', wpl_render::render_price($property_data['price'], $unit_data['id'], $unit_data['extra']));
+		if(trim($property_data['price'])) $alias['price'] = str_replace('.', '', wpl_render::render_price($property_data['price'], $unit_data['id'], $unit_data['extra']));
 		
 		/** apply filters **/
 		_wpl_import('libraries.filters');
@@ -884,9 +960,15 @@ class wpl_property
 		$alias_str = wpl_db::escape(wpl_global::url_encode($alias_str));
 		
 		/** update **/
-		$query = "UPDATE `#__wpl_properties` SET `alias`='".$alias_str."' WHERE `id`='".$property_data['id']."'";
+		$query = "UPDATE `#__wpl_properties` SET `$column`='".$alias_str."' WHERE `id`='".$property_id."'";
 		wpl_db::q($query, 'update');
-
+        
+        if($base_column)
+        {
+            $query = "UPDATE `#__wpl_properties` SET `$base_column`='".$alias_str."' WHERE `id`='".$property_id."'";
+            wpl_db::q($query, 'update');
+        }
+        
 		return $alias_str;
     }
 	
@@ -903,12 +985,18 @@ class wpl_property
 	{
         /** fetch property data if property id is setted **/
 		if($property_id) $property_data = self::get_property_raw_data($property_id);
+        if(!$property_id) $property_id = $property_data['id'];
         
         $column = 'field_312';
         $field_id = wpl_flex::get_dbst_id($column, $property_data['kind']);
         $field = wpl_flex::get_field($field_id);
+        $base_column = NULL;
         
-        if($field->multilingual and wpl_global::check_multilingual_status()) $column = wpl_addon_pro::get_column_lang_name($column, wpl_global::get_current_language(), false);
+        if(isset($field->multilingual) and $field->multilingual and wpl_global::check_multilingual_status())
+        {
+            $base_column = wpl_global::get_current_language() == wpl_addon_pro::get_default_language() ? $column : NULL;
+            $column = wpl_addon_pro::get_column_lang_name($column, wpl_global::get_current_language(), false);
+        }
         
         /** return current page title if exists **/
         if(isset($property_data[$column]) and trim($property_data[$column]) != '' and !$force) return $property_data[$column];
@@ -939,7 +1027,14 @@ class wpl_property
         /** update **/
         if(wpl_db::columns('wpl_properties', $column))
         {
-            $query = "UPDATE `#__wpl_properties` SET `".$column."`='".$title_str."' WHERE `id`='".$property_data['id']."'";
+            $query = "UPDATE `#__wpl_properties` SET `".$column."`='".$title_str."' WHERE `id`='".$property_id."'";
+            wpl_db::q($query, 'update');
+        }
+        
+        /** update **/
+        if($base_column and wpl_db::columns('wpl_properties', $base_column))
+        {
+            $query = "UPDATE `#__wpl_properties` SET `".$base_column."`='".$title_str."' WHERE `id`='".$property_id."'";
             wpl_db::q($query, 'update');
         }
         
@@ -959,12 +1054,18 @@ class wpl_property
 	{
         /** fetch property data if property id is setted **/
 		if($property_id) $property_data = self::get_property_raw_data($property_id);
+        if(!$property_id) $property_id = $property_data['id'];
         
         $column = 'field_313';
         $field_id = wpl_flex::get_dbst_id($column, $property_data['kind']);
         $field = wpl_flex::get_field($field_id);
+        $base_column = NULL;
         
-        if($field->multilingual and wpl_global::check_multilingual_status()) $column = wpl_addon_pro::get_column_lang_name($column, wpl_global::get_current_language(), false);
+        if(isset($field->multilingual) and $field->multilingual and wpl_global::check_multilingual_status())
+        {
+            $base_column = wpl_global::get_current_language() == wpl_addon_pro::get_default_language() ? $column : NULL;
+            $column = wpl_addon_pro::get_column_lang_name($column, wpl_global::get_current_language(), false);
+        }
         
         /** return current title if exists **/
         if(isset($property_data[$column]) and trim($property_data[$column]) != '' and !$force) return $property_data[$column];
@@ -997,13 +1098,36 @@ class wpl_property
         /** update **/
         if(wpl_db::columns('wpl_properties', $column))
         {
-            $query = "UPDATE `#__wpl_properties` SET `".$column."`='".$title_str."' WHERE `id`='".$property_data['id']."'";
+            $query = "UPDATE `#__wpl_properties` SET `".$column."`='".$title_str."' WHERE `id`='".$property_id."'";
+            wpl_db::q($query, 'update');
+        }
+        
+        /** update **/
+        if($base_column and wpl_db::columns('wpl_properties', $base_column))
+        {
+            $query = "UPDATE `#__wpl_properties` SET `".$base_column."`='".$title_str."' WHERE `id`='".$property_id."'";
             wpl_db::q($query, 'update');
         }
         
 		return $title_str;
     }
 	
+    public static function fix_aliases($property_data, $property_id = 0)
+	{
+		/** fetch property data if property id is setted **/
+		if($property_id) $property_data = self::get_property_raw_data($property_id);
+        if(!$property_id) $property_id = $property_data['id'];
+        
+        $columns = wpl_global::get_multilingual_columns(array('alias'), 'wpl_properties');
+        foreach($columns as $column)
+        {
+            $alias = wpl_db::escape(wpl_global::url_encode($property_data[$column]));
+            
+            $query = "UPDATE `#__wpl_properties` SET `$column`='$alias' WHERE `id`='$property_id'";
+            wpl_db::q($query, 'UPDATE');
+        }
+    }
+    
 	/**
 		@inputs {property_id}
 		@return void
@@ -1215,8 +1339,7 @@ class wpl_property
 		$result['raw'] = $raw_data;
 		
 		/** location text **/
-		if(isset($rendered['location_text'])) $result['location_text'] = $rendered['location_text'];
-		else $result['location_text'] = self::generate_location_text($raw_data);
+		$result['location_text'] = self::generate_location_text($raw_data);
 		
 		/** property full link **/
         $target_page = isset($params['wpltarget']) ? $params['wpltarget'] : 0;
@@ -1416,11 +1539,29 @@ class wpl_property
         $path = wpl_items::get_path($property_id, $kind);
         $thumbnails = wpl_folder::files($path, 'th.*\.('.implode('|', $ext_array).')$', 3, true);
 
-        foreach($thumbnails as $thumbnail)
-        {
-            wpl_file::delete($thumbnail);
-        }
+        foreach($thumbnails as $thumbnail) wpl_file::delete($thumbnail);
         
         return true;
+    }
+    
+    /**
+     * Removes property cache
+     * @author Howard R <Howard@realtyna.com>
+     * @static
+     * @param int $property_id
+     * @return boolean
+     */
+    public static function clear_property_cache($property_id)
+    {
+        /** First Validation **/
+        if(!trim($property_id)) return false;
+        
+        _wpl_import('libraries.settings');
+        
+        $q = " `location_text`='', `rendered`=''";
+        if(wpl_global::check_multilingual_status()) $q = wpl_settings::get_multilingual_query(array('location_text', 'rendered'));
+            
+        $query = "UPDATE `#__wpl_properties` SET ".$q." WHERE `id`='$property_id'";
+        return wpl_db::q($query, 'UPDATE');
     }
 }

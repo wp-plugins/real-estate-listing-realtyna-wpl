@@ -230,10 +230,7 @@ function save_dbst(prefix, dbst_id)
 	{
 		wplj(ajax_loader_element).html('');
 		wplj("#wpl_dbst_submit_button").removeAttr("disabled");
-		
-		/** refresh the fancybox **/
-		if(!dbst_id) rta.config.fancybox.reloadAfterClose = true;
-		wplj.fancybox.close();
+		wplj._realtyna.lightbox.close();
 	});
 }
 
@@ -252,34 +249,33 @@ function wpl_generate_params_page(dbst_id)
 		success: function(data)
 		{
 			wplj("#wpl_flex_edit_div").html(data);
-			
-			/** for fixing horizontal scroll **/
-			wplj("#wpl_flex_edit_div").width("auto");
 		},
 		error: function(jqXHR, textStatus, errorThrown)
 		{
-			wplj.fancybox.close();
+			wplj._realtyna.lightbox.close();
 		}
 	});
 }
 
 function wpl_remove_dbst(dbst_id, confirmed)
 {
+    var message_path = '.wpl_flex_list .wpl_show_message';
+    
 	if(!dbst_id)
 	{
-		wpl_show_messages("<?php echo __('Invalid field', WPL_TEXTDOMAIN); ?>", '.wpl_flex_list .wpl_show_message');
+		wpl_show_messages("<?php echo __('Invalid field', WPL_TEXTDOMAIN); ?>", message_path);
 		return false;
 	}
 	
 	if(!confirmed)
 	{
 		message = "<?php echo __('Are you sure you want to remove this item?', WPL_TEXTDOMAIN); ?>&nbsp;(<?php echo __('ID', WPL_TEXTDOMAIN); ?>:"+dbst_id+")&nbsp;<?php echo __('All related items will be removed.', WPL_TEXTDOMAIN); ?>";
-		message += '<span class="wpl_actions" onclick="wpl_remove_dbst(\''+dbst_id+'\', 1);"><?php echo __('Yes', WPL_TEXTDOMAIN); ?></span>&nbsp;<span class="wpl_actions" onclick="wpl_remove_message();"><?php echo __('No', WPL_TEXTDOMAIN); ?></span>';
+		message += '<span class="wpl_actions" onclick="wpl_remove_dbst(\''+dbst_id+'\', 1);"><?php echo __('Yes', WPL_TEXTDOMAIN); ?></span>&nbsp;<span class="wpl_actions" onclick="wpl_remove_message(\''+message_path+'\');"><?php echo __('No', WPL_TEXTDOMAIN); ?></span>';
 		
-		wpl_show_messages(message, '.wpl_flex_list .wpl_show_message');
+		wpl_show_messages(message, message_path);
 		return false;
 	}
-	else if(confirmed) wpl_remove_message();
+	else if(confirmed) wpl_remove_message(message_path);
 	
 	ajax_loader_element = "#wpl_flex_remove_ajax_loader"+dbst_id;
 	wplj(ajax_loader_element).html('<img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader3.gif'); ?>" />');
@@ -298,7 +294,7 @@ function wpl_remove_dbst(dbst_id, confirmed)
 		}
 		else if(data.success == 0)
 		{
-			wpl_show_messages(data.message, '.wpl_flex_list .wpl_show_message', 'wpl_red_msg');
+			wpl_show_messages(data.message, message_path, 'wpl_red_msg');
 			wplj(ajax_loader_element).html('');
 		}
 	});

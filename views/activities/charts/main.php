@@ -9,8 +9,8 @@ class wpl_activity_main_charts extends wpl_activity
 	
 	public function start($layout, $params)
 	{
-        wpl_extensions::import_javascript((object) array('param1'=>'wpl-jqplot', 'param2'=>'js/jqplot/jquery.jqplot.min.js'));
-		wpl_extensions::import_style((object) array('param1'=>'wpl-jqplot', 'param2'=>'js/jqplot/jquery.jqplot.min.css'));
+        wpl_extensions::import_javascript((object) array('param1'=>'wpl-jqplot', 'param2'=>'packages/jqplot/jquery.jqplot.min.js'));
+		wpl_extensions::import_style((object) array('param1'=>'wpl-jqplot', 'param2'=>'packages/jqplot/jquery.jqplot.min.css'));
         $params['unique_chart_id'] = md5(uniqid(time().mt_rand(0, mt_getrandmax()), true));
         
 		/** include layout **/

@@ -35,7 +35,7 @@ $this->_wpl_import($this->tpl_path . '.scripts.js');
             <?php $this->generate_sidebar(3); ?>
         </div>
     </div>
-    <div id="wpl_flex_edit_div" class="fanc-box-wp wpl_lightbox wpl_hidden_element"></div>
+    <div id="wpl_flex_edit_div" class="wpl_hidden_element"></div>
     <footer>
         <div class="logo"></div>
     </footer>

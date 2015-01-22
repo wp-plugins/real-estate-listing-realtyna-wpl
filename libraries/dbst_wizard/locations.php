@@ -25,7 +25,7 @@ if($type == 'locations' and !$done_this)
 		if(!count($locations) and $location_settings['location_method'] == 1 and $i <= 2) continue;
 		?>
 		<div class="location-part" id="wpl_listing_location_level_container<?php echo $i; ?>">
-			<label class="title"><?php echo $location_settings['location' . $i . '_keyword']; ?> <?php if (in_array($field->mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?>: </label>
+			<label class="title"><?php echo $location_settings['location' . $i . '_keyword']; ?> <?php if (in_array($mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?>: </label>
 			<?php if($location_settings['location_method'] == 1 and $i >= 3): ?>
 				<div class="value-wp text-wp">
 					<input type="text" class="wpl_location_indicator_textbox" value="<?php echo $current_location_name; ?>" name="wpl_listing_location<?php echo $i; ?>_select" id="wpl_listing_location<?php echo $i; ?>_select" onchange="wpl_listing_location_change('<?php echo $i; ?>', this.value);" />
@@ -35,7 +35,7 @@ if($type == 'locations' and !$done_this)
 					<select name="wpl_listing_location<?php echo $i; ?>_select" id="wpl_listing_location<?php echo $i; ?>_select" onchange="wpl_listing_location_change('<?php echo $i; ?>', this.value);" class="wpl_location_indicator_selectbox" style="width: 180px;">
 						<option value="0"><?php echo __('Select', WPL_TEXTDOMAIN); ?></option>
 						<?php foreach($locations as $location): ?>
-							<option value="<?php echo $location->id; ?>" <?php echo ($current_location_id == $location->id ? 'selected="selected"' : ''); ?>><?php echo $location->name; ?></option>
+							<option value="<?php echo $location->id; ?>" <?php echo ($current_location_id == $location->id ? 'selected="selected"' : ''); ?>><?php echo __($location->name, WPL_TEXTDOMAIN); ?></option>
 						<?php endforeach; ?>
 					</select>
 				</div>
@@ -67,7 +67,7 @@ if($type == 'locations' and !$done_this)
 						<select name="wpl_listing_locationzips_select" id="wpl_listing_locationzips_select" onchange="wpl_listing_location_change('zips', this.value);" class="wpl_location_indicator_selectbox" style="width: 180px;">
 							<option value="0"><?php echo __('Select', WPL_TEXTDOMAIN); ?></option>
 							<?php foreach ($locations as $location): ?>
-								<option value="<?php echo $location->id; ?>" <?php echo ($current_location_id == $location->id ? 'selected="selected"' : ''); ?>><?php echo $location->name; ?></option>
+								<option value="<?php echo $location->id; ?>" <?php echo ($current_location_id == $location->id ? 'selected="selected"' : ''); ?>><?php echo __($location->name, WPL_TEXTDOMAIN); ?></option>
 							<?php endforeach; ?>
 						</select>
 					</div>

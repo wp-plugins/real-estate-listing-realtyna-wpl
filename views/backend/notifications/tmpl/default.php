@@ -44,14 +44,19 @@ $this->_wpl_import($this->tpl_path . '.scripts.css');
                             $notification_enable_class = "wpl_show";
                             $notification_disable_class = "wpl_hidden";
                         }
+                        elseif($notification->enabled == 2)
+                        {
+                            $notification_enable_class = "wpl_show disable";
+                            $notification_disable_class = "wpl_hidden";
+                        }
                         else
                         {
                             $notification_enable_class = "wpl_hidden";
                             $notification_disable_class = "wpl_show";
                         }
                         ?>
-                        <span class="action-btn icon-disabled <?php echo $notification_disable_class; ?>" id="notification_disable_<?php echo $notification->id; ?>" onclick="wpl_set_enabled_notification(<?php echo $notification->id ?>, 1);"></span>
-                        <span class="action-btn icon-enabled <?php echo $notification_enable_class; ?>" id="notification_enable_<?php echo $notification->id; ?>" onclick="wpl_set_enabled_notification(<?php echo $notification->id ?>, 0);"></span>
+                        <span class="action-btn icon-disabled <?php echo $notification_disable_class; ?>" id="notification_disable_<?php echo $notification->id; ?>" <?php if($notification->enabled != 2): ?>onclick="wpl_set_enabled_notification(<?php echo $notification->id ?>, 1);"<?php endif; ?>></span>
+                        <span class="action-btn icon-enabled <?php echo $notification_enable_class; ?>" id="notification_enable_<?php echo $notification->id; ?>" <?php if($notification->enabled != 2): ?>onclick="wpl_set_enabled_notification(<?php echo $notification->id ?>, 0);"<?php endif; ?>></span>
                     </td>
                 </tr>
                 <?php endforeach; ?>

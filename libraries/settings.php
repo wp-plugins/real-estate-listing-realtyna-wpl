@@ -298,13 +298,19 @@ class wpl_settings
         
 		if($cache_type == 'properties_cached_data' or $cache_type == 'all')
 		{
-			$query = "UPDATE `#__wpl_properties` SET `location_text`='', `rendered`='', `alias`=''";
+            $q = " `location_text`='', `rendered`='', `alias`=''";
+            if(wpl_global::check_multilingual_status()) $q = self::get_multilingual_query(array('alias', 'location_text', 'rendered'));
+            
+			$query = "UPDATE `#__wpl_properties` SET ".$q;
 			wpl_db::q($query);
 		}
         
         if($cache_type == 'location_texts' or $cache_type == 'all')
 		{
-			$query = "UPDATE `#__wpl_properties` SET `location_text`=''";
+            $q = " `location_text`=''";
+            if(wpl_global::check_multilingual_status()) $q = self::get_multilingual_query(array('location_text'));
+            
+			$query = "UPDATE `#__wpl_properties` SET ".$q;
 			wpl_db::q($query);
 		}
         
@@ -318,16 +324,16 @@ class wpl_settings
                 $path = wpl_items::get_path($property['id'], $property['kind']);
                 $thumbnails = wpl_folder::files($path, 'th.*\.('.implode('|', $ext_array).')$', 3, true);
                 
-                foreach($thumbnails as $thumbnail)
-                {
-                    wpl_file::delete($thumbnail);
-                }
+                foreach($thumbnails as $thumbnail) wpl_file::delete($thumbnail);
             }
 		}
         
         if($cache_type == 'users_cached_data' or $cache_type == 'all')
 		{
-			$query = "UPDATE `#__wpl_users` SET `location_text`='', `rendered`=''";
+            $q = " `location_text`='', `rendered`=''";
+            if(wpl_global::check_multilingual_status()) $q = self::get_multilingual_query(array('location_text', 'rendered'), 'wpl_users');
+            
+			$query = "UPDATE `#__wpl_users` SET ".$q;
 			wpl_db::q($query);
 		}
         
@@ -341,16 +347,30 @@ class wpl_settings
                 $path = wpl_items::get_path($user['id'], 2);
                 $thumbnails = wpl_folder::files($path, 'th.*\.('.implode('|', $ext_array).')$', 3, true);
                 
-                foreach($thumbnails as $thumbnail)
-                {
-                    wpl_file::delete($thumbnail);
-                }
+                foreach($thumbnails as $thumbnail) wpl_file::delete($thumbnail);
             }
 		}
 		
         /** trigger event **/
         wpl_global::event_handler('cache_cleared', array('cache_type'=>$cache_type));
-        
 		return true;
 	}
+    
+    /**
+     * Get Multilingual columns for clear cache queries
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param array $columns
+     * @param string $table
+     * @return string
+     */
+    public static function get_multilingual_query($columns = array(), $table = 'wpl_properties')
+    {
+        $q = "";
+        
+        $columns = wpl_global::get_multilingual_columns($columns, $table);
+        foreach($columns as $column) $q .= "`$column`='', ";
+        
+        return trim($q, ', ');
+    }
 }

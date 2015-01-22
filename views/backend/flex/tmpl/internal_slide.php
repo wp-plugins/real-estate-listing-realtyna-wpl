@@ -44,7 +44,7 @@ defined('_WPLEXEC') or die('Restricted access');
                 $wpl_field_deletable_dis_class = $field->deletable == 0 ? "wpl_show" : "wpl_hidden";
                 ?>
 
-                <td><?php echo $field->name; ?></td>
+                <td><?php echo __($field->name, WPL_TEXTDOMAIN); ?></td>
                 <td><?php echo $field->type; ?></td>
 
                 <td class="wpl_manager_td">
@@ -52,7 +52,7 @@ defined('_WPLEXEC') or die('Restricted access');
                     <span class="wpl_ajax_loader" id="wpl_flex_ajax_loader_<?php echo $field->id; ?>"></span>
                 </td>
                 <td class="wpl_manager_td">
-                    <span href="#wpl_flex_edit_div" class="action-btn icon-gear fancybox" onclick="wpl_generate_params_page('<?php echo $field->id; ?>');"></span>
+                    <span data-realtyna-lightbox data-realtyna-href="#wpl_flex_edit_div" class="action-btn icon-gear" onclick="wpl_generate_params_page('<?php echo $field->id; ?>');"></span>
                 </td>
                 <td class="wpl_manager_td">
                     <span class="action-btn icon-star disable <?php echo $wpl_field_mandatory_disable_class; ?>" id="wpl_flex_field_mandatory_dis_span<?php echo $field->id; ?>" onclick="wpl_dbst_mandatory(<?php echo $field->id; ?>, 1);"></span>
@@ -62,7 +62,7 @@ defined('_WPLEXEC') or die('Restricted access');
                     <span class="action-btn icon-star disable <?php echo $wpl_field_mandatory_never_class; ?>" id="wpl_flex_field_mandatory_never_span<?php echo $field->id; ?>" title="<?php echo __('This field is never mandatory.', WPL_TEXTDOMAIN); ?>" ></span>
                 </td>
                 <td class="wpl_manager_td">
-                    <span href="#wpl_flex_edit_div" class="action-btn icon-edit <?php echo $wpl_field_editable_class ?> fancybox" onclick="generate_modify_page(<?php echo $field->id; ?>, '<?php echo $field->type; ?>');"></span>
+                    <span data-realtyna-lightbox data-realtyna-href="#wpl_flex_edit_div" class="action-btn icon-edit <?php echo $wpl_field_editable_class ?>" onclick="generate_modify_page(<?php echo $field->id; ?>, '<?php echo $field->type; ?>');"></span>
                     <span class="action-btn icon-edit disable <?php echo $wpl_field_editable_dis_class ?> cursor-none"></span>
                 </td>
                 <td class="wpl_manager_td">

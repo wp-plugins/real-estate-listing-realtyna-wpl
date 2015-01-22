@@ -49,6 +49,10 @@ abstract class wpl_profile_listing_controller_abstract extends wpl_controller
         
 		$where = array('sf_tmin_id'=>1, 'sf_select_access_public_profile'=>1, 'sf_select_expired'=>0);
 		
+		/** Add search conditions to the where **/
+        $vars = array_merge(wpl_request::get('POST'), wpl_request::get('GET'));
+		$where = array_merge($vars, $where);
+		
 		/** start search **/
 		$this->model->start($this->start, $this->limit, $this->orderby, $this->order, $where);
 		$this->model->total = $this->model->get_users_count();

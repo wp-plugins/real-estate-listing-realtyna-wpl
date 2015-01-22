@@ -178,8 +178,8 @@ class wpl_render
 		$decimal = 2;
 		$return = '';
 		
-		$d_seperator = trim($currency['d_seperator']) != '' ? $currency['d_seperator'] : NULL;
-		$seperator = trim($currency['seperator']) != '' ? $currency['seperator'] : NULL;
+		$d_seperator = trim($currency['d_seperator']) != '' ? $currency['d_seperator'] : '';
+		$seperator = trim($currency['seperator']) != '' ? $currency['seperator'] : '';
 		
 		/** set decimal **/
 		if(!$d_seperator) $decimal = 0;

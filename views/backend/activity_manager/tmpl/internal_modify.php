@@ -47,6 +47,14 @@ $this->_wpl_import($this->tpl_path . '.scripts.modify_js');
                     </select>
                 </div>
                 <div class="fanc-row">
+                    <label for="wpl_client<?php echo $this->activity_id; ?>"><?php echo __('Site Section', WPL_TEXTDOMAIN); ?></label>
+                    <select class="text_box" id="wpl_client<?php echo $this->activity_id; ?>" name="info[client]">
+                        <option value="1" <?php if(isset($this->activity_data->client) and $this->activity_data->client == '1') echo 'selected="selected"'; ?>><?php echo __('Backend', WPL_TEXTDOMAIN); ?></option>
+                        <option value="0" <?php if(isset($this->activity_data->client) and $this->activity_data->client == '0') echo 'selected="selected"'; ?>><?php echo __('Frontend', WPL_TEXTDOMAIN); ?></option>
+                        <option value="2" <?php if(isset($this->activity_data->client) and $this->activity_data->client == '2') echo 'selected="selected"'; ?>><?php echo __('Both', WPL_TEXTDOMAIN); ?></option>
+                    </select>
+                </div>
+                <div class="fanc-row">
                     <label for="wpl_index"><?php echo __('Index', WPL_TEXTDOMAIN); ?></label>
                     <input class="text_box" name="info[index]" type="text" id="wpl_index" value="<?php echo isset($this->activity_data->index) ? (float) $this->activity_data->index : '99.00'; ?>" />
                 </div>
@@ -81,7 +89,7 @@ $this->_wpl_import($this->tpl_path . '.scripts.modify_js');
                         <option value="3" <?php if(isset($this->activity_data->association_type) and $this->activity_data->association_type == 3) echo 'selected="selected"'; ?>><?php echo __('Hide on selected pages', WPL_TEXTDOMAIN); ?></option>
                         <option value="0" <?php if(isset($this->activity_data->association_type) and $this->activity_data->association_type == 0) echo 'selected="selected"'; ?>><?php echo __('Hide on all pages', WPL_TEXTDOMAIN); ?></option>
                     </select>
-                    <div class="wpl-page-list wpl_activity_pages_container <?php if(!isset($this->activity_data->association_type) or (isset($this->activity_data->association_type) and in_array($this->activity_data->association_type, array(0,1)))) echo 'wpl_hidden_element'; ?>">
+                    <div class="wpl-page-list wpl_activity_pages_container" style="<?php if(!isset($this->activity_data->association_type) or (isset($this->activity_data->association_type) and in_array($this->activity_data->association_type, array(0,1)))) echo 'display: none;'; ?>">
                         <?php
                             $pages = wpl_global::get_wp_pages();
                             if(count($pages))

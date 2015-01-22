@@ -16,10 +16,10 @@ if($type == 'upload' and !$done_this)
 
     $activity_layout = isset($options['layout']) ? $options['layout'] : 'default';
 ?>
-<label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($field->name, WPL_TEXTDOMAIN); ?><?php if (in_array($field->mandatory, array(1, 2))): ?><span class="wpl_red_star">*</span><?php endif; ?></label>
+<label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($label, WPL_TEXTDOMAIN); ?><?php if (in_array($mandatory, array(1, 2))): ?><span class="wpl_red_star">*</span><?php endif; ?></label>
 <?php wpl_global::import_activity('ajax_file_upload:' . $activity_layout, '', $upload_params); ?>
 <span id="wpl_upload_saved_span_<?php echo $field->id; ?>" class="wpl_listing_saved_span"></span>
-<?php if ($options['preview'] and trim($value) != ''): ?>
+<?php if($options['preview'] and trim($value) != ''): ?>
 <div class="upload-preview-wp preview_upload" id="preview_upload<?php echo $field->id; ?>">
     <div class="upload-preview">
         <img src="<?php echo wpl_items::get_folder($item_id, $field->kind) . $value; ?>" />

@@ -7,14 +7,14 @@ defined('_WPLEXEC') or die('Restricted access');
     <div class="wpl-accordions-cnt" id="wpl_accordion1_cnt">
         <div class="fanc-row">
             <label for="wpl_o_googlemap_type"><?php echo __('Map Type', WPL_TEXTDOMAIN); ?></label>
-            <select class="text_box" name="option[googlemap_type]" type="text" id="wpl_o_googlemap_type">
+            <select class="text_box" name="option[googlemap_type]" id="wpl_o_googlemap_type">
                 <option value="0" <?php if(isset($this->options->googlemap_type) && $this->options->googlemap_type == 0) echo 'selected="selected"'; ?>><?php echo __('Typical', WPL_TEXTDOMAIN); ?></option>
                 <option value="1" <?php if(isset($this->options->googlemap_type) && $this->options->googlemap_type == 1) echo 'selected="selected"'; ?>><?php echo __('Street View', WPL_TEXTDOMAIN); ?></option>
             </select>
         </div>
         <div class="fanc-row">
             <label for="wpl_o_googlemap_view"><?php echo __('Map View', WPL_TEXTDOMAIN); ?></label>
-            <select class="text_box" name="option[googlemap_view]" type="text" id="wpl_o_googlemap_view">
+            <select class="text_box" name="option[googlemap_view]" id="wpl_o_googlemap_view">
                 <option value="WPL" <?php if(isset($this->options->googlemap_view) && $this->options->googlemap_view == 'WPL') echo 'selected="selected"'; ?>><?php echo __('WPL Style', WPL_TEXTDOMAIN); ?></option>
                 <option value="ROADMAP" <?php if(isset($this->options->googlemap_view) && $this->options->googlemap_view == 'ROADMAP') echo 'selected="selected"'; ?>><?php echo __('Roadmap', WPL_TEXTDOMAIN); ?></option>
                 <option value="SATELLITE" <?php if(isset($this->options->googlemap_view) && $this->options->googlemap_view == 'SATELLITE') echo 'selected="selected"'; ?>><?php echo __('Satellite', WPL_TEXTDOMAIN); ?></option>
@@ -40,14 +40,14 @@ defined('_WPLEXEC') or die('Restricted access');
         </div>
         <div class="fanc-row">
             <label for="wpl_o_infowindow_event"><?php echo __('Infowindow Event', WPL_TEXTDOMAIN); ?></label>
-            <select class="text_box" name="option[infowindow_event]" type="text" id="wpl_o_infowindow_event">
+            <select class="text_box" name="option[infowindow_event]" id="wpl_o_infowindow_event">
                 <option value="click" <?php if(isset($this->options->infowindow_event) && $this->options->infowindow_event == 'click') echo 'selected="selected"'; ?>><?php echo __('Click', WPL_TEXTDOMAIN); ?></option>
                 <option value="mouseover" <?php if(isset($this->options->infowindow_event) && $this->options->infowindow_event == 'mouseover') echo 'selected="selected"'; ?>><?php echo __('Mouse Over', WPL_TEXTDOMAIN); ?></option>
             </select>
         </div>
         <div class="fanc-row">
             <label for="wpl_o_overviewmap"><?php echo __('Overview Map', WPL_TEXTDOMAIN); ?></label>
-            <select class="text_box" name="option[overviewmap]" type="text" id="wpl_o_overviewmap">
+            <select class="text_box" name="option[overviewmap]" id="wpl_o_overviewmap">
                 <option value="0" <?php if(isset($this->options->overviewmap) && $this->options->overviewmap == 0) echo 'selected="selected"'; ?>><?php echo __('Disabled', WPL_TEXTDOMAIN); ?></option>
                 <option value="1" <?php if(isset($this->options->overviewmap) && $this->options->overviewmap == 1) echo 'selected="selected"'; ?>><?php echo __('Enabled', WPL_TEXTDOMAIN); ?></option>
             </select>
@@ -62,7 +62,7 @@ defined('_WPLEXEC') or die('Restricted access');
             <?php if(!wpl_global::check_addon('pro')): ?>
             <span id="wpl_o_google_place" class="gray_tip"><?php echo __('Pro addon must be installed for this!', WPL_TEXTDOMAIN); ?></span>
             <?php else: ?>
-            <select class="text_box" name="option[google_place]" type="text" id="wpl_o_google_place">
+            <select class="text_box" name="option[google_place]" id="wpl_o_google_place">
                 <option value="0" <?php if(isset($this->options->google_place) && $this->options->google_place == 0) echo 'selected="selected"'; ?>><?php echo __('Disable', WPL_TEXTDOMAIN); ?></option>
                 <option value="1" <?php if(isset($this->options->google_place) && $this->options->google_place == 1) echo 'selected="selected"'; ?>><?php echo __('Enable', WPL_TEXTDOMAIN); ?></option>
             </select>

@@ -12,8 +12,8 @@ if($type == 'textarea' and !$done_this)
 ?>
 
         <label class="wpl-multiling-label">
-            <?php echo __($field->name, WPL_TEXTDOMAIN); ?>
-            <?php if(in_array($field->mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?>
+            <?php echo __($label, WPL_TEXTDOMAIN); ?>
+            <?php if(in_array($mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?>
         </label>
 
         <div class="wpl-multiling-field wpl-multiling-textarea">
@@ -66,7 +66,7 @@ if($type == 'textarea' and !$done_this)
         </div>
 
 <?php else: ?>
-    <label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($field->name, WPL_TEXTDOMAIN); ?><?php if(in_array($field->mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>
+    <label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($label, WPL_TEXTDOMAIN); ?><?php if(in_array($mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>
     <?php if(isset($options['advanced_editor']) and $options['advanced_editor'] and wpl_global::check_addon('pro')): ?>
             <div class="wpl-pwizard-editor">
     <?php wp_editor($value, 'tinymce_wpl_c_'.$field->id, array('teeny'=>false, 'quicktags'=>false)); ?>

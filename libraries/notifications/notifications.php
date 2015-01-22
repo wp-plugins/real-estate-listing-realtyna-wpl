@@ -11,13 +11,52 @@ _wpl_import('libraries.images');
  */
 class wpl_notifications
 {
+    /**
+     * Available modes for sending notifications
+     * @var array
+     */
     public $valid_modes = array('email', 'sms');
+    
+    /**
+     * 
+     * @var object
+     */
     public $handler = NULL;
+    
+    /**
+     *
+     * @var int
+     */
     public $notification_id = NULL;
+    
+    /**
+     *
+     * @var atring
+     */
     public $template_path = NULL;
+    
+    /**
+     *
+     * @var atring
+     */
     public $template_content = NULL;
+    
+    /**
+     *
+     * @var array
+     */
     public $recipients = NULL;
+    
+    /**
+     *
+     * @var array
+     */
     public $replacements = NULL;
+    
+    /**
+     *
+     * @var string
+     */
     public $rendered_content = NULL;
     
     /**
@@ -282,11 +321,7 @@ class wpl_notifications
     {
         $content = $this->template_content;
         
-        foreach($this->replacements as $key=>$value)
-        {
-            $content = str_replace('##'.$key.'##', $value, $content);
-        }
-        
+        foreach($this->replacements as $key=>$value) $content = str_replace('##'.$key.'##', $value, $content);
         return $content;
     }
     

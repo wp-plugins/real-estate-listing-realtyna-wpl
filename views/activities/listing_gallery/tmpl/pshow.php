@@ -18,7 +18,7 @@ $this->watermark = (isset($params['watermark']) and trim($params['watermark']) !
 $raw_gallery = isset($wpl_properties['current']['items']['gallery']) ? $wpl_properties['current']['items']['gallery'] : array();
 $this->gallery = wpl_items::render_gallery($raw_gallery);
 
-$js[] = (object) array('param1'=>'jquery.bxslider', 'param2'=>'js/jquery.bxslider.min.js');
+$js[] = (object) array('param1'=>'jquery.bxslider', 'param2'=> wpl_global::get_setting('js_default_path').'/wpl.jquery.bxslider.min.js');
 foreach($js as $javascript) wpl_extensions::import_javascript($javascript, true);
 
 /** import js codes **/

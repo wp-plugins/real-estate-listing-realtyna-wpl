@@ -9,9 +9,9 @@ if($type == 'feature' and !$done_this)
 function wpl_flex_add_feature_param()
 {
 	var html = '<div class="fanc-row" id="wpl_flex_select_params_row' + wpl_flex_param_counter + '">' +
+            '<input type="hidden" id="<?php echo $__prefix; ?>opt_values[' + wpl_flex_param_counter + '][key]" name="<?php echo $__prefix; ?>opt_values[' + wpl_flex_param_counter + '][key]" value="' + wpl_flex_param_counter + '" />' +
             '<label for="<?php echo $__prefix; ?>opt_values[' + wpl_flex_param_counter + '][value]"><?php echo __('Option', WPL_TEXTDOMAIN); ?> '+wpl_flex_param_counter+'</label>' +
 			'<input type="text" id="<?php echo $__prefix; ?>opt_values[' + wpl_flex_param_counter + '][value]" name="<?php echo $__prefix; ?>opt_values[' + wpl_flex_param_counter + '][value]" value="" />';
-            '<input type="hidden" id="<?php echo $__prefix; ?>opt_values[' + wpl_flex_param_counter + '][key]" name="<?php echo $__prefix; ?>opt_params[' + wpl_flex_param_counter + '][key]" value="' + wpl_flex_param_counter + '" />' +
 	wplj("#wpl_flex_feature_before").before(html);
 
 	wpl_flex_param_counter++;
@@ -52,9 +52,9 @@ function wpl_flex_add_feature_param()
 			foreach($option_params as $k => $v):
 			?>
             <div class="fanc-row" id="wpl_flex_select_params_row<?php echo $i; ?>">
+                <input type="hidden" id="<?php echo $__prefix; ?>opt_values[<?php echo $i; ?>][key]" name="<?php echo $__prefix; ?>opt_values[<?php echo $i; ?>][key]" value="<?php echo ((isset($v['key']) and trim($v['key']) != '') ? $v['key'] : $i); ?>" />
                 <label for="<?php echo $__prefix; ?>opt_values[<?php echo $i; ?>][value]"><?php echo __('Option', WPL_TEXTDOMAIN).' '.$i; ?></label>
                 <input type="text" id="<?php echo $__prefix; ?>opt_values[<?php echo $i; ?>][value]" name="<?php echo $__prefix; ?>opt_values[<?php echo $i; ?>][value]" value="<?php echo $v['value']; ?>" />
-                <input type="hidden" id="<?php echo $__prefix; ?>opt_values[<?php echo $i; ?>][key]" name="<?php echo $__prefix; ?>opt_values[<?php echo $i; ?>][key]" value="<?php echo $v['key']; ?>" />
             </div>
 			<?php $i++; endforeach; ?>
 			<div id="wpl_flex_feature_before"></div>

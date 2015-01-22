@@ -11,7 +11,7 @@ $this->_wpl_import($this->tpl_path . '.scripts.internal_room_types_css');
                 <th scope="col" class="manage-column">
 					<?php echo __('Name', WPL_TEXTDOMAIN); ?>
                     <div class="actions-wp">
-                        <span class="fancybox action-btn icon-plus" href="#wpl_new_room_type" onclick="wpl_generate_new_room_type()" title="<?php echo __('Add new room type', WPL_TEXTDOMAIN); ?>"></span>
+                        <span data-realtyna-lightbox data-realtyna-lightbox-opts="reloadPage:true" class="action-btn icon-plus" data-realtyna-href="#wpl_new_room_type" onclick="wpl_generate_new_room_type()" title="<?php echo __('Add new room type', WPL_TEXTDOMAIN); ?>"></span>
                     </div>
                 </th>
                 <th scope="col" class="size-1 manage-column"><?php echo __('Enabled', WPL_TEXTDOMAIN); ?></th>
@@ -42,4 +42,4 @@ $this->_wpl_import($this->tpl_path . '.scripts.internal_room_types_css');
         </tbody>
     </table>
 </div>
-<div id="wpl_new_room_type" class="wpl_lightbox wpl_hidden_element" style="width: 350px; height: 150px;"></div>
+<div id="wpl_new_room_type" class="wpl_hidden_element"></div>

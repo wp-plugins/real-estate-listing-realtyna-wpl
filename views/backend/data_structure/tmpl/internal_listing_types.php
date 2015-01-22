@@ -3,14 +3,13 @@
 defined('_WPLEXEC') or die('Restricted access');
 $this->_wpl_import($this->tpl_path.'.scripts.internal_listing_types_js');
 ?>
-<span id="wpl_fancybox_handler" class="fancybox wpl_hidden_element" href="#wpl_data_structure_edit_div"></span>
 <table class="widefat page">
     <thead>
         <tr>
         	<th scope="col" class="size-1 manage-column" colspan="2"><?php echo __('Listing Types', WPL_TEXTDOMAIN); ?></th>
             <th colspan="5">
                 <div class="actions-wp">
-                    <span class="fancybox action-btn icon-plus" href="#wpl_data_structure_edit_div" onclick="wpl_generate_new_page_listing_type()"></span>
+                    <a data-realtyna-lightbox data-realtyna-lightbox-opts="reloadPage:true" class="action-btn icon-plus" href="#wpl_data_structure_edit_div" onclick="wpl_generate_new_page_listing_type()"></a>
                 </div>
             </th>
     	</tr>
@@ -25,12 +24,12 @@ $this->_wpl_import($this->tpl_path.'.scripts.internal_listing_types_js');
                 </td>
                 <td class="manager-wp">
                     <?php if(($wp_listing_type['editable'] == 1) || ($wp_listing_type['editable'] == 2)): ?>
-                        <span href="#wpl_data_structure_edit_div" class="fancybox action-btn icon-edit" onclick="wpl_generate_edit_page_listing_type(<?php echo $wp_listing_type['id']; ?>);"></span>
+                    <a data-realtyna-lightbox href="#wpl_data_structure_edit_div" class="action-btn icon-edit" onclick="wpl_generate_edit_page_listing_type(<?php echo $wp_listing_type['id']; ?>);"></a>
                     <?php endif; ?>
                 </td>
                 <td class="manager-wp">
                     <?php if($wp_listing_type['editable'] == 2): ?>
-                        <span class="action-btn icon-recycle" onclick="wpl_remove_listing_type(<?php echo $wp_listing_type['id']; ?>, 0);"></span>
+                    <span id="wpl_listing_type_remove<?php echo $wp_listing_type['id']; ?>" data-realtyna-href="#wpl_data_structure_edit_div" class="action-btn icon-recycle" onclick="wpl_remove_listing_type(<?php echo $wp_listing_type['id']; ?>, 0);"></span>
                     <?php endif; ?>
                 </td>
                 <td class="manager-wp">

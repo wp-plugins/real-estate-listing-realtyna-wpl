@@ -10,7 +10,7 @@ $image_height = isset($this->instance['data']['image_height']) ? $this->instance
 $slide_interval = isset($this->instance['data']['slide_interval']) ? $this->instance['data']['slide_interval'] : 3000;
 
 /** add Layout js **/
-$js[] = (object) array('param1'=>'bx.slider', 'param2'=>'js/jquery.bxslider.min.js');
+$js[] = (object) array('param1'=>'bx.slider', 'param2'=> wpl_global::get_setting('js_default_path').'/wpl.jquery.bxslider.min.js');
 foreach($js as $javascript) wpl_extensions::import_javascript($javascript);
 ?>
 <script type="text/javascript">

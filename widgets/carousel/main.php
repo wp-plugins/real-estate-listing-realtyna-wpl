@@ -155,7 +155,7 @@ class wpl_carousel_widget extends wpl_widget
 		
         if(isset($data['random']) and trim($data['random']) and trim($data['property_ids']) == '')
 		{
-			$query_rand = "SELECT p.`id` FROM `#__wpl_properties` AS p WHERE 1 ".$this->where." ORDER BY RAND() LIMIT ".$this->limit;
+			$query_rand = "SELECT p.`id` FROM `#__wpl_properties` AS p WHERE 1 ".wpl_db::create_query($where)." ORDER BY RAND() LIMIT ".$this->limit;
 			$results = wpl_db::select($query_rand);
 			
 			$rand_ids = array();
@@ -218,6 +218,6 @@ class wpl_carousel_widget extends wpl_widget
 		$model->start($this->start, $this->limit, $this->orderby, $this->order, $where);
 		
 		/** run the search **/
-		return $query = $model->query();
+		return $model->query();
 	}
 }

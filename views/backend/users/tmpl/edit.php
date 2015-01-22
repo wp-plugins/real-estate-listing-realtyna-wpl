@@ -25,6 +25,11 @@ _wpl_import($this->tpl_path . '.scripts.css');
                     <li>
                         <a href="#pricing" class="tab-pricing" id="wpl_slide_label_id_pricing" onclick="rta.internal.slides.open('_pricing','.fanc-tabs-wp','.fanc-content-body');"><?php echo __('Pricing', WPL_TEXTDOMAIN); ?></a>
                     </li>
+                    <?php if(wpl_global::check_addon('crm')) { ?>
+                        <li>
+                            <a href="#crm" class="tab-crm" id="wpl_slide_label_id_crm" onclick="rta.internal.slides.open('_crm','.fanc-tabs-wp','.fanc-content-body');"><?php echo __('CRM', WPL_TEXTDOMAIN); ?></a>
+                        </li>
+                    <?php } ?>
                 </ul>
             </div>
             <div class="col-fanc-right fanc-content-wp" id="wpl_edit_user">
@@ -59,6 +64,13 @@ _wpl_import($this->tpl_path . '.scripts.css');
                         <?php $this->generate_tab('internal_setting_pricing'); ?>
                     </div>
                 </div>
+                <?php if(wpl_global::check_addon('crm')) { ?>
+                    <div class="fanc-content-body" id="wpl_slide_container_id_crm" style="display: none">
+                        <div id="tab_setting_crm">
+                            <?php $this->generate_tab('internal_setting_crm'); ?>
+                        </div>
+                    </div>
+                <?php } ?>
             </div>
         </div>
     </div>

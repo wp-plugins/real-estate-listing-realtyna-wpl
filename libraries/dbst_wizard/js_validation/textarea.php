@@ -2,7 +2,7 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 
-if(in_array($field->mandatory, array(1, 2)))
+if(in_array($mandatory, array(1, 2)))
 {
     $options = json_decode($field->options);
     if(isset($options->advanced_editor) and $options->advanced_editor == '1')
@@ -21,7 +21,7 @@ if(in_array($field->mandatory, array(1, 2)))
             
             if(wplj.trim(txtarea_val) == "" && wplj("#wpl_listing_field_container'.$field->id.'").css("display") != "none")
             {
-                wpl_alert("'.sprintf(__('Enter a valid %s for %s!', WPL_TEXTDOMAIN), __($field->name, WPL_TEXTDOMAIN), $default_language).'");
+                wpl_alert("'.sprintf(__('Enter a valid %s for %s!', WPL_TEXTDOMAIN), __($label, WPL_TEXTDOMAIN), $default_language).'");
                 return false;
             }
             ';
@@ -38,7 +38,7 @@ if(in_array($field->mandatory, array(1, 2)))
 
             if(wplj.trim(txtarea_val) == "" && wplj("#wpl_listing_field_container'.$field->id.'").css("display") != "none")
             {
-                wpl_alert("'.__('Enter a valid', WPL_TEXTDOMAIN).' '.__($field->name, WPL_TEXTDOMAIN).'!");
+                wpl_alert("'.__('Enter a valid', WPL_TEXTDOMAIN).' '.__($label, WPL_TEXTDOMAIN).'!");
                 return false;
             }
             ';
@@ -55,7 +55,7 @@ if(in_array($field->mandatory, array(1, 2)))
             '
             if(wplj.trim(wplj("#'.$field_id.'").val()) == "" && wplj("#wpl_listing_field_container'.$field->id.'").css("display") != "none")
             {
-                wpl_alert("'.sprintf(__('Enter a valid %s for %s!', WPL_TEXTDOMAIN), __($field->name, WPL_TEXTDOMAIN), $default_language).'");
+                wpl_alert("'.sprintf(__('Enter a valid %s for %s!', WPL_TEXTDOMAIN), __($label, WPL_TEXTDOMAIN), $default_language).'");
                 return false;
             }
             ';
@@ -67,7 +67,7 @@ if(in_array($field->mandatory, array(1, 2)))
             '
             if(wplj.trim(wplj("#'.$field_id.'").val()) == "" && wplj("#wpl_listing_field_container'.$field->id.'").css("display") != "none")
             {
-                wpl_alert("'.__('Enter a valid', WPL_TEXTDOMAIN).' '.__($field->name, WPL_TEXTDOMAIN).'!");
+                wpl_alert("'.__('Enter a valid', WPL_TEXTDOMAIN).' '.__($label, WPL_TEXTDOMAIN).'!");
                 return false;
             }
             ';

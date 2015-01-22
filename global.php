@@ -52,16 +52,17 @@ class wpl_global
      * @param string $view
      * @param string $query_string
      * @param array $instance
+     * @param string $function
      * @return string
      */
-	public static function load($view = 'property_listing', $query_string = '', $instance = array())
+	public static function load($view = 'property_listing', $query_string = '', $instance = array(), $function = NULL)
 	{
 		/** first validations **/
 		if(trim($query_string) == '') $query_string = wpl_global::get_wp_qvar('wpl_qs');
 		
 		/** generate pages object **/
 		$controller = new wpl_controller();
-		$function = 'f:'.$view.':display';
+		if(!$function) $function = 'f:'.$view.':display';
         
 		/** call function **/
 		return call_user_func(array($controller, $function), $instance);
@@ -305,7 +306,33 @@ class wpl_global
         
         return $tag.$remain_svg;
     }
-	
+    
+    /**
+     * Returns a JS template from template file
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $template
+     * @param string $path
+     * @return string|boolean
+     */
+    public static function load_js_template($template, $path = NULL)
+    {
+        /** First validation **/
+        if(!trim($template)) return '';
+        
+        /** set default path **/
+        if(!trim($path)) $path = wpl_global::get_wpl_root_path().'assets'.DS.'js'.DS.'js_templates.tmpl';
+        
+        $content = wpl_file::read($path);
+        $start = strpos($content, '<script id="'.$template.'"');
+        
+        /** template not found **/
+        if($start === false) return false;
+        
+        $end = strpos($content, '</script>', $start);
+        return substr($content, $start, (($end-$start)+9));
+    }
+    
     /**
      * Returns WordPress option
      * @author Howard <howard@realtyna.com>
@@ -959,9 +986,9 @@ class wpl_global
         /** return from cache if exists **/
 		if(isset(self::$wpl_addons[$addon_name])) return true;
 		
-		$query = "SELECT * FROM `#__wpl_addons` WHERE 1";
+        $query = "SELECT * FROM `#__wpl_addons` WHERE 1";
 		$results = wpl_db::select($query, 'loadAssocList');
-		
+        
         $addons = array();
         foreach($results as $result) $addons[strtolower($result['addon_name'])] = $result;
         
@@ -1136,7 +1163,7 @@ class wpl_global
 				curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 120);
 				curl_setopt($ch, CURLOPT_TIMEOUT, 120);
                 
-                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+                @curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 				curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
                 
 				curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
@@ -1219,6 +1246,9 @@ class wpl_global
      */
     public static function get_current_language()
     {
+        /** return WPL language set by WPL itself **/
+        if(wpl_request::getVar('wpllang', NULL)) return wpl_request::getVar('wpllang', NULL);
+        
         return apply_filters('plugin_locale', get_locale(), WPL_TEXTDOMAIN);
     }
     
@@ -1232,14 +1262,16 @@ class wpl_global
 	{
 		if(!$blog_id) $blog_id = wpl_global::get_current_blog_id();
 		
+        $ABSPATH = WPL_UP_ABSPATH;
+        
 		if(!$blog_id or $blog_id == 1)
         {
-            if(!wpl_folder::exists(WPL_UP_ABSPATH)) wpl_folder::create(WPL_UP_ABSPATH);
-            return WPL_UP_ABSPATH;
+            if(!wpl_folder::exists($ABSPATH)) wpl_folder::create($ABSPATH);
+            return $ABSPATH;
         }
 		else
 		{
-			$path = rtrim(WPL_UP_ABSPATH, DS).$blog_id. DS;
+			$path = rtrim($ABSPATH, DS).$blog_id. DS;
 			
 			if(!wpl_folder::exists($path)) wpl_folder::create($path);
 			return $path;
@@ -1256,10 +1288,12 @@ class wpl_global
 	{
 		if(!$blog_id) $blog_id = wpl_global::get_current_blog_id();
 		
+        $ABSPATH = WPL_UP_ABSPATH;
+        
 		if(!$blog_id or $blog_id == 1) return wpl_global::get_wp_site_url().'wp-content/uploads/WPL/';
 		else
 		{
-			$path = rtrim(WPL_UP_ABSPATH, DS).$blog_id. DS;
+			$path = rtrim($ABSPATH, DS).$blog_id. DS;
 			if(!wpl_folder::exists($path)) wpl_folder::create($path);
             
 			return wpl_global::get_wp_site_url().'wp-content/uploads/WPL'.$blog_id.'/';
@@ -1518,4 +1552,140 @@ class wpl_global
         $query = "SELECT * FROM `#__wpl_property_types` WHERE `parent` IN ($parent) `enabled`>='$enabled' AND `name`!='' ORDER BY `index` ASC";
         return wpl_db::select($query, 'loadAssocList');
 	}
+    
+    /**
+     * Wrapper for WordPress wp_redirect function
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $location
+     * @param int $status
+     * @return mixed
+     */
+    public static function redirect($location, $status = 302)
+    {
+        if(!trim($location)) return false;
+        
+        wp_redirect($location, $status);
+        exit;
+    }
+    
+    /**
+     * Wrapper for WordPress do_shortcode function
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $content
+     * @return string
+     */
+    public static function do_shortcode($content)
+    {
+        return do_shortcode($content);
+    }
+    
+    /**
+     * Switch to a new language
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $language
+     * @return boolean
+     */
+    public static function switch_language($language)
+    {
+        $path = wpl_global::get_language_mo_path($language);
+        $result = wpl_global::load_textdomain(WPL_TEXTDOMAIN, $path);
+        
+        if($result) wpl_request::setVar('wpllang', $language);
+        
+        return $result;
+    }
+    
+    public static function load_textdomain($domain, $mofile)
+    {
+        global $l10n;
+        unset($l10n[$domain]);
+        
+        if(!is_readable($mofile)) return false;
+
+        $mo = new MO();
+        if(!$mo->import_from_file($mofile)) return false;
+
+        $l10n[$domain] = &$mo;
+        return true;
+    }
+    
+    /**
+     * Get language .mo path
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $locale
+     * @return string
+     */
+    public static function get_language_mo_path($locale = NULL)
+    {
+        if(!$locale) $locale = wpl_global::get_current_language();
+        
+        $path = WP_LANG_DIR .DS. WPL_BASENAME .DS. WPL_TEXTDOMAIN.'-'.$locale.'.mo';
+        if(!wpl_file::exists($path)) $path = wpl_global::get_wpl_root_path() . 'languages' .DS. WPL_TEXTDOMAIN.'-'.$locale.'.mo';
+        
+        return $path;
+    }
+    
+    /**
+     * Maintenance cron job method to be executed ar regular interval
+     * @author Peter P. <peter@realtyna.com>
+     * @static
+     */
+    public static function execute_maintenance_job()
+    {
+    }
+    
+    /**
+     * Returns column with multilingual columns
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param array $columns
+     * @param string $table
+     * @return array
+     */
+    public static function get_multilingual_columns($columns, $validation = true, $table = 'wpl_properties')
+    {
+        if(wpl_global::check_multilingual_status())
+        {
+            $valid_columns = wpl_db::columns($table);
+            
+            $languages = wpl_addon_pro::get_wpl_languages();
+            foreach($columns as $column)
+            {
+                foreach($languages as $language)
+                {
+                    $language_column = wpl_addon_pro::get_column_lang_name($column, $language, false);
+                    
+                    if($validation and in_array($language_column, $valid_columns)) $columns[] = $language_column;
+                    elseif(!$validation) $columns[] = $language_column;
+                }
+            }
+        }
+        
+        return $columns;
+    }
+    
+    /**
+     * Returns number of days in a month
+     * @author Peter <peter@realtyna.com>
+     * @static
+     * @param int $month
+     * @return int
+     */
+    public static function get_days_in_month($month, $year)
+    {
+        if($month == 1 || $month == 3 || $month == 5 || $month == 7 || $month == 8 || $month == 10 || $month == 12) 
+            $days = 31;
+        elseif($month == 4 || $month == 6 || $month == 9 || $month == 11) 
+            $days = 30;
+        elseif($month == 2 && $year%4 == 0) 
+            $days = 29;
+        elseif($month == 2 && $year%4 != 0) 
+            $days = 28;
+        
+        return $days;
+    }
 }

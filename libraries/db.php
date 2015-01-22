@@ -19,15 +19,15 @@ class wpl_db
      */
 	public static function q($query, $type = '')
 	{
-		/** db prefix **/
-		$query = self::_prefix($query);
-		
 		/** convert type to lowercase **/
 		$type = strtolower($type);
 		
 		/** call select function if query type if select **/
 		if($type == 'select') return self::select($query);
 		
+        /** db prefix **/
+		$query = self::_prefix($query);
+        
 		/** db object **/
 		$database = self::get_DBO();
 		
@@ -351,10 +351,16 @@ class wpl_db
 	{
 		$database = self::get_DBO();
 		
+        if(class_exists('wpl_sql_parser'))
+        {
+            $sqlParser = wpl_sql_parser::getInstance();
+            if($sqlParser->enabled) $query = $sqlParser->parse($query);
+        }
+        
 		$query = str_replace('#__users', $database->base_prefix.'users', $query);
 		$query = str_replace('#__blogs', $database->base_prefix.'blogs', $query);
 		$query = str_replace('#__', $database->prefix, $query);
-		
+        
 		return $query;
 	}
 	

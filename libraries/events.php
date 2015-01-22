@@ -37,15 +37,13 @@ class wpl_events
 			include_once $path;
 			
 			/** call function **/
-			call_user_func(array($event->class_name, $event->function_name), $all_params);
+            $event_obj = new $event->class_name();
+			call_user_func(array($event_obj, $event->function_name), $all_params);
 		}
         
         return true;
 	}
-	
-	/**
-		get events by trigger and enabled status
-	**/
+    
     /**
      * Gets events by trigger from database
      * @author Howard <howard@realtyna.com>
@@ -58,14 +56,7 @@ class wpl_events
 		$query = "SELECT * FROM `#__wpl_events` WHERE `trigger`='$trigger' AND `enabled`>='$enabled'";
 		return wpl_db::select($query);
 	}
-	
-	/**
-		Developed by : Howard
-		Inputs : event_id and dynamic params
-		Outputs : void
-		Date : 2013-04-17
-		Description : use this function for calling one event
-	**/
+    
     /**
      * Triggers one event by id
      * @author Howard <howard@realtyna.com>
@@ -89,7 +80,8 @@ class wpl_events
 		_wpl_import($event->class_location);
 		
 		/** call function **/
-		call_user_func(array($event->class_name, $event->function_name), $all_params);
+        $event_obj = new $event->class_name();
+		call_user_func(array($event_obj, $event->function_name), $all_params);
         
         return true;
 	}
@@ -130,7 +122,8 @@ class wpl_events
 			include_once $path;
 			
 			/** call function **/
-			call_user_func(array($cronjob->class_name, $cronjob->function_name), $all_params);
+            $cron_obj = new $cronjob->class_name();
+			call_user_func(array($cron_obj, $cronjob->function_name), $all_params);
 			
 			/** update cronjob latest run **/
 			self::update_cronjob_latest_run($cronjob->id);

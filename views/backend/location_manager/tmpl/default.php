@@ -6,10 +6,9 @@ _wpl_import($this->tpl_path . '.scripts.css');
 ?>
 <div class="wrap wpl-wp location-wp">
     <header>
-        <div id="icon-location" class="icon48">
-        </div>
+        <div id="icon-location" class="icon48"></div>
         <h2><?php echo __('Locations', WPL_TEXTDOMAIN); ?></h2>
-        <a href="#wpl_location_settings_lightbox" class="action-btn icon-gear fancybox"><?php echo __('Settings', WPL_TEXTDOMAIN); ?></a>
+        <a data-realtyna-lightbox data-realtyna-lightbox-opts="clearContent:false" href="#wpl_location_settings_lightbox" class="action-btn icon-gear"><?php echo __('Settings', WPL_TEXTDOMAIN); ?></a>
     </header>
     <div class="sidebar-wp">
         <div class="side-15">
@@ -98,9 +97,9 @@ _wpl_import($this->tpl_path . '.scripts.css');
                                 <span class="action-btn icon-disabled <?php echo $location_disable_class; ?>" id="location_disable_<?php echo $wp_location->id ?>" onclick="wpl_set_enabled_location(<?php echo $wp_location->id ?>, 1);"></span>
                                 <span class="action-btn icon-enabled <?php echo $location_enable_class; ?>" id="location_enable_<?php echo $wp_location->id ?>" onclick="wpl_set_enabled_location(<?php echo $wp_location->id ?>, 0);"></span>
                             <?php } ?>
-                            <a href="#wpl_location_fancybox_cnt" class="action-btn icon-edit fancybox" onclick="wpl_generate_modify_page('<?php echo (!$this->load_zipcodes ? $this->level : 'zips'); ?>', '', '<?php echo $wp_location->id; ?>');"></a>
+                            <a data-realtyna-lightbox data-realtyna-lightbox-opts="reloadPage:true" href="#wpl_location_fancybox_cnt" class="action-btn icon-edit" onclick="wpl_generate_modify_page('<?php echo (!$this->load_zipcodes ? $this->level : 'zips'); ?>', '', '<?php echo $wp_location->id; ?>');"></a>
                             <span class="action-btn icon-recycle" onclick="wpl_remove_location('<?php echo (!$this->load_zipcodes ? $this->level : 'zips'); ?>', '<?php echo $wp_location->id; ?>', 0);"></span>
-                            <a href="#wpl_location_fancybox_cnt" class="action-btn icon-gear fancybox" onclick="wpl_generate_params_page('<?php echo (!$this->load_zipcodes ? $this->level : 'zips'); ?>', '<?php echo $wp_location->id; ?>');"></a>
+                            <a data-realtyna-lightbox href="#wpl_location_fancybox_cnt" class="action-btn icon-gear" onclick="wpl_generate_params_page('<?php echo (!$this->load_zipcodes ? $this->level : 'zips'); ?>', '<?php echo $wp_location->id; ?>');"></a>
                             <?php /** including a custom file **/ $this->_wpl_import($this->tpl_path . '.custom.action_bar'); ?>
                         </td>
                     </tr>
@@ -112,8 +111,8 @@ _wpl_import($this->tpl_path . '.scripts.css');
                 <?php echo $this->pagination->show(); ?>
             </div>
             <?php endif; ?>
-            <div id="wpl_location_fancybox_cnt" class="fanc-box-wp wpl_lightbox wpl_hidden_element"></div>
-            <div id="wpl_location_settings_lightbox" class="fanc-box-wp wpl_lightbox wpl_hidden_element">
+            <div id="wpl_location_fancybox_cnt" class="wpl_hidden_element"></div>
+            <div id="wpl_location_settings_lightbox" class="wpl_hidden_element">
                 <div class="fanc-content size-width-1 fanc-settings">
                     <h2><?php echo __('Location Settings', WPL_TEXTDOMAIN); ?></h2>
                     <div class="fanc-body label-x2">

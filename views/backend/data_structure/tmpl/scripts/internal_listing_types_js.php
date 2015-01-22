@@ -52,9 +52,6 @@ function wpl_remove_listing_type(listing_type_id, confirmed)
     wpl_remove_message('.wpl_data_structure_list .wpl_show_message');
     request_str = 'wpl_format=b:data_structure:ajax_listing_types&wpl_function=generate_delete_page&listing_type_id='+listing_type_id;
 
-    /** refresh the fancybox **/
-    rta.config.fancybox.reloadAfterClose = true;
-
     /** run ajax query **/
     wplj.ajax(
     {
@@ -64,13 +61,12 @@ function wpl_remove_listing_type(listing_type_id, confirmed)
         success: function(data)
         {
             wplj("#wpl_data_structure_edit_div").html(data);
-            wplj('.wpl_help').wpl_help();
-            wplj("#wpl_fancybox_handler").trigger("click");
+            wplj._realtyna.lightbox.open("#wpl_listing_type_remove"+listing_type_id, {reloadPage: true});
         },
         error: function(jqXHR, textStatus, errorThrown)
         {
             wpl_show_messages('<?php echo __('Error Occured.', WPL_TEXTDOMAIN); ?>', '.wpl_data_structure_list .wpl_show_message', 'wpl_red_msg');
-            wplj.fancybox.close();
+            wplj._realtyna.lightbox.close();
         }
     });
 }
@@ -121,9 +117,6 @@ function wpl_generate_new_page_listing_type()
 {
 	wpl_remove_message('.wpl_data_structure_list .wpl_show_message');
 	request_str = 'wpl_format=b:data_structure:ajax_listing_types&wpl_function=generate_new_page';
-	
-	/** refresh the fancybox **/
-	rta.config.fancybox.reloadAfterClose = true;
 			
 	/** run ajax query **/
 	wplj.ajax(
@@ -134,12 +127,11 @@ function wpl_generate_new_page_listing_type()
 		success: function(data)
 		{
 			wplj("#wpl_data_structure_edit_div").html(data);
-			wplj('.wpl_help').wpl_help();
 		},
 		error: function(jqXHR, textStatus, errorThrown)
 		{
 			wpl_show_messages('<?php echo __('Error Occured.', WPL_TEXTDOMAIN); ?>', '.wpl_data_structure_list .wpl_show_message', 'wpl_red_msg');
-			wplj.fancybox.close();
+			wplj._realtyna.lightbox.close();
 		}
 	});
 }
@@ -160,12 +152,11 @@ function wpl_generate_edit_page_listing_type(listing_type_id)
 		success: function(data)
 		{
 			wplj("#wpl_data_structure_edit_div").html(data);
-			wplj('.wpl_help').wpl_help();
 		},
 		error: function(jqXHR, textStatus, errorThrown)
 		{
 			wpl_show_messages('<?php echo __('Error Occured.', WPL_TEXTDOMAIN); ?>', '.wpl_data_structure_list .wpl_show_message', 'wpl_red_msg');
-			wplj.fancybox.close();
+			wplj._realtyna.lightbox.close();
 		}
 	});
 }
@@ -271,11 +262,10 @@ function wpl_ajax_insert_listing_type(id)
 		if (data.success == 1)
 		{
 			wpl_show_messages(data.message, '.wpl_show_message' + id, 'wpl_green_msg');
-			setTimeout(function() {   
-			    wplj(".fancybox-close").trigger("click");
-				 location.reload();
+			setTimeout(function()
+            {
+			    wplj._realtyna.lightbox.close();
 			}, 1000);
-			
 		}
 		else if (data.success != 1)
 		{
@@ -294,11 +284,10 @@ function purge_properties_listing_type(listing_type_id)
 		if (data.success == 1)
 		{
 			wpl_show_messages(data.message, '.wpl_show_message' + listing_type_id, 'wpl_green_msg');
-			setTimeout(function() {   
-			    wplj(".fancybox-close").trigger("click");
-				 location.reload();
+			setTimeout(function()
+            {
+			    wplj._realtyna.lightbox.close();
 			}, 1000);
-			
 		}
 		else if (data.success != 1)
 		{
@@ -310,9 +299,7 @@ function purge_properties_listing_type(listing_type_id)
 function assign_properties_listing_type(listing_type_id)
 {
 	var select_id = wplj('#listing_type_select').val();
-
-	if(select_id == -1)
-		return;
+    if(select_id == -1) return;
 	
 	request_str = 'wpl_format=b:data_structure:ajax_listing_types&wpl_function=assign_related_properties&listing_type_id=' + listing_type_id+ '&select_id=' + select_id;
 	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str);
@@ -322,9 +309,9 @@ function assign_properties_listing_type(listing_type_id)
 		if (data.success == 1)
 		{
 			wpl_show_messages(data.message, '.wpl_show_message' + listing_type_id, 'wpl_green_msg');
-			setTimeout(function() {   
-			    wplj(".fancybox-close").trigger("click");
-				 location.reload();
+			setTimeout(function()
+            {
+			    wplj._realtyna.lightbox.close();
 			}, 1000);
 			
 		}
@@ -337,10 +324,8 @@ function assign_properties_listing_type(listing_type_id)
 
 function show_opt_2_listing_type()
 {
-
 	wplj('#lt-del-options').fadeOut(200,function(){
         wplj('#lt-del-plist').fadeIn();
     });
-
 }
 </script>

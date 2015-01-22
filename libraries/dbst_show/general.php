@@ -145,7 +145,7 @@ elseif($type == 'textarea' and !$done_this) //////////////////////////// textare
         
         $value = stripslashes($value);
         if(in_array($field->id, array(308, 1160))) $value = apply_filters('the_content', $value);
-        $value = do_shortcode($value);
+        $value = wpl_global::do_shortcode($value);
         
         $return['value'] = $value;
 	}
@@ -313,7 +313,11 @@ elseif($type == 'price' and !$done_this) //////////////////////////// Price ////
 	
     $price_period = array();
     if(isset($values[$field->table_column.'_period'])) $price_period = wpl_property::render_field($values[$field->table_column.'_period'], wpl_flex::get_dbst_id($field->table_column.'_period', $field->kind));
-    if(isset($price_period['value'])) $return['value'] .= ' '.$price_period['value'];
+    if(isset($price_period['value']))
+    {
+        $return['value'] .= ' '.$price_period['value'];
+        $return['price_period'] = $price_period['value'];
+    }
     
     if(isset($options['if_zero']) and $options['if_zero'] == 2 and $value == '0') $return['value'] = __($options['call_text'], WPL_TEXTDOMAIN);
     if(isset($options['if_zero']) and !$options['if_zero'] and $value == '0') $return = array();
@@ -337,7 +341,11 @@ elseif($type == 'mmprice' and !$done_this) //////////////////////////// Min/Max 
     $return['price_only'] = $rendered_price;
     
     $price_period = wpl_property::render_field($values['price_period'], wpl_flex::get_dbst_id('price_period', $field->kind));
-    if(isset($price_period['value'])) $return['value'] .= ' '.$price_period['value'];
+    if(isset($price_period['value']))
+    {
+        $return['value'] .= ' '.$price_period['value'];
+        $return['price_period'] = $price_period['value'];
+    }
     
     if(isset($options['if_zero']) and $options['if_zero'] == 2 and $value == '0' and $values[$field->table_column.'_max'] == '0') $return['value'] = __($options['call_text'], WPL_TEXTDOMAIN);
     if(isset($options['if_zero']) and !$options['if_zero'] and $value == '0' and $values[$field->table_column.'_max'] == '0') $return = array();

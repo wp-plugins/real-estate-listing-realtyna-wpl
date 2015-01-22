@@ -74,7 +74,7 @@ class wpl_locations
 	public static function add_location($name, $abbr, $level, $parent = 0)
 	{
 		if($level == 1) $query = "INSERT INTO `#__wpl_location".$level."` (`name`,`abbr`,`enabled`) VALUES ('$name','$abbr',1)";
-		$query = "INSERT INTO `#__wpl_location".$level."` (`name`,`abbr`,`parent`) VALUES ('$name','$abbr','$parent')";
+		else $query = "INSERT INTO `#__wpl_location".$level."` (`name`,`abbr`,`parent`) VALUES ('$name','$abbr','$parent')";
 		
 		return wpl_db::q($query, 'insert');
 	}
