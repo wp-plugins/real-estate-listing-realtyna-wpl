@@ -72,8 +72,9 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 = 2.2.0 =
 * [PRO] Added Multilingual support for property alias and property location texts.
 * Developed multiple Google map marker.
-* Reviewed WPL search widget.
-* Reviewed WPL dashboard.
+* New look for WPL search widget.
+* New look for WPL dashboard.
+* New look for date picker.
 * Developed new WPL lightbox.
 * Fixed an issue on editing feature field parameters.
 

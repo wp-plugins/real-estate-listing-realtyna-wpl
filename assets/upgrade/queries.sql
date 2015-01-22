@@ -467,7 +467,7 @@ ALTER TABLE `#__wpl_users` ADD `maccess_wpl_color` VARCHAR(10) NULL AFTER `macce
 UPDATE `#__wpl_extensions` SET `index`='200.10' WHERE `id`='115';
 
 INSERT INTO `#__wpl_extensions` (`id`, `type`, `title`, `parent`, `description`, `enabled`, `param1`, `param2`, `param3`, `param4`, `param5`, `params`, `editable`, `index`, `client`) VALUES
-(117, 'javascript', 'Realtyna Utility', 0, '', 1, 'realtyna-utility', 'js/libraries/realtyna/realtyna.utility.js', '', '', '', '', 0, 200.01, 1);
+(117, 'javascript', 'Realtyna Utility', 0, '', 1, 'realtyna-utility', 'js/libraries/realtyna/realtyna.utility.min.js', '', '', '', '', 0, 200.01, 1);
 
 ALTER TABLE `#__wpl_activities` ENGINE=InnoDB;
 ALTER TABLE `#__wpl_addons` ENGINE=InnoDB;

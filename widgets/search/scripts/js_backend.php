@@ -18,6 +18,7 @@ wplj(function(){
         width = Math.min(Math.max(width, 900),1510);
 
         wplj._realtyna.lightbox.open(wplj(this), {
+            clearContent: false,
             callbacks: {
                 beforeOpen: function(){
                     wplj('#wpl_flex_modify_container_<?php echo $this->number ?> .wpl-widget-search-fields-wp').css({
@@ -71,8 +72,7 @@ wplj(function(){
                     });
                     */
 
-                },
-                clearContent: false
+                }
             }
         });
 

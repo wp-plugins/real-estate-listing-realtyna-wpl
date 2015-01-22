@@ -57,7 +57,7 @@ class wpl_search_widget extends wpl_widget
 		$this->rendered = $this->render_search_fields($instance, $widget_id, $find_files);
 		
 		if(!wpl_file::exists($layout)) $layout = _wpl_import('widgets.search.tmpl.default', true, true);
-		if(wpl_file::exists($layout)) 
+		if(wpl_file::exists($layout))
 			require $layout;
 		else
 			echo __('Widget Layout Not Found!', WPL_TEXTDOMAIN);

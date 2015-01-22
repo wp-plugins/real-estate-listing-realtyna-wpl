@@ -1020,8 +1020,11 @@ elseif($type == 'addon_calendar' and !$done_this)
     $show_icon = 0;
     
 	/** current value **/
-    $current_checkin_value  = wpl_request::getVar('sf_calendarcheckin', '');
+    $current_checkin_value = wpl_request::getVar('sf_calendarcheckin', '');
     $current_checkout_value = wpl_request::getVar('sf_calendarcheckout', '');
+    
+    /** for opening more details **/
+    $current_value = $current_checkin_value;
 
     $html .= '<div class="wpl_search_widget_calendar_search_container">';
     $html .= '<input type="text" name="sf'.$widget_id.'_calendarcheckin" id="sf'.$widget_id.'_calendarcheckin" value="'.($current_checkin_value != '' ? $current_checkin_value : '').'" placeholder="'.__('Check In', WPL_TEXTDOMAIN).'" />';

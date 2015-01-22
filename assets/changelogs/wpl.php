@@ -4,11 +4,12 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
-        <h4>WPL2.2.0 (<span class="wpl_log_date">01/21/2015</span> <span class="wpl_log_revision">revision 1089</span>)</h4>
+        <h4>WPL2.2.0 (<span class="wpl_log_date">01/22/2015</span> <span class="wpl_log_revision">revision 1094</span>)</h4>
         -- <strong>[PRO]</strong> Added Multilingual support for property alias and property location texts.<br />
         -- Developed multiple Google map marker.<br />
         -- New look for WPL search widget.<br />
         -- New look for WPL dashboard.<br />
+        -- New look for date picker.<br />
         -- Developed new WPL lightbox.<br />
         -- Fixed an issue on editing feature field parameters.
         
