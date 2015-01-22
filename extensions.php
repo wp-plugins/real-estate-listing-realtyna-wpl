@@ -677,6 +677,14 @@ class wpl_extensions
 	}
 	
     /**
+     * @deprecated
+     */
+    public function wpl_admin_pages()
+    {
+        self::wpl_admin_menus();
+    }
+    
+    /**
      * For creating admin menus
      * @author Howard <howard@realtyna.com>
      */
