@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<div data-id="notificationTemplate">
+    <div class="fanc-content size-width-2 fanc-notify-wp">
+        <h2>${title}</h2>
+
+        <div class="fanc-body fancy-search-body">
+            <div class="fanc-main-body-wp">
+                <div class="fanc-message-icon"></div>
+                <div class="fanc-message-body">
+                    ${message}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- WPL.libraries.dbst_wizard.gallery -->
+<div data-id="newImage">
+    <li class="ui-state-default" id="ajax_gallery${index}">
+        <input type="hidden" id="gal_name" value="${name}"/>
+
+        <div class="image-box-wp">
+            <div class="image-wp">
+                <img data-src="${imageFolder}thumbnail/${name}"/>
+            </div>
+            <div class="info-wp">
+                <div class="row">
+                    <label for="title-${index}">${lblImageTitle}:</label>
+                    <input id="title-${index}" type="text" class="gal_title" value=""
+                           onblur="ajax_gallery_title_update('${name}', this.value);" size="20"/>
+                </div>
+                <div class="row">
+                    <label for="desc-${index}">${lblImageDesc}:</label>
+                    <input for="desc-${index}" type="text" class="gal_desc" value=""
+                           onblur="ajax_gallery_desc_update('${name}', this.value);" size="50"/>
+                </div>
+                <div class="row">
+                    <label for="cat-${index}">${lblImageCat}:</label>
+                    <select id="cat-${index}" name="img_cat" class="gal_cat"
+                            onchange="ajax_gallery_cat_update('${name}', this.value);">
+                        ${selectOptions}
+                    </select>
+                </div>
+            </div>
+            <div class="actions-wp">
+                <div class="action-gal-btn">
+                    <i class="action-btn icon-move"></i>
+                </div>
+                <div class="action-gal-btn ajax_gallery_middle_td"
+                     onclick="ajax_gallery_image_delete('${name}', 'ajax_gallery${index}');">
+                    <i class="action-btn icon-recycle"></i>
+                </div>
+                <div class="action-gal-btn" id="active_image_tag_${index}"
+                     onclick="wpl_image_enabled('${name}', '${index}');"><i class="action-btn icon-enabled" title="${enabled_title}"></i></div>
+                <input type="hidden" id="enabled_image_field_${index}" value="1"/>
+            </div>
+        </div>
+    </li>
+</div>
+
+<!-- WPL.libraries.dbst_wizard.videos -->
+<div data-id="dbst-wizard-videos">
+    <li class="ui-state-default" id="ajax_video${vid_counter}">
+        <input type="hidden" id="vid_name" value="${name}"/>
+
+        <div class="image-box-wp">
+            <div class="info-wp">
+                <div class="row">
+                    <label for="">${lblTitle}:</label>
+                    <input type="text" class="vid_title" value=""
+                           onblur="ajax_video_title_update('${name}', this.value);" size="20"/>
+                </div>
+                <div class="row">
+                    <label for="">${lblDesc}:</label>
+                    <input type="text" class="vid_desc" value="" onblur="ajax_video_desc_update('${name}', this.value);"
+                           size="50"/>
+                </div>
+                <div class="row">
+                    <label for="">${lblCat}:</label>
+                    <select name="vid_cat" class="vid_cat" onchange="ajax_video_cat_update('${name}', this.value);">
+                        ${select}
+                    </select>
+                </div>
+            </div>
+            <div class="actions-wp">
+                <div class="action-gal-btn">
+                    <i class="action-btn icon-move"></i>
+                </div>
+                <div class="action-gal-btn ajax_gallery_middle_td"
+                     onclick="ajax_video_delete('${name}', 'ajax_video${vid_counter}');">
+                    <i class="action-btn icon-recycle"></i>
+                </div>
+                <div class="action-gal-btn" id="active_image_tag_${vid_counter}"
+                     onclick="wpl_image_enabled('${name}', ${vid_counter});"><i class="action-btn icon-enabled"></i>
+                </div>
+                <input type="hidden" id="enabled_video_field_${vid_counter}" value=""/>
+            </div>
+        </div>
+    </li>
+</div>
+
+
+<div data-id="dbst-wizard-attachment">
+    <li class="ui-state-default" id="ajax_attachment${att_counter}">
+        <input type="hidden" id="att_name" value="${fileName}"/>
+
+        <div class="image-box-wp">
+            <div class="icon-wp">
+                <div class="wpl-attach-icon wpl-att-${subFileName}"></div>
+            </div>
+            <div class="info-wp">
+                <div class="row">
+                    <label for="">${lblTitle}:</label>
+                    <input type="text" class="att_title" value=""
+                           onblur="ajax_attachment_title_update('${fileName}', this.value);"
+                           size="20"/>
+                </div>
+                <div class="row">
+                    <label for="">${lblDesc}:</label>
+                    <input type="text" class="att_desc" value=""
+                           onblur="ajax_attachment_desc_update('${fileName}', this.value);"
+                           size="50"/>
+                </div>
+                <div class="row">
+                    <label for="">${lblCat}:</label>
+                    <select name="att_cat" class="att_cat"
+                            onchange="ajax_attachment_cat_update('${fileName}', this.value);">
+                        ${attachCat}
+                    </select>
+                </div>
+            </div>
+            <div class="actions-wp">
+                <div class="action-gal-btn ajax_attachment_move_icon">
+                    <i class="action-btn icon-move"></i>
+                </div>
+                <div class="action-gal-btn ajax_gallery_middle_td ajax_attachment_remove_icon"
+                     onclick="ajax_attachment_delete('${fileName}','ajax_attachment${att_counter}');">
+                    <i class="action-btn icon-recycle"></i>
+                </div>
+
+                <div class="action-gal-btn" id="active_attachment_tag_${att_counter}"
+                     onclick="wpl_attachment_enabled('${fileName}','${att_counter}');">
+                    <i class="action-btn icon-enabled" title="${enabled_title}"></i>
+                </div>
+
+                <input type="hidden" id="enabled_attachment_field_${att_counter}"
+                       value="1"/>
+            </div>
+        </div>
+    </li>
+</div>
+
+
+<!-- WPL.libraries.dbst_wizard.addon_video.embed -->
+<div data-id="add-listing-video-embed">
+    <div class="video-embed-wp" id="video-embed-${count}">
+        <div class="row">
+            <label id="title_label" for="embed_vid_title${count}">${title}</label>
+            <input type="text" name="embed_vid_title${count}" id="embed_vid_title${count}" value="${item_name}"
+                   onblur="video_embed_save(${count});"/>
+        </div>
+        <div class="row">
+            <label id="desc_label" for="embed_vid_desc${count}">${desc}</label>
+            <input type="text" name="embed_vid_desc${count}" id="embed_vid_desc${count}" value="${item_extra1}"
+                   onblur="video_embed_save(${count});"/>
+        </div>
+        <div class="row">
+            <label id="embed_label" for="embed_vid_code${count}">${embedCode}</label>
+            <textarea name="embed_vid_code${count}" rows="5" cols="50" id="embed_vid_code${count}"
+                      onblur="video_embed_save(${count});">${item_extra2}</textarea>
+        </div>
+        <div class="actions-wp">
+            <a onclick="embed_video_delete('${count}');">
+                <i class="action-btn icon-recycle"></i>
+            </a>
+        </div>
+        <input type="hidden" id="vid_emb${count}" value="${id}"/>
+    </div>
+</div>
+
+<!-- WPL.libraries.dbst_wizard.addon_video.uploader -->
+<div data-id="add-listing-video-uploader">
+    <div class="video-embed-wp" id="video-embed-${count}">
+        <div class="row">
+            <label id="title_label" for="embed_vid_title${count}">${title}</label>
+            <input type="text" name="embed_vid_title${count}" id="embed_vid_title${count}" value="${item_name}"
+                   onblur="video_embed_save(${count});"/>
+        </div>
+        <div class="row">
+            <label id="desc_label" for="embed_vid_desc${count}">${desc}</label>
+            <input type="text" name="embed_vid_desc${count}" id="embed_vid_desc${count}" value="${item_extra1}"
+                   onblur="video_embed_save(${count});"/>
+        </div>
+        <div class="row">
+            <label id="embed_label" for="embed_vid_code${count}">${embedCode}</label>
+            <textarea name="embed_vid_code${count}" rows="5" cols="50" id="embed_vid_code${count}"
+                      onblur="video_embed_save(${count});">${item_extra2}</textarea>
+        </div>
+        <div class="actions-wp">
+            <a onclick="embed_video_delete('${count}');">
+                <i class="action-btn icon-recycle"></i>
+            </a>
+        </div>
+        <input type="hidden" id="vid_emb${count}" value="${id}"/>
+    </div>
+</div>
+
+</body>
+</html>
