@@ -9,9 +9,9 @@ _wpl_import('libraries.activities');
 
 abstract class wpl_profile_show_controller_abstract extends wpl_controller
 {
-	var $tpl_path = 'views.frontend.profile_show.tmpl';
-	var $tpl;
-	var $uid;
+	public $tpl_path = 'views.frontend.profile_show.tmpl';
+	public $tpl;
+	public $uid;
 	
 	public function display($instance = array())
 	{
@@ -34,7 +34,7 @@ abstract class wpl_profile_show_controller_abstract extends wpl_controller
         wpl_request::setVar('sf_select_user_id', $this->uid);
         
         /** set the kind **/
-        $this->kind = wpl_request::getVar('kind', '-1');
+        $this->kind = wpl_request::getVar('kind', '0');
         wpl_request::setVar('kind', $this->kind);
         
         /** trigger event **/

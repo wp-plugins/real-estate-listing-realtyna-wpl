@@ -11,11 +11,11 @@ _wpl_import('libraries.settings');
 
 abstract class wpl_property_listing_controller_abstract extends wpl_controller
 {
-	var $tpl_path = 'views.frontend.property_listing.tmpl';
-	var $tpl;
-	var $wpl_properties;
-	var $model;
-	var $kind;
+	public $tpl_path = 'views.frontend.property_listing.tmpl';
+	public $tpl;
+	public $wpl_properties;
+	public $model;
+	public $kind;
 	
 	public function display($instance = array())
 	{
@@ -27,7 +27,7 @@ abstract class wpl_property_listing_controller_abstract extends wpl_controller
 			return parent::render($this->tpl_path, 'message', false, true);
 		}
         
-        $this->tpl = wpl_request::getVar('tpl');
+        $this->tpl = wpl_request::getVar('tpl', 'default');
         $this->method = wpl_request::getVar('wplmethod', NULL);
         
         /** global settings **/
@@ -46,10 +46,22 @@ abstract class wpl_property_listing_controller_abstract extends wpl_controller
         
         $this->property_css_class_switcher = wpl_request::getVar('wplpcc_switcher', '1');
         
+        /** detect kind **/
+		$this->kind = wpl_request::getVar('kind', 0);
+        if(!$this->kind) $this->kind = wpl_request::getVar('sf_select_kind', 0);
+        
+		if(!in_array($this->kind, wpl_flex::get_valid_kinds()))
+		{
+			/** import message tpl **/
+			$this->message = __('Invalid Request!', WPL_TEXTDOMAIN);
+			return parent::render($this->tpl_path, 'message', false, true);
+		}
+        
         /** load mapview without any server proccess **/
         if($this->tpl == 'mapview')
         {
             /** import tpl **/
+            $this->tpl = wpl_flex::get_kind_tpl($this->tpl_path, $this->tpl, $this->kind);
             return parent::render($this->tpl_path, $this->tpl, false, true);
         }
         
@@ -63,17 +75,6 @@ abstract class wpl_property_listing_controller_abstract extends wpl_controller
 		/** set page if start var passed **/
 		$this->page_number = ($this->start/$this->limit)+1;
 		wpl_request::setVar('wplpage', $this->page_number);
-		
-		/** detect kind **/
-		$this->kind = wpl_request::getVar('kind', 0);
-        if(!$this->kind) $this->kind = wpl_request::getVar('sf_select_kind', 0);
-        
-		if(!in_array($this->kind, wpl_flex::get_valid_kinds()) and $this->kind != -1)
-		{
-			/** import message tpl **/
-			$this->message = __('Invalid Request!', WPL_TEXTDOMAIN);
-			return parent::render($this->tpl_path, 'message', false, true);
-		}
 		
 		$where = array('sf_select_confirmed'=>1, 'sf_select_finalized'=>1, 'sf_select_deleted'=>0, 'sf_select_expired'=>0, 'sf_select_kind'=>$this->kind);
 		
@@ -122,6 +123,7 @@ abstract class wpl_property_listing_controller_abstract extends wpl_controller
         }
         
 		/** import tpl **/
+        $this->tpl = wpl_flex::get_kind_tpl($this->tpl_path, $this->tpl, $this->kind);
 		return parent::render($this->tpl_path, $this->tpl, false, true);
 	}
 }

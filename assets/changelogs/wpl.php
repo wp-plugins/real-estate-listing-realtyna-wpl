@@ -4,6 +4,18 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL2.3.0 (<span class="wpl_log_date">02/26/2015</span> <span class="wpl_log_revision">revision 1195</span>)</h4>
+        -- <strong>[PRO]</strong> Added Report Abuse feature.<br />
+        -- <strong>[PRO]</strong> Improved WPL Multilingual feature.<br />
+        -- <strong>[PRO]</strong> Added access view feature for WPL fields.<br />
+        -- Added entity support for WPL search widget.<br />
+        -- Added List/Grid feature for agent/profile listing pages.<br />
+        -- Added Google API key.<br />
+        -- Added fill type feature for carousel widget.<br />
+        -- Fixed profile show issue.<br />
+        -- Fixed backslash issue on property description.<br />
+        -- Fixed some design issues.
+        
         <h4>WPL2.2.0 (<span class="wpl_log_date">01/22/2015</span> <span class="wpl_log_revision">revision 1094</span>)</h4>
         -- <strong>[PRO]</strong> Added Multilingual support for property alias and property location texts.<br />
         -- Developed multiple Google map marker.<br />

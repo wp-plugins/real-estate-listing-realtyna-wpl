@@ -5,7 +5,7 @@ defined('_WPLEXEC') or die('Restricted access');
 if($type == 'meta_key' and !$done_this)
 {
     $current_language = wpl_global::get_current_language();
-    if($field->multilingual == 1 and wpl_global::check_multilingual_status()):
+    if(isset($field->multilingual) and $field->multilingual == 1 and wpl_global::check_multilingual_status()):
         wp_enqueue_script('jquery-effects-clip', false, array('jquery-effects-core'));
 ?>
 <label class="wpl-multiling-label wpl-multiling-text">

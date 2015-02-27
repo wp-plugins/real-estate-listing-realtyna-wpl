@@ -8,6 +8,7 @@ _wpl_import('libraries.images');
  * @author Howard <howard@realtyna.com>
  * @since WPL1.7.0
  * @date 20/04/2014
+ * @package WPL
  */
 class wpl_notifications
 {

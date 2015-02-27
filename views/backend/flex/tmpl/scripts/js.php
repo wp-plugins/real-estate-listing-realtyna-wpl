@@ -169,7 +169,7 @@ function save_dbst(prefix, dbst_id)
 		request_str += "&fld_"+element.id.replace(prefix,"")+"="+wplj(element).val();
 	});
 	
-	/** data specific **/
+	/** Data Specific **/
 	specificable = wplj("#"+prefix+"specificable").val();
 	if(specificable == 1) /** listing specific **/
 	{
@@ -216,6 +216,25 @@ function save_dbst(prefix, dbst_id)
 	else if(specificable == 0) /** No specific **/
 	{
 		request_str += "&fld_property_type_specific=&fld_listing_specific=&fld_user_specific=";
+	}
+    
+    /** Data Accesses **/
+	viewable = wplj("#"+prefix+"accesses").val();
+	if(viewable == 1) /** Selected Users **/
+	{
+		var accesses_str = '';
+		
+		wplj(".wpl_accesses_ul input[type='checkbox']").each(function(index, element)
+        {
+            if(element.checked) accesses_str += element.value+',';
+        });
+		
+        var accesses_message = wplj("#"+prefix+"accesses_message").val();
+		request_str += "&fld_accesses="+accesses_str+"&fld_accesses_message="+accesses_message;
+	}
+	else if(viewable == 2) /** All Users **/
+	{
+		request_str += "&fld_accesses=&fld_accesses_message=";
 	}
 	
 	/** specific options **/
@@ -358,5 +377,11 @@ function wpl_user_specific_all(checked)
 			if(element.id != "") { element.disabled = false; }
 		});
 	}
+}
+
+function wpl_flex_change_accesses(value, prefix)
+{
+    if(value == '1') wplj("#"+prefix+"accesses_cnt").slideDown();
+    else wplj("#"+prefix+"accesses_cnt").slideUp();
 }
 </script>

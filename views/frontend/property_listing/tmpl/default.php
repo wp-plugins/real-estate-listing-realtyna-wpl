@@ -20,6 +20,7 @@ if($this->wplpagination == 'scroll' and wpl_global::check_addon('pro')) $this->_
     <div class="wpl_plisting_top_sidebar_container">
         <?php dynamic_sidebar('wpl-plisting-top'); ?>
     </div>
+    
     <?php elseif(is_active_sidebar('wpl-complex-plisting-top') and $this->kind == 1): ?>
     <div class="wpl_plisting_top_sidebar_container">
         <?php dynamic_sidebar('wpl-complex-plisting-top'); ?>

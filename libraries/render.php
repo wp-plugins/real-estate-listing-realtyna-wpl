@@ -9,6 +9,7 @@ _wpl_import('libraries.units');
  * @author Howard <howard@realtyna.com>
  * @since WPL1.0.0
  * @date 08/19/2013
+ * @package WPL
  */
 class wpl_render
 {

@@ -15,6 +15,13 @@ defined('_WPLEXEC') or die('Restricted access');
     <input class="text_box" name="option[image_class]" type="text" id="wpl_o_image_class" value="<?php echo isset($this->options->image_class) ? $this->options->image_class : ''; ?>" />
 </div>
 <div class="fanc-row">
+    <label for="wpl_o_autoplay"><?php echo __('Autoplay', WPL_TEXTDOMAIN); ?></label>
+    <select class="text_box" name="option[autoplay]" type="text" id="wpl_o_resize">
+        <option value="1" <?php if(isset($this->options->resize) and $this->options->resize == '1') echo 'selected="selected"'; ?>><?php echo __('Yes', WPL_TEXTDOMAIN); ?></option>
+        <option value="0" <?php if(isset($this->options->resize) and $this->options->resize == '0') echo 'selected="selected"'; ?>><?php echo __('No', WPL_TEXTDOMAIN); ?></option>
+    </select>
+</div>
+<div class="fanc-row">
     <label for="wpl_o_resize"><?php echo __('Resize', WPL_TEXTDOMAIN); ?></label>
     <select class="text_box" name="option[resize]" type="text" id="wpl_o_resize">
         <option value="1" <?php if(isset($this->options->resize) and $this->options->resize == '1') echo 'selected="selected"'; ?>><?php echo __('Yes', WPL_TEXTDOMAIN); ?></option>

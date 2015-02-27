@@ -107,7 +107,7 @@ if($show == 'simple_location_database' and !$done_this)
 		
 		foreach($locations as $location)
 		{
-			$html .= '<option value="'.$location->id.'" '.($current_location_id == $location->id ? 'selected="selected"' : '').'>'.$location->name.'</option>';
+			$html .= '<option value="'.$location->id.'" '.($current_location_id == $location->id ? 'selected="selected"' : '').'>'.__($location->name, WPL_TEXTDOMAIN).'</option>';
 		}
 		
 		$html .= '</select>';
@@ -130,7 +130,7 @@ if($show == 'simple_location_database' and !$done_this)
 			
 			foreach($locations as $location)
 			{
-				$html .= '<option value="'.$location->id.'" '.($current_location_id == $location->id ? 'selected="selected"' : '').'>'.$location->name.'</option>';
+				$html .= '<option value="'.$location->id.'" '.($current_location_id == $location->id ? 'selected="selected"' : '').'>'.__($location->name, WPL_TEXTDOMAIN).'</option>';
 			}
 			
 			$html .= '</select>';

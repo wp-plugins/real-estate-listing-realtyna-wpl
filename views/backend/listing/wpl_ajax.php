@@ -10,8 +10,8 @@ _wpl_import('libraries.items');
 
 class wpl_listing_controller extends wpl_controller
 {
-	var $tpl_path = 'views.backend.listing.tmpl';
-	var $tpl;
+	public $tpl_path = 'views.backend.listing.tmpl';
+	public $tpl;
 	
 	public function display()
 	{

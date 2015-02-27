@@ -17,8 +17,7 @@ if($type == 'text' and !$done_this)
 			</div>
 			<?php
 				/** include main file **/
-				$path = _wpl_import('libraries.dbst_modify.main.main', true, true);
-				include $path;
+				include _wpl_import('libraries.dbst_modify.main.main', true, true);
 			?>
 		</div>
 		<div class="col-fanc-right" id="wpl_flex_specific_options">
@@ -27,8 +26,7 @@ if($type == 'text' and !$done_this)
 			</div>
 			<?php
 				/** include specific file **/
-				$path = _wpl_import('libraries.dbst_modify.main.'.($kind == 2 ? 'user' : '').'specific', true, true);
-				include $path;
+				include _wpl_import('libraries.dbst_modify.main.'.($kind == 2 ? 'user' : '').'specific', true, true);
 			?>
             <?php if(wpl_global::check_addon('pro')): ?>
             <div class="fanc-row fanc-inline-title">
@@ -51,6 +49,17 @@ if($type == 'text' and !$done_this)
             <?php endif; ?>
 		</div>
 	</div>
+    <div class="col-wp">
+        <div class="col-fanc-left">
+        	<div class="fanc-row fanc-inline-title">
+                <?php echo __('Accesses', WPL_TEXTDOMAIN); ?>
+            </div>
+            <?php
+				/** include accesses file **/
+				include _wpl_import('libraries.dbst_modify.main.accesses', true, true);
+            ?>
+        </div>
+    </div>
 </div>
 <?php
     $done_this = true;

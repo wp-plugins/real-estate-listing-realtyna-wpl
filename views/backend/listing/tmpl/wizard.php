@@ -35,6 +35,8 @@ $this->finds = array();
 
                     if(trim($category->listing_specific) != '')
 					{
+                        $category_listing_specific_array[$category->id] = array();
+                        
                         if(substr($category->listing_specific, 0, 5) == 'type=')
                         {
                             $specified_listings = wpl_global::get_listing_types_by_parent(substr($category->listing_specific, 5));
@@ -52,17 +54,22 @@ $this->finds = array();
                     }
                     elseif(trim($category->property_type_specific) != '')
 					{
+                        $category_property_type_specific_array[$category->id] = array();
+                        
                         if(substr($category->property_type_specific, 0, 5) == 'type=')
                         {
                             $specified_property_types = wpl_global::get_property_types_by_parent(substr($category->property_type_specific,5));
-                            foreach($specified_property_types as $property_type) $category_listing_specific_array[$category->id][] = $property_type["id"];
+                            foreach($specified_property_types as $property_type) 
+                                $category_property_type_specific_array[$category->id][] = $property_type["id"];
                         }
                         else
                         {
                             $specified_property_types = explode(',', trim($category->property_type_specific, ', '));
                             $category_property_type_specific_array[$category->id] = $specified_property_types;
-                            if(!in_array($this->values['property_type'], $category_property_type_specific_array[$category->id])) $display = "display:none;";
                         }
+                        
+                        if(!in_array($this->values['property_type'], $category_property_type_specific_array[$category->id])) 
+                            $display = "display:none;";
                     }
                     ?>
                     <li>
@@ -141,17 +148,23 @@ function wpl_listing_changed(id)
     /** Tabs **/
     foreach($category_listing_specific_array as $id => $cat_arr)
     {
-        $cond = array();
-        foreach ($cat_arr as $cati) $cond[] = 'id == ' . $cati;
-        echo "if(" . implode('||', $cond) . ') wplj("#wpl_slide_label_id' . $id . '").slideDown(500); else wplj("#wpl_slide_label_id' . $id . '").slideUp(500);';
+        if(count($cat_arr)>0)
+        {
+            $cond = array();
+            foreach ($cat_arr as $cati) $cond[] = 'id == ' . $cati;
+            echo "if(" . implode('||', $cond) . ') wplj("#wpl_slide_label_id' . $id . '").slideDown(500); else wplj("#wpl_slide_label_id' . $id . '").slideUp(500);';
+        }
     }
 
     /** Fields **/
     foreach(wpl_flex::$category_listing_specific_array as $id => $fld_arr)
     {
-        $cond = array();
-        foreach ($fld_arr as $fldi) $cond[] = 'id == ' . $fldi;
-        echo "if(" . implode('||', $cond) . ') wplj("#wpl_listing_field_container' . $id . '").slideDown(500); else wplj("#wpl_listing_field_container' . $id . '").slideUp(500);';
+        if(count($fld_arr)>0)
+        {
+            $cond = array();
+            foreach ($fld_arr as $fldi) $cond[] = 'id == ' . $fldi;
+            echo "if(" . implode('||', $cond) . ') wplj("#wpl_listing_field_container' . $id . '").slideDown(500); else wplj("#wpl_listing_field_container' . $id . '").slideUp(500);';
+        }
     }
     ?>
 }
@@ -162,17 +175,23 @@ function wpl_property_type_changed(id)
     /** Tabs **/
     foreach($category_property_type_specific_array as $id => $cat_arr)
     {
-        $cond = array();
-        foreach ($cat_arr as $cati) $cond[] = 'id == ' . $cati;
-        echo "if(" . implode('||', $cond) . ') wplj("#wpl_slide_label_id' . $id . '").slideDown(500); else wplj("#wpl_slide_label_id' . $id . '").slideUp(500);';
+        if(count($cat_arr)>0)
+        {
+            $cond = array();
+            foreach ($cat_arr as $cati) $cond[] = 'id == ' . $cati;
+            echo "if(" . implode('||', $cond) . ') wplj("#wpl_slide_label_id' . $id . '").slideDown(500); else wplj("#wpl_slide_label_id' . $id . '").slideUp(500);';
+        }
     }
 
     /** Fields **/
     foreach(wpl_flex::$category_property_type_specific_array as $id => $fld_arr)
     {
-        $cond = array();
-        foreach ($fld_arr as $fldi) $cond[] = 'id == ' . $fldi;
-        echo "if(" . implode('||', $cond) . ') wplj("#wpl_listing_field_container' . $id . '").slideDown(500); else wplj("#wpl_listing_field_container' . $id . '").slideUp(500);';
+        if(count($fld_arr)>0)
+        {
+            $cond = array();
+            foreach ($fld_arr as $fldi) $cond[] = 'id == ' . $fldi;
+            echo "if(" . implode('||', $cond) . ') wplj("#wpl_listing_field_container' . $id . '").slideDown(500); else wplj("#wpl_listing_field_container' . $id . '").slideUp(500);';
+        }
     }
     ?>
 }

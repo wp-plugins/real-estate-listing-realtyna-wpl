@@ -117,5 +117,5 @@ color: rgb(85, 85, 85);
 	padding: 5px;
 }
 .wpl_files_container{width:60%;}
-#progress_img, #progress_att, #progress_vid{display:none;width:60%;}
+#progress_img, #progress_att, #progress_vid{display:none;width:100%;}
 .wpl_thumb_uploader{width:150px;max-height:140px;}

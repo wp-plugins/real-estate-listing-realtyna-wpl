@@ -5,35 +5,35 @@ defined('_WPLEXEC') or die('Restricted access');
 if($format == 'locationtextsearch' and !$done_this)
 {
 	$values_raw = explode(',', $value);
+    $values_raw = array_reverse($values_raw);
+    
 	$values = array();
-	
+    
+    $l = 0;
 	foreach($values_raw as $value_raw)
 	{
-		if(trim($value_raw) != '') array_push($values, trim($value_raw));
+        $l++;
+		if(trim($value_raw) == '') continue;
+        
+        $value_raw = trim($value_raw);
+        if(strlen($value_raw) == 2 and $l <= 2) $value_raw = wpl_locations::get_location_name_by_abbr($value_raw, $l);
+        
+        $ex_space = explode(' ', $value_raw);
+        foreach($ex_space as $value_raw) array_push($values, $value_raw);
 	}
-	
-	$values = array_reverse($values);
 	
 	if(count($values))
 	{
 		$qqq = array();
         $qq = array();
-		
-        $qq[] = " `zip_name` LIKE '".$values[count($values) - 1]."%' ";
-		
-        for($j = 1; $j < count($values); $j++)
-            $qq[] = " `location".($j)."_name` LIKE '".$values[$j - 1]."%' ";
-
+        
+        $column = 'textsearch';
+        
+        /** Multilingual location text search **/
+        if(wpl_global::check_multilingual_status()) $column = wpl_addon_pro::get_column_lang_name($column, wpl_global::get_current_language(), false);
+        
+        foreach($values as $val) $qq[] = " `$column` LIKE '%".$val."%' ";
         $qqq[] = '('.implode(' AND ', $qq).')';
-
-        for($i = 1; $i <= (7 - count($values) + 1); $i++)
-        {
-            $qq = array();
-            for ($j = 0; $j < count($values); $j++)
-                $qq[] = " `location".($i+$j)."_name` LIKE '".$values[$j]."%' ";
-
-            $qqq[] = '('.implode(' AND ', $qq).')';
-        }
 
         $query .= " AND (".implode(' OR ', $qqq).") AND `show_address`='1'";
 	}
@@ -59,35 +59,35 @@ elseif($format == 'multiplelocationtextsearch' and !$done_this)
         foreach($multiple_values as $value)
         {
             $values_raw = explode(',', $value);
+            $values_raw = array_reverse($values_raw);
+    
             $values = array();
 
+            $l = 0;
             foreach($values_raw as $value_raw)
             {
-                if(trim($value_raw) != '') array_push($values, trim($value_raw));
-            }
+                $l++;
+                if(trim($value_raw) == '') continue;
 
-            $values = array_reverse($values);
+                $value_raw = trim($value_raw);
+                if(strlen($value_raw) == 2 and $l <= 2) $value_raw = wpl_locations::get_location_name_by_abbr($value_raw, $l);
+                
+                $ex_space = explode(' ', $value_raw);
+                foreach($ex_space as $value_raw) array_push($values, $value_raw);
+            }
 
             if(count($values))
             {
                 $qqq = array();
                 $qq = array();
+                
+                $column = 'textsearch';
 
-                $qq[] = " `zip_name` LIKE '".$values[count($values) - 1]."%' ";
+                /** Multilingual location text search **/
+                if(wpl_global::check_multilingual_status()) $column = wpl_addon_pro::get_column_lang_name($column, wpl_global::get_current_language(), false);
 
-                for($j = 1; $j < count($values); $j++)
-                    $qq[] = " `location".($j)."_name` LIKE '".$values[$j - 1]."%' ";
-
+                foreach($values as $val) $qq[] = " `$column` LIKE '%".$val."%' ";
                 $qqq[] = '('.implode(' AND ', $qq).')';
-
-                for($i = 1; $i <= (7 - count($values) + 1); $i++)
-                {
-                    $qq = array();
-                    for ($j = 0; $j < count($values); $j++)
-                        $qq[] = " `location".($i+$j)."_name` LIKE '".$values[$j]."%' ";
-
-                    $qqq[] = '('.implode(' AND ', $qq).')';
-                }
 
                 $qqqq[] = '('.implode(' OR ', $qqq).')';
             }

@@ -1,14 +1,15 @@
 <?php
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
+
 _wpl_import('libraries.pagination');
 _wpl_import('libraries.file');
 _wpl_import('libraries.room_types');
 
 class wpl_data_structure_controller extends wpl_controller
 {
-	var $tpl_path = 'views.backend.data_structure.tmpl';
-	var $tpl;
+	public $tpl_path = 'views.backend.data_structure.tmpl';
+	public $tpl;
 	
 	public function display()
 	{

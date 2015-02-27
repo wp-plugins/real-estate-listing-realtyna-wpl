@@ -7,6 +7,7 @@ defined('_WPLEXEC') or die('Restricted access');
  * @author Howard R <howard@realtyna.com>
  * @since WPL1.0.0
  * @date 05/01/2013
+ * @package WPL
  */
 class wpl_flex
 {
@@ -121,7 +122,7 @@ class wpl_flex
 	}
 	
     /**
-     * Returns kind label
+     * Returns Kind Label
      * @author Howard R <howard@realtyna.com>
      * @static
      * @param int $kind
@@ -133,7 +134,20 @@ class wpl_flex
 	}
 	
     /**
-     * Returns kind id
+     * Returns Kind Data
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $kind
+     * @return array
+     */
+    public static function get_kind($kind = 0)
+	{
+        $query = "SELECT * FROM `#__wpl_kinds` WHERE `id`='$kind'";
+        return wpl_db::select($query, 'loadAssoc');
+	}
+    
+    /**
+     * Returns Kind ID
      * @author Howard R <howard@realtyna.com>
      * @static
      * @param string $kind_name
@@ -146,7 +160,7 @@ class wpl_flex
 	}
     
     /**
-     * Returns kind table
+     * Returns Kind Table
      * @author Howard R <howard@realtyna.com>
      * @static
      * @param int $kind
@@ -159,14 +173,14 @@ class wpl_flex
 	}
 	
     /**
-     * Returns valid kinds
+     * Returns Valid Kinds
      * @author Howard R <howard@realtyna.com>
      * @static
      * @return array
      */
 	public static function get_valid_kinds()
 	{
-        $query = "SELECT `id` FROM `#__wpl_kinds`";
+        $query = "SELECT `id` FROM `#__wpl_kinds` ORDER BY `index` ASC";
         $kinds = wpl_db::select($query, 'loadAssocList');
         
         $retrun = array();
@@ -176,15 +190,38 @@ class wpl_flex
 	}
     
     /**
-     * Returns kinds
+     * Returns Kinds
      * @author Howard R <howard@realtyna.com>
      * @static
      * @return array
      */
 	public static function get_kinds($table = 'wpl_properties')
 	{
-        $query = "SELECT * FROM `#__wpl_kinds` WHERE 1".(trim($table) ? " AND `table`='$table'" : "");
+        $query = "SELECT * FROM `#__wpl_kinds` WHERE `enabled`>='1'".(trim($table) ? " AND `table`='$table'" : "")." ORDER BY `index` ASC";
         return wpl_db::select($query, 'loadAssocList');
+	}
+    
+    /**
+     * Returns Kind Template
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $wplpath
+     * @param string $tpl
+     * @param int $kind
+     * @return string
+     */
+    public static function get_kind_tpl($wplpath, $tpl = NULL, $kind = 0)
+	{
+        if(!trim($tpl)) $tpl = 'default';
+        
+        /** Create Kind tpl such as default1.php etc. **/
+        $kind_tpl = $tpl.'_k'.$kind;
+        
+        $wplpath = rtrim($wplpath, '.').'.'.$kind_tpl;
+        $path = _wpl_import($wplpath, true, true);
+        
+        if(wpl_file::exists($path)) return $kind_tpl;
+        else return $tpl;
 	}
     
     /**
@@ -301,6 +338,7 @@ class wpl_flex
 		$listings = wpl_listing_types::get_listing_types();
 		$property_types = wpl_property_types::get_property_types();
         $user_types = wpl_users::get_user_types(1, 'loadAssocList');
+        $memberships = wpl_users::get_wpl_memberships();
 		
 		/** get files **/
 		$dbst_modifypath = WPL_ABSPATH . DS . 'libraries' . DS . 'dbst_modify';
@@ -318,8 +356,7 @@ class wpl_flex
 			if(!$done_this)
 			{
 				/** include default file **/
-				$path = _wpl_import('libraries.dbst_modify.main.default', true, true);
-				include $path;
+				include _wpl_import('libraries.dbst_modify.main.default', true, true);
 			}
 		}
 	}
@@ -413,7 +450,6 @@ class wpl_flex
     /**
      * Generates wizard form using dbst fields
      * @author Howard R <howard@realtyna.com>
-     * @static
      * @param objects $fields
      * @param array $values
      * @param int $item_id
@@ -442,9 +478,11 @@ class wpl_flex
             $label = $field->name;
             $mandatory = $field->mandatory;
 			$options = json_decode($field->options, true);
-			$value = isset($values[$field->table_column]) ? $values[$field->table_column] : NULL;
+            $value = isset($values[$field->table_column]) ? stripslashes($values[$field->table_column]) : NULL;
+            $kind = isset($values['kind']) ? $values['kind'] : NULL;
 			$display = '';
 			
+            /** Specific **/
 			if(trim($field->listing_specific) != '')
 			{
 				$specified_listings = explode(',', trim($field->listing_specific, ', '));
@@ -464,6 +502,24 @@ class wpl_flex
 				if(!in_array($values['membership_type'], $specified_user_types)) $display = 'display: none;';
 			}
 			
+            /** Accesses **/
+			if(trim($field->accesses) != '')
+			{
+				$accesses = explode(',', trim($field->accesses, ', '));
+                $cur_membership_id = wpl_users::get_user_membership();
+                
+				if(!in_array($cur_membership_id, $accesses) and trim($field->accesses_message) == '') continue;
+                elseif(!in_array($cur_membership_id, $accesses) and trim($field->accesses_message) != '')
+                {
+                    echo '<div class="prow wpl_listing_field_container prow-'.$type.'" id="wpl_listing_field_container'.$field->id.'" style="'.$display.'">';
+                    echo '<label for="wpl_c_'.$field->id.'">'.__($label, WPL_TEXTDOMAIN).'</label>';
+                    echo '<span class="wpl-access-blocked-message">'.__($field->accesses_message, WPL_TEXTDOMAIN).'</span>';
+                    echo '</div>';
+
+                    continue;
+                }
+			}
+            
 			/** js validation **/
 			self::$wizard_js_validation[$field->id] = self::generate_js_validation($field);
             
@@ -555,5 +611,69 @@ class wpl_flex
 			self::update('wpl_dbst', $ex_sort_id, 'index', $index);
 			$conter++;
 		}
+	}
+	
+	/**
+	 * Generate search fields based on DBST fields
+	 * @author Steve A. <steve@realtyna.com>
+	 * @param  array  $fields
+	 * @param  array  $finds
+	 * @return array
+	 */
+	public function generate_search_fields($fields, $finds = array())
+	{
+		$fields = json_decode(json_encode($fields), true);
+
+		$path = WPL_ABSPATH .DS. 'libraries' .DS. 'widget_search' .DS. 'frontend';
+		$files = array();
+		$widget_id = 0;
+		
+		if(wpl_folder::exists($path)) $files = wpl_folder::files($path, '.php$');
+		
+		$rendered = array();
+		foreach($fields as $key=>$field)
+		{
+			$type = $field['type'];
+			$field_id = $field['id'];
+			$field_data = $field;
+			$options = json_decode($field['options'], true);
+			
+			$done_this = false;
+			$html = '';
+			
+			if(isset($finds[$type]))
+			{
+				$html .= '<span class="wpl_search_field_container '.(isset($field['type']) ? $field['type'].'_type' : '').' '.((isset($field['type']) and $field['type'] == 'predefined') ? 'wpl_hidden' : '').'" id="wpl'.$widget_id.'_search_field_container_'.$field['id'].'">';
+				include($path .DS. $finds[$type]);
+				$html .= '</span> ';
+				
+				$rendered[$field_id]['id'] = $field_id;
+				$rendered[$field_id]['field_options'] = json_decode($field['options'], true);
+				$rendered[$field_id]['html'] = $html;
+                $rendered[$field_id]['current_value'] = isset($current_value) ? $current_value : NULL;
+				continue;
+			}
+			
+			$html .= '<span class="wpl_search_field_container '.(isset($field['type']) ? $field['type'].'_type' : '').' '.((isset($field['type']) and $field['type'] == 'predefined') ? 'wpl_hidden' : '').'" id="wpl'.$widget_id.'_search_field_container_'.$field['id'].'">';
+			foreach($files as $file)
+			{
+				include($path .DS. $file);
+				
+				/** proceed to next field **/
+				if($done_this)
+				{
+					$finds[$type] = $file;
+					break;
+				}
+			}
+			$html .= '</span> ';
+			
+			$rendered[$field_id]['id'] = $field_id;
+			$rendered[$field_id]['field_options'] = json_decode($field['options'], true);
+			$rendered[$field_id]['html'] = $html;
+            $rendered[$field_id]['current_value'] = isset($current_value) ? $current_value : NULL;
+		}
+        
+		return $rendered;
 	}
 }

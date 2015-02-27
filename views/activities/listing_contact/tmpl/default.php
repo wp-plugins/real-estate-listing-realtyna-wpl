@@ -10,7 +10,7 @@ $this->top_comment = isset($params['top_comment']) ? $params['top_comment'] : ''
 
 include_once _wpl_import($this->tpl_path.'.scripts.js', true, true);
 ?>
-<div class="wpl_contact_container" id="wpl_contact_container<?php echo $this->property_id; ?>">
+<div class="wpl_contact_container wpl-contact-listing-wp" id="wpl_contact_container<?php echo $this->property_id; ?>">
     <?php if(trim($this->top_comment) != ''): ?>
     <p class="wpl_contact_comment"><?php echo $this->top_comment; ?></p>
     <?php endif; ?>
@@ -27,11 +27,11 @@ include_once _wpl_import($this->tpl_path.'.scripts.js', true, true);
             <input class="text-box" type="text" id="wpl_contact_email<?php echo $this->property_id; ?>" name="email" placeholder="<?php echo __('Email', WPL_TEXTDOMAIN); ?>" />
         </div>
 
-        <div class="form-field">
+        <div class="form-field wpl-contact-listing-msg">
             <textarea class="text-box" id="wpl_contact_message<?php echo $this->property_id; ?>" name="message" placeholder="<?php echo __('Message', WPL_TEXTDOMAIN); ?>"></textarea>
         </div>
 
-        <div class="form-field">
+        <div class="form-field wpl-contact-listing-btn">
             <input class="btn btn-primary" type="submit" value="<?php echo __('Send', WPL_TEXTDOMAIN); ?>" />
         </div>
     </form>

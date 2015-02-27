@@ -44,9 +44,8 @@ if($type == 'languages' and !$done_this)
 
                     <select name="wpllangs[<?php echo $i; ?>][main_page]" autocomplete="off">
                         <option value="">---</option>
-                        <?php foreach ($wp_pages as $wp_page): ?>
-                            <option
-                                value="<?php echo $wp_page->ID; ?>" <?php if (isset($lang_options[$i]) and $wp_page->ID == $lang_options[$i]['main_page']) echo 'selected="selected"'; ?>><?php echo $wp_page->post_title; ?></option>
+                        <?php foreach($wp_pages as $wp_page): ?>
+                        <option value="<?php echo $wp_page->ID; ?>" <?php if(isset($lang_options[$i]) and isset($lang_options[$i]['main_page']) and $wp_page->ID == $lang_options[$i]['main_page']) echo 'selected="selected"'; ?>><?php echo $wp_page->post_title; ?></option>
                         <?php endforeach; ?>
                     </select>
 

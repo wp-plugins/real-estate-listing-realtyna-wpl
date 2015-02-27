@@ -9,9 +9,11 @@ _wpl_import('libraries.settings');
  * @author Howard R <howard@realtyna.com>
  * @since WPL1.0.0
  * @date 07/28/2013
+ * @package WPL
  */
 class wpl_images
 {
+	
     /**
      * Resizes an image
      * @author Howard R <howard@realtyna.com>
@@ -28,7 +30,7 @@ class wpl_images
         @ini_set('memory_limit', '-1');
         
         $extension = wpl_file::getExt(strtolower($source));
-
+		
         switch($extension)
         {
             case 'jpg':
@@ -166,18 +168,24 @@ class wpl_images
         }
         else
             imagecopyresampled($dest_image, $src_image, 0, 0, 0, 0, $dest_width, $dest_height, $src_width, $src_height);
-
+		
         if($extension == 'jpg' || $extension == 'jpeg') 
         {
+			$quality = 95;
+			if(wpl_global::check_addon('optimizer')) $quality = wpl_addon_optimizer::optimize_image(wpl_addon_optimizer::IMAGE_JPEG, $dest_image);
+            
             ob_start();
-            imagejpeg($dest_image, NULL, 90);
+            imagejpeg($dest_image, NULL, $quality);
             $out_image = ob_get_clean();
             wpl_file::write($dest, $out_image);
         }
         elseif($extension == 'png') 
         {
+			$quality = 9;
+			if(wpl_global::check_addon('optimizer')) $quality = wpl_addon_optimizer::optimize_image(wpl_addon_optimizer::IMAGE_PNG, $dest_image);
+            
             ob_start();
-            imagepng($dest_image);
+            imagepng($dest_image, NULL, $quality);
             $out_image = ob_get_clean();
             wpl_file::write($dest, $out_image);
         } 
@@ -299,15 +307,21 @@ class wpl_images
 
         if($extension == 'jpg' || $extension == 'jpeg') 
         {
+			$quality = 95;
+			if(wpl_global::check_addon('optimizer')) $quality = wpl_addon_optimizer::optimize_image(wpl_addon_optimizer::IMAGE_JPEG, $w_dest);
+            
             ob_start();
-            imagejpeg($w_dest, NULL, 90);
+            imagejpeg($w_dest, NULL, $quality);
             $out_image = ob_get_clean();
             wpl_file::write($dest, $out_image);
         }
         elseif($extension == 'png') 
         {
+			$quality = 9;
+			if(wpl_global::check_addon('optimizer')) $quality = wpl_addon_optimizer::optimize_image(wpl_addon_optimizer::IMAGE_PNG, $w_dest);
+            
             ob_start();
-            imagepng($w_dest);
+            imagepng($w_dest, NULL, $quality);
             $out_image = ob_get_clean();
             wpl_file::write($dest, $out_image);
         }
@@ -407,7 +421,7 @@ class wpl_images
 
         if($watermark_options['status'] == 1)
             self::add_watermark_image($dest, $dest, $watermark_options); 
-    } 
+    }
     
     /**
      * Creates gallery image
@@ -490,6 +504,7 @@ class wpl_images
  * @author Howard R <howard@realtyna.com>
  * @since WPL2.0.0
  * @date 11/19/2014
+ * @package WPL
  */
 class wpl_color
 {

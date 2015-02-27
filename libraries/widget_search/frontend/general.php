@@ -43,8 +43,8 @@ elseif($type == 'date' and !$done_this)
 		$current_min_value = wpl_request::getVar('sf_datemin_'.$field_data['table_column'], '');
 		$current_max_value = wpl_request::getVar('sf_datemax_'.$field_data['table_column'], '');
 		
-    	$html .= '<div class="wpl_search_widget_from_container"><label for="sf'.$widget_id.'_datemin_'.$field_data['table_column'].'">'.__('FROM', WPL_TEXTDOMAIN).'</label><input type="text" name="sf'.$widget_id.'_datemin_'.$field_data['table_column'].'" id="sf'.$widget_id.'_datemin_'.$field_data['table_column'].'" value="'.($current_min_value != '' ? $current_min_value : '').'" /></div>';
-    	$html .= '<div class="wpl_search_widget_to_container"><label for="sf'.$widget_id.'_datemax_'.$field_data['table_column'].'">'.__('TO', WPL_TEXTDOMAIN).'</label><input type="text" name="sf'.$widget_id.'_datemax_'.$field_data['table_column'].'" id="sf'.$widget_id.'_datemax_'.$field_data['table_column'].'" value="'.($current_max_value != '' ? $current_max_value : '').'" /></div>';
+    	$html .= '<div class="wpl_search_widget_from_container"><label for="sf'.$widget_id.'_datemin_'.$field_data['table_column'].'">'.__('Min', WPL_TEXTDOMAIN).'</label><input type="text" name="sf'.$widget_id.'_datemin_'.$field_data['table_column'].'" id="sf'.$widget_id.'_datemin_'.$field_data['table_column'].'" value="'.($current_min_value != '' ? $current_min_value : '').'" /></div>';
+    	$html .= '<div class="wpl_search_widget_to_container"><label for="sf'.$widget_id.'_datemax_'.$field_data['table_column'].'">'.__('Max', WPL_TEXTDOMAIN).'</label><input type="text" name="sf'.$widget_id.'_datemax_'.$field_data['table_column'].'" id="sf'.$widget_id.'_datemax_'.$field_data['table_column'].'" value="'.($current_max_value != '' ? $current_max_value : '').'" /></div>';
 		
 		$html .= '
 		<script type="text/javascript">
@@ -399,10 +399,10 @@ elseif($type == 'number' and !$done_this)
 	}
     elseif($show == 'minmax')
 	{	
-		$html .= '<label for="sf'.$widget_id.'_tmin_'.$field_data['table_column'].'">'.__('From', WPL_TEXTDOMAIN).'</label>';
+		$html .= '<label for="sf'.$widget_id.'_tmin_'.$field_data['table_column'].'">'.__('Min', WPL_TEXTDOMAIN).'</label>';
 		$html .= '<input name="sf'.$widget_id.'_tmin_'.$field_data['table_column'].'" type="text" id="sf'.$widget_id.'_tmin_'.$field_data['table_column'].'" value="'.$current_min_value.'" />';
         
-		$html .= '<label for="sf'.$widget_id.'_tmax_'.$field_data['table_column'].'">'.__('To', WPL_TEXTDOMAIN).'</label>';
+		$html .= '<label for="sf'.$widget_id.'_tmax_'.$field_data['table_column'].'">'.__('Max', WPL_TEXTDOMAIN).'</label>';
 		$html .= '<input name="sf'.$widget_id.'_tmax_'.$field_data['table_column'].'" type="text" id="sf'.$widget_id.'_tmax_'.$field_data['table_column'].'" value="'.$current_max_value.'" />';
 	}
 	elseif($show == 'minmax_slider')
@@ -729,6 +729,102 @@ elseif($type == 'select' and !$done_this)
 
 	$done_this = true;
 }
+elseif(in_array($type, array('user_type', 'user_membership')) and !$done_this)
+{
+	switch($field['type'])
+	{
+		case 'select':
+			$show = 'select';
+			$any = true;
+			$label = true;
+		break;
+		
+		case 'multiple':
+			$show = 'multiple';
+			$any = false;
+			$label = true;
+		break;
+		
+		case 'checkboxes':
+			$show = 'checkboxes';
+			$any = false;
+			$label = true;
+		break;
+		
+		case 'radios':
+			$show = 'radios';
+			$any = false;
+			$label = true;
+		break;
+
+		case 'radios_any':
+			$show = 'radios';
+			$any = true;
+			$label = true;
+		break;
+	}
+	
+	/** current value **/
+    $raw_options = $type == 'user_type' ? wpl_users::get_user_types(1) : wpl_users::get_wpl_memberships();
+    
+    $options = array();
+    foreach($raw_options as $raw_option) $options[$raw_option->id] = array('key'=>$raw_option->id, 'value'=>(isset($raw_option->membership_name) ? $raw_option->membership_name : $raw_option->name));
+    
+	$current_value = wpl_request::getVar('sf_select_'.$field_data['table_column'], '');
+	
+	if($label) $html .= '<label>'.__($field['name'], WPL_TEXTDOMAIN).'</label>';
+
+	if($show == 'select')
+	{
+		$html .= '<select name="sf'.$widget_id.'_select_'.$field_data['table_column'].'" class="wpl_search_widget_field_'.$field['id'].'" id="sf'.$widget_id.'_select_'.$field_data['table_column'].'">';
+		if($any) $html .= '<option value="">'.__($field['name'], WPL_TEXTDOMAIN).'</option>';
+		
+		foreach($options as $option) $html .= '<option value="'.$option['key'].'" '.($current_value == $option['key'] ? 'selected="selected"' : '').'>'.__($option['value'], WPL_TEXTDOMAIN).'</option>';
+		
+		$html .= '</select>';
+	}
+	elseif($show == 'multiple')
+    {
+		/** current value **/
+		$current_values = explode(',', wpl_request::getVar('sf_multiple_'.$field_data['table_column']));
+	
+        $html .= '<div class="wpl_searchwid_'.$field_data['table_column'].'_multiselect_container">
+		<select data-placeholder="'.__($field['name'], WPL_TEXTDOMAIN).'" class="wpl_searchmod_'.$field_data['table_column'].'_multiselect" id="sf'.$widget_id.'_multiple_'.$field_data['table_column'].'" name="sf'.$widget_id.'_multiple_'.$field_data['table_column'].'" multiple="multiple">';
+		
+        foreach($options as $option) $html .= '<option value="'.$option['key'].'" '.(in_array($option['key'], $current_values) ? 'selected="selected"' : '').'>'.__($option['value'], WPL_TEXTDOMAIN).'</option>';
+		
+        $html .= '</select></div>';
+    }
+	elseif($show == 'checkboxes')
+	{
+		/** current value **/
+		$current_values = explode(',', wpl_request::getVar('sf_multiple_'.$field_data['table_column']));
+		
+		$i = 0;
+		foreach($options as $option)
+		{
+			$i++;
+			$html .= '<input '.(in_array($option['key'], $current_values) ? 'checked="checked"' : '').' name="chk'.$widget_id.'_select_'.$field_data['table_column'].'" type="checkbox" value="'.$option['key'].'" id="chk'.$widget_id.'_select_'.$field_data['table_column'].'_'.$i.'" onclick="wpl_add_to_multiple'.$widget_id.'(this.value, this.checked, \''.$field_data['table_column'].'\');"><label for="chk'.$widget_id.'_select_'.$field_data['table_column'].'_'.$i.'">'.__($option['value'], WPL_TEXTDOMAIN).'</label>';
+		}
+		
+		$html .= '<input value="'.implode(',', $current_values).'" type="hidden" id="sf'.$widget_id.'_multiple_'.$field_data['table_column'].'" name="sf'.$widget_id.'_multiple_'.$field_data['table_column'].'" />';
+	}
+	elseif($show == 'radios')
+	{
+		$i = 0;
+		if($any) $html .= '<input '.($current_value == -1 ? 'checked="checked"' : '').' name="rdo'.$widget_id.'_select_'.$field_data['table_column'].'" type="radio" value="-1" id="rdo'.$widget_id.'_select_'.$field_data['table_column'].'_'.$i.'" onclick="wpl_select_radio'.$widget_id.'(this.value, this.checked, \''.$field_data['table_column'].'\');"><label for="rdo'.$widget_id.'_select_'.$field_data['table_column'].'_'.$i.'">'.__('Any', WPL_TEXTDOMAIN).'</label>';
+
+		foreach($options as $option)
+		{
+			$i++;
+           	$html .= '<input '.($current_value == $option['key'] ? 'checked="checked"' : '').' name="rdo'.$widget_id.'_select_'.$field_data['table_column'].'" type="radio" value="'.$option['key'].'" id="rdo'.$widget_id.'_select_'.$field_data['table_column'].'_'.$i.'" onclick="wpl_select_radio'.$widget_id.'(this.value, this.checked, \''.$field_data['table_column'].'\');"><label for="rdo'.$widget_id.'_select_'.$field_data['table_column'].'_'.$i.'">'.__($option['value'], WPL_TEXTDOMAIN).'</label>';
+		}
+		
+		$html .= '<input value="'.$current_value.'" type="hidden" id="sf'.$widget_id.'_select_'.$field_data['table_column'].'" name="sf'.$widget_id.'_select_'.$field_data['table_column'].'" />';
+	}
+
+	$done_this = true;
+}
 elseif($type == 'textarea' and !$done_this)
 {
 	/** current value **/
@@ -825,10 +921,10 @@ elseif(($type == 'area' or $type == 'price' or $type == 'volume' or $type == 'le
 	
 	if($show == 'minmax')
 	{
-		if($input_type == 'text') $html .= '<label id="wpl_search_widget_from_label'.$widget_id.'" class="wpl_search_widget_from_label" for="sf'.$widget_id.'_min_'.$field_data['table_column'].'">'.__('From', WPL_TEXTDOMAIN).'</label>';
+		if($input_type == 'text') $html .= '<label id="wpl_search_widget_from_label'.$widget_id.'" class="wpl_search_widget_from_label" for="sf'.$widget_id.'_min_'.$field_data['table_column'].'">'.__('Min', WPL_TEXTDOMAIN).'</label>';
 		$html .= '<input name="sf'.$widget_id.'_min_'.$field_data['table_column'].'" type="'.$input_type.'" id="sf'.$widget_id.'_min_'.$field_data['table_column'].'" value="'.$current_min_value.'" />';
         
-		if($input_type == 'text') $html .= '<label id="wpl_search_widget_to_label'.$widget_id.'" class="wpl_search_widget_to_label" for="sf'.$widget_id.'_max_'.$field_data['table_column'].'">'.__('To', WPL_TEXTDOMAIN).'</label>';
+		if($input_type == 'text') $html .= '<label id="wpl_search_widget_to_label'.$widget_id.'" class="wpl_search_widget_to_label" for="sf'.$widget_id.'_max_'.$field_data['table_column'].'">'.__('Max', WPL_TEXTDOMAIN).'</label>';
 		$html .= '<input name="sf'.$widget_id.'_max_'.$field_data['table_column'].'" type="'.$input_type.'" id="sf'.$widget_id.'_max_'.$field_data['table_column'].'" value="'.$current_max_value.'" />';
 	}
 	elseif($show == 'minmax_slider')
@@ -969,7 +1065,7 @@ elseif($type == 'text' and !$done_this)
 	$current_value = wpl_request::getVar('sf_'.$query_type.'_'.$field_data['table_column'], '');
 
 	$html .= '<label for="sf'.$widget_id.'_'.$query_type.'_'.$field_data['table_column'].'">'.__($field['name'], WPL_TEXTDOMAIN).'</label>
-				<input name="sf'.$widget_id.'_'.$query_type.'_'.$field_data['table_column'].'" type="text" id="sf'.$widget_id.'_'.$query_type.'_'.$field_data['table_column'].'" value="'.$current_value.'" />';
+				<input name="sf'.$widget_id.'_'.$query_type.'_'.$field_data['table_column'].'" type="text" id="sf'.$widget_id.'_'.$query_type.'_'.$field_data['table_column'].'" value="'.$current_value.'" placeholder="'.__($field['name'], WPL_TEXTDOMAIN).'" />';
 	
 	$done_this = true;
 }
@@ -1012,9 +1108,6 @@ elseif($type == 'addon_calendar' and !$done_this)
 	$date_format_arr = explode(':', wpl_global::get_setting('main_date_format'));
 	$jqdate_format = $date_format_arr[1];
 	
-	/** MIN/MAX extoptions **/
-	$extoptions = explode(',', $field['extoption']);
-	
 	$min_value = date("Y-m-d");
 	$mindate = explode('-', $min_value);
     $show_icon = 0;
@@ -1051,5 +1144,11 @@ elseif($type == 'addon_calendar' and !$done_this)
     </script>';
 	
 	
+	$done_this = true;
+}
+elseif($type == 'separator' and !$done_this)
+{
+	$html .= '<label id="wpl'.$widget_id.'_search_widget_separator_'.$field['id'].'">'.__($field['name'], WPL_TEXTDOMAIN).'</label>';
+
 	$done_this = true;
 }

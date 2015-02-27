@@ -99,7 +99,7 @@ function wpl_initialize<?php echo $this->activity_id; ?>()
     <?php endif; ?>
 
     /* Check Google Places */
-	if((typeof google_place != 'undefined') && (google_place == 1))
+	if((typeof google_place != 'undefined') && (google_place == 1) && typeof marker != 'undefined')
 	{
         var request = {
             location: marker.position,
@@ -121,9 +121,10 @@ function wpl_marker<?php echo $this->activity_id; ?>(dataMarker)
 {
 	if(wplj.inArray(dataMarker.id, loaded_markers) != '-1') return true;
 	
-  	marker = new google.maps.Marker({
+  	marker = new google.maps.Marker(
+    {
 		position: new google.maps.LatLng(dataMarker.googlemap_lt, dataMarker.googlemap_ln),
-		map: wpl_map,
+		map: <?php echo ($this->show_marker ? 'wpl_map' : 'null'); ?>,
 		property_ids: dataMarker.pids,
 		icon: '<?php echo wpl_global::get_wpl_url(); ?>assets/img/listing_types/gicon/'+dataMarker.gmap_icon,
 		title: dataMarker.title,
@@ -236,10 +237,14 @@ function wpl_gplace_callback<?php echo $this->activity_id;?>(results, status)
 function wpl_gplace_marker<?php echo $this->activity_id;?>(place)
 {
 	var placeLoc = place.geometry.location;
-	var image = new google.maps.MarkerImage(
-  	place.icon, new google.maps.Size(51, 51),
-  	new google.maps.Point(0, 0), new google.maps.Point(17, 34),
-  	new google.maps.Size(25, 25));
+	var image = new google.maps.MarkerImage
+    (
+        place.icon,
+        new google.maps.Size(51, 51),
+        new google.maps.Point(0, 0),
+        new google.maps.Point(17, 34),
+        new google.maps.Size(25, 25)
+    );
 
 	// create place types title
 	var title_str = '';

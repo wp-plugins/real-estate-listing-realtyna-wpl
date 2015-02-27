@@ -14,16 +14,16 @@ _wpl_import("libraries.property");
  */
 class wpl_search_widget extends wpl_widget
 {
-	var $wpl_tpl_path = 'widgets.search.tmpl';
-	var $wpl_backend_form = 'widgets.search.form';
-	var $listing_specific_array = array();
-	var $property_type_specific_array = array();
-	var $widget_id;
-	var $widget_uq_name; # widget unique name
+	public $wpl_tpl_path = 'widgets.search.tmpl';
+	public $wpl_backend_form = 'widgets.search.form';
+	public $listing_specific_array = array();
+	public $property_type_specific_array = array();
+	public $widget_id;
+	public $widget_uq_name; # widget unique name
 	
 	public function __construct()
 	{
-		parent::__construct('wpl_search_widget', '(WPL) Search', array('description'=>__('Search properties.', WPL_TEXTDOMAIN)));
+		parent::__construct('wpl_search_widget', '(WPL) Search', array('description'=>__('Search properties/profiles.', WPL_TEXTDOMAIN)));
 	}
 
 	/**
@@ -37,6 +37,8 @@ class wpl_search_widget extends wpl_widget
         $this->widget_uq_name = 'wpls'.$this->widget_id;
 		$widget_id = $this->widget_id;
 		$target_id = isset($instance['wpltarget']) ? $instance['wpltarget'] : 0;
+        
+        $this->kind = isset($instance['kind']) ? $instance['kind'] : 0;
         
 		/** add main scripts **/
 		wp_enqueue_script('jquery-ui-core');
@@ -72,6 +74,7 @@ class wpl_search_widget extends wpl_widget
 	{
 		$instance = array();
 		$instance['title'] = strip_tags($new_instance['title']);
+        $instance['kind'] = isset($new_instance['kind']) ? $new_instance['kind'] : 0;
 		$instance['layout'] = $new_instance['layout'];
         $instance['wpltarget'] = $new_instance['wpltarget'];
 		$instance['data'] = (array) $new_instance['data'];
@@ -87,6 +90,7 @@ class wpl_search_widget extends wpl_widget
 	public function form($instance)
 	{
         $this->widget_id = $this->number;
+        $this->kind = isset($instance['kind']) ? $instance['kind'] : 0;
         
 		_wpl_import('libraries.flex');
 
@@ -102,7 +106,7 @@ class wpl_search_widget extends wpl_widget
 		/* Set up some default widget settings. */
 		if(!isset($instance['layout']))
 		{
-			$instance = array('title'=>__('Search', WPL_TEXTDOMAIN), 'layout'=>'default.php', 'data'=>self::make_array_defaults(wpl_flex::get_fields('', 1, 0, 'searchmod', 1)));
+			$instance = array('title'=>__('Search', WPL_TEXTDOMAIN), 'layout'=>'default.php', 'data'=>self::make_array_defaults(wpl_flex::get_fields('', 1, $this->kind, 'searchmod', 1)));
 			$defaults = array();
 			$instance = wp_parse_args((array) $instance, $defaults);
 		}
@@ -116,7 +120,7 @@ class wpl_search_widget extends wpl_widget
 	
 	public function generate_backend_categories($values)
 	{
-		$categories = wpl_flex::get_categories(1, 0, ' AND `searchmod`=1 AND `kind`=0 AND `enabled`>=1');
+        $categories = wpl_flex::get_categories(1, $this->kind, " AND `searchmod`=1 AND `kind`='{$this->kind}' AND `enabled`>=1");
         
         // Tab Content
 		foreach($categories as $category)
@@ -124,12 +128,11 @@ class wpl_search_widget extends wpl_widget
 			$path = 'widgets.search.scripts.fields_category';
 			include _wpl_import($path, true, true);
 		}
-                
 	}
     
     public function generate_backend_categories_tabs($values)
 	{
-		$categories = wpl_flex::get_categories(1, 0, ' AND `searchmod`=1 AND `kind`=0 AND `enabled`>=1');
+		$categories = wpl_flex::get_categories(1, $this->kind, " AND `searchmod`=1 AND `kind`='{$this->kind}' AND `enabled`>=1");
         
         // Tabs
 		foreach($categories as $category)
@@ -193,7 +196,7 @@ class wpl_search_widget extends wpl_widget
 		foreach($fields as $key=>$field)
 		{
 			/** proceed to next field if field is not enabled **/
-			if($field['enable'] != 'enable') continue;
+			if(!isset($field['enable']) or (isset($field['enable']) and $field['enable'] != 'enable')) continue;
 			
             /** Fix empty id issue **/
             if((!isset($field['id']) or (isset($field['id']) and !$field['id'])) and $key) $field['id'] = $key;
@@ -222,10 +225,19 @@ class wpl_search_widget extends wpl_widget
 				$specified_property_types = explode(',', trim($field_data['property_type_specific'], ', '));
 				$this->property_type_specific_array[$field_data['id']] = $specified_property_types;
 			}
+            
+            /** Accesses **/
+            if(trim($field_data['accesses']) != '')
+            {
+                $accesses = explode(',', trim($field_data['accesses'], ', '));
+                $cur_membership_id = wpl_users::get_user_membership();
+
+                if(!in_array($cur_membership_id, $accesses)) continue;
+            }
 			
 			if(isset($finds[$type]))
 			{
-				$html .= '<div class="wpl_search_field_container '.(!isset($field['type']) ? ' separator' : $field['type']).' '.((isset($field['type']) and $field['type'] == 'predefined') ? 'wpl_hidden' : '').'" id="wpl'.$widget_id.'_search_field_container_'.$field['id'].'">';
+				$html .= '<div class="wpl_search_field_container '.(isset($field['type']) ? $field['type'].'_type' : '').' '.((isset($field['type']) and $field['type'] == 'predefined') ? 'wpl_hidden' : '').'" id="wpl'.$widget_id.'_search_field_container_'.$field['id'].'">';
 				include($path .DS. $finds[$type]);
 				$html .= '</div>';
 				
@@ -234,12 +246,12 @@ class wpl_search_widget extends wpl_widget
 				$rendered[$field_id]['field_options'] = json_decode($field_data['options'], true);
 				$rendered[$field_id]['search_options'] = isset($field['extoption']) ? $field['extoption'] : NULL;
 				$rendered[$field_id]['html'] = $html;
-                $rendered[$field_id]['current_value'] = $current_value;
+                $rendered[$field_id]['current_value'] = isset($current_value) ? $current_value : NULL;
 				$rendered[$field_id]['display'] = $display;
 				continue;
 			}
 			
-			$html .= '<div class="wpl_search_field_container '.(!isset($field['type']) ? ' separator' : $field['type']).' '.((isset($field['type']) and $field['type'] == 'predefined') ? 'wpl_hidden' : '').'" id="wpl'.$widget_id.'_search_field_container_'.$field['id'].'" style="'.$display.'">';
+			$html .= '<div class="wpl_search_field_container '.(isset($field['type']) ? $field['type'].'_type' : '').' '.((isset($field['type']) and $field['type'] == 'predefined') ? 'wpl_hidden' : '').'" id="wpl'.$widget_id.'_search_field_container_'.$field['id'].'" style="'.$display.'">';
 			foreach($files as $file)
 			{
 				include($path .DS. $file);
@@ -258,7 +270,7 @@ class wpl_search_widget extends wpl_widget
 			$rendered[$field_id]['field_options'] = json_decode($field_data['options'], true);
 			$rendered[$field_id]['search_options'] = isset($field['extoption']) ? $field['extoption'] : NULL;
 			$rendered[$field_id]['html'] = $html;
-            $rendered[$field_id]['current_value'] = $current_value;
+            $rendered[$field_id]['current_value'] = isset($current_value) ? $current_value : NULL;
 			$rendered[$field_id]['display'] = $display;
 		}
         

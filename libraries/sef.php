@@ -7,6 +7,7 @@ defined('_WPLEXEC') or die('Restricted access');
  * @author Howard <howard@realtyna.com>
  * @since WPL1.0.0
  * @date 08/14/2013
+ * @package WPL
  */
 class wpl_sef
 {
@@ -27,7 +28,8 @@ class wpl_sef
 		
 		/** get view **/
 		$view = self::get_view($wpl_qs, $settings['sef_main_separator']);
-		
+		if(!trim($view)) $view = 'property_listing';
+        
 		/** load view **/
 		return wpl_global::load($view, '', $instance);
 	}
@@ -412,6 +414,19 @@ class wpl_sef
     }
     
     /**
+     * Returns Post ID of a post or page by its permalink
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $post_name
+     * @return int
+     */
+    public static function get_post_id($post_name)
+    {
+        if(!trim($post_name)) return 0;
+        return wpl_db::get('ID', 'posts', 'post_name', $post_name);
+    }
+    
+    /**
      * Returns WPL permalink
      * @author Howard R <howard@realtyna.com>
      * @static
@@ -420,6 +435,7 @@ class wpl_sef
     public static function get_wpl_permalink($full = false)
     {
         $main_permalink = wpl_global::get_setting('main_permalink');
+        if(!is_numeric($main_permalink)) $main_permalink = wpl_sef::get_post_id($main_permalink);
         
         /** Multilingual **/
         if(wpl_global::check_multilingual_status())
@@ -428,12 +444,9 @@ class wpl_sef
             if($lang_permalink) $main_permalink = $lang_permalink;
         }
         
-        if(is_numeric($main_permalink)) $main_permalink = wpl_sef::get_post_name($main_permalink);
-        
         if($full)
         {
-            $post_id = wpl_db::get('ID', 'posts', 'post_name', $main_permalink);
-            $url = wpl_sef::get_page_link($post_id);
+            $url = wpl_sef::get_page_link($main_permalink);
             
             /** make sure / character is added to the end of URL in case WordPress SEO permalink is enabled **/
             $nosef = wpl_sef::is_permalink_default();
@@ -441,8 +454,8 @@ class wpl_sef
             
             return $url;
         }
-            
-        return $main_permalink;
+        
+        return wpl_sef::get_post_name($main_permalink);
     }
     
     /**
@@ -454,11 +467,15 @@ class wpl_sef
     public static function get_wpl_main_page_id()
     {
         $main_permalink = wpl_global::get_setting('main_permalink');
-        $page_id = -1;
+        if(!is_numeric($main_permalink)) $main_permalink = wpl_sef::get_post_id($main_permalink);
         
-        if(is_numeric($main_permalink)) $page_id = $main_permalink;
-        else $page_id = url_to_postid($main_permalink);
-            
-        return $page_id;
+        /** Multilingual **/
+        if(wpl_global::check_multilingual_status())
+        {
+            $lang_permalink = wpl_addon_pro::get_lang_main_page();
+            if($lang_permalink) $main_permalink = $lang_permalink;
+        }
+        
+        return $main_permalink;
     }
 }

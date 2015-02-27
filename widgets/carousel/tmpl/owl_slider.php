@@ -66,6 +66,6 @@ wplj(function()
     });
 });
 </script>
-<div id="owl-slider<?php echo $this->widget_id; ?>" class="owl-carousel owl-theme container">
+<div id="owl-slider<?php echo $this->widget_id; ?>" class="wpl-owl-carousel wpl-owl-theme container">
     <?php echo $images ?>
 </div>

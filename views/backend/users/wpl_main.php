@@ -8,8 +8,8 @@ _wpl_import('libraries.activities');
 
 class wpl_users_controller extends wpl_controller
 {
-	var $tpl_path = 'views.backend.users.tmpl';
-	var $tpl;
+	public $tpl_path = 'views.backend.users.tmpl';
+	public $tpl;
 	
 	public function user_manager()
 	{
@@ -64,7 +64,7 @@ class wpl_users_controller extends wpl_controller
             $this->user_id = wpl_request::getVar('id');
         }
         
-		$this->user_fields = wpl_flex::get_fields('', 1, $this->kind);
+		$this->user_fields = wpl_flex::get_fields('', 1, $this->kind, 'pwizard', 1);
 		$this->user_data = (array) wpl_users::get_wpl_data($this->user_id);
 		
 		/** import tpl **/

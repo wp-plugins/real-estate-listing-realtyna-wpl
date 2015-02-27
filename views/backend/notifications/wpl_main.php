@@ -1,13 +1,12 @@
 <?php
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
-
 _wpl_import('libraries.notifications.notifications');
 
 class wpl_notifications_controller extends wpl_controller
 {
-    var $tpl_path = 'views.backend.notifications.tmpl';
-    var $tpl;
+    public $tpl_path = 'views.backend.notifications.tmpl';
+    public $tpl;
 
     public function home()
     {

@@ -8,15 +8,17 @@ _wpl_import('libraries.images');
 		
 class wpl_functions_controller extends wpl_controller
 {
-	var $tpl_path = 'views.basics.functions.tmpl';
-	var $tpl;
+	public $tpl_path = 'views.basics.functions.tmpl';
+	public $tpl;
 	
 	public function display()
 	{
 		$function = wpl_request::getVar('wpl_function');
 		
-		if($function == 'infowindow') self::infowindow();
-		elseif($function == 'shortcode_wizard') self::shortcode_wizard();
+		if($function == 'infowindow') $this->infowindow();
+		elseif($function == 'shortcode_wizard') $this->shortcode_wizard();
+        elseif($function == 'report_abuse_form') $this->report_abuse_form();
+        elseif($function == 'report_abuse_submit') $this->report_abuse_submit();
 	}
 	
 	private function infowindow()
@@ -50,5 +52,57 @@ class wpl_functions_controller extends wpl_controller
 		$this->settings = wpl_global::get_settings();
 		
 		parent::render($this->tpl_path, 'shortcode_wizard');
+	}
+    
+    private function report_abuse_form()
+	{
+		$this->property_id = wpl_request::getVar('pid', 0);
+        $this->form_id = wpl_request::getVar('form_id', 0);
+		
+		if(!$this->form_id) $HTML = parent::render($this->tpl_path, 'report_abuse_form', false, true);
+        else
+        {
+            /**
+             * @todo Generate form via Form Builder addon
+             */
+        }
+        
+        echo $HTML;
+        exit;
+	}
+    
+    private function report_abuse_submit()
+	{
+        $parameters = wpl_request::getVar('wplfdata', array());
+		$property_id = isset($parameters['property_id']) ? $parameters['property_id'] : 0;
+        
+        $returnData = array();
+        if(!$property_id)
+        {
+            $returnData['success'] = 0;
+            $returnData['message'] = __('Invalid Property!', WPL_TEXTDOMAIN);
+        }
+        elseif(isset($parameters['email']) and !filter_var($parameters['email'], FILTER_VALIDATE_EMAIL))
+        {
+            $returnData['success'] = 0;
+            $returnData['message'] = __('Your email is not valid!', WPL_TEXTDOMAIN);
+        }
+        else
+        {
+            $PRO = new wpl_addon_pro();
+            if($PRO->report_abuse_send($parameters))
+            {
+                $returnData['success'] = 1;
+                $returnData['message'] = __('Abuse report sent successfully.', WPL_TEXTDOMAIN);
+            }
+            else
+            {
+                $returnData['success'] = 0;
+                $returnData['message'] = __('Error sending!', WPL_TEXTDOMAIN);
+            }
+        }
+        
+        echo json_encode($returnData);
+        exit;
 	}
 }

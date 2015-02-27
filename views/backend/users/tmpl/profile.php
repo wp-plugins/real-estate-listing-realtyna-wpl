@@ -1,6 +1,7 @@
 <?php
 /** no direct access * */
 defined('_WPLEXEC') or die('Restricted access');
+
 $this->_wpl_import($this->tpl_path . '.scripts.js');
 $this->_wpl_import($this->tpl_path . '.scripts.css');
 

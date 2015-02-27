@@ -5,8 +5,8 @@ _wpl_import('libraries.settings');
 
 class wpl_settings_controller extends wpl_controller
 {
-	var $tpl_path = 'views.backend.settings.tmpl';
-	var $tpl;
+	public $tpl_path = 'views.backend.settings.tmpl';
+	public $tpl;
 	
 	public function home()
 	{

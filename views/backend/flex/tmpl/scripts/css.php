@@ -8,4 +8,5 @@ defined('_WPLEXEC') or die('Restricted access');
 .wpl_sidebar2{margin: 0;}
 .flex-right-panel .panel-body{padding: 10px 8px !important;}
 .wpl_flex_specificable_cnt{margin-left: 26px;}
+.realtyna-lightbox-wp label.wpl_specific_label{text-align: left; width: 120px;}
 </style>

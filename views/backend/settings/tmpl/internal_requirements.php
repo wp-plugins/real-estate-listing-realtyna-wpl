@@ -93,7 +93,7 @@ defined('_WPLEXEC') or die('Restricted access');
             <span class="wpl-requirement-require"><?php echo __('Installed', WPL_TEXTDOMAIN); ?></span>
             <span class="wpl-requirement-current"><?php echo $curl ? __('Installed', WPL_TEXTDOMAIN) : __('Not Installed', WPL_TEXTDOMAIN); ?></span>
             <span class="wpl-requirement-status p-action-btn">
-            	<i class="icon-<?php echo $curl ? 'confirm' : 'warning'; ?>"></i>
+            	<i class="icon-<?php echo $curl ? 'confirm' : 'danger'; ?>"></i>
             </span>
 		</li>
         <!-- ZipArchive -->
@@ -134,6 +134,16 @@ defined('_WPLEXEC') or die('Restricted access');
             <span class="wpl-requirement-current"><?php echo $memory_limit; ?></span>
             <span class="wpl-requirement-status p-action-btn">
             	<i class="icon-<?php echo $memory_status ? 'confirm' : 'warning'; ?>"></i>
+            </span>
+		</li>
+        <!-- Write Permission -->
+        <?php $writable = is_writable(WPL_ABSPATH.'WPL.php'); ?>
+        <li>
+        	<span class="wpl-requirement-name"><?php echo __('Write Permission', WPL_TEXTDOMAIN); ?></span>
+            <span class="wpl-requirement-require"><?php echo __('Yes', WPL_TEXTDOMAIN); ?></span>
+            <span class="wpl-requirement-current"><?php echo $writable ? __('Yes', WPL_TEXTDOMAIN) : __('No', WPL_TEXTDOMAIN); ?></span>
+            <span class="wpl-requirement-status p-action-btn">
+            	<i class="icon-<?php echo $writable ? 'confirm' : 'danger'; ?>"></i>
             </span>
 		</li>
         <!-- Server providers offers -->

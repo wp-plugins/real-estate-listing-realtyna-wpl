@@ -14,13 +14,13 @@ if((isset($values->specificable) and $values->specificable) or !$dbst_id)
     <div class="wpl_flex_specificable_cnt" id="<?php echo $__prefix; ?>specificable3" style="<?php if(!isset($values->user_specific) or (isset($values->user_specific) and trim($values->user_specific) == '')) echo 'display: none;'; ?>">
         <?php if(!$dbst_id or (isset($values->specificable) and ($values->specificable == 1))): ?>
         <ul id="<?php echo $__prefix ?>_user_specific" class="wpl_user_specific_ul">
-            <li><input id="wpl_flex_user_checkbox_all" type="checkbox" onclick="wpl_user_specific_all(this.checked);" <?php if(!isset($values->user_specific) or (isset($values->user_specific) and trim($values->user_specific) == '')) echo 'checked="checked"'; ?> /><label for="wpl_flex_user_checkbox_all">&nbsp;<?php echo __('All', WPL_TEXTDOMAIN); ?></label></li>
+            <li><input id="wpl_flex_user_checkbox_all" type="checkbox" onclick="wpl_user_specific_all(this.checked);" <?php if(!isset($values->user_specific) or (isset($values->user_specific) and trim($values->user_specific) == '')) echo 'checked="checked"'; ?> /><label class="wpl_specific_label" for="wpl_flex_user_checkbox_all">&nbsp;<?php echo __('All', WPL_TEXTDOMAIN); ?></label></li>
             <?php
             $user_specific = isset($values->user_specific) ? explode(',', $values->user_specific) : array();
             foreach($user_types as $user_type)
             {
                 ?>
-                <li><input id="wpl_flex_user_checkbox<?php echo $user_type['id']; ?>" type="checkbox" value="<?php echo $user_type['id']; ?>" <?php if(!isset($values->user_specific) or (isset($values->user_specific) and trim($values->user_specific) == '') or in_array($user_type['id'], $user_specific)) echo 'checked="checked"'; if(!isset($values->user_specific) or (isset($values->user_specific) and trim($values->user_specific) == '')) echo 'disabled="disabled"'; ?> /><label for="wpl_flex_user_checkbox<?php echo $user_type['id']; ?>">&nbsp;<?php echo __($user_type['name'], WPL_TEXTDOMAIN); ?></label></li>
+            <li><input id="wpl_flex_user_checkbox<?php echo $user_type['id']; ?>" type="checkbox" value="<?php echo $user_type['id']; ?>" <?php if(!isset($values->user_specific) or (isset($values->user_specific) and trim($values->user_specific) == '') or in_array($user_type['id'], $user_specific)) echo 'checked="checked"'; if(!isset($values->user_specific) or (isset($values->user_specific) and trim($values->user_specific) == '')) echo 'disabled="disabled"'; ?> /><label class="wpl_specific_label" for="wpl_flex_user_checkbox<?php echo $user_type['id']; ?>">&nbsp;<?php echo __($user_type['name'], WPL_TEXTDOMAIN); ?></label></li>
                 <?php
             }
             ?>

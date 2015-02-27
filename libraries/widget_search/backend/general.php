@@ -10,12 +10,7 @@ if($type == 'gallery' and !$done_this)
 	<input type="hidden" id="field_sort_<?php echo $field->id; ?>" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][sort]" value="<?php echo (isset($value['sort']) ? $value['sort'] : ''); ?>" />
 	<input type="hidden" id="field_enable_<?php echo $field->id; ?>" onchange="elementChanged(true);" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][enable]" value="<?php echo (isset($value['enable']) ? $value['enable'] : ''); ?>" />
 	
-
-	<h4>
-		<span>
-			<?php echo __($field->name, WPL_TEXTDOMAIN); ?>
-		</span>
-	</h4>
+	<h4><span><?php echo __($field->name, WPL_TEXTDOMAIN); ?></span></h4>
 
 	<div class="field-body">
 		<div class="erow">
@@ -23,7 +18,6 @@ if($type == 'gallery' and !$done_this)
 		</div>
 	</div>
 </div>
-
 <?php
     $done_this = true;
 }
@@ -35,12 +29,7 @@ elseif($type == 'date' and !$done_this)
 	<input type="hidden" id="field_sort_<?php echo $field->id; ?>" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][sort]" value="<?php echo (isset($value['sort']) ? $value['sort'] : ''); ?>" />
 	<input type="hidden" id="field_enable_<?php echo $field->id; ?>" onchange="elementChanged(true);" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][enable]" value="<?php echo (isset($value['enable']) ? $value['enable'] : ''); ?>" />
 	
-
-	<h4>
-		<span>
-			<?php echo __($field->name, WPL_TEXTDOMAIN); ?>
-		</span>
-	</h4>
+	<h4><span><?php echo __($field->name, WPL_TEXTDOMAIN); ?></span></h4>
 
 	<div class="field-body">
 		<div class="erow">
@@ -49,7 +38,7 @@ elseif($type == 'date' and !$done_this)
 			</select>
 		</div>
 		<div class="erow">
-			<input type="text" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][extoption]" value="<?php echo (isset($value['extoption']) ? $value['extoption'] : ''); ?>" />
+            <input type="text" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][extoption]" value="<?php echo (isset($value['extoption']) ? $value['extoption'] : ''); ?>" placeholder="<?php echo __('Min,Max,Icon like 1999-01-01,2020-01-01,0', WPL_TEXTDOMAIN); ?>" title="<?php echo __('Min,Max,Icon like 1999-01-01,2020-01-01,0', WPL_TEXTDOMAIN); ?>" />
 		</div>
 	</div>
 </div>
@@ -64,12 +53,7 @@ elseif($type == 'feature' and !$done_this)
 	<input type="hidden" id="field_sort_<?php echo $field->id; ?>" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][sort]" value="<?php echo (isset($value['sort']) ? $value['sort'] : ''); ?>" />
 	<input type="hidden" id="field_enable_<?php echo $field->id; ?>" onchange="elementChanged(true);" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][enable]" value="<?php echo (isset($value['enable']) ? $value['enable'] : ''); ?>" />
 	
-
-	<h4>
-		<span>
-			<?php echo __($field->name, WPL_TEXTDOMAIN); ?>
-		</span>
-	</h4>
+	<h4><span><?php echo __($field->name, WPL_TEXTDOMAIN); ?></span></h4>
 
 	<div class="field-body">
 		<div class="erow">
@@ -92,12 +76,7 @@ elseif($type == 'checkbox' and !$done_this)
 	<input type="hidden" id="field_sort_<?php echo $field->id; ?>" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][sort]" value="<?php echo (isset($value['sort']) ? $value['sort'] : ''); ?>" />
 	<input type="hidden" id="field_enable_<?php echo $field->id; ?>" onchange="elementChanged(true);" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][enable]" value="<?php echo (isset($value['enable']) ? $value['enable'] : ''); ?>" />
 	
-
-	<h4>
-		<span>
-			<?php echo __($field->name, WPL_TEXTDOMAIN); ?>
-		</span>
-	</h4>
+	<h4><span><?php echo __($field->name, WPL_TEXTDOMAIN); ?></span></h4>
 
 	<div class="field-body">
 		<div class="erow">
@@ -109,7 +88,6 @@ elseif($type == 'checkbox' and !$done_this)
 		</div>
 	</div>
 </div>
-
 <?php
     $done_this = true;
 }
@@ -122,12 +100,7 @@ elseif($type == 'listings' and !$done_this)
 	<input type="hidden" id="field_sort_<?php echo $field->id; ?>" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][sort]" value="<?php echo (isset($value['sort']) ? $value['sort'] : ''); ?>" />
 	<input type="hidden" id="field_enable_<?php echo $field->id; ?>" onchange="elementChanged(true);" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][enable]" value="<?php echo (isset($value['enable']) ? $value['enable'] : ''); ?>" />
 	
-
-	<h4>
-		<span>
-			<?php echo __($field->name, WPL_TEXTDOMAIN); ?>
-		</span>
-	</h4>
+	<h4><span><?php echo __($field->name, WPL_TEXTDOMAIN); ?></span></h4>
 
 	<div  class="field-body">
 		<div class="erow">
@@ -162,7 +135,6 @@ elseif($type == 'locations' and !$done_this)
 	<input type="hidden" id="field_sort_<?php echo $field->id; ?>" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][sort]" value="<?php echo (isset($value['sort']) ? $value['sort'] : ''); ?>" />
 	<input type="hidden" id="field_enable_<?php echo $field->id; ?>" onchange="elementChanged(true);" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][enable]" value="<?php echo (isset($value['enable']) ? $value['enable'] : ''); ?>" />
 	
-
     <h4><span><?php echo __($field->name, WPL_TEXTDOMAIN); ?></span></h4>
 
 	<div class="field-body">
@@ -192,12 +164,7 @@ elseif($type == 'neighborhood' and !$done_this)
 	<input type="hidden" id="field_sort_<?php echo $field->id; ?>" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][sort]" value="<?php echo (isset($value['sort']) ? $value['sort'] : ''); ?>" />
 	<input type="hidden" id="field_enable_<?php echo $field->id; ?>" onchange="elementChanged(true);" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][enable]" value="<?php echo (isset($value['enable']) ? $value['enable'] : ''); ?>" />
 	
-
-	<h4>
-		<span>
-			<?php echo __($field->name, WPL_TEXTDOMAIN); ?>
-		</span>
-	</h4>
+	<h4><span><?php echo __($field->name, WPL_TEXTDOMAIN); ?></span></h4>
 
 	<div class="field-body">
 		<div class="erow">
@@ -220,7 +187,6 @@ elseif($type == 'number' and !$done_this)
 	<input type="hidden" id="field_sort_<?php echo $field->id; ?>" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][sort]" value="<?php echo (isset($value['sort']) ? $value['sort'] : ''); ?>" />
 	<input type="hidden" id="field_enable_<?php echo $field->id; ?>" onchange="elementChanged(true);" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][enable]" value="<?php echo (isset($value['enable']) ? $value['enable'] : ''); ?>" />
 	
-
 	<h4><span><?php echo __($field->name, WPL_TEXTDOMAIN); ?></span></h4>
 
 	<div class="field-body">
@@ -251,12 +217,8 @@ elseif($type == 'property_types' and !$done_this)
 	<input type="hidden" id="field_sort_<?php echo $field->id; ?>" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][sort]" value="<?php echo (isset($value['sort']) ? $value['sort'] : ''); ?>" />
 	<input type="hidden" id="field_enable_<?php echo $field->id; ?>" onchange="elementChanged(true);" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][enable]" value="<?php echo (isset($value['enable']) ? $value['enable'] : ''); ?>" />
 	
-
-	<h4>
-		<span>
-			<?php echo __($field->name, WPL_TEXTDOMAIN); ?>
-		</span>
-	</h4>
+	<h4><span><?php echo __($field->name, WPL_TEXTDOMAIN); ?></span></h4>
+    
 	<div class="field-body">
 		<div class="erow">
 			<select name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][type]" onchange="selectChange(this,'property_types');" >
@@ -289,12 +251,7 @@ elseif($type == 'text' and !$done_this)
 	<input type="hidden" id="field_sort_<?php echo $field->id; ?>" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][sort]" value="<?php echo (isset($value['sort']) ? $value['sort'] : ''); ?>" />
 	<input type="hidden" id="field_enable_<?php echo $field->id; ?>" onchange="elementChanged(true);" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][enable]" value="<?php echo (isset($value['enable']) ? $value['enable'] : ''); ?>" />
 	
-
-	<h4>
-		<span>
-			<?php echo __($field->name, WPL_TEXTDOMAIN); ?>
-		</span>
-	</h4>
+	<h4><span><?php echo __($field->name, WPL_TEXTDOMAIN); ?></span></h4>
 
 	<div class="field-body">
 		<div class="erow">
@@ -316,12 +273,7 @@ elseif($type == 'select' and !$done_this)
 	<input type="hidden" id="field_sort_<?php echo $field->id; ?>" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][sort]" value="<?php echo (isset($value['sort']) ? $value['sort'] : ''); ?>" />
 	<input type="hidden" id="field_enable_<?php echo $field->id; ?>" onchange="elementChanged(true);" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][enable]" value="<?php echo (isset($value['enable']) ? $value['enable'] : ''); ?>" />
 	
-
-	<h4>
-		<span>
-			<?php echo __($field->name, WPL_TEXTDOMAIN); ?>
-		</span>
-	</h4>
+	<h4><span><?php echo __($field->name, WPL_TEXTDOMAIN); ?></span></h4>
 
 	<div class="field-body">
 		<div class="erow">
@@ -355,6 +307,31 @@ elseif($type == 'select' and !$done_this)
 <?php
     $done_this = true;
 }
+elseif(in_array($type, array('user_type', 'user_membership')) and !$done_this)
+{
+?>
+<div class="search-field-wp search-field-select <?php echo (isset($value['enable']) ? $value['enable'] : ''); ?>" data-field-id="<?php echo $field->id; ?>" data-status="<?php echo (isset($value['enable']) ? $value['enable'] : ''); ?>" data-field-name="<?php echo __($field->name, WPL_TEXTDOMAIN); ?>">
+
+	<input type="hidden" id="field_sort_<?php echo $field->id; ?>" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][sort]" value="<?php echo (isset($value['sort']) ? $value['sort'] : ''); ?>" />
+	<input type="hidden" id="field_enable_<?php echo $field->id; ?>" onchange="elementChanged(true);" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][enable]" value="<?php echo (isset($value['enable']) ? $value['enable'] : ''); ?>" />
+	
+	<h4><span><?php echo __($field->name, WPL_TEXTDOMAIN); ?></span></h4>
+
+	<div class="field-body">
+		<div class="erow">
+			<select name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][type]" onchange="selectChange(this, 'select');">
+				<option value="select" <?php if (isset($value['type']) and $value['type'] == 'select') echo 'selected="selected"'; ?>><?php echo __('Select box', WPL_TEXTDOMAIN); ?></option>
+				<option value="multiple" <?php if (isset($value['type']) and $value['type'] == 'multiple') echo 'selected="selected"'; ?>><?php echo __('Multiple SelectBox', WPL_TEXTDOMAIN); ?></option>
+				<option value="radios" <?php if (isset($value['type']) and $value['type'] == 'radios') echo 'selected="selected"'; ?>><?php echo __('Radio Buttons', WPL_TEXTDOMAIN); ?></option>
+				<option value="radios_any" <?php if (isset($value['type']) and $value['type'] == 'radios_any') echo 'selected="selected"'; ?>><?php echo __('Radio buttons with any', WPL_TEXTDOMAIN); ?></option>
+				<option value="checkboxes" <?php if (isset($value['type']) and $value['type'] == 'checkboxes') echo 'selected="selected"'; ?>><?php echo __('Check boxes', WPL_TEXTDOMAIN); ?></option>
+			</select>
+		</div>
+	</div>
+</div>
+<?php
+    $done_this = true;
+}
 elseif($type == 'textarea' and !$done_this)
 {
 ?>
@@ -363,12 +340,7 @@ elseif($type == 'textarea' and !$done_this)
 	<input type="hidden" id="field_sort_<?php echo $field->id; ?>" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][sort]" value="<?php echo (isset($value['sort']) ? $value['sort'] : ''); ?>" />
 	<input type="hidden" id="field_enable_<?php echo $field->id; ?>" onchange="elementChanged(true);" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][enable]" value="<?php echo (isset($value['enable']) ? $value['enable'] : ''); ?>" />
 	
-
-	<h4>
-		<span>
-			<?php echo __($field->name, WPL_TEXTDOMAIN); ?>
-		</span>
-	</h4>
+	<h4><span><?php echo __($field->name, WPL_TEXTDOMAIN); ?></span></h4>
 
 	<div class="field-body">
 		<div class="erow">
@@ -387,12 +359,7 @@ elseif(($type == 'area' or $type == 'price' or $type == 'length' or $type == 'vo
 	<input type="hidden" id="field_sort_<?php echo $field->id; ?>" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][sort]" value="<?php echo (isset($value['sort']) ? $value['sort'] : ''); ?>" />
 	<input type="hidden" id="field_enable_<?php echo $field->id; ?>" onchange="elementChanged(true);" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][enable]" value="<?php echo (isset($value['enable']) ? $value['enable'] : ''); ?>" />
 	
-
-	<h4>
-		<span>
-			<?php echo __($field->name, WPL_TEXTDOMAIN); ?>
-		</span>
-	</h4>
+	<h4><span><?php echo __($field->name, WPL_TEXTDOMAIN); ?></span></h4>
 
 	<div class="field-body">
 		<div class="erow">
@@ -419,12 +386,7 @@ elseif($type == 'textsearch' and !$done_this)
 	<input type="hidden" id="field_sort_<?php echo $field->id; ?>" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][sort]" value="<?php echo (isset($value['sort']) ? $value['sort'] : ''); ?>" />
 	<input type="hidden" id="field_enable_<?php echo $field->id; ?>" onchange="elementChanged(true);" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][enable]" value="<?php echo (isset($value['enable']) ? $value['enable'] : ''); ?>" />
 	
-
-	<h4>
-		<span>
-			<?php echo __($field->name, WPL_TEXTDOMAIN); ?>
-		</span>
-	</h4>
+	<h4><span><?php echo __($field->name, WPL_TEXTDOMAIN); ?></span></h4>
 
 	<div class="field-body">
 		<div class="erow">
@@ -441,17 +403,13 @@ elseif($type == 'textsearch' and !$done_this)
 elseif($type == 'addon_calendar' and !$done_this)
 {
 ?>
-<div class="search-field-wp search-field-calendar <?php echo (isset($value['enable']) ? $value['enable'] : ''); ?>" data-field-id="<?php echo $field->id; ?>" data-status="<?php echo (isset($value['enable']) ? $value['enable'] : ''); ?>" data-field-name="<?php echo __($field->name, WPL_TEXTDOMAIN); ?>">
+<div class="search-field-wp search-field-addon-calendar <?php echo (isset($value['enable']) ? $value['enable'] : ''); ?>" data-field-id="<?php echo $field->id; ?>" data-status="<?php echo (isset($value['enable']) ? $value['enable'] : ''); ?>" data-field-name="<?php echo __($field->name, WPL_TEXTDOMAIN); ?>">
 
 	<input type="hidden" id="field_sort_<?php echo $field->id; ?>" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][sort]" value="<?php echo (isset($value['sort']) ? $value['sort'] : ''); ?>" />
 	<input type="hidden" id="field_enable_<?php echo $field->id; ?>" onchange="elementChanged(true);" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][enable]" value="<?php echo (isset($value['enable']) ? $value['enable'] : ''); ?>" />
-	
+	<input type="hidden" id="field_type_<?php echo $field->id; ?>" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][type]" value="addon_calendar" />
 
-	<h4>
-		<span>
-			<?php echo __($field->name, WPL_TEXTDOMAIN); ?>
-		</span>
-	</h4>
+	<h4><span><?php echo __($field->name, WPL_TEXTDOMAIN); ?></span></h4>
 
 	<div class="field-body">
 		<div class="erow">
@@ -460,5 +418,24 @@ elseif($type == 'addon_calendar' and !$done_this)
 	</div>
 </div>
 <?php    
+    $done_this = true;
+}
+elseif($type == 'separator' and !$done_this)
+{
+?>
+<div class="search-field-wp search-field-separator <?php echo (isset($value['enable']) ? $value['enable'] : ''); ?>" data-field-id="<?php echo $field->id; ?>" data-status="<?php echo (isset($value['enable']) ? $value['enable'] : ''); ?>" data-field-name="<?php echo __($field->name, WPL_TEXTDOMAIN); ?> - <?php echo __("Separator", WPL_TEXTDOMAIN); ?>">
+
+	<input type="hidden" id="field_sort_<?php echo $field->id; ?>" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][sort]" value="<?php echo (isset($value['sort']) ? $value['sort'] : ''); ?>" />
+	<input type="hidden" id="field_enable_<?php echo $field->id; ?>" onchange="elementChanged(true);" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][enable]" value="<?php echo (isset($value['enable']) ? $value['enable'] : ''); ?>" />
+
+	<h4><span><?php echo __($field->name, WPL_TEXTDOMAIN); ?> - <?php echo __("Separator", WPL_TEXTDOMAIN); ?></span></h4>
+
+	<div class="field-body">
+		<div class="erow">
+			<?php echo __('No Option Available', WPL_TEXTDOMAIN); ?>
+		</div>
+	</div>
+</div>
+<?php
     $done_this = true;
 }

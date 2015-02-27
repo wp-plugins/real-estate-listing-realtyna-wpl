@@ -5,7 +5,7 @@ defined('_WPLEXEC') or die('Restricted access');
 /** activity class **/
 class wpl_activity_main_ajax_file_upload extends wpl_activity
 {
-    var $tpl_path = 'views.activities.ajax_file_upload.tmpl';
+    public $tpl_path = 'views.activities.ajax_file_upload.tmpl';
     
 	public function start($layout, $params)
 	{

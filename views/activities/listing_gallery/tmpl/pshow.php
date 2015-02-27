@@ -10,6 +10,7 @@ $this->property_id = isset($wpl_properties['current']['data']['id']) ? $wpl_prop
 $this->image_width = isset($params['image_width']) ? $params['image_width'] : 360;
 $this->image_height = isset($params['image_height']) ? $params['image_height'] : 285;
 $this->image_class = isset($params['image_class']) ? $params['image_class'] : '';
+$this->autoplay = (isset($params['autoplay']) and trim($params['autoplay']) != '') ? $params['autoplay'] : 1;
 $this->resize = (isset($params['resize']) and trim($params['resize']) != '') ? $params['resize'] : 1;
 $this->rewrite = (isset($params['rewrite']) and trim($params['rewrite']) != '') ? $params['rewrite'] : 0;
 $this->watermark = (isset($params['watermark']) and trim($params['watermark']) != '') ? $params['watermark'] : 1;
@@ -24,7 +25,7 @@ foreach($js as $javascript) wpl_extensions::import_javascript($javascript, true)
 /** import js codes **/
 $this->_wpl_import($this->tpl_path.'.scripts.pshow', true, true);
 ?>
-<div class="wpl_gallery_container" id="wpl_gallery_container<?php echo $this->property_id; ?>">
+<div class="wpl_gallery_container" id="wpl_gallery_container<?php echo $this->property_id; ?>" style="width: <?php echo $this->image_width; ?>px">
     <?php
     if(!count($this->gallery))
     {
@@ -32,7 +33,7 @@ $this->_wpl_import($this->tpl_path.'.scripts.pshow', true, true);
     }
     else
     {
-        echo '<ul class="bxslider" id="bxslider_'.$this->property_id.'">';
+        echo '<ul class="bxslider" id="bxslider_'.$this->property_id.'_'.$this->activity_id.'">';
         $i = 0;
         $pager_box = '';
 
@@ -40,6 +41,7 @@ $this->_wpl_import($this->tpl_path.'.scripts.pshow', true, true);
         {
             $image_url = $image['url'];
             $image_thumbnail_url = $image['url'];
+            
             if(isset($image['item_extra2'])) $image_alt = $image['item_extra2'];
             else $image_alt = $wpl_properties['current']['raw']['meta_keywords'];
 

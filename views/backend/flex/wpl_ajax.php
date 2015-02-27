@@ -6,8 +6,8 @@ _wpl_import('libraries.flex');
 
 class wpl_flex_controller extends wpl_controller
 {
-	var $tpl_path = 'views.backend.flex.tmpl';
-	var $tpl;
+	public $tpl_path = 'views.backend.flex.tmpl';
+	public $tpl;
 	
 	public function display()
 	{

@@ -4,8 +4,8 @@ defined('_WPLEXEC') or die('Restricted access');
 
 class wpl_wpl_controller extends wpl_controller
 {
-	var $tpl_path = 'views.backend.wpl.tmpl';
-	var $tpl;
+	public $tpl_path = 'views.backend.wpl.tmpl';
+	public $tpl;
 	
 	public function display()
 	{
@@ -74,6 +74,8 @@ class wpl_wpl_controller extends wpl_controller
 		$script_file = $tmp_directory.'installer.php';
 		if(!wpl_file::exists($script_file)) self::response(array('error'=>__("Installer file doesn't exist!", WPL_TEXTDOMAIN), 'message'=>''));
 		
+        if(!is_writable(WPL_ABSPATH.'WPL.php')) self::response(array('error'=>__("PHP doesn't have write access to the files and directories!", WPL_TEXTDOMAIN), 'message'=>''));
+        
 		/** including installer and run the install method **/
 		include $script_file;
 		if(!class_exists('wpl_installer')) self::response(array('error'=>__("Installer class doesn't exist!", WPL_TEXTDOMAIN), 'message'=>''));

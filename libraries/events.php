@@ -7,6 +7,7 @@ defined('_WPLEXEC') or die('Restricted access');
  * @author Howard <howard@realtyna.com>
  * @since WPL1.0.0
  * @date 04/17/2013
+ * @package WPL
  */
 class wpl_events
 {

@@ -6,7 +6,7 @@ _wpl_import('libraries.room_types');
 /** activity class **/
 class wpl_activity_main_listing_rooms extends wpl_activity
 {
-    var $tpl_path = 'views.activities.listing_rooms.tmpl';
+    public $tpl_path = 'views.activities.listing_rooms.tmpl';
 	
 	public function start($layout, $params)
 	{

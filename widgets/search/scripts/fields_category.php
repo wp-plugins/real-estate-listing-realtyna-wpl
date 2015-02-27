@@ -5,9 +5,9 @@ defined('_WPLEXEC') or die('Restricted access');
 <div id="wpl-search-tab-content-<?php echo $this->widget_id . '-' . $category->id; ?>" class="search-body">
     <div class="search-msg-wp">
         <span>
-        <?php echo __('Drag whichever field  you would like to move from the bottom list to here. To change the order please use right side panel "Fields Order".', WPL_TEXTDOMAIN); ?>
+        <?php echo __('Drag whichever field you would like to move from the bottom list to here. To change the order please use right side panel "Fields Order".', WPL_TEXTDOMAIN); ?>
         </span>
-        <div class="search-msg-btn action-btn icon-disabled"></div>
+        <div class="search-msg-btn"></div>
     </div>
 
 
@@ -27,7 +27,7 @@ defined('_WPLEXEC') or die('Restricted access');
     </div>
 
     <div class="all-block">
-        <?php wpl_search_widget::generate_backend_fields(wpl_flex::get_fields($category->id, 1, 0, 'searchmod', 1), $values); ?>
+        <?php wpl_search_widget::generate_backend_fields(wpl_flex::get_fields($category->id, 1, $this->kind, 'searchmod', 1), $values); ?>
     </div>
 
     <div class="overlay-wp">

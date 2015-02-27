@@ -6,6 +6,7 @@ defined('_WPLEXEC') or die('Restricted access');
  * WPL global library
  * @author Howard <howard@realtyna.com>
  * @since WPL1.0.0
+ * @package WPL
  * @date 04/18/2013
  */
 class wpl_global
@@ -566,12 +567,14 @@ class wpl_global
 		
 		return $result;
 	}
-	
-	/**
-		@input {number}
-		@return string
-		@author Howard
-	**/
+    
+    /**
+     * Converts integer to string
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $x
+     * @return string
+     */
 	public static function number_to_word($x)
 	{
 		$nwords = array("zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty", 30=>"thirty", 40=>"forty", 50=>"fifty", 60=>"sixty", 70=>"seventy", 80=>"eighty", 90=>"ninety");
@@ -636,43 +639,58 @@ class wpl_global
 		
 		return $w;
 	}
-	
-	/**
-		@input {table name , field name}
-		@return string
-		@author Albert
-	**/
-	public static function get_db_field_type($table, $field)
+    
+    /**
+     * Get field type by table column
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $table
+     * @param string $column
+     * @return string
+     */
+	public static function get_db_field_type($table, $column)
 	{
-		$query = "DESCRIBE `#__$table` `$field`";
+		$query = "DESCRIBE `#__$table` `$column`";
 		$result = wpl_db::q($query, 'select');
 
-		return $result[$field]->Type;
+		return $result[$column]->Type;
 	}
-	
-	/**
-		Function to sort internal arrays by their [sort] value
-		@author Marvin
-	**/
+    
+    /**
+     * Sorts internal arrays by their [sort] value
+     * @author Marvin <marvin@realtyna.com>
+     * @static
+     * @param array $a
+     * @param array $b
+     * @return int
+     */
 	public static function wpl_array_sort($a, $b)
 	{
-		if($a['sort'] > $b['sort']) return 1;
-		elseif($a['sort'] < $b['sort']) return -1;
-		elseif($a['sort'] == $b['sort']) return 0;
+		if(isset($a['sort']) and isset($b['sort']) and $a['sort'] > $b['sort']) return 1;
+		elseif(isset($a['sort']) and isset($b['sort']) and $a['sort'] < $b['sort']) return -1;
+		elseif(isset($a['sort']) and isset($b['sort']) and $a['sort'] == $b['sort']) return 0;
 	}
-	
-	/**
-		@input void
-		@return int client
-		@author Howard
-	**/
+    
+    /**
+     * Returns website client
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @return int
+     */
 	public static function get_client()
 	{
 		if(is_admin()) return 1; # backend
 		else return 0; # frontend
 	}
-	
-	/** developed by howard 08/11/2012 **/
+    
+    /**
+     * Use this function for troubleshooting. Don't forgot to remove it after debugging
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $log_msg
+     * @param string $path
+     * @param boolean $append
+     */
 	public static function trouble_shooting_log($log_msg, $path = '', $append = false)
 	{
 		if(trim($path) == '') $path = WPL_ABSPATH. 'libraries' .DS. 'troubleshooting.txt';
@@ -680,14 +698,14 @@ class wpl_global
 		
 		wpl_file::write($path, $log_msg, $append);
 	}
-	
-	/**
-		Developed by : Howard
-		Inputs : trigger and dynamic params
-		Outputs : void
-		Date : 2013-04-17
-		Description : use this function for calling any events
-	**/
+    
+    /**
+     * Triggers an event
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $trigger
+     * @param array $params
+     */
 	public static function event_handler($trigger, $params = array())
 	{
 		/** import library **/
@@ -696,13 +714,16 @@ class wpl_global
 		/** trigger event **/
 		wpl_events::trigger($trigger, $params);
 	}
-	
-	/**
-		@input [category] and [return_records]
-		@params: boolean return_records: it returns raw records
-		@return settings array or raw records
-		Developed by : Howard
-	**/
+    
+    /**
+     * Returns couple of WPL settings based on category
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int|string $category
+     * @param int $showable
+     * @param boolean $return_records
+     * @return array
+     */
 	public static function get_settings($category = '', $showable = 0, $return_records = false)
 	{
 		/** import library **/
@@ -711,11 +732,14 @@ class wpl_global
 		return wpl_settings::get_settings($category, $showable, $return_records);
 	}
 	
-	/**
-		@input {setting_name} and [category]
-		@return setting value
-		@author Howard
-	**/
+    /**
+     * Returns one WPL setting value
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $setting_name
+     * @param int|string $category
+     * @return mixed
+     */
 	public static function get_setting($setting_name, $category = '')
 	{
 		/** import library **/
@@ -724,11 +748,14 @@ class wpl_global
 		return wpl_settings::get($setting_name, $category);
 	}
 	
-	/**
-		@input {activity_name}, [activity_id] and [params]
-		@return activity output
-		Developed by : Howard
-	**/
+    /**
+     * Imports activities by activity name
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $activity
+     * @param int $activity_id
+     * @param mixed $params
+     */
 	public static function import_activity($activity, $activity_id = 0, $params = false)
 	{
 		/** import library **/
@@ -737,73 +764,71 @@ class wpl_global
 		$wpl_activity = new wpl_activity();
 		$wpl_activity->import($activity, $activity_id, $params);
 	}
-	
-	/**
-		@input void
-		@return wpl theme options
-		@author Howard
-	**/
-	public static function get_wpl_theme_options()
-	{
-		return self::get_wp_option('wpl_theme_options', array());
-	}
-	
-	/**
-		@input void
-		@return WP pages
-		@author Howard
-	**/
+    
+    /**
+     * Wrapper for WordPress get_pages function
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param array $args
+     * @return array
+     */
 	public static function get_wp_pages($args = array())
 	{
 		return get_pages($args);
 	}
-	
-	/**
-		@input void
-		@return wpl version
-		@author Howard
-	**/
+    
+    /**
+     * Returns WPL version
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @return string
+     */
 	public static function wpl_version()
 	{
 		return WPL_VERSION;
 	}
-	
-	/**
-		@input void
-		@return wp version
-		@author Howard
-	**/
+    
+    /**
+     * Returns WordPress version
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @global string $wp_version
+     * @return string
+     */
 	public static function wp_version()
 	{
 		global $wp_version;
 		return $wp_version;
 	}
-	
-	/**
-		@input void
-		@return wpl version
-		@author Howard
-	**/
+    
+    /**
+     * Returns PHP version
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @return string
+     */
 	public static function php_version()
 	{
 		return phpversion();
 	}
 	
-	/**
-		@input void
-		@return tmp full path
-		@author Howard
-	**/
+    /**
+     * Returns WPL tmp path
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @return type
+     */
 	public static function get_tmp_path()
 	{
 		return WPL_ABSPATH.'assets'.DS.'tmp'.DS;
 	}
 	
-	/**
-		@input void
-		@return tmp full path
-		@author Howard
-	**/
+    /**
+     * Initialized a tmp directory and returns its name
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @return string
+     */
 	public static function init_tmp_folder()
 	{
 		$path = wpl_global::get_tmp_path();
@@ -814,11 +839,11 @@ class wpl_global
 		return $directory;
 	}
 	
-	/**
-		@input void
-		@return void
-		@author Howard
-	**/
+    /**
+     * Removes expired tmp directories. It calls by WPL cronjobs
+     * @author Howard <howard@realtyna.com>
+     * @static
+     */
 	public static function delete_expired_tmp()
 	{
 		$path = wpl_global::get_tmp_path();
@@ -835,11 +860,17 @@ class wpl_global
 		}
 	}
 	
-	/**
-		@input file object from $_FILES, full dest, valid extensions, max_file_size
-		@return array response
-		@author Howard
-	**/
+    /**
+     * Uploads a file and return the results
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param array $file
+     * @param string $dest
+     * @param array $ext_array
+     * @param int $max_file_size
+     * @param string $extension
+     * @return array
+     */
 	public static function upload($file, $dest = '', $ext_array = array('jpg','png','gif','jpeg'), $max_file_size = 512000, $extension = NULL)
 	{
 		$error = '';
@@ -934,11 +965,15 @@ class wpl_global
         return $dest;
 	}
 	
-	/**
-		@input full path of sql file, delete option and exception option
-		@return boolean
-		@author Howard
-	**/
+    /**
+     * Run a SQL Query file
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $sql_file
+     * @param boolean $delete
+     * @param boolean $exception
+     * @return boolean
+     */
 	public static function do_file_queries($sql_file, $delete = false, $exception = false)
 	{
 		if(!wpl_file::exists($sql_file)) return false;
@@ -971,11 +1006,27 @@ class wpl_global
 		return true;
 	}
 	
-	/**
-		@input string addon_name
-		@return boolean
-		@author Howard
-	**/
+    /**
+     * Returns addon data
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $addon_id
+     * @param string $addon_name
+     * @return array
+     */
+    public static function get_addon($addon_id = 0, $addon_name = NULL)
+	{
+		if(trim($addon_id)) return wpl_db::get('*', 'wpl_addons', 'id', $addon_id, false);
+		else return wpl_db::get('*', 'wpl_addons', 'name', $addon_name, false);
+	}
+    
+    /**
+     * Check existence of an addon on WPL
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $addon_name
+     * @return boolean
+     */
 	public static function check_addon($addon_name)
 	{
 		/** first validation **/
@@ -1000,11 +1051,13 @@ class wpl_global
 		else return false;
 	}
 	
-	/**
-		@input int addon_id
-		@return array response
-		@author Howard
-	**/
+    /**
+     * Checks addon update
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $addon_id
+     * @return array
+     */
 	public static function check_addon_update($addon_id)
 	{
 		$current_url = wpl_global::get_full_url();
@@ -1064,10 +1117,10 @@ class wpl_global
 	}
     
     /**
-		@input void
-		@return void
-		@author Howard
-	**/
+     * Checks add addon updates
+     * @author Howard <howard@realtyna.com>
+     * @static
+     */
 	public static function check_all_update()
 	{
 		$addons = wpl_db::select("SELECT * FROM `#__wpl_addons`", 'loadAssocList');
@@ -1075,11 +1128,12 @@ class wpl_global
         foreach($addons as $addon) self::check_addon_update($addon['id']);
 	}
 	
-	/**
-		@input void
-		@return array response
-		@author Howard
-	**/
+    /**
+     * Checks Realtyna billing credentials
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @return array
+     */
 	public static function check_realtyna_credentials()
 	{
 		/** import settings library **/
@@ -1120,17 +1174,20 @@ class wpl_global
 		return array('success'=>$success, 'message'=>$message, 'status'=>$status);
 	}
 	
-	/**
-		@input string url
-		@return string domain
-		@author Howard
-	**/
+    /**
+     * Returns website domain
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $url
+     * @return string
+     */
 	public static function domain($url)
 	{
 		$url = str_replace('http://', '', $url);
 		$url = str_replace('https://', '', $url);
 		$url = str_replace('ftp://', '', $url);
 		$url = str_replace('svn://', '', $url);
+        $url = str_replace('www.', '', $url);
 		
 		$ex = explode('/', $url);
 		$ex2 = explode('?', $ex[0]);
@@ -1598,6 +1655,15 @@ class wpl_global
         return $result;
     }
     
+    /**
+     * Load a Text Domain
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @global array $l10n
+     * @param string $domain
+     * @param string $mofile
+     * @return boolean
+     */
     public static function load_textdomain($domain, $mofile)
     {
         global $l10n;
@@ -1687,5 +1753,42 @@ class wpl_global
             $days = 28;
         
         return $days;
+    }
+	
+	/**
+     * Returns the number of bytes in the given string.
+     * This method ensures the string is treated as a byte array by using `mb_strlen()`.
+	 * @author Kevin J <kevin@realtyna.com>
+     * @static
+     * @param string $string the string being measured for length
+     * @return integer the number of bytes in the given string.
+     */
+    public static function byteLength($string)
+    {
+        return mb_strlen($string, '8bit');
+    }
+    
+    /**
+     * Returns admin ID of website
+     * @author Howard R <Howard@realtyna.com>
+     * @static
+     * @return int
+     */
+    public static function get_admin_id()
+    {
+        return wpl_users::get_id_by_email(wpl_global::get_wp_option('admin_email', NULL));
+    }
+    
+    /**
+     * Converts systematic strings to human readable format. For example: school_district to School District
+     * @author Howard R <Howard@realtyna.com>
+     * @static
+     * @param string $not_readable
+     * @return string
+     */
+    public static function human_readable($not_readable)
+    {
+        $readable = str_replace('_', ' ', $not_readable);
+        return ucwords($readable);
     }
 }

@@ -11,7 +11,11 @@ if($type == 'addon_video' and !$done_this)
 
     $vid_embed_items = wpl_items::get_items($item_id, 'video', $this->kind, 'video_embed', 1);
     $vid_embed_count = 1;
+
+	// Load Handlebars Templates
+	echo wpl_global::load_js_template('dbst-wizard-videos');
 ?>
+
 <div class="video-tabs-wp" id="video-tabs">
 	<ul>
 		<li class="active"><a id="embed-tab" href="#embed" onclick="video_select_tab(0); return false;"><?php echo __('Embed code', WPL_TEXTDOMAIN); ?></a></li>
@@ -20,7 +24,9 @@ if($type == 'addon_video' and !$done_this)
 		<?php endif; ?>
 	</ul>
 </div>
+
 <div class="video-content-wp">
+
 <div class="content-wp" id="embed">
 	<button class="wpl-button button-1" onclick="add_embed_video();"><?php echo __('Add video', WPL_TEXTDOMAIN) ?></button>
 	<?php foreach ($vid_embed_items as $vid_embed_item): ?>
@@ -42,6 +48,7 @@ if($type == 'addon_video' and !$done_this)
     </div>
     <?php $vid_embed_count++; endforeach; ?>
 </div>
+
 <script type="text/javascript">
 var vid_embed_count = <?php echo $vid_embed_count; ?>;
 function add_embed_video()
@@ -92,6 +99,7 @@ function video_select_tab(id)
 	wplj('.video-content-wp').find('> div').hide().filter(_this.attr('href')).fadeIn(600);
 }
 </script>
+
 <?php
 if(wpl_settings::get('video_uploader'))
 {
@@ -190,12 +198,17 @@ if(wpl_settings::get('video_uploader'))
 		?>
 	</div>
 </div>
+
 <script type="text/javascript">
 wplj(document).ready(function()
 {
 	wplj("#ajax_vid_sortable").sortable(
 	{
-		placeholder: "ui-state-highlight",
+		placeholder: "wpl-sortable-placeholder",
+		opacity: 0.7,
+		forcePlaceholderSize: true,
+		cursor: "move",
+		axis: "y",
 		stop: function (event, ui)
 		{
 			sort_str = "";
@@ -222,23 +235,33 @@ wplj(document).ready(function()
         dataType: 'json',
         maxFileSize:<?php echo $max_size * 1000; ?>,
         done: function (e, data) {
-            wplj.each(data.result.files, function (index, file) {
+            wplj(data.result.files).each(function (index, file) {
                 if (file.error !== undefined) {
                     wplj('<p/>').text(file.error).appendTo('#video');
                 }
                 else {
-                    wplj(rta.template.bind({
-                        vid_counter: vid_counter,
-                        lblTitle: "<?php echo addslashes(__('Video Title', WPL_TEXTDOMAIN)); ?>",
-                        lblDesc: "<?php echo addslashes(__('Video Description', WPL_TEXTDOMAIN)); ?>",
-                        lblCat: "<?php echo addslashes(__('Video Category', WPL_TEXTDOMAIN)); ?>",
-                        name: file.name,
-                        select: "<?php echo addslashes($video_categories_html); ?>"
-                    }, 'dbst-wizard-videos')).appendTo('#ajax_vid_sortable');
+
+					var hbSource   = wplj("#dbst-wizard-videos").html();
+					var hbTemplate = Handlebars.compile(hbSource);
+					var hbHTML     = hbTemplate({
+						vid_counter: vid_counter,
+						lblTitle: "<?php echo addslashes(__('Video Title', WPL_TEXTDOMAIN)); ?>",
+						lblDesc: "<?php echo addslashes(__('Video Description', WPL_TEXTDOMAIN)); ?>",
+						lblCat: "<?php echo addslashes(__('Video Category', WPL_TEXTDOMAIN)); ?>",
+						name: file.name,
+						select: "<?php echo addslashes($video_categories_html); ?>"
+					});
+
+					wplj(hbHTML).hide().appendTo('#ajax_vid_sortable').slideDown();
 
                     vid_counter++;
                 }
-            });
+            }).promise().done(function () {
+
+				wplj('#progress_vid').hide();
+
+			});
+
         },
         progressall: function (e, data) {
             wplj("#progress_vid").show('fast');
@@ -280,7 +303,7 @@ function ajax_video_delete(video, id)
 		ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', "wpl_format=b:listing:videos&wpl_function=delete_video&pid=<?php echo $item_id; ?>&video="+encodeURIComponent(video)+"&kind=<?php echo $this->kind; ?>");
 		ajax.success(function (data)
 		{
-			wplj("#" + id).fadeOut(function ()
+			wplj("#" + id).slideUp(function ()
 			{
 				wplj(this).remove();
 			});
@@ -304,6 +327,7 @@ function wpl_video_enabled(video, id)
 }
 ?>
 </div>
+
 <?php
     $done_this = true;
 }

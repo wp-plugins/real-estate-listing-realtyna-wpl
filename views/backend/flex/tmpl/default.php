@@ -8,7 +8,7 @@ $this->_wpl_import($this->tpl_path . '.scripts.js');
 <div class="wrap wpl-wp flex-wp<?php echo ($this->kind == 2 ? ' user-flex': ''); ?>">
     <header>
         <div id="icon-flex" class="icon48"></div>
-        <h2><?php echo __(ucfirst($this->kind_label) . ' Data Structure', WPL_TEXTDOMAIN); ?></h2>
+        <h2><?php echo sprintf(__('%s Data Structure', WPL_TEXTDOMAIN), ucfirst($this->kind_label)); ?></h2>
     </header>
     <?php $this->include_tabs(); ?>
     <div class="wpl_flex_list"><div class="wpl_show_message"></div></div>
@@ -17,7 +17,7 @@ $this->_wpl_import($this->tpl_path . '.scripts.js');
         <div class="side-2 side-tabs-wp">
             <ul>
                 <?php foreach ($this->field_categories as $category): ?>
-				<li><a href="#<?php echo __($category->id); ?>" class="wpl_slide_label wpl_slide_label_prefix_<?php echo $category->prefix; ?>" id="wpl_slide_label_id<?php echo $category->id; ?>" onclick="rta.internal.slides.open('<?php echo $category->id; ?>', '.side-tabs-wp', '.wpl_slide_container', 'currentTab');"><?php echo __($category->name, WPL_TEXTDOMAIN); ?></a></li>
+				<li><a href="#<?php echo $category->id; ?>" class="wpl_slide_label wpl_slide_label_prefix_<?php echo $category->prefix; ?>" id="wpl_slide_label_id<?php echo $category->id; ?>" onclick="rta.internal.slides.open('<?php echo $category->id; ?>', '.side-tabs-wp', '.wpl_slide_container', 'currentTab');"><?php echo __($category->name, WPL_TEXTDOMAIN); ?></a></li>
                 <?php endforeach; ?>
             </ul>
         </div>

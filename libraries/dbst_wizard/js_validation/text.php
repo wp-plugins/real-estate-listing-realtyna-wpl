@@ -4,7 +4,7 @@ defined('_WPLEXEC') or die('Restricted access');
 
 if(in_array($mandatory, array(1, 2)))
 {
-    if($field->multilingual == 1 and wpl_global::check_multilingual_status())
+    if(isset($field->multilingual) and $field->multilingual == 1 and wpl_global::check_multilingual_status())
     {
         $default_language = wpl_addon_pro::get_default_language();
         $js_string .=

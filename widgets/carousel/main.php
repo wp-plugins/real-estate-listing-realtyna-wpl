@@ -15,12 +15,12 @@ _wpl_import('libraries.sort_options');
  */
 class wpl_carousel_widget extends wpl_widget
 {
-	var $wpl_tpl_path = 'widgets.carousel.tmpl';
-	var $wpl_backend_form = 'widgets.carousel.form';
-	var $listing_specific_array = array();
-	var $property_type_specific_array = array();
-	var $widget_id;
-	var $widget_uq_name; # widget unique name
+	public $wpl_tpl_path = 'widgets.carousel.tmpl';
+	public $wpl_backend_form = 'widgets.carousel.form';
+	public $listing_specific_array = array();
+	public $property_type_specific_array = array();
+	public $widget_id;
+	public $widget_uq_name; # widget unique name
 	
 	public function __construct()
 	{

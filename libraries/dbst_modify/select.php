@@ -50,8 +50,7 @@ function wpl_flex_disable_param(param_id)
 			</div>
 			<?php
 				/** include main file * */
-				$path = _wpl_import('libraries.dbst_modify.main.main', true, true);
-				include $path;
+				include _wpl_import('libraries.dbst_modify.main.main', true, true);
 			?>
 		</div>
 		<div class="col-fanc-right" id="wpl_flex_specific_options">
@@ -60,8 +59,7 @@ function wpl_flex_disable_param(param_id)
 			</div>
 			<?php
 				/** include specific file * */
-				$path = _wpl_import('libraries.dbst_modify.main.'.($kind == 2 ? 'user' : '').'specific', true, true);
-				include $path;
+				include _wpl_import('libraries.dbst_modify.main.'.($kind == 2 ? 'user' : '').'specific', true, true);
 			?>
 			<div class="fanc-row fanc-inline-title">
 				<span>
@@ -87,6 +85,17 @@ function wpl_flex_disable_param(param_id)
 			</script>
 		</div>
 	</div>
+    <div class="col-wp">
+        <div class="col-fanc-left">
+        	<div class="fanc-row fanc-inline-title">
+                <?php echo __('Accesses', WPL_TEXTDOMAIN); ?>
+            </div>
+            <?php
+				/** include accesses file **/
+				include _wpl_import('libraries.dbst_modify.main.accesses', true, true);
+            ?>
+        </div>
+    </div>
 </div>
 <?php
     $done_this = true;

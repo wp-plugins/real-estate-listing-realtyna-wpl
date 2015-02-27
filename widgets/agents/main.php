@@ -15,10 +15,10 @@ _wpl_import('libraries.sort_options');
  */
 class wpl_agents_widget extends wpl_widget
 {
-	var $wpl_tpl_path = 'widgets.agents.tmpl';
-	var $wpl_backend_form = 'widgets.agents.form';
-	var $widget_id;
-	var $widget_uq_name; # widget unique name
+	public $wpl_tpl_path = 'widgets.agents.tmpl';
+	public $wpl_backend_form = 'widgets.agents.form';
+	public $widget_id;
+	public $widget_uq_name; # widget unique name
 	
 	public function __construct()
 	{

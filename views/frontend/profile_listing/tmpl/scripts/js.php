@@ -5,6 +5,42 @@ defined('_WPLEXEC') or die('Restricted access');
 <script type="text/javascript">
 wplj(document).ready(function()
 {
+    <?php if($this->property_css_class == 'row_box'): ?>
+    setTimeout(function(){wpl_tooltip_rename('data-original-title', 'data-raw-title')}, 1000);
+    <?php endif; ?>
+    
+    wplj('#list_view').click(function()
+    {
+        wplj('#grid_view').removeClass('active');
+        wplj('#list_view').addClass('active');
+        
+        wpl_set_property_css_class('row_box');
+        
+        wplj('.wpl_profile_container').animate({opacity:0},function()
+        {
+            wplj(this).removeClass('grid_box').addClass('row_box');
+            wplj(this).stop().animate({opacity:1});
+        });
+        
+        wpl_tooltip_rename('data-original-title', 'data-raw-title');
+    });
+
+    wplj('#grid_view').click(function()
+    {
+        wplj('#list_view').removeClass('active');
+        wplj('#grid_view').addClass('active');
+        
+        wpl_set_property_css_class('grid_box');
+        
+        wplj('.wpl_profile_container').animate({opacity:0},function()
+        {
+            wplj(this).removeClass('row_box').addClass('grid_box');
+            wplj(this).stop().animate({opacity:1});
+        });
+        
+        wpl_tooltip_rename('data-raw-title', 'data-original-title');
+    });
+    
 	main_win_size = wplj(window).width();
 	if((main_win_size <= 480 ))
 	{
@@ -54,5 +90,33 @@ function wpl_pagesize_changed(page_size)
 	
 	url = wpl_update_qs('limit', page_size, url);
 	window.location = url;
+}
+
+var wpl_current_property_css_class;
+function wpl_set_property_css_class(pcc)
+{
+    wpl_current_property_css_class = pcc;
+    
+    wplj.ajax(
+    {
+        url: '<?php echo wpl_global::get_full_url(); ?>',
+        data: 'wpl_format=f:property_listing:ajax&wpl_function=set_pcc&pcc='+pcc,
+        type: 'GET',
+        dataType: 'json',
+        cache: false,
+        success: function(data)
+        {
+        }
+    });
+}
+
+function wpl_tooltip_rename(name, new_name)
+{
+    wplj('.wpl_profile_container ul li').each(function()
+    {
+        var val = wplj.attr(this, name);
+        wplj.attr(this, new_name, val);
+        wplj.removeAttr(this, name);
+    });
 }
 </script>

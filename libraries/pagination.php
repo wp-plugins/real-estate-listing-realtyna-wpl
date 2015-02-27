@@ -9,6 +9,7 @@ defined('_WPLEXEC') or die('Restricted access');
  * @script Version: 0.4
  * @author: Victor De la Rocha
  * @author URI: http://www.mis-algoritmos.com
+ * @package WPL
  */
 class wpl_pagination
 {

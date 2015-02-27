@@ -2,7 +2,10 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 
+/** Import WordPress pluggable functions **/
 _wp_import('wp-includes.pluggable');
+
+/** Import WPL libraries **/
 _wpl_import('libraries.items');
 _wpl_import('libraries.flex');
 
@@ -10,27 +13,32 @@ _wpl_import('libraries.flex');
  * Users Library
  * @author Howard R <howard@realtyna.com>
  * @since WPL1.0.0
+ * @package WPL
  * @date 03/01/2013
  */
 class wpl_users
 {
-	/**
-		@input {category}, [kind] and [enabled]
-		@return boolean result
-		@description for deleting user from wpl
-		@author Howard
-	**/
+    /**
+     * Returns plisting fields of profiles
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param type $category
+     * @param type $kind
+     * @param type $enabled
+     * @return type
+     */
 	public static function get_plisting_fields($category = '', $kind = 2, $enabled = 1)
 	{
 		return wpl_flex::get_fields($category, $enabled, $kind, 'plisting', '1');
 	}
 	
-	/**
-		@input {user_id}
-		@return boolean result
-		@description for deleting user from wpl
-		@author Howard
-	**/
+    /**
+     * Removes a user from WPL
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $user_id
+     * @return int affected rows
+     */
 	public static function delete_user_from_wpl($user_id)
 	{
 		$query = "DELETE FROM `#__wpl_users` WHERE `id`='$user_id'";
@@ -91,12 +99,14 @@ class wpl_users
 		return $result;
 	}
 	
-	/**
-		@input {args} and [add_data]
-		@return users object
-		@description for getting all wordpress users (included wpl data)
-		@author Howard
-	**/
+    /**
+     * Returns All WordPress users. Wrapper for WordPress get_users function
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param array $args
+     * @param boolean $add_data
+     * @return array
+     */
 	public static function get_all_wp_users($args, $add_data = false)
 	{
 		$users = get_users($args);
@@ -111,40 +121,41 @@ class wpl_users
 		return $users;
 	}
 	
-	/**
-		@input {args} and [add_data]
-		@return query result
-		@description for getting wordpress users
-		@author Howard
-	**/
-	public static function get_wp_users($query = '')
+    /**
+     * Returns WordPress users
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $condition
+     * @return array
+     */
+	public static function get_wp_users($condition = '')
 	{
-		$query = "SELECT * FROM `#__users` AS u LEFT JOIN `#__wpl_users` AS wpl ON u.ID = wpl.id WHERE 1 $query";
+		$query = "SELECT * FROM `#__users` AS u LEFT JOIN `#__wpl_users` AS wpl ON u.ID = wpl.id WHERE 1 $condition";
+		return wpl_db::select($query);
+	}
+	
+    /**
+     * Returns WPL users
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $condition
+     * @return array
+     */
+	public static function get_wpl_users($condition = '')
+	{
+		$query = "SELECT * FROM `#__users` AS u INNER JOIN `#__wpl_users` AS wpl ON u.ID = wpl.id WHERE 1 $condition";
 		$users = wpl_db::select($query);
 		
 		return $users;
 	}
 	
-	/**
-		@input {args} and [add_data]
-		@return query result
-		@description for getting wordpress users included in WPL
-		@author Howard
-	**/
-	public static function get_wpl_users($query = '')
-	{
-		$query = "SELECT * FROM `#__users` AS u INNER JOIN `#__wpl_users` AS wpl ON u.ID = wpl.id WHERE 1 $query";
-		$users = wpl_db::select($query);
-		
-		return $users;
-	}
-	
-	/**
-		@input [user_id]
-		@return query result
-		@description for getting all user data (included wordpress and wpl data)
-		@author Howard
-	**/
+    /**
+     * Returns full data of a user
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $user_id
+     * @return array
+     */
 	public static function get_user($user_id = '')
 	{
 		/** fetch currenr user data if user id is empty **/
@@ -159,12 +170,13 @@ class wpl_users
 		return $user_data;
 	}
 	
-	/**
-		@input [user_id]
-		@return query result
-		@description for getting user data (just wpl data)
-		@author Howard
-	**/
+    /**
+     * Returns WPL data of a user
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $user_id
+     * @return object
+     */
 	public static function get_wpl_user($user_id = '')
 	{
 		/** load current user **/
@@ -174,12 +186,15 @@ class wpl_users
 		return wpl_db::select($query, 'loadObject');
 	}
 	
-	/**
-		@input [user_id], [key] and [single]
-		@return query result
-		@description for getting user meta data
-		@author Howard
-	**/
+    /**
+     * Returns user meta
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $user_id
+     * @param string $key
+     * @param string $single
+     * @return boolean
+     */
 	public static function get_user_meta($user_id = '', $key = '', $single = '')
 	{
 		$rendered_meta = array();
@@ -198,35 +213,67 @@ class wpl_users
 		return $rendered_meta;
 	}
 	
-	/**
-		@input [user_id]
-		@return query result
-		@description for getting user meta data
-		@author Howard
-	**/
+    /**
+     * Returns WPL data of a user
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $user_id
+     * @return object
+     */
 	public static function get_wpl_data($user_id = '')
 	{
 		if(trim($user_id) == '') $user_id = self::get_cur_user_id();
 		return wpl_db::get('*', 'wpl_users', 'id', $user_id);
 	}
 	
-	/**
-		@input void
-		@return int user_id
-		@description for getting current user id
-		@author Howard
-	**/
+    /**
+     * Returns current user ID
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @return int
+     */
 	public static function get_cur_user_id()
 	{
 		return get_current_user_id();
 	}
+    
+    /**
+     * Get membership ID of a user
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $user_id
+     * @return int
+     */
+    public static function get_user_membership($user_id = NULL)
+	{
+        /** Current User **/
+        if(is_null($user_id)) $user_id = self::get_cur_user_id();
+        
+		return wpl_db::get('membership_id', 'wpl_users', 'id', $user_id);
+	}
+    
+    /**
+     * Get user type of a user
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $user_id
+     * @return int
+     */
+    public static function get_user_user_type($user_id = NULL)
+	{
+        /** Current User **/
+        if(is_null($user_id)) $user_id = self::get_cur_user_id();
+        
+		return wpl_db::get('membership_type', 'wpl_users', 'id', self::get_user_membership($user_id));
+	}
 	
-	/**
-		@input {username}
-		@return user id
-		@description for getting user id by username
-		@author Howard
-	**/
+    /**
+     * Returns User ID by username
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $username
+     * @return int|boolean
+     */
 	public static function get_id_by_username($username)
 	{
         /** first validation **/
@@ -239,12 +286,13 @@ class wpl_users
         else return 0;
 	}
 	
-	/**
-		@input {username}
-		@return user id
-		@description for getting user id by username
-		@author Howard
-	**/
+    /**
+     * Returns User ID by email
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $email
+     * @return int|boolean
+     */
 	public static function get_id_by_email($email)
 	{
         /** first validation **/
@@ -257,23 +305,25 @@ class wpl_users
         else return 0;
 	}
 	
-	/**
-		@input void
-		@return string ip
-		@description for getting current ip
-		@author Howard
-	**/
+    /**
+     * Return IP of website visitor
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @return string
+     */
 	public static function get_current_ip()
 	{
 		return wpl_request::getVar('REMOTE_ADDR', '', 'SERVER');
 	}
 	
-	/**
-		@input [user_id]
-		@return wp role of user
-		@description for getting user role (wp feature)
-		@author Howard
-	**/
+    /**
+     * Returns role of user
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $user_id
+     * @param boolean $superadmin_role
+     * @return string
+     */
 	public static function get_role($user_id = '', $superadmin_role = true)
 	{
 		$user_data = self::get_user($user_id);
@@ -285,11 +335,12 @@ class wpl_users
         return $role;
 	}
 	
-	/**
-		@input void
-		@return array roles
-		@author Howard
-	**/
+    /**
+     * Returns WPL roles
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @return string
+     */
 	public static function get_wpl_roles()
 	{
 		$roles = array();
@@ -304,11 +355,13 @@ class wpl_users
 		return $roles;
 	}
 	
-	/**
-		@input {role}
-		@return role point
-		@author Howard
-	**/
+    /**
+     * Get role point
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $role
+     * @return int
+     */
 	public static function get_role_point($role)
 	{
 		/** get all roles **/
@@ -329,12 +382,14 @@ class wpl_users
 		return $roles_point[$role];
 	}
 	
-	/**
-		@input {caps} and {user_id}
-		@return boolean
-		@description for checking if user have the capability or not
-		@author Howard
-	**/
+    /**
+     * Checks if user have the capability or not
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param array $caps
+     * @param int $user_id
+     * @return boolean
+     */
 	public static function is($caps, $user_id)
 	{
 		$result = false;
@@ -356,12 +411,13 @@ class wpl_users
 		return $result;
 	}
 	
-	/**
-		@input void
-		@return object memberships
-		@description for getting wpl memberships
-		@author Morgan
-	**/
+    /**
+     * Returns WPL memberships
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $condition
+     * @return objects
+     */
 	public static function get_wpl_memberships($condition = NULL)
 	{
 		$query = "SELECT * FROM `#__wpl_users` WHERE 1 AND `id` < 0 ".(trim($condition) ? $condition : '')." ORDER BY `index` ASC";
@@ -458,12 +514,12 @@ class wpl_users
 		return true;
 	}
     
-	/**
-		@input void
-		@return in membership id
-		@description for getting unique id for new membership
-		@author Morgan
-	**/
+    /**
+     * Returns Unique new membership id
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @return int
+     */
 	public static function get_membership_id()
 	{
 		$query = "SELECT MIN(id) as min_id FROM `#__wpl_users`";
@@ -473,12 +529,13 @@ class wpl_users
 		return ($result-1);
 	}
 	
-	/**
-		@input {membership_id}
-		@return boolean
-		@description for removing a membership
-		@author Howard
-	**/
+    /**
+     * Removes a membership
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $membership_id
+     * @return boolean
+     */
 	public static function remove_membership($membership_id)
 	{
 		/** don't remove default and guest membership **/
@@ -496,36 +553,43 @@ class wpl_users
 		return true;
 	}
 	
-	/**
-		@input {membership_id}
-		@return object membership_data
-		@description for getting a membership data
-		@author Morgan
-	**/
+    /**
+     * Returns Data of a specific membership
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $membership_id
+     * @return object
+     */
 	public static function get_membership($membership_id)
 	{
 		$query = "SELECT * FROM `#__wpl_users` WHERE `id`='$membership_id'";
 		return wpl_db::select($query, 'loadObject');
 	}
-		
-	/**
-		@input {table}, {key}, {unit_id} and [value]
-		@return boolean result
-		@author Howard
-	**/
+	
+    /**
+     * Updates a user record
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $table
+     * @param int $id
+     * @param string $key
+     * @param mixed $value
+     * @return boolean
+     */
 	public static function update($table = 'wpl_users', $id, $key, $value = '')
 	{
 		/** first validation **/
 		if(trim($table) == '' or trim($id) == '' or trim($key) == '') return false;
 		return wpl_db::set($table, $id, $key, $value);
 	}
-	
-	/**
-		@input {user_id}
-		@return boolean result
-		@description for checking if a user is wordpress admin or not
-		@author Howard
-	**/
+    
+    /**
+     * Check is user is administrator or not
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $user_id
+     * @return boolean
+     */
 	public static function is_administrator($user_id = '')
 	{
 		/** get current user id **/
@@ -539,13 +603,14 @@ class wpl_users
 		return $administrator;
 	}
 	
-	/**
-		@input {user_id}
-		@return boolean result
-		@description for checking if a user is wordpress network admin or not
-            USE is_administrator FUNCTION IF YOU WANT TO CHECK ADMIN. this function is checking super admin (Network admin)
-		@author Howard
-	**/
+    /**
+     * for checking if a user is wordpress network admin or not.
+     * USE is_administrator FUNCTION IF YOU WANT TO CHECK ADMIN. this function is checking super admin (Network admin)
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $user_id
+     * @return boolean
+     */
 	public static function is_super_admin($user_id = '')
 	{
 		/** get current user id **/
@@ -555,12 +620,13 @@ class wpl_users
 		return is_super_admin($user_id);
 	}
 	
-	/**
-		@input {user_id}
-		@return boolean result
-		@description for checking if a user is added to wpl or not
-		@author Howard
-	**/
+    /**
+     * Check if user is added to WPL or not
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $user_id
+     * @return boolean
+     */
 	public static function is_wpl_user($user_id = '')
 	{
 		/** get current user id **/
@@ -572,13 +638,15 @@ class wpl_users
 		if(!$result) return false;
 		else return true;
 	}
-	
-	/**
-		@input {user_id} and {membership_id}
-		@return void
-		@description use this function for changing membership of a user
-		@author Howard
-	**/
+    
+    /**
+     * Changes Membership of a user
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $user_id
+     * @param int $membership_id
+     * @param boolean $trigger_event
+     */
 	public static function change_membership($user_id, $membership_id = -1, $trigger_event = true)
 	{
 		$user_data = wpl_users::get_wpl_data($user_id);
@@ -622,12 +690,15 @@ class wpl_users
 		elseif($trigger_event and $method == 'membership_changed') wpl_global::event_handler('user_membership_changed', $params);
 	}
 	
-	/**
-		@input {access}, [owner_id] and [user_id]
-		@return void
-		@description use this function for changing membership of a user
-		@author Howard
-	**/
+    /**
+     * Check Access for a specific user
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $access
+     * @param int $owner_id
+     * @param int $user_id
+     * @return boolean
+     */
 	public static function check_access($access, $owner_id = 0, $user_id = '')
 	{
 		/** get current user id **/
@@ -667,12 +738,14 @@ class wpl_users
 		return false;
 	}
 	
-	/**
-		@input {user_id} and [condition]
-		@return void
-		@description use this function for getting count of properties
-		@author Howard
-	**/
+    /**
+     * Return User Property Count
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $user_id
+     * @param string $condition
+     * @return int
+     */
 	public static function get_users_properties_count($user_id = '', $condition = '')
 	{
 		/** get current user id **/
@@ -681,18 +754,16 @@ class wpl_users
 		$query = "SELECT COUNT(id) FROM `#__wpl_properties` WHERE `user_id`='$user_id' ".$condition;
 		return wpl_db::select($query, 'loadResult');
 	}
-	
-	/**
-		@inputs {start}, {limit}, {orderby}, {order}, {where}
-		@param int $start
-		@param int $limit
-		@param string $orderby
-		@param string $order
-		@param array $where
-		@return void
-		@description for start property model use this function for configuration
-		@author Howard
-	**/
+    
+    /**
+     * Starts the search command
+     * @author Howard R <howard@realtyna.com>
+     * @param int $start
+     * @param int $limit
+     * @param string $orderby
+     * @param string $order
+     * @param array $where
+     */
 	public function start($start, $limit, $orderby, $order, $where)
     {
 		/** start time of model **/
@@ -719,12 +790,10 @@ class wpl_users
 		$this->select = '*';
     }
 	
-	/**
-		@inputs void
-		@return string $quert
-		@description this functions creates complete query
-		@author Howard
-	**/
+    /**
+     * @author Howard R <howard@realtyna.com>
+     * @return string
+     */
 	public function query()
     {
 		$this->query  = "SELECT ".$this->select;
@@ -738,25 +807,33 @@ class wpl_users
 		
 		return $this->query;
     }
-	
-	/** [TODO] **/
+    
+    /**
+     * @author Howard R <howard@realtyna.com>
+     * @todo
+     * @return string
+     */
 	public function create_join()
 	{
 		return '';
 	}
 	
-	/** [TODO] **/
+    /**
+     * @author Howard R <howard@realtyna.com>
+     * @todo
+     * @return string
+     */
 	public function create_groupby()
 	{
 		return '';
 	}
-	
-	/**
-		@inputs string $query
-		@return object $properties
-		@description use this function for running query and fetch the result
-		@author Howard
-	**/
+    
+    /**
+     * Run search command of profiles
+     * @author Howard R <howard@realtyna.com>
+     * @param string $query
+     * @return string
+     */
 	public function search($query = '')
     {
         if(!trim($query)) $query = $this->query;
@@ -764,13 +841,12 @@ class wpl_users
         $users = wpl_db::select($query);
         return $users;
     }
-	
-	/**
-		@inputs void
-		@return int $time_taken
-		@description this function is for calculating token time and total result
-		@author Howard
-	**/
+    
+    /**
+     * Calculates token time and total result
+     * @author Howard R <howard@realtyna.com>
+     * @return int
+     */
 	public function finish()
 	{
 		$this->finish_time = microtime(true);
@@ -790,11 +866,14 @@ class wpl_users
         return wpl_db::select($query, 'loadResult');
     }
 	
-	/**
-		@inputs {user_id}, [target_id]
-		@return profile_show full link
-		@author Howard
-	**/
+    /**
+     * Returns User Profile Link
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $user_id
+     * @param int $target_id
+     * @return string
+     */
 	public static function get_profile_link($user_id = '', $target_id = 0)
 	{
 		/** fetch currenr user data if user id is empty **/
@@ -827,27 +906,30 @@ class wpl_users
 		
         return $url;
     }
-	
-	/**
-		@inputs [params]
-		@return array or html
-		@description Use this function for generating sort options
-		@author Howard
-	**/
+    
+    /**
+     * Generates Sort Options
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param array $params
+     * @return array
+     */
 	public function generate_sorts($params = array())
 	{
 		include _wpl_import('views.basics.sorts.profile_listing', true, true);
 		return $result;
 	}
 	
-	/**
-		@inputs {property data}, [fields] and [finds]
-		@param property data should be raw data from wpl_properties table
-		@param fields should be an object of dbst fields
-		@param finds detected files array
-		@return rendered data
-		@author Howard
-	**/
+    /**
+     * Renders profile data
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param array $profile
+     * @param array $fields
+     * @param array $finds
+     * @param boolean $material
+     * @return array
+     */
 	public static function render_profile($profile, $fields, &$finds = array(), $material = false)
 	{
 		_wpl_import('libraries.property');
@@ -871,23 +953,46 @@ class wpl_users
         return wp_create_user($username, $password, $email);
     }
     
-	/**
-		@inputs {user_id}
-		@description This function finalizes user profile and triggering events
-		@author Howard
-	**/
+    /**
+     * Finalize User Profile
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $user_id
+     * @return boolean
+     */
 	public static function finalize($user_id)
 	{
 		/** create folder **/
 		$folder_path = wpl_items::get_path($user_id, 2);
 		if(!wpl_folder::exists($folder_path)) wpl_folder::create($folder_path);
 		
-		wpl_users::update_text_search_field($user_id);
-        wpl_users::update_location_text_search_field($user_id);
+        /** Multilingual **/
+        if(wpl_global::check_multilingual_status())
+        {
+            $languages = wpl_addon_pro::get_wpl_languages();
+            $current_language = wpl_global::get_current_language();
+            
+            foreach($languages as $language)
+            {
+                wpl_global::switch_language($language);
+            
+                /** Generate Rendered Data **/
+                wpl_users::generate_rendered_data($user_id);
+                wpl_users::update_text_search_field($user_id);
+            }
+            
+            /** Switch to current language again **/
+            wpl_global::switch_language($current_language);
+        }
+        else
+        {
+            /** Generate Rendered Data **/
+            wpl_users::generate_rendered_data($user_id);
+            wpl_users::update_text_search_field($user_id);
+        }
+        
+        /** Generate Email Files **/
 		wpl_users::generate_email_files($user_id);
-		
-		/** generate rendered data **/
-		if(wpl_settings::get('cache')) wpl_users::generate_rendered_data($user_id);
 		
         /** throwing event **/
         wpl_events::trigger('user_finalized', $user_id);
@@ -895,30 +1000,12 @@ class wpl_users
 		return true;
     }
 	
-	/**
-		@inputs {user_id}
-		@description This function is for updating location text search field
-		@author Howard
-	**/
-	public static function update_location_text_search_field($user_id)
-	{
-        $user_data = (array) wpl_users::get_wpl_user($user_id);
-        
-        /** User Data is invalid **/
-        if(!isset($user_data['location1_name'])) return false;
-        
-		$location_text = $user_data['location7_name'].', '.$user_data['location6_name'].', '.$user_data['location5_name'].', '.
-						 $user_data['location4_name'].', '.$user_data['location3_name'].', '.$user_data['location2_name'].', '.$user_data['location1_name'];
-		
-		$location_text = $user_data['zip_name'].', '.trim($location_text, ', ');
-		wpl_db::set('wpl_users', $user_id, 'location_text', trim(wpl_db::escape($location_text), ', '));
-    }
-	
-	/**
-		@inputs {user_id}
-		@description This function is for updating textsearch field
-		@author Howard
-	**/
+    /**
+     * Generate Text search field
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $user_id
+     */
 	public static function update_text_search_field($user_id)
 	{
         $user_data = (array) wpl_users::get_wpl_user($user_id);
@@ -928,7 +1015,6 @@ class wpl_users
 		$rendered = self::render_profile($user_data, $fields);
 		
 		$text_search_data = array();
-		
 		foreach($rendered as $data)
 		{
 			if((isset($data['type']) and !trim($data['type'])) or (isset($data['value']) and !trim($data['value']))) continue;
@@ -948,9 +1034,14 @@ class wpl_users
 				foreach($data['locations'] as $location_level=>$value)
 				{
 					$location_value .= $data['keywords'][$location_level] .' ';
-					$location_value .= $value . ' ';
+                    
+                    $abbr = wpl_locations::get_location_abbr_by_name($data['raw'][$location_level], $location_level);
+                    $name = wpl_locations::get_location_name_by_abbr($abbr, $location_level);
+                    
+                    $location_value .= $name . ' ' . ($name != $abbr ? $abbr.' ' : NULL);
 				}
 				
+                $location_value .= __('County', WPL_TEXTDOMAIN);
 				$value = $location_value;
 			}
 			elseif(isset($data['value']))
@@ -967,14 +1058,18 @@ class wpl_users
 			if(trim($value2) != '') $text_search_data[] = $value2;
 		}
 		
-		wpl_db::set('wpl_users', $user_id, 'textsearch', implode(' ', wpl_db::escape($text_search_data)));
+        $column = 'textsearch';
+        if(wpl_global::check_multilingual_status()) $column = wpl_addon_pro::get_column_lang_name($column, wpl_global::get_current_language(), false);
+        
+		wpl_db::set('wpl_users', $user_id, $column, implode(' ', wpl_db::escape($text_search_data)));
     }
 	
-	/**
-		@inputs {user_id}
-		@description This function is for generating email files of user
-		@author Howard
-	**/
+    /**
+     * Generate email files of user
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $user_id
+     */
 	public static function generate_email_files($user_id)
 	{
 		/** import library **/
@@ -991,11 +1086,13 @@ class wpl_users
 		if(is_object($user_data['data']) and trim($user_data['data']->wpl_data->secondary_email) != '') wpl_images::text_to_image($user_data['data']->wpl_data->secondary_email, '000000', $path.'second_email.png');
     }
 	
-	/**
-		@inputs {user_id}
-		@description this function will generate rendered data of user and save them into db
-		@author Howard
-	**/
+    /**
+     * This function will generate rendered data of user and save them into db
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $user_id
+     * @return string
+     */
 	public static function generate_rendered_data($user_id)
 	{
 		_wpl_import('libraries.render');
@@ -1011,7 +1108,11 @@ class wpl_users
         $rendered_fields = self::render_profile($user_data, wpl_users::get_plisting_fields(), $find_files, true);
         
 		$result = json_encode(array('rendered'=>$rendered_fields['ids'], 'materials'=>$rendered_fields['columns'], 'location_text'=>$location_text));
-		$query = "UPDATE `#__wpl_users` SET `rendered`='".wpl_db::escape($result)."', `location_text`='".wpl_db::escape($location_text)."' WHERE `id`='$user_id'";
+        
+        $column = 'rendered';
+        if(wpl_global::check_multilingual_status()) $column = wpl_addon_pro::get_column_lang_name($column, wpl_global::get_current_language(), false);
+        
+		$query = "UPDATE `#__wpl_users` SET `$column`='".wpl_db::escape($result)."' WHERE `id`='$user_id'";
 		
 		/** update **/
 		wpl_db::q($query, 'update');
@@ -1019,25 +1120,30 @@ class wpl_users
         return $result;
 	}
 	
-	/**
-		@inputs [user_data], {user_id} and {glue}
-		@return string location_text
-		@author Howard
-	**/
+    /**
+     * Generate location text of User
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param array $user_data
+     * @param int $user_id
+     * @param string $glue
+     * @return string
+     */
 	public static function generate_location_text($user_data, $user_id = 0, $glue = ',')
 	{
 		/** fetch user data if user id is setted **/
 		if($user_id) $user_data = (array) wpl_users::get_wpl_user($user_id);
-		
+		if(!$user_id) $user_id = $user_data['id'];
+        
 		$locations = array();
-        if(isset($user_data['location7_name']) and trim($user_data['location7_name']) != '') $locations['location7_name'] = $user_data['location7_name'];
-        if(isset($user_data['location6_name']) and trim($user_data['location6_name']) != '') $locations['location6_name'] = $user_data['location6_name'];
-		if(isset($user_data['location5_name']) and trim($user_data['location5_name']) != '') $locations['location5_name'] = $user_data['location5_name'];
-        if(isset($user_data['location4_name']) and trim($user_data['location4_name']) != '') $locations['location4_name'] = $user_data['location4_name'];
-        if(isset($user_data['location3_name']) and trim($user_data['location3_name']) != '') $locations['location3_name'] = $user_data['location3_name'];
-        if(isset($user_data['location2_name']) and trim($user_data['location2_name']) != '') $locations['location2_name'] = $user_data['location2_name'];
-        if(isset($user_data['zip_name']) and trim($user_data['zip_name']) != '') $locations['zip_name'] = $user_data['zip_name'];
-        if(isset($user_data['location1_name']) and trim($user_data['location1_name']) != '') $locations['location1_name'] = $user_data['location1_name'];
+        if(isset($user_data['location7_name']) and trim($user_data['location7_name']) != '') $locations['location7_name'] = __($user_data['location7_name'], WPL_TEXTDOMAIN);
+        if(isset($user_data['location6_name']) and trim($user_data['location6_name']) != '') $locations['location6_name'] = __($user_data['location6_name'], WPL_TEXTDOMAIN);
+		if(isset($user_data['location5_name']) and trim($user_data['location5_name']) != '') $locations['location5_name'] = __($user_data['location5_name'], WPL_TEXTDOMAIN);
+        if(isset($user_data['location4_name']) and trim($user_data['location4_name']) != '') $locations['location4_name'] = __($user_data['location4_name'], WPL_TEXTDOMAIN);
+        if(isset($user_data['location3_name']) and trim($user_data['location3_name']) != '') $locations['location3_name'] = __($user_data['location3_name'], WPL_TEXTDOMAIN);
+        if(isset($user_data['location2_name']) and trim($user_data['location2_name']) != '') $locations['location2_name'] = __($user_data['location2_name'], WPL_TEXTDOMAIN);
+        if(isset($user_data['zip_name']) and trim($user_data['zip_name']) != '') $locations['zip_name'] = __($user_data['zip_name'], WPL_TEXTDOMAIN);
+        if(isset($user_data['location1_name']) and trim($user_data['location1_name']) != '') $locations['location1_name'] = __($user_data['location1_name'], WPL_TEXTDOMAIN);
         
         $location_pattern = wpl_global::get_setting('user_location_pattern');
         if(trim($location_pattern) == '') $location_pattern = '[location5_name][glue][location4_name][glue][location3_name][glue][location2_name][glue][location1_name] [zip_name]';
@@ -1053,6 +1159,10 @@ class wpl_users
         $location_text = isset($locations['location1_name']) ? str_replace('[location1_name]', $locations['location1_name'], $location_text) : str_replace('[location1_name]', '', $location_text);
         $location_text = str_replace('[glue]', $glue, $location_text);
         
+        /** apply filters **/
+		_wpl_import('libraries.filters');
+		@extract(wpl_filters::apply('generate_user_location_text', array('location_text'=>$location_text, 'glue'=>$glue, 'user_data'=>$user_data)));
+        
         $final = '';
         $ex = explode($glue, $location_text);
         
@@ -1063,15 +1173,31 @@ class wpl_users
             $final .= trim($value).$glue.' ';
         }
         
-		return trim($final, ', ');
+        $location_text = trim($final, $glue.' ');
+        
+        $column = 'location_text';
+        $field_id = wpl_flex::get_dbst_id($column, 2);
+        $field = wpl_flex::get_field($field_id);
+        
+        if(isset($field->multilingual) and $field->multilingual and wpl_global::check_multilingual_status()) $column = wpl_addon_pro::get_column_lang_name($column, wpl_global::get_current_language(), false);
+        
+        /** update **/
+		$query = "UPDATE `#__wpl_users` SET `$column`='".$location_text."' WHERE `id`='$user_id'";
+		wpl_db::q($query, 'update');
+        
+        return $location_text;
     }
 	
-	/**
-		@inputs {user}
-		@return array full render of user
-		@description This is a very useful function for rendering whole data of user. you need to just pass user_id and get everything!
-		@author Howard
-	**/
+    /**
+     * This is a very useful function for rendering whole data of user. you need to just pass user_id and get everything!
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $user_id
+     * @param array $plisting_fields
+     * @param array $profile
+     * @param array $params
+     * @return array
+     */
 	public static function full_render($user_id, $plisting_fields = NULL, $profile = NULL, $params = array())
 	{
 		/** get plisting fields **/
@@ -1080,10 +1206,13 @@ class wpl_users
 		$raw_data = (array) self::get_wpl_user($user_id);
 		if(!$profile) $profile = (object) $raw_data;
 		
+        $column = 'rendered';
+        if(wpl_global::check_multilingual_status()) $column = wpl_addon_pro::get_column_lang_name($column, wpl_global::get_current_language(), false);
+        
         /** generate rendered data if rendered data is empty **/
-        if(!trim($raw_data['rendered']) and wpl_settings::get('cache')) $rendered = json_decode(wpl_users::generate_rendered_data($user_id), true);
+        if(!trim($raw_data[$column]) and wpl_settings::get('cache')) $rendered = json_decode(wpl_users::generate_rendered_data($user_id), true);
         elseif(!wpl_settings::get('cache')) $rendered = array();
-        else $rendered = json_decode($raw_data['rendered'], true);
+        else $rendered = json_decode($raw_data[$column], true);
         
 		$result = array();
 		$result['data'] = (array) $profile;
@@ -1141,10 +1270,14 @@ class wpl_users
 		return $result;
 	}
 	
-	/**
-		@input string $username, string $password
-		@return result
-	**/
+    /**
+     * Authenticate a username and password
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $username
+     * @param string $password plain password
+     * @return int
+     */
 	public static function authenticate($username, $password)
 	{
 		$wp_auth = wp_authenticate($username, $password);
@@ -1164,26 +1297,25 @@ class wpl_users
 		return $result;
 	}
 	
-	/**
-		Developed by : Chris
-		Inputs : none
-		Outputs : boolean
-		Date : 2014-06-29
-		Description : This Conditional Tag checks if the current visitor is logged in. This is a boolean function, meaning it returns either TRUE or FALSE
-	**/
+    /**
+     * This Conditional Tag checks if the current visitor is logged in. This is a boolean function, meaning it returns either TRUE or FALSE
+     * @author Chris <chris@realtyna.com>
+     * @static
+     * @return boolean
+     */
 	public static function check_user_login()
 	{
 		if(is_user_logged_in()) return true;
 		else return false;
 	}
-	
-	/**
-		Developed by : Chris
-		Inputs : {user_data}[array]
-		Outputs : if successful, returns the newly-created user's user_id, otherwise returns a WP_Error object
-		Date : 2014-06-29
-		Description : Insert a user into the database. 
-	**/
+    
+    /**
+     * Insert a user into the database. if successful, returns the newly-created user's user_id, otherwise returns a WP_Error object
+     * @author Chris <chris@realtyna.com>
+     * @static
+     * @param array $user_data
+     * @return \WP_Error
+     */
 	public static function insert_user($user_data)
 	{
 		$acceptable_fileds = array('ID', 'user_pass', 'user_login', 'user_nicename', 'user_url', 'user_email', 'display_name', 'nickname', 'first_name', 'last_name', 'description', 'rich_editing', 'user_registered', 'role', 'jabber', 'aim', 'yim');
@@ -1205,13 +1337,14 @@ class wpl_users
 		}
 	}
 	
-	/**
-		Developed by : Chris
-		Inputs : {user_data}[array]
-		Outputs : if successful, returns the newly-created user's user_id, otherwise returns a WP_Error object
-		Date : 2014-06-29
-		Description : Authenticates a user with option to remember credentials
-	**/
+    /**
+     * Authenticates a user with option to remember credentials. if successful, returns the newly-created user's user_id, otherwise returns a WP_Error object
+     * @author Chris <chris@realtyna.com>
+     * @static
+     * @param array $user_data
+     * @param boolean $secure_cookie
+     * @return \WP_Error
+     */
 	public static function login_user($user_data, $secure_cookie = false)
 	{
 		$acceptable_fileds = array('user_login', 'user_password', 'remember');

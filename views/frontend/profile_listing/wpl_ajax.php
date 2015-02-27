@@ -9,10 +9,7 @@ class wpl_profile_listing_controller extends wpl_controller
 	{
 		$function = wpl_request::getVar('wpl_function');
         
-        if($function == 'contact_profile')
-        {
-            $this->contact_profile();
-        }
+        if($function == 'contact_profile') $this->contact_profile();
 	}
     
     private function contact_profile()

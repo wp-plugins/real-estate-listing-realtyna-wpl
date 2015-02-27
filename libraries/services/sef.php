@@ -6,6 +6,7 @@ defined('_WPLEXEC') or die('Restricted access');
  * SEF service
  * @author Howard <howard@realtyna.com>
  * @date 08/19/2013
+ * @package WPL
  */
 class wpl_service_sef
 {
@@ -39,13 +40,14 @@ class wpl_service_sef
                 $proeprty_id = wpl_request::getVar('pid', NULL);
                 if(!$proeprty_id) $proeprty_id = wpl_request::getVar('property_id', NULL);
             }
-		
+            
 			if(trim($wpl_qs) != '') $this->check_property_link($proeprty_id);
 			$this->set_property_page_params($proeprty_id);
 		}
 		elseif($this->view == 'profile_show')
 		{
 			$username = $wpl_qs;
+            
             if(trim($username) != '') $user_id = wpl_users::get_id_by_username($username);
             elseif(wpl_request::getVar('sf_select_user_id', 0)) $user_id = wpl_request::getVar('sf_select_user_id', 0);
             elseif(wpl_request::getVar('uid', 0)) $user_id = wpl_request::getVar('uid', 0);
@@ -68,6 +70,13 @@ class wpl_service_sef
 			_wpl_import('views.basics.features.wpl_'.$function);
             
 			$obj = new wpl_features_controller();
+			$obj->display();
+		}
+        elseif($this->view == 'addon_crm')
+		{
+			_wpl_import('views.frontend.addon_crm.wpl_main');
+            
+			$obj = new wpl_addon_crm_controller();
 			$obj->display();
 		}
         elseif($this->view == 'payments')
@@ -102,7 +111,7 @@ class wpl_service_sef
         $field_id = wpl_flex::get_dbst_id($column, wpl_property::get_property_kind($proeprty_id));
         $field = wpl_flex::get_field($field_id);
         
-        if($field->multilingual and wpl_global::check_multilingual_status()) $column = wpl_addon_pro::get_column_lang_name($column, wpl_global::get_current_language(), false);
+        if(isset($field->multilingual) and $field->multilingual and wpl_global::check_multilingual_status()) $column = wpl_addon_pro::get_column_lang_name($column, wpl_global::get_current_language(), false);
         
 		$property_alias = $proeprty_id.'-'.urldecode(wpl_db::get($column, 'wpl_properties', 'id', $proeprty_id));
 		

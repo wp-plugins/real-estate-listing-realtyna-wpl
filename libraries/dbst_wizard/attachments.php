@@ -14,6 +14,9 @@ if($type == 'attachments' and !$done_this)
     $ext_str = substr($ext_str, 0, -1);
     $ext_str = rtrim($ext_str, ';');
     $max_size = $options['file_size'];
+
+    // Load Handlebars Templates
+    echo wpl_global::load_js_template('dbst-wizard-attachment');
 ?>
 <div class="attach-btn-wp">
 	<div class="wpl-button button-1 button-upload">
@@ -116,7 +119,11 @@ wplj(document).ready(function()
 {
 	wplj("#ajax_att_sortable").sortable(
 	{
-		placeholder: "ui-state-highlight",
+        placeholder: "wpl-sortable-placeholder",
+        opacity: 0.7,
+        forcePlaceholderSize: true,
+        cursor: "move",
+        axis: "y",
 		stop: function (event, ui)
 		{
 			sort_str = "";
@@ -143,7 +150,7 @@ wplj(document).ready(function()
         maxFileSize:<?php echo $max_size * 1000; ?>,
         done: function (e, data)
         {
-            wplj.each(data.result.files, function (index, file)
+            wplj(data.result.files).each(function (index, file)
             {
                 if (file.error !== undefined)
                 {
@@ -151,8 +158,10 @@ wplj(document).ready(function()
                 }
                 else
                 {
-                    wplj(rta.template.bind(
-                    {
+
+                    var hbSource   = wplj("#dbst-wizard-attachment").html();
+                    var hbTemplate = Handlebars.compile(hbSource);
+                    var hbHTML     = hbTemplate({
                         att_counter: att_counter,
                         fileName: file.name,
                         enabled_title: "<?php echo addslashes(__('Enabled', WPL_TEXTDOMAIN)); ?>",
@@ -161,12 +170,19 @@ wplj(document).ready(function()
                         lblDesc: "<?php echo addslashes(__('Attachment Description', WPL_TEXTDOMAIN)); ?>",
                         lblCat: "<?php echo addslashes(__('Attachment Category', WPL_TEXTDOMAIN)); ?>",
                         attachCat: "<?php echo addslashes($attachment_categories_html); ?>"
-                    }, 'dbst-wizard-attachment')).appendTo('#ajax_att_sortable');
+                    });
+
+                    wplj(hbHTML).hide().appendTo('#ajax_att_sortable').slideDown();
 
                     att_counter++;
                 }
 
                 rta.internal.initChosen();
+
+            }).promise().done(function () {
+
+                wplj('#progress_att').hide();
+
             });
         },
         progressall: function (e, data)
@@ -214,7 +230,9 @@ function ajax_attachment_delete(attachment, id)
 		ajax = wpl_run_ajax_query("<?php echo wpl_global::get_full_url(); ?>", "wpl_format=b:listing:attachments&wpl_function=delete_attachment&pid=<?php echo $item_id; ?>&attachment="+encodeURIComponent(attachment)+"&kind=<?php echo $this->kind; ?>");
 		ajax.success(function (data)
 		{
-			wplj("#" + id).hide(500).remove();
+			wplj("#" + id).slideUp(function(){
+                wplj(this).remove();
+            });
 		});
 	}
 }

@@ -17,8 +17,7 @@ if($type == 'separator' and !$done_this)
 			</div>
 			<?php
 				/** include main file * */
-				$path = _wpl_import('libraries.dbst_modify.main.main', true, true);
-				include $path;
+				include _wpl_import('libraries.dbst_modify.main.main', true, true);
 			?>
 		</div>
 	</div>

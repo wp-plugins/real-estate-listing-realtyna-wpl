@@ -5,12 +5,14 @@ defined('_WPLEXEC') or die('Restricted access');
 <script type="text/javascript">
 wplj(document).ready(function()
 {
-    wplj('#bxslider_<?php echo $this->property_id; ?>').bxSlider(
+    wplj('#bxslider_<?php echo $this->property_id.'_'.$this->activity_id; ?>').bxSlider(
 	{
         mode: 'fade',
-        auto: <?php echo (count($this->gallery) > 1) ? 'true' : 'false'; ?>,
+        pause : 6000,
+        auto: <?php echo ($this->autoplay) ? 'true' : 'false'; ?>,
         captions: false,
-        controls: false,
+        controls: true,
+        adaptiveHeight: true,
         pagerCustom: '#bx-pager'
     });
 });

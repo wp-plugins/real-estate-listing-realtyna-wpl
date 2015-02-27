@@ -6,7 +6,7 @@ _wpl_import('libraries.qrcode');
 /** activity class **/
 class wpl_activity_main_qrcode extends wpl_activity
 {
-    var $tpl_path = 'views.activities.qrcode.tmpl';
+    public $tpl_path = 'views.activities.qrcode.tmpl';
 	
 	public function start($layout, $params)
 	{

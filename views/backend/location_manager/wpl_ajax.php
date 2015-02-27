@@ -7,8 +7,8 @@ _wpl_import('libraries.pagination');
 
 class wpl_location_manager_controller extends wpl_controller
 {
-	var $tpl_path = 'views.backend.location_manager.tmpl';
-	var $tpl;
+	public $tpl_path = 'views.backend.location_manager.tmpl';
+	public $tpl;
 	
 	public function display()
 	{

@@ -6,6 +6,7 @@ defined('_WPLEXEC') or die('Restricted access');
  * Process service
  * @author Howard <howard@realtyna.com>
  * @date 11/17/2013
+ * @package WPL
  */
 class wpl_service_process
 {

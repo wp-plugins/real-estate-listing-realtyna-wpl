@@ -6,6 +6,7 @@ defined('_WPLEXEC') or die('Restricted access');
  * Tour Service
  * @author Howard <howard@realtyna.com>
  * @date 9/13/2014
+ * @package WPL
  */
 class wpl_service_tips
 {

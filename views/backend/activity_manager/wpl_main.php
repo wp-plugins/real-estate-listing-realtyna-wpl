@@ -6,9 +6,9 @@ _wpl_import('libraries.activities');
 
 class wpl_activity_manager_controller extends wpl_controller
 {
-    var $tpl_path = 'views.backend.activity_manager.tmpl';
-    var $tpl;
-    var $activityPath;
+    public $tpl_path = 'views.backend.activity_manager.tmpl';
+    public $tpl;
+    public $activityPath;
 
     public function home()
     {
@@ -16,7 +16,7 @@ class wpl_activity_manager_controller extends wpl_controller
         wpl_global::min_access('administrator');
 
         // get list of all activity
-        $this->activities = wpl_activity::get_activities('', '');
+        $this->activities = wpl_activity::get_activities('', '', ' ORDER BY `index` ASC, `ID` DESC');
 		$this->available_activities = wpl_activity::get_available_activities();
 
         /** import tpl * */

@@ -4,12 +4,22 @@ defined('_WPLEXEC') or die('Restricted access');
 
 if($type == 'googlemap' and !$done_this)
 {
+    /** WPL Demographic addon **/
+    $demographic_objects = array();
+    if(wpl_global::check_addon('demographic'))
+    {
+        _wpl_import('libraries.addon_demographic');
+        $demographic = new wpl_addon_demographic();
+        
+        $demographic_objects = wpl_items::get_items($item_id, 'demographic', $kind);
+    }
+    
     $w = 450;
     $h = 300;
     $ln_table_col = 'googlemap_ln';
     $lt_table_col = 'googlemap_lt';
-
-    $javascript = (object) array('param1' => 'wpl-googlemap-api3', 'param2' => 'http' . (stristr(wpl_global::get_full_url(), 'https://') != '' ? 's' : '') . '://maps.google.com/maps/api/js?sensor=false', 'external' => true);
+    
+    $javascript = (object) array('param1'=>'wpl-googlemap-api3', 'param2'=>'http'.(stristr(wpl_global::get_full_url(), 'https://') != '' ? 's' : '').'://maps.google.com/maps/api/js?libraries=places,drawing&sensor=false', 'external'=>true);
     wpl_extensions::import_javascript($javascript);
 ?>
 <script type="text/javascript">
@@ -28,6 +38,9 @@ wplj(document).ready(function()
 
 var pw_map = '';
 var pw_marker = '';
+var polygonsArray = [];
+var polylinesArray = [];
+var bounds;
 
 function wpl_initialize()
 {
@@ -46,26 +59,39 @@ function wpl_initialize()
 		lt = lt_orig;
 		ln = ln_orig;
 	}
-
-	var myLatlng = new google.maps.LatLng(lt, ln);
+    
+    /** create empty LatLngBounds object **/
+	bounds = new google.maps.LatLngBounds();
+    
+	var marker_position = new google.maps.LatLng(lt, ln);
 	var myOptions = {
 		scrollwheel: false,
 		zoom: 11,
-		center: myLatlng,
+		center: marker_position,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	}
 
 	pw_map = new google.maps.Map(document.getElementById("wpl_map_canvas<?php echo $field->id; ?>"), myOptions);
-
+    
+    /** restore the zoom level after the map is done scaling **/
+	var pw_listener = google.maps.event.addListener(pw_map, 'idle', function(event)
+	{
+        pw_map.fitBounds(bounds);
+		google.maps.event.removeListener(pw_listener);
+	});
+    
 	/** marker **/
 	pw_marker = new google.maps.Marker(
 	{
-		position: myLatlng,
+		position: marker_position,
 		map: pw_map,
 		draggable: true,
 		title: "<?php echo addslashes(__('Position of property', WPL_TEXTDOMAIN)); ?>"
 	});
-
+    
+    /** extend the bounds **/
+  	bounds.extend(pw_marker.position);
+    
 	google.maps.event.addListener(pw_marker, "dragend", function(event)
 	{
 		var curpos = event.latLng;
@@ -84,6 +110,10 @@ function wpl_initialize()
 		address = wplj('#wpl_map_address<?php echo $field->id; ?>').val();
 		wpl_code_address(address);
 	}
+    
+    <?php if(wpl_global::check_addon('demographic')): ?>
+    init_dmgfc();
+    <?php endif; ?>
 }
 
 function wpl_code_address(address)
@@ -194,6 +224,216 @@ function wpl_address_creator()
     
 	wplj('#wpl_map_address<?php echo $field->id; ?>').val(address);
 	if (orig_address != address) wpl_code_address(address);
+}
+
+function init_dmgfc()
+{
+	drawingManager = new google.maps.drawing.DrawingManager(
+    {
+		drawingControl: true,
+		drawingControlOptions:
+        {
+			position: google.maps.ControlPosition.TOP_CENTER,
+			drawingModes: [
+                google.maps.drawing.OverlayType.POLYGON,
+                google.maps.drawing.OverlayType.POLYLINE
+			]
+		},
+		polygonOptions:
+        {
+            strokeColor: '#1e74c7',
+            strokeOpacity: 0.6,
+            strokeWeight: 1,
+            editable: true,
+            fillColor: '#1e90ff',
+            fillOpacity: 0.3
+        },
+        polylineOptions:
+        {
+            strokeColor: '#1e74c7',
+            strokeOpacity: 1.0,
+            strokeWeight: 2,
+            editable: true
+        },
+		map: pw_map
+	});
+    
+    google.maps.event.addListener(drawingManager, 'overlaycomplete', function(event)
+	{
+        drawingManager.setOptions({drawingMode: null});
+        
+        var overlay = event.overlay;
+        wpl_dmgfc_set_boundaries(overlay, event.type);
+        
+        if(event.type == google.maps.drawing.OverlayType.POLYGON)
+        {
+            /** delete overlays **/
+            for(var i = 0; i < polygonsArray.length; i++) polygonsArray[i].setMap(null);
+            polygonsArray = new Array();
+            
+            /** push to array **/
+            polygonsArray.push(overlay);
+        }
+        else if(event.type == google.maps.drawing.OverlayType.POLYLINE)
+        {
+            /** delete overlays **/
+            for(var i = 0; i < polylinesArray.length; i++) polylinesArray[i].setMap(null);
+            polylinesArray = new Array();
+            
+            /** push to array **/
+            polylinesArray.push(overlay);
+        }
+        
+        /** POLYGON **/
+        if(event.type == google.maps.drawing.OverlayType.POLYGON)
+        {
+            overlay.getPaths().forEach(function(path, index)
+            {
+                google.maps.event.addListener(path, 'insert_at', function()
+                {
+                    wpl_dmgfc_set_boundaries(overlay, google.maps.drawing.OverlayType.POLYGON);
+                });
+
+                google.maps.event.addListener(path, 'remove_at', function()
+                {
+                    wpl_dmgfc_set_boundaries(overlay, google.maps.drawing.OverlayType.POLYGON);
+                });
+
+                google.maps.event.addListener(path, 'set_at', function()
+                {
+                    wpl_dmgfc_set_boundaries(overlay, google.maps.drawing.OverlayType.POLYGON);
+                });
+            });
+        }
+        else if(event.type == google.maps.drawing.OverlayType.POLYLINE)
+        {
+            google.maps.event.addListener(overlay.getPath(), 'insert_at', function()
+            {
+                wpl_dmgfc_set_boundaries(overlay, google.maps.drawing.OverlayType.POLYLINE);
+            });
+
+            google.maps.event.addListener(overlay.getPath(), 'remove_at', function()
+            {
+                wpl_dmgfc_set_boundaries(overlay, google.maps.drawing.OverlayType.POLYLINE);
+            });
+
+            google.maps.event.addListener(overlay.getPath(), 'set_at', function()
+            {
+                wpl_dmgfc_set_boundaries(overlay, google.maps.drawing.OverlayType.POLYLINE);
+            });
+        }
+	});
+    
+    <?php
+    foreach($demographic_objects as $demographic_object)
+    {
+        $boundaries = $demographic->toBoundaties($demographic_object->item_extra1);
+        ?>
+            var demographicCoords = [];
+            <?php foreach($boundaries as $boundary): ?>
+            var position = new google.maps.LatLng(<?php echo $boundary['lat']; ?>, <?php echo $boundary['lng']; ?>);
+            demographicCoords.push(position);
+            bounds.extend(position);
+            <?php endforeach; ?>
+        <?php
+        if(strtolower($demographic_object->item_cat) == 'polygon')
+        {
+        ?>
+            var polygon = new google.maps.Polygon(
+            {
+                paths: demographicCoords,
+                strokeColor: '#1e74c7',
+                strokeOpacity: 0.6,
+                strokeWeight: 1,
+                editable: true,
+                fillColor: '#1e90ff',
+                fillOpacity: 0.3
+            });
+    
+            polygon.setMap(pw_map);
+    
+            /** push to array **/
+            polygonsArray.push(polygon);
+
+            polygon.getPaths().forEach(function(path, index)
+            {
+                google.maps.event.addListener(path, 'insert_at', function()
+                {
+                    wpl_dmgfc_set_boundaries(polygon, google.maps.drawing.OverlayType.POLYGON);
+                });
+
+                google.maps.event.addListener(path, 'remove_at', function()
+                {
+                    wpl_dmgfc_set_boundaries(polygon, google.maps.drawing.OverlayType.POLYGON);
+                });
+
+                google.maps.event.addListener(path, 'set_at', function()
+                {
+                    wpl_dmgfc_set_boundaries(polygon, google.maps.drawing.OverlayType.POLYGON);
+                });
+            });
+        <?php
+        }
+        elseif(strtolower($demographic_object->item_cat) == 'polyline')
+        {
+        ?>
+            var polyline = new google.maps.Polyline({
+                path: demographicCoords,
+                strokeColor: '#1e74c7',
+                strokeOpacity: 1.0,
+                strokeWeight: 2,
+                editable: true
+            });
+            
+            polyline.setMap(pw_map);
+    
+            /** push to array **/
+            polylinesArray.push(polyline);
+            
+            google.maps.event.addListener(polyline.getPath(), 'insert_at', function()
+            {
+                wpl_dmgfc_set_boundaries(polyline, google.maps.drawing.OverlayType.POLYLINE);
+            });
+
+            google.maps.event.addListener(polyline.getPath(), 'remove_at', function()
+            {
+                wpl_dmgfc_set_boundaries(polyline, google.maps.drawing.OverlayType.POLYLINE);
+            });
+
+            google.maps.event.addListener(polyline.getPath(), 'set_at', function()
+            {
+                wpl_dmgfc_set_boundaries(polyline, google.maps.drawing.OverlayType.POLYLINE);
+            });
+        <?php
+        }
+    }
+    ?>
+}
+
+function wpl_dmgfc_set_boundaries(overlay, type)
+{
+    var paths = [];
+    
+    if(type == google.maps.drawing.OverlayType.POLYGON)
+    {
+        overlay.getPaths().forEach(function(path, index)
+        {
+            var points = path.getArray();
+            for(b in points)
+            {
+                paths.push(new google.maps.LatLng(points[b].lat(), points[b].lng()));
+            }
+        });
+    }
+    else if(type == google.maps.drawing.OverlayType.POLYLINE)
+    {
+        overlay.getPath().forEach(function(path, index)
+        {
+            paths.push(new google.maps.LatLng(path.lat(), path.lng()));
+        });
+    }
+    
+    item_save('', <?php echo $item_id; ?>, 0, 'demographic', type, encodeURIComponent(paths.toString()));
 }
 </script>
 <div class="google-map-wp">

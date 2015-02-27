@@ -10,7 +10,7 @@ if($type == 'checkbox' and !$done_this)
         <label for="wpl_st_form_element<?php echo $setting_record->id; ?>"><?php echo $setting_title; ?>&nbsp;<span class="wpl_st_citation">:</span></label>
         <input type="checkbox" name="wpl_st_form<?php echo $setting_record->id; ?>" id="wpl_st_form_element<?php echo $setting_record->id; ?>" autocomplete="off" <?php if ($value) echo 'checked="checked"'; ?> onchange="wpl_setting_save('<?php echo $setting_record->id; ?>', '<?php echo $setting_record->setting_name; ?>', this.value, '<?php echo $setting_record->category; ?>');" />
         
-		<?php if ($params['tooltip']): ?>
+		<?php if (isset($params['tooltip'])): ?>
         <span class="wpl_setting_form_tooltip wpl_help" id="wpl_setting_form_tooltip_container<?php echo $setting_record->id; ?>">
             <span class="wpl_help_description" style="display: none;"><?php echo __($params['tooltip'], WPL_TEXTDOMAIN); ?></span>
         </span>
@@ -28,7 +28,7 @@ elseif($type == 'text' and !$done_this)
 <div class="prow wpl_setting_form_container wpl_st_type<?php echo $setting_record->type; ?> wpl_st_<?php echo $setting_record->setting_name; ?>" id="wpl_st_<?php echo $setting_record->id; ?>">
 	<div class="text-wp">
 		<label for="wpl_st_form_element<?php echo $setting_record->id; ?>"><?php echo $setting_title; ?>&nbsp;<span class="wpl_st_citation">:</span></label>
-        <input class="<?php echo isset($params['html_class']) ? $params['html_class'] : ''; ?>" type="text" name="wpl_st_form<?php echo $setting_record->id; ?>" id="wpl_st_form_element<?php echo $setting_record->id; ?>" value="<?php echo htmlentities($setting_record->setting_value); ?>" placeholder="<?php echo  ((isset($params['placeholder']) and $params['placeholder']) ? __($params['placeholder'], WPL_TEXTDOMAIN) : ''); ?>" onchange="<?php if (isset($options['show_shortcode']) and $options['show_shortcode']): ?>wpl_setting_show_shortcode('<?php echo $setting_record->id; ?>', '<?php echo $options['shortcode_key']; ?>', this.value);<?php endif; ?> wpl_setting_save('<?php echo $setting_record->id; ?>', '<?php echo $setting_record->setting_name; ?>', this.value, '<?php echo $setting_record->category; ?>');" autocomplete="off" />
+        <input class="<?php echo isset($params['html_class']) ? $params['html_class'] : ''; ?>" type="text" name="wpl_st_form<?php echo $setting_record->id; ?>" id="wpl_st_form_element<?php echo $setting_record->id; ?>" value="<?php echo htmlentities($setting_record->setting_value, ENT_COMPAT, "UTF-8"); ?>" placeholder="<?php echo  ((isset($params['placeholder']) and $params['placeholder']) ? __($params['placeholder'], WPL_TEXTDOMAIN) : ''); ?>" onchange="<?php if (isset($options['show_shortcode']) and $options['show_shortcode']): ?>wpl_setting_show_shortcode('<?php echo $setting_record->id; ?>', '<?php echo $options['shortcode_key']; ?>', this.value);<?php endif; ?> wpl_setting_save('<?php echo $setting_record->id; ?>', '<?php echo $setting_record->setting_name; ?>', this.value, '<?php echo $setting_record->category; ?>');" autocomplete="off" />
 
 		<?php if (isset($options['show_shortcode'])): ?>
         <div class="shortcode-wp" id="wpl_setting_form_shortcode_container<?php echo $setting_record->id; ?>">
@@ -66,7 +66,7 @@ elseif($type == 'select' and !$done_this)
 <div class="prow wpl_setting_form_container wpl_st_type<?php echo $setting_record->type; ?> wpl_st_<?php echo $setting_record->setting_name; ?>" id="wpl_st_<?php echo $setting_record->id; ?>">
     <div class="select-wp">
         <label for="wpl_st_form_element<?php echo $setting_record->id; ?>"><?php echo $setting_title; ?>&nbsp;<span class="wpl_st_citation">:</span></label>
-        <select name="wpl_st_form<?php echo $setting_record->id; ?>" id="wpl_st_form_element<?php echo $setting_record->id; ?>" onchange="<?php if ($show_shortcode): ?>wpl_setting_show_shortcode('<?php echo $setting_record->id; ?>', '<?php echo $options['shortcode_key']; ?>', this.value);<?php endif; ?> wpl_setting_save('<?php echo $setting_record->id; ?>', '<?php echo $setting_record->setting_name; ?>', this.value, '<?php echo $setting_record->category; ?>');" autocomplete="off">
+        <select name="wpl_st_form<?php echo $setting_record->id; ?>" id="wpl_st_form_element<?php echo $setting_record->id; ?>" onchange="<?php if ($show_shortcode): ?>wpl_setting_show_shortcode('<?php echo $setting_record->id; ?>', '<?php echo $options['shortcode_key']; ?>', this.value);<?php endif; ?> wpl_setting_save('<?php echo $setting_record->id; ?>', '<?php echo $setting_record->setting_name; ?>', this.value, '<?php echo $setting_record->category; ?>');" <?php if (isset($params['width'])): ?>data-chosen-opt="width:<?php echo $params['width']; ?>"<?php endif; ?> autocomplete="off">
             <?php if ($show_empty): ?><option value="">---</option><?php endif; ?>
             <?php foreach ($options['values'] as $value_array): ?>
             <option value="<?php echo $value_array['key']; ?>" <?php if ($value_array['key'] == $value) echo 'selected="selected"' ?>><?php echo $value_array['value']; ?></option>
@@ -79,7 +79,7 @@ elseif($type == 'select' and !$done_this)
         </div>
         <?php endif; ?>
 
-        <?php if ($params['tooltip']): ?>
+        <?php if (isset($params['tooltip'])): ?>
         <span class="wpl_setting_form_tooltip wpl_help" id="wpl_setting_form_tooltip_container<?php echo $setting_record->id; ?>">
             <span class="wpl_help_description" style="display: none;"><?php echo __($params['tooltip'], WPL_TEXTDOMAIN); ?></span>
         </span>
@@ -107,13 +107,13 @@ elseif($type == 'sort_option' and !$done_this)
 			<?php endforeach; ?>
 		</select>
 
-		<?php if ($options['show_shortcode']): ?>
+		<?php if (isset($options['show_shortcode'])): ?>
         <div class="shortcode-wp" id="wpl_setting_form_shortcode_container<?php echo $setting_record->id; ?>">
             <span title="<?php echo __('Shortcode', WPL_TEXTDOMAIN); ?>" id="wpl_st_<?php echo $setting_record->id; ?>_shortcode_value"><?php echo $options['shortcode_key'] . '="' . $value . '"'; ?></span>
         </div>
 		<?php endif; ?>
 
-		<?php if ($params['tooltip']): ?>
+		<?php if (isset($params['tooltip'])): ?>
         <span class="wpl_setting_form_tooltip wpl_help" id="wpl_setting_form_tooltip_container<?php echo $setting_record->id; ?>">
             <span class="wpl_help_description" style="display: none;"><?php echo __($params['tooltip'], WPL_TEXTDOMAIN); ?></span>
         </span>
@@ -140,7 +140,7 @@ elseif($type == 'wppages' and !$done_this)
             <?php endforeach; ?>
         </select>
 
-        <?php if ($params['tooltip']): ?>
+        <?php if (isset($params['tooltip'])): ?>
         <span class="wpl_setting_form_tooltip wpl_help" id="wpl_setting_form_tooltip_container<?php echo $setting_record->id; ?>">
             <span class="wpl_help_description" style="display: none;"><?php echo __($params['tooltip'], WPL_TEXTDOMAIN); ?></span>
         </span>

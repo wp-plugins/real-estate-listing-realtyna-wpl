@@ -18,7 +18,7 @@
 			
             ed.addCommand('wplshortcode', function() {
                 ed.windowManager.open({
-                    file : ajaxurl.replace('admin-ajax.php', '')+'?wpl_format=c:functions:ajax:1&wpl_function=shortcode_wizard',
+                    file : ajaxurl.replace('admin-ajax.php', '')+'?wpl_format=c:functions:ajax:1&wpl_function=shortcode_wizard&lang=all',
                     width : 500 + parseInt(ed.getLang('button.delta_width', 0)),
                     height : 300 + parseInt(ed.getLang('button.delta_height', 0)),
                     inline : 1

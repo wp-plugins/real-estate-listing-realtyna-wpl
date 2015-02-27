@@ -9,14 +9,14 @@ _wpl_import('libraries.activities');
 
 abstract class wpl_property_show_controller_abstract extends wpl_controller
 {
-	var $tpl_path = 'views.frontend.property_show.tmpl';
-	var $tpl;
-	var $wpl_properties;
-	var $pid;
-	var $kind;
-	var $property;
-	var $model;
-	var $pshow_fields;
+	public $tpl_path = 'views.frontend.property_show.tmpl';
+	public $tpl;
+	public $wpl_properties;
+	public $pid;
+	public $kind;
+	public $property;
+	public $model;
+	public $pshow_fields;
 	
 	public function display($instance = array())
 	{
@@ -32,6 +32,8 @@ abstract class wpl_property_show_controller_abstract extends wpl_controller
 			return parent::render($this->tpl_path, 'message', false, true);
 		}
 		
+        $this->tpl = wpl_request::getVar('tpl', 'default');
+        
 		/** property listing model **/
 		$this->model = new wpl_property;
 		$this->pid = wpl_request::getVar('pid', 0);
@@ -95,6 +97,7 @@ abstract class wpl_property_show_controller_abstract extends wpl_controller
 		wpl_global::event_handler('property_show', array('id'=>$this->pid));
         
 		/** import tpl **/
+        $this->tpl = wpl_flex::get_kind_tpl($this->tpl_path, $this->tpl, $this->kind);
 		return parent::render($this->tpl_path, $this->tpl, false, true);
 	}
 }

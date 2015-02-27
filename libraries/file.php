@@ -9,6 +9,7 @@ _wpl_import('libraries.path');
  * @author Howard <howard@realtyna.com>
  * @since WPL1.0.0
  * @date 03/05/2013
+ * @package WPL
  */
 class wpl_file
 {
@@ -252,6 +253,7 @@ class wpl_file
  * @author Howard <howard@realtyna.com>
  * @since WPL1.8.1
  * @date 09/20/2014
+ * @package WPL
  */
 class wpl_xml
 {
@@ -422,6 +424,7 @@ class wpl_xml
  * @author Howard <howard@realtyna.com>
  * @since WPL1.8.1
  * @date 09/20/2014
+ * @package WPL
  */
 class wpl_chunk
 {

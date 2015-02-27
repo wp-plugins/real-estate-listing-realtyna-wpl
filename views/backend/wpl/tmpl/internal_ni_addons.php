@@ -10,6 +10,10 @@ $addons[3] = array('name'=>'Importer Add On', 'id'=>'5', 'addon_name'=>'importer
 $addons[4] = array('name'=>'Complex Add On', 'id'=>'7', 'addon_name'=>'complex', 'description'=>'Adding Complexes/Condos and assign listings to a certain Complex/Condo', 'readmore_link'=>'http://wpl.realtyna.com/redirect.php?action=download&item=complex', 'button_text'=>'Download');
 $addons[5] = array('name'=>'Exporter Add On', 'id'=>'8', 'addon_name'=>'exporter', 'description'=>'Export Properties to XML/CSV files', 'readmore_link'=>'http://wpl.realtyna.com/redirect.php?action=download&item=exporter', 'button_text'=>'Download');
 $addons[6] = array('name'=>'Mortgage Calculator', 'id'=>'11', 'addon_name'=>'mortgage_calculator', 'description'=>'Mortgage Calculator', 'readmore_link'=>'http://wpl.realtyna.com/redirect.php?action=download&item=mortgage_calculator', 'button_text'=>'Download');
+$addons[7] = array('name'=>'Membership', 'id'=>'9', 'addon_name'=>'membership', 'description'=>'Empower your WordPress Real Estate website with an advanced Membership System for WPL.', 'readmore_link'=>'http://wpl.realtyna.com/redirect.php?action=download&item=membership', 'button_text'=>'Download');
+$addons[8] = array('name'=>'Availability Calendar', 'id'=>'13', 'addon_name'=>'calendar', 'description'=>'Availability info on calendar for vacation rental listings.', 'readmore_link'=>'http://wpl.realtyna.com/redirect.php?action=download&item=calendar', 'button_text'=>'Download');
+$addons[9] = array('name'=>'Demographic Info', 'id'=>'12', 'addon_name'=>'demographic', 'description'=>'WPL Add-on for drawing and defining regions on the map for different demographic status.', 'readmore_link'=>'http://wpl.realtyna.com/redirect.php?action=download&item=demographic', 'button_text'=>'Download');
+$addons[10] = array('name'=>'Optimizer', 'id'=>'17', 'addon_name'=>'optimizer', 'description'=>'Optimize property images and speed up your website.', 'readmore_link'=>'http://wpl.realtyna.com/redirect.php?action=download&item=optimizer', 'button_text'=>'Download');
 ?>
 <div class="side-7 side-ni-addons">
     <div class="panel-wp">

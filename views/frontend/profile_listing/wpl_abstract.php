@@ -10,10 +10,10 @@ _wpl_import('libraries.settings');
 
 abstract class wpl_profile_listing_controller_abstract extends wpl_controller
 {
-	var $tpl_path = 'views.frontend.profile_listing.tmpl';
-	var $tpl;
-	var $wpl_profiles;
-	var $model;
+	public $tpl_path = 'views.frontend.profile_listing.tmpl';
+	public $tpl;
+	public $wpl_profiles;
+	public $model;
 	
 	public function display($instance = array())
 	{
@@ -30,6 +30,12 @@ abstract class wpl_profile_listing_controller_abstract extends wpl_controller
 		$this->orderby = wpl_request::getVar('wplorderby', $settings['default_profile_orderby'], '', true);
 		$this->order = wpl_request::getVar('wplorder', $settings['default_profile_order'], '', true);
 		
+        /** Set Property CSS class **/
+        $this->property_css_class = wpl_request::getVar('wplpcc', NULL);
+        if(!$this->property_css_class) $this->property_css_class = wpl_request::getVar('wplpcc', 'grid_box', 'COOKIE');
+        
+        $this->property_css_class_switcher = wpl_request::getVar('wplpcc_switcher', '1');
+        
 		/** set page if start var passed **/
 		$this->page_number = ($this->start/$this->limit)+1;
 		wpl_request::setVar('wplpage', $this->page_number);

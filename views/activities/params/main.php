@@ -5,6 +5,8 @@ defined('_WPLEXEC') or die('Restricted access');
 /** activity class **/
 class wpl_activity_main_params extends wpl_activity
 {
+    public $tpl_path = 'views.activities.params.tmpl';
+    
 	public function start($layout, $params)
 	{
 		/** include layout **/
@@ -19,10 +21,7 @@ class wpl_activity_main_params extends wpl_activity
 		
 		$function = wpl_request::getVar('wpl_function');
 		
-		if($function == 'save_params')
-		{
-			self::save_params();
-		}
+		if($function == 'save_params') $this->save_params();
 	}
 	
 	private function save_params()

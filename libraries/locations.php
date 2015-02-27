@@ -7,6 +7,7 @@ defined('_WPLEXEC') or die('Restricted access');
  * @author Howard <howard@realtyna.com>
  * @since WPL1.0.0
  * @date 04/07/2013
+ * @package WPL
  */
 class wpl_locations
 {
@@ -258,21 +259,26 @@ class wpl_locations
 	public static function get_LatLng($address)
 	{
 		$address = urlencode($address);
-		
-		$url = "http://maps.googleapis.com/maps/api/geocode/json?address=".$address."&sensor=false";
-		$url2 = "http://maps.google.com/maps/geo?q=".$address."&output=csv";
+		$api_key = wpl_global::get_setting('google_api_key', 1);
+        
+		$url1 = "https://maps.googleapis.com/maps/api/geocode/json?address=".$address.(trim($api_key) ? "&key=".$api_key : "");
+		$url2 = "https://maps.google.com/maps/geo?q=".$address."&output=csv";
 		
 		/** getting lat and lng using first url **/
 		$ch = curl_init();
 		
-		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_URL, $url1);
 		curl_setopt($ch, CURLOPT_HEADER, 0); /** Change this to a 1 to return headers **/
 		curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER["HTTP_USER_AGENT"]);
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
 		
 		$data = curl_exec($ch);
 		$data = json_decode($data, true);
+		
 		$location_point = isset($data['results'][0]) ? $data['results'][0]['geometry']['location'] : NULL;
 		
 		if((isset($location_point['lat']) and $location_point['lat']) and (isset($location_point['lng']) and $location_point['lng']))
@@ -304,7 +310,8 @@ class wpl_locations
      */
 	public static function get_address($latitude, $longitude)
 	{
-		$url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=".$latitude.",".$longitude."&sensor=false";
+        $api_key = wpl_global::get_setting('google_api_key', 1);
+		$url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=".$latitude.",".$longitude."&sensor=false".(trim($api_key) ? "&key=".$api_key : "");
 		
 		/** getting address **/
 		$ch = curl_init();
@@ -313,7 +320,10 @@ class wpl_locations
 		curl_setopt($ch, CURLOPT_HEADER, 0); /** Change this to a 1 to return headers **/
 		curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER["HTTP_USER_AGENT"]);
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
 		
 		$data = curl_exec($ch);
 		curl_close($ch);
@@ -362,5 +372,41 @@ class wpl_locations
         $longitude = $LatLng[1] ? $LatLng[1] : $property_data['googlemap_ln'];
         
         return array($latitude, $longitude);
+    }
+    
+    /**
+     * Returns location name by abbreviation
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $abbr
+     * @param int $location_level
+     * @return string
+     */
+    public static function get_location_name_by_abbr($abbr, $location_level = 1)
+    {
+        /** First Validation **/
+        if(!$location_level) $location_level = 1;
+        if($location_level == 'zips') return $abbr;
+        
+        $name = wpl_db::select("SELECT `name` FROM `#__wpl_location".$location_level."` WHERE `abbr`='$abbr'", 'loadResult');
+        return (trim($name) ? $name : $abbr);
+    }
+    
+    /**
+     * Returns abbreviation by location name
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $name
+     * @param int $location_level
+     * @return string
+     */
+    public static function get_location_abbr_by_name($name, $location_level = 1)
+    {
+        /** First Validation **/
+        if(!$location_level) $location_level = 1;
+        if($location_level == 'zips') return $name;
+        
+        $abbr = wpl_db::select("SELECT `abbr` FROM `#__wpl_location".$location_level."` WHERE LOWER(`name`)='".strtolower($name)."'", 'loadResult');
+        return (trim($abbr) ? $abbr : $name);
     }
 }

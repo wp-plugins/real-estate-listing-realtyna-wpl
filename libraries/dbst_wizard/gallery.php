@@ -14,6 +14,9 @@ if($type == 'gallery' and !$done_this)
     $ext_str = substr($ext_str, 0, -1);
     $ext_str = rtrim($ext_str, ';');
     $max_size = $options['file_size'];
+
+    // Load Handlebars Templates
+    echo wpl_global::load_js_template('dbst-wizard-gallery');
 ?>
 <div class="video-tabs-wp" id="gallery-tabs-wp-container">
 	<ul>
@@ -21,6 +24,7 @@ if($type == 'gallery' and !$done_this)
 		<li id="wpl_gallery_external_tab" onclick="wpl_gallery_select_tab('wpl_gallery_external_tab', 'wpl_gallery_external'); return false;"><a href="#wpl_gallery_external"><?php echo __('External images', WPL_TEXTDOMAIN); ?></a></li>
 	</ul>
 </div>
+
 <div class="gallary-btn-wp">
     <div id="wpl_gallery_uploader" class="wpl_gallery_method_container">
         <div class="wpl-button button-1 button-upload">
@@ -154,7 +158,11 @@ wplj(document).ready(function()
 {
 	wplj("#ajax_gal_sortable").sortable(
 	{
-		placeholder: "ui-state-highlight",
+		placeholder: "wpl-sortable-placeholder",
+        opacity: 0.7,
+        forcePlaceholderSize: true,
+        cursor: "move",
+        axis: "y",
 		stop: function(event, ui)
 		{
 			sort_str = "";
@@ -181,7 +189,7 @@ wplj(document).ready(function()
         maxFileSize:<?php echo $max_size * 1000; ?>,
         done: function(e, data)
         {
-            wplj.each(data.result.files, function(index, file)
+            wplj(data.result.files).each(function(index, file)
             {
                 if (file.error !== undefined)
                 {
@@ -189,7 +197,9 @@ wplj(document).ready(function()
                 }
                 else if (file.thumbnailUrl !== undefined) {
 
-                    var dynTem = rta.template.bind({
+                    var hbSource   = wplj("#dbst-wizard-gallery").html();
+                    var hbTemplate = Handlebars.compile(hbSource);
+                    var hbHTML     = hbTemplate({
                         index: img_counter,
                         name: file.name,
                         enabled_title: "<?php echo addslashes(__('Enabled', WPL_TEXTDOMAIN)) ?>",
@@ -198,18 +208,24 @@ wplj(document).ready(function()
                         lblImageTitle: "<?php echo addslashes(__('Image Title', WPL_TEXTDOMAIN)); ?>",
                         lblImageDesc: "<?php echo addslashes(__('Image Description', WPL_TEXTDOMAIN)); ?>",
                         lblImageCat: "<?php echo addslashes(__('Image Category', WPL_TEXTDOMAIN)); ?>"
-                    }, 'newImage');
+                    });
 
-                    wplj(dynTem).appendTo('#ajax_gal_sortable');
+                    wplj(hbHTML).hide().appendTo('#ajax_gal_sortable').slideDown();
                     img_counter++;
                 }
                 else
                     wplj('<div class="row"/>').text(file.name).appendTo('#files');
+            }).promise().done(function () {
+
+                wplj('#progress_img').hide();
+
             });
+
+
         },
         progressall: function(e, data)
         {
-            wplj('#progress_img').show('fast');
+            wplj('#progress_img').show();
             var progress = parseInt(data.loaded / data.total * 100, 10);
             wplj('#progress_img #progress .bar').css(
                     'width',
@@ -219,7 +235,7 @@ wplj(document).ready(function()
         },
         processfail: function(e, data)
         {
-            wplj('#progress_img').hide('fast');
+            wplj('#progress_img').hide();
             wplj("#error_ajax_img").html("<span color='red'><?php echo addslashes(__('Error occured', WPL_TEXTDOMAIN)) ?> : " + data.files[data.index].name + " " + data.files[data.index].error + "</span>");
             wplj("#error_ajax_img").show('slow');
         }
@@ -248,7 +264,7 @@ function ajax_gallery_image_delete(image, id)
     ajax = wpl_run_ajax_query("<?php echo wpl_global::get_full_url(); ?>", "wpl_format=b:listing:gallery&wpl_function=delete_image&pid=<?php echo $item_id; ?>&image="+encodeURIComponent(image)+"&kind=<?php echo $this->kind; ?>");
     ajax.success(function()
     {
-        wplj("#" + id).fadeOut(600, function(){
+        wplj("#" + id).slideUp(400, function(){
             wplj(this).remove();
         });
     });

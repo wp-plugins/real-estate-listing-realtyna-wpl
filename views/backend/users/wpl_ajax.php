@@ -9,8 +9,8 @@ _wpl_import('libraries.property_types');
 
 class wpl_users_controller extends wpl_controller
 {
-	var $tpl_path = 'views.backend.users.tmpl';
-	var $tpl;
+	public $tpl_path = 'views.backend.users.tmpl';
+	public $tpl;
 	
 	public function display()
 	{
@@ -185,19 +185,17 @@ class wpl_users_controller extends wpl_controller
 		$query = "";
 		$id = $inputs['id'];
 		$columns = wpl_db::columns('wpl_users');
-        $crm_access = new stdClass();
+        $crm_access = array();
 
 		/** set restriction to none **/
-		if(!$inputs['maccess_lrestrict']) $inputs['maccess_listings'] = '';
-		if(!$inputs['maccess_ptrestrict']) $inputs['maccess_property_types'] = '';
+		if(!isset($inputs['maccess_lrestrict'])) $inputs['maccess_listings'] = '';
+		if(!isset($inputs['maccess_ptrestrict'])) $inputs['maccess_property_types'] = '';
 		
 		foreach($inputs as $field=>$value)
 		{
-			if(substr($field, 0, 11) == 'crm_access_')
+			if(substr($field, 0, 11) == 'maccess_crm')
 			{
-				$data = explode('-', substr($field, 11));
-				if(!isset($crm_access->{$data[0]})) $crm_access->{$data[0]} = new stdClass();
-				$crm_access->{$data[0]}->{$data[1]} = $value;
+				if($value == 1)	$crm_access[] = substr($field, 11);
 				continue;
 			}
 			
@@ -205,21 +203,18 @@ class wpl_users_controller extends wpl_controller
 				
 			$query .= "`".$field."`='" .$value. "', ";
 		}
+
+		/** update CRM access list if available **/
+		if(count($crm_access) > 0)
+		{
+			$query .= "`maccess_crm` = '" .implode(',', $crm_access). "', ";
+		}
 		
 		$query = rtrim($query, ', ');
 		$query = "UPDATE `#__wpl_users` SET ".$query." WHERE `id`='".$id."'";
 		
 		/** update user **/
 		wpl_db::q($query);
-		
-		/** update CRM access list if available **/
-		if(wpl_global::check_addon('crm'))
-		{
-			_wpl_import('libraries.addon_crm');
-			$crm = new wpl_addon_crm($id);
-			$crm->update_access_list($crm_access);
-		}
-
 		return true;
 	}
 	

@@ -5,7 +5,7 @@ defined('_WPLEXEC') or die('Restricted access');
 /** activity class **/
 class wpl_activity_main_agent_info extends wpl_activity
 {
-    var $tpl_path = 'views.activities.agent_info.tmpl';
+    public $tpl_path = 'views.activities.agent_info.tmpl';
 	
 	public function start($layout, $params)
 	{

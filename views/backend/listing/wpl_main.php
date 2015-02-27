@@ -7,8 +7,8 @@ _wpl_import('libraries.property');
 
 class wpl_listing_controller extends wpl_controller
 {
-	var $tpl_path = 'views.backend.listing.tmpl';
-	var $tpl;
+	public $tpl_path = 'views.backend.listing.tmpl';
+	public $tpl;
 	
 	public function wizard($instance = array())
 	{
@@ -65,14 +65,14 @@ class wpl_listing_controller extends wpl_controller
 		}
 		
 		/** import tpl **/
-		$this->tpl = 'wizard';
+		$this->tpl = wpl_flex::get_kind_tpl($this->tpl_path, 'wizard', $this->kind);
 		parent::render($this->tpl_path, $this->tpl);
 	}
 	
 	protected function generate_slide($category)
 	{
-		$tpl = 'internal_slide';
-		
+		$tpl = wpl_flex::get_kind_tpl($this->tpl_path, 'internal_slide', $this->kind);
+        
 		$this->fields = wpl_property::get_pwizard_fields($category->id, $this->kind, 1);
 		$this->field_category = $category;
 		
@@ -84,12 +84,12 @@ class wpl_listing_controller extends wpl_controller
 	{
 		/** add scripts and style sheet for uploaders **/
         $style = array();
-        $style[] = (object) array('param1' => 'ajax-fileupload-style', 'param2' => 'packages/ajax_uploader/css/style.css');
-        $style[] = (object) array('param1' => 'ajax-fileupload-ui', 'param2' => 'packages/ajax_uploader/css/jquery.fileupload-ui.css');
+        $style[] = (object) array('param1'=>'ajax-fileupload-style', 'param2'=>'packages/ajax_uploader/css/style.css');
+        $style[] = (object) array('param1'=>'ajax-fileupload-ui', 'param2'=>'packages/ajax_uploader/css/jquery.fileupload-ui.css');
         foreach($style as $css) wpl_extensions::import_style($css);
 
         $scripts = array();
-        $scripts[] = (object) array('param1' => 'jquery_file_upload', 'param2' => 'packages/ajax_uploader/jquery.fileupload.js');
+        $scripts[] = (object) array('param1'=>'jquery_file_upload', 'param2'=>'packages/ajax_uploader/jquery.fileupload.js');
         foreach($scripts as $script) wpl_extensions::import_javascript($script);
 	}
 }

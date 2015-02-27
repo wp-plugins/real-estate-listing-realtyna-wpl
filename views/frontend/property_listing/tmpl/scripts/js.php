@@ -7,12 +7,13 @@ wplj(document).ready(function()
 {
     wplj('#list_view').click(function()
     {
+        wplj('#grid_view').removeClass('active');
+        wplj('#list_view').addClass('active');
+        
         wpl_set_property_css_class('row_box');
         
         wplj('.wpl_prp_cont').animate({opacity:0},function()
         {
-            wplj('#grid_view').removeClass('active');
-            wplj('#list_view').addClass('active');
             wplj(this).removeClass('grid_box').addClass('row_box');
             wplj(this).stop().animate({opacity:1});
         });
@@ -20,12 +21,13 @@ wplj(document).ready(function()
 
     wplj('#grid_view').click(function()
     {
+        wplj('#list_view').removeClass('active');
+        wplj('#grid_view').addClass('active');
+        
         wpl_set_property_css_class('grid_box');
         
         wplj('.wpl_prp_cont').animate({opacity:0},function()
         {
-            wplj('#list_view').removeClass('active');
-            wplj('#grid_view').addClass('active');
             wplj(this).removeClass('row_box').addClass('grid_box');
             wplj(this).stop().animate({opacity:1});
         });

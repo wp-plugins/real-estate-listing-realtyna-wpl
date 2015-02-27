@@ -58,7 +58,18 @@ function wpl_carousel_toggle<?php echo $this->widget_id; ?>(element_id)
         <label for="<?php echo $this->get_field_id('slide_interval'); ?>"><?php echo __('Slide Interval (ms)', WPL_TEXTDOMAIN); ?>: </label>
         <input type="text" id="<?php echo $this->get_field_id('slide_interval'); ?>" name="<?php echo $this->get_field_name('data'); ?>[slide_interval]" value="<?php echo isset($instance['data']['slide_interval']) ? $instance['data']['slide_interval'] : '3000'; ?>" />
     </div>
-    
+
+    <div>
+        <label for="<?php echo $this->get_field_id('slide_fillmode'); ?>"><?php echo __('Fill Mode', WPL_TEXTDOMAIN); ?>: </label>
+        <select id="<?php echo $this->get_field_id('slide_fillmode'); ?>" name="<?php echo $this->get_field_name('data'); ?>[slide_fillmode]">
+            <option value="0" <?php echo isset($instance['data']['slide_fillmode']) and ($instance['data']['slide_fillmode']== 0)  ? 'selected="selected"' : ''; ?>><?php echo __('Stretch', WPL_TEXTDOMAIN); ?></option>
+            <option value="1" <?php echo isset($instance['data']['slide_fillmode']) and ($instance['data']['slide_fillmode']== 1)  ? 'selected="selected"' : ''; ?>><?php echo __('Contain', WPL_TEXTDOMAIN); ?></option>
+            <option value="2" <?php echo isset($instance['data']['slide_fillmode']) and ($instance['data']['slide_fillmode']== 2)  ? 'selected="selected"' : ''; ?>><?php echo __('Cover', WPL_TEXTDOMAIN); ?></option>
+            <option value="4" <?php echo isset($instance['data']['slide_fillmode']) and ($instance['data']['slide_fillmode']== 4)  ? 'selected="selected"' : ''; ?>><?php echo __('Actual Size', WPL_TEXTDOMAIN); ?></option>
+            <option value="5" <?php echo isset($instance['data']['slide_fillmode']) and ($instance['data']['slide_fillmode']== 5)  ? 'selected="selected"' : ''; ?>><?php echo __('Contain/Actual', WPL_TEXTDOMAIN); ?></option>
+        </select>
+    </div>
+
     <h4><?php echo __('Filter Properties', WPL_TEXTDOMAIN); ?></h4>
     <div>
         <?php $kinds = wpl_flex::get_kinds('wpl_properties'); ?>

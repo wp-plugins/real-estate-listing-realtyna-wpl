@@ -4,8 +4,8 @@ defined('_WPLEXEC') or die('Restricted access');
 
 class wpl_wpl_controller extends wpl_controller
 {
-	var $tpl_path = 'views.backend.wpl.tmpl';
-	var $tpl;
+	public $tpl_path = 'views.backend.wpl.tmpl';
+	public $tpl;
 	
 	public function admin_home()
 	{

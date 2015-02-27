@@ -7,7 +7,7 @@ if($type == 'textarea' and !$done_this)
     $current_language = wpl_global::get_current_language();
 ?>
 <?php
-    if($field->multilingual == 1 and wpl_global::check_multilingual_status()):
+    if(isset($field->multilingual) and $field->multilingual == 1 and wpl_global::check_multilingual_status()):
         wp_enqueue_script('jquery-effects-clip', false, array('jquery-effects-core'));
 ?>
 
@@ -39,7 +39,7 @@ if($type == 'textarea' and !$done_this)
                             <?php if(isset($options['advanced_editor']) and $options['advanced_editor'] and wpl_global::check_addon('pro')): ?>
 
                                 <div class="wpl-multiling-editor">
-                                    <?php wp_editor($values[$lang_column], 'tinymce_wpl_c_'.$field->id.'_'.strtolower($wpllang), array('teeny'=>false, 'quicktags'=>false)); ?>
+                                    <?php wp_editor(stripslashes($values[$lang_column]), 'tinymce_wpl_c_'.$field->id.'_'.strtolower($wpllang), array('teeny'=>false, 'quicktags'=>false)); ?>
                                 </div>
 
                                 <input class="wpl-button button-1 wpl-multiling-save-pro"
@@ -52,7 +52,7 @@ if($type == 'textarea' and !$done_this)
                                           id="wpl_c_<?php echo $field->id; ?>_<?php echo strtolower($wpllang); ?>"
                                           rows="<?php echo $options['rows']; ?>" cols="<?php echo $options['cols']; ?>"
                                           onblur="ajax_multilingual_save('<?php echo $field->id; ?>', '<?php echo strtolower($wpllang); ?>', this.value, '<?php echo $item_id; ?>');"
-                                          <?php echo ((isset($options['readonly']) and $options['readonly'] == 1) ? 'disabled="disabled"' : ''); ?> ><?php echo (isset($values[$lang_column]) ? $values[$lang_column] : ''); ?></textarea>
+                                          <?php echo ((isset($options['readonly']) and $options['readonly'] == 1) ? 'disabled="disabled"' : ''); ?> ><?php echo (isset($values[$lang_column]) ? stripslashes($values[$lang_column]) : ''); ?></textarea>
 
                             <?php endif; ?>
 
@@ -69,11 +69,11 @@ if($type == 'textarea' and !$done_this)
     <label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($label, WPL_TEXTDOMAIN); ?><?php if(in_array($mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>
     <?php if(isset($options['advanced_editor']) and $options['advanced_editor'] and wpl_global::check_addon('pro')): ?>
             <div class="wpl-pwizard-editor">
-    <?php wp_editor($value, 'tinymce_wpl_c_'.$field->id, array('teeny'=>false, 'quicktags'=>false)); ?>
+    <?php wp_editor(stripslashes($value), 'tinymce_wpl_c_'.$field->id, array('teeny'=>false, 'quicktags'=>false)); ?>
             </div>
     <input class="wpl-button button-1 wpl-save-btn" type="button" onclick="ajax_save('<?php echo $field->table_name; ?>', '<?php echo $field->table_column; ?>', wpl_get_tinymce_content('tinymce_wpl_c_<?php echo $field->id; ?>'), '<?php echo $item_id; ?>', '<?php echo $field->id; ?>');" value="<?php echo __('Save', WPL_TEXTDOMAIN); ?>" />
     <?php else: ?>
-    <textarea class="wpl_c_<?php echo $field->table_column; ?>" id="wpl_c_<?php echo $field->id; ?>" rows="<?php echo $options['rows']; ?>" cols="<?php echo $options['cols']; ?>" onblur="ajax_save('<?php echo $field->table_name; ?>', '<?php echo $field->table_column; ?>', this.value, '<?php echo $item_id; ?>', '<?php echo $field->id; ?>');" <?php echo ((isset($options['readonly']) and $options['readonly'] == 1) ? 'disabled="disabled"' : ''); ?>><?php echo $value; ?></textarea>
+    <textarea class="wpl_c_<?php echo $field->table_column; ?>" id="wpl_c_<?php echo $field->id; ?>" rows="<?php echo $options['rows']; ?>" cols="<?php echo $options['cols']; ?>" onblur="ajax_save('<?php echo $field->table_name; ?>', '<?php echo $field->table_column; ?>', this.value, '<?php echo $item_id; ?>', '<?php echo $field->id; ?>');" <?php echo ((isset($options['readonly']) and $options['readonly'] == 1) ? 'disabled="disabled"' : ''); ?>><?php echo stripslashes($value); ?></textarea>
     <?php endif; ?>
     <span id="wpl_listing_saved_span_<?php echo $field->id; ?>" class="wpl_listing_saved_span"></span>
 <?php endif; ?>

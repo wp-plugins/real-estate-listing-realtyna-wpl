@@ -3,8 +3,8 @@ Contributors: realtyna
 Donate link: http://wpl.realtyna.com/
 Tags: Real estate, Listing, Vertical Market, MLS, Property listing, RETS, Listings, Broker, Realtor, Property, IDX, Multiple Listing Service, Property Management, Properties
 Requires at least: 3.0.1
-Tested up to: 4.1
-Stable tag: 2.2.0
+Tested up to: 4.1.1
+Stable tag: 2.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -68,6 +68,17 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 6. External Responsive Template: Agent listing
 
 == Changelog ==
+
+= 2.3.0 =
+* [PRO] Added Report Abuse feature.
+* [PRO] Added access view feature for WPL fields.
+* Added entity support for WPL search widget.
+* Added List/Grid feature for agent/profile listing pages.
+* Added Google API key.
+* Added fill type feature for carousel widget.
+* Fixed profile show issue.
+* Fixed backslash issue on property description.
+* Fixed some design issues.
 
 = 2.2.0 =
 * [PRO] Added Multilingual support for property alias and property location texts.

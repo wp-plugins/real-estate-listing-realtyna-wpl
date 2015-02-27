@@ -308,8 +308,8 @@ function wpl_th_sep<?php echo $widget_id; ?>(num)
 wplj(document).ready(function()
 {
 	wplj("#wpl_searchwidget_<?php echo $widget_id; ?> select").chosen();
-    wplj('#wpl_searchwidget_<?php echo $widget_id; ?> input[type="checkbox"]:not(.yesno)').checkbox({cls: 'jquery-safari-checkbox',empty:'<?php echo wpl_global::get_wpl_asset_url('img/empty.png'); ?>'});
-    wplj('#wpl_searchwidget_<?php echo $widget_id; ?> input.yesno[type="checkbox"]').checkbox({empty:'<?php echo wpl_global::get_wpl_asset_url('img/empty.png'); ?>'});
+    wplj('#wpl_searchwidget_<?php echo $widget_id; ?> input.yesno[type="checkbox"]').checkbox({cls: 'jquery-safari-checkbox',empty:'<?php echo wpl_global::get_wpl_asset_url('img/empty.png'); ?>'});
+    wplj('#wpl_searchwidget_<?php echo $widget_id; ?> input[type="checkbox"]:not(.yesno)').checkbox({empty:'<?php echo wpl_global::get_wpl_asset_url('img/empty.png'); ?>'});
     
     /** make the form empty if searched by listing id **/
     wplj("#sf<?php echo $widget_id; ?>_select_mls_id").on("change", function()

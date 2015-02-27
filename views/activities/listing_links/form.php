@@ -39,3 +39,13 @@ defined('_WPLEXEC') or die('Restricted access');
     <?php endif; ?>
     
 </div>
+<div class="fanc-row">
+    <label for="wpl_o_report_abuse"><?php echo __('Report Abuse', WPL_TEXTDOMAIN); ?></label>
+    
+    <?php if(!wpl_global::check_addon('pro')): ?>
+	<span id="wpl_o_report_abuse" class="gray_tip"><?php echo __('Pro addon must be installed for this!', WPL_TEXTDOMAIN); ?></span>
+	<?php else: ?>
+    <input <?php if(isset($this->options->report_abuse) and $this->options->report_abuse == '1') echo 'checked="checked""'; ?> class="text_box" name="option[report_abuse]" type="checkbox" id="wpl_o_report_abuse" value="<?php echo isset($this->options->report_abuse) ? $this->options->report_abuse : '0'; ?>" />
+    <?php endif; ?>
+    
+</div>

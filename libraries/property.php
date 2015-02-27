@@ -7,58 +7,67 @@ _wpl_import('libraries.units');
 _wpl_import('libraries.events');
 _wpl_import('libraries.render');
 _wpl_import('libraries.items');
+_wpl_import('libraries.locations');
 
 /**
  * Property Library
  * @author Howard R <howard@realtyna.com>
  * @since WPL1.0.0
+ * @package WPL
  * @date 05/26/2013
  */
 class wpl_property
 {
-	/**
-		@inputs [category], [kind] and [enabled]
-		@return fields object
-		@author Howard
-	**/
+    /**
+     * Returns property wizard fields
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int|string $category
+     * @param int $kind
+     * @param int $enabled
+     * @return array of objects
+     */
 	public static function get_pwizard_fields($category = '', $kind = 0, $enabled = 1)
 	{
 		return wpl_flex::get_fields($category, $enabled, $kind, 'pwizard', '1');
 	}
-	
-	/**
-	 * wpl_property::get_plisting_fields()
-	 * Get listing fields
-	 * 
-	 * @param string $category
-	 * @param integer $kind
-	 * @param integer $enabled
-	 * @return Array of Objects
-	 * 
-	 * @package WPL
-	 * @author Ted@realtyna.com
-	 * @since WPL 1.0
-	 */
+    
+    /**
+     * Returns property listing fields
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int|string $category
+     * @param int $kind
+     * @param int $enabled
+     * @return array of objects
+     */
 	public static function get_plisting_fields($category = '', $kind = 0, $enabled = 1)
 	{
 		return wpl_flex::get_fields($category, $enabled, $kind, 'plisting', '1');
 	}
 	
-	/**
-		@inputs [category], [kind] and [enabled]
-		@return fields object
-		@author Howard
-	**/
+    /**
+     * Returns property show fields
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int|string $category
+     * @param int $kind
+     * @param int $enabled
+     * @return array of objects
+     */
 	public static function get_pshow_fields($category = '', $kind = 0, $enabled = 1)
 	{
 		return wpl_flex::get_fields($category, $enabled, $kind, 'pshow', '1');
 	}
     
-	/**
-		@inputs {user_id}, [temp]
-		@return property id
-		@author Howard
-	**/
+    /**
+     * Creates default property for listing wizard etc pages
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $user_id
+     * @param int $kind
+     * @return int Created property ID
+     */
 	public static function create_property_default($user_id = '', $kind = 0)
 	{
 		if(!$user_id) $user_id = wpl_users::get_cur_user_id();
@@ -74,11 +83,13 @@ class wpl_property
         return wpl_db::q($query, 'insert');
     }
 	
-	/**
-		@inputs {fields}
-		@return array field and values query
-		@author Howard
-	**/
+    /**
+     * Generates default query for creating default property
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param array of objects $fields
+     * @return array
+     */
 	public static function generate_default_query($fields)
 	{
 		$query = '';
@@ -114,20 +125,19 @@ class wpl_property
             }
         }
 		
-		return array(trim($query, ", "), trim($values, ", "));
+		return array(trim($query, ', '), trim($values, ', '));
 	}
-	
-	/**
-		@inputs {start}, {limit}, {orderby}, {order}, {where}
-		@param int $start
-		@param int $limit
-		@param string $orderby
-		@param string $order
-		@param array $where
-		@return void
-		@description for start property model use this function for configuration
-		@author Howard
-	**/
+    
+    /**
+     * Starts search command
+     * @author Howard R <howard@realtyna.com>
+     * @param int $start
+     * @param int $limit
+     * @param string $orderby
+     * @param string $order
+     * @param array $where
+     * @param int $kind
+     */
 	public function start($start, $limit, $orderby, $order, $where, $kind = 0)
     {
 		/** start time of model **/
@@ -160,12 +170,11 @@ class wpl_property
 		$this->select = $this->generate_select($this->listing_fields, 'p');
     }
 	
-	/**
-		@inputs void
-		@return string $quert
-		@description this functions creates complete query
-		@author Howard
-	**/
+    /**
+     * Creates complete query for searching
+     * @author Howard R <howard@realtyna.com>
+     * @return string
+     */
 	public function query()
     {
 		$this->query  = " SELECT ".$this->select;
@@ -179,39 +188,46 @@ class wpl_property
 		
 		return $this->query;
     }
-	
-	/** [TODO] **/
+    
+    /**
+     * @author Howard R <howard@realtyna.com>
+     * @todo
+     * @return string
+     */
 	public function create_join()
 	{
 		return '';
 	}
-	
-	/** [TODO] **/
+    
+    /**
+     * @author Howard R <howard@realtyna.com>
+     * @todo
+     * @return string
+     */
 	public function create_groupby()
 	{
 		return '';
 	}
 	
-	/**
-		@inputs string $query
-		@return object $properties
-		@description use this function for running query and fetch the result
-		@author Howard
-	**/
+    /**
+     * Searches on properties
+     * @author Howard R <howard@realtyna.com>
+     * @param string $query
+     * @return array of objects
+     */
 	public function search($query = '')
     {
         if(!trim($query)) $query = $this->query;
 		
-        $properties = wpl_db::select($query);
-        return $properties;
+        return wpl_db::select($query);
     }
 	
-	/**
-		@inputs void
-		@return int $time_taken
-		@description this function is for calculating token time and total result
-		@author Howard
-	**/
+    /**
+     * Calculates token time and results count
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @return int
+     */
 	public function finish()
 	{
 		$this->finish_time = microtime(true);
@@ -223,12 +239,13 @@ class wpl_property
 		return $this->time_taken;
 	}
 	
-	/**
-		@input dbst fields
-		@return select string
-		@description this function generates select string for queries (like propertylisting)
-		@author Howard
-	**/
+    /**
+     * Generates select cluase of search query
+     * @author Howard R <howard@realtyna.com>
+     * @param array of objects $fields
+     * @param string $table_name
+     * @return string
+     */
 	public function generate_select($fields, $table_name = 'p')
 	{
 		/** first validation **/
@@ -269,11 +286,12 @@ class wpl_property
 		return trim($query, ', ');
 	}
 	
-	/**
-		@inputs void
-		@return new mls_id
-		@author Howard
-	**/
+    /**
+     * Returns new unique id for mls_id column of properties table
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @return int
+     */
 	public static function get_new_mls_id() 
 	{
         $query = "SELECT max(cast(mls_id AS unsigned)) as mlsid FROM #__wpl_properties WHERE mls_id REGEXP '^[0-9]+$' LIMIT 1";
@@ -285,25 +303,30 @@ class wpl_property
         return $mls_id;
     }
 	
-	/**
-		@inputs {property_id} and [output_type]
-		@return property_data
-		@author Howard
-	**/
+    /**
+     * Get raw data of a listing
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int $property_id
+     * @param string $output_type
+     * @return mixed
+     */
 	public static function get_property_raw_data($property_id, $output_type = 'loadAssoc')
 	{
         $query = "SELECT * FROM `#__wpl_properties` WHERE `id`='$property_id'";
         return wpl_db::select($query, $output_type);
     }
     
-	/**
-		@inputs {property data}, [fields] and [finds]
-		@param property data should be raw data from wpl_properties table
-		@param fields should be an object of dbst fields
-		@param finds detected files array
-		@return rendered data
-		@author Howard
-	**/
+    /**
+     * Renders Property data (And User data and other entities)
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param array $property
+     * @param array of objects $fields
+     * @param array $finds
+     * @param boolean $material
+     * @return array
+     */
 	public static function render_property($property, $fields, &$finds = array(), $material = false)
 	{
 		$rendered = array();
@@ -342,8 +365,24 @@ class wpl_property
                 }
             }
             
-			$value = isset($values[$field->table_column]) ? $values[$field->table_column] : NULL;
-			
+            /** Accesses **/
+			if(isset($field->accesses) and trim($field->accesses) != '')
+			{
+				$accesses = explode(',', trim($field->accesses, ', '));
+                $cur_membership_id = wpl_users::get_user_membership();
+                
+				if(!in_array($cur_membership_id, $accesses) and trim($field->accesses_message) == '') continue;
+                elseif(!in_array($cur_membership_id, $accesses) and trim($field->accesses_message) != '')
+                {
+                    $rendered[$field->id] = array('field_id'=>$field->id, 'type'=>$field->type, 'name'=>__($field->name, WPL_TEXTDOMAIN), 'value'=>__($field->accesses_message, WPL_TEXTDOMAIN));
+                    if($material and trim($field->table_column) != '') $materials[$field->table_column] = array('field_id'=>$field->id, 'type'=>$field->type, 'name'=>__($field->name, WPL_TEXTDOMAIN), 'value'=>__($field->accesses_message, WPL_TEXTDOMAIN));
+
+                    continue;
+                }
+			}
+            
+			$value = isset($values[$field->table_column]) ? stripslashes($values[$field->table_column]) : NULL;
+            
 			$done_this = false;
 			$type = $field->type;
 			$options = json_decode($field->options, true);
@@ -412,6 +451,7 @@ class wpl_property
 		$path = WPL_ABSPATH .DS. 'libraries' .DS. 'dbst_show';
 		$files = wpl_folder::files($path, '.php$', false, false);
         $field = wpl_flex::get_field($dbst_id);
+        $value = stripslashes($value);
         
         $type = $field->type;
         $options = json_decode($field->options, true);
@@ -420,6 +460,19 @@ class wpl_property
         {
             require $path.DS.$file;
             if($done_this == true) break;
+        }
+        
+        /** Accesses **/
+        if(trim($field->accesses) != '')
+        {
+            $accesses = explode(',', trim($field->accesses, ', '));
+            $cur_membership_id = wpl_users::get_user_membership();
+
+            if(!in_array($cur_membership_id, $accesses) and trim($field->accesses_message) == '') return array();
+            elseif(!in_array($cur_membership_id, $accesses) and trim($field->accesses_message) != '')
+            {
+                $return = array('field_id'=>$field->id, 'type'=>$field->type, 'name'=>__($field->name, WPL_TEXTDOMAIN), 'value'=>__($field->accesses_message, WPL_TEXTDOMAIN));
+            }
         }
 		
 		return $return;
@@ -480,8 +533,10 @@ class wpl_property
     }
     
     /**
-     * @return number of properties according to query condition
-     * @author Francis
+     * Returns number of properties according to query condition
+     * @author Francis <francis@realtyna.com>
+     * @param type $condition
+     * @return type
      */
     public function get_properties_count($condition = '')
     {
@@ -491,66 +546,103 @@ class wpl_property
         return wpl_db::select($query, 'loadResult');
     }
 	
-	/**
-		@inputs {property_id}, {mode} and [user_id]
-		@description This function finalize property and triggering events
-		@author Howard
-	**/
-	public static function finalize($pid, $mode, $user_id = '')
+    /**
+     * Finalize a property and render needed data
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $property_id
+     * @param string $mode
+     * @param int $user_id
+     * @return boolean
+     */
+	public static function finalize($property_id, $mode = 'edit', $user_id = '')
 	{
-        $property = self::get_property_raw_data($pid);
+        $property = self::get_property_raw_data($property_id);
 		
-		$update_query = self::generate_finalize_query($property, $pid);
+		$update_query = self::generate_finalize_query($property, $property_id);
 		$update_query .= "`finalized`='1',";
 		if(wpl_global::check_access('confirm', $user_id)) $update_query .= "`confirmed`='1',";
 		
 		$update_query = trim($update_query, ', ');
 		
-		$query = "UPDATE `#__wpl_properties` SET ".$update_query." WHERE `id`='$pid'";
+		$query = "UPDATE `#__wpl_properties` SET ".$update_query." WHERE `id`='$property_id'";
 		wpl_db::q($query, 'update');
-		
-        /** Remove Property Cache **/
-        wpl_property::clear_property_cache($pid);
         
-		wpl_property::update_text_search_field($pid);
-        wpl_property::update_location_text_search_field($pid);
-		wpl_property::update_numbs($pid, $property);
-        wpl_property::update_alias($property);
-        wpl_property::update_property_page_title($property);
-        wpl_property::update_property_title($property);
+        /** Remove Property Cache **/
+        wpl_property::clear_property_cache($property_id);
+        
+        /** Multilingual **/
+        if(wpl_global::check_multilingual_status())
+        {
+            $languages = wpl_addon_pro::get_wpl_languages();
+            $current_language = wpl_global::get_current_language();
+            
+            foreach($languages as $language)
+            {
+                wpl_global::switch_language($language);
+                
+                wpl_property::update_text_search_field($property_id);
+                wpl_property::update_alias($property);
+                wpl_property::update_property_page_title($property);
+                wpl_property::update_property_title($property);
+
+                /** generate rendered data **/
+                wpl_property::generate_rendered_data($property_id);
+            }
+            
+            /** Switch to current language again **/
+            wpl_global::switch_language($current_language);
+        }
+        else
+        {
+            wpl_property::update_text_search_field($property_id);
+            wpl_property::update_alias($property);
+            wpl_property::update_property_page_title($property);
+            wpl_property::update_property_title($property);
+
+            /** generate rendered data **/
+            wpl_property::generate_rendered_data($property_id);
+        }
         
         /** Fixes **/
-        wpl_property::fix_aliases($property, $pid);
-        
-		/** generate rendered data **/
-		if(wpl_settings::get('cache')) wpl_property::generate_rendered_data($pid);
+        wpl_property::fix_aliases($property, $property_id);
+        wpl_property::update_numbs($property_id, $property);
 		
         /** throwing events **/
-        if($mode == 'add') wpl_events::trigger('add_property', $pid);
-        if($mode == 'edit') wpl_events::trigger('edit_property', $pid);
+        if($mode == 'add') wpl_events::trigger('add_property', $property_id);
+        elseif($mode == 'edit') wpl_events::trigger('edit_property', $property_id);
 		
-		if(wpl_global::check_access('confirm', $user_id)) wpl_events::trigger('property_confirm', $pid);
+		if(wpl_global::check_access('confirm', $user_id)) wpl_events::trigger('property_confirm', $property_id);
 		
 		return true;
     }
 	
-	/**
-		@inputs {property_id}
-		@description This function is for unfinalizing a property and triggering events
-		@author Howard
-	**/
-	public static function unfinalize($pid)
+    /**
+     * Unfinalize a property
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $property_id
+     * @return boolean
+     */
+	public static function unfinalize($property_id)
 	{
-        $query = "UPDATE `#__wpl_properties` SET `finalized`='0' WHERE `id`='$pid'";
+        $query = "UPDATE `#__wpl_properties` SET `finalized`='0' WHERE `id`='$property_id'";
 		wpl_db::q($query, 'update');
 		
         /** throwing events **/
-        wpl_events::trigger('property_unfinalized', $pid);
+        wpl_events::trigger('property_unfinalized', $property_id);
 		
 		return true;
     }
 	
-	/** This creates query for finalize property, user data, etc. **/
+    /**
+     * Generates finalize query of property converts units to SI units etc.
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param type $data
+     * @param type $id
+     * @return string
+     */
 	public static function generate_finalize_query($data, $id = '')
 	{
         $units = wpl_global::return_in_id_array(wpl_units::get_units('', 1));
@@ -578,11 +670,13 @@ class wpl_property
 		return $query;
 	}
 	
-	/**
-		@inputs {property_id}
-		@description this function will generate rendered data of property and save them into db
-		@author Howard
-	**/
+    /**
+     * Generate rendered data of a property
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $pid
+     * @return string
+     */
 	public static function generate_rendered_data($pid)
 	{
 		_wpl_import('libraries.render');
@@ -598,34 +692,24 @@ class wpl_property
 		$rendered_fields = self::render_property($property_data, self::get_plisting_fields('', $property_data['kind']), $find_files, true);
         
 		$result = json_encode(array('rendered'=>$rendered_fields['ids'], 'materials'=>$rendered_fields['columns'], 'location_text'=>$location_text));
-		$query = "UPDATE `#__wpl_properties` SET `rendered`='".wpl_db::escape($result)."', `location_text`='".wpl_db::escape($location_text)."' WHERE `id`='$pid'";
+        
+        $column = 'rendered';
+        if(wpl_global::check_multilingual_status()) $column = wpl_addon_pro::get_column_lang_name($column, wpl_global::get_current_language(), false);
+        
+		$query = "UPDATE `#__wpl_properties` SET `$column`='".wpl_db::escape($result)."' WHERE `id`='$pid'";
 		
 		/** update **/
 		wpl_db::q($query, 'update');
-        
         return $result;
 	}
 	
-	/**
-		@inputs {property_id}
-		@description This function is for updating location text search field
-		@author Howard
-	**/
-	public static function update_location_text_search_field($pid)
-	{
-        $property_data = wpl_property::get_property_raw_data($pid);
-		$location_text = $property_data["location7_name"].", ".$property_data["location6_name"].", ".$property_data["location5_name"].", ".
-						 $property_data["location4_name"].", ".$property_data["location3_name"].", ".$property_data["location2_name"].", ".$property_data["location1_name"];
-						 
-		$location_text = $property_data['zip_name'].", ".trim($location_text, ', ');
-		wpl_db::set('wpl_properties', $pid, 'location_text', wpl_db::escape(trim($location_text, ', ')));
-    }
-	
-	/**
-		@inputs {property_id}
-		@description This function is for updating pic_numbs, att_numbs and etc
-		@author Howard
-	**/
+    /**
+     * Updates picture count, attachment count etc.
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $property_id
+     * @param array $property_data
+     */
 	public static function update_numbs($property_id, $property_data = NULL)
 	{
 		/** get property data if not provided **/
@@ -640,21 +724,21 @@ class wpl_property
 		wpl_db::q($query);
     }
 	
-	/**
-		@inputs {property_id}
-		@description This function is for updating textsearch field
-		@author Howard
-	**/
-	public static function update_text_search_field($pid)
+    /**
+     * Updates text search field
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $property_id
+     */
+	public static function update_text_search_field($property_id)
 	{
-        $property_data = wpl_property::get_property_raw_data($pid);
+        $property_data = wpl_property::get_property_raw_data($property_id);
 		
 		/** get text_search fields **/
 		$fields = wpl_flex::get_fields('', 1, $property_data['kind'], 'text_search', '1');
 		$rendered = self::render_property($property_data, $fields);
         
 		$text_search_data = array();
-		
 		foreach($rendered as $data)
 		{
 			if(!isset($data['type'])) continue;
@@ -693,9 +777,14 @@ class wpl_property
 				foreach($data['locations'] as $location_level=>$value)
 				{
 					$location_value .= $data['keywords'][$location_level] .' ';
-					$location_value .= $value . ' ';
+                    
+                    $abbr = wpl_locations::get_location_abbr_by_name($data['raw'][$location_level], $location_level);
+                    $name = wpl_locations::get_location_name_by_abbr($abbr, $location_level);
+                    
+                    $location_value .= $name . ' ' . ($name != $abbr ? $abbr.' ' : NULL);
 				}
                 
+                $location_value .= __('County', WPL_TEXTDOMAIN);
 				$value = $location_value;
 			}
 			elseif(isset($data['value']))
@@ -712,14 +801,21 @@ class wpl_property
 			if(trim($value2) != '') $text_search_data[] = strip_tags($value2);
 		}
         
-		wpl_db::set('wpl_properties', $pid, 'textsearch', wpl_db::escape(implode(' ', $text_search_data)));
+        $column = 'textsearch';
+        if(wpl_global::check_multilingual_status()) $column = wpl_addon_pro::get_column_lang_name($column, wpl_global::get_current_language(), false);
+        
+		wpl_db::set('wpl_properties', $property_id, $column, wpl_db::escape(implode(' ', $text_search_data)));
     }
-	
-	/**
-		@inputs [property_data] and [property_id] and [target_id]
-		@return property_show full link
-		@author Howard
-	**/
+    
+    /**
+     * Returns property page link
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param array $property_data
+     * @param int $property_id
+     * @param int $target_id
+     * @return string
+     */
 	public static function get_property_link($property_data, $property_id = 0, $target_id = 0)
 	{
 		/** fetch property data if property id is setted **/
@@ -732,7 +828,7 @@ class wpl_property
         $alias_field_id = wpl_flex::get_dbst_id($alias_column, $property_data['kind']);
         $alias_field = wpl_flex::get_field($alias_field_id);
         
-        if($alias_field->multilingual and wpl_global::check_multilingual_status()) $alias_column = wpl_addon_pro::get_column_lang_name($alias_column, wpl_global::get_current_language(), false);
+        if(isset($alias_field->multilingual) and $alias_field->multilingual and wpl_global::check_multilingual_status()) $alias_column = wpl_addon_pro::get_column_lang_name($alias_column, wpl_global::get_current_language(), false);
         
 		if(trim($property_data[$alias_column]) != '') $alias = urlencode($property_data[$alias_column]);
 		else $alias = urlencode(self::update_alias($property_data, $property_id));
@@ -769,10 +865,13 @@ class wpl_property
     }
     
     /**
-		@inputs {property_id} and [target_id]
-		@return pdf full link
-		@author Howard
-	**/
+     * Returns PDF link of property
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $property_id
+     * @param int $target_id
+     * @return string|boolean
+     */
 	public static function get_property_pdf_link($property_id, $target_id = 0)
 	{
         /** first validation **/
@@ -801,6 +900,13 @@ class wpl_property
 		@return property_listing full link
 		@author Howard
 	**/
+    /**
+     * 
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param type $target_id
+     * @return type
+     */
 	public static function get_property_listing_link($target_id = 0)
 	{
         if($target_id) $url = wpl_sef::get_page_link($target_id);
@@ -809,11 +915,16 @@ class wpl_property
         return $url;
     }
 	
-	/**
-		@inputs {property_id}
-		@return string location_text
-		@author Howard
-	**/
+    /**
+     * Generates proeprty location text
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param array $property_data
+     * @param int $property_id
+     * @param string $glue
+     * @param boolean $force
+     * @return string
+     */
 	public static function generate_location_text($property_data, $property_id = 0, $glue = ',', $force = false)
 	{
 		/** fetch property data if property id is setted **/
@@ -886,7 +997,7 @@ class wpl_property
             $final .= trim($value).$glue.' ';
         }
         
-        $location_text = trim($final, ', ');
+        $location_text = trim($final, $glue.' ');
         
         /** update **/
 		$query = "UPDATE `#__wpl_properties` SET `$column`='".$location_text."' WHERE `id`='".$property_id."'";
@@ -901,11 +1012,16 @@ class wpl_property
 		return $location_text;
     }
 	
-	/**
-		@inputs [property_data], [property_id]
-		@return string property_alias
-		@author Howard
-	**/
+    /**
+     * Generates alias of property
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param array $property_data
+     * @param int $property_id
+     * @param string $glue
+     * @param boolean $force
+     * @return string
+     */
 	public static function update_alias($property_data, $property_id = 0, $glue = '-', $force = false)
 	{
 		/** fetch property data if property id is setted **/
@@ -1112,6 +1228,13 @@ class wpl_property
 		return $title_str;
     }
 	
+    /**
+     * Fix Aliases for all languages
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param array $property_data
+     * @param int $property_id
+     */
     public static function fix_aliases($property_data, $property_id = 0)
 	{
 		/** fetch property data if property id is setted **/
@@ -1128,15 +1251,17 @@ class wpl_property
         }
     }
     
-	/**
-		@inputs {property_id}
-		@return void
-		@author Howard
-	**/
+    /**
+     * Calls proeprty visit actions
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $property_id
+     * @return boolean
+     */
 	public static function property_visited($property_id)
 	{
 		/** first validation **/
-		if(!trim($property_id)) return;
+		if(!trim($property_id)) return false;
 		
 		$current_user_id = wpl_users::get_cur_user_id();
 		$property_user = wpl_property::get_property_user($property_id);
@@ -1147,44 +1272,56 @@ class wpl_property
 			$query = "UPDATE `#__wpl_properties` SET `visit_time`=visit_time+1, `visit_date`='".date("Y-m-d H:i:s")."' WHERE `id`='$property_id'";
 			wpl_db::q($query, 'update');
 		}
+        
+        return true;
 	}
 	
-	/**
-		@inputs {field_name} and {property_id}
-		@return property user_id
-		@author Howard
-	**/
+    /**
+     * Returns a certain field of property data
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $field_name
+     * @param int $property_id
+     * @return mixed
+     */
 	public static function get_property_field($field_name, $property_id)
 	{
 		return wpl_db::get($field_name, 'wpl_properties', 'id', $property_id);
 	}
-	
-	/**
-		@inputs {property_id}
-		@return property user_id
-		@author Howard
-	**/
+    
+    /**
+     * Returns property user (Agent) ID
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $property_id
+     * @return int
+     */
 	public static function get_property_user($property_id)
 	{
 		return self::get_property_field('user_id', $property_id);
 	}
 	
-	/**
-		@inputs {property_id}
-		@return property kind
-		@author Howard
-	**/
+    /**
+     * Returns property kind
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $property_id
+     * @return int
+     */
 	public static function get_property_kind($property_id)
 	{
 		return self::get_property_field('kind', $property_id);
 	}
 	
-	/**
-		@inputs {property_id}, {status} and [trigger_event]
-		@return boolean
-		@description Use this function for deleting property
-		@author Howard
-	**/
+    /**
+     * Temporary delete a proeprty
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $property_id
+     * @param int $status
+     * @param boolean $trigger_event
+     * @return boolean
+     */
 	public static function delete($property_id, $status = 1, $trigger_event = true)
 	{
 		/** first validation **/
@@ -1199,12 +1336,15 @@ class wpl_property
 		return true;
 	}
 	
-	/**
-		@inputs {property_id}, {status} and [trigger_event]
-		@return boolean
-		@description Use this function for confirming property
-		@author Howard
-	**/
+    /**
+     * Confirm a property
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $property_id
+     * @param int $status
+     * @param boolean $trigger_event
+     * @return boolean
+     */
 	public static function confirm($property_id, $status = 1, $trigger_event = true)
 	{
 		/** first validation **/
@@ -1218,13 +1358,15 @@ class wpl_property
 		
 		return true;
 	}
-	
-	/**
-		@inputs {property_id} and [trigger_event]
-		@return boolean
-		@description Use this function for purging property completely
-		@author Howard
-	**/
+    
+    /**
+     * Purge a property completely
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $property_id
+     * @param boolean $trigger_event
+     * @return boolean
+     */
 	public static function purge($property_id, $trigger_event = true)
 	{
 		/** first validation **/
@@ -1252,11 +1394,13 @@ class wpl_property
 	}
     
     /**
-		@inputs {property_id} and {user_id}
-		@return boolean
-		@description Use this function for changing the user of property
-		@author Howard
-	**/
+     * Changes user (Agent) of a property
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $property_id
+     * @param int $user_id
+     * @return boolean
+     */
 	public static function change_user($property_id, $user_id)
 	{
 		/** first validation **/
@@ -1271,12 +1415,17 @@ class wpl_property
 		return true;
 	}
 	
-	/**
-		@inputs [extra_condition], [output], [limit], [order] and [select]
-		@return boolean
-		@description Use this function for purging property completely
-		@author Howard
-	**/
+    /**
+     * Returns active properties according to criteria
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $extra_condition
+     * @param string $select
+     * @param string $output
+     * @param int $limit
+     * @param string $order
+     * @return array
+     */
 	public static function select_active_properties($extra_condition = '', $select = '*', $output = 'loadAssocList', $limit = 0, $order = '`id` ASC')
 	{
 		$condition = " AND `deleted`='0' AND `finalized`='1' AND `confirmed`='1' AND `expired`='0'";
@@ -1288,36 +1437,45 @@ class wpl_property
 		return $results;
 	}
 	
-	/**
-		@inputs [params]
-		@return array or html
-		@description Use this function for generating sort options
-		@author Howard
-	**/
+    /**
+     * Generates sort output
+     * @author Howard <howard@realtyna.com>
+     * @param type $params
+     * @return type
+     */
 	public function generate_sorts($params = array())
 	{
 		include _wpl_import('views.basics.sorts.property_listing', true, true);
 		return $result;
 	}
 	
-	/**
-		@inputs {property_id}, [plisting_fields], [property] and [params]
-		@return array full render of property
-		@description This is a very useful function for rendering whole data of property. you need to just pass property_id and get everything!
-		@author Howard
-	**/
+    /**
+     * This is a very useful function for rendering whole data of property. you need to just pass property_id and get everything!
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $property_id
+     * @param array $plisting_fields
+     * @param array $property
+     * @param array $params
+     * @return array
+     */
 	public static function full_render($property_id, $plisting_fields = NULL, $property = NULL, $params = array())
 	{
 		/** get plisting fields **/
 		if(!$plisting_fields) $plisting_fields = self::get_plisting_fields();
 		
 		$raw_data = self::get_property_raw_data($property_id);
+        
+        if(!$raw_data) return array();
 		if(!$property) $property = (object) $raw_data;
 		
+        $column = 'rendered';
+        if(wpl_global::check_multilingual_status()) $column = wpl_addon_pro::get_column_lang_name($column, wpl_global::get_current_language(), false);
+        
         /** generate rendered data if rendered data is empty **/
-        if(!trim($raw_data['rendered']) and wpl_settings::get('cache')) $rendered = json_decode(wpl_property::generate_rendered_data($property_id), true);
+        if(!trim($raw_data[$column]) and wpl_settings::get('cache')) $rendered = json_decode(wpl_property::generate_rendered_data($property_id), true);
         elseif(!wpl_settings::get('cache')) $rendered = array();
-        else $rendered = json_decode($raw_data['rendered'], true);
+        else $rendered = json_decode($raw_data[$column], true);
         
 		$result = array();
 		$result['data'] = (array) $property;
@@ -1348,13 +1506,15 @@ class wpl_property
 		
 		return $result;
 	}
-	
-	/**
-		@inputs [listing_id]
-		@return string pid
-		@description Use this function for converting listing id (mls_id) to pid
-		@author Howard
-	**/
+    
+    /**
+     * Converts Listing ID to pid
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param string $value
+     * @param string $key
+     * @return string
+     */
 	public static function pid($value, $key = 'mls_id')
 	{
 		return wpl_db::get('id', 'wpl_properties', $key, $value);
@@ -1447,7 +1607,7 @@ class wpl_property
             else $updated[] = $unique_value;
 		}
         
-		/** createing log row **/
+		/** Creating Log **/
 		if($source == 'mls' and wpl_global::check_addon('mls'))
 		{
             _wpl_import('libraries.addon_mls');
@@ -1456,12 +1616,14 @@ class wpl_property
         
 		return $pids;
 	}
-	
-	/**
-		@inputs [property_id]
-		@return property_edit full link
-		@author Howard
-	**/
+    
+    /**
+     * Returns Property Edit Link
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $property_id
+     * @return boolean|string
+     */
 	public static function get_property_edit_link($property_id = 0)
 	{
 		/** first validation **/
@@ -1510,7 +1672,6 @@ class wpl_property
 			$property = self::get_property_raw_data($pid);
             
 			wpl_property::update_text_search_field($pid);
-			wpl_property::update_location_text_search_field($pid);
 			wpl_property::update_alias($property, $pid);
 			wpl_property::update_numbs($pid, $property);
             

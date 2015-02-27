@@ -9,10 +9,10 @@ _wpl_import('libraries.items');
 _wpl_import('libraries.images');
 _wpl_import('libraries.activities');
 
-class wpl_listings_controller extends wpl_controller {
-
-    var $tpl_path = 'views.backend.listings.tmpl';
-    var $tpl;
+class wpl_listings_controller extends wpl_controller
+{
+    public $tpl_path = 'views.backend.listings.tmpl';
+    public $tpl;
 
     public function manager($instance = array())
     {
@@ -27,8 +27,7 @@ class wpl_listings_controller extends wpl_controller {
         $init = $this->init_page();
         if(!$init) return false;
         
-        $this->tpl = 'manager';
-		
+		$this->tpl = wpl_flex::get_kind_tpl($this->tpl_path, 'manager', $this->kind);
         parent::render($this->tpl_path, $this->tpl);
     }
     

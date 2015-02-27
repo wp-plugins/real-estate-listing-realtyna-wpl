@@ -78,9 +78,6 @@ wplj(function(){
 
     });
 
-
-
-
 });
 
 var wplSearchWidget<?php echo $this->number ?> = (function ($) {
@@ -105,6 +102,22 @@ var wplSearchWidget<?php echo $this->number ?> = (function ($) {
 
     W.afterOpened = function(){
         $('#wpl_view_fields_<?php echo $this->number ?> .fancy-search-body > div').equalHeight();
+    }
+
+    W.saveChange = function(that){
+        $(that).parents('form').find('.widget-control-save').trigger('click');
+    }
+
+    W.saveAndReload = function(that){
+        $(that).parents('form').find('.widget-control-save').trigger('click');
+        $(that).parents('.widget.open').addClass('wpl-widget-search-must-reload-wp');
+
+
+        $(document).ajaxComplete(function(){
+            $('#btn-search-<?php echo $this->number ?>').off('click').on('click',function(){
+                window.location.reload();
+            });
+        });
     }
 
     // + Initialize Scrolls
@@ -288,8 +301,22 @@ var wplSearchWidget<?php echo $this->number ?> = (function ($) {
         });
     }
 
+
+
     // + On DOM ready
     $(function () {
+
+        // + InitChosen
+        var isChosenInit<?php echo $this->number ?> = false;
+        $('#wpl_view_fields_<?php echo $this->number ?>').parents('.widget').find('.widget-title h4').on('click.wpl-search-event',function(){
+
+            if(!isChosenInit<?php echo $this->number ?>){
+                $(this).parents('.widget').find('select').chosen(rta.config.chosen);
+                isChosenInit<?php echo $this->number ?> = true;
+
+                $('#wpl_view_fields_<?php echo $this->number ?>').parents('.widget').find('.widget-title h4').off('click.wpl-search-event');
+            }
+        });
 
         // + Notice
 
@@ -311,10 +338,6 @@ var wplSearchWidget<?php echo $this->number ?> = (function ($) {
 
         // + Initialize elements
 
-        // - Add icons
-        $('#wpl_view_fields_<?php echo $this->number ?> .search-field-wp[data-status="disable"] h4').append(searchConfig.templates.move);
-        $('#wpl_view_fields_<?php echo $this->number ?> .search-field-wp[data-status="enable"] h4').append(searchConfig.templates.delete);
-
         // - Append active items Active block
         $('#wpl_view_fields_<?php echo $this->number ?> .search-field-wp').filter('[data-status="enable"]').each(function () {
             $(this).appendTo($(this).closest('.search-body').find('.active-block'));
@@ -328,6 +351,10 @@ var wplSearchWidget<?php echo $this->number ?> = (function ($) {
 
             __self.appendTo($(this).closest('.search-body').find('.inactive-block'));
         });
+
+        // - Add icons
+        $('#wpl_view_fields_<?php echo $this->number ?> .search-field-wp[data-status="disable"] h4').append(searchConfig.templates.move);
+        $('#wpl_view_fields_<?php echo $this->number ?> .search-field-wp[data-status="enable"] h4').append(searchConfig.templates.delete);
 
         // Resize inactive block
         W.resizeInactiveBlock();
@@ -374,186 +401,182 @@ var wplSearchWidget<?php echo $this->number ?> = (function ($) {
 
         $('#wpl_view_fields_<?php echo $this->number ?> .icon-disabled').on('click.wpl-events', function(e){ removeButtonHandler($(this), e); });
 
-        // + Run Once
-        if ($.isNumeric('<?php echo $this->number ?>')) {
 
-            // + Tabs
+        // + Tabs
 
-            // - Calc tabs size
-            var __currentTab = 0,
-                __numberOfTabs = $('#wpl_view_fields_<?php echo $this->number ?> .search-tab').length,
-                __tabs_width = 100 / __numberOfTabs,
-                itemPerRow = 7,
-                tabsWidth = 0,
-                rows = 0;
+        // - Calc tabs size
+        var __currentTab = 0,
+            __numberOfTabs = $('#wpl_view_fields_<?php echo $this->number ?> .search-tab').length,
+            itemPerRow = 7,
+            tabsWidth = 0,
+            rows = 0;
 
-            if (Realtyna.getBrowserSizes().browser().width > 1400)
-                itemPerRow = 9;
+        if (Realtyna.getBrowserSizes().browser().width > 1400)
+            itemPerRow = 9;
 
-            tabsWidth = 100 / itemPerRow;
+        tabsWidth = 100 / itemPerRow;
 
-            if(__numberOfTabs > itemPerRow){
 
-                $('#wpl_view_fields_<?php echo $this->number ?> .search-tabs-wp').addClass('multi-row-tab');
+        if(__numberOfTabs >= itemPerRow){
 
-                var rows = 0;
-                for (var i = 0; i < __numberOfTabs; i++) {
-                    var classes = 'row-' + rows;
+            $('#wpl_view_fields_<?php echo $this->number ?> .search-tabs-wp').addClass('multi-row-tab');
 
-                    if(i === __numberOfTabs-1)
-                        classes += ' wpl-i-last-child';
+            var rows = 0;
+            for (var i = 0; i < __numberOfTabs; i++) {
+                var classes = 'row-' + rows;
 
-                    $('#wpl_view_fields_<?php echo $this->number ?>' + ' .search-tab').eq(i).addClass(classes);
+                if(i == __numberOfTabs - 2)
+                    classes += ' wpl-i-last-child';
 
-                    if(i === itemPerRow)
-                        rows++;
+                $('#wpl_view_fields_<?php echo $this->number ?>' + ' .search-tab').eq(i).addClass(classes);
+
+                if(i === itemPerRow - 1)
+                    rows++;
+            }
+        }
+
+        W.tabRows = rows + 1;
+
+
+
+        // - Tab event
+        $('#wpl_view_fields_<?php echo $this->number ?> .search-tab').on('click.wpl-events',function(e){
+            e.preventDefault();
+
+            var __tabID = $(this).attr('href');
+            // Set changes on tabs
+            $('#wpl_view_fields_<?php echo $this->number ?>' + ' .search-tab').removeClass('active');
+            $(this).addClass('active');
+
+            // Show current tab content
+            $('#wpl_view_fields_<?php echo $this->number ?>' + ' .search-body').hide();
+
+            // Save current tabs & Show active tab content
+            $('#wpl_view_fields_<?php echo $this->number ?>').attr({'data-active-tab': __tabID}).find(__tabID).fadeIn();
+
+            // Resize InactiveBlock width
+            W.resizeInactiveBlock();
+
+        });
+
+        // - Set Tab size and open first tab
+        $('#wpl_view_fields_<?php echo $this->number ?>').attr({'data-active-tab': $('#wpl_view_fields_<?php echo $this->number ?>').find('.search-tab').eq(__currentTab).attr('href')});
+        $('#wpl_view_fields_<?php echo $this->number ?>' + ' .search-tab').css({width: tabsWidth + '%'}).eq(__currentTab).trigger('click');
+
+        //.. Add Overlay div to Active Element
+        /*
+        $('.overlay-wp').each(function () {
+            var __overlay = $(this),
+                __activeElement = __overlay.siblings('.active-block');
+            __activeElement.prepend(__overlay);
+        });
+        */
+        //.
+
+        // - Apply Sortable on OrderList
+        $('#wpl_view_fields_<?php echo $this->number ?> #fields-order ul').sortable({
+            handle: 'i',
+            opacity: 0.5,
+            placeholder: "placeholder-item",
+            scroll: false,
+            axis: "y",
+            update: function (event, ui) {
+                updateOrderList(true);
+            },
+            change: function (event, ui) {
+                var p = ui.position.top,
+                    h = ui.helper.outerHeight(true),
+                    s = ui.placeholder.position().top,
+                    elem = $('#wpl_view_fields_<?php echo $this->number ?>' + ' .order-list-body .mCustomScrollBox')[0],
+                    elemHeight = $('#wpl_view_fields_<?php echo $this->number ?>' + ' .order-list-body .mCustomScrollBox').height(),
+                    pos = findPos(elem),
+                    mouseCoordsY = event.pageY - pos[0];
+
+                if (mouseCoordsY < h || mouseCoordsY > elemHeight - h) {
+                    $('#wpl_view_fields_<?php echo $this->number ?>' + ' .order-list-body').mCustomScrollbar('scrollTo', p - (elemHeight / 2));
                 }
             }
-
-            W.tabRows = rows + 1;
-
+        });
 
 
-            // - Tab event
-            $('#wpl_view_fields_<?php echo $this->number ?> .search-tab').on('click.wpl-events',function(e){
-                e.preventDefault();
+        $('#wpl_view_fields_<?php echo $this->number ?> .order-list-wp ul').disableSelection();
 
-                var __tabID = $(this).attr('href');
-                // Set changes on tabs
-                $('#wpl_view_fields_<?php echo $this->number ?>' + ' .search-tab').removeClass('active');
-                $(this).addClass('active');
 
-                // Show current tab content
-                $('#wpl_view_fields_<?php echo $this->number ?>' + ' .search-body').hide();
+        // - Initialize InactiveBlock for draggable
+        $('#wpl_view_fields_<?php echo $this->number ?>' + selInactive + ' .search-field-wp').draggable({
+            cursor: 'move',
+            revert: true,
+            delay: 200,
+            refreshPositions: false,
+            scroll: false,
+            opacity: 0.6,
+            start: function () {
+                $(getBlockId('active')).find('.overlay-wp').fadeIn(100);
+            },
+            stop: function () { //show original when hiding clone
+               /* $(getBlockId('active')).find('.overlay-wp').fadeOut(100);
+                $(this).transition({scale: 1});*/
+            }
+        });
 
-                // Save current tabs & Show active tab content
-                $('#wpl_view_fields_<?php echo $this->number ?>').attr({'data-active-tab': __tabID}).find(__tabID).fadeIn();
+        // - Initialize ActiveBlock for droppable
+        $('#wpl_view_fields_<?php echo $this->number ?>' + selActive).droppable({
+            hoverClass: "wpl-search-onhover",
+            drop: function (event, ui) {
 
-                // Resize InactiveBlock width
+                // Hide overlay
+                $(getBlockId('active')).find('.overlay-wp').fadeOut(400);
+
+                var item = ui.draggable;
+
+                // - Move scroll to bottom
+                $(getBlockId('active')).mCustomScrollbar('scrollTo', 'bottom');
+
+                item.draggable("disable");
+
+                item.hide().removeAttr('style');
+
+                // Remove move icon and add Delete icon and bind necessary events
+                item.find('.action-btn').removeClass('icon-move').addClass('icon-disabled')
+                    .off('click.wpl-events').on('click.wpl-events',function(e){ removeButtonHandler($(this), e); });
+
+                // Add
+                //item.find('h4').append(searchConfig.templates.delete);
+                //item.find('h4 .action-btn').on('click', function(e){ removeButtonHandler($(this), e); });
+
+                // Change item status
+                item.removeClass('disable').addClass('enable');
+                item.attr({'data-status': 'enable'}).find('input[id^="field_enable_"]').val('enable');
+
+                // Append it to ActiveBlock
+                item.fadeIn().appendTo(getBlockId('active') + ' .mCSB_container');
+
+                //item.transition({scale:1});
+
                 W.resizeInactiveBlock();
 
-            });
+                // Add Element to OrderList
+                addToOrderList(item);
 
-            // - Set Tab size and open first tab
-            $('#wpl_view_fields_<?php echo $this->number ?>').attr({'data-active-tab': $('#wpl_view_fields_<?php echo $this->number ?>').find('.search-tab').eq(__currentTab).attr('href')});
-            $('#wpl_view_fields_<?php echo $this->number ?>' + ' .search-tab').css({width: tabsWidth + '%'}).eq(__currentTab).trigger('click');
+                updateOrderList(true);
 
-            //.. Add Overlay div to Active Element
-            /*
-            $('.overlay-wp').each(function () {
-                var __overlay = $(this),
-                    __activeElement = __overlay.siblings('.active-block');
-                __activeElement.prepend(__overlay);
-            });
-            */
-            //.
+                $(getBlockId('active')).mCustomScrollbar('scrollTo', 'bottom');
 
-            // - Apply Sortable on OrderList
-            $('#wpl_view_fields_<?php echo $this->number ?> #fields-order ul').sortable({
-                handle: 'i',
-                opacity: 0.5,
-                placeholder: "placeholder-item",
-                scroll: false,
-                axis: "y",
-                update: function (event, ui) {
-                    updateOrderList(true);
-                },
-                change: function (event, ui) {
-                    var p = ui.position.top,
-                        h = ui.helper.outerHeight(true),
-                        s = ui.placeholder.position().top,
-                        elem = $('#wpl_view_fields_<?php echo $this->number ?>' + ' .order-list-body .mCustomScrollBox')[0],
-                        elemHeight = $('#wpl_view_fields_<?php echo $this->number ?>' + ' .order-list-body .mCustomScrollBox').height(),
-                        pos = findPos(elem),
-                        mouseCoordsY = event.pageY - pos[0];
+            }
+        });
 
-                    if (mouseCoordsY < h || mouseCoordsY > elemHeight - h) {
-                        $('#wpl_view_fields_<?php echo $this->number ?>' + ' .order-list-body').mCustomScrollbar('scrollTo', p - (elemHeight / 2));
-                    }
-                }
-            });
+        // - Add overlay to ActiveBlock
+        $('#wpl_view_fields_<?php echo $this->number ?> .overlay-wp').each(function () {
+            var __thisActive = $(this).closest('.active-block');
+            __thisActive.prepend($(this));
+        });
 
 
-            $('#wpl_view_fields_<?php echo $this->number ?> .order-list-wp ul').disableSelection();
+        //// Set init attr to TRUE
+        $('#btn-search-<?php echo $this->number ?>').addClass('fancybox').attr('data-is-init', 'true');
+        $('#btn-shortcode-<?php echo $this->number ?>').addClass('fancybox').attr('data-is-init', 'true');
+        $('#wpl-js-page-must-reload-<?php echo $this->number ?>').hide();
 
-
-            // - Initialize InactiveBlock for draggable
-            $('#wpl_view_fields_<?php echo $this->number ?>' + selInactive + ' .search-field-wp').draggable({
-                cursor: 'move',
-                revert: true,
-                delay: 200,
-                refreshPositions: false,
-                scroll: false,
-                opacity: 0.6,
-                start: function () {
-                    $(getBlockId('active')).find('.overlay-wp').fadeIn(100);
-                },
-                stop: function () { //show original when hiding clone
-                   /* $(getBlockId('active')).find('.overlay-wp').fadeOut(100);
-                    $(this).transition({scale: 1});*/
-                }
-            });
-
-            // - Initialize ActiveBlock for droppable
-            $('#wpl_view_fields_<?php echo $this->number ?>' + selActive).droppable({
-                hoverClass: "wpl-search-onhover",
-                drop: function (event, ui) {
-
-                    // Hide overlay
-                    $(getBlockId('active')).find('.overlay-wp').fadeOut(400);
-
-                    var item = ui.draggable;
-
-                    // - Move scroll to bottom
-                    $(getBlockId('active')).mCustomScrollbar('scrollTo', 'bottom');
-
-                    item.draggable("disable");
-
-                    item.hide().removeAttr('style');
-
-                    // Remove move icon and add Delete icon and bind necessary events
-                    item.find('.action-btn').removeClass('icon-move').addClass('icon-disabled')
-                        .off('click.wpl-events').on('click.wpl-events',function(e){ removeButtonHandler($(this), e); });
-
-                    // Add
-                    //item.find('h4').append(searchConfig.templates.delete);
-                    //item.find('h4 .action-btn').on('click', function(e){ removeButtonHandler($(this), e); });
-
-                    // Change item status
-                    item.removeClass('disable').addClass('enable');
-                    item.attr({'data-status': 'enable'}).find('input[id^="field_enable_"]').val('enable');
-
-                    // Append it to ActiveBlock
-                    item.fadeIn().appendTo(getBlockId('active') + ' .mCSB_container');
-
-                    //item.transition({scale:1});
-
-                    W.resizeInactiveBlock();
-
-                    // Add Element to OrderList
-                    addToOrderList(item);
-
-                    updateOrderList(true);
-
-                    $(getBlockId('active')).mCustomScrollbar('scrollTo', 'bottom');
-
-                }
-            });
-
-            // - Add overlay to ActiveBlock
-            $('#wpl_view_fields_<?php echo $this->number ?> .overlay-wp').each(function () {
-                var __thisActive = $(this).closest('.active-block');
-                __thisActive.prepend($(this));
-            });
-
-
-            //// Set init attr to TRUE
-            $('#btn-search-<?php echo $this->number ?>').addClass('fancybox').attr('data-is-init', 'true');
-            $('#btn-shortcode-<?php echo $this->number ?>').addClass('fancybox').attr('data-is-init', 'true');
-            $('#btn-search-<?php echo $this->number ?>').next('.page-must-reload').remove();
-            $('#btn-shortcode-<?php echo $this->number ?>').next('.page-must-reload').remove();
-
-        }
     });
 
     return W;

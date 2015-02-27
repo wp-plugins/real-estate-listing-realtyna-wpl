@@ -100,7 +100,7 @@ defined('_WPLEXEC') or die('Restricted access');
             <select class="text_box" name="option[demographic_category]" id="wpl_o_demographic_category">
                 <option value=""><?php echo __('All', WPL_TEXTDOMAIN); ?></option>
                 <?php foreach($this->categories as $category): ?>
-                <option value="<?php echo $category; ?>" <?php echo ((isset($this->options->demographic_category) and $this->options->demographic_category == $category) ? 'selected="selected"' : ''); ?>><?php echo __($category, WPL_TEXTDOMAIN); ?></option>
+                <option value="<?php echo $category; ?>" <?php echo ((isset($this->options->demographic_category) and $this->options->demographic_category == $category) ? 'selected="selected"' : ''); ?>><?php echo __(wpl_global::human_readable($category), WPL_TEXTDOMAIN); ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
