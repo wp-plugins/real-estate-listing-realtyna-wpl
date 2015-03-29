@@ -363,7 +363,7 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 * Added requirements and maintenance view on settings menu.
 * Added documentation and support section into WPL dashboard.
 * Fixed some PHP notices.
-* Fixed an issue in PHP5.2!
+* Fixed an issue in PHP5.2!!
 
 = 1.0.5 =
 * Fixed some issues.
