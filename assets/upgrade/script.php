@@ -24,3 +24,16 @@ if(wpl_db::num('', 'wpl_properties') <= 3000)
     $listings = wpl_property::select_active_properties('', '`id`');
     foreach($listings as $listing) wpl_property::update_text_search_field($listing['id']);
 }
+
+/** Update Carousel Widgets **/
+$widgets = get_option('widget_wpl_carousel_widget');
+if(count($widgets))
+{
+    foreach($widgets as $key=>$widget)
+    {
+        if($widgets[$key]['layout'] == 'elastic') $widgets[$key]['layout'] = 'modern';
+        elseif($widgets[$key]['layout'] == 'owl_slider') $widgets[$key]['layout'] = 'multi_images';
+    }
+    
+    update_option('widget_wpl_carousel_widget', $widgets);
+}
