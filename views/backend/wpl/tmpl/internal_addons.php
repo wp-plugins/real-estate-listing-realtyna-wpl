@@ -2,7 +2,7 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 ?>
-<div class="side-10 side-addons">
+<div class="side-8 side-addons" id="wpl_dashboard_side_addons">
     <div class="panel-wp">
         <h3><?php echo __('WPL Add Ons', WPL_TEXTDOMAIN); ?></h3>
         

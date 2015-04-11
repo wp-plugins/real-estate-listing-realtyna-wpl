@@ -15,7 +15,7 @@ $addons[8] = array('name'=>'Availability Calendar', 'id'=>'13', 'addon_name'=>'c
 $addons[9] = array('name'=>'Demographic Info', 'id'=>'12', 'addon_name'=>'demographic', 'description'=>'WPL Add-on for drawing and defining regions on the map for different demographic status.', 'readmore_link'=>'http://wpl.realtyna.com/redirect.php?action=download&item=demographic', 'button_text'=>'Download');
 $addons[10] = array('name'=>'Optimizer', 'id'=>'17', 'addon_name'=>'optimizer', 'description'=>'Optimize property images and speed up your website.', 'readmore_link'=>'http://wpl.realtyna.com/redirect.php?action=download&item=optimizer', 'button_text'=>'Download');
 ?>
-<div class="side-7 side-ni-addons">
+<div class="side-6 side-ni-addons" id="wpl_dashboard_ni_addons">
     <div class="panel-wp">
         <h3><?php echo __('Optional Add Ons', WPL_TEXTDOMAIN); ?></h3>
 

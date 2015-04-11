@@ -13,10 +13,10 @@ class wpl_wpl_controller extends wpl_controller
 		wpl_global::min_access('administrator');
 		$function = wpl_request::getVar('wpl_function');
 		
-		if($function == 'install_package') self::install_package();
-		elseif($function == 'check_addon_update') self::check_addon_update();
-		elseif($function == 'update_package') self::update_package();
-		elseif($function == 'save_realtyna_credentials') self::save_realtyna_credentials();
+		if($function == 'install_package') $this->install_package();
+		elseif($function == 'check_addon_update') $this->check_addon_update();
+		elseif($function == 'update_package') $this->update_package();
+		elseif($function == 'save_realtyna_credentials') $this->save_realtyna_credentials();
 	}
 	
 	private function install_package()
@@ -27,26 +27,26 @@ class wpl_wpl_controller extends wpl_controller
 		$dest = $tmp_directory.'package.zip';
 		
 		$response = wpl_global::upload($file, $dest, array('zip'), 20971520); #20MB
-		if(trim($response['error']) != '') self::response($response);
+		if(trim($response['error']) != '') $this->response($response);
 		
 		$zip_file = $dest;
 		wpl_global::zip_extract($zip_file, $tmp_directory);
 		
 		$script_file = $tmp_directory.'installer.php';
-		if(!wpl_file::exists($script_file)) self::response(array('error'=>__("Installer file doesn't exist!", WPL_TEXTDOMAIN), 'message'=>''));
+		if(!wpl_file::exists($script_file)) $this->response(array('error'=>__("Installer file doesn't exist!", WPL_TEXTDOMAIN), 'message'=>''));
 		
 		/** including installer and run the install method **/
 		include $script_file;
-		if(!class_exists('wpl_installer')) self::response(array('error'=>__("Installer class doesn't exist!", WPL_TEXTDOMAIN), 'message'=>''));
+		if(!class_exists('wpl_installer')) $this->response(array('error'=>__("Installer class doesn't exist!", WPL_TEXTDOMAIN), 'message'=>''));
 		
 		/** run install script **/
 		$wpl_installer = new wpl_installer();
 		$wpl_installer->path = $tmp_directory;
 		
-		if(!$wpl_installer->run()) self::response(array('error'=>$wpl_installer->error, 'message'=>''));
+		if(!$wpl_installer->run()) $this->response(array('error'=>$wpl_installer->error, 'message'=>''));
 		
 		$message = $wpl_installer->message ? $wpl_installer->message : __('Package installed.', WPL_TEXTDOMAIN);
-		self::response(array('error'=>'', 'message'=>$message));
+		$this->response(array('error'=>'', 'message'=>$message));
 	}
 	
 	private function check_addon_update()
@@ -54,7 +54,7 @@ class wpl_wpl_controller extends wpl_controller
 		$addon_id = wpl_request::getVar('addon_id');
 		$response = wpl_global::check_addon_update($addon_id);
 		
-		self::response($response);
+		$this->response($response);
 	}
 	
 	private function update_package()
@@ -66,28 +66,28 @@ class wpl_wpl_controller extends wpl_controller
 		
 		$zip_file = wpl_global::get_web_page('http://billing.realtyna.com/index.php?option=com_rls&view=downloadables&task=download&sid='.$sid.'&randomkey='.rand(1, 100));
 		
-		if(!$zip_file) self::response(array('success'=>'0', 'error'=>__('Error: #U202, Could not download the update package!', WPL_TEXTDOMAIN), 'message'=>''));
-		if(!class_exists('ZipArchive')) self::response(array('success'=>'0', 'error'=>__('Error: #U205, Your PHP has no ZipArchive support enabled!', WPL_TEXTDOMAIN), 'message'=>''));
-        if(!wpl_file::write($dest, $zip_file)) self::response(array('success'=>'0', 'error'=>__('Error: #U203, Could not create the update file!', WPL_TEXTDOMAIN), 'message'=>''));
-		if(!wpl_global::zip_extract($dest, $tmp_directory)) self::response(array('success'=>'0', 'error'=>__('Error: #U204, Could not extract the update file!', WPL_TEXTDOMAIN), 'message'=>''));
+		if(!$zip_file) $this->response(array('success'=>'0', 'error'=>__('Error: #U202, Could not download the update package!', WPL_TEXTDOMAIN), 'message'=>''));
+		if(!class_exists('ZipArchive')) $this->response(array('success'=>'0', 'error'=>__('Error: #U205, Your PHP has no ZipArchive support enabled!', WPL_TEXTDOMAIN), 'message'=>''));
+        if(!wpl_file::write($dest, $zip_file)) $this->response(array('success'=>'0', 'error'=>__('Error: #U203, Could not create the update file!', WPL_TEXTDOMAIN), 'message'=>''));
+		if(!wpl_global::zip_extract($dest, $tmp_directory)) $this->response(array('success'=>'0', 'error'=>__('Error: #U204, Could not extract the update file!', WPL_TEXTDOMAIN), 'message'=>''));
 		
 		$script_file = $tmp_directory.'installer.php';
-		if(!wpl_file::exists($script_file)) self::response(array('error'=>__("Installer file doesn't exist!", WPL_TEXTDOMAIN), 'message'=>''));
+		if(!wpl_file::exists($script_file)) $this->response(array('error'=>__("Installer file doesn't exist!", WPL_TEXTDOMAIN), 'message'=>''));
 		
-        if(!is_writable(WPL_ABSPATH.'WPL.php')) self::response(array('error'=>__("PHP doesn't have write access to the files and directories!", WPL_TEXTDOMAIN), 'message'=>''));
+        if(!is_writable(WPL_ABSPATH.'WPL.php')) $this->response(array('error'=>__("PHP doesn't have write access to the files and directories!", WPL_TEXTDOMAIN), 'message'=>''));
         
 		/** including installer and run the install method **/
 		include $script_file;
-		if(!class_exists('wpl_installer')) self::response(array('error'=>__("Installer class doesn't exist!", WPL_TEXTDOMAIN), 'message'=>''));
+		if(!class_exists('wpl_installer')) $this->response(array('error'=>__("Installer class doesn't exist!", WPL_TEXTDOMAIN), 'message'=>''));
 		
 		/** run install script **/
 		$wpl_installer = new wpl_installer();
 		$wpl_installer->path = $tmp_directory;
 		
-		if(!$wpl_installer->run()) self::response(array('error'=>$wpl_installer->error, 'message'=>''));
+		if(!$wpl_installer->run()) $this->response(array('error'=>$wpl_installer->error, 'message'=>''));
 		
 		$message = $wpl_installer->message ? $wpl_installer->message : __('Addon Updated.', WPL_TEXTDOMAIN);
-		self::response(array('error'=>'', 'message'=>$message));
+		$this->response(array('error'=>'', 'message'=>$message));
 	}
 	
 	private function save_realtyna_credentials()
@@ -102,7 +102,7 @@ class wpl_wpl_controller extends wpl_controller
 		wpl_settings::save_setting('realtyna_password', $password, 1);
 		$response = wpl_global::check_realtyna_credentials();
 		
-		self::response($response);
+		$this->response($response);
 	}
 	
 	private function response($response)

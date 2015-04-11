@@ -18,58 +18,58 @@ class wpl_data_structure_controller extends wpl_controller
 		if($function == 'generate_new_page')
 		{
 			$type = wpl_request::getVar('type');
-			self::generate_new_page($type);
+			$this->generate_new_page($type);
 		}
 		elseif($function == 'sort_units')
 		{
 			$sort_ids = wpl_request::getVar('sort_ids');
-			self::sort_units($sort_ids);
+			$this->sort_units($sort_ids);
 		}
 		elseif($function == 'unit_enabled_state_change')
 		{
 			$unit_id = wpl_request::getVar('unit_id');
 			$enabled_status = wpl_request::getVar('enabled_status');
-			self::update($unit_id, 'enabled', $enabled_status);
+			$this->update($unit_id, 'enabled', $enabled_status);
 		}
 		elseif($function == 'after_before_change_state')
 		{
 			$unit_id = wpl_request::getVar('unit_id');
 			$after_before_status = wpl_request::getVar('after_before_status');			
-			self::update($unit_id, 'after_before', $after_before_status);
+			$this->update($unit_id, 'after_before', $after_before_status);
 		}
 		elseif($function == 'unit_3digit_seperator_change')
 		{
 			$unit_id = wpl_request::getVar('unit_id');
 			$seperator = wpl_request::getVar('seperator');			
-			self::update($unit_id, "seperator", $seperator);
+			$this->update($unit_id, "seperator", $seperator);
 		}
 		elseif($function == 'unit_decimal_seperator_change')
 		{
 			$unit_id = wpl_request::getVar('unit_id');
 			$d_seperator = wpl_request::getVar('d_seperator');			
-			self::update($unit_id, 'd_seperator', $d_seperator);
+			$this->update($unit_id, 'd_seperator', $d_seperator);
 		}
 		elseif($function == 'update_exchange_rates')
 		{			
-			self::update_exchange_rates();
+			$this->update_exchange_rates();
 		}
 		elseif($function == 'update_a_exchange_rate')
 		{			
 			$unit_id = wpl_request::getVar('unit_id');			
 			$currency_code = wpl_request::getVar('currency_code');			
-			self::update_a_exchange_rate($unit_id, $currency_code);
+			$this->update_a_exchange_rate($unit_id, $currency_code);
 		}
 		elseif($function == 'exchange_rate_manual')
 		{			
 			$unit_id = wpl_request::getVar('unit_id');
 			$tosi = wpl_request::getVar('tosi');			
-			self::update($unit_id, 'tosi', $tosi);
+			$this->update($unit_id, 'tosi', $tosi);
 		}
 		elseif($function == 'change_currnecy_name')
 		{			
 			$unit_id = wpl_request::getVar('unit_id');
 			$name = wpl_request::getVar('name');			
-			self::update($unit_id, 'name', $name);
+			$this->update($unit_id, 'name', $name);
 		}		
 	}
 

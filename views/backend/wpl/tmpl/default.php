@@ -4,7 +4,6 @@ defined('_WPLEXEC') or die('Restricted access');
 
 _wpl_import($this->tpl_path . '.scripts.css');
 _wpl_import($this->tpl_path . '.scripts.js');
-_wpl_import('libraries.activities');
 ?>
 <div class="wrap wpl-wp wpl-dashboard-wp">
 
@@ -32,7 +31,7 @@ _wpl_import('libraries.activities');
     </div>
 
     <div class="sidebar-wp sidebar-float">
-        <div class="side-14 side-ni-addons">
+        <div class="side-ni-addons">
             <div class="sidebar-wp sidebar-float">
 
                 <div class="rt-same-height sidebar-float">
@@ -47,7 +46,7 @@ _wpl_import('libraries.activities');
                     <!-- Generating addons -->
                     <?php $this->generate_addons(); ?>
 
-                    <div class="side-4 side-changes js-full-height" data-minuse-size="56">
+                    <div class="side-4 side-changes js-full-height" data-minuse-size="56" id="wpl_dashboard_changelog">
                         <div class="panel-wp">
                             <h3><?php echo __('Changelog', WPL_TEXTDOMAIN); ?></h3>
 
@@ -56,6 +55,7 @@ _wpl_import('libraries.activities');
                             </div>
                         </div>
                     </div>
+
                 </div>
 
                 <!-- Generating statistic section -->
@@ -80,6 +80,3 @@ _wpl_import('libraries.activities');
         <div class="logo"></div>
     </footer>
 </div>
-<script type="text/javascript">
-    (function($){$(function(){isWPL();})})(jQuery);
-</script>

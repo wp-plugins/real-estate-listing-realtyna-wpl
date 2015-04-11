@@ -26,9 +26,12 @@ class wpl_events_notifications
         /** Disabled **/
         if(!$notification->notification_data['enabled']) return false;
         
-        $property = wpl_property::get_property_raw_data($params[0]['property_id']);
+        $property_id = $params[0]['property_id'];
+        $property = wpl_property::get_property_raw_data($property_id);
         $user = wpl_users::get_user($property['user_id']);
-        $replacements['listing_id'] = $property['mls_id'];
+        
+        $property_title = wpl_property::update_property_title($property);
+        $replacements['listing_id'] = '<a href="'.wpl_property::get_property_link(NULL, $property_id).'">'.$property['mls_id'].' ('.$property_title.')</a>';
         
         $notification->replacements = $notification->set_replacements($replacements);
         $notification->rendered_content = $notification->render_notification_content();
@@ -56,6 +59,39 @@ class wpl_events_notifications
         if(!$notification->notification_data['enabled']) return false;
         
         $user = wpl_users::get_user($params[0]['user_id']);
+        
+        $notification->replacements = $notification->set_replacements($replacements);
+        $notification->rendered_content = $notification->render_notification_content();
+        $notification->recipients = $notification->set_recipients(array($user->data->user_email));
+        $notification->send();
+        
+        return true;
+    }
+    
+    /**
+     * Sends welcome email to user after registeration
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param array $params
+     * @return boolean
+     */
+    public static function user_registered($params)
+    {
+        $replacements = $params[0];
+        
+        $notification = new wpl_notifications('email');
+        $notification->prepare(5, $replacements);
+        
+        /** Disabled **/
+        if(!$notification->notification_data['enabled']) return false;
+        
+        $user = wpl_users::get_user($params[0]['user_id']);
+        $replacements['name'] = isset($user->data->wpl_data) ? $user->data->wpl_data->first_name : $user->data->display_name;
+        $replacements['password'] = $params[0]['password'];
+        $replacements['username'] = $user->data->user_login;
+        
+        $link = wpl_global::get_wp_site_url();
+        $replacements['site_address'] = '<a target="_blank" href="'.$link.'">'.$link.'</a>';
         
         $notification->replacements = $notification->set_replacements($replacements);
         $notification->rendered_content = $notification->render_notification_content();

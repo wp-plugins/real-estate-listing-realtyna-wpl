@@ -9,8 +9,6 @@ $result = NULL;
 
 $type = isset($params['type']) ? $params['type'] : 1; # 1 == ul and 0 == selectbox
 $return_array = isset($params['return_array']) ? $params['return_array'] : 0;
-$rss = isset($params['rss']) ? $params['rss'] : 1;
-$save_search = isset($params['save_search']) ? $params['save_search'] : 0;
 
 $sort_options = wpl_sort_options::get_sort_options(0, 1);
 
@@ -73,4 +71,3 @@ $result_array['html'] = $html;
 
 if($return_array) $result = $result_array;
 else $result = $html;
-

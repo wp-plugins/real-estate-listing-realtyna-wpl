@@ -71,6 +71,10 @@ class wpl_sort_options
 	{
 		/** first validation **/
 		if(trim($table) == '' or trim($id) == '' or trim($key) == '') return false;
+
+		/** trigger event **/
+		wpl_global::event_handler('sort_options_updated', array('id'=>$id,'key'=>$value));
+
 		return wpl_db::set($table, $id, $key, $value);
 	}
 }

@@ -19,55 +19,55 @@ class wpl_data_structure_controller extends wpl_controller
 		
 		if($function == 'generate_new_page')
 		{
-			self::generate_new_page();
+			$this->generate_new_page();
 		}
 		elseif($function == 'generate_delete_page')
 		{
-			self::generate_delete_page();
+			$this->generate_delete_page();
 		}
 		elseif($function == 'set_enabled_property_type')
 		{
 			$property_type_id = wpl_request::getVar('property_type_id');
 			$enabeled_status = wpl_request::getVar('enabeled_status');
 			
-			self::set_enabled_property_type($property_type_id, $enabeled_status);
+			$this->set_enabled_property_type($property_type_id, $enabeled_status);
 		}
 		elseif($function == 'remove_property_type')
 		{
 			$property_type_id = wpl_request::getVar('property_type_id');
 			$confirmed = wpl_request::getVar('wpl_confirmed', 0);
 			
-			self::remove_property_type($property_type_id, $confirmed);
+			$this->remove_property_type($property_type_id, $confirmed);
 		}
 		elseif($function == 'generate_edit_page')
 		{
 			$property_type_id = wpl_request::getVar('property_type_id');
-			self::generate_edit_page($property_type_id);
+			$this->generate_edit_page($property_type_id);
 		}
 		elseif($function == 'sort_property_types')
 		{
 			$sort_ids = wpl_request::getVar('sort_ids');
-			self::sort_property_types($sort_ids);
+			$this->sort_property_types($sort_ids);
 		}
         elseif($function == 'save_property_type')
 		{
-			self::save_property_type();
+			$this->save_property_type();
 		}
 		elseif($function == 'insert_property_type')
 		{
-			self::insert_property_type();
+			$this->insert_property_type();
 		}
 		elseif($function == 'can_remove_property_type')
 		{
-			self::can_remove_property_type();
+			$this->can_remove_property_type();
 		}
         elseif($function == 'purge_related_property')
 		{
-			self::purge_related_property();
+			$this->purge_related_property();
 		}
 		elseif($function == 'assign_related_properties')
 		{
-			self::assign_related_properties();
+			$this->assign_related_properties();
 		}
 	}
 	
@@ -113,7 +113,7 @@ class wpl_data_structure_controller extends wpl_controller
 		
 		$this->property_type_id = $property_type_id;
 		$this->property_type_data = wpl_property_types::get_property_type($this->property_type_id);
-		$this->property_types_category = wpl_property_types::get_property_types_category();
+		$this->property_types_category = wpl_property_types::get_property_type_categories();
 		
 		parent::render($this->tpl_path, 'internal_edit_property_types');
 		exit;
@@ -123,7 +123,7 @@ class wpl_data_structure_controller extends wpl_controller
 	{
 		$this->property_type_id = 10000;
 		$this->property_type_data = wpl_property_types::get_property_type($this->property_type_id);
-		$this->property_types_category = wpl_property_types::get_property_types_category();
+		$this->property_types_category = wpl_property_types::get_property_type_categories();
 		
 		parent::render($this->tpl_path, 'internal_edit_property_types');
 		exit;
@@ -200,7 +200,7 @@ class wpl_data_structure_controller extends wpl_controller
 		$properties_list = wpl_property::get_properties_list('property_type', $property_type_id);
         
 		foreach($properties_list as $property) wpl_property::purge($property['id']);
-		self::remove_property_type($property_type_id, 1);
+		$this->remove_property_type($property_type_id, 1);
 	}
     
 	private function assign_related_properties()
@@ -210,6 +210,6 @@ class wpl_data_structure_controller extends wpl_controller
         
 		$j = wpl_property::update_properties('property_type', $property_type_id, $select_id);
         
-		self::remove_property_type($property_type_id, 1);
+		$this->remove_property_type($property_type_id, 1);
 	}
 }

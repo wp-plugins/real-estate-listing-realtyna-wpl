@@ -7,6 +7,10 @@ if($type == 'parent' and !$done_this)
     /** converts property id to listing id **/
     if($value) $value = wpl_property::listing_id($value);
     
+    $parent_kind = isset($options['parent_kind']) ? $options['parent_kind'] : 0;
+    $replace = isset($options['replace']) ? $options['replace'] : 1;
+    $parent_key = isset($options['key']) ? $options['key'] : 'parent';
+    
     wp_enqueue_script('jquery-ui-core');
 	wp_enqueue_script('jquery-ui-autocomplete');
 ?>
@@ -18,13 +22,13 @@ wplj(document).ready(function()
 {
     wplj("#wpl_c_<?php echo $field->id; ?>").autocomplete(
     {
-        source: "<?php echo wpl_global::add_qs_var('wpl_format', 'b:listing:ajax', wpl_global::get_full_url()); ?>&wpl_function=get_parents&kind=<?php echo $options['parent_kind']; ?>",
+        source: "<?php echo wpl_global::add_qs_var('wpl_format', 'b:listing:ajax', wpl_global::get_full_url()); ?>&wpl_function=get_parents&kind=<?php echo $parent_kind; ?>&exclude=<?php echo $item_id; ?>",
         minLength: 1,
-        select: function( event, ui )
+        select: function(event, ui)
         {
             wpl_parent_is_selected<?php echo $field->id; ?>(ui.item.id);
         },
-        change: function( event, ui )
+        change: function(event, ui)
         {
             if(ui.item == null)
             {
@@ -39,10 +43,10 @@ function wpl_parent_is_selected<?php echo $field->id; ?>(parent_id)
 {
     var url = "<?php echo wpl_global::add_qs_var('pid', $item_id, wpl_global::get_full_url()); ?>";
     
-    ajax = wpl_run_ajax_query("<?php echo wpl_global::get_full_url(); ?>", "wpl_format=b:listing:ajax&wpl_function=set_parent&item_id=<?php echo $item_id; ?>&parent_id="+parent_id+"&kind=<?php echo $this->kind; ?>");
+    ajax = wpl_run_ajax_query("<?php echo wpl_global::get_full_url(); ?>", "wpl_format=b:listing:ajax&wpl_function=set_parent&item_id=<?php echo $item_id; ?>&parent_id="+parent_id+"&kind=<?php echo $this->kind; ?>&replace=<?php echo $replace; ?>&key=<?php echo $parent_key; ?>");
     ajax.success(function()
     {
-        window.location.href = url;
+        <?php if($replace): ?>window.location.href = url;<?php endif; ?>
     });
 }
 </script>

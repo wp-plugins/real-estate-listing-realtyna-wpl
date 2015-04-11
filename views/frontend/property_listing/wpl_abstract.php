@@ -45,7 +45,11 @@ abstract class wpl_property_listing_controller_abstract extends wpl_controller
         if(!$this->property_css_class) $this->property_css_class = wpl_request::getVar('wplpcc', 'grid_box', 'COOKIE');
         
         $this->property_css_class_switcher = wpl_request::getVar('wplpcc_switcher', '1');
+        $this->property_listview = wpl_request::getVar('wplplv', '1'); #Show listview or not
         
+        /** RSS Feed Setting **/
+        $this->listings_rss_enabled = isset($settings['listings_rss_enabled']) ? $settings['listings_rss_enabled'] : 0;
+
         /** detect kind **/
 		$this->kind = wpl_request::getVar('kind', 0);
         if(!$this->kind) $this->kind = wpl_request::getVar('sf_select_kind', 0);
@@ -93,7 +97,7 @@ abstract class wpl_property_listing_controller_abstract extends wpl_controller
 		/** run the search **/
 		$query = $this->model->query();
 		$properties = $this->model->search();
-		
+        
 		/** finish search **/
 		$this->model->finish();
 		
@@ -112,7 +116,7 @@ abstract class wpl_property_listing_controller_abstract extends wpl_controller
 		_wpl_import('libraries.filters');
 		@extract(wpl_filters::apply('property_listing_after_render', array('wpl_properties'=>$wpl_properties)));
 		
-		$this->pagination = wpl_pagination::get_pagination($this->model->total, $this->limit, true);
+		$this->pagination = wpl_pagination::get_pagination($this->model->total, $this->limit, true, $this->wplraw);
 		$this->wpl_properties = $wpl_properties;
         
         if($this->wplraw and $this->method == 'get_markers')
@@ -120,6 +124,15 @@ abstract class wpl_property_listing_controller_abstract extends wpl_controller
             $markers = array('markers'=>$this->model->render_markers($wpl_properties), 'total'=>$this->model->total);
             echo json_encode($markers);
             exit;
+        }
+        elseif($this->wplraw and $this->method == 'get_listings')
+        {
+        	if($this->return_listings) return $wpl_properties;
+        	else
+            {
+                echo json_encode($wpl_properties);
+                exit;
+            }
         }
         
 		/** import tpl **/

@@ -23,14 +23,14 @@ class wpl_location_manager_controller extends wpl_controller
 			$parent = wpl_request::getVar('parent');
 			$location_id = wpl_request::getVar('location_id');
 			
-			self::generate_modify_page($level, $parent, $location_id);
+			$this->generate_modify_page($level, $parent, $location_id);
 		}
 		elseif($function == 'set_enabled_location')
 		{
 			$location_id = wpl_request::getVar('location_id');
 			$enabeled_status = wpl_request::getVar('enabeled_status');
 			
-			self::set_enabled_location($location_id, $enabeled_status);
+			$this->set_enabled_location($location_id, $enabeled_status);
 		}
 		elseif($function == 'save_location')
 		{
@@ -40,21 +40,21 @@ class wpl_location_manager_controller extends wpl_controller
 			$parent = wpl_request::getVar('parent');
 			$location_id = wpl_request::getVar('location_id');
 			
-			self::save_location($name, $abbr, $level, $parent, $location_id);
+			$this->save_location($name, $abbr, $level, $parent, $location_id);
 		}
 		elseif($function == 'delete_location')
 		{
 			$level = wpl_request::getVar('level');
 			$location_id = wpl_request::getVar('location_id');
 			
-			self::delete_location($level, $location_id);
+			$this->delete_location($level, $location_id);
 		}
 		elseif($function == 'generate_params_page')
 		{
 			$level = wpl_request::getVar('level');
 			$location_id = wpl_request::getVar('location_id');
 			
-			self::generate_params_page($level, $location_id);
+			$this->generate_params_page($level, $location_id);
 		}
 	}
 	
@@ -119,10 +119,10 @@ class wpl_location_manager_controller extends wpl_controller
 	
 	private function delete_location($level, $location_id)
 	{
-		$res = wpl_locations::delete_location($location_id, $level, true);
-		
 		/** trigger event **/
 		wpl_global::event_handler('location_deleted', array('level'=>$level, 'location_id'=>$location_id));
+
+		$res = wpl_locations::delete_location($location_id, $level, true);
 		
 		$res = $res ? 1 : 0;
 		$message = $res ? __('Location(s) Deleted.', WPL_TEXTDOMAIN) : __('Error Occured.', WPL_TEXTDOMAIN);

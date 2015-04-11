@@ -19,64 +19,64 @@ class wpl_data_structure_controller extends wpl_controller
 		
 		if($function == 'generate_new_page')
 		{
-			self::generate_new_page();
+			$this->generate_new_page();
 		}
 		elseif($function == 'generate_delete_page')
 		{
-			self::generate_delete_page();
+			$this->generate_delete_page();
 		}
 		elseif($function == 'set_enabled_listing_type')
 		{
 			$listing_type_id = wpl_request::getVar('listing_type_id');
 			$enabled_status = wpl_request::getVar('enabled_status');
 			
-			self::set_enabled_listing_type($listing_type_id, $enabled_status);
+			$this->set_enabled_listing_type($listing_type_id, $enabled_status);
 		}
 		elseif($function == 'remove_listing_type')
 		{
 			$listing_type_id = wpl_request::getVar('listing_type_id');
 			$confirmed = wpl_request::getVar('wpl_confirmed', 0);
 			
-			self::remove_listing_type($listing_type_id, $confirmed);
+			$this->remove_listing_type($listing_type_id, $confirmed);
 		}
 		elseif($function == 'generate_edit_page')
 		{
 			$listing_type_id = wpl_request::getVar('listing_type_id');
-			self::generate_edit_page($listing_type_id);
+			$this->generate_edit_page($listing_type_id);
 		}
 		elseif($function == 'sort_listing_types')
 		{
 			$sort_ids = wpl_request::getVar('sort_ids');
-			self::sort_listing_types($sort_ids);
+			$this->sort_listing_types($sort_ids);
 		}
 		elseif($function == 'gicon_delete')
 		{
 			$icon = wpl_request::getVar('icon');
-			self::gicon_delete($icon);
+			$this->gicon_delete($icon);
 		}
 		elseif($function == 'gicon_upload_file')
 		{
-			self::gicon_upload_file();
+			$this->gicon_upload_file();
 		}
         elseif($function == 'save_listing_type')
         {
-            self::save_listing_type();
+            $this->save_listing_type();
         }
 		elseif($function == 'insert_listing_type')
 		{
-			self::insert_listing_type();
+			$this->insert_listing_type();
 		}
 		elseif($function == 'can_remove_listing_type')
 		{
-			self::can_remove_listing_type();
+			$this->can_remove_listing_type();
 		}
         elseif($function == 'purge_related_property')
 		{
-			self::purge_related_property();
+			$this->purge_related_property();
 		}
 		elseif($function == 'assign_related_properties')
 		{
-			self::assign_related_properties();
+			$this->assign_related_properties();
 		}
 	}
 	
@@ -192,7 +192,7 @@ class wpl_data_structure_controller extends wpl_controller
 		
 		$this->listing_type_id = $listing_type_id;
 		$this->listing_type_data = wpl_listing_types::get_listing_type($this->listing_type_id);
-		$this->listing_types_category = wpl_listing_types::get_listing_types_category();
+		$this->listing_types_category = wpl_listing_types::get_listing_type_categories();
 		$this->listing_gicons = wpl_listing_types::get_map_icons();
 		
 		parent::render($this->tpl_path, 'internal_edit_listing_types');
@@ -203,7 +203,7 @@ class wpl_data_structure_controller extends wpl_controller
 	{
 		$this->listing_type_id = 10000;
 		$this->listing_type_data = wpl_listing_types::get_listing_type($this->listing_type_id);
-		$this->listing_types_category = wpl_listing_types::get_listing_types_category();
+		$this->listing_types_category = wpl_listing_types::get_listing_type_categories();
 		$this->listing_gicons = wpl_listing_types::get_map_icons();
 		
 		parent::render($this->tpl_path, 'internal_edit_listing_types');
@@ -279,7 +279,7 @@ class wpl_data_structure_controller extends wpl_controller
 		$properties_list = wpl_property::get_properties_list('listing', $listing_type_id);
         
 		foreach($properties_list as $property) wpl_property::purge($property['id']);
-		self::remove_listing_type($listing_type_id, 1);
+		$this->remove_listing_type($listing_type_id, 1);
 	}
     
 	private function assign_related_properties()
@@ -288,6 +288,6 @@ class wpl_data_structure_controller extends wpl_controller
 		$select_id = wpl_request::getVar('select_id');
         
 		$j = wpl_property::update_properties('listing', $listing_type_id, $select_id);
-		self::remove_listing_type($listing_type_id, 1);
+		$this->remove_listing_type($listing_type_id, 1);
 	}
 }

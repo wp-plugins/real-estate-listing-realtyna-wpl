@@ -51,6 +51,12 @@ class wpl_controller
      * @var boolean
      */
     public $wrapper = 0;
+    
+    /**
+     * Overwrite Parameters
+     * @var boolean
+     */
+    public $parameter_overwrite = false;
 	
     /**
      * Calls WPL views
@@ -74,15 +80,14 @@ class wpl_controller
 		
 		/** parameter of shortcode (setted by user) **/
 		$instance = (array) $args[0];
-		
+        
 		/** set the parameters **/
-		foreach($instance as $key=>$value) wpl_request::setVar($key, $value, 'method', false);
+		foreach($instance as $key=>$value) wpl_request::setVar($key, $value, 'method', $this->parameter_overwrite);
 		
 		if($this->_wpl_client == 'frontend')
 		{
 			/** call the function **/
-			$result = $_wpl_obj->$_wpl_function($instance);
-			return $result;
+			return $_wpl_obj->$_wpl_function($instance);
 		}
 		
         if($this->_wpl_client == 'backend') $_wpl_obj->wrapper = 1;

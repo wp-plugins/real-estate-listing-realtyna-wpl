@@ -4,8 +4,7 @@ defined('_WPLEXEC') or die('Restricted access');
 
 if($format == 'locationtextsearch' and !$done_this)
 {
-	$values_raw = explode(',', $value);
-    $values_raw = array_reverse($values_raw);
+    $values_raw = array_reverse(explode(',', $value));
     
 	$values = array();
     
@@ -32,7 +31,7 @@ if($format == 'locationtextsearch' and !$done_this)
         /** Multilingual location text search **/
         if(wpl_global::check_multilingual_status()) $column = wpl_addon_pro::get_column_lang_name($column, wpl_global::get_current_language(), false);
         
-        foreach($values as $val) $qq[] = " `$column` LIKE '%".$val."%' ";
+        foreach($values as $val) $qq[] = " `$column` LIKE '%LOC-".$val."%' ";
         $qqq[] = '('.implode(' AND ', $qq).')';
 
         $query .= " AND (".implode(' OR ', $qqq).") AND `show_address`='1'";
@@ -58,8 +57,7 @@ elseif($format == 'multiplelocationtextsearch' and !$done_this)
         
         foreach($multiple_values as $value)
         {
-            $values_raw = explode(',', $value);
-            $values_raw = array_reverse($values_raw);
+            $values_raw = array_reverse(explode(',', $value));
     
             $values = array();
 
@@ -86,7 +84,7 @@ elseif($format == 'multiplelocationtextsearch' and !$done_this)
                 /** Multilingual location text search **/
                 if(wpl_global::check_multilingual_status()) $column = wpl_addon_pro::get_column_lang_name($column, wpl_global::get_current_language(), false);
 
-                foreach($values as $val) $qq[] = " `$column` LIKE '%".$val."%' ";
+                foreach($values as $val) $qq[] = " `$column` LIKE '%LOC-".$val."%' ";
                 $qqq[] = '('.implode(' AND ', $qq).')';
 
                 $qqqq[] = '('.implode(' OR ', $qqq).')';

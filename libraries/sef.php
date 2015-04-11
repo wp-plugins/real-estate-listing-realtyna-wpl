@@ -64,6 +64,21 @@ class wpl_sef
                     if($ex[1] == 'members') $view = 'addon_membership';
                     else $view = $ex[1];
                 }
+                elseif($ex[0] == 'search' and wpl_global::check_addon('save_searches'))
+                {
+                    /** Import Library **/
+                    _wpl_import('libraries.addon_save_searches');
+                    $save_searches = new wpl_addon_save_searches();
+                    
+                    $exp = explode('-', $ex[1]);
+                    $search_id = $exp[0];
+                    
+                    $save_search = $save_searches->get($search_id);
+                    $criteria = json_decode($save_search['criteria'], true);
+                    
+                    $view = 'property_listing';
+                    foreach($criteria as $key=>$value) wpl_request::setVar($key, $value);
+                }
                 elseif(strpos($ex[0], ':') === false) $view = 'profile_show';
                 else $view = 'property_listing';
             }
@@ -424,6 +439,19 @@ class wpl_sef
     {
         if(!trim($post_name)) return 0;
         return wpl_db::get('ID', 'posts', 'post_name', $post_name);
+    }
+    
+    /**
+     * Returns current WordPress Post/Page ID
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @global object $post
+     * @return int
+     */
+    public static function get_current_post_id()
+    {
+        global $post;
+        return $post->ID; 
     }
     
     /**

@@ -1,6 +1,8 @@
 <?php
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
+
+$map_activities = wpl_activity::get_activities('plisting_position1', 1);
 ?>
 <script type="text/javascript">
 var wpl_map;
@@ -9,6 +11,8 @@ var loaded_markers = new Array();
 var markers;
 var bounds;
 var infowindow;
+var wpl_map_bounds_extend = true;
+var wpl_map_set_default_geo_point = true;
 
 if(typeof google_place_radius == 'undefined') var google_place_radius = 1100;
 
@@ -131,7 +135,7 @@ function wpl_marker<?php echo $this->activity_id; ?>(dataMarker)
 	});
 	
 	/** extend the bounds to include each marker's position **/
-  	bounds.extend(marker.position);
+  	if(wpl_map_bounds_extend) bounds.extend(marker.position);
   
 	loaded_markers.push(dataMarker.id);
   	markers_array.push(marker);
@@ -146,6 +150,7 @@ function wpl_marker<?php echo $this->activity_id; ?>(dataMarker)
 		}
 		else
 		{
+            /** AJAX loader **/
 			wplj("#wpl_map_canvas<?php echo $this->activity_id; ?>").append('<div class="map_search_ajax_loader" style="position: absolute; top: 7px; left: 70px; z-index: 200;"><img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader4.gif'); ?>" /></div>');
 			
 			infowindow_html = get_infowindow_html<?php echo $this->activity_id; ?>(this.property_ids);
@@ -154,6 +159,7 @@ function wpl_marker<?php echo $this->activity_id; ?>(dataMarker)
 			infowindow.setContent(infowindow_html);
 			infowindow.open(wpl_map, this);
 			
+            /** AJAX loader **/
 			wplj(".map_search_ajax_loader").remove();
 		}
 	});
@@ -168,9 +174,7 @@ function wpl_load_markers<?php echo $this->activity_id; ?>(markers, delete_marke
 		wpl_marker<?php echo $this->activity_id; ?>(markers[i]);
 	}
     
-	wpl_map.setZoom(1);
-    
-	if(!markers.length)
+	if(!markers.length && wpl_map_set_default_geo_point)
 	{
 		wpl_map.setCenter(new google.maps.LatLng(default_lt, default_ln));
 		wpl_map.setZoom(parseInt(default_zoom));
@@ -178,7 +182,7 @@ function wpl_load_markers<?php echo $this->activity_id; ?>(markers, delete_marke
 	else
 	{
 		/** now fit the map to the newly inclusive bounds **/
-		wpl_map.fitBounds(bounds);
+		if(wpl_map_bounds_extend) wpl_map.fitBounds(bounds);
 	}
 }
 
@@ -271,5 +275,38 @@ function wpl_gplace_marker<?php echo $this->activity_id;?>(place)
 		infowindow.setContent('<div class="wpl_gplace_infowindow_container" style="color: #000000;">'+place.name+'</div>');
 		infowindow.open(wpl_map, this);
 	});
+}
+
+function wpl_load_map_markers(request_str, delete_markers)
+{
+    if(typeof delete_markers == 'undefined') delete_markers = false;
+    
+    /** AJAX loader **/
+    wplj("#wpl_map_canvas<?php echo $this->activity_id; ?>").append('<div class="map_search_ajax_loader" style="position: absolute; top: 7px; left: 70px; z-index: 200;"><img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader4.gif'); ?>" /></div>');
+    
+    request_str = 'wpl_format=f:property_listing:raw&wplmethod=get_markers&'+request_str;
+    var markers;
+    
+    wplj.ajax(
+    {
+        url: '<?php echo wpl_global::get_full_url(); ?>',
+        data: request_str,
+        type: 'GET',
+        dataType: 'jSON',
+        async: true,
+        cache: false,
+        timeout: 30000,
+        success: function(data)
+        {
+            /** AJAX loader **/
+            wplj(".map_search_ajax_loader").remove();
+            
+            markers = data.markers;
+            
+            <?php foreach($map_activities as $activity): ?>
+            wpl_load_markers<?php echo $activity->id; ?>(markers, delete_markers);
+            <?php endforeach; ?>
+        }
+    });
 }
 </script>

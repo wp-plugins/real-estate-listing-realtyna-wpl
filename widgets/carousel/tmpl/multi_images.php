@@ -6,6 +6,7 @@ include _wpl_import("widgets.carousel.scripts.js", true, true);
 
 $image_width = isset($this->instance['data']['image_width']) ? $this->instance['data']['image_width'] : 310;
 $image_height = isset($this->instance['data']['image_height']) ? $this->instance['data']['image_height'] : 220;
+$images_per_page = isset($this->instance['data']['images_per_page']) ? $this->instance['data']['images_per_page'] : 3;
 
 $slide_interval = isset($this->instance['data']['slide_interval']) ? $this->instance['data']['slide_interval'] : 3000;
 
@@ -17,7 +18,7 @@ $images = NULL;
 foreach($wpl_properties as $key=>$gallery)
 {
 	if(!isset($gallery["items"]["gallery"][0])) continue;
-    
+
 	$params = array();
     $params['image_name'] 		= $gallery["items"]["gallery"][0]->item_name;
     $params['image_parentid'] 	= $gallery["items"]["gallery"][0]->parent_id;
@@ -25,7 +26,7 @@ foreach($wpl_properties as $key=>$gallery)
     $params['image_source'] 	= wpl_global::get_upload_base_path().$params['image_parentid'].DS.$params['image_name'];
 
     $image_title = isset($gallery['property_title']) ? $gallery['property_title'] : wpl_property::update_property_title($gallery['raw']);
-    
+
     if(isset($gallery['items']['gallery'][0]->item_extra2) and trim($gallery['items']['gallery'][0]->item_extra2) != '') $image_alt = $gallery['items']['gallery'][0]->item_extra2;
     else $image_alt = $gallery['raw']['meta_keywords'];
 
@@ -41,7 +42,7 @@ foreach($wpl_properties as $key=>$gallery)
     }
 
     $images .= '
-    <div class="item">
+    <div class="wpl-carousel-item">
         <img itemprop="image" src="'.$image_url.'" alt="'.$image_alt.'" width="'.$image_width.'" height="'.$image_height.'" style="width: '.$image_width.'px; height: '.$image_height.'px;" />
         <div class="title">
             <h3 itemprop="name">'.$image_title.'</h3>
@@ -53,19 +54,32 @@ foreach($wpl_properties as $key=>$gallery)
 <script type="text/javascript">
 wplj(function()
 {
-    wplj("#owl-slider<?php echo $this->widget_id; ?>").owlCarousel({
-        items : 3,
-        lazyLoad : true,
-        navigation : true,
-        slideSpeed : <?php echo $slide_interval; ?>,
-        navigationText : false,
-        pagination : false,
-        itemsTablet: [768,2],
-        itemsTabletSmall: false,
-        itemsMobile : [480,1]
+    wplj("#wpl-multi-images-<?php echo $this->widget_id; ?>").owlCarousel({
+        items : <?php echo $images_per_page; ?>,
+        loop:true,
+        nav : true,
+        autoplay:true,
+        autoplayTimeout:<?php echo $slide_interval; ?>,
+        autoplayHoverPause:true,
+        navText : false,
+        dots : false,
+        responsiveClass: true,
+        responsive: {
+            0: {
+                items: 1,
+                nav: false,
+                dots: true
+            },
+            768: {
+                items: 2
+            },
+            1024:{
+                items: <?php echo $images_per_page; ?>
+            }
+        }
     });
 });
 </script>
-<div id="owl-slider<?php echo $this->widget_id; ?>" class="wpl-owl-carousel wpl-owl-theme container">
-    <?php echo $images ?>
+<div id="wpl-multi-images-<?php echo $this->widget_id; ?>" class="wpl-plugin-owl wpl-carousel-multi-images container">
+    <?php echo $images; ?>
 </div>

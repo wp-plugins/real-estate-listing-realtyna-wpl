@@ -42,6 +42,13 @@ if($type == 'parent' and !$done_this)
                     <?php endforeach; ?>
                 </select>
 			</div>
+            <div class="fanc-row">
+				<label for="<?php echo $__prefix; ?>opt_replace"><?php echo __('Replace Parent Data', WPL_TEXTDOMAIN); ?></label>
+                <select name="<?php echo $__prefix; ?>opt_replace" id="<?php echo $__prefix; ?>opt_replace">
+                    <option <?php echo (isset($options['replace']) and $options['replace'] == 1) ? 'selected="selected"' : ''; ?> value="1"><?php echo __('Yes', WPL_TEXTDOMAIN); ?></option>
+                    <option <?php echo (isset($options['replace']) and $options['replace'] == 0) ? 'selected="selected"' : ''; ?> value="0"><?php echo __('No', WPL_TEXTDOMAIN); ?></option>
+                </select>
+			</div>
 		</div>
 	</div>
     <div class="col-wp">

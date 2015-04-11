@@ -146,7 +146,7 @@ function get_specific_options_string(prefix)
 	specific_str = '';
 	
 	/** specific options **/
-	wplj("#wpl_flex_specific_options input:text, #wpl_flex_specific_options input[type='hidden'], #wpl_flex_specific_options select").each(function (index, element)
+	wplj("#wpl_flex_specific_options input:text, #wpl_flex_specific_options input[type='hidden'], #wpl_flex_specific_options select, #wpl_flex_specific_options textarea").each(function (index, element)
 	{
 		specific_str += "&"+element.id.replace(prefix, "")+"="+encodeURIComponent(wplj(element).val());
 	});
@@ -164,7 +164,7 @@ function save_dbst(prefix, dbst_id)
 	wplj(ajax_loader_element).html('<img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader3.gif'); ?>" />');
     
 	/** general options **/
-	wplj("#wpl_flex_general_options input:text, #wpl_flex_general_options input[type='hidden'], #wpl_flex_general_options select").each(function (index, element)
+	wplj("#wpl_flex_general_options input:text, #wpl_flex_general_options input[type='hidden'], #wpl_flex_general_options select, #wpl_flex_general_options textarea").each(function (index, element)
 	{
 		request_str += "&fld_"+element.id.replace(prefix,"")+"="+wplj(element).val();
 	});

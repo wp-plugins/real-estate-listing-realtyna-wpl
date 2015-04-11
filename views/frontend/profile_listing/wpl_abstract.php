@@ -35,6 +35,7 @@ abstract class wpl_profile_listing_controller_abstract extends wpl_controller
         if(!$this->property_css_class) $this->property_css_class = wpl_request::getVar('wplpcc', 'grid_box', 'COOKIE');
         
         $this->property_css_class_switcher = wpl_request::getVar('wplpcc_switcher', '1');
+        $this->property_listview = wpl_request::getVar('wplplv', '1'); #Show listview or not
         
 		/** set page if start var passed **/
 		$this->page_number = ($this->start/$this->limit)+1;
@@ -88,7 +89,7 @@ abstract class wpl_profile_listing_controller_abstract extends wpl_controller
 		_wpl_import('libraries.filters');
 		@extract(wpl_filters::apply('profile_listing_after_render', array('wpl_profiles'=>$wpl_profiles)));
 		
-		$this->pagination = wpl_pagination::get_pagination($this->model->total, $this->limit, true);
+		$this->pagination = wpl_pagination::get_pagination($this->model->total, $this->limit, true, $this->wplraw);
 		$this->wpl_profiles = $wpl_profiles;
 		
 		/** import tpl **/

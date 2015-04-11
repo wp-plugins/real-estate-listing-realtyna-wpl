@@ -31,7 +31,11 @@ $this->_wpl_import($this->tpl_path.'.scripts.default', true, true);
 /** Demographic **/
 $this->demographic_status = isset($params['demographic']) ? $params['demographic'] : 0;
 if($this->demographic_status and wpl_global::check_addon('demographic')) $this->_wpl_import($this->tpl_path.'.scripts.addon_demographic', true, true);
+
+/** Map Search **/
+$this->map_search_status = isset($params['map_search']) ? $params['map_search'] : 0;
+if($this->map_search_status and wpl_global::check_addon('aps')) $this->_wpl_import($this->tpl_path.'.scripts.addon_aps', true, true);
 ?>
-<div class="wpl_googlemap_container wpl_googlemap_plisting" id="wpl_googlemap_container<?php echo $this->activity_id; ?>">
+<div class="wpl_googlemap_container wpl_googlemap_plisting" id="wpl_googlemap_container<?php echo $this->activity_id; ?>" data-wpl-height="<?php echo $this->map_height; ?>">
 	<div class="wpl_map_canvas" id="wpl_map_canvas<?php echo $this->activity_id; ?>" style="height: <?php echo $this->map_height ?>px;"></div>
 </div>

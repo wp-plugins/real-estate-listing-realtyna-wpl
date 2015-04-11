@@ -14,14 +14,14 @@ $this->_wpl_import($this->tpl_path . '.scripts.js');
     <div class="wpl_flex_list"><div class="wpl_show_message"></div></div>
     <div class="sidebar-wp">
         <!-- sidebar1 -->
-        <div class="side-2 side-tabs-wp">
+        <div class="wpl-side-2 side-tabs-wp">
             <ul>
                 <?php foreach ($this->field_categories as $category): ?>
 				<li><a href="#<?php echo $category->id; ?>" class="wpl_slide_label wpl_slide_label_prefix_<?php echo $category->prefix; ?>" id="wpl_slide_label_id<?php echo $category->id; ?>" onclick="rta.internal.slides.open('<?php echo $category->id; ?>', '.side-tabs-wp', '.wpl_slide_container', 'currentTab');"><?php echo __($category->name, WPL_TEXTDOMAIN); ?></a></li>
                 <?php endforeach; ?>
             </ul>
         </div>
-        <div class="side-9 side-content-wp flex-content">
+        <div class="wpl-side-9 side-content-wp flex-content wpl-util-no-padding">
             <!-- sidebar2 -->
             <div class="wpl_sidebar2" style="width: 100%;">
                 <?php foreach ($this->field_categories as $category): ?>
@@ -31,7 +31,7 @@ $this->_wpl_import($this->tpl_path . '.scripts.js');
                 <?php endforeach; ?>
             </div>
         </div>
-        <div class="side-3 flex-right-panel">
+        <div class="side-3 flex-right-panel wpl-util-no-padding">
             <?php $this->generate_sidebar(3); ?>
         </div>
     </div>
@@ -40,7 +40,3 @@ $this->_wpl_import($this->tpl_path . '.scripts.js');
         <div class="logo"></div>
     </footer>
 </div>
-<script type="text/javascript">
-    (function($){$(function(){isWPL();})})(jQuery);
-</script>
-

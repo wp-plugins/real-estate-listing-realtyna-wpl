@@ -20,10 +20,10 @@ $hot_offer = '';
 $open_house = '';
 $forclosure = '';
 
-if(isset($wpl_properties['current']['materials']['sp_featured']) and $wpl_properties['current']['materials']['sp_featured']) $features = '<div class="feature">'.$wpl_properties['current']['materials']['sp_featured']['name'].'</div>';
-if(isset($wpl_properties['current']['materials']['sp_hot']) and $wpl_properties['current']['materials']['sp_hot']) $hot_offer = '<div class="hot_offer">'.$wpl_properties['current']['materials']['sp_hot']['name'].'</div>';
-if(isset($wpl_properties['current']['materials']['sp_openhouse']) and $wpl_properties['current']['materials']['sp_openhouse']) $open_house = '<div class="open_house">'.$wpl_properties['current']['materials']['sp_openhouse']['name'].'</div>';
-if(isset($wpl_properties['current']['materials']['sp_forclosure']) and $wpl_properties['current']['materials']['sp_forclosure']) $forclosure = '<div class="forclosure">'.$wpl_properties['current']['materials']['sp_forclosure']['name'].'</div>';
+if(isset($wpl_properties['current']['materials']['sp_featured']) and $wpl_properties['current']['materials']['sp_featured']) $features = '<div class="wpl-listing-tag-feature">'.$wpl_properties['current']['materials']['sp_featured']['name'].'</div>';
+if(isset($wpl_properties['current']['materials']['sp_hot']) and $wpl_properties['current']['materials']['sp_hot']) $hot_offer = '<div class="wpl-listing-tag-hot-offer">'.$wpl_properties['current']['materials']['sp_hot']['name'].'</div>';
+if(isset($wpl_properties['current']['materials']['sp_openhouse']) and $wpl_properties['current']['materials']['sp_openhouse']) $open_house = '<div class="wpl-listing-tag-open-house">'.$wpl_properties['current']['materials']['sp_openhouse']['name'].'</div>';
+if(isset($wpl_properties['current']['materials']['sp_forclosure']) and $wpl_properties['current']['materials']['sp_forclosure']) $forclosure = '<div class="wpl-listing-tag-forclosure">'.$wpl_properties['current']['materials']['sp_forclosure']['name'].'</div>';
 
 /** render gallery **/
 $raw_gallery = isset($wpl_properties['current']['items']['gallery']) ? $wpl_properties['current']['items']['gallery'] : array();
@@ -64,9 +64,17 @@ $this->_wpl_import($this->tpl_path.'.scripts.default', true, true, true);
             echo '<img itemprop="image" id="wpl_gallery_image'.$this->property_id .'_'.$i.'" src="'.$image_url.'" class="wpl_gallery_image '.$this->image_class.'" onclick="wpl_plisting_slider('.$i.', '.$this->property_id.', '.$images_total.');" alt="'.$image_alt.'" width="'.$this->image_width.'" height="'.$this->image_height.'" style="width: '.$this->image_width.'px; height: '.$this->image_height.'px;" />';
             $i++;
         }
-    } 
+    }
 
-    /* Property tags */
-    echo $features.$hot_offer.$open_house.$forclosure;
     ?>
+
+    <div class="wpl-listing-tags-wp">
+        <div class="wpl-listing-tags-cnt">
+            <?php
+            /* Property tags */
+            echo $features.$hot_offer.$open_house.$forclosure;
+            ?>
+        </div>
+    </div>
+
 </div>

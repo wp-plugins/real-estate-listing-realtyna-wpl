@@ -305,7 +305,10 @@ class wpl_flex
 		
         /** Multilingual **/
         if(wpl_global::check_addon('pro')) wpl_addon_pro::remove_multilingual($dbst_id);
-            
+
+        /** trigger event **/
+		wpl_global::event_handler('dbst_removed', $dbst_id);
+
 		wpl_db::delete("wpl_dbst", $dbst_id);
 	}
 	
@@ -626,7 +629,7 @@ class wpl_flex
 
 		$path = WPL_ABSPATH .DS. 'libraries' .DS. 'widget_search' .DS. 'frontend';
 		$files = array();
-		$widget_id = 0;
+		$widget_id = '';
 		
 		if(wpl_folder::exists($path)) $files = wpl_folder::files($path, '.php$');
 		

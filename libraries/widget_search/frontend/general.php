@@ -380,20 +380,20 @@ elseif($type == 'number' and !$done_this)
     $html .= '<label>'.__($field['name'], WPL_TEXTDOMAIN).'</label>';
 
 	/** current values **/
-	$current_min_value = wpl_request::getVar('sf_tmin_'.$field_data['table_column'], $min_value);
-	$current_max_value = wpl_request::getVar('sf_tmax_'.$field_data['table_column'], $max_value);
-	
+	$current_min_value = max(stripslashes(wpl_request::getVar('sf_tmin_'.$field_data['table_column'], $min_value)), $min_value);
+	$current_max_value = min(stripslashes(wpl_request::getVar('sf_tmax_'.$field_data['table_column'], $max_value)), $max_value);
+    
 	if($show == 'text')
 	{
 		/** current values **/
-		$current_value = wpl_request::getVar('sf_text_'.$field_data['table_column'], '');
+		$current_value = stripslashes(wpl_request::getVar('sf_text_'.$field_data['table_column'], ''));
 		
     	$html .= '<input name="sf'.$widget_id.'_text_'.$field_data['table_column'].'" type="text" id="sf'.$widget_id.'_text_'.$field_data['table_column'].'" value="'.$current_value.'" />';
 	}
 	elseif($show == 'exacttext')
 	{
 		/** current values **/
-		$current_value = wpl_request::getVar('sf_select_'.$field_data['table_column'], '');
+		$current_value = stripslashes(wpl_request::getVar('sf_select_'.$field_data['table_column'], ''));
 		
     	$html .= '<input name="sf'.$widget_id.'_select_'.$field_data['table_column'].'" type="text" id="sf'.$widget_id.'_select_'.$field_data['table_column'].'" value="'.$current_value.'" />';
 	}
@@ -545,18 +545,18 @@ elseif($type == 'property_types' and !$done_this)
 	}
 	
 	/** current value **/
-	$current_value = wpl_request::getVar('sf_select_'.$field_data['table_column'], 0);
+	$current_value = stripslashes(wpl_request::getVar('sf_select_'.$field_data['table_column'], 0));
 	
 	if($label) $html .= '<label>'.__($field['name'], WPL_TEXTDOMAIN).'</label>';
 	
 	if($show == 'select')
 	{
-		$html .= '<select name="sf'.$widget_id.'_select_'.$field_data['table_column'].'" class="wpl_search_widget_field_'.$field['id'].'" id="sf'.$widget_id.'_select_'.$field_data['table_column'].'" onchange="wpl_property_type_changed'.$widget_id.'(this.value);">';
+		$html .= '<select name="sf'.$widget_id.'_select_'.$field_data['table_column'].'" class="wpl_search_widget_field_'.$field_data['table_column'].' wpl_search_widget_field_'.$field['id'].'" id="sf'.$widget_id.'_select_'.$field_data['table_column'].'" onchange="wpl_property_type_changed'.$widget_id.'(this.value);">';
 		if($any) $html .= '<option value="-1">'.__($field['name'], WPL_TEXTDOMAIN).'</option>';
 		
 		foreach($property_types as $property_type)
 		{
-			$html .= '<option value="'.$property_type['id'].'" '.($current_value == $property_type['id'] ? 'selected="selected"' : '').'>'.__($property_type['name'], WPL_TEXTDOMAIN).'</option>';
+			$html .= '<option class="wpl_pt_parent wpl_pt_parent'.$property_type['parent'].'" value="'.$property_type['id'].'" '.($current_value == $property_type['id'] ? 'selected="selected"' : '').'>'.__($property_type['name'], WPL_TEXTDOMAIN).'</option>';
 		}
 		
 		$html .= '</select>';
@@ -564,14 +564,14 @@ elseif($type == 'property_types' and !$done_this)
 	elseif($show == 'multiple')
     {
 		/** current value **/
-		$current_values = explode(',', wpl_request::getVar('sf_multiple_'.$field_data['table_column']));
+		$current_values = explode(',', stripslashes(wpl_request::getVar('sf_multiple_'.$field_data['table_column'])));
 		
         $html .= '<div class="wpl_searchwid_'.$field_data['table_column'].'_multiselect_container">
-		<select data-placeholder="'.__($field['name'], WPL_TEXTDOMAIN).'" class="wpl_searchmod_'.$field_data['table_column'].'_multiselect" id="sf'.$widget_id.'_multiple_'.$field_data['table_column'].'" name="sf'.$widget_id.'_multiple_'.$field_data['table_column'].'" multiple="multiple">';
+		<select data-placeholder="'.__($field['name'], WPL_TEXTDOMAIN).'" class="wpl_search_widget_field_'.$field_data['table_column'].' wpl_searchmod_'.$field_data['table_column'].'_multiselect" id="sf'.$widget_id.'_multiple_'.$field_data['table_column'].'" name="sf'.$widget_id.'_multiple_'.$field_data['table_column'].'" multiple="multiple">';
 		
         foreach($property_types as $property_type)
 		{
-            $html .= '<option value="'.$property_type['id'].'" '.(in_array($property_type['id'], $current_values) ? 'selected="selected"' : '').'>'.__($property_type['name'], WPL_TEXTDOMAIN).'</option>';
+            $html .= '<option class="wpl_pt_parent wpl_pt_parent'.$property_type['parent'].'" value="'.$property_type['id'].'" '.(in_array($property_type['id'], $current_values) ? 'selected="selected"' : '').'>'.__($property_type['name'], WPL_TEXTDOMAIN).'</option>';
         }
 		
         $html .= '</select></div>';
@@ -579,7 +579,7 @@ elseif($type == 'property_types' and !$done_this)
 	elseif($show == 'checkboxes')
 	{
 		/** current value **/
-		$current_values = explode(',', wpl_request::getVar('sf_multiple_'.$field_data['table_column']));
+		$current_values = explode(',', stripslashes(wpl_request::getVar('sf_multiple_'.$field_data['table_column'])));
 		
 		$i = 0;
 		foreach($property_types as $property_type)
@@ -610,12 +610,12 @@ elseif($type == 'property_types' and !$done_this)
 	}
 	elseif($show == 'select-predefined')
 	{
-		$html .= '<select name="sf'.$widget_id.'_select_'.$field_data['table_column'].'" class="wpl_search_widget_field_'.$field['id'].'" id="sf'.$widget_id.'_select_'.$field_data['table_column'].'" onchange="wpl_property_type_changed'.$widget_id.'(this.value);">';
+		$html .= '<select name="sf'.$widget_id.'_select_'.$field_data['table_column'].'" class="wpl_search_widget_field_'.$field_data['table_column'].' wpl_search_widget_field_'.$field['id'].'" id="sf'.$widget_id.'_select_'.$field_data['table_column'].'" onchange="wpl_property_type_changed'.$widget_id.'(this.value);">';
 		if($any) $html .= '<option value="-1">'.__('Any', WPL_TEXTDOMAIN).'</option>';
         
 		foreach($property_types as $property_type)
 		{
-			if(in_array($property_type['id'], $field['extoption'])) $html .= '<option value="'.$property_type['id'].'" '.($current_value == $property_type['id'] ? 'selected="selected"' : '').'>'.__($property_type['name'], WPL_TEXTDOMAIN).'</option>';
+			if(in_array($property_type['id'], $field['extoption'])) $html .= '<option class="wpl_pt_parent wpl_pt_parent'.$property_type['parent'].'" value="'.$property_type['id'].'" '.($current_value == $property_type['id'] ? 'selected="selected"' : '').'>'.__($property_type['name'], WPL_TEXTDOMAIN).'</option>';
 		}
 		
 		$html .= '</select>';
@@ -665,7 +665,7 @@ elseif($type == 'select' and !$done_this)
 	}
 	
 	/** current value **/
-	$current_value = wpl_request::getVar('sf_select_'.$field_data['table_column'], -1);
+	$current_value = stripslashes(wpl_request::getVar('sf_select_'.$field_data['table_column'], -1));
 	
 	if($label) $html .= '<label>'.__($field['name'], WPL_TEXTDOMAIN).'</label>';
 
@@ -682,7 +682,7 @@ elseif($type == 'select' and !$done_this)
 	elseif($show == 'multiple')
     {
 		/** current value **/
-		$current_values = explode(',', wpl_request::getVar('sf_multiple_'.$field_data['table_column']));
+		$current_values = explode(',', stripslashes(wpl_request::getVar('sf_multiple_'.$field_data['table_column'])));
 	
         $html .= '<div class="wpl_searchwid_'.$field_data['table_column'].'_multiselect_container">
 		<select data-placeholder="'.__($field['name'], WPL_TEXTDOMAIN).'" class="wpl_searchmod_'.$field_data['table_column'].'_multiselect" id="sf'.$widget_id.'_multiple_'.$field_data['table_column'].'" name="sf'.$widget_id.'_multiple_'.$field_data['table_column'].'" multiple="multiple">';
@@ -697,7 +697,7 @@ elseif($type == 'select' and !$done_this)
 	elseif($show == 'checkboxes')
 	{
 		/** current value **/
-		$current_values = explode(',', wpl_request::getVar('sf_multiple_'.$field_data['table_column']));
+		$current_values = explode(',', stripslashes(wpl_request::getVar('sf_multiple_'.$field_data['table_column'])));
 		
 		$i = 0;
 		foreach($options['params'] as $option)
@@ -770,7 +770,7 @@ elseif(in_array($type, array('user_type', 'user_membership')) and !$done_this)
     $options = array();
     foreach($raw_options as $raw_option) $options[$raw_option->id] = array('key'=>$raw_option->id, 'value'=>(isset($raw_option->membership_name) ? $raw_option->membership_name : $raw_option->name));
     
-	$current_value = wpl_request::getVar('sf_select_'.$field_data['table_column'], '');
+	$current_value = stripslashes(wpl_request::getVar('sf_select_'.$field_data['table_column'], ''));
 	
 	if($label) $html .= '<label>'.__($field['name'], WPL_TEXTDOMAIN).'</label>';
 
@@ -786,7 +786,7 @@ elseif(in_array($type, array('user_type', 'user_membership')) and !$done_this)
 	elseif($show == 'multiple')
     {
 		/** current value **/
-		$current_values = explode(',', wpl_request::getVar('sf_multiple_'.$field_data['table_column']));
+		$current_values = explode(',', stripslashes(wpl_request::getVar('sf_multiple_'.$field_data['table_column'])));
 	
         $html .= '<div class="wpl_searchwid_'.$field_data['table_column'].'_multiselect_container">
 		<select data-placeholder="'.__($field['name'], WPL_TEXTDOMAIN).'" class="wpl_searchmod_'.$field_data['table_column'].'_multiselect" id="sf'.$widget_id.'_multiple_'.$field_data['table_column'].'" name="sf'.$widget_id.'_multiple_'.$field_data['table_column'].'" multiple="multiple">';
@@ -798,7 +798,7 @@ elseif(in_array($type, array('user_type', 'user_membership')) and !$done_this)
 	elseif($show == 'checkboxes')
 	{
 		/** current value **/
-		$current_values = explode(',', wpl_request::getVar('sf_multiple_'.$field_data['table_column']));
+		$current_values = explode(',', stripslashes(wpl_request::getVar('sf_multiple_'.$field_data['table_column'])));
 		
 		$i = 0;
 		foreach($options as $option)
@@ -828,7 +828,7 @@ elseif(in_array($type, array('user_type', 'user_membership')) and !$done_this)
 elseif($type == 'textarea' and !$done_this)
 {
 	/** current value **/
-	$current_value = wpl_request::getVar('sf_text_'.$field_data['table_column'], '');
+	$current_value = stripslashes(wpl_request::getVar('sf_text_'.$field_data['table_column'], ''));
 	
 	$html .= '<label for="sf'.$widget_id.'_text_'.$field_data['table_column'].'">'.__($field['name'], WPL_TEXTDOMAIN).'</label>
 				<textarea name="sf'.$widget_id.'_text_'.$field_data['table_column'].'" id="sf'.$widget_id.'_text_'.$field_data['table_column'].'">'.$current_value.'</textarea>';
@@ -904,9 +904,9 @@ elseif(($type == 'area' or $type == 'price' or $type == 'volume' or $type == 'le
 	$html .= '<label>'.__($field['name'], WPL_TEXTDOMAIN).'</label>';
 
 	/** current values **/
-	$current_min_value = wpl_request::getVar('sf_min_'.$field_data['table_column'], $min_value);
-	$current_max_value = wpl_request::getVar('sf_max_'.$field_data['table_column'], $max_value);
-	$current_unit = wpl_request::getVar('sf_unit_'.$field_data['table_column'], $units[0]['id']);
+    $current_min_value = max(stripslashes(wpl_request::getVar('sf_min_'.$field_data['table_column'], $min_value)), $min_value);
+	$current_max_value = min(stripslashes(wpl_request::getVar('sf_max_'.$field_data['table_column'], $max_value)), $max_value);
+	$current_unit = stripslashes(wpl_request::getVar('sf_unit_'.$field_data['table_column'], $units[0]['id']));
 	
     if(count($units) > 1)
     {
@@ -1062,7 +1062,7 @@ elseif($type == 'text' and !$done_this)
 	}
 	
 	/** current value **/
-	$current_value = wpl_request::getVar('sf_'.$query_type.'_'.$field_data['table_column'], '');
+	$current_value = stripslashes(wpl_request::getVar('sf_'.$query_type.'_'.$field_data['table_column'], ''));
 
 	$html .= '<label for="sf'.$widget_id.'_'.$query_type.'_'.$field_data['table_column'].'">'.__($field['name'], WPL_TEXTDOMAIN).'</label>
 				<input name="sf'.$widget_id.'_'.$query_type.'_'.$field_data['table_column'].'" type="text" id="sf'.$widget_id.'_'.$query_type.'_'.$field_data['table_column'].'" value="'.$current_value.'" placeholder="'.__($field['name'], WPL_TEXTDOMAIN).'" />';
@@ -1087,7 +1087,7 @@ elseif($type == 'textsearch' and !$done_this)
 	}
 	
 	/** current value **/
-	$current_value = wpl_request::getVar('sf_textsearch_'.$field_data['table_column'], '');
+	$current_value = stripslashes(wpl_request::getVar('sf_textsearch_'.$field_data['table_column'], ''));
 	
 	$html .= '<label for="sf'.$widget_id.'_textsearch_'.$field_data['table_column'].'">'.__($field['name'], WPL_TEXTDOMAIN).'</label>';
 	
@@ -1113,8 +1113,8 @@ elseif($type == 'addon_calendar' and !$done_this)
     $show_icon = 0;
     
 	/** current value **/
-    $current_checkin_value = wpl_request::getVar('sf_calendarcheckin', '');
-    $current_checkout_value = wpl_request::getVar('sf_calendarcheckout', '');
+    $current_checkin_value = stripslashes(wpl_request::getVar('sf_calendarcheckin', ''));
+    $current_checkout_value = stripslashes(wpl_request::getVar('sf_calendarcheckout', ''));
     
     /** for opening more details **/
     $current_value = $current_checkin_value;
@@ -1145,6 +1145,57 @@ elseif($type == 'addon_calendar' and !$done_this)
 	
 	
 	$done_this = true;
+}
+elseif($type == 'ptcategory' and !$done_this)
+{
+	switch($field['type'])
+	{
+		case 'select':
+			$show = 'select';
+			$any = true;
+			$label = true;
+		break;
+	}
+	
+	/** current value **/
+	$current_value = stripslashes(wpl_request::getVar('sf_ptcategory', -1));
+	$categories = wpl_property_types::get_property_type_categories();
+    
+	if($label) $html .= '<label>'.__($field['name'], WPL_TEXTDOMAIN).'</label>';
+
+	if($show == 'select')
+	{
+		$html .= '<select name="sf'.$widget_id.'_ptcategory" class="wpl_search_widget_field_'.$field['id'].'" id="sf'.$widget_id.'__ptcategory">';
+		if($any) $html .= '<option value="-1">'.__($field['name'], WPL_TEXTDOMAIN).'</option>';
+		
+		foreach($categories as $category)
+			$html .= '<option data-id="'.$category['id'].'" value="'.$category['name'].'" '.(strtolower($current_value) == strtolower($category['name']) ? 'selected="selected"' : '').'>'.__($category['name'], WPL_TEXTDOMAIN).'</option>';
+		
+		$html .= '</select>';
+        
+        $html .= '<script type="text/javascript">
+        wplj(function()
+        {
+            wplj("#sf'.$widget_id.'__ptcategory").on("change", function()
+            {
+                var category_id = wplj("#sf'.$widget_id.'__ptcategory option:selected").data("id");
+                if(category_id)
+                {
+                    wplj("#wpl_search_form_'.$widget_id.' .wpl_search_widget_field_property_type option").hide();
+                    wplj("#wpl_search_form_'.$widget_id.' .wpl_search_widget_field_property_type option.wpl_pt_parent"+category_id).show();
+                }
+                else
+                {
+                    wplj("#wpl_search_form_'.$widget_id.' .wpl_search_widget_field_property_type option").show();
+                }
+                
+                wplj("#wpl_search_form_'.$widget_id.' .wpl_search_widget_field_property_type").trigger("chosen:updated");
+            });
+            
+            wplj("#sf'.$widget_id.'__ptcategory").trigger("change");
+        });
+        </script>';
+	}
 }
 elseif($type == 'separator' and !$done_this)
 {

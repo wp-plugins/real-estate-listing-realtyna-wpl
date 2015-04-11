@@ -39,7 +39,8 @@ class wpl_filters
 			include_once $path;
 			
 			/** call function **/
-			$params = call_user_func(array($filter->class_name, $filter->function_name), $all_params);
+            $filter_obj = new $filter->class_name();
+			$params = call_user_func(array($filter_obj, $filter->function_name), $all_params);
 		}
 		
 		return $params;

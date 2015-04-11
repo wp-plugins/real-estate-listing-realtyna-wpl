@@ -3,7 +3,6 @@
 defined('_WPLEXEC') or die('Restricted access');
 _wpl_import($this->tpl_path . '.scripts.css');
 ?>
-
 <div class="wrap wpl-wp data-structure-wp">
     <header>
         <div id="icon-data-structure" class="icon48"></div>
@@ -53,6 +52,3 @@ _wpl_import($this->tpl_path . '.scripts.css');
         <div class="logo"></div>
     </footer>
 </div>
-<script type="text/javascript">
-    (function($){$(function(){isWPL();})})(jQuery);
-</script>

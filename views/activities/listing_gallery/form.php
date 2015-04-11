@@ -16,9 +16,9 @@ defined('_WPLEXEC') or die('Restricted access');
 </div>
 <div class="fanc-row">
     <label for="wpl_o_autoplay"><?php echo __('Autoplay', WPL_TEXTDOMAIN); ?></label>
-    <select class="text_box" name="option[autoplay]" type="text" id="wpl_o_resize">
-        <option value="1" <?php if(isset($this->options->resize) and $this->options->resize == '1') echo 'selected="selected"'; ?>><?php echo __('Yes', WPL_TEXTDOMAIN); ?></option>
-        <option value="0" <?php if(isset($this->options->resize) and $this->options->resize == '0') echo 'selected="selected"'; ?>><?php echo __('No', WPL_TEXTDOMAIN); ?></option>
+    <select class="text_box" name="option[autoplay]" type="text" id="wpl_o_autoplay">
+        <option value="1" <?php if(isset($this->options->autoplay) and $this->options->autoplay == '1') echo 'selected="selected"'; ?>><?php echo __('Yes', WPL_TEXTDOMAIN); ?></option>
+        <option value="0" <?php if(isset($this->options->autoplay) and $this->options->autoplay == '0') echo 'selected="selected"'; ?>><?php echo __('No', WPL_TEXTDOMAIN); ?></option>
     </select>
 </div>
 <div class="fanc-row">

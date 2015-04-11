@@ -4,6 +4,17 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL2.4.0 (<span class="wpl_log_date">04/10/2015</span> <span class="wpl_log_revision">revision 1333</span>)</h4>
+        -- <strong>[PRO]</strong> Added Import/Export feature to settings menu.<br />
+        -- <strong>[PRO]</strong> Added RSS feature for listings.<br />
+        -- <strong>[PRO]</strong> Revised PDF feature and adding some settings for PDF feature.<br />
+        -- <strong>[PRO]</strong> Added WPL log Manager.<br />
+        -- Fixed an issue on loading plugin language file.<br />
+        -- Fixed zoom issue in map of listing wizard.<br />
+        -- Fixed some issues on location text search.<br />
+        -- Fixed backslash issue.<br />
+        -- linked Listing ID to single property page in some notifications.
+        
         <h4>WPL2.3.0 (<span class="wpl_log_date">02/26/2015</span> <span class="wpl_log_revision">revision 1195</span>)</h4>
         -- <strong>[PRO]</strong> Added Report Abuse feature.<br />
         -- <strong>[PRO]</strong> Improved WPL Multilingual feature.<br />

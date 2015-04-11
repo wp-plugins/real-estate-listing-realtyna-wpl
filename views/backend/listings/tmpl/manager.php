@@ -8,7 +8,7 @@ $this->_wpl_import($this->tpl_path.'.scripts.js');
 <div class="wrap wpl-wp pmanager-wp">
     <header>
         <div id="icon-pmanager" class="icon48"></div>
-        <h2><?php echo __(ucfirst($this->kind_label).' Manager', WPL_TEXTDOMAIN); ?></h2>
+        <h2><?php echo sprintf(__('%s Manager', WPL_TEXTDOMAIN), __(ucfirst($this->kind_label), WPL_TEXTDOMAIN)); ?></h2>
         <button class="wpl-button button-1" onclick="window.location.href = wplj(this).data('href');" data-href="<?php echo wpl_global::add_qs_var('kind', $this->kind, wpl_global::get_wpl_admin_menu('wpl_admin_add_listing')); ?>"><?php echo __('Add Listing', WPL_TEXTDOMAIN); ?></button>
     </header>
     <?php $this->include_tabs(); ?>
@@ -156,6 +156,3 @@ $this->_wpl_import($this->tpl_path.'.scripts.js');
         <div class="logo"></div>
     </footer>
 </div>
-<script type="text/javascript">
-    (function($){$(function(){isWPL();})})(jQuery);
-</script>

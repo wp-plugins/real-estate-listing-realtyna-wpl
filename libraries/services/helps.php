@@ -3,12 +3,12 @@
 defined('_WPLEXEC') or die('Restricted access');
 
 /**
- * Tour Service
+ * Helps Service
  * @author Howard <howard@realtyna.com>
  * @date 9/13/2014
  * @package WPL
  */
-class wpl_service_tips
+class wpl_service_helps
 {
     /**
      * Service runner
@@ -17,12 +17,53 @@ class wpl_service_tips
      */
 	public function run()
 	{
-        /** return if wpl tour is not called **/
-        if(!wpl_request::getVar('wpltour')) return false;
-                
+        /** Run WPL Tour **/
+        if(wpl_request::getVar('wpltour')) $this->tour();
+        
+        /** Run WPL Help **/
+        if(wpl_request::getVar('wpltour')) $this->help();
+	}
+    
+    public function help()
+    {
+        add_filter('contextual_help', array($this, 'show_help_tab'), 10, 3);
+    }
+    
+    public function show_help_tab($contextual_help, $screen_id, $screen)
+    {
+        /** Don't run if it's not WPL Page **/
+        if($screen->parent_base != 'WPL_main_menu') return;
+        
+        $page = wpl_request::getVar('page', '');
+        
+        /** First Validation **/
+        if(!trim($page)) return false;
+        
+        $tabs = array();
+        
+        $path = _wpl_import('assets.helps.'.$page, true, true);
+        if(wpl_file::exists($path)) $tabs = include_once $path;
+        
+        /** No Help **/
+        if(!is_array($tabs) or (is_array($tabs) and !count($tabs))) return false;
+        
+        $screen = get_current_screen();
+        
+        foreach($tabs['tabs'] as $tab)
+        {
+            /** Add Help Tab **/
+            $screen->add_help_tab(array('id'=>$tab['id'], 'title'=>$tab['title'], 'content'=>$tab['content']));
+        }
+        
+        if(!isset($tabs['sidebar'])) $tabs['sidebar'] = array('content'=>'<a class="wpl_contextual_help_tour" href="'.wpl_global::add_qs_var('wpltour', 1).'">'.__('Introduce Tour', WPL_TEXTDOMAIN).'</a>');
+        $screen->set_help_sidebar($tabs['sidebar']['content']);
+    }
+    
+    public function tour()
+    {
         add_action('admin_enqueue_scripts', array($this, 'import_styles_scripts'), 0);
         add_action('admin_print_footer_scripts', array($this, 'show_tips'), 0);
-	}
+    }
     
     public function import_styles_scripts()
     {
@@ -57,7 +98,7 @@ class wpl_service_tips
             /****************************** Tip(<?php echo $tip['id']; ?>) ******************************/
             var wpltip<?php echo $tip['id']; ?> =
             {
-                content: '<?php echo $tip['content']; ?>',
+                content: '<?php echo addslashes($tip['content']); ?>',
                 position:
                 {
                     edge: '<?php echo (isset($tip['position']['edge']) ? $tip['position']['edge'] : 'left'); ?>',
@@ -66,7 +107,7 @@ class wpl_service_tips
                 open: function()
                 {
                     <?php if(isset($tip['buttons'][2])): ?>
-                    wplj('.wpl-pointer-close').after('<a class="wpl-pointer-primary button-primary"><?php echo $tip['buttons'][2]['label']; ?></a>');
+                    wplj('.wp-pointer-buttons').append('<a class="wpl-pointer-primary button-primary"><?php echo $tip['buttons'][2]['label']; ?></a>');
                     wplj('.wpl-pointer-primary').click(function()
                     {
                         wpltip<?php echo $tip['id']; ?>.next();
@@ -74,7 +115,7 @@ class wpl_service_tips
                     <?php endif; ?>
                     
                     <?php if(isset($tip['buttons'][3])): ?>
-                    wplj('.wpl-pointer-primary').after('<a class="wpl-pointer-prev button-secondary"><?php echo $tip['buttons'][3]['label']; ?></a>');
+                    wplj('.wp-pointer-buttons').append('<a class="wpl-pointer-prev button-secondary"><?php echo $tip['buttons'][3]['label']; ?></a>');
                     wplj('.wpl-pointer-prev').click(function()
                     {
                         wpltip<?php echo $tip['id']; ?>.prev();
@@ -85,14 +126,14 @@ class wpl_service_tips
                 {
                     wplpointer<?php echo $tip['id']; ?>.pointer('close');
                 },
-                buttons: function (event, t)
+                buttons: function(event, t)
                 {
                     var button = wplj('<a class="wpl-pointer-close button-secondary"><?php echo __('Close', WPL_TEXTDOMAIN); ?></a>');
-
-                    button.bind('click.pointer', function () {
+                    button.bind('click.pointer', function()
+                    {
                         wpltip<?php echo $tip['id']; ?>.close();
                     });
-
+                    
                     return button;
                 },
                 prev: function()

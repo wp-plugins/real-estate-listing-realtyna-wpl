@@ -63,6 +63,8 @@ class wpl_global
 		
 		/** generate pages object **/
 		$controller = new wpl_controller();
+        $controller->parameter_overwrite = true;
+        
 		if(!$function) $function = 'f:'.$view.':display';
         
 		/** call function **/
@@ -1790,5 +1792,25 @@ class wpl_global
     {
         $readable = str_replace('_', ' ', $not_readable);
         return ucwords($readable);
+    }
+    
+    /**
+     * Generates request string from an array. Used in Property Listing and Profile Listing etc.
+     * @param array $vars
+     * @return string
+     */
+    public static function generate_request_str($vars = array())
+    {
+        /** First Validation **/
+        if(!is_array($vars) or (is_array($vars) and !count($vars))) $vars = array_merge(wpl_request::get('POST'), wpl_request::get('GET'));
+        
+        $request_str = '';
+        foreach($vars as $field=>$value)
+        {
+            if(trim($value) == '') continue;
+            $request_str .= $field .'='.urlencode($value).'&';
+        }
+        
+        return trim($request_str, '& ');
     }
 }

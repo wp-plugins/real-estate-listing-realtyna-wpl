@@ -73,12 +73,14 @@ function wpl_initialize()
 
 	pw_map = new google.maps.Map(document.getElementById("wpl_map_canvas<?php echo $field->id; ?>"), myOptions);
     
+    <?php if(wpl_global::check_addon('demographic')): ?>
     /** restore the zoom level after the map is done scaling **/
 	var pw_listener = google.maps.event.addListener(pw_map, 'idle', function(event)
 	{
         pw_map.fitBounds(bounds);
 		google.maps.event.removeListener(pw_listener);
 	});
+    <?php endif; ?>
     
 	/** marker **/
 	pw_marker = new google.maps.Marker(
@@ -139,9 +141,10 @@ function wpl_code_address(address)
 			ajax_save('wpl_properties', '<?php echo $lt_table_col; ?>', y, <?php echo $item_id; ?>);
 			ajax_save('wpl_properties', '<?php echo $ln_table_col; ?>', x, <?php echo $item_id; ?>);
 		}
-		else
+        else
 		{
-			wpl_alert("<?php echo addslashes(__('Geocode was not successful for the following reason', WPL_TEXTDOMAIN)); ?> : " + status);
+            wpl_show_messages("<?php echo addslashes(__('Geocode was not successful for the following reason', WPL_TEXTDOMAIN)); ?> : " + status, '.wpl_pwizard_googlemap_message .wpl_show_message', 'wpl_gold_msg');
+            setTimeout(function(){wpl_remove_message('.wpl_pwizard_googlemap_message .wpl_show_message')}, 3000);
 		}
 	});
 }
@@ -155,7 +158,8 @@ wplj(document).ready(function()
 
 	wpl_address_creator();
 
-	wplj('.autocomplete-w1').click(function() {
+	wplj('.autocomplete-w1').click(function()
+    {
 		wpl_address_creator();
 	});
 });
@@ -437,6 +441,7 @@ function wpl_dmgfc_set_boundaries(overlay, type)
 }
 </script>
 <div class="google-map-wp">
+    <div class="wpl_pwizard_googlemap_message"><div class="wpl_show_message"></div></div>
 	<div class="map-form-wp">
 		<label for="wpl_map_address<?php echo $field->id; ?>"><?php echo __('Map point', WPL_TEXTDOMAIN); ?> :</label>
 		<input class="text-address" id="wpl_map_address<?php echo $field->id; ?>" type="text" name="address" value="" />

@@ -104,9 +104,9 @@ elseif($type == 'text' and !$done_this) //////////////////////////// text //////
 		$return['type'] = $field->type;
 		$return['name'] = __($field->name, WPL_TEXTDOMAIN);
 		
-		if($field->id == '51') #Longitude
+		if($field->table_column == 'googlemap_ln') #Longitude
 			$return['value'] = wpl_render::render_longitude($value);
-		elseif($field->id == '52') #Latitude
+		elseif($field->table_column == 'googlemap_lt') #Latitude
 			$return['value'] = wpl_render::render_latitude($value);
 		else
         {
@@ -144,7 +144,7 @@ elseif($type == 'textarea' and !$done_this) //////////////////////////// textare
         }
         
         $value = stripslashes($value);
-        if(in_array($field->id, array(308, 1160))) $value = apply_filters('the_content', $value);
+        if($field->table_column == 'field_308') $value = apply_filters('the_content', $value);
         $value = wpl_global::do_shortcode($value);
         
         $return['value'] = $value;
@@ -389,7 +389,14 @@ elseif($type == 'parent' and !$done_this) //////////////////////////// Parent //
         $return['field_id'] = $field->id;
         $return['type'] = $field->type;
         $return['name'] = __($field->name, WPL_TEXTDOMAIN);
-        $return['value'] = wpl_property::update_property_title(NULL, $value);
+        $parents_str = wpl_render::render_parent($value, (isset($options['key']) ? $options['key'] : 'parent'));
+        $return['value'] = $parents_str;
+        
+        $parents_html_str = '';
+        $parents = array_reverse(explode('/', $parents_str));
+        foreach($parents as $parent) $parents_html_str .= '<b>'.trim($parent, '/ ').'</b>';
+        
+        $return['html'] = $parents_html_str;
     }
     
 	$done_this = true;

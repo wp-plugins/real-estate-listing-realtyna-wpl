@@ -29,10 +29,14 @@ elseif($type == 'date' and !$done_this)
 
     $mindate = explode('-', $options['minimum_date']);
     $maxdate = explode('-', $options['maximum_date']);
-    $mindate[1] = intval($mindate[1]);
-    $mindate[2] = intval($mindate[2]);
-    $maxdate[1] = intval($maxdate[1]);
-    $maxdate[2] = intval($maxdate[2]);
+
+    $mindate[0] = (array_key_exists(0, $mindate) and $mindate[0]) ? $mindate[0] : '1970';
+    $mindate[1] = array_key_exists(1, $mindate) ? intval($mindate[1]) : '01';
+    $mindate[2] = array_key_exists(2, $mindate) ? intval($mindate[2]) : '01';
+
+    $maxdate[0] = (array_key_exists(0, $maxdate) and $maxdate[0]) ? $maxdate[0] : date('Y');
+    $maxdate[1] = array_key_exists(1, $maxdate) ? intval($maxdate[1]) : date('m');
+    $maxdate[2] = array_key_exists(2, $maxdate) ? intval($maxdate[2]) : date('d');
 ?>
 <div class="date-wp">
     <label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($label, WPL_TEXTDOMAIN); ?><?php if (in_array($mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>

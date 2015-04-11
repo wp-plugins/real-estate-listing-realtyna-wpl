@@ -2,7 +2,7 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 ?>
-<div class="side-7 side-statistic1">
+<div class="side-6 side-statistic1">
     <div class="panel-wp">
         <h3><?php echo __('Properties by listing types', WPL_TEXTDOMAIN); ?></h3>
         <div class="panel-body">
@@ -30,7 +30,7 @@ defined('_WPLEXEC') or die('Restricted access');
         </div>
     </div>
 </div>
-<div class="side-7 side-statistic2">
+<div class="side-6 side-statistic2">
     <div class="panel-wp">
         <h3><?php echo __('Properties by property types', WPL_TEXTDOMAIN); ?></h3>
         <div class="panel-body">

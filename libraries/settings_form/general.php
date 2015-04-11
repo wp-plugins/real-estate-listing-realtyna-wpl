@@ -155,12 +155,12 @@ elseif($type == 'wppages' and !$done_this)
 elseif($type == 'upload' and !$done_this)
 {
     $src = wpl_global::get_wpl_asset_url('img/system/' . $setting_record->setting_value);
-    $params = array('html_element_id' => 'wpl_watermark_uploader', 'html_ajax_loader' => '#wpl_ajax_loader_' . $setting_record->id, 'request_str' => 'admin.php?wpl_format=b:settings:ajax&wpl_function=save_watermark_image');
+    $activity_params = array('html_element_id'=>$params['html_element_id'], 'html_ajax_loader'=>'#wpl_ajax_loader_'.$setting_record->id, 'request_str'=>$params['request_str']);
 ?>
 <div class="prow wpl_setting_form_container wpl_st_type<?php echo $setting_record->type; ?> wpl_st_<?php echo $setting_record->setting_name; ?>" id="wpl_st_<?php echo $setting_record->id; ?>">
 	<div class="upload-wp">
 		<label for="wpl_st_form_element<?php echo $setting_record->id; ?>"><?php echo $setting_title; ?><span class="wpl_st_citation">:</span></label>
-		<?php wpl_global::import_activity('ajax_file_upload', '', $params); ?>
+		<?php wpl_global::import_activity('ajax_file_upload', '', $activity_params); ?>
 		<span class="ajax-inline-save" id="wpl_ajax_loader_<?php echo $setting_record->id; ?>"></span>
         <?php if($setting_record->setting_value): ?>
 		<div class="upload-preview wpl-upload-setting">

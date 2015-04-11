@@ -15,11 +15,11 @@ class wpl_listing_controller extends wpl_controller
 		
 		$function = wpl_request::getVar('wpl_function');
 		
-		if($function == 'save_room') self::save_room();
-		elseif($function == 'delete_room') self::delete_room();
+		if($function == 'save_room') $this->save_room();
+		elseif($function == 'delete_room') $this->delete_room();
 	}
 	
-	public static function save_room()
+	public function save_room()
 	{
 		$pid = wpl_request::getVar('pid');
 		$kind = wpl_request::getVar('kind');
@@ -44,7 +44,7 @@ class wpl_listing_controller extends wpl_controller
 		exit;
 	}
 	
-	public static function delete_room()
+	public function delete_room()
 	{
         $item_id = wpl_request::getVar('item_id');
         

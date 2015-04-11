@@ -4,7 +4,7 @@ Donate link: http://wpl.realtyna.com/
 Tags: Real estate, Listing, Vertical Market, MLS, Property listing, RETS, Listings, Broker, Realtor, Property, IDX, Multiple Listing Service, Property Management, Properties
 Requires at least: 3.0.1
 Tested up to: 4.1.1
-Stable tag: 2.3.0
+Stable tag: 2.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -68,6 +68,17 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 6. External Responsive Template: Agent listing
 
 == Changelog ==
+
+= 2.4.0 =
+* [PRO] Added Import/Export feature to settings menu.
+* [PRO] Added RSS feature for listings.
+* [PRO] Revised PDF feature and adding some settings for PDF feature.
+* [PRO] Added WPL log Manager.
+* Fixed an issue on loading plugin language file.
+* Fixed zoom issue in map of listing wizard.
+* Fixed some issues on location text search.
+* Fixed backslash issue.
+* linked Listing ID to single property page in some notifications.
 
 = 2.3.0 =
 * [PRO] Added Report Abuse feature.
@@ -363,7 +374,7 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 * Added requirements and maintenance view on settings menu.
 * Added documentation and support section into WPL dashboard.
 * Fixed some PHP notices.
-* Fixed an issue in PHP5.2!!
+* Fixed an issue in PHP5.2!
 
 = 1.0.5 =
 * Fixed some issues.

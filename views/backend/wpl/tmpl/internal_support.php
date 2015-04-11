@@ -2,7 +2,7 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 ?>
-<div class="side-7 side-support">
+<div class="side-6 side-support" id="wpl_dashboard_side_support">
     <div class="panel-wp">
         <h3><?php echo __('Documentation / Support', WPL_TEXTDOMAIN); ?></h3>
         <div class="panel-body">

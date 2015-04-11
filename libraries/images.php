@@ -13,7 +13,6 @@ _wpl_import('libraries.settings');
  */
 class wpl_images
 {
-	
     /**
      * Resizes an image
      * @author Howard R <howard@realtyna.com>
@@ -235,13 +234,13 @@ class wpl_images
         {
             case 'jpg':
             case 'jpeg':
-                $w_dest = &imagecreatefromjpeg($filename);
+                $w_dest = imagecreatefromjpeg($filename);
                 break;
             case 'gif':
-                $w_dest = &imagecreatefromgif($filename);
+                $w_dest = imagecreatefromgif($filename);
                 break;
             case 'png':
-                $w_dest = &imagecreatefrompng($filename);
+                $w_dest = imagecreatefrompng($filename);
                 break;
             default:
                 return;
@@ -251,13 +250,13 @@ class wpl_images
         {
             case 'jpg':
             case 'jpeg':
-                $w_src = &imagecreatefromjpeg($watermark);
+                $w_src = imagecreatefromjpeg($watermark);
                 break;
             case 'gif':
-                $w_src = &imagecreatefromgif($watermark);
+                $w_src = imagecreatefromgif($watermark);
                 break;
             case 'png':
-                $w_src = &imagecreatefrompng($watermark);
+                $w_src = imagecreatefrompng($watermark);
                 break;
             default:
                 return;
@@ -308,7 +307,7 @@ class wpl_images
         if($extension == 'jpg' || $extension == 'jpeg') 
         {
 			$quality = 95;
-			if(wpl_global::check_addon('optimizer')) $quality = wpl_addon_optimizer::optimize_image(wpl_addon_optimizer::IMAGE_JPEG, $w_dest);
+			if(wpl_global::check_addon('optimizer') && wpl_global::get_client() === 0) $quality = wpl_addon_optimizer::optimize_image(wpl_addon_optimizer::IMAGE_JPEG, $w_dest);
             
             ob_start();
             imagejpeg($w_dest, NULL, $quality);
@@ -318,7 +317,7 @@ class wpl_images
         elseif($extension == 'png') 
         {
 			$quality = 9;
-			if(wpl_global::check_addon('optimizer')) $quality = wpl_addon_optimizer::optimize_image(wpl_addon_optimizer::IMAGE_PNG, $w_dest);
+			if(wpl_global::check_addon('optimizer') && wpl_global::get_client() === 0) $quality = wpl_addon_optimizer::optimize_image(wpl_addon_optimizer::IMAGE_PNG, $w_dest);
             
             ob_start();
             imagepng($w_dest, NULL, $quality);

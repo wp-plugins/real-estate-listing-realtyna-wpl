@@ -15,7 +15,7 @@ class wpl_listing_controller extends wpl_controller
 		
 		$function = wpl_request::getVar('wpl_function');
 		
-		if($function == 'upload') self::upload();
+		if($function == 'upload') $this->upload();
 		elseif($function == 'title_update') wpl_items::update_file(wpl_request::getVar('attachment'), wpl_request::getVar('pid'), array('item_extra1'=>wpl_request::getVar('value')));
 		elseif($function == 'desc_update') wpl_items::update_file(wpl_request::getVar('attachment'), wpl_request::getVar('pid'), array('item_extra2'=>wpl_request::getVar('value')));
 		elseif($function == 'cat_update') wpl_items::update_file(wpl_request::getVar('attachment'), wpl_request::getVar('pid'), array('item_cat'=>wpl_request::getVar('value')));

@@ -45,6 +45,3 @@ $this->_wpl_import($this->tpl_path . '.scripts.css');
         <input type="hidden" name="info[id]" value="<?php echo $this->notification->id; ?>" />
     </div>
 </form>
-<script type="text/javascript">
-    (function($){$(function(){isWPL();})})(jQuery);
-</script>

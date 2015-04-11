@@ -6,6 +6,8 @@ _wpl_import("libraries.widgets");
 _wpl_import("libraries.flex");
 _wpl_import("libraries.locations");
 _wpl_import("libraries.property");
+_wpl_import("libraries.property_types");
+_wpl_import("libraries.listing_types");
 
 /**
  * WPL Search Widget
@@ -39,6 +41,7 @@ class wpl_search_widget extends wpl_widget
 		$target_id = isset($instance['wpltarget']) ? $instance['wpltarget'] : 0;
         
         $this->kind = isset($instance['kind']) ? $instance['kind'] : 0;
+        $this->ajax = isset($instance['ajax']) ? $instance['ajax'] : 0;
         
 		/** add main scripts **/
 		wp_enqueue_script('jquery-ui-core');
@@ -77,6 +80,7 @@ class wpl_search_widget extends wpl_widget
         $instance['kind'] = isset($new_instance['kind']) ? $new_instance['kind'] : 0;
 		$instance['layout'] = $new_instance['layout'];
         $instance['wpltarget'] = $new_instance['wpltarget'];
+        $instance['ajax'] = isset($new_instance['ajax']) ? $new_instance['ajax'] : 0;
 		$instance['data'] = (array) $new_instance['data'];
 		
 		return $instance;
@@ -90,7 +94,9 @@ class wpl_search_widget extends wpl_widget
 	public function form($instance)
 	{
         $this->widget_id = $this->number;
+        
         $this->kind = isset($instance['kind']) ? $instance['kind'] : 0;
+        $this->ajax = isset($instance['ajax']) ? $instance['ajax'] : 0;
         
 		_wpl_import('libraries.flex');
 
@@ -213,6 +219,7 @@ class wpl_search_widget extends wpl_widget
 			$display = '';
 			$done_this = false;
 			$html = '';
+            $current_value = '';
 			
 			/** listing and property type specific **/
 			if(trim($field_data['listing_specific']) != '')
@@ -293,6 +300,14 @@ class wpl_search_widget extends wpl_widget
 		
 		return $array_defaults;
 	}
+    
+    public function get_target_page($target_id = NULL)
+    {
+        if(trim($target_id) and $target_id == '-1') $target_page = wpl_global::get_full_url();
+        else $target_page = wpl_property::get_property_listing_link($target_id);
+        
+        return $target_page;
+    }
 	
 	public function create_listing_specific_js()
 	{

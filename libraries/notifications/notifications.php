@@ -114,7 +114,7 @@ class wpl_notifications
         if(trim($wpl_sender_email) != '')
         {
             if(trim($wpl_sender_name) == '') return $wpl_sender_email;
-            else return array($wpl_sender_email, $wpl_sender_name);
+            else return array($wpl_sender_name, $wpl_sender_email);
         }
         
         $domain = wpl_global::domain(wpl_global::get_full_url());

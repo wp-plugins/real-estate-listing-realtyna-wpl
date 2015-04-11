@@ -409,4 +409,20 @@ class wpl_locations
         $abbr = wpl_db::select("SELECT `abbr` FROM `#__wpl_location".$location_level."` WHERE LOWER(`name`)='".strtolower($name)."'", 'loadResult');
         return (trim($abbr) ? $abbr : $name);
     }
+    
+    /**
+     * Returns Location Suffixes and Prefixes
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @return array
+     */
+    public static function get_location_suffix_prefix()
+    {
+        $results = explode(',', trim(wpl_global::get_setting('location_suffix_prefix', 3), ', '));
+        
+        $sufpre = array();
+        foreach($results as $result) $sufpre[] = trim($result, ', ');
+        
+        return $sufpre;
+    }
 }

@@ -14,23 +14,24 @@ defined('_WPLEXEC') or die('Restricted access');
 class wpl_pagination
 {
     /** Default values **/
-    var $total_pages = -1; //items
-    var $limit = null;
-    var $limit_query = '';
-    var $target = "";
-    var $page = 1;
-    var $adjacents = 2;
-    var $showCounter = false;
-    var $className = "pagination";
-    var $parameterName = "page";
-    var $urlF = false; //urlFriendly
-    var $calculate = false;
+    public $total_pages = -1; //items
+    public $limit = null;
+    public $limit_query = '';
+    public $target = "";
+    public $page = 1;
+    public $adjacents = 2;
+    public $showCounter = false;
+    public $className = "pagination";
+    public $parameterName = "page";
+    public $urlF = false; //urlFriendly
+    public $calculate = false;
+    public $js_link = false;
     
     /** Buttons next and previous **/
-    var $nextT = "Next";
-    var $nextI = "&#187;"; //&#9658;
-    var $prevT = "Previous";
-    var $prevI = "&#171;"; //&#9668;
+    public $nextT = "Next";
+    public $nextI = "&#187;"; //&#9658;
+    public $prevT = "Previous";
+    public $prevI = "&#171;"; //&#9668;
 
     #Total items
     public function items($value)
@@ -169,6 +170,11 @@ class wpl_pagination
 
     public function get_pagenum_link($id)
 	{
+        if($this->js_link)
+        {
+            return 'javascript:wpl_paginate('.$id.');';
+        }
+        
         if(strpos($this->target, '?') === false)
 		{
             if($this->urlF) return str_replace($this->urlF, $id, $this->target);
@@ -302,11 +308,15 @@ class wpl_pagination
         return true;
     }
 
-    public static function get_pagination($num_result, $page_size = '', $show_options = false)
+    public static function get_pagination($num_result, $page_size = '', $show_options = false, $js_link = 0)
 	{
         if(!$page_size) $page_size = 20;
 
         $p = new wpl_pagination;
+        
+        /** return js function **/
+        $p->js_link = $js_link;
+        
         $p->items($num_result);
         $p->limit($page_size); // Limit entries per page
         $p->target(wpl_global::get_full_url());

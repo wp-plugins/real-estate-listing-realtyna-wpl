@@ -14,17 +14,17 @@ class wpl_listing_controller extends wpl_controller
 		wpl_global::min_access('agent');
 		$function = wpl_request::getVar('wpl_function');
 		
-		if($function == 'upload') self::upload();
+		if($function == 'upload') $this->upload();
 		elseif($function == 'title_update') wpl_items::update_file(wpl_request::getVar('image'), wpl_request::getVar('pid'), array('item_extra1'=>wpl_request::getVar('value')));
 		elseif($function == 'desc_update') wpl_items::update_file(wpl_request::getVar('image'), wpl_request::getVar('pid'), array('item_extra2'=>wpl_request::getVar('value')));
 		elseif($function == 'cat_update') wpl_items::update_file(wpl_request::getVar('image'), wpl_request::getVar('pid'), array('item_cat'=>wpl_request::getVar('value')));
 		elseif($function == 'delete_image') wpl_items::delete_file(wpl_request::getVar('image'), wpl_request::getVar('pid'), wpl_request::getVar('kind'));
 		elseif($function == 'sort_images') wpl_items::sort_items(wpl_request::getVar('pid'), wpl_request::getVar('order'));
 		elseif($function == 'change_status') wpl_items::update_file(wpl_request::getVar('image'), wpl_request::getVar('pid'), array('enabled'=>wpl_request::getVar('enabled')));
-        elseif($function == 'save_external_images') self::save_external_images();
+        elseif($function == 'save_external_images') $this->save_external_images();
 	}
 	
-	public static function upload()
+	public function upload()
 	{
 		/** import upload library **/
 		_wpl_import('assets.packages.ajax_uploader.UploadHandler');
@@ -66,7 +66,7 @@ class wpl_listing_controller extends wpl_controller
 		wpl_items::save($item);
 	}
     
-    public static function save_external_images()
+    public function save_external_images()
     {
         $kind = wpl_request::getVar('kind', 0);
         $pid = wpl_request::getVar('pid');

@@ -374,4 +374,56 @@ class wpl_settings
         
         return trim($q, ', ');
     }
+
+    /**
+     * Import Settings from a file
+     * @author Steve A. <steve@realtyna.com>
+     * @static
+     * @param  string  $file Settings File
+     * @return boolean		 Result
+     */
+    public static function import_settings($file)
+    {
+    	$content = wpl_file::read($file);
+    	$ext = wpl_file::getExt($file);
+
+    	if($ext == 'json')
+    	{
+    		$settings = json_decode($content);
+	    	if(!$settings) return false;
+    	}
+    	elseif($ext == 'xml')
+    	{
+    		$settings = simplexml_load_string($content);
+			if(!$settings) return false;
+            
+			$settings = (array) $settings;
+    	}
+    	else return false;
+
+    	foreach($settings as $name=>$value) self::update_setting($name, $value);
+    	return true;
+    }
+
+    /**
+     * Export Settings to a file
+     * @author Steve A. <steve@realtyna.com>
+     * @static
+     * @param  string $format File Format
+     * @return object 		  Settings File
+     */
+    public static function export_settings($format = 'json')
+    {
+    	$settings = self::get_settings();
+
+    	if($format == 'json') return json_encode($settings);
+    	elseif($format == 'xml')
+    	{
+    		$xml = new SimpleXMLElement('<wplsettings/>');
+    		foreach($settings as $k=>$v) $xml->addChild($k, $v);
+            
+		    return $xml->asXML();
+    	}
+    	else return NULL;
+    }
 }

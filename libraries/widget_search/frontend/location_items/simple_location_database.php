@@ -103,7 +103,7 @@ if($show == 'simple_location_database' and !$done_this)
 		$html .= '<div class="wpl_search_widget_location_level_container" id="wpl'.$widget_id.'_search_widget_location_level_container'.$i.'">';
 		$html .= '<label class="wpl_search_widget_location_level_label" for="sf'.$widget_id.'_select_location'.$i.'_id">'.$location_settings['location'.$i.'_keyword'].'</label>';
 		$html .= '<select name="sf'.$widget_id.'_select_location'.$i.'_id" id="sf'.$widget_id.'_select_location'.$i.'_id" onchange="wpl'.$widget_id.'_search_widget_load_location(\''.$i.'\', this.value, \''.$current_location_id.'\');">';
-		$html .= '<option value="-1">'.__('Select', WPL_TEXTDOMAIN).'</option>';
+		$html .= '<option value="-1">'.__((trim($location_settings['location'.$i.'_keyword']) != '' ? $location_settings['location'.$i.'_keyword'] : 'Select'), WPL_TEXTDOMAIN).'</option>';
 		
 		foreach($locations as $location)
 		{
@@ -126,7 +126,7 @@ if($show == 'simple_location_database' and !$done_this)
 			$html .= '<div class="wpl_search_widget_location_level_container" id="wpl'.$widget_id.'_search_widget_location_level_containerzips">';
 			$html .= '<label class="wpl_search_widget_location_level_label" for="sf'.$widget_id.'_select_zip_id">'.$location_settings['locationzips_keyword'].'</label>';
 			$html .= '<select name="sf'.$widget_id.'_select_zip_id" id="sf'.$widget_id.'_select_zip_id">';
-			$html .= '<option value="0">'.__('Select', WPL_TEXTDOMAIN).'</option>';
+			$html .= '<option value="-1">'.__((trim($location_settings['locationzips_keyword']) != '' ? $location_settings['locationzips_keyword'] : 'Select'), WPL_TEXTDOMAIN).'</option>';
 			
 			foreach($locations as $location)
 			{

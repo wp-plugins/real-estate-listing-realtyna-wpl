@@ -225,7 +225,10 @@ class wpl_extensions
 	{
         $locale = apply_filters('plugin_locale', get_locale(), WPL_TEXTDOMAIN);
 		$overriden_language_filepath = WP_LANG_DIR .DS. WPL_BASENAME .DS. WPL_TEXTDOMAIN.'-'.$locale.'.mo';
+		
         
+		$overriden_language_filepath = wpl_path::clean($overriden_language_filepath);
+		
 		/** check if the language file is overridden **/
 		if(wpl_file::exists($overriden_language_filepath))
         {
@@ -233,7 +236,7 @@ class wpl_extensions
         }
 		else
         {
-			load_plugin_textdomain(WPL_TEXTDOMAIN, false, wpl_global::get_wpl_root_path() . 'languages' .DS);
+			load_plugin_textdomain(WPL_TEXTDOMAIN, false, WPL_BASENAME . DS . 'languages');
         }
 	}
 	
@@ -404,7 +407,7 @@ class wpl_extensions
 			$queries = str_replace(";\n", "-=++=-", $queries);
 			$sqls = explode("-=++=-", $queries);
 			
-			if(function_exists('is_multisite') and is_multisite() and wpl_global::check_addon('multisite'))
+			if(function_exists('is_multisite') and is_multisite() and wpl_global::check_addon('franchise'))
 			{
 				$original_blog_id = wpl_global::get_current_blog_id();
 				
@@ -448,7 +451,7 @@ class wpl_extensions
 			wpl_file::delete($script_file);
 		}
 		
-		if(function_exists('is_multisite') and is_multisite() and wpl_global::check_addon('multisite'))
+		if(function_exists('is_multisite') and is_multisite() and wpl_global::check_addon('franchise'))
 		{
 			$original_blog_id = wpl_global::get_current_blog_id();
 			
@@ -534,7 +537,7 @@ class wpl_extensions
 			$queries = str_replace(";\n", "-=++=-", $queries);
 			$sqls = explode("-=++=-", $queries);
 			
-			if(function_exists('is_multisite') and is_multisite() and wpl_global::check_addon('multisite'))
+			if(function_exists('is_multisite') and is_multisite() and wpl_global::check_addon('franchise'))
 			{
 				$original_blog_id = wpl_global::get_current_blog_id();
 				
@@ -613,7 +616,7 @@ class wpl_extensions
         wpl_db::q("DELETE FROM `#__options` WHERE `option_name` LIKE 'wpl_%' AND `option_name` NOT LIKE 'wpl_theme%'", 'delete');
         
         /** remove WPL upload directory **/
-        if(function_exists('is_multisite') and is_multisite() and wpl_global::check_addon('multisite'))
+        if(function_exists('is_multisite') and is_multisite() and wpl_global::check_addon('franchise'))
         {
             $original_blog_id = wpl_global::get_current_blog_id();
 

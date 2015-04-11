@@ -25,17 +25,15 @@ class wpl_settings_controller extends wpl_controller
 			
 			$this->save($setting_name, $setting_value, $setting_category);
 		}
-		elseif($function == 'save_watermark_image')
-		{
-			$file = $_FILES['wpl_watermark_uploader'];
-			$this->save_watermark_image($file);
-		}
+		elseif($function == 'save_watermark_image') $this->save_watermark_image();
         elseif($function == 'save_languages') $this->save_languages();
         elseif($function == 'generate_language_keywords') $this->generate_language_keywords();
 		elseif($function == 'clear_cache') $this->clear_cache();
         elseif($function == 'remove_upload') $this->remove_upload();
         elseif($function == 'clear_calendar_data') $this->clear_calendar_data();
-        
+        elseif($function == 'import_settings') $this->import_settings();
+        elseif($function == 'export_settings') $this->export_settings();
+        elseif($function == 'uploader') $this->uploader();
 	}
 	
 	private function save($setting_name, $setting_value, $setting_category)
@@ -58,10 +56,12 @@ class wpl_settings_controller extends wpl_controller
 	 * description       : save watermark image to the specific path and
 	 *                     save filename as a setting value to database
 	 */
-	private function save_watermark_image($file)
+	private function save_watermark_image()
 	{
+        $file = wpl_request::getVar('wpl_watermark_uploader', NULL, 'FILES');
 		$filename = wpl_global::normalize_string($file['name']);
 		$ext_array = array('jpg','png','gif','jpeg');
+        
 		$error = '';
 		$message = '';
         
@@ -74,14 +74,11 @@ class wpl_settings_controller extends wpl_controller
 			// check the extention
 			$extention = strtolower(wpl_file::getExt($file['name']));
 
-			if(!in_array($extention, $ext_array))
-			{
-				$error = __('File extension should be jpg, png or gif.', WPL_TEXTDOMAIN);
-			}
-
+			if(!in_array($extention, $ext_array)) $error = __('File extension should be jpg, png or gif.', WPL_TEXTDOMAIN);
 			if($error == '')
 			{
 				$dest = WPL_ABSPATH. 'assets' .DS. 'img' .DS. 'system' .DS. $filename;
+                
 				wpl_file::upload($file['tmp_name'], $dest);
 				wpl_settings::save_setting('watermark_url', $filename, 2);
 			}
@@ -179,4 +176,89 @@ class wpl_settings_controller extends wpl_controller
 		echo json_encode($response);
 		exit;
     }
+
+    private function import_settings()
+    {
+		$file = wpl_request::getVar('wpl_import_file', '', 'FILES');
+		$tmp_directory = wpl_global::init_tmp_folder();
+		$ext = strtolower(wpl_file::getExt($file['name']));
+		$settings_file = $tmp_directory.'settings.'.$ext;
+		
+		$response = wpl_global::upload($file, $settings_file, array('json', 'xml'), 20971520); #20MB
+		if(trim($response['error']) != '')
+		{
+			echo json_encode($response);
+			exit;
+		}
+		
+		if(wpl_settings::import_settings($settings_file))
+		{
+			$error = '';
+        	$message = __('Settings have been imported successfuly!', WPL_TEXTDOMAIN);
+		}
+        else
+        {
+        	$error = '1';
+        	$message = __('Cannot import settings!', WPL_TEXTDOMAIN);
+        }
+
+		echo json_encode(array('error'=>$error, 'message'=>$message));
+		exit;
+    }
+
+    private function export_settings()
+    {
+    	$format = wpl_request::getVar('wpl_export_format', 'json');
+    	$output = wpl_settings::export_settings($format);
+
+    	if($format == 'json')
+    	{
+    		header('Content-disposition: attachment; filename=settings.json');
+			header('Content-type: application/json');	
+    	}
+    	elseif($format == 'xml')
+    	{
+    		header('Content-disposition: attachment; filename=settings.xml');
+			header('Content-type: application/xml');
+    	}
+
+    	echo $output;
+		exit;
+    }
+    
+    private function uploader()
+	{
+        $settings_key = wpl_request::getVar('settings_key', '');
+        $file = wpl_request::getVar($settings_key, NULL, 'FILES');
+        
+		$filename = wpl_global::normalize_string($file['name']);
+		$ext_array = array('jpg','png','gif','jpeg');
+        
+		$error = '';
+		$message = '';
+        
+		if(!empty($file['error']) or (empty($file['tmp_name']) or ($file['tmp_name'] == 'none')))
+		{
+			$error = __('An error ocurred uploading your file.', WPL_TEXTDOMAIN);
+		}
+		else 
+		{
+			// check the extention
+			$extention = strtolower(wpl_file::getExt($file['name']));
+
+			if(!in_array($extention, $ext_array)) $error = __('File extension should be jpg, png or gif.', WPL_TEXTDOMAIN);
+			if($error == '')
+			{
+				$dest = WPL_ABSPATH. 'assets' .DS. 'img' .DS. 'system' .DS. $filename;
+                
+				wpl_file::upload($file['tmp_name'], $dest);
+				wpl_settings::save_setting($settings_key, $filename);
+			}
+		}
+        
+		$response = array('error'=>$error, 'message'=>$message);
+        
+		echo json_encode($response);
+		exit;
+	}
 }

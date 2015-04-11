@@ -34,32 +34,44 @@ wpl_extensions::import_javascript((object) array('param1'=>'wpl-sly-scrollbar', 
     </p>
 
     <p>
-        <label for="<?php echo $this->get_field_id('wpltarget'); ?>"><?php echo __('Target page', WPL_TEXTDOMAIN); ?>
-            : </label>
+        <label for="<?php echo $this->get_field_id('wpltarget'); ?>"><?php echo __('Target page', WPL_TEXTDOMAIN); ?>: </label>
         <select id="<?php echo $this->get_field_id('wpltarget'); ?>"
                 name="<?php echo $this->get_field_name('wpltarget'); ?>" class="widefat">
             <option value="">-----</option>
             <?php echo $this->generate_pages_selectbox($instance); ?>
+            <option value="-1" <?php echo ((isset($instance['wpltarget']) and $instance['wpltarget'] == '-1') ? 'selected="selected"' : ''); ?>><?php echo __('Self Page', WPL_TEXTDOMAIN); ?></option>
         </select>
     </p>
+    
+    <?php if(wpl_global::check_addon('aps')): ?>
+    <p>
+        <label for="<?php echo $this->get_field_id('ajax'); ?>"><?php echo __('AJAX Search', WPL_TEXTDOMAIN); ?>: </label>
+        <select id="<?php echo $this->get_field_id('ajax'); ?>"
+               name="<?php echo $this->get_field_name('ajax'); ?>" class="widefat">
+            <option value="0" <?php if(isset($instance['ajax']) and $instance['ajax'] == 0) echo 'selected="selected"'; ?>><?php echo __('No', WPL_TEXTDOMAIN); ?></option>
+            <option value="1" <?php if(isset($instance['ajax']) and $instance['ajax'] == 1) echo 'selected="selected"'; ?>><?php echo __('Yes', WPL_TEXTDOMAIN); ?></option>
+            <option value="2" <?php if(isset($instance['ajax']) and $instance['ajax'] == 2) echo 'selected="selected"'; ?>><?php echo __('Yes (On the fly)', WPL_TEXTDOMAIN); ?></option>
+        </select>
+    </p>
+    <?php endif; ?>
 
     <button id="btn-search-<?php echo $this->number ?>"
             data-is-init="false"
             data-item-id="<?php echo $this->number ?>"
             data-fancy-id="wpl_view_fields_<?php echo $this->number; ?>" class="wpl-button button-1"
-            href="#wpl_view_fields_<?php echo $this->number ?>"><?php _e('View Fields', WPL_TEXTDOMAIN); ?></button>
+            href="#wpl_view_fields_<?php echo $this->number ?>"><?php echo __('View Fields', WPL_TEXTDOMAIN); ?></button>
 
-    <?php if (wpl_global::check_addon('pro')): ?>
+    <?php if(wpl_global::check_addon('pro')): ?>
         <button id="btn-shortcode-<?php echo $this->number ?>"
                 data-is-init="false"
                 data-item-id="<?php echo $this->number ?>"
                 data-fancy-id="wpl_view_shortcode_<?php echo $this->number; ?>" class="wpl-button button-1"
                 href="#wpl_view_shortcode_<?php echo $this->number ?>"
-                data-realtyna-lightbox><?php _e('View Shortcode', WPL_TEXTDOMAIN); ?></button>
+                data-realtyna-lightbox><?php echo __('View Shortcode', WPL_TEXTDOMAIN); ?></button>
 
     <?php endif; ?>
 
-    <span id="wpl-js-page-must-reload-<?php echo $this->number ?>" class="wpl-widget-search-must-reload"><?php _e('Page need to reloaded before opening the Field Editor...', WPL_TEXTDOMAIN); ?></span>
+    <span id="wpl-js-page-must-reload-<?php echo $this->number ?>" class="wpl-widget-search-must-reload"><?php echo __('Page need to reloaded before opening the Field Editor...', WPL_TEXTDOMAIN); ?></span>
 </div>
 
 <div id="wpl_view_shortcode_<?php echo $this->number ?>" class="hidden">

@@ -29,6 +29,13 @@ wplj(document).ready(function()
     <?php if($bott_div_open): ?>
     wplj(".wpl_search_from_box #more_search_option<?php echo $widget_id; ?>").trigger('click');
     <?php endif; ?>
+        
+    <?php if($this->ajax == 2): ?>
+    wplj("#wpl_search_form_<?php echo $widget_id; ?> input, #wpl_search_form_<?php echo $widget_id; ?> select").on('change', function()
+    {
+        setTimeout("wpl_do_search_<?php echo $widget_id; ?>()", 300);
+    });
+	<?php endif; ?>
 });
 
 /** main search function **/
@@ -44,7 +51,7 @@ function wpl_do_search_<?php echo $widget_id; ?>()
 			if(wplj("#wpl_searchwidget_<?php echo $widget_id; ?> #"+id).closest('li').css('display') != 'none')
 			{
 				if(element.checked) value = element.value; else value = "-1";
-				request_str += "&" + element.name.replace('sf<?php echo $widget_id; ?>_', 'sf_') +"=" + value;
+				request_str += "&" + element.name.replace('sf<?php echo $widget_id; ?>_', 'sf_') +"="+ value;
 			}
 		}
 	});
@@ -58,7 +65,7 @@ function wpl_do_search_<?php echo $widget_id; ?>()
 			if(wplj("#wpl_searchwidget_<?php echo $widget_id; ?> #"+id).closest('li').css('display') != 'none')
 			{
 				value = element.value;
-				request_str += "&" + element.name.replace('sf<?php echo $widget_id; ?>_', 'sf_') +"=" + value;
+				request_str += "&" + element.name.replace('sf<?php echo $widget_id; ?>_', 'sf_') +"="+ value;
 			}
 		}
 	});
@@ -72,7 +79,7 @@ function wpl_do_search_<?php echo $widget_id; ?>()
 			if(wplj("#wpl_searchwidget_<?php echo $widget_id; ?> #"+id).closest('li').css('display') != 'none')
 			{
 				value = element.value;
-				request_str += "&" + element.name.replace('sf<?php echo $widget_id; ?>_', 'sf_') +"=" + value;
+				request_str += "&" + element.name.replace('sf<?php echo $widget_id; ?>_', 'sf_') +"="+ value;
 			}
 		}
 	});
@@ -86,7 +93,7 @@ function wpl_do_search_<?php echo $widget_id; ?>()
 			if(wplj(element).closest('li').css('display') != 'none')
 			{
 				value = wplj(element).val();
-				if(value != null) request_str += "&" + element.name.replace('sf<?php echo $widget_id; ?>_', 'sf_') +"=" + value;
+				if(value != null) request_str += "&" + element.name.replace('sf<?php echo $widget_id; ?>_', 'sf_') +"="+ value;
 			}
 		}
 	});
@@ -95,13 +102,70 @@ function wpl_do_search_<?php echo $widget_id; ?>()
 	request_str = 'widget_id=<?php echo $widget_id; ?>'+request_str;
 
 	/** Create full url of search **/
-	search_page = '<?php echo wpl_property::get_property_listing_link($target_id); ?>';
+	search_page = '<?php echo $this->get_target_page($target_id); ?>';
 	
     if(search_page.indexOf('?') >= 0) search_str = search_page+'&'+request_str
     else search_str = search_page+'?'+request_str
     
-	window.location = search_str;
+    <?php if(!$this->ajax): ?>
+    wpl_do_search_no_ajax<?php echo $widget_id; ?>(search_str);
+    <?php elseif($this->ajax): ?>
+    if(!wplj('#wpl_property_listing_container').length) wpl_do_search_no_ajax<?php echo $widget_id; ?>(search_str);
+    else wpl_do_search_ajax<?php echo $widget_id; ?>(request_str, search_str);
+    <?php endif; ?>
+    
 	return false;
+}
+
+function wpl_do_search_no_ajax<?php echo $widget_id; ?>(search_str)
+{
+    window.location = search_str;
+}
+
+function wpl_do_search_ajax<?php echo $widget_id; ?>(request_str, search_str)
+{
+    /** Move to First Page **/
+    request_str = wpl_update_qs('wplpage', '1', request_str);
+    
+    if(typeof wpl_listing_request_str != 'undefined')
+    {
+        wpl_listing_request_str = wpl_qs_apply(wpl_listing_request_str, request_str);
+        request_str = wpl_qs_apply(request_str, wpl_listing_request_str);
+        
+        search_str = wpl_qs_apply(search_str, request_str);
+    }
+    
+    /** Load Markers **/
+    if(typeof wpl_load_map_markers == 'function') wpl_load_map_markers(request_str, true);
+    
+    wplj(".wpl_property_listing_list_view_container").fadeTo(300, 0.5);
+    
+    try
+    {
+        history.pushState({search: 'WPL'}, "<?php echo addslashes(__('Search Results', WPL_TEXTDOMAIN)); ?>", search_str);
+    }
+    catch(err){}
+    
+    wplj.ajax(
+    {
+        url: '<?php echo wpl_global::get_full_url(); ?>',
+        data: 'wpl_format=f:property_listing:list&'+request_str,
+        dataType: 'json',
+        type: 'GET',
+        async: true,
+        cache: false,
+        timeout: 30000,
+        success: function(data)
+        {
+            wpl_listing_total_pages = data.total_pages;
+            wpl_listing_current_page = data.current_page;
+            
+            wplj(".wpl_property_listing_list_view_container").html(data.html);
+            wplj(".wpl_property_listing_list_view_container").fadeTo(300, 1);
+            
+            wpl_listing_last_search_time = new Date().getTime();
+        }
+    });
 }
 
 function wpl_sef_request<?php echo $widget_id; ?>(request_str)

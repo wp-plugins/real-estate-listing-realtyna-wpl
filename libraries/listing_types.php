@@ -11,7 +11,11 @@ defined('_WPLEXEC') or die('Restricted access');
  */
 class wpl_listing_types
 {
-	var $listing_types;
+    /**
+     *
+     * @var array
+     */
+	public $listing_types;
 	
     /**
      * Removes a listing type
@@ -22,12 +26,12 @@ class wpl_listing_types
      */
 	public static function remove_listing_type($listing_type_id)
 	{
+        /** trigger event **/
+		wpl_global::event_handler('listing_type_removed', array('id'=>$listing_type_id));
+
 		$query = "DELETE FROM `#__wpl_listing_types` WHERE `id`='$listing_type_id'";
 		$result = wpl_db::q($query);
 		
-        /** trigger event **/
-		wpl_global::event_handler('listing_type_removed', array('id'=>$listing_type_id));
-        
 		return $result;	
 	}
 	
@@ -60,6 +64,9 @@ class wpl_listing_types
 		
 		$query = "UPDATE `#__wpl_listing_types` SET `index`='$id.00' WHERE `id`='$id'";
 		wpl_db::q($query);
+
+		/** trigger event **/
+		wpl_global::event_handler('listing_type_added', array('name'=>$name));
 		
 		return $id;
 	}
@@ -122,7 +129,7 @@ class wpl_listing_types
      * @static
      * @return array
      */
-	public static function get_listing_types_category()
+	public static function get_listing_type_categories()
 	{
 		$query = "SELECT * FROM `#__wpl_listing_types` WHERE `parent` = '0' ORDER BY `index` ASC";
 		return wpl_db::select($query, 'loadAssocList');

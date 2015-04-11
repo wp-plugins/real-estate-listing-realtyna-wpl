@@ -313,11 +313,11 @@ class wpl_activity
      */
     public static function remove_activity($activity_id)
     {
-        $query = "DELETE FROM `#__wpl_activities` WHERE `id`='$activity_id'";
-        $result = wpl_db::q($query);
-        
         /** trigger event **/
 		wpl_global::event_handler('activity_removed', array('id'=>$activity_id));
+
+        $query = "DELETE FROM `#__wpl_activities` WHERE `id`='$activity_id'";
+        $result = wpl_db::q($query);
         
         return $result;
     }

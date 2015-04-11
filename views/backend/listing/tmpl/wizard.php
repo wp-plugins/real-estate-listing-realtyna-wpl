@@ -9,13 +9,21 @@ $this->finds = array();
 <div class="wrap wpl-wp pwizard-wp">
     <header>
         <div id="icon-pwizard" class="icon48"></div>
-        <h2><?php echo __('Add/Edit '.ucfirst($this->kind_label), WPL_TEXTDOMAIN); ?></h2>
+        <h2><?php echo sprintf(__('Add/Edit %s', WPL_TEXTDOMAIN), __(ucfirst($this->kind_label), WPL_TEXTDOMAIN)); ?></h2>
     </header>
     <div class="wpl_listing_list"><div class="wpl_show_message"></div></div>
     <div class="finilize-message <?php echo ($this->finalized ? 'hide' : ''); ?>" id="wpl_listing_remember_to_finalize" title="<?php echo __('Click to finalize property ...', WPL_TEXTDOMAIN); ?>" onclick="wplj('#wpl_slide_label_id10000').trigger('click');">
         <i class="icon-warning"></i>
         <span><?php echo __('Remember to finalize!', WPL_TEXTDOMAIN); ?></span>
     </div>
+    
+    <?php if($this->mode == 'add' and 'published' == 'no'): # Should be published after 2.4.0 ?>
+    <div class="discard-message" id="wpl_listing_discard" title="<?php echo __('Click to discard property', WPL_TEXTDOMAIN); ?>" onclick="wpl_discard('<?php echo $this->property_id; ?>', 0);">
+        <i class="icon-warning"></i>
+        <span id="wpl_listing_discard_loading"><?php echo __('Discard property', WPL_TEXTDOMAIN); ?></span>
+    </div>
+    <?php endif; ?>
+    
     <div class="sidebar-wp">
         <div class="side-2 side-tabs-wp">
             <ul>
@@ -25,6 +33,7 @@ $this->finds = array();
                         <i class="icon-finalize"></i>
                     </a>        
                 </li>
+                
                 <?php
                 $category_listing_specific_array = array();
                 $category_property_type_specific_array = array();
@@ -125,12 +134,13 @@ $this->finds = array();
                                 ?>
                                 <a class="wpl-button button-2" target="_blank" href="<?php echo $property_link; ?>"><?php echo __('View this listing', WPL_TEXTDOMAIN); ?></a>
                                 <a class="wpl-button button-2" href="<?php echo $new_link; ?>"><?php echo __('Add new listing', WPL_TEXTDOMAIN); ?></a>
-                                <?php if($manager_link): ?><a class="wpl-button button-2" target="_blank" href="<?php echo $manager_link; ?>"><?php echo __($this->kind_label.' Manager', WPL_TEXTDOMAIN); ?></a><?php endif; ?>
+                                <?php if($manager_link): ?><a class="wpl-button button-2" target="_blank" href="<?php echo $manager_link; ?>"><?php echo sprintf(__('%s Manager', WPL_TEXTDOMAIN), __($this->kind_label, WPL_TEXTDOMAIN)); ?></a><?php endif; ?>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
     <div id="wpl_listing_edit_div" class="wpl_lightbox fanc-box-wp wpl_hidden_element"></div>
@@ -139,7 +149,6 @@ $this->finds = array();
     </footer>
 </div>
 <script type="text/javascript">
-(function($){$(function(){isWPL();})})(jQuery);
 var finalized = <?php echo $this->finalized; ?>;
 
 function wpl_listing_changed(id)
@@ -240,6 +249,39 @@ function wpl_finalize(slide_id, item_id)
         }
     });
 }
+
+<?php if($this->mode == 'add'): ?>
+function wpl_discard(item_id, confirmed)
+{
+	var message_path = '.wpl_listing_list .wpl_show_message';
+	if(!confirmed)
+	{
+		message = "Are you sure you want to remove this listing?&nbsp;";
+		message += '<span class="wpl_actions" onclick="wpl_discard(\''+item_id+'\', 1);">Yes</span>&nbsp;<span class="wpl_actions" onclick="wpl_remove_message(\'' + message_path + '\');">No</span>';
+		
+		wpl_show_messages(message, message_path);
+		return false;
+	}
+	else if(confirmed) wpl_remove_message(message_path);
+	
+	Realtyna.ajaxLoader.show("#wpl_listing_discard_loading", 'tiny', 'rightOut');
+   	
+	request_str = "wpl_format=b:listings:ajax&wpl_function=purge_property&pid="+item_id;
+    
+    ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str);
+    ajax.success(function(data)
+	{
+		if(data.success == 1)
+		{
+			window.location = "<?php echo $manager_link; ?>";
+		}
+		else if(data.success != 1)
+		{
+			wpl_show_messages(data.message, '.wpl_listing_list .wpl_show_message', 'wpl_red_msg');
+		}
+    });
+}
+<?php endif; ?>
 
 function wpl_validation_check()
 {

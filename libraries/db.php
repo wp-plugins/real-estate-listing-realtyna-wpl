@@ -343,6 +343,18 @@ class wpl_db
 	}
     
     /**
+     * Returns MySQL Version
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @return string
+     */
+    public static function version()
+	{
+		$query = "SELECT VERSION();";
+        return wpl_db::q($query, 'loadResult');
+	}
+    
+    /**
      * Use this function for replacing fake prefix with real one
      * @author Howard <howard@realtyna.com>
      * @param string $query

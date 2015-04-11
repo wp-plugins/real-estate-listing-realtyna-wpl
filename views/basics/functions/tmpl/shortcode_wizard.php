@@ -23,6 +23,7 @@ wpl_extensions::import_javascript($js);
                 <option value="profile_wizard"><?php echo __('My Profile', WPL_TEXTDOMAIN); ?></option>
                 <!--<option value="property_wizard"><?php echo __('Add/Edit Listing', WPL_TEXTDOMAIN); ?></option>-->
                 <?php if(wpl_global::check_addon('pro')): ?><option value="widget_shortcode"><?php echo __('Widget Shortcode', WPL_TEXTDOMAIN); ?></option><?php endif; ?>
+                <?php if(wpl_global::check_addon('save_searches')): ?><option value="save_searches"><?php echo __('Save Searches', WPL_TEXTDOMAIN); ?></option><?php endif; ?>
             </select>
         </div>
 		
@@ -267,14 +268,15 @@ function insert_shortcode()
 	var shortcode = '';
 	var view = wplj("#view_selectbox").val();
 
-	if (view == 'property_listing') shortcode += '[WPL';
-    else if (view == 'property_show') shortcode += '[wpl_property_show';
-	else if (view == 'profile_listing') shortcode += '[wpl_profile_listing';
-    else if (view == 'profile_show') shortcode += '[wpl_profile_show';
-	else if (view == 'property_manager') shortcode += '[wpl_listing_manager';
-	else if (view == 'profile_wizard') shortcode += '[wpl_my_profile';
-	else if (view == 'property_wizard') shortcode += '[wpl_add_edit_listing';
-	else if (view == 'widget_shortcode') shortcode += '[wpl_widget_instance';
+	if (view === 'property_listing') shortcode += '[WPL';
+    else if (view === 'property_show') shortcode += '[wpl_property_show';
+	else if (view === 'profile_listing') shortcode += '[wpl_profile_listing';
+    else if (view === 'profile_show') shortcode += '[wpl_profile_show';
+	else if (view === 'property_manager') shortcode += '[wpl_listing_manager';
+	else if (view === 'profile_wizard') shortcode += '[wpl_my_profile';
+	else if (view === 'property_wizard') shortcode += '[wpl_add_edit_listing';
+	else if (view === 'widget_shortcode') shortcode += '[wpl_widget_instance';
+    else if (view === 'save_searches') shortcode += '[wpl_addon_save_searches';
 
 	wplj("#wpl_shortcode_wizard_container .pr_" + view + " input:text, #wpl_shortcode_wizard_container .pr_" + view + " input[type='hidden'], #wpl_shortcode_wizard_container .pr_" + view + " select").each(function(ind, elm)
 	{

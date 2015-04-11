@@ -54,7 +54,7 @@ class wpl_property_listing_controller extends wpl_controller
             $html .='onchange="wpl' . $widget_id . '_search_widget_load_location(\'' . $location_level . '\', this.value, \'' . $current_location_id . '\');"';
 
         $html .= '>';
-        $html .= '<option value="">' . __('Select', WPL_TEXTDOMAIN) . '</option>';
+        $html .= '<option value="-1">' . __((trim($location_settings['location'.$location_level.'_keyword']) != '' ? $location_settings['location'.$location_level.'_keyword'] : 'Select'), WPL_TEXTDOMAIN) . '</option>';
 
         foreach($location_data as $location)
         {

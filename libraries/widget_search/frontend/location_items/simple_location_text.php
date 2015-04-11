@@ -8,7 +8,7 @@ if($show == 'simple_location_text' and !$done_this)
 	$current_values = array();
 	for($i=1; $i<=2; $i++) $current_values['location'.$i.'_id'] = wpl_request::getVar('sf_select_location'.$i.'_id', '');
 	
-	$current_values['locationtextsearch'] = wpl_request::getVar('sf_locationtextsearch', '');
+	$current_values['locationtextsearch'] = stripslashes(wpl_request::getVar('sf_locationtextsearch', ''));
 	
 	$html .= '
 	<script type="text/javascript">
@@ -31,7 +31,7 @@ if($show == 'simple_location_text' and !$done_this)
 			}
 		}
 		
-		wplj("#wpl'.$widget_id.'_search_fields_location_'.$field['id'].'").append(\'<div class="wpl_search_widget_location_level_container" id="wpl'.$widget_id.'_search_widget_location_level_container\'+next_level+\'"></div>\');
+        wplj("#wpl'.$widget_id.'_search_widget_location_level_container"+level).after(\'<div class="wpl_search_widget_location_level_container" id="wpl'.$widget_id.'_search_widget_location_level_container\'+next_level+\'"></div>\');
 		wplj("#wpl'.$widget_id.'_search_widget_location_level_container"+next_level).html(\'<img src="'.wpl_global::get_wpl_asset_url('img/ajax-loader3.gif').'" />\');
 		
 		request_str = "wpl_format=f:property_listing:ajax&wpl_function=get_locations&location_level="+next_level+"&current_location_id="+id+"&parent="+parent+"&widget_id='.$widget_id.'";
@@ -94,8 +94,8 @@ if($show == 'simple_location_text' and !$done_this)
 		$html .= '<div class="wpl_search_widget_location_level_container" id="wpl'.$widget_id.'_search_widget_location_level_container'.$i.'">';
 		$html .= '<label class="wpl_search_widget_location_level_label" for="sf'.$widget_id.'_select_location'.$i.'_id">'.$location_settings['location'.$i.'_keyword'].'</label>';
 		$html .= '<select name="sf'.$widget_id.'_select_location'.$i.'_id" id="sf'.$widget_id.'_select_location'.$i.'_id" onchange="wpl'.$widget_id.'_search_widget_load_location(\''.$i.'\', this.value, \''.$current_location_id.'\');">';
-		$html .= '<option value="-1">'.__('Select', WPL_TEXTDOMAIN).'</option>';
-		
+		$html .= '<option value="-1">'.__((trim($location_settings['location'.$i.'_keyword']) != '' ? $location_settings['location'.$i.'_keyword'] : 'Select'), WPL_TEXTDOMAIN).'</option>';
+        
 		foreach($locations as $location)
 		{
 			$html .= '<option value="'.$location->id.'" '.($current_location_id == $location->id ? 'selected="selected"' : '').'>'.__($location->name, WPL_TEXTDOMAIN).'</option>';

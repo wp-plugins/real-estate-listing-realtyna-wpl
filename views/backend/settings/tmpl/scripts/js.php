@@ -276,4 +276,10 @@ function wpl_clear_calendar_data(confirmed)
 		}
 	});
 }
+
+function wpl_export_settings()
+{
+	var format = wplj('#wpl_export_format').val();
+	document.location = '<?php echo wpl_global::get_full_url(); ?>&wpl_format=b:settings:ajax&wpl_function=export_settings&wpl_export_format='+format;
+}
 </script>

@@ -21,17 +21,17 @@ class wpl_data_structure_controller extends wpl_controller
 		if($function == 'sort_rooms')
 		{
 			$sort_ids = wpl_request::getVar('sort_ids');
-			self::sort_rooms($sort_ids);
+			$this->sort_rooms($sort_ids);
 		}
 		if($function == 'generate_new_room_type')
 		{
-			self::generate_new_room_type();
+			$this->generate_new_room_type();
 		}
 		elseif($function == 'room_types_enabled_state_change')
 		{
 			$id = wpl_request::getVar('id');
 			$enabled_status = wpl_request::getVar('enabled_status');			
-			self::update('wpl_room_types', $id, 'enabled', $enabled_status);
+			$this->update('wpl_room_types', $id, 'enabled', $enabled_status);
 		}
 		elseif($function == 'remove_room_type')
 		{
@@ -41,18 +41,18 @@ class wpl_data_structure_controller extends wpl_controller
 			$room_type_id = wpl_request::getVar('room_type_id');
 			$confirmed = wpl_request::getVar('wpl_confirmed', 0);
 			
-			self::remove_room_type($room_type_id, $confirmed);
+			$this->remove_room_type($room_type_id, $confirmed);
 		}
 		elseif($function == 'change_room_type_name')
 		{
 			$id = wpl_request::getVar('id');
 			$name = wpl_request::getVar('name');			
-			self::update('wpl_room_types', $id, 'name', $name);
+			$this->update('wpl_room_types', $id, 'name', $name);
 		}
 		elseif($function == 'save_room_type')
 		{
 			$name = wpl_request::getVar('name');
-			self::save_room_type($name);
+			$this->save_room_type($name);
 		}		
 	}	
 	

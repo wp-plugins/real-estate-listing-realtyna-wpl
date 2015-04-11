@@ -203,6 +203,7 @@ class wpl_request
  * @author Howard <howard@realtyna.com>
  * @since WPL1.8.1
  * @date 23/09/2014
+ * @package WPL
  */
 class wpl_session
 {
@@ -246,10 +247,25 @@ class wpl_session
     }
 }
 
+/**
+ * Security Library
+ * @author Howard <howard@realtyna.com>
+ * @since WPL2.1.0
+ * @package WPL
+ */
 class wpl_security
 {
+    /**
+     *
+     * @var string
+     */
     private $salt = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789';
     
+    /**
+     * Generates and returns a token
+     * @author Howard <howard@realtyna.com>
+     * @return string
+     */
     public function token()
     {
         $random_key = substr(str_shuffle($this->salt), 0, 10);
@@ -261,6 +277,12 @@ class wpl_security
         return $token;
     }
     
+    /**
+     * Check validity of a token
+     * @param string $token
+     * @param boolean $delete
+     * @return boolean
+     */
     public function validate_token($token, $delete = false)
     {
         $query = "SELECT COUNT(*) FROM `#__wpl_items` WHERE `item_name`='$token' AND `parent_kind`='-1'";

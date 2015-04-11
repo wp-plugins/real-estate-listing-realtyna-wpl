@@ -59,15 +59,25 @@ elseif($format == 'datemin' and !$done_this)
 	if(trim($min) != '')
 	{
 		$min = wpl_render::derender_date($min);
-		$query .= " AND `".$table_column ."` >= '".$min."'";
+		$query .= " AND DATE(`".$table_column ."`) >= '".$min."'";
 	}
-	
+    
 	if(trim($max) != '')
 	{
 		$max = wpl_render::derender_date($max);
-		$query .= " AND `".$table_column ."` <= '".$max."'";
+		$query .= " AND DATE(`".$table_column ."`) <= '".$max."'";
 	}
-	
+    
+	$done_this = true;
+}
+elseif($format == 'rawdatemin' and !$done_this)
+{
+	$min = $value;
+	$max = isset($vars['sf_rawdatemax_'.$table_column]) ? $vars['sf_rawdatemax_'.$table_column] : '';
+
+	if(trim($min) != '') $query .= " AND DATE(`".$table_column ."`) >= '".$min."'";
+	if(trim($max) != '') $query .= " AND DATE(`".$table_column ."`) <= '".$max."'";
+    
 	$done_this = true;
 }
 elseif($format == 'gallery' and !$done_this)
@@ -86,7 +96,7 @@ elseif($format == 'tmin' and !$done_this)
 		$min = $value;
 		$max = isset($vars['sf_tmax_'.$table_column]) ? $vars['sf_tmax_'.$table_column] : 999999999999;
 		
-		$query .= " AND `".$table_column ."` >= '".$min."' AND `".$table_column ."` <= '".$max."'";
+		$query .= " AND `".$table_column ."` >= ".$min." AND `".$table_column ."` <= ".$max."";
 	}
 	
 	$done_this = true;

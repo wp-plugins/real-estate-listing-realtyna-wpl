@@ -27,7 +27,7 @@ class wpl_listing_controller extends wpl_controller
 			$value = wpl_request::getVar('value');
 			$item_id = wpl_request::getVar('item_id');
 			
-			self::save($table_name, $table_column, $value, $item_id);
+			$this->save($table_name, $table_column, $value, $item_id);
 		}
 		elseif($function == 'location_save')
 		{
@@ -36,7 +36,7 @@ class wpl_listing_controller extends wpl_controller
 			$value = wpl_request::getVar('value');
 			$item_id = wpl_request::getVar('item_id');
 			
-			self::location_save($table_name, $table_column, $value, $item_id);
+			$this->location_save($table_name, $table_column, $value, $item_id);
 		}
 		elseif($function == 'get_locations')
 		{
@@ -44,7 +44,7 @@ class wpl_listing_controller extends wpl_controller
 			$parent = wpl_request::getVar('parent');
 			$current_location_id = wpl_request::getVar('current_location_id');
 			
-			self::get_locations($location_level, $parent, $current_location_id);
+			$this->get_locations($location_level, $parent, $current_location_id);
 		}
 		elseif($function == 'finalize')
 		{
@@ -52,12 +52,12 @@ class wpl_listing_controller extends wpl_controller
 			$mode = wpl_request::getVar('mode');
 			$value = wpl_request::getVar('value', 1);
 			
-			self::finalize($item_id, $mode, $value);
+			$this->finalize($item_id, $mode, $value);
 		}
-        elseif($function == 'item_save') self::item_save();
-        elseif($function == 'get_parents') self::get_parents();
-        elseif($function == 'set_parent') self::set_parent();
-        elseif($function == 'save_multilingual') self::save_multilingual();
+        elseif($function == 'item_save') $this->item_save();
+        elseif($function == 'get_parents') $this->get_parents();
+        elseif($function == 'set_parent') $this->set_parent();
+        elseif($function == 'save_multilingual') $this->save_multilingual();
 	}
 	
 	private function save($table_name, $table_column, $value, $item_id)
@@ -217,9 +217,9 @@ class wpl_listing_controller extends wpl_controller
     {
         $kind = wpl_request::getVar('kind', 1);
 		$term = wpl_request::getVar('term', '');
+        $exclude = trim(wpl_request::getVar('exclude', ''), ', ');
         
-        $parents = wpl_property::select_active_properties("AND (`mls_id` LIKE '%$term%' OR `field_312` LIKE '%$term%' OR `field_313` LIKE '%$term%') AND `kind`='$kind'", '`id`, `mls_id`, `field_312`, `field_313`, `listing`, `property_type`');
-        
+        $parents = wpl_property::select_active_properties("AND (`mls_id` LIKE '%$term%' OR `field_312` LIKE '%$term%' OR `field_313` LIKE '%$term%') AND `kind`='$kind' AND `id` NOT IN ($exclude)", '`id`, `mls_id`');
         $results = array();
         
         foreach($parents as $parent)
@@ -236,25 +236,31 @@ class wpl_listing_controller extends wpl_controller
     {
         $parent_id = wpl_request::getVar('parent_id', 0);
 		$item_id = wpl_request::getVar('item_id', 0);
+        $replace = wpl_request::getVar('replace', 1);
+        $key = wpl_request::getVar('key', 'parent');
         
-        $parent_data = wpl_property::get_property_raw_data($parent_id);
-        $forbidden_fields = array('id', 'kind', 'deleted', 'mls_id', 'parent', 'pic_numb', 'att_numb',
-            'sent_numb', 'contact_numb', 'user_id', 'add_date', 'finalized', 'confirmed', 'visit_time',
-            'visit_date', 'last_modified_time_stamp', 'sp_featured', 'sp_hot', 'sp_openhouse',
-            'sp_forclosure', 'textsearch', 'property_title', 'location_text', 'vids_numb', 'rendered', 'alias');
+        /** Set Parent **/
+        wpl_db::q("UPDATE `#__wpl_properties` SET `$key`='$parent_id' WHERE `id`='$item_id'");
         
-        $q = '';
-        foreach($parent_data as $key=>$value)
+        if($replace)
         {
-            if(in_array($key, $forbidden_fields)) continue;
-            
-            $q .= "`$key`='$value', ";
+            $parent_data = wpl_property::get_property_raw_data($parent_id);
+            $forbidden_fields = array('id', 'kind', 'deleted', 'mls_id', 'parent', 'pic_numb', 'att_numb',
+                'sent_numb', 'contact_numb', 'user_id', 'add_date', 'finalized', 'confirmed', 'visit_time',
+                'visit_date', 'last_modified_time_stamp', 'sp_featured', 'sp_hot', 'sp_openhouse',
+                'sp_forclosure', 'textsearch', 'property_title', 'location_text', 'vids_numb', 'rendered', 'alias', 'blog_id');
+
+            $q = '';
+            foreach($parent_data as $key=>$value)
+            {
+                if(in_array($key, $forbidden_fields)) continue;
+
+                $q .= "`$key`='$value', ";
+            }
+
+            $q .= trim($q, ', ');
+            wpl_db::q("UPDATE `#__wpl_properties` SET $q WHERE `id`='$item_id'");
         }
-        
-        $q .= trim($q, ', ');
-        
-        $query = "UPDATE `#__wpl_properties` SET `parent`='$parent_id', $q WHERE `id`='$item_id'";
-        wpl_db::q($query);
         
         echo json_encode(array('success'=>1));
         exit;

@@ -13,11 +13,11 @@ _wpl_import($this->tpl_path.'.scripts.css');
     </header>
     <div class="wpl_settings_list"><div class="wpl_show_message"></div></div>
     <div class="sidebar-wp">
-        <div class="side-2 side-tabs-wp">
+        <div class="side-2 side-tabs-wp wpl-gen-side-tabs-wp">
             <ul>
                 <?php foreach ($this->setting_categories as $category): ?>
                     <li>
-                        <a href="#<?php echo __($category->name, WPL_TEXTDOMAIN); ?>" class="wpl_slide_label wpl_slide_label_id<?php echo $category->id; ?>" 
+                        <a href="#<?php echo str_replace(' ', '_', $category->name); ?>" class="wpl_slide_label wpl-icon-side-setting-<?php echo $category->id; ?>"
                            id="wpl_slide_label_id<?php echo $category->id; ?>" 
                            onclick="rta.internal.slides.open('<?php echo $category->id; ?>', '.side-tabs-wp', '.wpl_slide_container', 'currentTab');"><?php echo __($category->name, WPL_TEXTDOMAIN); ?></a>
                     </li>
@@ -33,31 +33,45 @@ _wpl_import($this->tpl_path.'.scripts.css');
         </div>
         
         <div class="clearit"></div>
-
+        
         <div class="wpl-bottom-nav">
-        	
-            <div class="side-9 side-maintenance">
-                <div class="panel-wp">
-                    <h3><?php echo __('Maintenance', WPL_TEXTDOMAIN); ?></h3>
-                    <div class="panel-body">
-	                    <?php $this->generate_internal('maintenance'); ?>
+            <div class="wpl-util-side-left-menu-spacer"></div>
+            <?php if(wpl_global::check_addon('pro')): ?>
+                <?php // TODO: CHANGE side-maintenance WITH side-importexport AND DO THE NECESSARY CSS STUFF. ?>
+                <div class="side-12 wpl-util-side-left-spacer">
+                    <div class="panel-wp">
+                        <h3><?php echo __('Import/Export', WPL_TEXTDOMAIN); ?></h3>
+                        <div class="panel-body">
+                            <?php $this->generate_internal('importexport'); ?>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="side-5 side-requirements">
-                <div class="panel-wp">
-                    <h3><?php echo __('Server requirements', WPL_TEXTDOMAIN); ?></h3>
-                    <div class="panel-body">
-                    	<?php $this->generate_internal('requirements'); ?>
+            <?php endif; ?>
+
+            <div class="wpl-util-side-12 wpl-util-side-left-spacer wpl-util-clearfix">
+                <div class="wpl-util-side-6 wpl-util-side-left side-maintenance">
+                    <div class="panel-wp">
+                        <h3><?php echo __('Maintenance', WPL_TEXTDOMAIN); ?></h3>
+                        <div class="panel-body">
+                            <?php $this->generate_internal('maintenance'); ?>
+                        </div>
                     </div>
                 </div>
+
+                <div class="wpl-util-side-6 wpl-util-side-right side-requirements">
+                    <div class="panel-wp">
+                        <h3><?php echo __('Server requirements', WPL_TEXTDOMAIN); ?></h3>
+                        <div class="panel-body">
+                            <?php $this->generate_internal('requirements'); ?>
+                        </div>
+                    </div>
+                </div>
+
             </div>
+
 		</div>
     </div>
     <footer>
         <div class="logo"></div>
     </footer>
 </div>
-<script type="text/javascript">
-    (function($){$(function(){isWPL();})})(jQuery);
-</script>

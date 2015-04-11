@@ -11,7 +11,11 @@ defined('_WPLEXEC') or die('Restricted access');
  */
 class wpl_property_types
 {
-	var $property_types;
+    /**
+     *
+     * @var array
+     */
+	public $property_types;
 	
     /**
      * Removes property type
@@ -22,11 +26,12 @@ class wpl_property_types
      */
 	public static function remove_property_type($property_type_id)
 	{
+        /** trigger event **/
+		wpl_global::event_handler('property_type_removed', array('id'=>$property_type_id));
+
 		$query = "DELETE FROM `#__wpl_property_types` WHERE `id`='$property_type_id'";
 		$result = wpl_db::q($query);
 		
-        /** trigger event **/
-		wpl_global::event_handler('property_type_removed', array('id'=>$property_type_id));
         
 		return $result;	
 	}
@@ -121,7 +126,7 @@ class wpl_property_types
      * @static
      * @return array
      */
-	public static function get_property_types_category()
+	public static function get_property_type_categories()
 	{
 		$query = "SELECT * FROM `#__wpl_property_types` WHERE `parent` = '0' ORDER BY `index` ASC";
 		return wpl_db::select($query, 'loadAssocList');

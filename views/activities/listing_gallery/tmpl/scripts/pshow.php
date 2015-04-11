@@ -9,7 +9,7 @@ wplj(document).ready(function()
 	{
         mode: 'fade',
         pause : 6000,
-        auto: <?php echo ($this->autoplay) ? 'true' : 'false'; ?>,
+        auto: <?php echo (($this->autoplay) ? 'true' : 'false'); ?>,
         captions: false,
         controls: true,
         adaptiveHeight: true,

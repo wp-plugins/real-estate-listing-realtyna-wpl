@@ -22,16 +22,30 @@ class wpl_users
      * Returns plisting fields of profiles
      * @author Howard R <howard@realtyna.com>
      * @static
-     * @param type $category
-     * @param type $kind
-     * @param type $enabled
-     * @return type
+     * @param string $category
+     * @param int $kind
+     * @param int $enabled
+     * @return array
      */
 	public static function get_plisting_fields($category = '', $kind = 2, $enabled = 1)
 	{
 		return wpl_flex::get_fields($category, $enabled, $kind, 'plisting', '1');
 	}
 	
+    /**
+     * Returns pshow fields of profiles
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param string $category
+     * @param int $kind
+     * @param int $enabled
+     * @return array
+     */
+    public static function get_pshow_fields($category = '', $kind = 2, $enabled = 1)
+	{
+		return wpl_flex::get_fields($category, $enabled, $kind, 'pshow', '1');
+	}
+    
     /**
      * Removes a user from WPL
      * @author Howard R <howard@realtyna.com>
@@ -41,11 +55,11 @@ class wpl_users
      */
 	public static function delete_user_from_wpl($user_id)
 	{
-		$query = "DELETE FROM `#__wpl_users` WHERE `id`='$user_id'";
-		$result = wpl_db::q($query);
-		
         /** trigger event **/
 		wpl_global::event_handler('user_deleted_from_wpl', array('id'=>$user_id));
+
+		$query = "DELETE FROM `#__wpl_users` WHERE `id`='$user_id'";
+		$result = wpl_db::q($query);
         
 		return $result;
 	}
@@ -144,9 +158,7 @@ class wpl_users
 	public static function get_wpl_users($condition = '')
 	{
 		$query = "SELECT * FROM `#__users` AS u INNER JOIN `#__wpl_users` AS wpl ON u.ID = wpl.id WHERE 1 $condition";
-		$users = wpl_db::select($query);
-		
-		return $users;
+		return wpl_db::select($query);
 	}
 	
     /**
@@ -544,11 +556,12 @@ class wpl_users
 		$query = "UPDATE `#__wpl_users` SET `membership_id`='-1' WHERE `membership_id`='$membership_id'";
 		wpl_db::q($query);
 		
+        /** trigger event **/
+		wpl_global::event_handler('membership_removed', array('id'=>$membership_id));
+		
 		$query = "DELETE FROM `#__wpl_users` WHERE `id`='$membership_id'";
 		wpl_db::q($query);
 		
-        /** trigger event **/
-		wpl_global::event_handler('membership_removed', array('id'=>$membership_id));
         
 		return true;
 	}
@@ -1198,7 +1211,7 @@ class wpl_users
      * @param array $params
      * @return array
      */
-	public static function full_render($user_id, $plisting_fields = NULL, $profile = NULL, $params = array())
+	public static function full_render($user_id, $plisting_fields = NULL, $profile = NULL, $params = array(), $force = false)
 	{
 		/** get plisting fields **/
 		if(!$plisting_fields) $plisting_fields = self::get_plisting_fields();
@@ -1210,8 +1223,8 @@ class wpl_users
         if(wpl_global::check_multilingual_status()) $column = wpl_addon_pro::get_column_lang_name($column, wpl_global::get_current_language(), false);
         
         /** generate rendered data if rendered data is empty **/
-        if(!trim($raw_data[$column]) and wpl_settings::get('cache')) $rendered = json_decode(wpl_users::generate_rendered_data($user_id), true);
-        elseif(!wpl_settings::get('cache')) $rendered = array();
+        if(!wpl_settings::get('cache') or $force) $rendered = array();
+        elseif(!trim($raw_data[$column]) and wpl_settings::get('cache')) $rendered = json_decode(wpl_users::generate_rendered_data($user_id), true);
         else $rendered = json_decode($raw_data[$column], true);
         
 		$result = array();

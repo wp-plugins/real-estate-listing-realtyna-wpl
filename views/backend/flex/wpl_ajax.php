@@ -18,37 +18,37 @@ class wpl_flex_controller extends wpl_controller
 		
 		if($function == 'save_dbst')
 		{
-			self::save_dbst();
+			$this->save_dbst();
 		}
 		elseif($function == 'remove_dbst')
 		{
 			$dbst_id = wpl_request::getVar('dbst_id');
-			self::remove_dbst($dbst_id);
+			$this->remove_dbst($dbst_id);
 		}
 		elseif($function == 'generate_params_page')
 		{
 			$dbst_id = wpl_request::getVar('dbst_id');
-			self::generate_params_page($dbst_id);
+			$this->generate_params_page($dbst_id);
 		}
 		elseif($function == 'enabled')
 		{
 			$dbst_id = wpl_request::getVar('dbst_id');
 			$enabled_status = wpl_request::getVar('enabled_status');
 			
-			self::enabled($dbst_id, $enabled_status);
+			$this->enabled($dbst_id, $enabled_status);
 		}
 		elseif($function == 'sort_flex')
 		{
 			$sort_ids = wpl_request::getVar('sort_ids');
 			
-			self::sort_flex($sort_ids);
+			$this->sort_flex($sort_ids);
 		}
 		elseif($function == 'mandatory')
 		{
 			$dbst_id = wpl_request::getVar('dbst_id');
 			$mandatory_status = wpl_request::getVar('mandatory_status');
 			
-			self::mandatory($dbst_id, $mandatory_status);
+			$this->mandatory($dbst_id, $mandatory_status);
 		}
 	}
 	

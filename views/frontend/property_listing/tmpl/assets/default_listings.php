@@ -4,7 +4,7 @@ defined('_WPLEXEC') or die('Restricted access');
 
 $description_column = 'field_308';
 if(wpl_global::check_multilingual_status() and wpl_addon_pro::get_multiligual_status_by_column($description_column, $this->kind)) $description_column = wpl_addon_pro::get_column_lang_name($description_column, wpl_global::get_current_language(), false);
-                    
+
 foreach($this->wpl_properties as $key=>$property)
 {
     if($key == 'current') continue;
@@ -37,7 +37,7 @@ foreach($this->wpl_properties as $key=>$property)
         </div>
         <div class="wpl_prp_bot">
             <?php
-            echo '<a id="prp_link_id_'.$property['data']['id'].'" href="'.$property['property_link'].'" class="view_detail" title="'.$property['property_title'].'">
+            echo '<a id="prp_link_id_'.$property['data']['id'].'_view_detail" href="'.$property['property_link'].'" class="view_detail" title="'.$property['property_title'].'">
               <h3 class="wpl_prp_title">'.$property['property_title'].'</h3></a>';
             echo '<h4 class="wpl_prp_listing_location">'.$property['location_text'].'</h4>';
             ?>

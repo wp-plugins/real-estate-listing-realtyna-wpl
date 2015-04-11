@@ -49,9 +49,9 @@ $this->_wpl_import($this->tpl_path . '.scripts.modify_js');
                 <div class="fanc-row">
                     <label for="wpl_client<?php echo $this->activity_id; ?>"><?php echo __('Site Section', WPL_TEXTDOMAIN); ?></label>
                     <select class="text_box" id="wpl_client<?php echo $this->activity_id; ?>" name="info[client]">
+                        <option value="2" <?php if(isset($this->activity_data->client) and $this->activity_data->client == '2') echo 'selected="selected"'; ?>><?php echo __('Both', WPL_TEXTDOMAIN); ?></option>
                         <option value="1" <?php if(isset($this->activity_data->client) and $this->activity_data->client == '1') echo 'selected="selected"'; ?>><?php echo __('Backend', WPL_TEXTDOMAIN); ?></option>
                         <option value="0" <?php if(isset($this->activity_data->client) and $this->activity_data->client == '0') echo 'selected="selected"'; ?>><?php echo __('Frontend', WPL_TEXTDOMAIN); ?></option>
-                        <option value="2" <?php if(isset($this->activity_data->client) and $this->activity_data->client == '2') echo 'selected="selected"'; ?>><?php echo __('Both', WPL_TEXTDOMAIN); ?></option>
                     </select>
                 </div>
                 <div class="fanc-row">

@@ -103,7 +103,7 @@ function mass_delete_completely_properties()
     wplj('.js-pcheckbox:checked').each(function()
 	{
         pid = wplj(this).attr('id');
-        purge_property(pid);
+        purge_property(pid, true);
     });
 }
 
@@ -168,12 +168,17 @@ function mass_change_user(uid)
     });
 }
 
-function purge_property(pid)
+function purge_property(pid, confirmation)
 {
-    message = '<?php echo __("Are you sure you want to delete this property?", WPL_TEXTDOMAIN); ?>';
-    confirmation = confirm(message);
+    if(typeof confirmation == 'undefined') confirmation = 0;
+    
+    if(!confirmation)
+    {
+        message = '<?php echo __("Are you sure you want to delete this property?", WPL_TEXTDOMAIN); ?>';
+        confirmation = confirm(message);
 
-    if(!confirmation) return;
+        if(!confirmation) return;
+    }
 
 	request_str = "wpl_format=b:listings:ajax&wpl_function=purge_property&pid="+pid;
     wplj("#pmanager_delete"+pid).removeClass(delete_class).addClass(ajax_loader_image_class);

@@ -209,10 +209,8 @@ class wpl_render
 		$date_format_arr = explode(':', wpl_global::get_setting('main_date_format'));
 		$date_format = $date_format_arr[0];
 
-		if(stristr($date_format, '-') != '')
-			$delimiter = '-';
-		else
-			$delimiter = '/';
+		if(stristr($date_format, '-') != '') $delimiter = '-';
+		else $delimiter = '/';
 		
 		$date_format_parts = explode($delimiter, $date_format);
 		$date_parts = explode($delimiter, $date);
@@ -248,4 +246,23 @@ class wpl_render
 		$dedate .= $time;
 		return $dedate;
 	}
+    
+    /**
+     * Renders Parent Field
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $property_id
+     * @param string $parent_column
+     * @return string
+     */
+    public static function render_parent($property_id, $parent_column = 'parent')
+    {
+        $parents = array();
+        $parents[] = wpl_property::update_property_title(NULL, $property_id);
+        
+        $parent_id = wpl_property::get_parent($property_id);
+        if($parent_id) $parents[] = self::render_parent($parent_id, $parent_column);
+        
+        return implode(' / ', $parents);
+    }
 }

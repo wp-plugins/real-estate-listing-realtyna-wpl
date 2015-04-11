@@ -20,21 +20,21 @@ class wpl_data_structure_controller extends wpl_controller
 		if($function == 'sort_options')
 		{
 			$sort_ids = wpl_request::getVar('sort_ids');
-			self::sort_options($sort_ids);
+			$this->sort_options($sort_ids);
 		}
 		elseif($function == 'sort_options_enabled_state_change')
 		{
 			$id = wpl_request::getVar('id');
 			$enabled_status = wpl_request::getVar('enabled_status');
             
-			self::update('wpl_sort_options', $id, 'enabled', $enabled_status);
+			$this->update('wpl_sort_options', $id, 'enabled', $enabled_status);
 		}
         elseif($function == 'save_sort_option')
         {
             $id = wpl_request::getVar('id');
 			$sort_name = wpl_request::getVar('sort_name', '');
             
-            self::update('wpl_sort_options', $id, 'name', $sort_name);
+            $this->update('wpl_sort_options', $id, 'name', $sort_name);
         }
 	}
 	

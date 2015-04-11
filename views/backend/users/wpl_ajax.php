@@ -22,7 +22,7 @@ class wpl_users_controller extends wpl_controller
 			wpl_global::min_access('administrator');
 		
 			$user_id = wpl_request::getVar('user_id');
-			self::add_user_to_wpl($user_id);
+			$this->add_user_to_wpl($user_id);
 		}
 		elseif($function == 'del_user_from_wpl')
 		{
@@ -32,7 +32,7 @@ class wpl_users_controller extends wpl_controller
 			$user_id = wpl_request::getVar('user_id');
 			$confirmed = wpl_request::getVar('wpl_confirmed', 0);
 			
-			self::del_user_from_wpl($user_id, $confirmed);
+			$this->del_user_from_wpl($user_id, $confirmed);
 		}
 		elseif($function == 'generate_edit_page')
 		{
@@ -40,7 +40,7 @@ class wpl_users_controller extends wpl_controller
 			wpl_global::min_access('administrator');
 			
 			$user_id = wpl_request::getVar('user_id');
-			self::generate_edit_page($user_id);
+			$this->generate_edit_page($user_id);
 		}
 		elseif($function == 'save_user')
 		{
@@ -48,7 +48,7 @@ class wpl_users_controller extends wpl_controller
 			wpl_global::min_access('administrator');
 			
 			$inputs = wpl_request::get('POST');
-			self::save_user($inputs);
+			$this->save_user($inputs);
 		}
 		elseif($function == 'save')
 		{
@@ -57,14 +57,14 @@ class wpl_users_controller extends wpl_controller
 			$value = wpl_request::getVar('value');
 			$item_id = wpl_request::getVar('item_id');
 			
-			self::save($table_name, $table_column, $value, $item_id);
+			$this->save($table_name, $table_column, $value, $item_id);
 		}
 		elseif($function == 'change_membership')
 		{
 			$user_id = wpl_request::getVar('id');
 			$membership_id = wpl_request::getVar('membership_id');
 			
-			self::change_membership($user_id, $membership_id);
+			$this->change_membership($user_id, $membership_id);
 		}
 		elseif($function == 'location_save')
 		{
@@ -73,28 +73,28 @@ class wpl_users_controller extends wpl_controller
 			$value = wpl_request::getVar('value');
 			$item_id = wpl_request::getVar('item_id');
 			
-			self::location_save($table_name, $table_column, $value, $item_id);
+			$this->location_save($table_name, $table_column, $value, $item_id);
 		}
 		elseif($function == 'finalize')
 		{
 			$item_id = wpl_request::getVar('item_id');
-			self::finalize($item_id);
+			$this->finalize($item_id);
 		}
 		elseif($function == 'upload_file')
 		{
 			$file_name = wpl_request::getVar('file_name');
 			$user_id = wpl_request::getVar('item_id');
 			
-			self::upload_file($file_name, $user_id);
+			$this->upload_file($file_name, $user_id);
 		}
 		elseif($function == 'delete_file')
 		{
 			$field_id = wpl_request::getVar('field_id');
 			$user_id = wpl_request::getVar('item_id');
 			
-			self::delete_file($field_id, $user_id);
+			$this->delete_file($field_id, $user_id);
 		}
-        elseif($function == 'save_multilingual') self::save_multilingual();
+        elseif($function == 'save_multilingual') $this->save_multilingual();
 	}
 	
 	private function add_user_to_wpl($user_id)
@@ -165,7 +165,7 @@ class wpl_users_controller extends wpl_controller
 	
 	private function save_user($inputs)
 	{
-		$res = self::save_user_do($inputs);
+		$res = $this->save_user_do($inputs);
 		
 		$res = (int) $res;
 		$message = $res ? __('Operation was successful.', WPL_TEXTDOMAIN) : __('Error Occured.', WPL_TEXTDOMAIN);
@@ -343,7 +343,7 @@ class wpl_users_controller extends wpl_controller
 				if($file_name == 'wpl_c_912') # profile picture
 				{
 					/** delete previous file **/
-					self::delete_file(912, $user_id, false);
+					$this->delete_file(912, $user_id, false);
 					
 					$new_file_name = 'profile.'.$extention;
                     
@@ -353,7 +353,7 @@ class wpl_users_controller extends wpl_controller
 				elseif($file_name == 'wpl_c_913') # company logo
 				{
 					/** delete previous file **/
-					self::delete_file(913, $user_id, false);
+					$this->delete_file(913, $user_id, false);
 					
 					$new_file_name = 'logo.'.$extention;
 					

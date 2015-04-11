@@ -5,7 +5,7 @@ defined('_WPLEXEC') or die('Restricted access');
 /** set params **/
 $this->html_element_id = isset($params['html_element_id']) ? $params['html_element_id'] : 'wpl_file';
 $this->js_function = isset($params['js_function']) ? $params['js_function'] : $this->html_element_id . '_upload';
-$this->element_class = isset($params['element_class']) ? $params['element_class'] : '';
+$this->element_class = isset($params['element_class']) ? $params['element_class'] : 'wpl-button button-1';
 $this->html_path_message = isset($params['html_path_message']) ? $params['html_path_message'] : '.wpl_show_message';
 $this->html_ajax_loader = isset($params['html_ajax_loader']) ? $params['html_ajax_loader'] : '#wpl_file_ajax_loader';
 $this->img_ajax_loader = isset($params['img_ajax_loader']) ? $params['img_ajax_loader'] : 'ajax-loader3.gif';

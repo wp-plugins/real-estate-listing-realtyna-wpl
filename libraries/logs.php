@@ -100,6 +100,10 @@ class wpl_logs
      */
 	public static function autolog($params = array())
 	{
+        $log = wpl_global::get_setting('log', 1);
+
+        if(!$log) return false;
+
         $dynamic_params = $params[0];
         $static_params = $params[1];
         
@@ -109,21 +113,72 @@ class wpl_logs
         $status = isset($static_params['status']) ? $static_params['status'] : 1;
         $priority = isset($static_params['priority']) ? $static_params['priority'] : 3;
         
+        $patterns = array('[',']');
         if($static_params['type'] == 1)
         {
+            preg_match_all('#\[+[\w|\d]+\]?#', $static_params['message'], $pattern_match);
+            $message_pattern = $pattern_match[0];
+            
+            if(is_array($dynamic_params))
+            {
+                if(count($dynamic_params) > 1)
+                {
+                    /* Modify params that took of preg_match */
+                    $new_params = str_replace($patterns, '', $message_pattern);
+                    $new_array_params = array();
+                    
+                    foreach($new_params as $value_array) $new_array_params[] = $dynamic_params[$value_array];
+                    $log_text = str_replace($message_pattern, $new_array_params, $static_params['message']);
+                }
+                elseif(count($dynamic_params) == 1)
+                {
+                    $array_key = array_keys($dynamic_params);
+                    $log_text = str_replace($message_pattern[0], $dynamic_params[$array_key[0]], $static_params['message']);
+                }
+            }
+            else $log_text = str_replace($message_pattern[0], $dynamic_params, $static_params['message']);
         }
         elseif($static_params['type'] == 2)
         {
-            $query = str_replace('[VALUE]', $dynamic_params, $static_params['pattern']);
+            preg_match_all('#\[+[\w|\d]+\]?#', $static_params['pattern'], $pattern_match);
+            $value_pattern = $pattern_match[0];
+            
+            if(is_array($dynamic_params))
+            {
+                if(count($dynamic_params) > 1)
+                {
+                    /* Modify params that took of preg_match */
+                    $new_params = str_replace($patterns, '', $value_pattern);
+                    $new_array_params = array();
+                    
+                    foreach($new_params as $value_array) $new_array_params[] = $dynamic_params[$value_array];
+                    $query = str_replace($value_pattern, $new_array_params, $static_params['pattern']);
+                }
+                elseif(count($dynamic_params) == 1)
+                {
+                    $array_values = array_values($dynamic_params);
+                    $query = str_replace($value_pattern[0], $array_values[0], $static_params['pattern']);
+                }
+            }
+            else $query = str_replace($value_pattern[0], $dynamic_params, $static_params['pattern']);
+
             $contents = wpl_db::select($query, 'loadAssoc');
             
             $log_text = $static_params['message'];
-            foreach($contents as $key=>$value)
-            {
-                $log_text = str_replace('['.$key.']', $value, $log_text);
-            }
+            if(!empty($contents)) foreach($contents as $key=>$value) $log_text = str_replace('['.$key.']', $value, $log_text);
         }
         
+        if($log_text == '') $log_text =  __('Empty', WPL_TEXTDOMAIN);
         return self::add($log_text, $section, $status, $user_id, $addon_id, $priority);
 	}
+
+    /**
+     * For deleting all logs
+     * @author Matthew N. <matthew@realtyna.com>
+     * @return boolean
+     */
+    public static function delete_all_logs()
+    {
+        return wpl_db::q("DELETE FROM `#__wpl_logs`", 'delete');
+    }
 }

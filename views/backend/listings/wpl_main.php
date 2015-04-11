@@ -108,7 +108,7 @@ class wpl_listings_controller extends wpl_controller
         $this->listings = wpl_global::get_listings();
         $this->users = wpl_users::get_wpl_users();
         
-        parent::render($this->tpl_path, 'search_form');
+        parent::render($this->tpl_path, 'internal_search_form');
     }
     
     protected function include_tabs()

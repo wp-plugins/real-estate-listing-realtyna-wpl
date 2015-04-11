@@ -14,7 +14,7 @@ if(wpl_global::check_multilingual_status() and wpl_addon_pro::get_multiligual_st
 /** getting user id from current property (used in property_show and property_listing) **/
 if(!trim($user_id)) $user_id = $wpl_properties['current']['data']['user_id'];
 
-$wpl_user = wpl_users::full_render($user_id, wpl_users::get_plisting_fields());
+$wpl_user = wpl_users::full_render($user_id, wpl_users::get_pshow_fields(), NULL, array(), true);
 
 /** resizing profile image **/
 $params                   = array();
@@ -33,7 +33,7 @@ $logo_image               = isset($wpl_user['company_logo']['url']) ? $wpl_user[
 $agent_name               = (isset($wpl_user['materials']['first_name']['value']) ? $wpl_user['materials']['first_name']['value'] : '');
 $agent_l_name             = (isset($wpl_user['materials']['last_name']['value']) ? $wpl_user['materials']['last_name']['value'] : '');
 $company_name             = (isset($wpl_user['materials']['company_name']['value']) ? $wpl_user['materials']['company_name']['value'] : '');
-$description = stripslashes(strip_tags($wpl_user['raw'][$description_column]));
+$description              = stripslashes(strip_tags($wpl_user['raw'][$description_column]));
 ?>
 <div class="wpl_agent_info clearfix" id="wpl_agent_info" itemscope>
 	<div class="wpl_agent_details clearfix">
