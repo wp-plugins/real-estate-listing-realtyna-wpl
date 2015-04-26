@@ -11,7 +11,11 @@ defined('_WPLEXEC') or die('Restricted access');
  */
 class wpl_widget extends WP_Widget
 {
-	var $data;
+    /**
+     * 
+     * @var array
+     */
+	public $data;
 	
     /**
      * Constructor method
@@ -35,8 +39,7 @@ class wpl_widget extends WP_Widget
 	public static function get_layouts($widget_name)
 	{
 		$path = WPL_ABSPATH. 'widgets' .DS. $widget_name .DS. 'tmpl';
-		$layouts = wpl_folder::files($path, '.php', false, false);
-		return $layouts;
+		return wpl_folder::files($path, '.php', false, false);
 	}
     
     /**
@@ -51,45 +54,33 @@ class wpl_widget extends WP_Widget
 		// Base Layouts
 		$layouts = self::get_layouts($widget_name);
 		$i = 0;
-		$data = '';
+		$output = '';
         
 		while($i < count($layouts))
 		{
-			$data .= '<option ';
-			if(str_replace('.php', '', $layouts[$i]) == $instance['layout']) $data .= 'selected="selected" ';
-			$data .= 'value="'.str_replace('.php', '', $layouts[$i]).'"';
-			$data .= '>';
-			$data .= str_replace('.php', '', $layouts[$i]);
-			$data .= '</option>';
+			$output .= '<option ';
+			if(str_replace('.php', '', $layouts[$i]) == $instance['layout']) $output .= 'selected="selected" ';
+			$output .= 'value="'.str_replace('.php', '', $layouts[$i]).'"';
+			$output .= '>';
+			$output .= str_replace('.php', '', $layouts[$i]);
+			$output .= '</option>';
 		    $i++;
 		}
 		
-		return $data;
+		return $output;
 	}
     
     /**
      * List the layouts in <option> fields
      * @author Howard <howard@realtyna.com>
+     * @deprecated since version 2.4.0
      * @param array $instance
      * @param string $field_name
      * @return string
      */
 	public function generate_pages_selectbox($instance, $field_name = 'wpltarget')
 	{
-        $pages = wpl_global::get_wp_pages();
-        $data = '';
-        
-        foreach($pages as $page)
-        {
-            $data .= '<option ';
-			if(isset($instance[$field_name]) and $page->ID == $instance[$field_name]) $data .= 'selected="selected" ';
-			$data .= 'value="'.$page->ID.'"';
-			$data .= '>';
-			$data .= substr($page->post_title, 0, 100);
-			$data .= '</option>';
-        }
-		
-		return $data;
+        return wpl_global::generate_pages_selectbox((isset($instance[$field_name]) ? $instance[$field_name] :  NULL));
 	}
     
     /**
@@ -121,10 +112,10 @@ class wpl_widget extends WP_Widget
      * @param int $widget_id
      * @return void
      */
-	public function widget_instance($widget_id) 
+	public function widget_instance($widget_id)
 	{
         $wp_registered_widgets = self::get_registered_widgets();
-
+        
 	    // validation
 	    if(!array_key_exists($widget_id, $wp_registered_widgets))
 		{
@@ -132,15 +123,10 @@ class wpl_widget extends WP_Widget
 			return;
 	    }
 		
-		$params = array_merge(array(array_merge(array('widget_id' => $widget_id,
-		'widget_name' => $wp_registered_widgets[$widget_id]['name']))), (array) $wp_registered_widgets[$widget_id]['params']);
+		$params = array_merge(array(array_merge(array('widget_id'=>$widget_id, 'widget_name'=>$wp_registered_widgets[$widget_id]['name']))), (array) $wp_registered_widgets[$widget_id]['params']);
   
 	    $callback = $wp_registered_widgets[$widget_id]['callback'];
-		
-		if(is_callable($callback))
-		{
-		    call_user_func_array($callback, $params);
-	    }
+		if(is_callable($callback)) call_user_func_array($callback, $params);
 	}
 	
     /**
@@ -151,19 +137,13 @@ class wpl_widget extends WP_Widget
      */
 	public static function get_existing_widgets()
 	{
-		$wp_registered_widgets = self::get_registered_widgets();
-        
-	    $sidebar_widgets = wp_get_sidebars_widgets();
+		$sidebar_widgets = wp_get_sidebars_widgets();
 	    $widgets_with_title = array();
 	
-	    foreach($sidebar_widgets as $sidebar => $widgets)
+	    foreach($sidebar_widgets as $sidebar=>$widgets)
 		{
 		    $widgets_with_title[$sidebar] = array();
-		
-		    foreach($widgets as $widget_id)
-			{
-		        array_push($widgets_with_title[$sidebar], array('id'=>$widget_id));
-	        }
+		    foreach($widgets as $widget_id) array_push($widgets_with_title[$sidebar], array('id'=>$widget_id));
         }
 		
 		return $widgets_with_title;

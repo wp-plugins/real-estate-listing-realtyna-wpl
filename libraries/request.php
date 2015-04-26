@@ -19,8 +19,7 @@ class wpl_request
      */
 	public static function get_method()
 	{
-		$method = strtoupper($_SERVER['REQUEST_METHOD']);
-		return $method;
+		return strtoupper($_SERVER['REQUEST_METHOD']);
 	}
 	
     /**
@@ -256,7 +255,7 @@ class wpl_session
 class wpl_security
 {
     /**
-     *
+     * Security Salt
      * @var string
      */
     private $salt = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789';
@@ -295,5 +294,58 @@ class wpl_security
         }
         
         return $num ? true : false;
+    }
+
+    /**
+     * Encrypt a string using mcrypt
+     * @author Steve A. <steve@realtyna.com>
+     * @static
+     * @param  string  $data     Input String
+     * @param  string  $key      Encryption Key
+     * @param  integer $strength Encryption Strength
+     * @return string            Encrypted String
+     */
+    public static function encrypt($data, $key = 'WPL', $strength = 128)
+    {
+    	if(!extension_loaded('mcrypt')) return false;
+
+    	if($strength == 192)
+    		$cipher = MCRYPT_RIJNDAEL_192;
+    	elseif($strength == 256)
+    		$cipher = MCRYPT_RIJNDAEL_256;
+    	else
+    		$cipher = MCRYPT_RIJNDAEL_128;
+
+	    $iv_size = mcrypt_get_iv_size($cipher, MCRYPT_MODE_CBC);
+	    $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
+	    $result = $iv.mcrypt_encrypt($cipher, $key, $data, MCRYPT_MODE_CBC, $iv);
+	    return base64_encode($result);
+    }
+
+    /**
+     * Decrypt a string using mcrypt
+     * @author Steve A. <steve@realtyna.com>
+     * @static
+     * @param  string  $data     Input String
+     * @param  string  $key      Encryption Key
+     * @param  integer $strength Encryption Strength
+     * @return string            Decrypted String
+     */
+    public static function decrypt($data, $key = 'WPL', $strength = 128)
+    {
+    	if(!extension_loaded('mcrypt')) return false;
+
+    	if($strength == 192)
+    		$cipher = MCRYPT_RIJNDAEL_192;
+    	elseif($strength == 256)
+    		$cipher = MCRYPT_RIJNDAEL_256;
+    	else
+    		$cipher = MCRYPT_RIJNDAEL_128;
+
+	    $data = base64_decode($data);
+    	$iv_size = mcrypt_get_iv_size($cipher, MCRYPT_MODE_CBC);
+	    $iv_dec = substr($data, 0, $iv_size);
+	    $result = mcrypt_decrypt($cipher, $key, substr($data, $iv_size), MCRYPT_MODE_CBC, $iv_dec);
+	    return $result;
     }
 }

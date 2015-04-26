@@ -7,52 +7,53 @@ include _wpl_import("widgets.search.scripts.js_backend", true, true);
 
 wpl_extensions::import_javascript((object) array('param1'=>'wpl-sly-scrollbar', 'param2'=>'js/libraries/wpl.slyscrollbar.min.js'));
 ?>
-<div id="<?php echo $this->get_field_id('wpl_search_widget_container'); ?>" class="wpl-widget-search-wp">
-    <p>
-        <label for="<?php echo $this->get_field_id('title'); ?>"><?php echo __('Title', WPL_TEXTDOMAIN); ?>: </label>
-        <input id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" value="<?php echo $instance['title']; ?>"
-               onblur="wplSearchWidget<?php echo $this->number ?>.saveChange(this);" style="width: 96%;"/>
-    </p>
+<div class="wpl-widget-search-wp wpl-widget-form-wp" id="<?php echo $this->get_field_id('wpl_search_widget_container'); ?>">
     
-    <p>
+    <div class="wpl-widget-row">
+        <label for="<?php echo $this->get_field_id('title'); ?>"><?php echo __('Title', WPL_TEXTDOMAIN); ?></label>
+        <input type="text" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" value="<?php echo $instance['title']; ?>"
+               onblur="wplSearchWidget<?php echo $this->number ?>.saveChange(this);" />
+    </div>
+    
+    <div class="wpl-widget-row">
         <?php $kinds = wpl_flex::get_kinds(''); ?>
-        <label for="<?php echo $this->get_field_id('kind'); ?>"><?php echo __('Kind', WPL_TEXTDOMAIN); ?>: </label>
+        <label for="<?php echo $this->get_field_id('kind'); ?>"><?php echo __('Kind', WPL_TEXTDOMAIN); ?></label>
         <select id="<?php echo $this->get_field_id('kind'); ?>" name="<?php echo $this->get_field_name('kind'); ?>"
-               onchange="wplSearchWidget<?php echo $this->number ?>.saveAndReload(this);" style="width: 100%;min-width: 150px;">
+               onchange="wplSearchWidget<?php echo $this->number ?>.saveAndReload(this);">
             <?php foreach($kinds as $kind): if(trim($kind['addon_name']) and !wpl_global::check_addon($kind['addon_name'])) continue; ?>
             <option <?php if(isset($instance['kind']) and $instance['kind'] == $kind['id']) echo 'selected="selected"'; ?> value="<?php echo $kind['id']; ?>"><?php echo __($kind['name'], WPL_TEXTDOMAIN); ?></option>
             <?php endforeach; ?>
         </select>
-    </p>
+    </div>
     
-    <p>
-        <label for="<?php echo $this->get_field_id('layout'); ?>"><?php echo __('Layout', WPL_TEXTDOMAIN); ?>: </label>
+    <div class="wpl-widget-row">
+        <label for="<?php echo $this->get_field_id('layout'); ?>"><?php echo __('Layout', WPL_TEXTDOMAIN); ?></label>
         <select id="<?php echo $this->get_field_id('layout'); ?>" name="<?php echo $this->get_field_name('layout'); ?>"
-                onchange="wplSearchWidget<?php echo $this->number ?>.saveChange(this);" style="width: 100%;min-width: 150px;">
+                onchange="wplSearchWidget<?php echo $this->number ?>.saveChange(this);">
             <?php echo $this->generate_layouts_selectbox('search', $instance); ?>
         </select>
-    </p>
+    </div>
 
-    <p>
-        <label for="<?php echo $this->get_field_id('wpltarget'); ?>"><?php echo __('Target page', WPL_TEXTDOMAIN); ?>: </label>
+    <div class="wpl-widget-row">
+        <label for="<?php echo $this->get_field_id('wpltarget'); ?>"><?php echo __('Target page', WPL_TEXTDOMAIN); ?></label>
         <select id="<?php echo $this->get_field_id('wpltarget'); ?>"
-                name="<?php echo $this->get_field_name('wpltarget'); ?>" class="widefat">
+                name="<?php echo $this->get_field_name('wpltarget'); ?>">
             <option value="">-----</option>
             <?php echo $this->generate_pages_selectbox($instance); ?>
             <option value="-1" <?php echo ((isset($instance['wpltarget']) and $instance['wpltarget'] == '-1') ? 'selected="selected"' : ''); ?>><?php echo __('Self Page', WPL_TEXTDOMAIN); ?></option>
         </select>
-    </p>
+    </div>
     
     <?php if(wpl_global::check_addon('aps')): ?>
-    <p>
-        <label for="<?php echo $this->get_field_id('ajax'); ?>"><?php echo __('AJAX Search', WPL_TEXTDOMAIN); ?>: </label>
+    <div class="wpl-widget-row">
+        <label for="<?php echo $this->get_field_id('ajax'); ?>"><?php echo __('AJAX Search', WPL_TEXTDOMAIN); ?></label>
         <select id="<?php echo $this->get_field_id('ajax'); ?>"
-               name="<?php echo $this->get_field_name('ajax'); ?>" class="widefat">
+               name="<?php echo $this->get_field_name('ajax'); ?>">
             <option value="0" <?php if(isset($instance['ajax']) and $instance['ajax'] == 0) echo 'selected="selected"'; ?>><?php echo __('No', WPL_TEXTDOMAIN); ?></option>
             <option value="1" <?php if(isset($instance['ajax']) and $instance['ajax'] == 1) echo 'selected="selected"'; ?>><?php echo __('Yes', WPL_TEXTDOMAIN); ?></option>
             <option value="2" <?php if(isset($instance['ajax']) and $instance['ajax'] == 2) echo 'selected="selected"'; ?>><?php echo __('Yes (On the fly)', WPL_TEXTDOMAIN); ?></option>
         </select>
-    </p>
+    </div>
     <?php endif; ?>
 
     <button id="btn-search-<?php echo $this->number ?>"

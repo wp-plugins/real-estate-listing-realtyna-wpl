@@ -23,7 +23,7 @@ defined('_WPLEXEC') or die('Restricted access');
     
     <?php if(wpl_global::check_addon('save_searches')): ?>
         <div class="wpl-save-search-wp">
-            <a id="wpl_save_search_link_lightbox" class="wpl-save-search-link" data-realtyna-href="#wpl_plisting_lightbox_content_container" onclick="return wpl_generate_save_search();"><span><?php echo __('Save Search', WPL_TEXTDOMAIN); ?></span></a>
+            <a id="wpl_save_search_link_lightbox" class="wpl-save-search-link" data-realtyna-href="#wpl_plisting_lightbox_content_container" onclick="return wpl_generate_save_search();" data-realtyna-lightbox-opts="title:'<?php echo __('Save this Search', WPL_TEXTDOMAIN); ?>'"><span><?php echo __('Save Search', WPL_TEXTDOMAIN); ?></span></a>
         </div>
     <?php endif; ?>
 </div>

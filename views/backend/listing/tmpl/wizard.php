@@ -6,27 +6,32 @@ $this->_wpl_import($this->tpl_path . '.scripts.css');
 $this->_wpl_import($this->tpl_path . '.scripts.js');
 $this->finds = array();
 ?>
-<div class="wrap wpl-wp pwizard-wp">
+<div class="wrap wpl-wp pwizard-wp wpl_view_container">
     <header>
         <div id="icon-pwizard" class="icon48"></div>
         <h2><?php echo sprintf(__('Add/Edit %s', WPL_TEXTDOMAIN), __(ucfirst($this->kind_label), WPL_TEXTDOMAIN)); ?></h2>
     </header>
+
     <div class="wpl_listing_list"><div class="wpl_show_message"></div></div>
+
     <div class="finilize-message <?php echo ($this->finalized ? 'hide' : ''); ?>" id="wpl_listing_remember_to_finalize" title="<?php echo __('Click to finalize property ...', WPL_TEXTDOMAIN); ?>" onclick="wplj('#wpl_slide_label_id10000').trigger('click');">
         <i class="icon-warning"></i>
         <span><?php echo __('Remember to finalize!', WPL_TEXTDOMAIN); ?></span>
     </div>
     
-    <?php if($this->mode == 'add' and 'published' == 'no'): # Should be published after 2.4.0 ?>
-    <div class="discard-message" id="wpl_listing_discard" title="<?php echo __('Click to discard property', WPL_TEXTDOMAIN); ?>" onclick="wpl_discard('<?php echo $this->property_id; ?>', 0);">
-        <i class="icon-warning"></i>
-        <span id="wpl_listing_discard_loading"><?php echo __('Discard property', WPL_TEXTDOMAIN); ?></span>
-    </div>
-    <?php endif; ?>
-    
     <div class="sidebar-wp">
         <div class="side-2 side-tabs-wp">
             <ul>
+
+                <?php if($this->mode == 'add'): ?>
+                    <li class="wpl-listing-discard-btn">
+                        <a href="#" id="wpl_listing_discard" title="<?php echo __('Click to discard property', WPL_TEXTDOMAIN); ?>" onclick="wpl_discard('<?php echo $this->property_id; ?>', 0);">
+                            <span id="wpl_listing_discard_loading"><?php echo __('Discard', WPL_TEXTDOMAIN); ?></span>
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </li>
+                <?php endif; ?>
+
                 <li class="finilized">
                     <a href="#10000" class="tab-finalize wpl_slide_label_id10000" id="wpl_slide_label_id10000" onclick="wpl_finalize(10000, '<?php echo $this->property_id; ?>');">
                         <span><?php echo __('Finalize', WPL_TEXTDOMAIN); ?></span>
@@ -129,12 +134,12 @@ $this->finds = array();
                                     $new_link = wpl_global::remove_qs_var('pid', wpl_global::get_full_url());
                                     if($this->kind) $new_link = wpl_global::add_qs_var('kind', $this->kind, $new_link);
                                     
-                                    $manager_link = NULL;
                                     if(wpl_global::get_client() == 1) $manager_link = wpl_global::add_qs_var('kind', $this->kind, wpl_global::get_wpl_admin_menu('wpl_admin_listings'));
+                                    else $manager_link = wpl_global::add_qs_var('kind', $this->kind, wpl_global::remove_qs_var('wplmethod', wpl_global::remove_qs_var('pid')));
                                 ?>
                                 <a class="wpl-button button-2" target="_blank" href="<?php echo $property_link; ?>"><?php echo __('View this listing', WPL_TEXTDOMAIN); ?></a>
                                 <a class="wpl-button button-2" href="<?php echo $new_link; ?>"><?php echo __('Add new listing', WPL_TEXTDOMAIN); ?></a>
-                                <?php if($manager_link): ?><a class="wpl-button button-2" target="_blank" href="<?php echo $manager_link; ?>"><?php echo sprintf(__('%s Manager', WPL_TEXTDOMAIN), __($this->kind_label, WPL_TEXTDOMAIN)); ?></a><?php endif; ?>
+                                <a class="wpl-button button-2" href="<?php echo $manager_link; ?>"><?php echo sprintf(__('%s Manager', WPL_TEXTDOMAIN), __($this->kind_label, WPL_TEXTDOMAIN)); ?></a>
                             </div>
                         </div>
                     </div>

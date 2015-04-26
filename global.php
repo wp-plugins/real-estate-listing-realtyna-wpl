@@ -1462,8 +1462,8 @@ class wpl_global
     public static function url_encode($url)
     {
 		$url = trim($url);
-		$search = array("/\.+/","/\+/","/\:/","/\(/","/\)/","/\"/","/\//","/\!/","/\"/","/\-+/","/,/","/\s+/");
-		$replace = array(" "," "," "," "," "," "," "," "," "," ","","-");
+		$search = array("/\.+/","/\+/","/\:/","/\(/","/\)/","/\"/","/\//","/\!/","/\"/","/\-+/","/,/","/\'/","/\s+/");
+		$replace = array(" "," "," "," "," "," "," "," "," "," ","","","-");
 	
 		$url = preg_replace($search, $replace, $url);
 		return trim($url, ' -');
@@ -1560,7 +1560,7 @@ class wpl_global
         $layouts = array();
         foreach($files as $file)
         {
-            if(in_array($file, $exclude)) continue;
+            if(in_array($file, $exclude) or strpos($file, '_k') !== false) continue;
             $layouts[] = strtolower(basename($file, '.php'));
         }
         
@@ -1796,6 +1796,7 @@ class wpl_global
     
     /**
      * Generates request string from an array. Used in Property Listing and Profile Listing etc.
+     * @author Howard R <Howard@realtyna.com>
      * @param array $vars
      * @return string
      */
@@ -1813,4 +1814,38 @@ class wpl_global
         
         return trim($request_str, '& ');
     }
+    
+    /**
+     * Returns WPL cache instance
+     * @author Howard R <Howard@realtyna.com>
+     * @return object
+     */
+    public static function get_wpl_cache()
+    {
+        _wpl_import('libraries.cache');
+        return wpl_cache::getInstance();
+    }
+    
+    /**
+     * List WP Pages in <option> fields
+     * @author Howard <howard@realtyna.com>
+     * @param int $selected
+     * @return string
+     */
+    public static function generate_pages_selectbox($selected)
+	{
+        $pages = wpl_global::get_wp_pages();
+        $output = '';
+        
+        foreach($pages as $page)
+        {
+            $output .= '<option ';
+			if(isset($selected) and $page->ID == $selected) $output .= 'selected="selected" ';
+			$output .= 'value="'.$page->ID.'">';
+			$output .= substr($page->post_title, 0, 100);
+			$output .= '</option>';
+        }
+		
+		return $output;
+	}
 }

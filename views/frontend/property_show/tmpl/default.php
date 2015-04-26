@@ -253,6 +253,6 @@ if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->w
             </div>
         </div>
     </div>
-    <!-- Don't remove it -->
+    <?php /** Don't remove this element **/ ?>
     <div id="wpl_pshow_lightbox_content_container" class="wpl-util-hidden"></div>
 </div>

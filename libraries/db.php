@@ -77,7 +77,7 @@ class wpl_db
 			$vars = array_merge(wpl_request::get('POST'), wpl_request::get('GET'));
 		}
 		
-		/** clean vars **/
+		/** Clean and Escape vars **/
 		$vars = wpl_global::clean($vars);
 		
 		$query = '';
@@ -91,9 +91,6 @@ class wpl_db
 		
 		foreach($vars as $key=>$value)
 		{
-			/** escape value **/
-			$value = wpl_db::escape($value);
-			
 			if(strpos($key, $needle_str) === false) continue;
 			$ex = explode('_', $key);
 			

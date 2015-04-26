@@ -31,14 +31,14 @@ abstract class wpl_property_listing_controller_abstract extends wpl_controller
         $this->method = wpl_request::getVar('wplmethod', NULL);
         
         /** global settings **/
-		$settings = wpl_settings::get_settings();
+		$this->settings = wpl_settings::get_settings();
 		
 		/** listing settings **/
         $this->page_number = wpl_request::getVar('wplpage', 1, '', true);
-		$this->limit = wpl_request::getVar('limit', $settings['default_page_size']);
+		$this->limit = wpl_request::getVar('limit', $this->settings['default_page_size']);
 		$this->start = wpl_request::getVar('start', (($this->page_number-1)*$this->limit), '', true);
-		$this->orderby = wpl_request::getVar('wplorderby', $settings['default_orderby'], '', true);
-		$this->order = wpl_request::getVar('wplorder', $settings['default_order'], '', true);
+		$this->orderby = wpl_request::getVar('wplorderby', $this->settings['default_orderby'], '', true);
+		$this->order = wpl_request::getVar('wplorder', $this->settings['default_order'], '', true);
         
         /** Set Property CSS class **/
         $this->property_css_class = wpl_request::getVar('wplpcc', NULL);
@@ -48,7 +48,7 @@ abstract class wpl_property_listing_controller_abstract extends wpl_controller
         $this->property_listview = wpl_request::getVar('wplplv', '1'); #Show listview or not
         
         /** RSS Feed Setting **/
-        $this->listings_rss_enabled = isset($settings['listings_rss_enabled']) ? $settings['listings_rss_enabled'] : 0;
+        $this->listings_rss_enabled = isset($this->settings['listings_rss_enabled']) ? $this->settings['listings_rss_enabled'] : 0;
 
         /** detect kind **/
 		$this->kind = wpl_request::getVar('kind', 0);
@@ -60,14 +60,6 @@ abstract class wpl_property_listing_controller_abstract extends wpl_controller
 			$this->message = __('Invalid Request!', WPL_TEXTDOMAIN);
 			return parent::render($this->tpl_path, 'message', false, true);
 		}
-        
-        /** load mapview without any server proccess **/
-        if($this->tpl == 'mapview')
-        {
-            /** import tpl **/
-            $this->tpl = wpl_flex::get_kind_tpl($this->tpl_path, $this->tpl, $this->kind);
-            return parent::render($this->tpl_path, $this->tpl, false, true);
-        }
         
         /** pagination types **/
         $this->wplpagination = wpl_request::getVar('wplpagination', 'normal', '', true);

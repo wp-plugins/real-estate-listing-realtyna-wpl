@@ -265,4 +265,16 @@ class wpl_render
         
         return implode(' / ', $parents);
     }
+    
+    /**
+     * Renders numerci values
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $number
+     * @return string
+     */
+    public static function render_number($number)
+    {
+        return number_format($number, 0, '.', ',');
+    }
 }

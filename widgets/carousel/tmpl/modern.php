@@ -6,6 +6,8 @@ include _wpl_import("widgets.carousel.scripts.js", true, true);
 
 $image_width = isset($this->instance['data']['image_width']) ? $this->instance['data']['image_width'] : 1920;
 $image_height = isset($this->instance['data']['image_height']) ? $this->instance['data']['image_height'] : 558;
+$tablet_image_height = isset($this->instance['data']['tablet_image_height']) ? $this->instance['data']['tablet_image_height'] : 400;
+$phone_image_height = isset($this->instance['data']['phone_image_height']) ? $this->instance['data']['phone_image_height'] : 310;
 
 $thumbnail_width = isset($this->instance['data']['thumbnail_width']) ? $this->instance['data']['thumbnail_width'] : 150;
 $thumbnail_height = isset($this->instance['data']['thumbnail_height']) ? $this->instance['data']['thumbnail_height'] : 60;
@@ -47,7 +49,7 @@ foreach($wpl_properties as $key=>$gallery)
 
         $larg_images .= '
 		<li>
-            <img itemprop="image" src="'.$image_url.'" alt="'.$image_alt.'" width="'.$image_width.'" height="'.$image_height.'" style="width: '.$image_width.'px; height: '.$image_height.'px;" />
+            <img itemprop="image" src="'.$image_url.'" alt="'.$image_alt.'" style="width: '.$image_width.'px; height: '.$image_height.'px;" />
             <div class="ei-title">
                 <h2>'.$image_title.'</h2>
                 <h3>'.$gallery["rendered"][10]["value"].' - '.$gallery["location_text"].'</h3>
@@ -85,3 +87,21 @@ foreach($wpl_properties as $key=>$gallery)
         </ul>
     </div>
 </div>
+
+<style type="text/css">
+    #wpl-modern-<?php echo $this->widget_id; ?>{
+        height: <? echo $image_height; ?>px;
+    }
+
+    @media (min-width: 481px) and (max-width: 1024px){
+        #wpl-modern-<?php echo $this->widget_id; ?>{
+            max-height: <? echo $tablet_image_height; ?>px;
+        }
+    }
+
+    @media(max-width: 480px){
+        #wpl-modern-<?php echo $this->widget_id; ?>{
+            max-height: <?php echo $phone_image_height; ?>px;
+        }
+    }
+</style>

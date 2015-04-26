@@ -54,7 +54,7 @@ function ajax_save(table_name, table_column, value, item_id, field_id, form_elem
 	
 	var current_element_status = wplj(form_element_id).attr("disabled");
 	wplj(form_element_id).attr("disabled", "disabled");
-	element_type = wplj(form_element_id).attr('type');
+	var element_type = wplj(form_element_id).attr('type');
 	
 	if(element_type == 'checkbox')
 	{
@@ -65,7 +65,7 @@ function ajax_save(table_name, table_column, value, item_id, field_id, form_elem
 	var ajax_loader_element = '#wpl_listing_saved_span_'+field_id;
 	wplj(ajax_loader_element).html('<img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader3.gif'); ?>" />');
 	
-	request_str = 'wpl_format=b:listing:ajax&wpl_function='+wpl_function+'&table_name='+table_name+'&table_column='+table_column+'&value='+encodeURIComponent(value)+'&item_id='+item_id;
+	var request_str = 'wpl_format=b:listing:ajax&wpl_function='+wpl_function+'&table_name='+table_name+'&table_column='+table_column+'&value='+encodeURIComponent(value)+'&item_id='+item_id;
 	
 	/** run ajax query **/
 	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str, ajax_loader_element);
@@ -105,7 +105,7 @@ function item_save(value, item_id, field_id, item_type, item_cat, item_extra1, i
 	
 	var current_element_status = wplj(form_element_id).attr("disabled");
 	wplj(form_element_id).attr("disabled", "disabled");
-	element_type = wplj(form_element_id).attr('type');
+	var element_type = wplj(form_element_id).attr('type');
 	
 	if(element_type == 'checkbox')
 	{
@@ -116,7 +116,7 @@ function item_save(value, item_id, field_id, item_type, item_cat, item_extra1, i
 	var ajax_loader_element = '#wpl_listing_saved_span_'+field_id;
 	wplj(ajax_loader_element).html('<img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader3.gif'); ?>" />');
 	
-	request_str = 'wpl_format=b:listing:ajax&wpl_function='+wpl_function+'&value='+encodeURIComponent(value)+'&item_id='+item_id+'&item_type='+item_type+'&item_cat='+item_cat+'&item_extra1='+item_extra1+'&item_extra2='+item_extra2+'&item_extra3='+item_extra3+'&kind=<?php echo $this->kind; ?>';
+	var request_str = 'wpl_format=b:listing:ajax&wpl_function='+wpl_function+'&value='+encodeURIComponent(value)+'&item_id='+item_id+'&item_type='+item_type+'&item_cat='+item_cat+'&item_extra1='+item_extra1+'&item_extra2='+item_extra2+'&item_extra3='+item_extra3+'&kind=<?php echo $this->kind; ?>';
 	
 	/** run ajax query **/
 	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str, ajax_loader_element);
@@ -182,7 +182,7 @@ function wpl_neighborhood_distance_type_select(table_name, table_column, value, 
 
 function number_to_th(number)
 {
-	if(number > 10) return numb + "th";
+	if(number > 10) return number + "th";
 	else if(number == 1) return "<?php echo __('First', WPL_TEXTDOMAIN); ?>";
 	else if(number == 2) return "<?php echo __('Second', WPL_TEXTDOMAIN); ?>";
 	else if(number == 3) return "<?php echo __('Third', WPL_TEXTDOMAIN); ?>";

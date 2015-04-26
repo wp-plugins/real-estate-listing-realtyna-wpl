@@ -35,18 +35,11 @@ _wpl_import($this->tpl_path . '.scripts.js');
             <div class="sidebar-wp sidebar-float">
 
                 <div class="rt-same-height sidebar-float">
-                    <!-- Generating not installed extensions -->
+                    <!-- Generating optional addons -->
                     <?php $this->not_installed_addons(); ?>
-
-                    <!-- Generating support section -->
-                    <?php $this->support(); ?>
-                </div>
-
-                <div class="rt-same-height sidebar-float">
-                    <!-- Generating addons -->
-                    <?php $this->generate_addons(); ?>
-
-                    <div class="side-4 side-changes js-full-height" data-minuse-size="56" id="wpl_dashboard_changelog">
+                    
+                    <!-- WPL change-log -->
+                    <div class="side-6 side-changes js-full-height" data-minuse-size="56" id="wpl_dashboard_changelog">
                         <div class="panel-wp">
                             <h3><?php echo __('Changelog', WPL_TEXTDOMAIN); ?></h3>
 
@@ -55,7 +48,14 @@ _wpl_import($this->tpl_path . '.scripts.js');
                             </div>
                         </div>
                     </div>
+                </div>
 
+                <div class="rt-same-height sidebar-float">
+                    <!-- Generating addons -->
+                    <?php $this->generate_addons(); ?>
+                    
+                    <!-- Generating support section -->
+                    <?php $this->support(); ?>
                 </div>
 
                 <!-- Generating statistic section -->

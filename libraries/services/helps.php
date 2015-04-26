@@ -107,7 +107,7 @@ class wpl_service_helps
                 open: function()
                 {
                     <?php if(isset($tip['buttons'][2])): ?>
-                    wplj('.wp-pointer-buttons').append('<a class="wpl-pointer-primary button-primary"><?php echo $tip['buttons'][2]['label']; ?></a>');
+                    wplj('.wp-pointer-buttons').append('<a class="wpl-pointer-primary button-primary wpl-btn-next"><?php echo $tip['buttons'][2]['label']; ?></a>');
                     wplj('.wpl-pointer-primary').click(function()
                     {
                         wpltip<?php echo $tip['id']; ?>.next();
@@ -115,7 +115,7 @@ class wpl_service_helps
                     <?php endif; ?>
                     
                     <?php if(isset($tip['buttons'][3])): ?>
-                    wplj('.wp-pointer-buttons').append('<a class="wpl-pointer-prev button-secondary"><?php echo $tip['buttons'][3]['label']; ?></a>');
+                    wplj('.wp-pointer-buttons').append('<a class="wpl-pointer-prev button-secondary wpl-btn-prev"><?php echo $tip['buttons'][3]['label']; ?></a>');
                     wplj('.wpl-pointer-prev').click(function()
                     {
                         wpltip<?php echo $tip['id']; ?>.prev();
@@ -128,7 +128,7 @@ class wpl_service_helps
                 },
                 buttons: function(event, t)
                 {
-                    var button = wplj('<a class="wpl-pointer-close button-secondary"><?php echo __('Close', WPL_TEXTDOMAIN); ?></a>');
+                    var button = wplj('<a class="wpl-pointer-close button-secondary wpl-btn-close"><?php echo __('Close', WPL_TEXTDOMAIN); ?></a>');
                     button.bind('click.pointer', function()
                     {
                         wpltip<?php echo $tip['id']; ?>.close();

@@ -42,6 +42,6 @@ if(wpl_global::check_addon('save_searches')) $this->_wpl_import($this->tpl_path.
     </div>
     <?php endif; ?>
     
-    <!-- Don't remove it -->
+    <?php /** Don't remove this element **/ ?>
     <div id="wpl_plisting_lightbox_content_container" class="wpl-util-hidden"></div>
 </div>

@@ -5,21 +5,21 @@ defined('_WPLEXEC') or die('Restricted access');
 $map_activities = wpl_activity::get_activities('plisting_position1', 1);
 ?>
 <script type="text/javascript">
-var wpl_map;
-var markers_array = new Array();
-var loaded_markers = new Array();
-var markers;
-var bounds;
-var infowindow;
-var wpl_map_bounds_extend = true;
-var wpl_map_set_default_geo_point = true;
+var wpl_map<?php echo $this->activity_id; ?>;
+var markers_array<?php echo $this->activity_id; ?> = new Array();
+var loaded_markers<?php echo $this->activity_id; ?> = new Array();
+var markers<?php echo $this->activity_id; ?>;
+var bounds<?php echo $this->activity_id; ?>;
+var infowindow<?php echo $this->activity_id; ?>;
+var wpl_map_bounds_extend<?php echo $this->activity_id; ?> = true;
+var wpl_map_set_default_geo_point<?php echo $this->activity_id; ?> = true;
 
 if(typeof google_place_radius == 'undefined') var google_place_radius = 1100;
 
 function wpl_initialize<?php echo $this->activity_id; ?>()
 {
 	/** create empty LatLngBounds object **/
-	bounds = new google.maps.LatLngBounds();
+	bounds<?php echo $this->activity_id; ?> = new google.maps.LatLngBounds();
 	var mapOptions = {
 		scrollwheel: false,
 		mapTypeId: google.maps.MapTypeId.<?php echo (isset($this->googlemap_view) ? $this->googlemap_view : 'ROADMAP'); ?>,
@@ -30,11 +30,11 @@ function wpl_initialize<?php echo $this->activity_id; ?>()
 	}
     
 	/** init map **/
-	wpl_map = new google.maps.Map(document.getElementById('wpl_map_canvas<?php echo $this->activity_id; ?>'), mapOptions);
-	infowindow = new google.maps.InfoWindow();
+	wpl_map<?php echo $this->activity_id; ?> = new google.maps.Map(document.getElementById('wpl_map_canvas<?php echo $this->activity_id; ?>'), mapOptions);
+	infowindow<?php echo $this->activity_id; ?> = new google.maps.InfoWindow();
 	
 	/** load markers **/
-	wpl_load_markers<?php echo $this->activity_id; ?>(markers);
+	wpl_load_markers<?php echo $this->activity_id; ?>(markers<?php echo $this->activity_id; ?>);
 	
     <?php if(isset($this->googlemap_view) and $this->googlemap_view == 'WPL'): ?>
     var styles =
@@ -98,8 +98,8 @@ function wpl_initialize<?php echo $this->activity_id; ?>()
 
     var styledMap = new google.maps.StyledMapType(styles, {name: "WPL Map"});
 
-    wpl_map.mapTypes.set('map_style', styledMap);
-    wpl_map.setMapTypeId('map_style');
+    wpl_map<?php echo $this->activity_id; ?>.mapTypes.set('map_style', styledMap);
+    wpl_map<?php echo $this->activity_id; ?>.setMapTypeId('map_style');
     <?php endif; ?>
 
     /* Check Google Places */
@@ -110,7 +110,7 @@ function wpl_initialize<?php echo $this->activity_id; ?>()
             radius: google_place_radius
         };
   
-		var service = new google.maps.places.PlacesService(wpl_map);
+		var service = new google.maps.places.PlacesService(wpl_map<?php echo $this->activity_id; ?>);
 		service.search(request, wpl_gplace_callback<?php echo $this->activity_id; ?>);
 	}
     
@@ -123,30 +123,30 @@ function wpl_initialize<?php echo $this->activity_id; ?>()
 
 function wpl_marker<?php echo $this->activity_id; ?>(dataMarker)
 {
-	if(wplj.inArray(dataMarker.id, loaded_markers) != '-1') return true;
+	if(wplj.inArray(dataMarker.id, loaded_markers<?php echo $this->activity_id; ?>) != '-1') return true;
 	
   	marker = new google.maps.Marker(
     {
 		position: new google.maps.LatLng(dataMarker.googlemap_lt, dataMarker.googlemap_ln),
-		map: <?php echo ($this->show_marker ? 'wpl_map' : 'null'); ?>,
+		map: <?php echo ($this->show_marker ? 'wpl_map'.$this->activity_id : 'null'); ?>,
 		property_ids: dataMarker.pids,
 		icon: '<?php echo wpl_global::get_wpl_url(); ?>assets/img/listing_types/gicon/'+dataMarker.gmap_icon,
 		title: dataMarker.title,
 	});
 	
 	/** extend the bounds to include each marker's position **/
-  	if(wpl_map_bounds_extend) bounds.extend(marker.position);
+  	if(wpl_map_bounds_extend<?php echo $this->activity_id; ?>) bounds<?php echo $this->activity_id; ?>.extend(marker.position);
   
-	loaded_markers.push(dataMarker.id);
-  	markers_array.push(marker);
+	loaded_markers<?php echo $this->activity_id; ?>.push(dataMarker.id);
+  	markers_array<?php echo $this->activity_id; ?>.push(marker);
 	
 	google.maps.event.addListener(marker, "<?php echo $this->infowindow_event; ?>", function(event)
 	{
 		if(this.html)
 		{
-			infowindow.close();
-			infowindow.setContent(this.html);
-			infowindow.open(wpl_map, this);
+			infowindow<?php echo $this->activity_id; ?>.close();
+			infowindow<?php echo $this->activity_id; ?>.setContent(this.html);
+			infowindow<?php echo $this->activity_id; ?>.open(wpl_map<?php echo $this->activity_id; ?>, this);
 		}
 		else
 		{
@@ -155,9 +155,9 @@ function wpl_marker<?php echo $this->activity_id; ?>(dataMarker)
 			
 			infowindow_html = get_infowindow_html<?php echo $this->activity_id; ?>(this.property_ids);
 			this.html = infowindow_html;
-			infowindow.close();
-			infowindow.setContent(infowindow_html);
-			infowindow.open(wpl_map, this);
+			infowindow<?php echo $this->activity_id; ?>.close();
+			infowindow<?php echo $this->activity_id; ?>.setContent(infowindow_html);
+			infowindow<?php echo $this->activity_id; ?>.open(wpl_map<?php echo $this->activity_id; ?>, this);
 			
             /** AJAX loader **/
 			wplj(".map_search_ajax_loader").remove();
@@ -174,15 +174,15 @@ function wpl_load_markers<?php echo $this->activity_id; ?>(markers, delete_marke
 		wpl_marker<?php echo $this->activity_id; ?>(markers[i]);
 	}
     
-	if(!markers.length && wpl_map_set_default_geo_point)
+	if(!markers.length && wpl_map_set_default_geo_point<?php echo $this->activity_id; ?>)
 	{
-		wpl_map.setCenter(new google.maps.LatLng(default_lt, default_ln));
-		wpl_map.setZoom(parseInt(default_zoom));
+		wpl_map<?php echo $this->activity_id; ?>.setCenter(new google.maps.LatLng(default_lt, default_ln));
+		wpl_map<?php echo $this->activity_id; ?>.setZoom(parseInt(default_zoom));
 	}
 	else
 	{
 		/** now fit the map to the newly inclusive bounds **/
-		if(wpl_map_bounds_extend) wpl_map.fitBounds(bounds);
+		if(wpl_map_bounds_extend<?php echo $this->activity_id; ?>) wpl_map<?php echo $this->activity_id; ?>.fitBounds(bounds<?php echo $this->activity_id; ?>);
 	}
 }
 
@@ -209,13 +209,13 @@ function get_infowindow_html<?php echo $this->activity_id; ?>(property_ids)
 
 function delete_markers<?php echo $this->activity_id; ?>()
 {
-	if(markers_array)
+	if(markers_array<?php echo $this->activity_id; ?>)
 	{
-		for(i=0; i < markers_array.length; i++) markers_array[i].setMap(null);
-		markers_array.length = 0;
+		for(i=0; i < markers_array<?php echo $this->activity_id; ?>.length; i++) markers_array<?php echo $this->activity_id; ?>[i].setMap(null);
+		markers_array<?php echo $this->activity_id; ?>.length = 0;
 	}
 	
-	if(loaded_markers) loaded_markers.length = 0;
+	if(loaded_markers<?php echo $this->activity_id; ?>) loaded_markers<?php echo $this->activity_id; ?>.length = 0;
 }
 
 function wpl_Plisting_slider(i, total_images, id)
@@ -261,19 +261,19 @@ function wpl_gplace_marker<?php echo $this->activity_id;?>(place)
     
 	var marker = new google.maps.Marker(
     {
-		map: wpl_map,
+		map: wpl_map<?php echo $this->activity_id; ?>,
 		icon: image,
 		title: title_str,
 		position: place.geometry.location
 	});
     
     /** extend the bounds to include each marker's position **/
-  	bounds.extend(place.geometry.location);
+  	bounds<?php echo $this->activity_id; ?>.extend(place.geometry.location);
     
 	google.maps.event.addListener(marker, 'click', function()
 	{
-		infowindow.setContent('<div class="wpl_gplace_infowindow_container" style="color: #000000;">'+place.name+'</div>');
-		infowindow.open(wpl_map, this);
+		infowindow<?php echo $this->activity_id; ?>.setContent('<div class="wpl_gplace_infowindow_container" style="color: #000000;">'+place.name+'</div>');
+		infowindow<?php echo $this->activity_id; ?>.open(wpl_map<?php echo $this->activity_id; ?>, this);
 	});
 }
 

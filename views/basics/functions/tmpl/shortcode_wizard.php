@@ -19,10 +19,10 @@ wpl_extensions::import_javascript($js);
                 <option value="property_show"><?php echo __('Property Show', WPL_TEXTDOMAIN); ?></option>
                 <option value="profile_listing"><?php echo __('Profile/Agent Listing', WPL_TEXTDOMAIN); ?></option>
                 <option value="profile_show"><?php echo __('Profile/Agent Show', WPL_TEXTDOMAIN); ?></option>
-                <!--<option value="property_manager"><?php echo __('Listing Manager', WPL_TEXTDOMAIN); ?></option>-->
                 <option value="profile_wizard"><?php echo __('My Profile', WPL_TEXTDOMAIN); ?></option>
-                <!--<option value="property_wizard"><?php echo __('Add/Edit Listing', WPL_TEXTDOMAIN); ?></option>-->
-                <?php if(wpl_global::check_addon('pro')): ?><option value="widget_shortcode"><?php echo __('Widget Shortcode', WPL_TEXTDOMAIN); ?></option><?php endif; ?>
+                <?php if(wpl_global::check_addon('pro')): ?>
+                <option value="widget_shortcode"><?php echo __('Widget Shortcode', WPL_TEXTDOMAIN); ?></option>
+                <?php endif; ?>
                 <?php if(wpl_global::check_addon('save_searches')): ?><option value="save_searches"><?php echo __('Save Searches', WPL_TEXTDOMAIN); ?></option><?php endif; ?>
             </select>
         </div>
@@ -179,7 +179,7 @@ wpl_extensions::import_javascript($js);
         </div>
         <?php endif; ?>
         
-        <div class="plugin-row wpl_shortcode_parameter pr_property_manager pr_property_listing pr_profile_listing pr_profile_show">
+        <div class="plugin-row wpl_shortcode_parameter pr_property_listing pr_profile_listing pr_profile_show">
             <?php $pages = wpl_global::get_wp_pages(); ?>
             <label for="pr_target_page_selectbox"><?php echo __('Target page', WPL_TEXTDOMAIN); ?></label>
             <select id="pr_target_page_selectbox" name="wpltarget" data-has-chosen="0">
@@ -249,7 +249,7 @@ wpl_extensions::import_javascript($js);
             	<option value="">-----</option>
                 <?php foreach($widgets_list as $sidebar=>$widgets): if($sidebar == 'wp_inactive_widgets') continue; ?>
                 	<?php foreach($widgets as $widget): if(strpos($widget['id'], 'wpl_') === false) continue; ?>
-						<option value="<?php echo $widget['id']; ?>"><?php echo ucwords(str_replace('_', ' ', $widget['id'])); ?></option>
+					<option value="<?php echo $widget['id']; ?>"><?php echo ucwords(str_replace('_', ' ', $widget['id'])); ?></option>
                     <?php endforeach;?>
                 <?php endforeach; ?>
             </select>
@@ -272,9 +272,7 @@ function insert_shortcode()
     else if (view === 'property_show') shortcode += '[wpl_property_show';
 	else if (view === 'profile_listing') shortcode += '[wpl_profile_listing';
     else if (view === 'profile_show') shortcode += '[wpl_profile_show';
-	else if (view === 'property_manager') shortcode += '[wpl_listing_manager';
 	else if (view === 'profile_wizard') shortcode += '[wpl_my_profile';
-	else if (view === 'property_wizard') shortcode += '[wpl_add_edit_listing';
 	else if (view === 'widget_shortcode') shortcode += '[wpl_widget_instance';
     else if (view === 'save_searches') shortcode += '[wpl_addon_save_searches';
 

@@ -99,6 +99,24 @@ class wpl_listings_controller extends wpl_controller
 		}
 		
         $this->wpl_properties = $wpl_properties;
+        
+        $this->client = wpl_global::get_client();
+        
+        if($this->client)
+        {
+            $this->backend = true;
+            $this->frontend = false;
+            
+            $this->add_link = wpl_global::add_qs_var('kind', $this->kind, wpl_global::get_wpl_admin_menu('wpl_admin_add_listing'));
+        }
+        else
+        {
+            $this->backend = false;
+            $this->frontend = true;
+            
+            $this->add_link = wpl_global::add_qs_var('kind', $this->kind, wpl_global::add_qs_var('wplmethod', 'wizard'));
+        }
+        
         return true;
     }
     

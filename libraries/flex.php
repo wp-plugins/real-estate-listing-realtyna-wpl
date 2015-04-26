@@ -506,7 +506,7 @@ class wpl_flex
 			}
 			
             /** Accesses **/
-			if(trim($field->accesses) != '')
+			if(isset($field->accesses) and trim($field->accesses) != '' and wpl_global::check_addon('membership'))
 			{
 				$accesses = explode(',', trim($field->accesses, ', '));
                 $cur_membership_id = wpl_users::get_user_membership();

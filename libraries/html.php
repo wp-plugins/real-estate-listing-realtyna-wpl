@@ -271,6 +271,9 @@ class wpl_html
      */
 	public static function load_profile_wizard($instance = array())
 	{
+        /** PRO Addon **/
+        if(!wpl_global::check_addon('PRO')) return __('PRO addon must be installed for this!', WPL_TEXTDOMAIN);
+        
 		return wpl_html::load_view('b:users:profile', $instance);
 	}
     
@@ -283,6 +286,9 @@ class wpl_html
      */
 	public static function load_add_edit_listing($instance = array())
 	{
+        /** PRO Addon **/
+        if(!wpl_global::check_addon('PRO')) return __('PRO addon must be installed for this!', WPL_TEXTDOMAIN);
+        
 		return wpl_html::load_view('b:listing:wizard', $instance);
 	}
 	
@@ -295,6 +301,9 @@ class wpl_html
      */
 	public static function load_listing_manager($instance = array())
 	{
+        /** PRO Addon **/
+        if(!wpl_global::check_addon('PRO')) return __('PRO addon must be installed for this!', WPL_TEXTDOMAIN);
+        
 		return wpl_html::load_view('b:listings:manager', $instance);
 	}
 }

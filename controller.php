@@ -122,8 +122,10 @@ class wpl_controller
 			
 			/** including before start file **/
 			if(wpl_file::exists($before_start)) include $before_start;
-			
-			include $path;
+            
+            if($this->wrapper == 1) $this->wrapper($path);
+            else include $path;
+            
 			return $output = ob_get_clean();
 		}
 		

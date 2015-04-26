@@ -43,7 +43,7 @@ foreach($wpl_properties as $key=>$gallery)
 
     $images .= '
     <div class="wpl-carousel-item">
-        <img itemprop="image" src="'.$image_url.'" alt="'.$image_alt.'" width="'.$image_width.'" height="'.$image_height.'" style="width: '.$image_width.'px; height: '.$image_height.'px;" />
+        <img itemprop="image" src="'.$image_url.'" alt="'.$image_alt.'" height="'.$image_height.'" style="height: '.$image_height.'px;" />
         <div class="title">
             <h3 itemprop="name">'.$image_title.'</h3>
             <a itemprop="url" class="more_info" href="'.$gallery["property_link"].'">'. __('More', WPL_TEXTDOMAIN).'</a>

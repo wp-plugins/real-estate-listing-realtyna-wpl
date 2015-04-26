@@ -327,7 +327,7 @@ elseif($type == 'price' and !$done_this) //////////////////////////// Price ////
         $listing_types = wpl_global::get_listing_types_by_parent(3);
         foreach($listing_types as $listing) $vacational_listing_types[] = $listing['id'];
 
-        if(is_array($vacational_listing_types) and in_array($values['listing'], $vacational_listing_types))
+        if(is_array($vacational_listing_types) and array_key_exists('listing', $values) and in_array($values['listing'], $vacational_listing_types))
         {
             $return['value'] = __('From', WPL_TEXTDOMAIN).' '.$return['value'];
         }

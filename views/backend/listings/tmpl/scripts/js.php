@@ -64,6 +64,8 @@ function wpl_reset_listings()
                 break;
         }
     });
+    
+    wpl_search_listings();
 }
 
 function select_all_checkboxes()
@@ -282,11 +284,11 @@ function change_user(pid, uid)
     ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str);
     ajax.success(function(data)
 	{
-		if(data.success == 1)
+		if(data.success === 1)
 		{
 			wplj("#pmanager_change_user_label"+pid).html('<?php echo __('User', WPL_TEXTDOMAIN); ?>: ');
 		}
-		else if(data.success != 1)
+		else if(data.success !== 1)
 		{
 			wplj("#pmanager_change_user_label"+pid).html('<?php echo __('User', WPL_TEXTDOMAIN); ?>: ');
 			wpl_show_messages(data.message, '.wpl_property_manager_list .wpl_show_message', 'wpl_red_msg');

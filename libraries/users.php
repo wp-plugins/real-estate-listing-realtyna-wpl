@@ -1539,4 +1539,27 @@ class wpl_users
     {
         return true;
     }
+
+    /**
+     * Return WP admins
+     * @author Steve A. <steve@realtyna.com>
+     * @static
+     * @param string   $fields  Fields to return	
+     * @return array 			WP Admins
+     */
+    public static function get_wp_admins($fields = 'id')
+    {
+    	return get_users(array('role' => 'Administrator', 'fields' => $fields));
+    }
+
+
+    /**
+     * Wrapper for WordPress wp_logout_url function
+     * @author Steve A. <steve@realtyna.com>
+     * @static
+     */
+    public static function wp_logout_url()
+    {
+        return wp_logout_url();
+    }
 }

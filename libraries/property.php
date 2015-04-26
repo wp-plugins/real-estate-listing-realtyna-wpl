@@ -373,7 +373,7 @@ class wpl_property
             }
             
             /** Accesses **/
-			if(isset($field->accesses) and trim($field->accesses) != '')
+			if(isset($field->accesses) and trim($field->accesses) != '' and wpl_global::check_addon('membership'))
 			{
 				$accesses = explode(',', trim($field->accesses, ', '));
                 $cur_membership_id = wpl_users::get_user_membership();
@@ -586,15 +586,16 @@ class wpl_property
             
             foreach($languages as $language)
             {
-                wpl_global::switch_language($language);
-                
-                wpl_property::update_text_search_field($property_id);
-                wpl_property::update_alias($property);
-                wpl_property::update_property_page_title($property);
-                wpl_property::update_property_title($property);
+                if(wpl_global::switch_language($language))
+                {
+                    wpl_property::update_text_search_field($property_id);
+                    wpl_property::update_alias($property);
+                    wpl_property::update_property_page_title($property);
+                    wpl_property::update_property_title($property);
 
-                /** generate rendered data **/
-                wpl_property::generate_rendered_data($property_id);
+                    /** generate rendered data **/
+                    wpl_property::generate_rendered_data($property_id);
+                }
             }
             
             /** Switch to current language again **/
@@ -1089,13 +1090,10 @@ class wpl_property
 		if(trim($property_data['rooms'])) $alias['rooms'] = $property_data['rooms'].__('Room'.($property_data['rooms'] > 1 ? 's': ''), WPL_TEXTDOMAIN);
 		if(trim($property_data['bedrooms'])) $alias['bedrooms'] = $property_data['bedrooms'].__('Bedroom'.($property_data['bedrooms'] > 1 ? 's': ''), WPL_TEXTDOMAIN);
 		if(trim($property_data['bathrooms'])) $alias['bathrooms'] = $property_data['bathrooms'].__('Bathroom'.($property_data['bathrooms'] > 1 ? 's': ''), WPL_TEXTDOMAIN);
-		
+		if(trim($property_data['mls_id'])) $alias['listing_id'] = $property_data['mls_id'];
+        
 		$unit_data = wpl_units::get_unit($property_data['price_unit']);
 		if(trim($property_data['price'])) $alias['price'] = str_replace('.', '', wpl_render::render_price($property_data['price'], $unit_data['id'], $unit_data['extra']));
-		
-		/** apply filters **/
-		_wpl_import('libraries.filters');
-		@extract(wpl_filters::apply('generate_property_alias', array('alias'=>$alias, 'alias_str'=>$alias_str)));
         
         $alias_pattern = wpl_global::get_setting('property_alias_pattern');
         if(trim($alias_pattern) == '') $alias_pattern = '[property_type][glue][listing_type][glue][location][glue][rooms][glue][bedrooms][glue][bathrooms][glue][price]';
@@ -1108,7 +1106,12 @@ class wpl_property
         $alias_str = isset($alias['bedrooms']) ? str_replace('[bedrooms]', $alias['bedrooms'], $alias_str) : str_replace('[bedrooms]', '', $alias_str);
         $alias_str = isset($alias['bathrooms']) ? str_replace('[bathrooms]', $alias['bathrooms'], $alias_str) : str_replace('[bathrooms]', '', $alias_str);
         $alias_str = isset($alias['price']) ? str_replace('[price]', $alias['price'], $alias_str) : str_replace('[price]', '', $alias_str);
+        $alias_str = isset($alias['listing_id']) ? str_replace('[listing_id]', $alias['listing_id'], $alias_str) : str_replace('[listing_id]', '', $alias_str);
         $alias_str = str_replace('[glue]', $glue, $alias_str);
+        
+        /** apply filters **/
+		_wpl_import('libraries.filters');
+		@extract(wpl_filters::apply('generate_property_alias', array('alias'=>$alias, 'alias_str'=>$alias_str)));
         
 		/** escape **/
 		$alias_str = wpl_db::escape(wpl_global::url_encode($alias_str));
@@ -1206,7 +1209,7 @@ class wpl_property
      */
     public static function update_property_title($property_data, $property_id = 0, $force = false)
 	{
-        /** fetch property data if property id is setted **/
+        /** fetch property data if property id is set **/
 		if($property_id) $property_data = self::get_property_raw_data($property_id);
         if(!$property_id) $property_id = $property_data['id'];
         
@@ -1668,7 +1671,13 @@ class wpl_property
 		$target_id = wpl_request::getVar('wpltarget', 0);
 		
 		if($target_id) $url = wpl_global::add_qs_var('pid', $property_id, wpl_sef::get_page_link($target_id));
-		else $url = wpl_global::add_qs_var('pid', $property_id, wpl_global::get_wpl_admin_menu('wpl_admin_add_listing'));
+		else
+        {
+            /** Backend **/
+            if(wpl_global::get_client()) $url = wpl_global::add_qs_var('pid', $property_id, wpl_global::get_wpl_admin_menu('wpl_admin_add_listing'));
+            /** Frontend **/
+            else $url = wpl_global::add_qs_var('pid', $property_id, wpl_global::add_qs_var('wplmethod', 'wizard'));
+        }
 		
         return $url;
     }

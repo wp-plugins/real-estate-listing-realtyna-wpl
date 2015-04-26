@@ -8,7 +8,7 @@ $this->_wpl_import($this->tpl_path . '.scripts.css');
 $my_profile_top_activities = count(wpl_activity::get_activities('my_profile_top', 1));
 $my_profile_bottom_activities = count(wpl_activity::get_activities('my_profile_bottom', 1));
 ?>
-<div class="wrap wpl-wp profile-wp">
+<div class="wrap wpl-wp profile-wp wpl_view_container">
     <header>
         <div id="icon-profile" class="icon48"></div>
         <h2><?php echo __('Profile', WPL_TEXTDOMAIN); ?></h2>
@@ -87,11 +87,11 @@ function wpl_profile_finalize(item_id)
 	/** validate form **/
 	if (!wpl_validation_check()) return;
 	
-	ajax_loader_element = '#wpl_profile_wizard_ajax_loader';
+	var ajax_loader_element = '#wpl_profile_wizard_ajax_loader';
 	wplj(ajax_loader_element).html('<img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader3.gif'); ?>" />');
 	wplj("#wpl_profile_finalize_button").attr("disabled", "disabled");
 	
-	request_str = 'wpl_format=b:users:ajax&wpl_function=finalize&item_id=' + item_id;
+	var request_str = 'wpl_format=b:users:ajax&wpl_function=finalize&item_id=' + item_id;
 
 	/** run ajax query **/
 	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str);

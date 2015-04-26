@@ -4,6 +4,11 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL2.4.5 (<span class="wpl_log_date">04/26/2015</span> <span class="wpl_log_revision">revision 1432</span>)</h4>
+        -- Added discard button in add new listing menu.<br />
+        -- Updated Realtyna JS libraries such as light-box library.<br />
+        -- Fixed some PHP notices.
+        
         <h4>WPL2.4.0 (<span class="wpl_log_date">04/10/2015</span> <span class="wpl_log_revision">revision 1333</span>)</h4>
         -- <strong>[PRO]</strong> Added Import/Export feature to settings menu.<br />
         -- <strong>[PRO]</strong> Added RSS feature for listings.<br />
@@ -18,7 +23,6 @@ defined('_WPLEXEC') or die('Restricted access');
         <h4>WPL2.3.0 (<span class="wpl_log_date">02/26/2015</span> <span class="wpl_log_revision">revision 1195</span>)</h4>
         -- <strong>[PRO]</strong> Added Report Abuse feature.<br />
         -- <strong>[PRO]</strong> Improved WPL Multilingual feature.<br />
-        -- <strong>[PRO]</strong> Added access view feature for WPL fields.<br />
         -- Added entity support for WPL search widget.<br />
         -- Added List/Grid feature for agent/profile listing pages.<br />
         -- Added Google API key.<br />

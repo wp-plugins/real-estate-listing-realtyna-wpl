@@ -605,3 +605,6 @@ INSERT INTO `#__wpl_events` (`id`, `type`, `trigger`, `class_location`, `class_n
 
 INSERT INTO `#__wpl_notifications` (`id`, `description`, `template`, `subject`, `additional_memberships`, `additional_users`, `additional_emails`, `options`, `params`, `enabled`) VALUES 
 (5, 'Sends after registration process.', 'user_registered', 'Your Account has been registered.', '', '', '', NULL, '', '1');
+
+DELETE FROM `#__wpl_extensions` WHERE `id`='32';
+DELETE FROM `#__wpl_extensions` WHERE `id`='33';

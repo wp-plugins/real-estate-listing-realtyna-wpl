@@ -55,6 +55,9 @@ abstract class wpl_property_show_controller_abstract extends wpl_controller
 			return parent::render($this->tpl_path, 'message', false, true);
 		}
 		
+        /** global settings **/
+		$this->settings = wpl_settings::get_settings();
+        
 		$this->pshow_fields = $this->model->get_pshow_fields('', $property['kind']);
 		$this->pshow_categories = wpl_flex::get_categories('', '', " AND `enabled`>='1' AND `kind`='".$property['kind']."' AND `pshow`='1'");
 		$wpl_properties = array();

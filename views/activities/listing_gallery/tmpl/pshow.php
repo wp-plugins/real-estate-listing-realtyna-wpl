@@ -56,7 +56,7 @@ $this->_wpl_import($this->tpl_path.'.scripts.pshow', true, true);
                 
                 /** resize image if does not exist and add watermark **/
                 $image_url           = wpl_images::create_gallary_image($this->image_width, $this->image_height, $params, $this->watermark, $this->rewrite);
-                $image_thumbnail_url = wpl_images::create_gallary_image(100, 80, $params, $this->watermark, $this->rewrite);
+                $image_thumbnail_url = wpl_images::create_gallary_image(100, 80, $params, 0, $this->rewrite);
             }
 
             /** start loading images **/

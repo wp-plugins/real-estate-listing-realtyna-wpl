@@ -214,10 +214,10 @@ class wpl_carousel_widget extends wpl_widget
             if(count($sml_where) > 3) $where = $sml_where;
         }
         
-		/** start search **/
+		/** Start Search **/
 		$model->start($this->start, $this->limit, $this->orderby, $this->order, $where);
 		
-		/** run the search **/
+		/** Return the search **/
 		return $model->query();
 	}
 }

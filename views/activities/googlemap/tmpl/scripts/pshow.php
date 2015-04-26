@@ -3,7 +3,7 @@
 defined('_WPLEXEC') or die('Restricted access');
 ?>
 <script type="text/javascript">
-var markers = <?php echo json_encode($this->markers); ?>;
+var markers<?php echo $this->activity_id; ?> = <?php echo json_encode($this->markers); ?>;
 var google_place = <?php echo $this->google_place; ?>;
 var google_place_radius = <?php echo $this->google_place_radius; ?>
 
@@ -26,10 +26,10 @@ function wpl_pshow_map_init()
 	wpl_initialize<?php echo $this->activity_id; ?>();
     
 	/** restore the zoom level after the map is done scaling **/
-	var listener = google.maps.event.addListener(wpl_map, 'idle', function(event)
+	var listener = google.maps.event.addListener(wpl_map<?php echo $this->activity_id; ?>, 'idle', function(event)
 	{
-		wpl_map.setZoom(default_zoom);
-        if(wpl_pshow_bounds_extended) setTimeout(function(){wpl_map.fitBounds(bounds)}, 2000);
+		wpl_map<?php echo $this->activity_id; ?>.setZoom(default_zoom);
+        if(wpl_pshow_bounds_extended) setTimeout(function(){wpl_map<?php echo $this->activity_id; ?>.fitBounds(bounds<?php echo $this->activity_id; ?>)}, 2000);
         
 		google.maps.event.removeListener(listener);
 	});
@@ -47,7 +47,7 @@ function wpl_pshow_map_init()
 	};
     
 	var panorama = new google.maps.StreetViewPanorama(document.getElementById('wpl_map_canvas<?php echo $this->activity_id; ?>'), panoramaOptions);
-	wpl_map.setStreetView(panorama);
+	wpl_map<?php echo $this->activity_id; ?>.setStreetView(panorama);
  	<?php endif; ?>
     
     <?php
@@ -59,7 +59,7 @@ function wpl_pshow_map_init()
             <?php foreach($boundaries as $boundary): ?>
             var position = new google.maps.LatLng(<?php echo $boundary['lat']; ?>, <?php echo $boundary['lng']; ?>);
             demographicCoords.push(position);
-            bounds.extend(position);
+            bounds<?php echo $this->activity_id; ?>.extend(position);
             wpl_pshow_bounds_extended = true;
             <?php endforeach; ?>
         <?php
@@ -76,7 +76,7 @@ function wpl_pshow_map_init()
                 fillOpacity: 0.3
             });
     
-            polygon.setMap(wpl_map);
+            polygon.setMap(wpl_map<?php echo $this->activity_id; ?>);
         <?php
         }
         elseif(strtolower($demographic_object->item_cat) == 'polyline')
@@ -90,7 +90,7 @@ function wpl_pshow_map_init()
                 strokeWeight: 2
             });
             
-            polyline.setMap(wpl_map);
+            polyline.setMap(wpl_map<?php echo $this->activity_id; ?>);
         <?php
         }
     }

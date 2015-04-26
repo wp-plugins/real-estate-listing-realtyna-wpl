@@ -248,7 +248,9 @@ elseif($type == 'select' and !$done_this)
 elseif($type == 'separator' and !$done_this)
 {
 ?>
-    <div class="seperator-wp" id="wpl_listing_separator<?php echo $field->id; ?>"></div>
+    <div class="seperator-wp" id="wpl_listing_separator<?php echo $field->id; ?>">
+    	<?php echo (isset($options['show_label']) and $options['show_label'] == "1") ? __($label, WPL_TEXTDOMAIN) : ''; ?>
+    </div>
 <?php
 	$done_this = true;
 }

@@ -138,7 +138,7 @@ function ajax_save(table_name, table_column, value, item_id, field_id, form_elem
 	
 	wplj(form_element_id).attr("disabled", "disabled");
 	
-	element_type = wplj("#wpl_c_"+field_id).attr('type');
+	var element_type = wplj("#wpl_c_"+field_id).attr('type');
 	
 	if(element_type == 'checkbox')
 	{
@@ -147,10 +147,10 @@ function ajax_save(table_name, table_column, value, item_id, field_id, form_elem
 	}
 	
 	value = encodeURIComponent(value);
-	ajax_loader_element = '#wpl_listing_saved_span_'+field_id;
+	var ajax_loader_element = '#wpl_listing_saved_span_'+field_id;
 	wplj(ajax_loader_element).html('<img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader3.gif'); ?>" />');
 	
-	request_str = 'wpl_format=b:users:ajax&wpl_function='+wpl_function+'&table_name='+table_name+'&table_column='+table_column+'&value='+value+'&item_id='+item_id;
+	var request_str = 'wpl_format=b:users:ajax&wpl_function='+wpl_function+'&table_name='+table_name+'&table_column='+table_column+'&value='+value+'&item_id='+item_id;
 	
 	/** run ajax query **/
 	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str, ajax_loader_element);

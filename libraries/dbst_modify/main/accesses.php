@@ -2,9 +2,9 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 ?>
-<?php if(!wpl_global::check_addon('pro')): ?>
+<?php if(!wpl_global::check_addon('membership')): ?>
 <div class="fanc-row">
-    <?php echo __('PRO Addon must be installed for this!', WPL_TEXTDOMAIN); ?>
+    <?php echo __('Membership Addon must be installed for this!', WPL_TEXTDOMAIN); ?>
 </div>
 <?php else: ?>
 <div class="fanc-row">
