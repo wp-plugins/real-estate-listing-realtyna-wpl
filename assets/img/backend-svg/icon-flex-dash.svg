@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+	<!ENTITY ns_extend "http://ns.adobe.com/Extensibility/1.0/">
+	<!ENTITY ns_ai "http://ns.adobe.com/AdobeIllustrator/10.0/">
+	<!ENTITY ns_graphs "http://ns.adobe.com/Graphs/1.0/">
+	<!ENTITY ns_vars "http://ns.adobe.com/Variables/1.0/">
+	<!ENTITY ns_imrep "http://ns.adobe.com/ImageReplacement/1.0/">
+	<!ENTITY ns_sfw "http://ns.adobe.com/SaveForWeb/1.0/">
+	<!ENTITY ns_custom "http://ns.adobe.com/GenericCustomNamespace/1.0/">
+	<!ENTITY ns_adobe_xpath "http://ns.adobe.com/XPath/1.0/">
+]>
+<svg version="1.1" id="Layer_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px" height="64px"
+	 viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+<metadata>
+	<sfw  xmlns="&ns_sfw;">
+		<slices></slices>
+		<sliceSourceBounds  height="64.048" width="52" bottomLeftOrigin="true" y="0.477" x="5.5"></sliceSourceBounds>
+	</sfw>
+</metadata>
+<g>
+	<g>
+		<path fill="#333333" d="M6-0.025v53.55l10.399,10.498H58V-0.025H6z M53.84,59.825H19.52v-9.45h-9.36v-46.2h43.68V59.825z
+			 M37.255,51.426h4.202v-2.101h-4.202v-3.15h5.253v-2.101h-7.355v12.601h2.104L37.255,51.426L37.255,51.426z M42.508,56.675h1.801
+			c0.131,0,0.238-0.039,0.326-0.118c0.086-0.08,0.159-0.164,0.219-0.26l1.769-2.922l1.776,2.922c0.062,0.1,0.135,0.188,0.225,0.264
+			s0.208,0.114,0.354,0.114h1.939l-2.867-4.421l2.754-3.979h-1.85c-0.104,0-0.189,0.024-0.262,0.074
+			c-0.071,0.049-0.139,0.125-0.205,0.229l-1.659,2.766l-1.752-2.807c-0.054-0.094-0.117-0.16-0.187-0.201
+			c-0.07-0.04-0.181-0.063-0.328-0.063h-1.938l2.746,4.069L42.508,56.675z"/>
+	</g>
+</g>
+<path fill="#30ACE1" d="M14.375,41.945h18v4.107h-18V41.945z"/>
+<path fill="#30ACE1" d="M14,19v9h36v-9H14z M48,26H16v-5h32V26z"/>
+<path fill="#30ACE1" d="M14,8v9h36V8H14z M48,15H16v-5h32V15z"/>
+<path fill="#30ACE1" d="M14,30v10h36V30H14z M48,38H16v-6h32V38z"/>
+</svg>
