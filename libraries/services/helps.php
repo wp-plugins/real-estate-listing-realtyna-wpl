@@ -94,7 +94,7 @@ class wpl_service_helps
         <script type="text/javascript">
         wplj(document).ready(function()
         {
-            <?php foreach($tips as $tip): ?>
+            <?php foreach($tips as $key=>$tip): ?>
             /****************************** Tip(<?php echo $tip['id']; ?>) ******************************/
             var wpltip<?php echo $tip['id']; ?> =
             {
@@ -142,6 +142,7 @@ class wpl_service_helps
                             
                     wpltip<?php echo $tip['id']; ?>.close();
                     wplpointer<?php echo ($tip['id']-1); ?>.pointer('open');
+                    <?php if(isset($tips[($key-1)])): ?>Realtyna.scrollTo('<?php echo $tips[($key-1)]['selector']; ?>', -300);<?php endif; ?>
                 },
                 next: function()
                 {
@@ -149,6 +150,7 @@ class wpl_service_helps
                     
                     wpltip<?php echo $tip['id']; ?>.close();
                     wplpointer<?php echo ($tip['id']+1); ?>.pointer('open');
+                    <?php if(isset($tips[($key+1)])): ?>Realtyna.scrollTo('<?php echo $tips[($key+1)]['selector']; ?>', -300);<?php endif; ?>
                 }
             };
 

@@ -88,7 +88,7 @@ class wpl_carousel_widget extends wpl_widget
 		$instance['data'] = (array) $new_instance['data'];
 		
         /** random option **/
-        if(isset($instance['data']['random']) and $instance['data']['random']) $instance['data']['property_ids'] = '';
+        if(isset($instance['data']['random']) and $instance['data']['random']) $instance['data']['listing_ids'] = '';
         
 		return $instance;
 	}
@@ -135,7 +135,7 @@ class wpl_carousel_widget extends wpl_widget
         
         if(trim($data['listing']) and $data['listing'] != '-1') $where['sf_select_listing'] = $data['listing'];
 		if(trim($data['property_type']) and $data['property_type'] != '-1') $where['sf_select_property_type'] = $data['property_type'];
-		if(trim($data['property_ids'])) $where['sf_multiple_id'] = trim($data['property_ids'], ', ');
+		if(isset($data['listing_ids']) and trim($data['listing_ids'])) $where['sf_multiple_mls_id'] = trim($data['listing_ids'], ', ');
 		if(trim($data['only_featured'])) $where['sf_select_sp_featured'] = 1;
 		if(trim($data['only_hot'])) $where['sf_select_sp_hot'] = 1;
 		if(trim($data['only_openhouse'])) $where['sf_select_sp_openhouse'] = 1;
@@ -153,7 +153,7 @@ class wpl_carousel_widget extends wpl_widget
             if(isset($property_data['mls_id'])) $where['sf_parent'] = $property_data['mls_id'];
         }
 		
-        if(isset($data['random']) and trim($data['random']) and trim($data['property_ids']) == '')
+        if(isset($data['random']) and trim($data['random']) and trim($data['listing_ids']) == '')
 		{
 			$query_rand = "SELECT p.`id` FROM `#__wpl_properties` AS p WHERE 1 ".wpl_db::create_query($where)." ORDER BY RAND() LIMIT ".$this->limit;
 			$results = wpl_db::select($query_rand);

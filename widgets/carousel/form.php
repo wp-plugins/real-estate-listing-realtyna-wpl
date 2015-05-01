@@ -138,8 +138,8 @@ function wpl_carousel_toggle<?php echo $this->widget_id; ?>(element_id)
     <?php endif; ?>
     
     <div class="wpl-widget-row">
-    	<label for="<?php echo $this->get_field_id('data_property_ids'); ?>"><?php echo __('Property IDs', WPL_TEXTDOMAIN); ?></label>
-        <input type="text" id="<?php echo $this->get_field_id('data_property_ids'); ?>" name="<?php echo $this->get_field_name('data'); ?>[property_ids]" value="<?php echo isset($instance['data']['property_ids']) ? $instance['data']['property_ids'] : ''; ?>" />
+    	<label for="<?php echo $this->get_field_id('data_listing_ids'); ?>"><?php echo __('Listing IDs (Comma Separated)', WPL_TEXTDOMAIN); ?></label>
+        <input type="text" id="<?php echo $this->get_field_id('data_listing_ids'); ?>" name="<?php echo $this->get_field_name('data'); ?>[listing_ids]" value="<?php echo isset($instance['data']['listing_ids']) ? $instance['data']['listing_ids'] : ''; ?>" />
     </div>
     
     <div class="wpl-widget-row">

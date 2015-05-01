@@ -388,22 +388,22 @@ elseif($type == 'number' and !$done_this)
 		/** current values **/
 		$current_value = stripslashes(wpl_request::getVar('sf_text_'.$field_data['table_column'], ''));
 		
-    	$html .= '<input name="sf'.$widget_id.'_text_'.$field_data['table_column'].'" type="text" id="sf'.$widget_id.'_text_'.$field_data['table_column'].'" value="'.$current_value.'" />';
+    	$html .= '<input name="sf'.$widget_id.'_text_'.$field_data['table_column'].'" type="text" id="sf'.$widget_id.'_text_'.$field_data['table_column'].'" value="'.$current_value.'" placeholder="'.__($field['name'], WPL_TEXTDOMAIN).'" />';
 	}
 	elseif($show == 'exacttext')
 	{
 		/** current values **/
 		$current_value = stripslashes(wpl_request::getVar('sf_select_'.$field_data['table_column'], ''));
 		
-    	$html .= '<input name="sf'.$widget_id.'_select_'.$field_data['table_column'].'" type="text" id="sf'.$widget_id.'_select_'.$field_data['table_column'].'" value="'.$current_value.'" />';
+    	$html .= '<input name="sf'.$widget_id.'_select_'.$field_data['table_column'].'" type="text" id="sf'.$widget_id.'_select_'.$field_data['table_column'].'" value="'.$current_value.'"  placeholder="'.__($field['name'], WPL_TEXTDOMAIN).'"/>';
 	}
     elseif($show == 'minmax')
 	{	
 		$html .= '<label for="sf'.$widget_id.'_tmin_'.$field_data['table_column'].'">'.__('Min', WPL_TEXTDOMAIN).'</label>';
-		$html .= '<input name="sf'.$widget_id.'_tmin_'.$field_data['table_column'].'" type="text" id="sf'.$widget_id.'_tmin_'.$field_data['table_column'].'" value="'.$current_min_value.'" />';
+		$html .= '<input name="sf'.$widget_id.'_tmin_'.$field_data['table_column'].'" type="text" id="sf'.$widget_id.'_tmin_'.$field_data['table_column'].'" value="'.$current_min_value.'" placeholder="'.__('Min', WPL_TEXTDOMAIN).'" />';
         
 		$html .= '<label for="sf'.$widget_id.'_tmax_'.$field_data['table_column'].'">'.__('Max', WPL_TEXTDOMAIN).'</label>';
-		$html .= '<input name="sf'.$widget_id.'_tmax_'.$field_data['table_column'].'" type="text" id="sf'.$widget_id.'_tmax_'.$field_data['table_column'].'" value="'.$current_max_value.'" />';
+		$html .= '<input name="sf'.$widget_id.'_tmax_'.$field_data['table_column'].'" type="text" id="sf'.$widget_id.'_tmax_'.$field_data['table_column'].'" value="'.$current_max_value.'" placeholder="'.__('Max', WPL_TEXTDOMAIN).'" />';
 	}
 	elseif($show == 'minmax_slider')
 	{

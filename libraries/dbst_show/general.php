@@ -389,14 +389,20 @@ elseif($type == 'parent' and !$done_this) //////////////////////////// Parent //
         $return['field_id'] = $field->id;
         $return['type'] = $field->type;
         $return['name'] = __($field->name, WPL_TEXTDOMAIN);
-        $parents_str = wpl_render::render_parent($value, (isset($options['key']) ? $options['key'] : 'parent'));
-        $return['value'] = $parents_str;
+        
+        $parents_ids = wpl_render::render_parent($value, (isset($options['key']) ? $options['key'] : 'parent'), true);
+        
+        $value_str = '';
+        $parents = array_reverse(explode(',', $parents_ids));
+        foreach($parents as $parent) $value_str .= '<a href="'.wpl_property::get_property_link(NULL, $parent).'">'.trim(wpl_property::update_property_title(NULL, $parent), ', ').'</a> / ';
+
+        $return['value'] = trim($value_str, '/ ');
         
         $parents_html_str = '';
-        $parents = array_reverse(explode('/', $parents_str));
-        foreach($parents as $parent) $parents_html_str .= '<b>'.trim($parent, '/ ').'</b>';
-        
-        $return['html'] = $parents_html_str;
+        $parents = array_reverse(explode(',', $parents_ids));
+        foreach($parents as $parent) $parents_html_str .= '<a href="'.wpl_property::get_property_link(NULL, $parent).'"><b>'.trim(wpl_property::update_property_title(NULL, $parent), ', ').'</b></a> / ';
+
+        $return['html'] = trim($parents_html_str, '/ ');
     }
     
 	$done_this = true;

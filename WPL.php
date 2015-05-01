@@ -5,7 +5,7 @@
 	Description: This is a professional WordPress real estate plugin created by Realtyna.
 	Author: Realtyna Softwares
 	Project Manager: howard@realtyna.com
-	Version: 2.4.5
+	Version: 2.4.6
 	Author URI: http://wpl.realtyna.com
 **/
 
@@ -25,7 +25,7 @@ define('WPL_BASENAME', basename(WPL_ABSPATH));
 define('WPL_UP_ABSPATH', ABSPATH .'wp-content' .DS. 'uploads' .DS. 'WPL' .DS);
 
 define('WPL_TEXTDOMAIN', 'wpl'); /** WPL textdomain for language **/
-define('WPL_VERSION', '2.4.5'); /** WPL version **/
+define('WPL_VERSION', '2.4.6'); /** WPL version **/
 
 require WPL_ABSPATH.'config.php';
 

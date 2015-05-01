@@ -322,7 +322,7 @@ class wpl_notifications
     {
         $content = $this->template_content;
         
-        foreach($this->replacements as $key=>$value) $content = str_replace('##'.$key.'##', $value, $content);
+        if(is_array($this->replacements)) foreach($this->replacements as $key=>$value) $content = str_replace('##'.$key.'##', $value, $content);
         return $content;
     }
     

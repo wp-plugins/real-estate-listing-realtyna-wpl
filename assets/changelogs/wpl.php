@@ -4,6 +4,10 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL2.4.6 (<span class="wpl_log_date">05/01/2015</span> <span class="wpl_log_revision">revision 1465</span>)</h4>
+        -- Fixed Listing ID issue on carousel widget.<br />
+        -- Fixed sort issue on listing pages.
+        
         <h4>WPL2.4.5 (<span class="wpl_log_date">04/26/2015</span> <span class="wpl_log_revision">revision 1432</span>)</h4>
         -- Added discard button in add new listing menu.<br />
         -- Updated Realtyna JS libraries such as light-box library.<br />

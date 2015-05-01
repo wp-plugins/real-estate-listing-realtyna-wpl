@@ -137,7 +137,7 @@ defined('_WPLEXEC') or die('Restricted access');
             </span>
 		</li>
         <!-- Write Permission -->
-        <?php $writable = is_writable(WPL_ABSPATH.'WPL.php'); ?>
+        <?php $writable = (is_writable(WPL_ABSPATH.'libraries'.DS.'services'.DS.'sef.php') and is_writable(WPL_ABSPATH.'widgets'.DS.'search'.DS.'main.php') and is_writable(WPL_ABSPATH.'WPL.php')); ?>
         <li>
         	<span class="wpl-requirement-name"><?php echo __('Write Permission', WPL_TEXTDOMAIN); ?></span>
             <span class="wpl-requirement-require"><?php echo __('Yes', WPL_TEXTDOMAIN); ?></span>

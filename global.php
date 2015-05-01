@@ -54,16 +54,17 @@ class wpl_global
      * @param string $query_string
      * @param array $instance
      * @param string $function
+     * @param boolean $overwrite
      * @return string
      */
-	public static function load($view = 'property_listing', $query_string = '', $instance = array(), $function = NULL)
+	public static function load($view = 'property_listing', $query_string = '', $instance = array(), $function = NULL, $overwrite = false)
 	{
 		/** first validations **/
 		if(trim($query_string) == '') $query_string = wpl_global::get_wp_qvar('wpl_qs');
 		
 		/** generate pages object **/
 		$controller = new wpl_controller();
-        $controller->parameter_overwrite = true;
+        $controller->parameter_overwrite = $overwrite;
         
 		if(!$function) $function = 'f:'.$view.':display';
         
@@ -837,7 +838,7 @@ class wpl_global
 		$directory = $path.'tmp_'.md5(microtime(true)).DS;
 		
 		/** create folder **/
-		wpl_folder::create($directory, 0755);
+		wpl_folder::create($directory, 0777);
 		return $directory;
 	}
 	

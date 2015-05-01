@@ -84,9 +84,12 @@ class wpl_extensions
      */
 	public function import_action($extension)
 	{
+        $priority = trim($extension->param3) != '' ? $extension->param3 : 10;
+        $args = trim($extension->param4) != '' ? $extension->param4 : 1;
+        
 		if(strpos($extension->param2, '->') === false)
 		{
-			add_action($extension->param1, $extension->param2);
+			add_action($extension->param1, $extension->param2, $priority, $args);
 		}
 		else
 		{
@@ -96,9 +99,8 @@ class wpl_extensions
 			/** generate object **/
 			$class_obj = new $class_name();
 			$function_name = $ex[1];
-			$priority = trim($extension->param3) != '' ? $extension->param3 : 10;
 			
-			add_action($extension->param1, array($class_obj, $function_name), $priority);
+			add_action($extension->param1, array($class_obj, $function_name), $priority, $args);
 		}
 	}
 	

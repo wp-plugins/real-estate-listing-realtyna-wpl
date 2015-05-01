@@ -255,15 +255,18 @@ class wpl_render
      * @param string $parent_column
      * @return string
      */
-    public static function render_parent($property_id, $parent_column = 'parent')
+    public static function render_parent($property_id, $parent_column = 'parent', $ids = false)
     {
         $parents = array();
-        $parents[] = wpl_property::update_property_title(NULL, $property_id);
+        
+        if($ids) $parents[] = $property_id;
+        else $parents[] = wpl_property::update_property_title(NULL, $property_id);
         
         $parent_id = wpl_property::get_parent($property_id);
-        if($parent_id) $parents[] = self::render_parent($parent_id, $parent_column);
+        if($parent_id) $parents[] = self::render_parent($parent_id, $parent_column, $ids);
         
-        return implode(' / ', $parents);
+        $glue = $ids ? ',' : ' / ';
+        return implode($glue, $parents);
     }
     
     /**

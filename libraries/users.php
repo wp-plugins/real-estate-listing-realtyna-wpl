@@ -1549,9 +1549,8 @@ class wpl_users
      */
     public static function get_wp_admins($fields = 'id')
     {
-    	return get_users(array('role' => 'Administrator', 'fields' => $fields));
+    	return get_users(array('role'=>'Administrator', 'fields'=>$fields));
     }
-
 
     /**
      * Wrapper for WordPress wp_logout_url function
@@ -1561,5 +1560,17 @@ class wpl_users
     public static function wp_logout_url()
     {
         return wp_logout_url();
+    }
+    
+    /**
+     * Runs after user login
+     * @author Howard R. <howard@realtyna.com>
+     * @param string $username
+     * @param object $user
+     */
+    public function user_loggedin($username, $user)
+    {
+        /** trigger event **/
+		wpl_global::event_handler('user_loggedin', array('username'=>$username, 'user'=>$user));
     }
 }

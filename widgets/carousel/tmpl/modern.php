@@ -15,7 +15,7 @@ $auto_play = isset($this->instance['data']['auto_play']) ? $this->instance['data
 $slide_interval = isset($this->instance['data']['slide_interval']) ? $this->instance['data']['slide_interval'] : 3000;
 
 /** add Layout js **/
-$js[] = (object) array('param1'=>'elastic.slideshow', 'param2'=>'packages/elastic_slideshow/jquery.eislideshow.js');
+$js[] = (object) array('param1'=>'modern.slider', 'param2'=>'js/libraries/wpl.modern.slider.min.js');
 foreach($js as $javascript) wpl_extensions::import_javascript($javascript);
 
 $larg_images = $thumbnail = NULL;
@@ -61,21 +61,6 @@ foreach($wpl_properties as $key=>$gallery)
     }
 }
 ?>
-<script type="text/javascript">
-    wplj(function()
-    {
-        <?php if(count($wpl_properties) > 1): ?>
-        wplj('#wpl-modern-<?php echo $this->widget_id; ?>').eislideshow(
-            {
-                animation			: 'center',
-                autoplay			: <?php echo $auto_play; ?>,
-                slideshow_interval	: <?php echo $slide_interval ?>,
-                titlesFactor		: 0,
-                thumbMaxWidth       : <?php echo $thumbnail_width ?>
-            });
-        <?php endif; ?>
-    });
-</script>
 <div class="wpl_carousel_container">
     <div id="wpl-modern-<?php echo $this->widget_id; ?>" class="ei-slider">
         <ul class="ei-slider-large">
@@ -87,6 +72,18 @@ foreach($wpl_properties as $key=>$gallery)
         </ul>
     </div>
 </div>
+
+<script type="text/javascript">
+    wplj(function() {
+        wplj('#wpl-modern-<?php echo $this->widget_id; ?>').modernSlider({
+            animation: 'center',
+            autoplay: <?php echo $auto_play; ?>,
+            slideshow_interval: <?php echo $slide_interval ?>,
+            titlesFactor: 0,
+            thumbMaxWidth: <?php echo $thumbnail_width ?>
+        });
+    });
+</script>
 
 <style type="text/css">
     #wpl-modern-<?php echo $this->widget_id; ?>{
