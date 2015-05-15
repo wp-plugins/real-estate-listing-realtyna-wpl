@@ -208,7 +208,7 @@ class wpl_controller
 		if(!wpl_file::exists($path)) return;
         
         ob_start();
-            
+        
         if(!$once) include $path;
         else include_once $path;
         

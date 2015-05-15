@@ -743,7 +743,8 @@ class wpl_property
 	public static function update_text_search_field($property_id)
 	{
         $property_data = wpl_property::get_property_raw_data($property_id);
-		
+		$kind = wpl_property::get_property_kind($property_id);
+        
 		/** get text_search fields **/
 		$fields = wpl_flex::get_fields('', 1, $property_data['kind'], 'text_search', '1');
 		$rendered = self::render_property($property_data, $fields);
@@ -797,17 +798,17 @@ class wpl_property
                     if($name !== $abbr) array_push($location_values, $abbr);
 				}
                 
-                /** Add Street to Location Text Search **/
-                if(isset($rendered[42]))
-                {
-                    $ex_space = explode(' ', $rendered[42]['value']);
-                    foreach($ex_space as $value_raw) array_push($location_values, $value_raw);
-                }
+                /** Add all location fields to the location text search **/
+                $location_category = wpl_flex::get_category(NULL, " AND `kind`='$kind' AND `prefix`='ad'");
+                $location_fields = wpl_flex::get_fields($location_category->id, 1, $kind);
                 
-                /** Add Street Number to Location Text Search **/
-                if(isset($rendered[45]))
+                foreach($location_fields as $location_field)
                 {
-                    $ex_space = explode(' ', $rendered[45]['value']);
+                    if(!isset($rendered[$location_field->id])) continue;
+                    if(!trim($location_field->table_column)) continue;
+                    if(!isset($rendered[$location_field->id]['value']) or (isset($rendered[$location_field->id]['value']) and !trim($rendered[$location_field->id]['value']))) continue;
+                    
+                    $ex_space = explode(' ', strip_tags($rendered[$location_field->id]['value']));
                     foreach($ex_space as $value_raw) array_push($location_values, $value_raw);
                 }
                 

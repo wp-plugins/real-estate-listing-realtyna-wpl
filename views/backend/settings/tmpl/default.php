@@ -38,7 +38,7 @@ _wpl_import($this->tpl_path.'.scripts.css');
             <div class="wpl-util-side-left-menu-spacer"></div>
             <?php if(wpl_global::check_addon('pro')): ?>
                 <?php // TODO: CHANGE side-maintenance WITH side-importexport AND DO THE NECESSARY CSS STUFF. ?>
-                <div class="side-12 wpl-util-side-left-spacer">
+                <div class="side-12">
                     <div class="panel-wp">
                         <h3><?php echo __('Import/Export', WPL_TEXTDOMAIN); ?></h3>
                         <div class="panel-body">
@@ -48,7 +48,7 @@ _wpl_import($this->tpl_path.'.scripts.css');
                 </div>
             <?php endif; ?>
 
-            <div class="wpl-util-side-12 wpl-util-side-left-spacer wpl-util-clearfix">
+            <div class="wpl-util-side-12 wpl-util-clearfix">
                 <div class="wpl-util-side-6 wpl-util-side-left side-maintenance">
                     <div class="panel-wp">
                         <h3><?php echo __('Maintenance', WPL_TEXTDOMAIN); ?></h3>

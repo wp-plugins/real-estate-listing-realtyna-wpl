@@ -33,7 +33,7 @@ defined('_WPLEXEC') or die('Restricted access');
                         <label class="wpl_addon_name"><?php echo $addon['name']; ?></label>
                         <span title="<?php echo __('Version', WPL_TEXTDOMAIN); ?>"><?php echo $addon['version']; ?></span>
                         <?php if($addon['updatable']): ?>
-                        <span class="action-btn icon-recycle-2" onclick="check_addon_update(<?php echo $addon['id']; ?>);" title="<?php echo __('Update', WPL_TEXTDOMAIN); ?>"></span>
+                        <span class="action-btn icon-recycle-2" onclick="<?php echo (trim($addon['message']) != '' ? 'trigger_addon_update('.$addon['id'].');' : 'check_addon_update('.$addon['id'].');'); ?>" title="<?php echo __('Update', WPL_TEXTDOMAIN); ?>"></span>
                         <?php endif; ?>
 						<?php if(trim($addon['message']) != ''): ?>
 						<span class="wpl_addon_message"><?php echo $addon['message']; ?></span>

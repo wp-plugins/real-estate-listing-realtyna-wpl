@@ -28,9 +28,9 @@ $params['image_name']     = isset($wpl_user['company_logo']['name']) ? $wpl_user
 $logo_path                = isset($wpl_user['company_logo']['path']) ? $wpl_user['company_logo']['path'] : '';
 $logo_image               = isset($wpl_user['company_logo']['url']) ? $wpl_user['company_logo']['url'] : '';
 
-$agent_name               = (isset($wpl_user['materials']['first_name']['value']) ? $wpl_user['materials']['first_name']['value'] : '');
-$agent_l_name             = (isset($wpl_user['materials']['last_name']['value']) ? $wpl_user['materials']['last_name']['value'] : '');
-$company_name             = (isset($wpl_user['materials']['company_name']['value']) ? $wpl_user['materials']['company_name']['value'] : '');
+$agent_name               = isset($wpl_user['materials']['first_name']['value']) ? $wpl_user['materials']['first_name']['value'] : '';
+$agent_l_name             = isset($wpl_user['materials']['last_name']['value']) ? $wpl_user['materials']['last_name']['value'] : '';
+$company_name             = isset($wpl_user['materials']['company_name']['value']) ? $wpl_user['materials']['company_name']['value'] : '';
 ?>
 <div class="wpl_agent_info" id="wpl_agent_info<?php echo $user_id; ?>" itemscope >
 	

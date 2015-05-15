@@ -26,7 +26,7 @@ if ($type == 'meta_desc' and !$done_this)
             <?php foreach($wpllangs as $wpllang): $lang_column = wpl_addon_pro::get_column_lang_name($field->table_column, $wpllang, false); ?>
             <div class="wpl-lang-cnt" id="wpl_langs_cnt_<?php echo $field->id; ?>_<?php echo strtolower($wpllang); ?>">
                 <label for="wpl_c_<?php echo $field->id; ?>_<?php echo strtolower($wpllang); ?>"><?php echo $wpllang; ?></label>
-                <textarea class="wpl_c_<?php echo $field->table_column; ?>_<?php echo strtolower($wpllang); ?>" id="wpl_c_<?php echo $field->id; ?>_<?php echo strtolower($wpllang); ?>" rows="<?php echo $options['rows']; ?>" cols="<?php echo $options['cols']; ?>" onblur="ajax_multilingual_save('<?php echo $field->id; ?>', '<?php echo strtolower($wpllang); ?>', this.value, '<?php echo $item_id; ?>');"><?php echo (isset($values[$lang_column]) ? $values[$lang_column] : ''); ?></textarea>
+                <textarea class="wpl_c_<?php echo $field->table_column; ?>_<?php echo strtolower($wpllang); ?>" id="wpl_c_<?php echo $field->id; ?>_<?php echo strtolower($wpllang); ?>" name="<?php echo $field->table_column; ?>_<?php echo strtolower($wpllang); ?>" rows="<?php echo $options['rows']; ?>" cols="<?php echo $options['cols']; ?>" onblur="ajax_multilingual_save('<?php echo $field->id; ?>', '<?php echo strtolower($wpllang); ?>', this.value, '<?php echo $item_id; ?>');"><?php echo (isset($values[$lang_column]) ? $values[$lang_column] : ''); ?></textarea>
                 <span id="wpl_listing_saved_span_<?php echo $field->id; ?>_<?php echo strtolower($wpllang); ?>" class="wpl_listing_saved_span"></span>
             </div>
             <?php endforeach; ?>
@@ -37,7 +37,7 @@ if ($type == 'meta_desc' and !$done_this)
 <label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($label, WPL_TEXTDOMAIN); ?><?php if (in_array($mandatory, array(1, 2))): ?><span class="wpl_red_star">*</span><?php endif; ?></label>
 <div id="wpl_c_<?php echo $field->id; ?>_container" class="wpl-meta-wp">
     <div class="wpl-top-row-wp">
-        <input type="checkbox" id="wpl_c_<?php echo $field->id; ?>_manual" onchange="meta_desc_manual();" <?php if (isset($values['meta_description_manual']) and $values['meta_description_manual']) echo 'checked="checked"'; ?> />
+        <input type="checkbox" id="wpl_c_<?php echo $field->id; ?>_manual" name="meta_description_manual" onchange="meta_desc_manual();" <?php if (isset($values['meta_description_manual']) and $values['meta_description_manual']) echo 'checked="checked"'; ?> />
         <label for="wpl_c_<?php echo $field->id; ?>_manual"><?php echo __('Manually insert meta descriptions', WPL_TEXTDOMAIN); ?></label>
     </div>
     <textarea id="wpl_c_<?php echo $field->id; ?>" rows="<?php echo $options['rows']; ?>" cols="<?php echo $options['cols']; ?>" onchange="metatag_desc_creator(true);" <?php echo(($options['readonly'] == 1 and (!isset($values['meta_description_manual']) or (isset($values['meta_description_manual']) and !$values['meta_description_manual']))) ? 'disabled="disabled"' : ''); ?>><?php echo $value; ?></textarea>

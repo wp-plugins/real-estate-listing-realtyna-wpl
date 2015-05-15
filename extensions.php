@@ -854,6 +854,10 @@ if(!($GLOBALS['pagenow'] == 'plugins.php' and wpl_request::getVar('action') == '
 	$wpl_extensions->get_extensions(1, '', wpl_global::get_client());
 	$wpl_extensions->import_extensions();
 	
+    /** include addon libraries **/
+    if(wpl_global::check_addon('pro')) _wpl_import('libraries.addon_pro');
+    if(wpl_global::check_addon('franchise')) _wpl_import('libraries.addon_franchise');
+
 	if(version_compare(wpl_global::get_wp_option('wpl_version'), wpl_global::wpl_version(), '<'))
 	{
 		/** upgrading WPL **/

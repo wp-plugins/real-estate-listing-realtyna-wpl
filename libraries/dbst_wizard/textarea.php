@@ -50,6 +50,7 @@ if($type == 'textarea' and !$done_this)
 
                                 <textarea class="wpl_c_<?php echo $field->table_column; ?>_<?php echo strtolower($wpllang); ?>"
                                           id="wpl_c_<?php echo $field->id; ?>_<?php echo strtolower($wpllang); ?>"
+                                          name="<?php echo $field->table_column; ?>_<?php echo strtolower($wpllang); ?>"
                                           rows="<?php echo $options['rows']; ?>" cols="<?php echo $options['cols']; ?>"
                                           onblur="ajax_multilingual_save('<?php echo $field->id; ?>', '<?php echo strtolower($wpllang); ?>', this.value, '<?php echo $item_id; ?>');"
                                           <?php echo ((isset($options['readonly']) and $options['readonly'] == 1) ? 'disabled="disabled"' : ''); ?> ><?php echo (isset($values[$lang_column]) ? stripslashes($values[$lang_column]) : ''); ?></textarea>
@@ -73,7 +74,7 @@ if($type == 'textarea' and !$done_this)
             </div>
     <input class="wpl-button button-1 wpl-save-btn" type="button" onclick="ajax_save('<?php echo $field->table_name; ?>', '<?php echo $field->table_column; ?>', wpl_get_tinymce_content('tinymce_wpl_c_<?php echo $field->id; ?>'), '<?php echo $item_id; ?>', '<?php echo $field->id; ?>');" value="<?php echo __('Save', WPL_TEXTDOMAIN); ?>" />
     <?php else: ?>
-    <textarea class="wpl_c_<?php echo $field->table_column; ?>" id="wpl_c_<?php echo $field->id; ?>" rows="<?php echo $options['rows']; ?>" cols="<?php echo $options['cols']; ?>" onblur="ajax_save('<?php echo $field->table_name; ?>', '<?php echo $field->table_column; ?>', this.value, '<?php echo $item_id; ?>', '<?php echo $field->id; ?>');" <?php echo ((isset($options['readonly']) and $options['readonly'] == 1) ? 'disabled="disabled"' : ''); ?>><?php echo stripslashes($value); ?></textarea>
+    <textarea class="wpl_c_<?php echo $field->table_column; ?>" id="wpl_c_<?php echo $field->id; ?>" name="<?php echo $field->table_column; ?>" rows="<?php echo $options['rows']; ?>" cols="<?php echo $options['cols']; ?>" onblur="ajax_save('<?php echo $field->table_name; ?>', '<?php echo $field->table_column; ?>', this.value, '<?php echo $item_id; ?>', '<?php echo $field->id; ?>');" <?php echo ((isset($options['readonly']) and $options['readonly'] == 1) ? 'disabled="disabled"' : ''); ?>><?php echo stripslashes($value); ?></textarea>
     <?php endif; ?>
     <span id="wpl_listing_saved_span_<?php echo $field->id; ?>" class="wpl_listing_saved_span"></span>
 <?php endif; ?>

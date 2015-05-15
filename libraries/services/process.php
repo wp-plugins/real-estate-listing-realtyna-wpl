@@ -39,7 +39,9 @@ class wpl_service_process
 					$user_data = wpl_users::get_wpl_user($current_user_id);
 					
 					$user_limit = $table_column == 'sp_featured' ? $user_data->maccess_num_feat : $user_data->maccess_num_hot;
-					$used = wpl_property::get_properties_count(" AND `user_id`='$current_user_id' AND `$table_column`='1'");
+                    
+                    $model = new wpl_property();
+					$used = $model->get_properties_count(" AND `user_id`='$current_user_id' AND `$table_column`='1'");
 					
 					if($used >= $user_limit and $user_limit != '-1') self::response(array('success'=>'0', 'message'=>'', 'data'=>'', 'js'=>"wplj(form_element_id).prop('checked', false); wpl_alert(\"".__('Your membership limit reached. contact to administrator if you want to upgrade!', WPL_TEXTDOMAIN)."\");"));
 				}

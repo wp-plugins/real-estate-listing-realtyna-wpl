@@ -147,12 +147,12 @@ class wpl_listing_controller extends wpl_controller
 		/** website is configured to use location text **/
 		if($location_settings['location_method'] == 1 and ($location_level >= 3 or $location_level == 'zips'))
 		{
-			$html = '<input type="text" name="wpl_listing_location'.$location_level.'_select" id="wpl_listing_location'.$location_level.'_select" onchange="wpl_listing_location_change(\''.$location_level.'\', this.value);" />';
+			$html = '<input type="text" name="location'.$location_level.'_name" id="wpl_listing_location'.$location_level.'_select" onchange="wpl_listing_location_change(\''.$location_level.'\', this.value);" />';
 		}
 		/** website is configured to use location database **/
 		elseif($location_settings['location_method'] == 2 or ($location_settings['location_method'] == 1 and $location_level <= 2))
 		{
-			$html = '<select name="wpl_listing_location'.$location_level.'_select" id="wpl_listing_location'.$location_level.'_select" onchange="wpl_listing_location_change(\''.$location_level.'\', this.value);">';
+			$html = '<select name="location'.$location_level.'_id" id="wpl_listing_location'.$location_level.'_select" onchange="wpl_listing_location_change(\''.$location_level.'\', this.value);">';
 			$html .= '<option value="0">'.__('Select', WPL_TEXTDOMAIN).'</option>';
 			
 			foreach($location_data as $location)

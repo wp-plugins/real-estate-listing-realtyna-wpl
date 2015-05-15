@@ -39,6 +39,7 @@ if($type == 'text' and !$done_this)
 
                         <input type="text" class="wpl_c_<?php echo $field->table_column; ?>"
                                id="wpl_c_<?php echo $field->id; ?>_<?php echo strtolower($wpllang); ?>"
+                               name="<?php echo $field->table_column; ?>_<?php echo strtolower($wpllang); ?>"
                                placeholder="<?php echo __('Enter Specific Language Value...', WPL_TEXTDOMAIN); ?>"
                                value="<?php echo isset($values[$lang_column]) ? $values[$lang_column] : ''; ?>"
                                onchange="ajax_multilingual_save('<?php echo $field->id; ?>', '<?php echo strtolower($wpllang); ?>', this.value, '<?php echo $item_id; ?>');" <?php echo ((isset($options['readonly']) and $options['readonly'] == 1) ? 'disabled="disabled"' : ''); ?> />
@@ -53,7 +54,7 @@ if($type == 'text' and !$done_this)
     </div>
 <?php else: ?>
     <label for="wpl_c_<?php echo $field->id; ?>"><?php echo __($label, WPL_TEXTDOMAIN); ?><?php if(in_array($mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>
-    <input type="text" class="wpl_c_<?php echo $field->table_column; ?>" id="wpl_c_<?php echo $field->id; ?>" value="<?php echo $value; ?>" onchange="ajax_save('<?php echo $field->table_name; ?>', '<?php echo $field->table_column; ?>', this.value, '<?php echo $item_id; ?>', '<?php echo $field->id; ?>');" <?php echo ((isset($options['readonly']) and $options['readonly'] == 1) ? 'disabled="disabled"' : ''); ?> />
+    <input type="text" class="wpl_c_<?php echo $field->table_column; ?>" id="wpl_c_<?php echo $field->id; ?>" name="<?php echo $field->table_column; ?>" value="<?php echo $value; ?>" onchange="ajax_save('<?php echo $field->table_name; ?>', '<?php echo $field->table_column; ?>', this.value, '<?php echo $item_id; ?>', '<?php echo $field->id; ?>');" <?php echo ((isset($options['readonly']) and $options['readonly'] == 1) ? 'disabled="disabled"' : ''); ?> />
     <span id="wpl_listing_saved_span_<?php echo $field->id; ?>" class="wpl_listing_saved_span"></span>
 <?php endif; ?>
 

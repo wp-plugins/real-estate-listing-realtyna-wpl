@@ -31,6 +31,11 @@ function check_addon_update(addon_id)
 	});
 }
 
+function trigger_addon_update(addon_id)
+{
+    wplj("#wpl_addon_container"+addon_id+" .wpl_addon_message span").trigger("click");
+}
+
 function update_package(sid)
 {
 	wpl_show_messages('<?php echo __('Please wait ...', WPL_TEXTDOMAIN); ?>', '.wpl_addons_message .wpl_show_message', 'wpl_gold_msg');

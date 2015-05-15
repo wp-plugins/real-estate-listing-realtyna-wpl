@@ -111,14 +111,14 @@ class wpl_notifications
         $wpl_sender_email = wpl_global::get_setting('wpl_sender_email');
         $wpl_sender_name = wpl_global::get_setting('wpl_sender_name');
         
-        if(trim($wpl_sender_email) != '')
+        if(trim($wpl_sender_email) == '')
         {
-            if(trim($wpl_sender_name) == '') return $wpl_sender_email;
-            else return array($wpl_sender_name, $wpl_sender_email);
+            $domain = wpl_global::domain(wpl_global::get_full_url());
+            $wpl_sender_email = 'info@'.$domain;
         }
         
-        $domain = wpl_global::domain(wpl_global::get_full_url());
-        return 'info@'.$domain;
+        if(trim($wpl_sender_name) == '') return $wpl_sender_email;
+        else return array($wpl_sender_name, $wpl_sender_email);
     }
     
     /**

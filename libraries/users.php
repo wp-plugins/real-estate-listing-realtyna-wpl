@@ -1571,6 +1571,7 @@ class wpl_users
     public function user_loggedin($username, $user)
     {
         /** trigger event **/
-		wpl_global::event_handler('user_loggedin', array('username'=>$username, 'user'=>$user));
+        $id = self::get_id_by_username($username);
+		wpl_global::event_handler('user_loggedin', array('username'=>$username, 'user'=>$user, 'user_id'=>$id));
     }
 }

@@ -4,6 +4,11 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL2.5.0 (<span class="wpl_log_date">05/15/2015</span> <span class="wpl_log_revision">revision 1523</span>)</h4>
+        -- <strong>[PRO]</strong> Added UI Customizer.<br />
+        -- Fixed some style issues and PDF name issue in PDF flyer.<br />
+        -- Fixed some issues in Location Text search.
+        
         <h4>WPL2.4.6 (<span class="wpl_log_date">05/01/2015</span> <span class="wpl_log_revision">revision 1465</span>)</h4>
         -- Fixed Listing ID issue on carousel widget.<br />
         -- Fixed sort issue on listing pages.

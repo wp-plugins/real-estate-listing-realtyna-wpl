@@ -30,10 +30,10 @@ $params['image_name']     = isset($wpl_user['company_logo']['name']) ? $wpl_user
 $logo_path                = isset($wpl_user['company_logo']['path']) ? $wpl_user['company_logo']['path'] : '';
 $logo_image               = isset($wpl_user['company_logo']['url']) ? $wpl_user['company_logo']['url'] : '';
 
-$agent_name               = (isset($wpl_user['materials']['first_name']['value']) ? $wpl_user['materials']['first_name']['value'] : '');
-$agent_l_name             = (isset($wpl_user['materials']['last_name']['value']) ? $wpl_user['materials']['last_name']['value'] : '');
-$company_name             = (isset($wpl_user['materials']['company_name']['value']) ? $wpl_user['materials']['company_name']['value'] : '');
-$description              = stripslashes(strip_tags($wpl_user['raw'][$description_column]));
+$agent_name               = isset($wpl_user['materials']['first_name']['value']) ? $wpl_user['materials']['first_name']['value'] : '';
+$agent_l_name             = isset($wpl_user['materials']['last_name']['value']) ? $wpl_user['materials']['last_name']['value'] : '';
+$company_name             = isset($wpl_user['materials']['company_name']['value']) ? $wpl_user['materials']['company_name']['value'] : '';
+$description              = stripslashes($wpl_user['raw'][$description_column]);
 ?>
 <div class="wpl_agent_info clearfix" id="wpl_agent_info" itemscope>
 	<div class="wpl_agent_details clearfix">
@@ -93,5 +93,5 @@ $description              = stripslashes(strip_tags($wpl_user['raw'][$descriptio
 			?>
 		</div>
 	</div>
-	<div class="wpl_agent_about"><?php echo $description;?>	</div>
+	<div class="wpl_agent_about"><?php echo $description;?></div>
 </div>

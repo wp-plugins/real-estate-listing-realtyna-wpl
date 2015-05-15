@@ -3,8 +3,8 @@ Contributors: realtyna
 Donate link: http://wpl.realtyna.com/
 Tags: Real estate, Listing, Vertical Market, MLS, Property listing, RETS, Listings, Broker, Realtor, Property, IDX, Multiple Listing Service, Property Management, Properties
 Requires at least: 3.0.1
-Tested up to: 4.2.1
-Stable tag: 2.4.6
+Tested up to: 4.2.2
+Stable tag: 2.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -68,6 +68,11 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 6. External Responsive Template: Agent listing
 
 == Changelog ==
+
+= 2.5.0 =
+* [PRO] Added UI Customizer.
+* Fixed some style issues and PDF name issue in PDF flyer.
+* Fixed some issues in Location Text search.
 
 = 2.4.6 =
 * Fixed Listing ID issue on carousel widget.

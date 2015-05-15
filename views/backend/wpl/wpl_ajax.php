@@ -45,6 +45,9 @@ class wpl_wpl_controller extends wpl_controller
 		
 		if(!$wpl_installer->run()) $this->response(array('error'=>$wpl_installer->error, 'message'=>''));
 		
+        /** Trigger Event **/
+        wpl_global::event_handler('package_installed', array('package_id'=>(isset($wpl_installer->addon_id) ? $wpl_installer->addon_id : 0)));
+        
 		$message = $wpl_installer->message ? $wpl_installer->message : __('Package installed.', WPL_TEXTDOMAIN);
 		$this->response(array('error'=>'', 'message'=>$message));
 	}
@@ -86,6 +89,9 @@ class wpl_wpl_controller extends wpl_controller
 		
 		if(!$wpl_installer->run()) $this->response(array('error'=>$wpl_installer->error, 'message'=>''));
 		
+        /** Trigger Event **/
+        wpl_global::event_handler('package_updated', array('package_id'=>(isset($wpl_installer->addon_id) ? $wpl_installer->addon_id : 0)));
+        
 		$message = $wpl_installer->message ? $wpl_installer->message : __('Addon Updated.', WPL_TEXTDOMAIN);
 		$this->response(array('error'=>'', 'message'=>$message));
 	}
@@ -100,8 +106,8 @@ class wpl_wpl_controller extends wpl_controller
 		
 		wpl_settings::save_setting('realtyna_username', $username, 1);
 		wpl_settings::save_setting('realtyna_password', $password, 1);
+        
 		$response = wpl_global::check_realtyna_credentials();
-		
 		$this->response($response);
 	}
 	

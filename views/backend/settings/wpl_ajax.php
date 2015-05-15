@@ -28,6 +28,7 @@ class wpl_settings_controller extends wpl_controller
 		elseif($function == 'save_watermark_image') $this->save_watermark_image();
         elseif($function == 'save_languages') $this->save_languages();
         elseif($function == 'generate_language_keywords') $this->generate_language_keywords();
+        elseif($function == 'save_customizer') $this->save_customizer();
 		elseif($function == 'clear_cache') $this->clear_cache();
         elseif($function == 'remove_upload') $this->remove_upload();
         elseif($function == 'clear_calendar_data') $this->clear_calendar_data();
@@ -142,6 +143,38 @@ class wpl_settings_controller extends wpl_controller
         wpl_settings::save_setting('lang_options', json_encode($lang_options));
         wpl_addon_pro::save_languages($langs);
 		
+		$res = 1;
+		$message = $res ? __('Saved.', WPL_TEXTDOMAIN) : __('Error Occured.', WPL_TEXTDOMAIN);
+		$data = NULL;
+		
+		$response = array('success'=>$res, 'message'=>$message, 'data'=>$data);
+		
+		echo json_encode($response);
+		exit;
+    }
+    
+    private function save_customizer()
+    {
+        $wplcustomizer = wpl_request::getVar('wplcustomizer', array());
+        
+        $_variables = wpl_file::read(WPL_ABSPATH.'assets'.DS.'scss'.DS.'ui_customizer'.DS.'_variables_source.scss');
+        foreach($wplcustomizer as $key=>$value) $_variables = str_replace('['.$key.']', $value, $_variables);
+        
+        /** Write on _variables.scss file **/
+        wpl_file::write(WPL_ABSPATH.'assets'.DS.'scss'.DS.'ui_customizer'.DS.'_variables.scss', $_variables);
+        
+        /** Initialize SCSS Compiler **/
+        _wpl_import('libraries.scss');
+        
+        $wplscss = new wpl_scss();
+        $wplscss->set_import_path(WPL_ABSPATH.'assets'.DS.'scss'.DS.'ui_customizer'.DS);
+        
+        /** Compile **/
+        $wplscss->compile_file(WPL_ABSPATH.'assets'.DS.'scss'.DS.'ui_customizer'.DS.'wpl.scss', WPL_ABSPATH.'assets'.DS.'css'.DS.'ui_customizer'.DS.'wpl.css');
+        
+        /** Save UI Customizer Options in Database **/
+        wpl_settings::save_setting('wpl_ui_customizer', json_encode($wplcustomizer));
+        
 		$res = 1;
 		$message = $res ? __('Saved.', WPL_TEXTDOMAIN) : __('Error Occured.', WPL_TEXTDOMAIN);
 		$data = NULL;
