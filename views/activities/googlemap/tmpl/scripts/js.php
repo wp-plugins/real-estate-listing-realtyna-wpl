@@ -301,6 +301,9 @@ function wpl_load_map_markers(request_str, delete_markers)
             /** AJAX loader **/
             wplj(".map_search_ajax_loader").remove();
             
+            /** Disable Map search **/
+            if(typeof wpl_aps_freeze != 'undefined') wpl_aps_freeze = true;
+            
             markers = data.markers;
             
             <?php foreach($map_activities as $activity): ?>

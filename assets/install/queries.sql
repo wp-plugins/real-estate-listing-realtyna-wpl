@@ -128,13 +128,13 @@ INSERT INTO `#__wpl_dbst` (`id`, `kind`, `mandatory`, `name`, `type`, `options`,
 (6, 0, 1, 'Price', 'price', '{"call":"1"}', 1, '1', 1, 1, 1, 1, 1.08, '', '', 1, '', '', 'wpl_properties', 'price', 1, 0, 0, '', '1', 1, ''),
 (7, 0, 1, 'View', 'select', '{"params":{"1":{"key":"1","enabled":"1","value":"Garden"},"2":{"key":"2","enabled":"1","value":"Street"},"3":{"key":"3","enabled":"1","value":"Sea"}}}', 1, '1', 0, 1, 1, 1, 1.10, '', '', 1, '', '', 'wpl_properties', 'field_7', 1, 1, 0, '', '1', 1, ''),
 (8, 0, 1, 'Bedrooms', 'number', '', 1, '1', 1, 1, 0, 1, 1.11, '', '', 1, '', '6,7,', 'wpl_properties', 'bedrooms', 1, 1, 0, '', '1', 1, ''),
-(9, 0, 1, 'Bathrooms', 'number', '', 1, '1', 1, 1, 1, 1, 1.13, '', '', 1, '', '', 'wpl_properties', 'bathrooms', 1, 1, 0, '', '1', 1, ''),
-(10, 0, 1, 'Built Up Area', 'area', '', 1, '1', 1, 1, 1, 1, 1.15, '', '', 1, '', '', 'wpl_properties', 'living_area', 1, 1, 0, '', '1', 1, ''),
+(9, 0, 1, 'Bathrooms', 'number', '', 1, '1', 1, 1, 1, 1, 1.13, '', '', 1, '', '6,7,13,', 'wpl_properties', 'bathrooms', 1, 1, 0, '', '1', 1, ''),
+(10, 0, 1, 'Built Up Area', 'area', '', 1, '1', 1, 1, 1, 1, 1.15, '', '', 1, '', '6,7,13,', 'wpl_properties', 'living_area', 1, 1, 0, '', '1', 1, ''),
 (11, 0, 0, 'Lot Area', 'area', '', 1, '1', 1, 1, 1, 1, 1.17, '', '', 1, '', '', 'wpl_properties', 'lot_area', 1, 1, 0, '', '1', 1, ''),
 (12, 0, 0, 'Year Built', 'number', '', 1, '1', 0, 1, 1, 1, 1.16, '', '', 1, '', '', 'wpl_properties', 'build_year', 1, 1, 0, '', '1', 1, ''),
 (13, 0, 1, 'Rooms', 'number', '', 1, '1', 1, 1, 0, 1, 1.12, '', '', 1, '', '13,', 'wpl_properties', 'rooms', 1, 1, 0, '', '1', 1, ''),
 (14, 0, 1, 'Price Type', 'select', '{"params":{"1":{"key":"30","enabled":"1","value":"Per Month"},"2":{"key":"7","enabled":"1","value":"Per Week"},"3":{"key":"365","enabled":"1","value":"Per Year"},"4":{"key":"1","enabled":"1","value":"Per Day"}}}', 1, '1', 1, 1, 0, 1, 1.07, '', '', 1, '10,12,', '', 'wpl_properties', 'price_period', 1, 1, 0, '', '1', 1, ''),
-(17, 0, 0, 'Half Bathrooms', 'number', '', 1, '1', 1, 1, 1, 1, 1.14, '', '', 1, '', '', 'wpl_properties', 'half_bathrooms', 1, 1, 0, '', '1', 1, ''),
+(17, 0, 0, 'Half Bathrooms', 'number', '', 1, '1', 1, 1, 1, 1, 1.14, '', '', 1, '', '6,7,13,', 'wpl_properties', 'half_bathrooms', 1, 1, 0, '', '1', 1, ''),
 (18, 0, 0, 'Text Search', 'textsearch', '', 2, '0', 0, 1, 0, 1, 1.22, '', '', 0, '', '', 'wpl_properties', 'textsearch', 1, 0, 0, '', '0', 0, ''),
 (19, 0, 0, 'Age of Listing', 'date', '', 1, '0', 0, 1, 0, 0, 1.09, '', '', 0, '', '', 'wpl_properties', 'add_date', 1, 0, 0, '', '0', 0, ''),
 (40, 0, 0, 'Address Location', 'separator', '', 1, '0', 0, 1, 1, 0, 1.00, '', 'font-weight:bold', 0, '', '', '', '', 2, 1, 0, '', '1', 1, ''),
@@ -1127,7 +1127,8 @@ INSERT INTO `#__wpl_property_types` (`id`, `parent`, `enabled`, `editable`, `ind
 (3, 0, 0, 2, 0.00, 0, 'Land', 'Land'),
 (6, 1, 1, 2, 7.00, 0, 'Apartment', 'Apartment'),
 (7, 1, 1, 2, 32.00, 0, 'Villa', 'Villa'),
-(13, 2, 1, 2, 6.00, 0, 'Office', 'Office');
+(13, 2, 1, 2, 6.00, 0, 'Office', 'Office'),
+(14, 3, 1, 2, 14.00, 0, 'Land', 'Land');
 
 CREATE TABLE IF NOT EXISTS `#__wpl_room_types` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

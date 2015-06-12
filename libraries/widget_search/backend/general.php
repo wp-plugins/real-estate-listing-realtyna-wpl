@@ -197,7 +197,7 @@ elseif($type == 'number' and !$done_this)
 				<option value="minmax" <?php if(isset($value['type']) and $value['type'] == 'minmax') echo 'selected="selected"'; ?>><?php echo __('Min/Max textbox', WPL_TEXTDOMAIN); ?></option>
 				<option value="minmax_slider" <?php if(isset($value['type']) and $value['type'] == 'minmax_slider') echo 'selected="selected"'; ?>><?php echo __('Min/Max Slider', WPL_TEXTDOMAIN); ?></option>
 				<option value="minmax_selectbox" <?php if(isset($value['type']) and $value['type'] == 'minmax_selectbox') echo 'selected="selected"'; ?>><?php echo __('Min/Max SelectBox', WPL_TEXTDOMAIN); ?></option>
-				<option value="minmax_selectbox_plus" <?php if(isset($value['type']) and $value['type'] == 'minmax_selectbox_plus') echo 'selected="selected"'; ?>><?php echo __('Min/Max SelectBox+', WPL_TEXTDOMAIN); ?></option>
+				<option value="minmax_selectbox_plus" <?php if(isset($value['type']) and $value['type'] == 'minmax_selectbox_plus') echo 'selected="selected"'; ?>><?php echo __('SelectBox+', WPL_TEXTDOMAIN); ?></option>
 			</select>
 		</div>
 		<div class="erow wpl_extoptions_span <?php echo (isset($value['type']) ? $value['type'] : ''); ?>">
@@ -367,7 +367,7 @@ elseif(($type == 'area' or $type == 'price' or $type == 'length' or $type == 'vo
 				<option value="minmax" <?php if(isset($value['type']) and $value['type'] == 'minmax') echo 'selected="selected"' ?>><?php echo __('Min/Max textbox', WPL_TEXTDOMAIN); ?></option>
 				<option value="minmax_slider" <?php if(isset($value['type']) and $value['type'] == 'minmax_slider') echo 'selected="selected"' ?>><?php echo __('Min/Max Slider', WPL_TEXTDOMAIN); ?></option>
 				<option value="minmax_selectbox" <?php if(isset($value['type']) and $value['type'] == 'minmax_selectbox') echo 'selected="selected"' ?>><?php echo __('Min/Max SelectBox', WPL_TEXTDOMAIN); ?></option>
-				<option value="minmax_selectbox_plus" <?php if(isset($value['type']) and $value['type'] == 'minmax_selectbox_plus') echo 'selected="selected"' ?>><?php echo __('Min/Max SelectBox+', WPL_TEXTDOMAIN); ?></option>
+				<option value="minmax_selectbox_plus" <?php if(isset($value['type']) and $value['type'] == 'minmax_selectbox_plus') echo 'selected="selected"' ?>><?php echo __('SelectBox+', WPL_TEXTDOMAIN); ?></option>
 			</select>
 		</div>
 		<div class="erow wpl_extoptions_span <?php echo (isset($value['type']) ? $value['type'] : ''); ?>">

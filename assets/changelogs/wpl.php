@@ -4,6 +4,15 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL2.6.0 (<span class="wpl_log_date">06/12/2015</span> <span class="wpl_log_revision">revision 1607</span>)</h4>
+        -- <strong>[PRO]</strong> Enhanced WPL custom style by adding code editor.<br />
+        -- <strong>[PRO]</strong> Added front-end property management.<br />
+        -- <strong>[PRO]</strong> Added "more_details" field type.<br />
+        -- Added CSS class option for all WPL widgets.<br />
+        -- Fixed a conflict with WPML plugin.<br />
+        -- Fixed a decimal issue on price rendering.<br />
+        -- Fixed some multilingual issues.
+        
         <h4>WPL2.5.0 (<span class="wpl_log_date">05/15/2015</span> <span class="wpl_log_revision">revision 1523</span>)</h4>
         -- <strong>[PRO]</strong> Added UI Customizer.<br />
         -- Fixed some style issues and PDF name issue in PDF flyer.<br />

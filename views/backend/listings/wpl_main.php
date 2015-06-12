@@ -27,7 +27,7 @@ class wpl_listings_controller extends wpl_controller
         $init = $this->init_page();
         if(!$init) return false;
         
-		$this->tpl = wpl_flex::get_kind_tpl($this->tpl_path, 'manager', $this->kind);
+		$this->tpl = wpl_flex::get_kind_tpl($this->tpl_path, wpl_request::getVar('tpl', 'manager'), $this->kind);
         parent::render($this->tpl_path, $this->tpl);
     }
     
@@ -67,6 +67,20 @@ class wpl_listings_controller extends wpl_controller
 		{
 			/** import message tpl **/
 			$this->message = __('Invalid Request!', WPL_TEXTDOMAIN);
+			parent::render($this->tpl_path, 'message');
+            
+            return false;
+		}
+        
+        /** Access **/
+        $access = true;
+		_wpl_import('libraries.filters');
+		@extract(wpl_filters::apply('listing_manager_access', array('kind'=>$this->kind, 'user_id'=>$current_user_id)));
+        
+        if(!$access)
+		{
+			/** import message tpl **/
+			$this->message = __("You don't have access to this page!", WPL_TEXTDOMAIN);
 			parent::render($this->tpl_path, 'message');
             
             return false;

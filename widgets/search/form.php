@@ -55,6 +55,11 @@ wpl_extensions::import_javascript((object) array('param1'=>'wpl-sly-scrollbar', 
         </select>
     </div>
     <?php endif; ?>
+    
+    <div class="wpl-widget-row">
+        <label for="<?php echo $this->get_field_id('css_class'); ?>"><?php echo __('CSS Class', WPL_TEXTDOMAIN); ?></label>
+        <input type="text" id="<?php echo $this->get_field_id('css_class'); ?>" name="<?php echo $this->get_field_name('css_class'); ?>" value="<?php echo isset($instance['css_class']) ? $instance['css_class'] : ''; ?>" />
+    </div>
 
     <button id="btn-search-<?php echo $this->number ?>"
             data-is-init="false"

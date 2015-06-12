@@ -187,8 +187,22 @@ class wpl_render
 		
 		/** set default value **/
 		if(trim($price) == '') $price = 0;
-		
-		$price = intval($price);
+        
+        /** Convert price to float **/
+        if(strpos($price, '.') !== false)
+        {
+            if(!$d_seperator) $d_seperator = '.';
+            $price = (float) $price;
+            $decimal = 2;
+        }
+        
+        /** Remove decimals if the price is not float **/
+		if(!is_float($price))
+        {
+            $price = intval($price);
+            $decimal = 0;
+        }
+        
 		$price = number_format($price, $decimal, $d_seperator, $seperator);
 		
 		if($currency['after_before'] == 0) $return = $symbol.$price;

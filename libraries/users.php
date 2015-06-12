@@ -74,7 +74,7 @@ class wpl_users
      */
 	public static function add_user_to_wpl($user_id, $group_id = -1)
 	{
-		/** first validation **/
+		/** User already added **/
 		if(wpl_users::get_wpl_user($user_id)) return true;
 		
 		$user_data = wpl_users::get_user($user_id);

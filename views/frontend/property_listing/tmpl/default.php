@@ -22,7 +22,7 @@ if($this->wplpagination == 'scroll' and $this->property_listview and wpl_global:
 /** Save Search Add-on **/
 if(wpl_global::check_addon('save_searches')) $this->_wpl_import($this->tpl_path.'.scripts.addon_save_searches', true, true);
 ?>
-<div class="wpl_property_listing_container" id="wpl_property_listing_container">
+<div class="wpl_property_listing_container <?php if(isset($this->property_css_class) and $this->property_css_class == 'map_box') echo 'wpl-property-listing-mapview'; ?>" id="wpl_property_listing_container">
 	<?php /** load position1 **/ wpl_activity::load_position('plisting_position1', array('wpl_properties'=>$this->wpl_properties)); ?>
     
     <?php if(is_active_sidebar('wpl-plisting-top') and $this->kind == 0): ?>

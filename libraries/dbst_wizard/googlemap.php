@@ -19,8 +19,12 @@ if($type == 'googlemap' and !$done_this)
     $ln_table_col = 'googlemap_ln';
     $lt_table_col = 'googlemap_lt';
     
-    $javascript = (object) array('param1'=>'wpl-googlemap-api3', 'param2'=>'http'.(stristr(wpl_global::get_full_url(), 'https://') != '' ? 's' : '').'://maps.google.com/maps/api/js?libraries=places,drawing&sensor=false', 'external'=>true);
-    wpl_extensions::import_javascript($javascript);
+    /** Add it on backend only **/
+    if(wpl_global::get_client())
+    {
+        $javascript = (object) array('param1'=>'wpl-googlemap-api3', 'param2'=>'http'.(stristr(wpl_global::get_full_url(), 'https://') != '' ? 's' : '').'://maps.google.com/maps/api/js?libraries=places,drawing&sensor=false', 'external'=>true);
+        wpl_extensions::import_javascript($javascript);
+    }
 ?>
 <script type="text/javascript">
 wplj(document).ready(function()
@@ -45,7 +49,7 @@ var bounds;
 function wpl_initialize()
 {
 	if (pw_map != '') return;
-
+    
 	var lt_orig = '<?php echo $values['googlemap_lt']; ?>';
 	var ln_orig = '<?php echo $values['googlemap_ln']; ?>';
 
@@ -151,6 +155,8 @@ function wpl_code_address(address)
 
 wplj(document).ready(function()
 {
+    if(wplj('#wpl_map_canvas<?php echo $field->id; ?>').is(':visible')) wpl_initialize();
+    
 	wplj(".wpl_slide_label_prefix_ad").click(function()
 	{
 		wpl_initialize();
@@ -448,7 +454,7 @@ function wpl_dmgfc_set_boundaries(overlay, type)
 		<button class="wpl-button button-1" onclick="wpl_code_address(wplj('#wpl_map_address<?php echo $field->id; ?>').val());"><?php echo addslashes(__('Go', WPL_TEXTDOMAIN)); ?></button>
 	</div>
 	<div class="map-canvas-wp">
-		<div id="wpl_map_canvas<?php echo $field->id; ?>"></div>
+        <div id="wpl_map_canvas<?php echo $field->id; ?>"></div>
 	</div>
 </div>
 <?php

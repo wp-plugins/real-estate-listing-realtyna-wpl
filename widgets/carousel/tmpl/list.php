@@ -2,12 +2,12 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 
-include _wpl_import("widgets.carousel.scripts.js", true, true);
+include _wpl_import('widgets.carousel.scripts.js', true, true);
 
 $image_width = isset($this->instance['data']['image_width']) ? $this->instance['data']['image_width'] : 90;
 $image_height = isset($this->instance['data']['image_height']) ? $this->instance['data']['image_height'] : 82;
 ?>
-<div class="wpl_carousel_container">
+<div class="wpl_carousel_container <?php echo $this->css_class; ?>">
 	<ul class="simple_list">
 		<?php
 		foreach($wpl_properties as $key=>$gallery)
@@ -20,7 +20,7 @@ $image_height = isset($this->instance['data']['image_height']) ? $this->instance
             $params['image_parentkind'] = $gallery["items"]["gallery"][0]->parent_kind;
             $params['image_source'] 	= wpl_global::get_upload_base_path().$params['image_parentid'].DS.$params['image_name'];
             
-            $image_title = isset($gallery['property_title']) ? $gallery['property_title'] : wpl_property::update_property_title($gallery['raw']);
+            $image_title = wpl_property::update_property_title($gallery['raw']);
             
             if(isset($gallery['items']['gallery'][0]->item_extra2) and trim($gallery['items']['gallery'][0]->item_extra2) != '') $image_alt = $gallery['items']['gallery'][0]->item_extra2;
             else $image_alt = $gallery['raw']['meta_keywords'];

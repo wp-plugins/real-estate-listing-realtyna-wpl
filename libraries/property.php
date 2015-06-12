@@ -817,7 +817,7 @@ class wpl_property
                 
                 $location_string = '';
                 $location_values = array_unique($location_values);
-                foreach($location_values as $location_value) $location_string .= 'LOC-'.$location_value.' ';
+                foreach($location_values as $location_value) $location_string .= 'LOC-'.__($location_value, WPL_TEXTDOMAIN).' ';
                 
 				$value = trim($location_string);
 			}
@@ -1086,6 +1086,14 @@ class wpl_property
 		$alias['id'] = $property_id;
 		if(trim($property_data['property_type'])) $alias['property_type'] = __(wpl_global::get_property_types($property_data['property_type'])->name, WPL_TEXTDOMAIN);
 		if(trim($property_data['listing'])) $alias['listing'] = __(wpl_global::get_listings($property_data['listing'])->name, WPL_TEXTDOMAIN);
+        
+        if(trim($property_data['location1_name'])) $alias['location1'] = __($property_data['location1_name'], WPL_TEXTDOMAIN);
+        if(trim($property_data['location2_name'])) $alias['location2'] = __($property_data['location2_name'], WPL_TEXTDOMAIN);
+        if(trim($property_data['location3_name'])) $alias['location3'] = __($property_data['location3_name'], WPL_TEXTDOMAIN);
+        if(trim($property_data['location4_name'])) $alias['location4'] = __($property_data['location4_name'], WPL_TEXTDOMAIN);
+        if(trim($property_data['location5_name'])) $alias['location5'] = __($property_data['location5_name'], WPL_TEXTDOMAIN);
+        if(trim($property_data['zip_name'])) $alias['zipcode'] = __($property_data['zip_name'], WPL_TEXTDOMAIN);
+        
 		$alias['location'] = self::generate_location_text($property_data, $property_id, '-');
 		
 		if(trim($property_data['rooms'])) $alias['rooms'] = $property_data['rooms'].__('Room'.($property_data['rooms'] > 1 ? 's': ''), WPL_TEXTDOMAIN);
@@ -1102,6 +1110,14 @@ class wpl_property
         $alias_str = '';
 		$alias_str = isset($alias['property_type']) ? str_replace('[property_type]', $alias['property_type'], $alias_pattern) : str_replace('[property_type]', '', $alias_pattern);
         $alias_str = isset($alias['listing']) ? str_replace('[listing_type]', $alias['listing'], $alias_str) : str_replace('[listing_type]', '', $alias_str);
+        
+        $alias_str = isset($alias['location1']) ? str_replace('[location1]', $alias['location1'], $alias_str) : str_replace('[location1]', '', $alias_str);
+        $alias_str = isset($alias['location2']) ? str_replace('[location2]', $alias['location2'], $alias_str) : str_replace('[location2]', '', $alias_str);
+        $alias_str = isset($alias['location3']) ? str_replace('[location3]', $alias['location3'], $alias_str) : str_replace('[location3]', '', $alias_str);
+        $alias_str = isset($alias['location4']) ? str_replace('[location4]', $alias['location4'], $alias_str) : str_replace('[location4]', '', $alias_str);
+        $alias_str = isset($alias['location5']) ? str_replace('[location5]', $alias['location5'], $alias_str) : str_replace('[location5]', '', $alias_str);
+        $alias_str = isset($alias['zipcode']) ? str_replace('[zipcode]', $alias['zipcode'], $alias_str) : str_replace('[zipcode]', '', $alias_str);
+        
         $alias_str = isset($alias['location']) ? str_replace('[location]', $alias['location'], $alias_str) : str_replace('[location]', '', $alias_str);
         $alias_str = isset($alias['rooms']) ? str_replace('[rooms]', $alias['rooms'], $alias_str) : str_replace('[rooms]', '', $alias_str);
         $alias_str = isset($alias['bedrooms']) ? str_replace('[bedrooms]', $alias['bedrooms'], $alias_str) : str_replace('[bedrooms]', '', $alias_str);
@@ -1180,7 +1196,7 @@ class wpl_property
 		
 		/** apply filters **/
 		_wpl_import('libraries.filters');
-		@extract(wpl_filters::apply('generate_property_page_title', array('title'=>$title, 'title_str'=>$title_str)));
+		@extract(wpl_filters::apply('generate_property_page_title', array('title'=>$title, 'title_str'=>$title_str, 'property_data'=>$property_data)));
         
         /** update **/
         if(wpl_db::columns('wpl_properties', $column))
@@ -1251,7 +1267,7 @@ class wpl_property
 		
 		/** apply filters **/
 		_wpl_import('libraries.filters');
-		@extract(wpl_filters::apply('generate_property_title', array('title'=>$title, 'title_str'=>$title_str)));
+		@extract(wpl_filters::apply('generate_property_title', array('title'=>$title, 'title_str'=>$title_str, 'property_data'=>$property_data)));
         
         /** update **/
         if(wpl_db::columns('wpl_properties', $column))
@@ -1654,6 +1670,9 @@ class wpl_property
             if(method_exists('wpl_addon_mls', 'log')) wpl_addon_mls::log($added, $updated, $log_params);
 		}
         
+        /** WPL Import Event **/
+        wpl_events::trigger('wpl_import', array('properties'=>$properties_to_import, 'wpl_unique_field'=>$wpl_unique_field, 'user_id'=>$user_id, 'source'=>$source, 'added'=>$added, 'updated'=>$updated, 'log_params'=>$log_params, 'pids'=>$pids));
+        
 		return $pids;
 	}
     
@@ -1822,5 +1841,94 @@ class wpl_property
         else $url = wpl_sef::get_wpl_permalink(true).'features/rss';
         
         return $url;
+    }
+    
+    /**
+     * Returns property meta keywords, This function calls on sef service when meta description of property is empty
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param array $property_data
+     * @param int $property_id
+     * @return string
+     */
+    public static function get_meta_keywords($property_data, $property_id = 0)
+	{
+        /** fetch property data if property id is setted **/
+		if($property_id) $property_data = self::get_property_raw_data($property_id);
+        if(!$property_id) $property_id = $property_data['id'];
+        
+        $keywords = array();
+        if(isset($property_data['bedrooms']) and $property_data['bedrooms']) $keywords[] = $property_data['bedrooms'].' '.__('Bedroom'.($property_data['bedrooms'] > 1 ? 's' : ''), WPL_TEXTDOMAIN);
+        if(isset($property_data['rooms']) and $property_data['rooms']) $keywords[] = $property_data['rooms'].' '.__('Room'.($property_data['rooms'] > 1 ? 's' : ''), WPL_TEXTDOMAIN);
+        if(isset($property_data['bathrooms']) and $property_data['bathrooms']) $keywords[] = $property_data['bathrooms'].' '.__('Bathroom'.($property_data['bathrooms'] > 1 ? 's' : ''), WPL_TEXTDOMAIN);
+        
+        if(isset($property_data['property_type']))
+        {
+            $property_type = wpl_global::get_property_types($property_data['property_type']);
+            if(trim($property_type->name)) $keywords[] = __($property_type->name, WPL_TEXTDOMAIN);
+        }
+        
+        if(isset($property_data['listing']))
+        {
+            $listing = wpl_global::get_listings($property_data['listing']);
+            if(trim($listing->name)) $keywords[] = __($listing->name, WPL_TEXTDOMAIN);
+        }
+        
+        if(isset($property_data['mls_id'])) $keywords[] = $property_data['mls_id'];
+        
+        $keywords_str = implode(', ', $keywords);
+        
+        /** apply filters **/
+		_wpl_import('libraries.filters');
+		@extract(wpl_filters::apply('generate_meta_keywords', array('keywords_str'=>$keywords_str, 'keywords'=>$keywords, 'property_data'=>$property_data)));
+        
+        return $keywords_str;
+    }
+    
+    /**
+     * Returns property meta description, This function calls on sef service when meta description of listing is empty
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param array $property_data
+     * @param int $property_id
+     * @return string
+     */
+    public static function get_meta_description($property_data, $property_id = 0)
+	{
+        /** fetch property data if property id is setted **/
+		if($property_id) $property_data = self::get_property_raw_data($property_id);
+        if(!$property_id) $property_id = $property_data['id'];
+        
+        $locale = wpl_global::get_current_language();
+        
+        $column = 'field_308';
+        if(wpl_global::check_multilingual_status() and wpl_addon_pro::get_multiligual_status_by_column($column, $property_data['kind'])) $column = wpl_addon_pro::get_column_lang_name($column, $locale, false);
+        
+        $description = substr($property_data[$column], 0, 250);
+        
+        /** apply filters **/
+		_wpl_import('libraries.filters');
+		@extract(wpl_filters::apply('generate_meta_description', array('description'=>$description, 'property_data'=>$property_data)));
+        
+        return $description;
+    }
+    
+    /**
+     * Returns property featured image if exists otherwise it returns empty string
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $property_id
+     * @param string $sizes
+     * @return string
+     */
+    public static function get_property_image($property_id, $sizes = '150*150')
+    {
+        if(!trim($property_id)) return false;
+        if(!trim($sizes)) $sizes = '150*150';
+        
+        $images = wpl_items::render_gallery_custom_sizes($property_id, NULL, array($sizes));
+        $size_alias = str_replace('*', '_', $sizes);
+        
+        return (count($images) ? $images[$size_alias][0]['url'] : '');
     }
 }

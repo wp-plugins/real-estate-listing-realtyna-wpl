@@ -14,6 +14,7 @@ $show_pinterest   = (isset($params['pinterest']) and $params['pinterest']) ? 1 :
 $show_favorite    = (isset($params['favorite']) and $params['favorite']) ? 1 : 0;
 $show_pdf         = (isset($params['pdf']) and $params['pdf']) ? 1 : 0;
 $show_abuse       = (isset($params['report_abuse']) and $params['report_abuse']) ? 1 : 0;
+$show_crm         = (isset($params['crm']) and $params['crm']) ? 1 : 0;
 
 $this->_wpl_import($this->tpl_path.'.scripts.js', true, true, true);
 ?>
@@ -63,6 +64,12 @@ $this->_wpl_import($this->tpl_path.'.scripts.js', true, true, true);
         <li class="report_abuse_link">
             <a data-realtyna-lightbox href="#wpl_pshow_lightbox_content_container" onclick="return wpl_report_abuse_get_form(<?php echo $property_id; ?>);"><?php echo __('Report Abuse', WPL_TEXTDOMAIN); ?></a>
 		</li>
+        <?php endif; ?>
+
+        <?php if($show_crm): _wpl_import('libraries.addon_crm'); $crm = new wpl_addon_crm(); ?>
+        <li class="crm_link">
+            <a href="<?php echo $crm->URL('form'); ?>&pid=<?php echo $property_id; ?>" target="_blank"><?php echo __('Contact for this Property', WPL_TEXTDOMAIN); ?></a>
+        </li>
         <?php endif; ?>
 	</ul>
 </div>

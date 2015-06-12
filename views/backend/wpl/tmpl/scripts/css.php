@@ -27,4 +27,5 @@ defined('_WPLEXEC') or die('Restricted access');
 */
 .side-announce{width: 100% !important;}
 .side-addons p.pro-message{margin: 10px 20px;}
+.wpl-total-properties{padding: 0 0 10px 20px;}
 </style>

@@ -80,6 +80,7 @@ class wpl_sef
                     $view = 'property_listing';
                     foreach($criteria as $key=>$value) wpl_request::setVar($key, $value);
                 }
+                elseif($ex[0] == 'crm') $view = 'addon_crm';
                 elseif(strpos($ex[0], ':') === false) $view = 'profile_show';
                 else $view = 'property_listing';
             }
@@ -469,6 +470,7 @@ class wpl_sef
         /** Multilingual **/
         if(wpl_global::check_multilingual_status())
         {
+            _wpl_import('libraries.addon_pro');
             $lang_permalink = wpl_addon_pro::get_lang_main_page();
             if($lang_permalink) $main_permalink = $lang_permalink;
         }

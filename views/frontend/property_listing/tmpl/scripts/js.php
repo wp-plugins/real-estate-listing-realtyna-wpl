@@ -91,8 +91,42 @@ function wpl_pagesize_changed(page_size)
 	window.location = url;
 }
 
+var wpl_set_property_css_class_once = false;
 function wpl_set_property_css_class(pcc)
 {
+    /** Run this function only once **/
+    if(wpl_set_property_css_class_once) return;
+    else wpl_set_property_css_class_once = true;
+    
+    if((pcc == 'row_box' || pcc == 'grid_box') && typeof wpl_sp_selector_div != 'undefined')
+    {
+        /** Remove previous scroll listener **/
+        wplj(wpl_sp_selector_div).off('scroll', wpl_scroll_pagination_listener);
+        
+        wpl_sp_selector_div = window;
+        wpl_sp_append_div = '#wpl_property_listing_container';
+        
+        /** Add new scroll listener **/
+        var wpl_scroll_pagination_listener = wplj(wpl_sp_selector_div).scroll(function()
+        {
+            wpl_scroll_pagination();
+        });
+    }
+    else if(pcc == 'map_box' && typeof wpl_sp_selector_div != 'undefined')
+    {
+        /** Remove previous scroll listener **/
+        wplj(wpl_sp_selector_div).off('scroll', wpl_scroll_pagination_listener);
+        
+        wpl_sp_selector_div = '.wpl_property_listing_listings_container';
+        wpl_sp_append_div = '.wpl_property_listing_listings_container';
+        
+        /** Add new scroll listener **/
+        var wpl_scroll_pagination_listener = wplj(wpl_sp_selector_div).scroll(function()
+        {
+            wpl_scroll_pagination();
+        });
+    }
+    
     wpl_current_property_css_class = pcc;
     
     wplj.ajax(
@@ -104,6 +138,7 @@ function wpl_set_property_css_class(pcc)
         cache: false,
         success: function(data)
         {
+            wpl_set_property_css_class_once = false;
         }
     });
 }
@@ -112,13 +147,19 @@ function wpl_listing_set_js_triggers()
 {
     wplj('#list_view').on('click', function()
     {
-        wplj('#grid_view').removeClass('active');
+        wplj('#grid_view, #map_view').removeClass('active');
         wplj('#list_view').addClass('active');
         
         wpl_set_property_css_class('row_box');
         
         wplj('.wpl_prp_cont').animate({opacity:0},function()
         {
+            wpl_fix_no_image_size();
+            
+            <?php if(wpl_global::check_addon('aps')): ?>
+            wplj('.wpl_property_listing_container').removeClass('wpl-property-listing-mapview');
+            <?php endif; ?>
+            
             wplj(this).removeClass('grid_box').addClass('row_box');
             wplj(this).stop().animate({opacity:1});
         });
@@ -126,17 +167,39 @@ function wpl_listing_set_js_triggers()
 
     wplj('#grid_view').on('click', function()
     {
-        wplj('#list_view').removeClass('active');
+        wplj('#list_view, #map_view').removeClass('active');
         wplj('#grid_view').addClass('active');
         
         wpl_set_property_css_class('grid_box');
         
         wplj('.wpl_prp_cont').animate({opacity:0},function()
-        {
+        {   
+            wpl_fix_no_image_size();
+            
+            <?php if(wpl_global::check_addon('aps')): ?>
+            wplj('.wpl_property_listing_container').removeClass('wpl-property-listing-mapview');
+            <?php endif; ?>
+            
             wplj(this).removeClass('row_box').addClass('grid_box');
             wplj(this).stop().animate({opacity:1});
         });
     });
+    
+    <?php if(wpl_global::check_addon('aps')): ?>
+    wplj('#map_view').on('click', function()
+    {
+        wplj('#list_view, #grid_view').removeClass('active');
+        wplj('#map_view').addClass('active');
+        
+        wpl_set_property_css_class('map_box');
+        
+        wplj('.wpl_property_listing_container').animate({opacity:0},function()
+        {
+            wplj(this).addClass('wpl-property-listing-mapview');
+            wplj(this).stop().animate({opacity:1});
+        });
+    });
+    <?php endif; ?>
 }
 
 function wpl_paginate(page)
@@ -157,4 +220,24 @@ function wpl_generate_rss()
     
     window.open("<?php echo wpl_property::get_property_rss_link(); ?>?"+rss);
 }
+
+<?php if(wpl_global::check_addon('aps')): ?>
+function map_view_toggle_listing()
+{
+    if(wplj('.map_view_handler').hasClass('op'))
+    {
+        wplj('.wpl_property_listing_list_view_container').animate({'margin-right': '-220px'}, function()
+        {
+            wplj('.map_view_handler').toggleClass('op');
+        });
+    }
+    else
+    {
+        wplj('.wpl_property_listing_list_view_container').animate({'margin-right': '0.5%'}, function()
+        {
+            wplj('.map_view_handler').toggleClass('op');
+        });
+    }
+}
+<?php endif; ?>
 </script>

@@ -42,6 +42,7 @@ class wpl_search_widget extends wpl_widget
         
         $this->kind = isset($instance['kind']) ? $instance['kind'] : 0;
         $this->ajax = isset($instance['ajax']) ? $instance['ajax'] : 0;
+        $this->css_class = isset($instance['css_class']) ? $instance['css_class'] : '';
         
 		/** add main scripts **/
 		wp_enqueue_script('jquery-ui-core');
@@ -81,6 +82,7 @@ class wpl_search_widget extends wpl_widget
 		$instance['layout'] = $new_instance['layout'];
         $instance['wpltarget'] = $new_instance['wpltarget'];
         $instance['ajax'] = isset($new_instance['ajax']) ? $new_instance['ajax'] : 0;
+        $instance['css_class'] = isset($new_instance['css_class']) ? $new_instance['css_class'] : '';
 		$instance['data'] = (array) $new_instance['data'];
 		
 		return $instance;

@@ -121,7 +121,6 @@ class wpl_db
 		
 		return $query = trim($query, ' ,');
 	}
-	
     /**
      * Use this function for runnig SELECT queries, also you can change type of result if need.
      * @author Howard <howard@realtyna.com>

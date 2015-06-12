@@ -190,12 +190,19 @@ class wpl_locations
      */
 	public static function update_locationtextsearch_data()
 	{
-		_wpl_import('libraries.property');
-		$properties = wpl_property::select_active_properties('', '`id`,`location1_name`,`location2_name`,`location3_name`,`location4_name`,`location5_name`,`location6_name`,`location7_name`,`zip_name`');
-		
 		/** detele wpl_locationtextsearch completely **/
 		wpl_db::q("DELETE FROM `#__wpl_locationtextsearch`");
 		
+        /** Don't run in case of many listings **/
+        if(wpl_db::num('', 'wpl_properties') > 2500)
+        {
+            wpl_db::q("UPDATE `#__wpl_cronjobs` SET `enabled`='0' WHERE `id`='1'");
+            return false;
+        }
+
+        _wpl_import('libraries.property');
+		$properties = wpl_property::select_active_properties('', '`id`,`location1_name`,`location2_name`,`location3_name`,`location4_name`,`location5_name`,`location6_name`,`location7_name`,`zip_name`');
+        
 		$locations = array();
 		foreach($properties as $property)
 		{

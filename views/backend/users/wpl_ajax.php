@@ -146,16 +146,17 @@ class wpl_users_controller extends wpl_controller
     
     public function generate_tab($tpl = 'internal_setting_advanced')
 	{
-        /** checking PRO addon **/
-		if(!wpl_global::check_addon('membership'))
+		if($tpl == 'internal_setting_crm')
+		{
+			if(!wpl_global::check_addon('crm'))
+			{
+				echo __('CRM addon must be installed for this!', WPL_TEXTDOMAIN);
+				return;	
+			}
+		}
+        elseif(!wpl_global::check_addon('membership')) /** checking PRO addon **/
 		{
 			echo __('Membership addon must be installed for this!', WPL_TEXTDOMAIN);
-			return;
-		}
-
-		if($tpl == 'internal_setting_crm' && !wpl_global::check_addon('crm'))
-		{
-			echo __('CRM addon must be installed for this!', WPL_TEXTDOMAIN);
 			return;
 		}
         

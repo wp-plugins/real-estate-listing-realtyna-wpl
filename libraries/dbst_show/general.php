@@ -322,7 +322,7 @@ elseif($type == 'price' and !$done_this) //////////////////////////// Price ////
     }
     
     /** Add "From" to Vacation Rental Properties **/
-    if(wpl_global::check_addon('calendar'))
+    if($field->table_column == 'price' and wpl_global::check_addon('calendar'))
     {
         $listing_types = wpl_global::get_listing_types_by_parent(3);
         foreach($listing_types as $listing) $vacational_listing_types[] = $listing['id'];

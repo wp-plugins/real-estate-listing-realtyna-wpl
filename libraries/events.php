@@ -23,6 +23,7 @@ class wpl_events
 		/** fetch events **/
 		$events = self::get_events($trigger, 1);
 		if(count($events) == 0) return;
+        
 		foreach($events as $event)
 		{
 			/** generate all params **/

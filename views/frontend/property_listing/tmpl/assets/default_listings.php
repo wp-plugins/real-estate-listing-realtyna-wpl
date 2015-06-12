@@ -26,7 +26,7 @@ foreach($this->wpl_properties as $key=>$property)
     $cut_position = strrpos(substr($description, 0, 400), '.', -1);
     if(!$cut_position) $cut_position = 399;
     ?>
-    <div class="wpl_prp_cont <?php echo (isset($this->property_css_class) ? $this->property_css_class : ''); ?>" id="wpl_prp_cont<?php echo $property['data']['id']; ?>">
+    <div class="wpl_prp_cont <?php echo ((isset($this->property_css_class) and in_array($this->property_css_class, array('row_box', 'grid_box'))) ? $this->property_css_class : ''); ?>" id="wpl_prp_cont<?php echo $property['data']['id']; ?>">
         <div class="wpl_prp_top">
             <div class="wpl_prp_top_boxes front">
                 <?php wpl_activity::load_position('wpl_property_listing_image', array('wpl_properties'=>$this->wpl_properties)); ?>

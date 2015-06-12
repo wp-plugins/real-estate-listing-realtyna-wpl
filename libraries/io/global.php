@@ -2,67 +2,71 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 
-/**
-** Global Library
-** Developed 01/24/2014
-**/
 
+_wpl_import('libraries.io.formats_base');
+_wpl_import('libraries.io.commands_base');
 class wpl_io_global
 {
 	var $commands_folder = 'commands';
 	var $formats_folder = 'formats';
-	
-	/**
-		@param $cmd = string command name
-		@param $dformat = string data format name
-		@param $username = string username
-		@param $password = string password
-		@param $vars = array variables
-		@param $dlang = string data language
-		@param $settings = array settings
-		@return array response
-		@description use this function for generating response of command
-	**/
-	public function response($cmd, $username, $password, $vars, $dlang, $settings, $dformat = 'json')
+
+
+    /**
+     * @param string $cmd
+     * @param string $username
+     * @param string $password
+     * @param array $vars
+     * @param string $dformat
+     * @return wpl_io_cmd_base
+     */
+	public function response($cmd, $username, $password, $vars, $dformat = 'json')
 	{
-		/** including command file **/
 		$command_file = $this->get_command_path($cmd);
 		require_once $command_file;
-		
-		/** Creating CMD class **/
 		$cmd_class = 'wpl_io_cmd_'.$cmd;
-		$cmd_object = new $cmd_class($username, $password, $vars, $settings);
-		if($cmd_object->error != '') return $cmd_object->error;
-		
-		/** generating response **/
-		$response = $cmd_object->build();
-		if ($cmd_object->error != '') return $cmd_object->error;
-		
+
+        /** @var $cmd_object wpl_io_cmd_base */
+		$cmd_object = new $cmd_class();
+        $cmd_object->init($username, $password, $vars);
+		if($cmd_object->getError() != '')
+        {
+            return array('error' => $cmd_object->getError());
+        }
+        $validation = $cmd_object->validate();
+        if($cmd_object->getError() != '')
+        {
+            return array('error' => $cmd_object->getError());
+        }
+        elseif($validation == false)
+        {
+            return array('error' => "Validation failed");
+        }
+        $response = $cmd_object->build();
+		if($cmd_object->getError() != '')
+        {
+            return array('error' => $cmd_object->getError());
+        }
 		return $response;
 	}
-	
-	/**
-		@param $cmd = string command name
-		@param $dformat = string data format name
-		@param $username = string username
-		@param $dformat = string data format name
-		@return array rendered data and header if needed
-		@description use this function for rendering response of response function
-	**/
-	public function render($cmd, $vars, $response, $dformat = 'json')
+
+    /**
+     * @param string $cmd
+     * @param array $vars
+     * @param wpl_io_cmd_base $response
+     * @param string $dformat
+     * @return mixed
+     */
+	public function render_format($cmd, $vars, $response, $dformat = 'json')
 	{
-		/** including command file **/
 		$format_file = $this->get_format_path($dformat);
 		require_once $format_file;
-		
-		/** Creating format class **/
 		$format_class = 'wpl_io_format_'.$dformat;
+
+        /** @var $format_object wpl_io_format_base */
 		$format_object = new $format_class($cmd, $vars);
-		if($format_object->error != '') return $format_object->error;
-		
-		/** formatting response **/
+		if($format_object->getError() != '') return $format_object->getError();
 		$rendered = $format_object->render($response);
-		if ($format_object->error != '') return $format_object->error;
+		if ($format_object->getError() != '') return $format_object->getError();
 		
 		return $rendered;
 	}

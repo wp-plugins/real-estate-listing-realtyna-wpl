@@ -144,11 +144,13 @@ class wpl_service_sef
         if(wpl_global::check_multilingual_status() and wpl_addon_pro::get_multiligual_status_by_column($meta_keywords_column, $property_data['kind'])) $meta_keywords_column = wpl_addon_pro::get_column_lang_name($meta_keywords_column, $locale, false);
         
         $this->property_keywords = $property_data[$meta_keywords_column];
+        if(trim($this->property_keywords) == '') $this->property_keywords = wpl_property::get_meta_keywords($property_data);
         
         $meta_description_column = 'meta_description';
         if(wpl_global::check_multilingual_status() and wpl_addon_pro::get_multiligual_status_by_column($meta_description_column, $property_data['kind'])) $meta_description_column = wpl_addon_pro::get_column_lang_name($meta_description_column, $locale, false);
         
         $this->property_description = $property_data[$meta_description_column];
+        if(trim($this->property_description) == '') $this->property_description = wpl_property::get_meta_description($property_data);
         
 		$html = wpl_html::getInstance();
 		

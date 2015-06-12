@@ -10,53 +10,34 @@ _wpl_import('libraries.db');
 ** Developed 06/30/2014
 **/
 
-class wpl_io_cmd_authentication extends wpl_io_global
+class wpl_io_cmd_authentication extends wpl_io_cmd_base
 {
-	private $password;
-	private $username;
-	private $method;
-	private $email;
-	private $settings = array();
-	private $vars;
 	private $success_array;
 	private $failed_array;
-    protected $error;
-    
-	public function __construct($username,$password,$vars,$settings)
-	{
-		$this->failed_array = array('status'=>'2');
-		$this->success_array = array('status'=>'1');
-        
-        /** smart set of settings **/
-		foreach($settings as $setting=>$setval) if($setval != '') $this->settings[$setting] = $setval;
-        
-		$this->vars = $vars;
-		$this->method = $vars['setting_type'];
-		$this->username = $username;
-		$this->password = $password;
-		
-		if(trim($this->method) == '')
-		{
-			$this->error = "ERROR: invalid method!";
-			return false;
-		}
-        
-		if((trim($this->username) == '') || (trim($this->password) == ''))
-		{
-			$this->error = "ERROR: Empty username or password!";
-			return false;
-		}
-	}
-	
+    private $built = array();
+
+
+	public function __construct()
+    {
+        $this->setAuthentication(false);
+    }
 	public function build()
 	{
-		if($this->method == 'login') return $this->login();
-		elseif($this->method == 'register') return $this->register();
-		elseif($this->method == 'forget_password') return $this->forget_password();
-		elseif($this->method == 'log_out') return $this->log_out();
+		if($this->params['method'] == 'login')
+        {
+            return $this->login();
+        }
+		elseif($this->params['method'] == 'register')
+        {
+            return $this->register();
+        }
+		elseif($this->params['method'] == 'forget_password')
+        {
+            return $this->forget_password();
+        }
 		else
 		{
-			$this->error = "ERROR: Invalid method type!" ;
+			$this->error = "Invalid method type!" ;
 			return false;
 		}
 	}
@@ -65,76 +46,91 @@ class wpl_io_cmd_authentication extends wpl_io_global
 	{
 		if(wpl_users::check_user_login())
 		{
-			return $this->success_array;
+            $this->built['authentication'] = array('status' => 'true');
+            return $this->built;
 		}
         
-		$remember = (array_key_exists('remember', $this->vars)) ? $this->vars['remember'] : false;
+		$remember = (array_key_exists('remember', $this->params)) ? $this->params['remember'] : false;
 		$login_data = array(
-			'user_login'=>$this->username,
-			'user_password'=>$this->password,
-			'remember'=>$remember
+			'user_login' => $this->username,
+			'user_password' => $this->password,
+			'remember' => $remember
 		);
         
 		$user_verify = wpl_users::login_user($login_data); 
 		if(is_wp_error($user_verify)) 
 		{
-			$this->error = $user_verify->get_error_message();
-			return false;
+            $this->built['authentication'] = array(
+                'type' => 'login',
+                'status' => 'false'
+            );
 		}
 		else
-		{	
+		{
 			$user_id = $user_verify->ID;		
 			wp_set_current_user($user_id, $login_data);
 			wp_set_auth_cookie($user_id, true, false);
-			return $this->success_array;
+            $this->built['authentication'] = array(
+                'type' => 'login',
+                'status' => 'true'
+            );
 		}
+        return $this->built;
 	}
-    
+
 	private function register()
 	{
-		if((!array_key_exists('email', $this->vars)) || (trim($this->vars['email']) == ''))
-		{
-			$this->error = "ERROR: Registering method need to email address!";
-			return false;
-		}
-		else
-		{
-			$this->email = $this->vars['email'];
-		}
-        
+
+
 		$user_data = array(
-			'user_login'=>$this->username,
-			'user_email'=>$this->email,
-			'user_pass'=>$this->password,
-			'description'=>'Registered With IO'
+			'user_login' => $this->username,
+			'user_email' => $this->params['email'],
+			'user_pass' => $this->password,
+			'description' => 'Registered With Mobile'
 		);
         
 		$insert_user = wpl_users::insert_user($user_data);
 		if(is_wp_error($insert_user))
 		{
-			$this->error = $insert_user->get_error_message();
-		 	return false;
+            $this->built['authentication'] = array(
+                'type' => 'register',
+                'status' => 'false'
+            );
 		}
 		else
 		{
-			return $this->success_array;
+			$this->built['authentication'] = array(
+                'type' => 'register',
+                'status' => 'true'
+            );
 		}
+        return $this->built;
 	}
 	
 	private function forget_password()
-	{	
+	{
+
+
+        $error_array = array();
+        $error_array['authentication'] = array(
+            'type' => 'forget_password',
+            'status' => 'false'
+        );
+
 		$db = wpl_db::get_DBO();
 		$user_login = wpl_db::sanitize($this->username);
         
 		if(trim($user_login) == '')
 		{
-			$this->error = "ERROR: Username cannot be empty!";
-			return false;
+            return $error_array;
 		}
 		elseif(strpos($user_login, '@'))
 		{
-			$user_data = wpl_users::get_user_by('email',$user_login);
-			if(trim($user_data) == '') return $this->failed_array;
+			$user_data = wpl_users::get_user_by('email', $user_login);
+			if(trim($user_data) == '')
+            {
+                return $error_array;
+            }
 		}
 		else
 		{
@@ -155,8 +151,7 @@ class wpl_io_cmd_authentication extends wpl_io_global
         
 		if(is_wp_error($allow))
 		{
-			$this->error = $allow->get_error_message();
-			return false;
+            return $error_array;
 		}
         
 		$key = wpl_global::generate_password(20, false);
@@ -187,10 +182,44 @@ class wpl_io_cmd_authentication extends wpl_io_global
         
 		if(($message) && (!wp_mail($user_email, $title, $message)))
 		{
-			$this->error = "ERROR: Email functions disabled in your host provider!";
-			return false;
+            return $error_array;
 		}
-        
-		return $this->success_array;
+
+        $this->built['authentication'] = array(
+            'type' => 'forget_password',
+            'status' => 'true'
+        );
+        return $this->built;
 	}
+
+    /**
+     * Data validation
+     * @return boolean
+     */
+    public function validate()
+    {
+        if(trim($this->params['method']) == "")
+        {
+            return false;
+        }
+        else
+        {
+            if($this->params['method'] == 'register')
+            {
+                if((!array_key_exists('email', $this->params)) || (trim($this->params['email']) == ''))
+                {
+                    return false;
+                }
+            }
+        }
+        if(trim($this->username) == "")
+        {
+            return false;
+        }
+        if(trim($this->password) == "")
+        {
+            return false;
+        }
+        return true;
+    }
 }

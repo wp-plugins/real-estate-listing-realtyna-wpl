@@ -2,8 +2,8 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 
-include _wpl_import("widgets.agents.scripts.css_backend", true, true);
-include _wpl_import("widgets.agents.scripts.js_backend", true, true);
+include _wpl_import('widgets.agents.scripts.css_backend', true, true);
+include _wpl_import('widgets.agents.scripts.js_backend', true, true);
 ?>
 <div class="wpl_agents_widget_backend_form wpl-widget-form-wp" id="<?php echo $this->get_field_id('wpl_agents_widget_container'); ?>">
     
@@ -34,6 +34,11 @@ include _wpl_import("widgets.agents.scripts.js_backend", true, true);
             <option value="">-----</option>
 	        <?php echo $this->generate_pages_selectbox($instance); ?>
         </select>
+    </div>
+    
+    <div class="wpl-widget-row">
+        <label for="<?php echo $this->get_field_id('data_css_class'); ?>"><?php echo __('CSS Class', WPL_TEXTDOMAIN); ?></label>
+        <input type="text" id="<?php echo $this->get_field_id('data_css_class'); ?>" name="<?php echo $this->get_field_name('data'); ?>[css_class]" value="<?php echo isset($instance['data']['css_class']) ? $instance['data']['css_class'] : ''; ?>" />
     </div>
     
     <div class="wpl-widget-row">

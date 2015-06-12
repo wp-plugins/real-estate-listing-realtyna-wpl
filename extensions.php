@@ -52,7 +52,7 @@ class wpl_extensions
 	public function import_extensions()
 	{
 		if(!$this->extensions) return;
-		
+        
 		foreach($this->extensions as $extension)
 		{
 			if($extension->type == 'action') $this->import_action($extension);
@@ -849,14 +849,17 @@ $wpl_extensions = new wpl_extensions();
 /** active deactive functions **/
 $wpl_extensions->wpl_active_deactive();
 
+/** include addon libraries if WPL installed completely **/
+if(wpl_global::get_wp_option('wpl_version', NULL))
+{
+    if(wpl_global::check_addon('pro')) _wpl_import('libraries.addon_pro');
+    if(wpl_global::check_addon('franchise')) _wpl_import('libraries.addon_franchise');
+}
+
 if(!($GLOBALS['pagenow'] == 'plugins.php' and wpl_request::getVar('action') == 'activate') and !(wpl_request::getVar('tgmpa-activate') == 'activate-plugin'))
 {
 	$wpl_extensions->get_extensions(1, '', wpl_global::get_client());
 	$wpl_extensions->import_extensions();
-	
-    /** include addon libraries **/
-    if(wpl_global::check_addon('pro')) _wpl_import('libraries.addon_pro');
-    if(wpl_global::check_addon('franchise')) _wpl_import('libraries.addon_franchise');
 
 	if(version_compare(wpl_global::get_wp_option('wpl_version'), wpl_global::wpl_version(), '<'))
 	{

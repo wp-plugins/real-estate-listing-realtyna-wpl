@@ -171,9 +171,9 @@
 
                     wplj(".wpl_property_listing_list_view_container").html(data.html);
                     wplj(".wpl_property_listing_list_view_container").fadeTo(300, 1);
-
+                    
+                    if(typeof wpl_fix_no_image_size == 'function') setTimeout(function(){wpl_fix_no_image_size();}, 50);
                     wpl_listing_last_search_time = new Date().getTime();
-
 
                     var callbacks = wpl_get_callback_search<?php echo $widget_id; ?>();
                     for (var func in callbacks) {

@@ -123,33 +123,6 @@ class wpl_folder
 			return true;
 		}
 
-		// We need to get and explode the open_basedir paths
-		$obd = ini_get('open_basedir');
-
-		// If open_basedir is set we need to get the open_basedir that the path is in
-		if ($obd != null)
-		{
-			$obdSeparator = ":";
-			
-			// Create the array of open_basedir paths
-			$obdArray = explode($obdSeparator, $obd);
-			$inBaseDir = false;
-			// Iterate through open_basedir paths looking for a match
-			foreach ($obdArray as $test)
-			{
-				$test = wpl_path::clean($test);
-				if (strpos($path, $test) === 0)
-				{
-					$inBaseDir = true;
-					break;
-				}
-			}
-			if ($inBaseDir == false)
-			{
-				return false;
-			}
-		}
-
 		// First set umask
 		$origmask = @umask(0);
 

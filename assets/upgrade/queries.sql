@@ -623,3 +623,12 @@ CHANGE `rendered` `rendered` text COLLATE 'utf8_general_ci' NULL;
 
 INSERT INTO `#__wpl_extensions` (`id`, `type`, `title`, `parent`, `description`, `enabled`, `param1`, `param2`, `param3`, `param4`, `param5`, `params`, `editable`, `index`, `client`) VALUES
 (124, 'action', 'User Login', 0, 'Calls after user login', 1, 'wp_login', 'wpl_users->user_loggedin', '10', '2', '', '', 0, 99.99, 2);
+
+UPDATE `#__wpl_extensions` SET `client`='2' WHERE `id`='110';
+
+ALTER TABLE `#__wpl_users` ENGINE=InnoDB;
+ALTER TABLE `#__wpl_units` ENGINE=InnoDB;
+ALTER TABLE `#__wpl_settings` ENGINE=InnoDB;
+ALTER TABLE `#__wpl_dbst` ENGINE=InnoDB;
+
+DELETE FROM `#__wpl_extensions` WHERE `id`='98';

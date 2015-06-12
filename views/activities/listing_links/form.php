@@ -49,3 +49,13 @@ defined('_WPLEXEC') or die('Restricted access');
     <?php endif; ?>
     
 </div>
+<div class="fanc-row">
+    <label for="wpl_o_crm"><?php echo __('CRM', WPL_TEXTDOMAIN); ?></label>
+    
+    <?php if(!wpl_global::check_addon('crm')): ?>
+    <span id="wpl_o_crm" class="gray_tip"><?php echo __('CRM addon must be installed for this!', WPL_TEXTDOMAIN); ?></span>
+    <?php else: ?>
+    <input <?php if(isset($this->options->crm) and $this->options->crm == '1') echo 'checked="checked""'; ?> class="text_box" name="option[crm]" type="checkbox" id="wpl_o_crm" value="<?php echo isset($this->options->crm) ? $this->options->crm : '0'; ?>" />
+    <?php endif; ?>
+    
+</div>

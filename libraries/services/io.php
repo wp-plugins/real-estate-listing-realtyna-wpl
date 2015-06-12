@@ -59,18 +59,17 @@ class wpl_service_io
 		$gvars = wpl_request::get('GET');
 		$pvars = wpl_request::get('POST');
 		$vars = array_merge($pvars, $gvars);
-		$settings = array();
-		
-		$response = $io_object->response($cmd, $username, $password, $vars, $dlang, $settings, $dformat);
+
+		$response = $io_object->response($cmd, $username, $password, $vars, $dformat);
 		
 		/** Error **/
-		if(is_string($response))
+	/*	if(is_string($response))
 		{
 			echo $response;
 			exit;
-		}
+		}*/
 		
-		$rendered = $io_object->render($cmd, $vars, $response, $dformat);
+		$rendered = $io_object->render_format($cmd, $vars, $response, $dformat);
 		
 		if(is_array($rendered))
 		{

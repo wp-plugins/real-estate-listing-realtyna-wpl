@@ -4,7 +4,7 @@ defined('_WPLEXEC') or die('Restricted access');
 
 include _wpl_import("widgets.agents.scripts.js", true, true);
 ?>
-<div class="wpl_agents_widget_container <?php echo ( (isset($instance['data']['style']) and $instance['data']['style'] == '2') ? 'vertical' : '') ?>">
+<div class="wpl_agents_widget_container <?php echo ((isset($instance['data']['style']) and $instance['data']['style'] == '2') ? 'vertical' : '') ?> <?php echo $this->css_class; ?>">
     <?php
     foreach($wpl_profiles as $key=>$profile)
     {

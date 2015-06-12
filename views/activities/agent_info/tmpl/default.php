@@ -12,7 +12,7 @@ $mailto = isset($params['mailto']) ? $params['mailto'] : 0;
 /** getting user id from current property (used in property_show and property_listing) **/
 if(!trim($user_id)) $user_id = $wpl_properties['current']['data']['user_id'];
 
-$wpl_user = wpl_users::full_render($user_id, wpl_users::get_plisting_fields());
+$wpl_user = wpl_users::full_render($user_id, wpl_users::get_pshow_fields(), NULL, array(), true);
 
 /** resizing profile image **/
 $params                   = array();

@@ -8,6 +8,7 @@ $wpl_properties = isset($params['wpl_properties']) ? $params['wpl_properties'] :
 $picture_width = isset($params['picture_width']) ? $params['picture_width'] : '175';
 $picture_height = isset($params['picture_height']) ? $params['picture_height'] : '145';
 $mailto = isset($params['mailto']) ? $params['mailto'] : 0;
+
 $description_column = 'about';
 if(wpl_global::check_multilingual_status() and wpl_addon_pro::get_multiligual_status_by_column($description_column, 2)) $description_column = wpl_addon_pro::get_column_lang_name($description_column, wpl_global::get_current_language(), false);
 

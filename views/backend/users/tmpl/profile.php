@@ -8,7 +8,7 @@ $this->_wpl_import($this->tpl_path . '.scripts.css');
 $my_profile_top_activities = count(wpl_activity::get_activities('my_profile_top', 1));
 $my_profile_bottom_activities = count(wpl_activity::get_activities('my_profile_bottom', 1));
 ?>
-<div class="wrap wpl-wp profile-wp wpl_view_container">
+<div class="wrap wpl-wp profile-wp <?php echo wpl_request::getVar('wpl_dashboard', 0) ? '' : 'wpl_view_container'; ?>">
     <header>
         <div id="icon-profile" class="icon48"></div>
         <h2><?php echo __('Profile', WPL_TEXTDOMAIN); ?></h2>

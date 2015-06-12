@@ -45,7 +45,7 @@ class wpl_listing_controller extends wpl_controller
 		$this->finalized = isset($this->values['finalized']) ? $this->values['finalized'] : 0;
         $this->kind = isset($this->values['kind']) ? $this->values['kind'] : 0;
         
-        $this->field_categories = wpl_flex::get_categories(0, $this->kind);
+        $this->field_categories = wpl_flex::get_categories(1, $this->kind);
 		$this->kind_label = wpl_flex::get_kind_label($this->kind);
         
 		if($this->mode == 'edit')

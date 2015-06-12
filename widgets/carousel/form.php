@@ -2,8 +2,8 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 
-include _wpl_import("widgets.carousel.scripts.css_backend", true, true);
-include _wpl_import("widgets.carousel.scripts.js_backend", true, true);
+include _wpl_import('widgets.carousel.scripts.css_backend', true, true);
+include _wpl_import('widgets.carousel.scripts.js_backend', true, true);
 ?>
 <script type="text/javascript">
 function wpl_carousel_toggle<?php echo $this->widget_id; ?>(element_id)
@@ -32,6 +32,11 @@ function wpl_carousel_toggle<?php echo $this->widget_id; ?>(element_id)
         <select id="<?php echo $this->get_field_id('layout'); ?>" name="<?php echo $this->get_field_name('layout'); ?>" class="wpl-carousel-widget-layout" data-wpl-carousel-id="<?php echo $this->widget_id; ?>">
 	        <?php echo $this->generate_layouts_selectbox('carousel', $instance); ?>
         </select>
+    </div>
+    
+    <div class="wpl-widget-row">
+        <label for="<?php echo $this->get_field_id('data_css_class'); ?>"><?php echo __('CSS Class', WPL_TEXTDOMAIN); ?></label>
+        <input type="text" id="<?php echo $this->get_field_id('data_css_class'); ?>" name="<?php echo $this->get_field_name('data'); ?>[css_class]" value="<?php echo isset($instance['data']['css_class']) ? $instance['data']['css_class'] : ''; ?>" />
     </div>
     
     <div class="wpl-widget-row wpl-carousel-opt" data-wpl-carousel-type="default modern list" data-wpl-pl-init="default:310|modern:1920|list:90">
@@ -75,6 +80,11 @@ function wpl_carousel_toggle<?php echo $this->widget_id; ?>(element_id)
     <div class="wpl-widget-row wpl-carousel-opt" data-wpl-carousel-type="default modern">
         <input <?php if(isset($instance['data']['auto_play']) and $instance['data']['auto_play']) echo 'checked="checked"'; ?> value="1" type="checkbox" id="<?php echo $this->get_field_id('data_auto_play'); ?>" name="<?php echo $this->get_field_name('data'); ?>[auto_play]" />
         <label for="<?php echo $this->get_field_id('auto_play'); ?>"><?php echo __('Auto Play', WPL_TEXTDOMAIN); ?></label>
+    </div>
+
+    <div class="wpl-widget-row wpl-carousel-opt" data-wpl-carousel-type="modern">
+        <input <?php if(isset($instance['data']['smart_resize']) and $instance['data']['smart_resize']) echo 'checked="checked"'; ?> value="1" type="checkbox" id="<?php echo $this->get_field_id('data_smart_resize'); ?>" name="<?php echo $this->get_field_name('data'); ?>[smart_resize]" />
+        <label for="<?php echo $this->get_field_id('smart_resize'); ?>"><?php echo __('Smart Resize', WPL_TEXTDOMAIN); ?></label>
     </div>
 
     <div class="wpl-widget-row wpl-carousel-opt" data-wpl-carousel-type="multi_images">

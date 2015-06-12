@@ -6,7 +6,7 @@ if($format == 'select' and !$done_this)
 {
 	if($value != '-1' and trim($value) != '')
 	{
-		$query .= " AND `".$table_column ."` = '".$value."'";
+		$query .= " AND `".$table_column."` = '".$value."'";
 	}
 	
 	$done_this = true;
@@ -53,31 +53,34 @@ elseif($format == 'datemin' and !$done_this)
 {
 	_wpl_import('libraries.render');
 	
-	$min = $value;
-	$max = isset($vars['sf_datemax_'.$table_column]) ? $vars['sf_datemax_'.$table_column] : '';
-
-	if(trim($min) != '')
+	if(trim($value) != '')
 	{
-		$min = wpl_render::derender_date($min);
-		$query .= " AND DATE(`".$table_column ."`) >= '".$min."'";
+		$value = wpl_render::derender_date($value);
+		$query .= " AND DATE(`".$table_column."`) >= '".$value."'";
 	}
     
-	if(trim($max) != '')
+	$done_this = true;
+}
+elseif($format == 'datemax' and !$done_this)
+{
+	_wpl_import('libraries.render');
+	
+	if(trim($value) != '')
 	{
-		$max = wpl_render::derender_date($max);
-		$query .= " AND DATE(`".$table_column ."`) <= '".$max."'";
+		$value = wpl_render::derender_date($value);
+		$query .= " AND DATE(`".$table_column."`) <= '".$value."'";
 	}
     
 	$done_this = true;
 }
 elseif($format == 'rawdatemin' and !$done_this)
 {
-	$min = $value;
-	$max = isset($vars['sf_rawdatemax_'.$table_column]) ? $vars['sf_rawdatemax_'.$table_column] : '';
-
-	if(trim($min) != '') $query .= " AND DATE(`".$table_column ."`) >= '".$min."'";
-	if(trim($max) != '') $query .= " AND DATE(`".$table_column ."`) <= '".$max."'";
-    
+	if(trim($value) != '') $query .= " AND DATE(`".$table_column."`) >= '".$value."'";
+	$done_this = true;
+}
+elseif($format == 'rawdatemax' and !$done_this)
+{
+	if(trim($value) != '') $query .= " AND DATE(`".$table_column."`) <= '".$value."'";
 	$done_this = true;
 }
 elseif($format == 'gallery' and !$done_this)
@@ -96,7 +99,7 @@ elseif($format == 'tmin' and !$done_this)
 		$min = $value;
 		$max = isset($vars['sf_tmax_'.$table_column]) ? $vars['sf_tmax_'.$table_column] : 999999999999;
 		
-		$query .= " AND `".$table_column ."` >= ".$min." AND `".$table_column ."` <= ".$max."";
+		$query .= " AND `".$table_column."` >= ".$min." AND `".$table_column."` <= ".$max."";
 	}
 	
 	$done_this = true;
@@ -106,7 +109,7 @@ elseif($format == 'multiple' and !$done_this)
 	if(!($value == '' or $value == '-1' or $value == ','))
 	{
 		$value = rtrim($value, ',');
-		if($value != '') $query .= " AND `".$table_column ."` IN (".$value.")";
+		if($value != '') $query .= " AND `".$table_column."` IN (".$value.")";
 	}
 	
 	$done_this = true;
@@ -115,7 +118,7 @@ elseif($format == 'notselect' and !$done_this)
 {
 	if($value != '-1' and trim($value) != '')
 	{
-		$query .= " AND `".$table_column ."` != '".$value."'";
+		$query .= " AND `".$table_column."` != '".$value."'";
 	}
 	
 	$done_this = true;
@@ -136,7 +139,10 @@ elseif($format == 'textsearch' and !$done_this)
 {
 	if(trim($value) != '')
 	{
-		$query .= " AND `".$table_column ."` LIKE '%".$value."%'";
+        /** If the field is multilingual or it is textsearch field **/
+        if(wpl_global::check_multilingual_status() and (wpl_addon_pro::get_multiligual_status_by_column($table_column, wpl_request::getVar('kind', 0)) or $table_column == 'textsearch')) $table_column = wpl_addon_pro::get_column_lang_name($table_column, wpl_global::get_current_language(), false);
+        
+		$query .= " AND `".$table_column."` LIKE '%".$value."%'";
 	}
 	
 	$done_this = true;
@@ -145,7 +151,7 @@ elseif($format == 'text' and !$done_this)
 {
 	if(trim($value) != '')
 	{
-		$query .= " AND `".$table_column ."` LIKE '%".$value."%'";
+		$query .= " AND `".$table_column."` LIKE '%".$value."%'";
 	}
 	
 	$done_this = true;
@@ -165,8 +171,8 @@ elseif($format == 'unit' and !$done_this)
 		$si_value_min = $unit_data['tosi'] * $min;
 		$si_value_max = $unit_data['tosi'] * $max;
 		
-		if($si_value_max != 0) $query .= " AND `".$table_column ."_si` <= '".$si_value_max."'";
-		if($si_value_min != 0) $query .= " AND `".$table_column ."_si` >= '".$si_value_min."'";
+		if($si_value_max != 0) $query .= " AND `".$table_column."_si` <= '".$si_value_max."'";
+		if($si_value_min != 0) $query .= " AND `".$table_column."_si` >= '".$si_value_min."'";
 	}
 	
 	$done_this = true;

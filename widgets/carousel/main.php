@@ -40,6 +40,8 @@ class wpl_carousel_widget extends wpl_widget
 		$this->widget_uq_name = 'wplc'.$this->widget_id;
 		$widget_id = $this->widget_id;
         
+        $this->css_class = isset($instance['data']['css_class']) ? $instance['data']['css_class'] : '';
+        
 		/** add main scripts **/
 		wp_enqueue_script('jquery-ui-core');
 		wp_enqueue_script('jquery-ui-slider');

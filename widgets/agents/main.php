@@ -38,6 +38,8 @@ class wpl_agents_widget extends wpl_widget
 		$this->instance = $instance;
 		$widget_id = $this->widget_id;
         
+        $this->css_class = isset($instance['data']['css_class']) ? $instance['data']['css_class'] : '';
+        
 		/** render properties **/
 		$query = self::query($instance);
         $model = new wpl_users();

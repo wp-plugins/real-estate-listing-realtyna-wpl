@@ -17,7 +17,7 @@ abstract class wpl_profile_listing_controller_abstract extends wpl_controller
 	
 	public function display($instance = array())
 	{
-		/** property listing model **/
+		/** profile listing model **/
 		$this->model = new wpl_users;
 		
 		/** global settings **/

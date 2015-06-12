@@ -471,6 +471,7 @@ class wpl_flex
 		if(wpl_folder::exists($path)) $files = wpl_folder::files($path, '.php$', false, false);
 		
         $wpllangs = wpl_global::check_multilingual_status() ? wpl_addon_pro::get_wpl_languages() : array();
+        $has_more_details = false;
         
 		foreach($fields as $key=>$field)
 		{
@@ -504,7 +505,33 @@ class wpl_flex
 				self::$category_user_specific_array[$field->id] = $specified_user_types;
 				if(!in_array($values['membership_type'], $specified_user_types)) $display = 'display: none;';
 			}
+			elseif(isset($options['access']))
+			{
+				foreach($options['access'] as $access)
+				{
+					if(!wpl_global::check_access($access))
+					{
+						$display = 'display: none;';
+						break;
+					}
+				}
+			}
 			
+            /** More Details **/
+            if($type == 'more_details' and !$has_more_details)
+            {
+                echo '<div class="wpl_listing_field_container wpl-pwizard-prow-'.$type.'" id="wpl_listing_field_container'.$field->id.'">';
+                echo '<label for="wpl_c_'.$field->id.'"><span>'.__($label, WPL_TEXTDOMAIN).'</span></label>';
+                echo '<div id="wpl_more_details'.$field->id.'" style="display: none;" class="wpl-fields-more-details-block">';
+                
+                $has_more_details = true;
+            }
+            elseif($type == 'more_details' and $has_more_details)
+            {
+                /** Only one details field is acceptable in each category **/
+                continue;
+            }
+            
             /** Accesses **/
 			if(isset($field->accesses) and trim($field->accesses) != '' and wpl_global::check_addon('membership'))
 			{
@@ -546,8 +573,14 @@ class wpl_flex
 					break;
 				}
 			}
+            
 			echo '</div>';
 		}
+        
+        if($has_more_details)
+        {
+            echo '</div></div>';
+        }
 	}
 	
     /**
