@@ -1,0 +1,146 @@
+<script id="notificationTemplate" type="text/x-handlebars-template">
+    <div class="fanc-content size-width-2 fanc-notify-wp">
+        <h2>{{title}</h2>
+
+        <div class="fanc-body fancy-search-body">
+            <div class="fanc-main-body-wp">
+                <div class="fanc-message-icon"></div>
+                <div class="fanc-message-body">
+                    {{message}
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script id="dbst-wizard-gallery" type="text/x-handlebars-template">
+    <li class="ui-state-default" id="ajax_gallery{{index}}">
+        <input type="hidden" id="gal_name" value="{{name}}"/>
+
+        <div class="image-box-wp">
+            <div class="image-wp">
+                <img src="{{imageFolder}}thumbnail/{{name}}" width="80" height="60" />
+            </div>
+            <div class="info-wp">
+                <div class="row">
+                    <label for="title-{{index}}">{{lblImageTitle}}:</label>
+                    <input id="title-{{index}}" type="text" class="gal_title" value=""
+                           onblur="ajax_gallery_title_update('{{name}}', this.value);" size="20"/>
+                </div>
+                <div class="row">
+                    <label for="desc-{{index}}">{{lblImageDesc}}:</label>
+                    <input id="desc-{{index}}" type="text" class="gal_desc" value=""
+                           onblur="ajax_gallery_desc_update('{{name}}', this.value);" size="50"/>
+                </div>
+                <div class="row">
+                    <label for="cat-{{index}}">{{lblImageCat}}:</label>
+                    <select id="cat-{{index}}" name="img_cat" class="gal_cat"
+                            onchange="ajax_gallery_cat_update('{{name}}', this.value);">
+                        {{{selectOptions}}}
+                    </select>
+                </div>
+            </div>
+            <div class="actions-wp">
+                <div class="action-gal-btn">
+                    <i class="action-btn icon-move"></i>
+                </div>
+                <div class="action-gal-btn ajax_gallery_middle_td"
+                     onclick="ajax_gallery_image_delete('{{name}}', 'ajax_gallery{{index}}');">
+                    <i class="action-btn icon-recycle"></i>
+                </div>
+                <div class="action-gal-btn" id="active_image_tag_{{index}}"
+                     onclick="wpl_image_enabled('{{name}}', '{{index}}');"><i class="action-btn icon-enabled" title="{{enabled_title}}"></i></div>
+                <input type="hidden" id="enabled_image_field_{{index}}" value="1"/>
+            </div>
+        </div>
+    </li>
+</script>
+
+<script id="dbst-wizard-videos" type="text/x-handlebars-template">
+    <li class="ui-state-default" id="ajax_video{{vid_counter}}">
+        <input type="hidden" id="vid_name" value="{{name}}"/>
+
+        <div class="image-box-wp">
+            <div class="info-wp">
+                <div class="row">
+                    <label>{{lblTitle}}:</label>
+                    <input type="text" class="vid_title" value=""
+                           onblur="ajax_video_title_update('{{name}}', this.value);" size="20"/>
+                </div>
+                <div class="row">
+                    <label>{{lblDesc}}:</label>
+                    <input type="text" class="vid_desc" value="" onblur="ajax_video_desc_update('{{name}}', this.value);"
+                           size="50"/>
+                </div>
+                <div class="row">
+                    <label>{{lblCat}}:</label>
+                    <select name="vid_cat" class="vid_cat" onchange="ajax_video_cat_update('{{name}}', this.value);">
+                        {{{select}}}
+                    </select>
+                </div>
+            </div>
+            <div class="actions-wp">
+                <div class="action-gal-btn">
+                    <i class="action-btn icon-move"></i>
+                </div>
+                <div class="action-gal-btn ajax_gallery_middle_td"
+                     onclick="ajax_video_delete('{{name}}', 'ajax_video{{vid_counter}}');">
+                    <i class="action-btn icon-recycle"></i>
+                </div>
+                <div class="action-gal-btn" id="active_image_tag_{{vid_counter}}"
+                     onclick="wpl_image_enabled('{{name}}', {{vid_counter}});"><i class="action-btn icon-enabled"></i>
+                </div>
+                <input type="hidden" id="enabled_video_field_{{vid_counter}}" value=""/>
+            </div>
+        </div>
+    </li>
+</script>
+
+<script id="dbst-wizard-attachment" type="text/x-handlebars-template">
+    <li class="ui-state-default" id="ajax_attachment{{att_counter}}">
+        <input type="hidden" id="att_name" value="{{fileName}}"/>
+
+        <div class="image-box-wp">
+            <div class="icon-wp">
+                <div class="wpl-attach-icon wpl-att-{{subFileName}}"></div>
+            </div>
+            <div class="info-wp">
+                <div class="row">
+                    <label>{{lblTitle}}:</label>
+                    <input type="text" class="att_title" value=""
+                           onblur="ajax_attachment_title_update('{{fileName}}', this.value);"
+                           size="20"/>
+                </div>
+                <div class="row">
+                    <label>{{lblDesc}}:</label>
+                    <input type="text" class="att_desc" value=""
+                           onblur="ajax_attachment_desc_update('{{fileName}}', this.value);"
+                           size="50"/>
+                </div>
+                <div class="row">
+                    <label>{{lblCat}}:</label>
+                    <select name="att_cat" class="att_cat"
+                            onchange="ajax_attachment_cat_update('{{fileName}}', this.value);">
+                        {{{attachCat}}}
+                    </select>
+                </div>
+            </div>
+            <div class="actions-wp">
+                <div class="action-gal-btn ajax_attachment_move_icon">
+                    <i class="action-btn icon-move"></i>
+                </div>
+                <div class="action-gal-btn ajax_gallery_middle_td ajax_attachment_remove_icon"
+                     onclick="ajax_attachment_delete('{{fileName}}','ajax_attachment{{att_counter}}');">
+                    <i class="action-btn icon-recycle"></i>
+                </div>
+
+                <div class="action-gal-btn" id="active_attachment_tag_{{att_counter}}"
+                     onclick="wpl_attachment_enabled('{{fileName}}','{{att_counter}}');">
+                    <i class="action-btn icon-enabled" title="{{enabled_title}}"></i>
+                </div>
+
+                <input type="hidden" id="enabled_attachment_field_{{att_counter}}" value="1"/>
+            </div>
+        </div>
+    </li>
+</script>
