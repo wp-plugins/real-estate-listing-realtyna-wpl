@@ -165,8 +165,11 @@ class wpl_service_sef
         
         /** SET og meta parameters for social websites like facebook etc **/
         wpl_html::$canonical = str_replace('&', '&amp;', $current_link_url);
-        $html->set_custom_tag('<meta property="og:type" content="property" />');
         
+        /** Remove canonical tags **/
+        $this->remove_canonical();
+        
+        $html->set_custom_tag('<meta property="og:type" content="property" />');
         $html->set_custom_tag('<meta property="og:locale" content="'.$locale.'" />');
         
         $content_column = 'field_308';
@@ -233,6 +236,9 @@ class wpl_service_sef
 		
 		$html = wpl_html::getInstance();
 		wpl_html::$canonical = str_replace('&', '&amp;', $current_link_url);
+        
+        /** Remove canonical tags **/
+        $this->remove_canonical();
         
 		/** set title **/
 		$html->set_title($this->user_title);
@@ -371,5 +377,15 @@ class wpl_service_sef
             $html->set_custom_tag('<meta name="DC.date" content="'.wpl_global::get_the_date().'" />');
             $html->set_custom_tag('<meta name="DC.creator" content="'.$author_username.'" />');
         }
+    }
+    
+    /**
+     * For removing canonical URLs from WPL pages
+     * @author Howard <howard@realtyna.com>
+     */
+    public function remove_canonical()
+    {
+        /** Remove Yoast Canonical URL **/
+        add_filter('wpseo_canonical', '__return_false');
     }
 }

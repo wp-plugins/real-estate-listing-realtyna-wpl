@@ -25,7 +25,7 @@ $pshow_video_activities = count(wpl_activity::get_activities('pshow_video', 1));
 if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->wpl_properties['current']['items']['video']) and !count($this->wpl_properties['current']['items']['video']))) $pshow_video_activities = 0;
 ?>
 <div class="wpl_prp_show_container" id="wpl_prp_show_container">
-    <div class="wpl_prp_container" id="wpl_prp_container<?php echo $this->pid; ?>" itemscope>
+    <div class="wpl_prp_container" id="wpl_prp_container<?php echo $this->pid; ?>" itemscope itemtype="https://schema.org/TradeAction">
         <div class="wpl_prp_show_tabs">
             <div class="tabs_container">
             	<?php if($pshow_gallery_activities): ?>
@@ -61,7 +61,7 @@ if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->w
         <div class="wpl_prp_container_content">
             <div class="wpl_prp_container_content_title">
                 <?php
-                echo '<h1 class="title_text">'.$prp_title.'</h1>';
+                echo '<h1 class="title_text" itemprop="name">'.$prp_title.'</h1>';
                 echo '<h2 class="location_build_up">'.(trim($build_up_area) ? $build_up_area.' - ' : '').'<span itemprop="address">'. $location_string .'</span></h2>';
 				
                 /** load QR Code **/ wpl_activity::load_position('pshow_qr_code', array('wpl_properties'=>$this->wpl_properties)); ?>

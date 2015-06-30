@@ -505,7 +505,8 @@ class wpl_property
             
             /** skip to next if address is hidden **/
             if(!$property['raw']['show_address']) continue;
-
+            
+            /** Fetch latitude and longitude if it's not set **/
             if(!$property['raw']['googlemap_lt'] or !$property['raw']['googlemap_ln'])
             {
                 $LatLng = wpl_locations::update_LatLng(NULL, $property['raw']['id']);
@@ -514,6 +515,7 @@ class wpl_property
                 $property['raw']['googlemap_ln'] = $LatLng[1];
             }
             
+            /** Create multiple marker **/
             if(isset($geo_points[$property['raw']['googlemap_lt'].','.$property['raw']['googlemap_ln']]))
             {
                 $j = $geo_points[$property['raw']['googlemap_lt'].','.$property['raw']['googlemap_ln']];

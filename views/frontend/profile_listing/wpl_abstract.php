@@ -41,6 +41,9 @@ abstract class wpl_profile_listing_controller_abstract extends wpl_controller
 		$this->page_number = ($this->start/$this->limit)+1;
 		wpl_request::setVar('wplpage', $this->page_number);
 		
+        /** User Type **/
+        $this->user_type = wpl_request::getVar('sf_select_membership_type', NULL);
+        
 		/** detect kind **/
 		$this->kind = wpl_request::getVar('kind', 2);
 		if(!in_array($this->kind, wpl_flex::get_valid_kinds()))
@@ -92,6 +95,9 @@ abstract class wpl_profile_listing_controller_abstract extends wpl_controller
 		$this->pagination = wpl_pagination::get_pagination($this->model->total, $this->limit, true, $this->wplraw);
 		$this->wpl_profiles = $wpl_profiles;
 		
+        /** import tpl **/
+        $this->tpl = wpl_users::get_user_type_tpl($this->tpl_path, $this->tpl, $this->user_type);
+        
 		/** import tpl **/
 		return parent::render($this->tpl_path, $this->tpl, false, true);
 	}

@@ -57,19 +57,19 @@ class wpl_request_controller
      * @author Howard <howard@realtyna.com>
      * @param string $format
      */
-	function __construct($format)
+	public function __construct($format)
 	{
 		$this->_wpl_request_format = $format;
 		$ex = explode(':', $this->_wpl_request_format);
 		
 		$this->_wpl_client = array_search($this->_wpl_clients[$ex[0]], $this->_wpl_clients) ? $this->_wpl_clients[$ex[0]] : 'frontend';
 		$this->_wpl_folder = $ex[1];
-		$this->_wpl_file = 'wpl_'.$ex[2];
+		$this->_wpl_file = $this->get_file_name($ex[2]);
 		$this->_wpl_plugin = isset($ex[3]) ? $ex[3] : '';
-		$this->_wpl_class = self::get_class_name($ex);
+		$this->_wpl_class = $this->get_class_name($ex);
 		
 		/** import file **/
-		_wpl_import(self::get_class_path($ex));
+		_wpl_import($this->get_class_path());
 	}
 	
     /**
@@ -95,6 +95,18 @@ class wpl_request_controller
 	}
 	
     /**
+     * Returns file name
+     * @author Howard <howard@realtyna.com>
+     * @param string $file
+     * @return string
+     */
+    private function get_file_name($file)
+	{
+		if($this->_wpl_client == 'activities') return $file;
+		else return 'wpl_'.$file;
+	}
+    
+    /**
      * Returns controller name
      * @author Howard <howard@realtyna.com>
      * @param array $exploded_str
@@ -109,13 +121,11 @@ class wpl_request_controller
     /**
      * Returns WPL path of controller
      * @author Howard <howard@realtyna.com>
-     * @param array $exploded_str
      * @return string
      */
-	private function get_class_path($exploded_str)
+	private function get_class_path()
 	{
-		if($this->_wpl_client == 'activities') return 'views.'.$this->_wpl_client.'.'.$this->_wpl_folder.'.'.$exploded_str[2];
-		else return 'views.'.$this->_wpl_client.'.'.$this->_wpl_folder.'.'.$this->_wpl_file;
+		return 'views.'.$this->_wpl_client.'.'.$this->_wpl_folder.'.'.$this->_wpl_file;
 	}
 }
 

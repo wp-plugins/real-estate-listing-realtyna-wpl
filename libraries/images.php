@@ -57,12 +57,10 @@ class wpl_images
         $width_temp = round($src_width / $height_ratio);
 
         // If Destination height is Null, Use approximate according to ratio.
-        if($height == '' || $height == 0 || $height == '0')
-            $height = $height_temp;
+        if($height == '' || $height == 0 || $height == '0') $height = $height_temp;
 
         // If Destination width is Null, Use approximate according to ratio.
-        if($width == '' || $width == 0 || $width == '0')
-            $width = $width_temp;
+        if($width == '' || $width == 0 || $width == '0') $width = $width_temp;
 
         $dest_width = $width;
         $dest_height = $height;
@@ -160,13 +158,10 @@ class wpl_images
             imagecopyresampled($tmp_dest, $src_image, 0, 0, 0, 0, $tmpx, $tmpy, $src_width, $src_height);
 
             //crops the temporary resized image to the size given by function parameters
-            if($crop == 1)
-                imagecopy($dest_image, $tmp_dest, 0, 0, 0, 0, $width, $height);
-            else
-                imagecopy($dest_image, $tmp_dest, 0, 0, $src_x, $src_y, $width, $height);
+            if($crop == 1) imagecopy($dest_image, $tmp_dest, 0, 0, 0, 0, $width, $height);
+            else imagecopy($dest_image, $tmp_dest, 0, 0, $src_x, $src_y, $width, $height);
         }
-        else
-            imagecopyresampled($dest_image, $src_image, 0, 0, 0, 0, $dest_width, $dest_height, $src_width, $src_height);
+        else imagecopyresampled($dest_image, $src_image, 0, 0, 0, 0, $dest_width, $dest_height, $src_width, $src_height);
 		
         if($extension == 'jpg' || $extension == 'jpeg') 
         {
@@ -405,10 +400,8 @@ class wpl_images
     {
         //get gallery category settings
         $settings = wpl_settings::get_settings(2);
-        if(trim($width) == '')
-            $width = $settings['default_resize_width'];
-        if(trim($height) == '')
-            $height = $settings['default_resize_height'];
+        if(trim($width) == '') $width = $settings['default_resize_width'];
+        if(trim($height) == '') $height = $settings['default_resize_height'];
         
         $crop = $settings['image_resize_method'];
         $watermark_options['status'] = $settings['watermark_status'];
@@ -418,8 +411,7 @@ class wpl_images
       
         self::resize_image($source, $dest, $width, $height, $crop);
 
-        if($watermark_options['status'] == 1)
-            self::add_watermark_image($dest, $dest, $watermark_options); 
+        if($watermark_options['status'] == 1) self::add_watermark_image($dest, $dest, $watermark_options); 
     }
     
     /**
@@ -443,9 +435,7 @@ class wpl_images
 		/** check resized files existance and rewrite option **/
 		if($rewrite or !wpl_file::exists($image_dest))
 		{
-			if($watermark)
-			    self::resize_watermark_image($params['image_source'], $image_dest, $width, $height);
-			
+			if($watermark) self::resize_watermark_image($params['image_source'], $image_dest, $width, $height);
 			else
 			{
 				/** if crop was not set, read from wpl settings **/
@@ -468,12 +458,12 @@ class wpl_images
 	 * @param int $width
      * @param int $height
      * @param array $params
-     * @param boolean $watermark
-     * @param boolean $rewrite
-	 * @param boolean $crop
+     * @param int $watermark
+     * @param int $rewrite
+	 * @param int $crop
      * description: resize and watermark images specially
      */
-    public static function create_profile_images($source, $width, $height, $params, $watermark = 0, $rewrite = 0, $crop = 1)
+    public static function create_profile_images($source, $width, $height, $params, $watermark = 0, $rewrite = 0, $crop = '')
     {
 		/** first validation **/
 		if(!trim($source)) return NULL;
@@ -487,11 +477,8 @@ class wpl_images
 		/** check resized files existance and rewrite option **/
 		if($rewrite or !wpl_file::exists($image_dest))
 		{
-		   if($watermark)
-			   self::resize_watermark_image($source, $image_dest, $width, $height);
-		   
-		   else
-			   self::resize_image($source, $image_dest, $width, $height, $crop);
+		   if($watermark) self::resize_watermark_image($source, $image_dest, $width, $height);
+		   else self::resize_image($source, $image_dest, $width, $height, $crop);
 		}
 		
 		return $image_url;

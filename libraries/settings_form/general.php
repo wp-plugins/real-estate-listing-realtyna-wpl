@@ -63,12 +63,11 @@ elseif($type == 'select' and !$done_this)
 	$show_empty = isset($options['show_empty']) ? $options['show_empty'] : NULL;
 	$show_shortcode = isset($options['show_shortcode']) ? $options['show_shortcode'] : NULL;
     $values = isset($options['query']) ? wpl_db::select($options['query'], 'loadAssocList') : $options['values'];
-
 ?>
 <div class="prow wpl_setting_form_container wpl_st_type<?php echo $setting_record->type; ?> wpl_st_<?php echo $setting_record->setting_name; ?>" id="wpl_st_<?php echo $setting_record->id; ?>">
     <div class="select-wp">
         <label for="wpl_st_form_element<?php echo $setting_record->id; ?>"><?php echo $setting_title; ?>&nbsp;<span class="wpl_st_citation">:</span></label>
-        <select name="wpl_st_form<?php echo $setting_record->id; ?>" id="wpl_st_form_element<?php echo $setting_record->id; ?>" onchange="<?php if ($show_shortcode): ?>wpl_setting_show_shortcode('<?php echo $setting_record->id; ?>', '<?php echo $options['shortcode_key']; ?>', this.value);<?php endif; ?> wpl_setting_save('<?php echo $setting_record->id; ?>', '<?php echo $setting_record->setting_name; ?>', this.value, '<?php echo $setting_record->category; ?>');" <?php if (isset($params['width'])): ?>data-chosen-opt="width:<?php echo $params['width']; ?>"<?php endif; ?> autocomplete="off">
+        <select name="wpl_st_form<?php echo $setting_record->id; ?>" id="wpl_st_form_element<?php echo $setting_record->id; ?>" onchange="<?php if ($show_shortcode): ?>wpl_setting_show_shortcode('<?php echo $setting_record->id; ?>', '<?php echo $options['shortcode_key']; ?>', this.value);<?php endif; ?> wpl_setting_save('<?php echo $setting_record->id; ?>', '<?php echo $setting_record->setting_name; ?>', this.value, '<?php echo $setting_record->category; ?>');" <?php if(isset($params['width'])): ?>data-chosen-opt="width: <?php echo $params['width']; ?>"<?php endif; ?> autocomplete="off">
             <?php if ($show_empty): ?><option value="">---</option><?php endif; ?>
             <?php foreach ($values as $value_array): ?>
             <option value="<?php echo $value_array['key']; ?>" <?php if ($value_array['key'] == $value) echo 'selected="selected"' ?>><?php echo $value_array['value']; ?></option>

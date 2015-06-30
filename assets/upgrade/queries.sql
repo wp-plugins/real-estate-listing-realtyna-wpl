@@ -632,3 +632,13 @@ ALTER TABLE `#__wpl_settings` ENGINE=InnoDB;
 ALTER TABLE `#__wpl_dbst` ENGINE=InnoDB;
 
 DELETE FROM `#__wpl_extensions` WHERE `id`='98';
+
+ALTER TABLE `#__wpl_location1` ENGINE = InnoDB;
+ALTER TABLE `#__wpl_location2` ENGINE = InnoDB;
+ALTER TABLE `#__wpl_location3` ENGINE = InnoDB;
+ALTER TABLE `#__wpl_location4` ENGINE = InnoDB;
+ALTER TABLE `#__wpl_location5` ENGINE = InnoDB;
+ALTER TABLE `#__wpl_location6` ENGINE = InnoDB;
+ALTER TABLE `#__wpl_location7` ENGINE = InnoDB;
+ALTER TABLE `#__wpl_locationtextsearch` ENGINE = InnoDB;
+ALTER TABLE `#__wpl_locationzips` ENGINE = InnoDB;

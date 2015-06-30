@@ -7,8 +7,8 @@ $wpl_properties = isset($params['wpl_properties']) ? $params['wpl_properties'] :
 $property_id = isset($wpl_properties['current']['data']['id']) ? $wpl_properties['current']['data']['id'] : NULL;
 
 /** Kind **/
-$kind = isset($wpl_properties['current']['data']['kind']) ? $wpl_properties['current']['data']['kind'] : 0;
-$kind_data = wpl_flex::get_kind($kind);
+$this->kind = isset($wpl_properties['current']['data']['kind']) ? $wpl_properties['current']['data']['kind'] : 0;
+$kind_data = wpl_flex::get_kind($this->kind);
 
 /** Parameters **/
 $this->params = $params;

@@ -18,15 +18,16 @@ $wpl_user = wpl_users::full_render($user_id, wpl_users::get_pshow_fields(), NULL
 $params                   = array();
 $params['image_parentid'] = $user_id;
 $params['image_name']     = isset($wpl_user['profile_picture']['name']) ? $wpl_user['profile_picture']['name'] : '';
-$picture_path             = isset($wpl_user['profile_picture']['path']) ? $wpl_user['profile_picture']['path'] : '';
-$profile_image            = wpl_images::create_profile_images($picture_path, $picture_width, $picture_height, $params);
+$profile_path             = isset($wpl_user['profile_picture']['path']) ? $wpl_user['profile_picture']['path'] : '';
+$profile_image            = wpl_images::create_profile_images($profile_path, $picture_width, $picture_height, $params);
 
 /** resizing company logo **/
 $params                   = array();
 $params['image_parentid'] = $user_id;
 $params['image_name']     = isset($wpl_user['company_logo']['name']) ? $wpl_user['company_logo']['name'] : '';
 $logo_path                = isset($wpl_user['company_logo']['path']) ? $wpl_user['company_logo']['path'] : '';
-$logo_image               = isset($wpl_user['company_logo']['url']) ? $wpl_user['company_logo']['url'] : '';
+//$logo_image               = isset($wpl_user['company_logo']['url']) ? $wpl_user['company_logo']['url'] : '';
+$logo_image               = wpl_images::create_profile_images($logo_path, $picture_width, $picture_height, $params);
 
 $agent_name               = isset($wpl_user['materials']['first_name']['value']) ? $wpl_user['materials']['first_name']['value'] : '';
 $agent_l_name             = isset($wpl_user['materials']['last_name']['value']) ? $wpl_user['materials']['last_name']['value'] : '';
@@ -44,9 +45,9 @@ $company_name             = isset($wpl_user['materials']['company_name']['value'
 			    <?php endif; ?>			
 			</div>
 			<?php if($logo_image): ?>
-				<div class="back">
-					<img itemprop="image" src="<?php echo $logo_image; ?>" class="logo" alt="<?php echo $company_name; ?>" />
-				</div>
+            <div class="back">
+                <img itemprop="image" src="<?php echo $logo_image; ?>" class="logo" alt="<?php echo $company_name; ?>" />
+            </div>
 		    <?php endif; ?>
 		</div>
 		<div class="company_details">

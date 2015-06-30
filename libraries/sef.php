@@ -347,14 +347,11 @@ class wpl_sef
 
             if(trim($params_str) != '')
             {
-                $params_str_ex = explode(' ', $params_str);
-                foreach($params_str_ex as $param)
+                $attributes = shortcode_parse_atts($params_str);
+                foreach($attributes as $key=>$value)
                 {
-                    $param_ex = explode('=', $param);
-                    $key = $param_ex[0];
-                    $value = isset($param_ex[1]) ? trim($param_ex[1], '" ') : '';
-
-                    if(trim($key) != '') wpl_request::setVar($key, $value, 'method', false);
+                    if(trim($key) == '') continue;
+                    wpl_request::setVar($key, $value, 'method', false);
                 }
             }
         }

@@ -109,7 +109,14 @@ elseif($format == 'multiple' and !$done_this)
 	if(!($value == '' or $value == '-1' or $value == ','))
 	{
 		$value = rtrim($value, ',');
-		if($value != '') $query .= " AND `".$table_column."` IN (".$value.")";
+		if($value != '')
+        {
+            $values_ex = explode(',', $value);
+            $value_str = '';
+            foreach($values_ex as $value_ex) $value_str .= "'$value_ex',";
+            
+            $query .= " AND `".$table_column."` IN (".trim($value_str, ', ').")";
+        }
 	}
 	
 	$done_this = true;

@@ -21,8 +21,8 @@ $wpl_user = wpl_users::full_render($user_id, wpl_users::get_pshow_fields(), NULL
 $params                   = array();
 $params['image_parentid'] = $user_id;
 $params['image_name']     = isset($wpl_user['profile_picture']['name']) ? $wpl_user['profile_picture']['name'] : '';
-$picture_path             = isset($wpl_user['profile_picture']['path']) ? $wpl_user['profile_picture']['path'] : '';
-$profile_image            = wpl_images::create_profile_images($picture_path, $picture_width, $picture_height, $params);
+$profile_path             = isset($wpl_user['profile_picture']['path']) ? $wpl_user['profile_picture']['path'] : '';
+$profile_image            = wpl_images::create_profile_images($profile_path, $picture_width, $picture_height, $params);
 
 /** resizing company logo **/
 $params                   = array();

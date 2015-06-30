@@ -226,8 +226,8 @@ class wpl_extensions
 	public function import_language()
 	{
         $locale = apply_filters('plugin_locale', get_locale(), WPL_TEXTDOMAIN);
-		$overriden_language_filepath = WP_LANG_DIR .DS. WPL_BASENAME .DS. WPL_TEXTDOMAIN.'-'.$locale.'.mo';
         
+		$overriden_language_filepath = WP_LANG_DIR .DS. WPL_BASENAME .DS. WPL_TEXTDOMAIN.'-'.$locale.'.mo';
 		$overriden_language_filepath = wpl_path::clean($overriden_language_filepath);
 		
 		/** check if the language file is overridden **/

@@ -37,8 +37,14 @@ abstract class wpl_profile_show_controller_abstract extends wpl_controller
         $this->kind = wpl_request::getVar('kind', '0');
         wpl_request::setVar('kind', $this->kind);
         
+        /** User Type **/
+        $this->user_type = wpl_users::get_user_user_type($this->uid);
+        
         /** trigger event **/
 		wpl_global::event_handler('profile_show', array('id'=>$this->uid, 'kind'=>$this->kind));
+        
+        /** import tpl **/
+        $this->tpl = wpl_users::get_user_type_tpl($this->tpl_path, $this->tpl, $this->user_type);
         
 		/** import tpl **/
 		return parent::render($this->tpl_path, $this->tpl, false, true);

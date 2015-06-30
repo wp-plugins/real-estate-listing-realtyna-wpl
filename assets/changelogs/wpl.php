@@ -4,6 +4,12 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL2.6.1 (<span class="wpl_log_date">06/30/2015</span> <span class="wpl_log_revision">revision 1639</span>)</h4>
+        -- Fixed WPL UI customizer SCSS issue.<br />
+        -- Fixed property images issue on listings pages.<br />
+        -- Fixed external images issue on favorites widget.<br />
+        -- Fixed multilingual issue of property description in PDF flyer.
+        
         <h4>WPL2.6.0 (<span class="wpl_log_date">06/12/2015</span> <span class="wpl_log_revision">revision 1607</span>)</h4>
         -- <strong>[PRO]</strong> Enhanced WPL custom style by adding code editor.<br />
         -- <strong>[PRO]</strong> Added front-end property management.<br />

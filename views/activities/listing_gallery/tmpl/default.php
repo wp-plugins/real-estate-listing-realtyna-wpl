@@ -36,7 +36,7 @@ $this->_wpl_import($this->tpl_path.'.scripts.default', true, true, true);
     <?php 
     if(!count($gallery))
     {
-        echo '<div class="no_image_box"></div>';
+        echo '<div class="no_image_box" style="width: '.$this->image_width.'px; height: '.$this->image_height.'px;"></div>';
     }
     else
     {
@@ -65,9 +65,7 @@ $this->_wpl_import($this->tpl_path.'.scripts.default', true, true, true);
             $i++;
         }
     }
-
     ?>
-
     <div class="wpl-listing-tags-wp">
         <div class="wpl-listing-tags-cnt">
             <?php
@@ -76,5 +74,4 @@ $this->_wpl_import($this->tpl_path.'.scripts.default', true, true, true);
             ?>
         </div>
     </div>
-
 </div>

@@ -175,7 +175,10 @@ class wpl_users
 		
 		/** fetch user data **/
 		$user_data = get_userdata($user_id);
-		
+        
+        /** Invalid or Guest User **/
+		if(!is_object($user_data)) $user_data = new stdClass();
+        
 		$user_data->meta = self::get_user_meta($user_id);
 		$user_data->wpl_data = self::get_wpl_data($user_id);
 		
@@ -1574,4 +1577,27 @@ class wpl_users
         $id = self::get_id_by_username($username);
 		wpl_global::event_handler('user_loggedin', array('username'=>$username, 'user'=>$user, 'user_id'=>$id));
     }
+    
+    /**
+     * 
+     * @author Howard R. <howard@realtyna.com>
+     * @param string $wplpath
+     * @param string $tpl
+     * @param int $user_type
+     * @return string
+     */
+    public static function get_user_type_tpl($wplpath, $tpl = NULL, $user_type = NULL)
+	{
+        if(!trim($tpl)) $tpl = 'default';
+        if(is_null($user_type)) return $tpl;
+        
+        /** Create User Type tpl such as default_ut1.php etc. **/
+        $user_type_tpl = $tpl.'_ut'.$user_type;
+        
+        $wplpath = rtrim($wplpath, '.').'.'.$user_type_tpl;
+        $path = _wpl_import($wplpath, true, true);
+        
+        if(wpl_file::exists($path)) return $user_type_tpl;
+        else return $tpl;
+	}
 }

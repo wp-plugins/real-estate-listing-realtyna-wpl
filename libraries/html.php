@@ -81,7 +81,7 @@ class wpl_html
 		}
 		else
 		{
-			array_push(self::$meta_keywords, $keywords);
+			array_push(self::$meta_keywords, strip_tags($keywords));
 		}
 	}
     
@@ -94,7 +94,7 @@ class wpl_html
      */
 	public static function set_meta_description($string)
 	{
-		$string = (string) $string;
+		$string = (string) strip_tags($string);
 		if(trim($string) == '') return false;
 		
 		self::$meta_description = $string;
@@ -109,7 +109,7 @@ class wpl_html
      */
 	public static function set_title($string = '')
 	{
-		$string = (string) $string;
+		$string = (string) strip_tags($string);
 		if(trim($string) == '') return false;
 		
 		self::$title = $string;

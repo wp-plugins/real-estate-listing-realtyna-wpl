@@ -35,7 +35,7 @@ class wpl_global
 			
             foreach($parameter as $key=>$value)
             {
-                $return_data[$key] = strip_tags($value);
+                $return_data[$key] = wpl_global::clean($value);
             }
         }
         else
@@ -374,13 +374,13 @@ class wpl_global
 		/** make it lowercase **/
 		$type = strtolower($type);
 		
-		if(in_array($type, array('frontend','site'))) $url = site_url().'/';
+		if(in_array($type, array('frontend','site'))) $url = rtrim(home_url(), '/').'/';
 		elseif(in_array($type, array('backend','admin'))) $url = admin_url();
-		elseif($type == 'content') $url = content_url().'/';
-		elseif($type == 'plugin') $url = plugins_url().'/';
+		elseif($type == 'content') $url = rtrim(content_url(), '/').'/';
+		elseif($type == 'plugin') $url = rtrim(plugins_url(), '/').'/';
 		elseif($type == 'include') $url = includes_url();
-		elseif($type == 'wpl') $url = plugins_url().'/'.WPL_BASENAME.'/';
-		elseif($type == 'upload') $url = get_site_url().'/wp-content/uploads/WPL/';
+		elseif($type == 'wpl') $url = rtrim(plugins_url(), '/').'/'.WPL_BASENAME.'/';
+		elseif($type == 'upload') $url = rtrim(get_site_url(), '/').'/wp-content/uploads/WPL/';
 		
 		return $url;
 	}
@@ -500,7 +500,7 @@ class wpl_global
 		$user_role_point = wpl_users::get_role_point($user_role);
 		
 		$role_point = wpl_users::get_role_point($role);
-		
+        
 		/** return true if user has access **/
 		if($user_role_point >= $role_point) return true;
 		
@@ -516,6 +516,10 @@ class wpl_global
      */
 	public static function min_access($role = 'guest', $user_id = '')
 	{
+        /** apply filters **/
+		_wpl_import('libraries.filters');
+		@extract(wpl_filters::apply('wpl_check_min_access', array('role'=>$role, 'user_id'=>$user_id)));
+        
 		if(!wpl_global::has_permission($role, $user_id))
 		{
 			echo __("You don't have access to this page!", WPL_TEXTDOMAIN);

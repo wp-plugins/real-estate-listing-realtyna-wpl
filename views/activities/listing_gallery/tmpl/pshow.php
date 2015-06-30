@@ -25,7 +25,7 @@ foreach($js as $javascript) wpl_extensions::import_javascript($javascript, true)
 /** import js codes **/
 $this->_wpl_import($this->tpl_path.'.scripts.pshow', true, true);
 ?>
-<div class="wpl_gallery_container" id="wpl_gallery_container<?php echo $this->property_id; ?>" style="width: <?php echo $this->image_width; ?>px">
+<div class="wpl_gallery_container" id="wpl_gallery_container<?php echo $this->property_id; ?>" style="height: <?php echo $this->image_height; ?>px;width: <?php echo $this->image_width; ?>px">
     <?php
     if(!count($this->gallery))
     {
@@ -60,7 +60,7 @@ $this->_wpl_import($this->tpl_path.'.scripts.pshow', true, true);
             }
 
             /** start loading images **/
-            echo '<li><img src="'.$image_url.'" itemprop="image" class="wpl_gallery_image '.$this->image_class.'" id="wpl_gallery_image'.$image['raw']['id'].'" width="'.$this->image_width.'" height="'.$this->image_height.'" alt="'.$image_alt.'" /></li>';
+            echo '<li><img src="'.$image_url.'" itemprop="image" class="wpl_gallery_image '.$this->image_class.'" id="wpl_gallery_image'.$image['raw']['id'].'" width="'.$this->image_width.'" height="'.$this->image_height.'" alt="'.$image_alt.'" style="max-height:'.$this->image_height.'px" /></li>';
             $pager_box .= '<a data-slide-index="'.$i.'" href=""><img src="'.$image_thumbnail_url.'" width="100" height="80" style="width: 100px; height: 80px;" itemprop="image" alt="'.$image_alt.'" /></a>';
         	$i++;
         }

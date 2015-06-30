@@ -29,15 +29,15 @@ function <?php echo $this->js_function; ?>()
         secureuri: false,
         fileElementId: '<?php echo $this->html_element_id; ?>',
         dataType: 'json',
-        success: function (data, status)
+        success: function(data, status)
         {
             wplj(ajax_loader_element).html('');
             data = wplj.parseJSON(data);
-
+            
             if(data.error != '')
             {
                 <?php if(trim($this->html_path_message) != ''): ?>
-                rta.util.showMessage(data.error, '<?php echo $this->html_path_message; ?>', 'wpl_red_msg');
+                wpl_show_messages(data.error, '<?php echo $this->html_path_message; ?>', 'wpl_red_msg');
                 <?php else: ?>
                 wpl_alert(data.error);
                 <?php endif; ?>
@@ -53,10 +53,10 @@ function <?php echo $this->js_function; ?>()
             /** reset the value **/
             wplj("#<?php echo $this->html_element_id; ?>").val('');
         },
-        error: function (data, status, e)
+        error: function(data, status, e)
         {
             <?php if(trim($this->html_path_message) != ''): ?>
-            rta.util.showMessage(e, '<?php echo $this->html_path_message; ?>', 'wpl_red_msg')
+            wpl_show_messages(e, '<?php echo $this->html_path_message; ?>', 'wpl_red_msg');
             <?php else: ?>
             wpl_alert(e);
             <?php endif; ?>
