@@ -87,7 +87,7 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 = 2.5.0 =
 * [PRO] Added UI Customizer.
 * Fixed some style issues and PDF name issue in PDF flyer.
-* Fixed some issues in Location Text search.
+* Fixed some issues in Location Text Search.
 
 = 2.4.6 =
 * Fixed Listing ID issue on carousel widget.
