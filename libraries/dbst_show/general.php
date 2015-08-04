@@ -2,32 +2,89 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 
-if($type == 'property_types' and !$done_this) //////////////////////////// property types ////////////////////////////
+if($type == 'number' and !$done_this) //////////////////////////// number ////////////////////////////
 {
-	if(trim($value) != '0' or trim($value) != '-1')
+	if(trim($value) != '')
 	{
-		/** get property type **/
-		$property_type = wpl_global::get_property_types($value);
-        
 		$return['field_id'] = $field->id;
 		$return['type'] = $field->type;
 		$return['name'] = __($field->name, WPL_TEXTDOMAIN);
-		$return['value'] = is_object($property_type) ? __($property_type->name, WPL_TEXTDOMAIN) : NULL;
+		$return['value'] = $value;
+        
+        if(isset($options['if_zero']) and $options['if_zero'] == 2 and !trim($value)) $return['value'] = __($options['call_text'], WPL_TEXTDOMAIN);
+        if(isset($options['if_zero']) and !$options['if_zero'] and !trim($value)) $return = array();
 	}
 	
 	$done_this = true;
 }
-elseif($type == 'listings' and !$done_this) //////////////////////////// listings ////////////////////////////
+elseif($type == 'text' and !$done_this) //////////////////////////// text ////////////////////////////
 {
-	if(trim($value) != '0' or trim($value) != '-1')
+    if(trim($value) != '')
 	{
-		/** get listing type **/
-		$listing_type = wpl_global::get_listings($value);
-		
 		$return['field_id'] = $field->id;
 		$return['type'] = $field->type;
 		$return['name'] = __($field->name, WPL_TEXTDOMAIN);
-		$return['value'] = is_object($listing_type) ? __($listing_type->name, WPL_TEXTDOMAIN) : NULL;
+		
+		if($field->table_column == 'googlemap_ln') #Longitude
+			$return['value'] = wpl_render::render_longitude($value);
+		elseif($field->table_column == 'googlemap_lt') #Latitude
+			$return['value'] = wpl_render::render_latitude($value);
+		else
+        {
+            if(isset($field->multilingual) and $field->multilingual and wpl_global::check_multilingual_status())
+            {
+                $current_language = wpl_global::get_current_language();
+                $lang_column = wpl_addon_pro::get_column_lang_name($field->table_column, $current_language, false);
+                
+                if(isset($values[$lang_column])) $value = $values[$lang_column];
+            }
+            
+            $return['value'] = $value;
+        }
+        
+        if(isset($options['if_zero']) and $options['if_zero'] == 2 and $value == '0') $return['value'] = __($options['call_text'], WPL_TEXTDOMAIN);
+        if(isset($options['if_zero']) and !$options['if_zero'] and $value == '0') $return = array();
+	}
+	
+	$done_this = true;
+}
+elseif($type == 'select' and !$done_this) //////////////////////////// select ////////////////////////////
+{
+	if(trim($value) and trim($value) != '-1')
+	{
+		$return['field_id'] = $field->id;
+		$return['type'] = $field->type;
+		$return['name'] = __($field->name, WPL_TEXTDOMAIN);
+		
+		foreach($options['params'] as $field_option)
+		{
+			if($value == $field_option['key']) $return['value'] = __($field_option['value'], WPL_TEXTDOMAIN);
+		}
+	}
+	
+	$done_this = true;
+}
+elseif($type == 'textarea' and !$done_this) //////////////////////////// textarea ////////////////////////////
+{
+	if(trim($value) != '')
+	{
+		$return['field_id'] = $field->id;
+		$return['type'] = $field->type;
+		$return['name'] = __($field->name, WPL_TEXTDOMAIN);
+        
+        if(isset($field->multilingual) and $field->multilingual and wpl_global::check_multilingual_status())
+        {
+            $current_language = wpl_global::get_current_language();
+            $lang_column = wpl_addon_pro::get_column_lang_name($field->table_column, $current_language, false);
+
+            if(isset($values[$lang_column])) $value = $values[$lang_column];
+        }
+        
+        $value = stripslashes($value);
+        if($field->table_column == 'field_308') $value = apply_filters('the_content', $value);
+        $value = wpl_global::do_shortcode($value);
+        
+        $return['value'] = $value;
 	}
 	
 	$done_this = true;
@@ -96,83 +153,41 @@ elseif($type == 'neighborhood' and !$done_this) //////////////////////////// Nei
 	
 	$done_this = true;
 }
-elseif($type == 'text' and !$done_this) //////////////////////////// text ////////////////////////////
-{
-    if(trim($value) != '')
-	{
-		$return['field_id'] = $field->id;
-		$return['type'] = $field->type;
-		$return['name'] = __($field->name, WPL_TEXTDOMAIN);
-		
-		if($field->table_column == 'googlemap_ln') #Longitude
-			$return['value'] = wpl_render::render_longitude($value);
-		elseif($field->table_column == 'googlemap_lt') #Latitude
-			$return['value'] = wpl_render::render_latitude($value);
-		else
-        {
-            if(isset($field->multilingual) and $field->multilingual and wpl_global::check_multilingual_status())
-            {
-                $current_language = wpl_global::get_current_language();
-                $lang_column = wpl_addon_pro::get_column_lang_name($field->table_column, $current_language, false);
-                
-                if(isset($values[$lang_column])) $value = $values[$lang_column];
-            }
-            
-            $return['value'] = $value;
-        }
-        
-        if(isset($options['if_zero']) and $options['if_zero'] == 2 and $value == '0') $return['value'] = __($options['call_text'], WPL_TEXTDOMAIN);
-        if(isset($options['if_zero']) and !$options['if_zero'] and $value == '0') $return = array();
-	}
-	
-	$done_this = true;
-}
-elseif($type == 'textarea' and !$done_this) //////////////////////////// textarea ////////////////////////////
-{
-	if(trim($value) != '')
-	{
-		$return['field_id'] = $field->id;
-		$return['type'] = $field->type;
-		$return['name'] = __($field->name, WPL_TEXTDOMAIN);
-        
-        if(isset($field->multilingual) and $field->multilingual and wpl_global::check_multilingual_status())
-        {
-            $current_language = wpl_global::get_current_language();
-            $lang_column = wpl_addon_pro::get_column_lang_name($field->table_column, $current_language, false);
-
-            if(isset($values[$lang_column])) $value = $values[$lang_column];
-        }
-        
-        $value = stripslashes($value);
-        if($field->table_column == 'field_308') $value = apply_filters('the_content', $value);
-        $value = wpl_global::do_shortcode($value);
-        
-        $return['value'] = $value;
-	}
-	
-	$done_this = true;
-}
-elseif($type == 'select' and !$done_this) //////////////////////////// select ////////////////////////////
-{
-	if(trim($value) and trim($value) != '-1')
-	{
-		$return['field_id'] = $field->id;
-		$return['type'] = $field->type;
-		$return['name'] = __($field->name, WPL_TEXTDOMAIN);
-		
-		foreach($options['params'] as $field_option)
-		{
-			if($value == $field_option['key']) $return['value'] = __($field_option['value'], WPL_TEXTDOMAIN);
-		}
-	}
-	
-	$done_this = true;
-}
 elseif($type == 'separator' and !$done_this) //////////////////////////// separator ////////////////////////////
 {
 	$return['field_id'] = $field->id;
 	$return['type'] = $field->type;
 	$return['name'] = __($field->name, WPL_TEXTDOMAIN);
+	
+	$done_this = true;
+}
+elseif($type == 'property_types' and !$done_this) //////////////////////////// property types ////////////////////////////
+{
+	if(trim($value) != '0' or trim($value) != '-1')
+	{
+		/** get property type **/
+		$property_type = wpl_global::get_property_types($value);
+        
+		$return['field_id'] = $field->id;
+		$return['type'] = $field->type;
+		$return['name'] = __($field->name, WPL_TEXTDOMAIN);
+		$return['value'] = is_object($property_type) ? __($property_type->name, WPL_TEXTDOMAIN) : NULL;
+	}
+	
+	$done_this = true;
+}
+elseif($type == 'listings' and !$done_this) //////////////////////////// listings ////////////////////////////
+{
+	if(trim($value) != '0' or trim($value) != '-1')
+	{
+		/** get listing type **/
+		$listing_type = wpl_global::get_listings($value);
+		
+		$return['field_id'] = $field->id;
+		$return['type'] = $field->type;
+		$return['name'] = __($field->name, WPL_TEXTDOMAIN);
+		$return['value'] = is_object($listing_type) ? __($listing_type->name, WPL_TEXTDOMAIN) : NULL;
+	}
 	
 	$done_this = true;
 }
@@ -184,21 +199,6 @@ elseif($type == 'email' and !$done_this) //////////////////////////// email ////
 		$return['type'] = $field->type;
 		$return['name'] = __($field->name, WPL_TEXTDOMAIN);
 		$return['value'] = $value;
-	}
-	
-	$done_this = true;
-}
-elseif($type == 'number' and !$done_this) //////////////////////////// number ////////////////////////////
-{
-	if(trim($value) != '')
-	{
-		$return['field_id'] = $field->id;
-		$return['type'] = $field->type;
-		$return['name'] = __($field->name, WPL_TEXTDOMAIN);
-		$return['value'] = $value;
-        
-        if(isset($options['if_zero']) and $options['if_zero'] == 2 and !trim($value)) $return['value'] = __($options['call_text'], WPL_TEXTDOMAIN);
-        if(isset($options['if_zero']) and !$options['if_zero'] and !trim($value)) $return = array();
 	}
 	
 	$done_this = true;
@@ -251,14 +251,14 @@ elseif($type == 'locations' and !$done_this) //////////////////////////// Locati
 	
 	$done_this = true;
 }
-elseif($type == 'checkbox' and !$done_this) //////////////////////////// checkbox ////////////////////////////
+elseif(($type == 'checkbox' or $type == 'tag') and !$done_this) //////////////////////////// Checkbox, Tag ////////////////////////////
 {
-	if($value != '0') 
+	if($value != '0')
 	{
 		$return['field_id'] = $field->id;
 		$return['type'] = $field->type;
 		$return['name'] = __($field->name, WPL_TEXTDOMAIN);
-		$return['value'] = $value;
+		$return['value'] = __('Yes', WPL_TEXTDOMAIN);
 	}
 	
 	$done_this = true;

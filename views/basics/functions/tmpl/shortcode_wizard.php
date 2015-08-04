@@ -2,7 +2,7 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 
-$js = (object) array('param1'=>'wpl-tinymce-popup', 'param2'=>wpl_global::get_wp_site_url().'wp-includes/js/tinymce/tiny_mce_popup.js', 'external'=>true);
+$js = (object) array('param1'=>'wpl-tinymce-popup', 'param2'=>wpl_global::get_wordpress_url().'wp-includes/js/tinymce/tiny_mce_popup.js', 'external'=>true);
 wpl_extensions::import_javascript($js);
 ?>
 <div class="short-code-wp wpl_shortcode_wizard_container" id="wpl_shortcode_wizard_container" style="margin: 0 20px;">
@@ -20,9 +20,7 @@ wpl_extensions::import_javascript($js);
                 <option value="profile_listing"><?php echo __('Profile/Agent Listing', WPL_TEXTDOMAIN); ?></option>
                 <option value="profile_show"><?php echo __('Profile/Agent Show', WPL_TEXTDOMAIN); ?></option>
                 <option value="profile_wizard"><?php echo __('My Profile', WPL_TEXTDOMAIN); ?></option>
-                <?php if(wpl_global::check_addon('pro')): ?>
-                <option value="widget_shortcode"><?php echo __('Widget Shortcode', WPL_TEXTDOMAIN); ?></option>
-                <?php endif; ?>
+                <?php if(wpl_global::check_addon('pro')): ?><option value="widget_shortcode"><?php echo __('Widget Shortcode', WPL_TEXTDOMAIN); ?></option><?php endif; ?>
                 <?php if(wpl_global::check_addon('save_searches')): ?><option value="save_searches"><?php echo __('Save Searches', WPL_TEXTDOMAIN); ?></option><?php endif; ?>
             </select>
         </div>
@@ -126,23 +124,16 @@ wpl_extensions::import_javascript($js);
             </select>
         </div>
         
+        <?php $tags = wpl_flex::get_tag_fields(0); foreach($tags as $tag): ?>
         <div class="plugin-row wpl_shortcode_parameter wpl_hidden_element pr_property_listing">
-            <label for="pr_only_featured_selectbox"><?php echo __('Featured', WPL_TEXTDOMAIN); ?></label>
-            <select id="pr_only_featured_selectbox" name="sf_select_sp_featured">
+            <label for="pr_only_<?php echo $tag->table_column; ?>_selectbox"><?php echo __($tag->name, WPL_TEXTDOMAIN); ?></label>
+            <select id="pr_only_<?php echo $tag->table_column; ?>_selectbox" name="sf_select_<?php echo $tag->table_column; ?>">
                 <option value="-1"><?php echo __('Any', WPL_TEXTDOMAIN); ?></option>
                 <option value="0"><?php echo __('No', WPL_TEXTDOMAIN); ?></option>
                 <option value="1"><?php echo __('Yes', WPL_TEXTDOMAIN); ?></option>
             </select>
         </div>
-        
-        <div class="plugin-row wpl_shortcode_parameter wpl_hidden_element pr_property_listing">
-            <label for="pr_only_hot_selectbox"><?php echo __('Hot', WPL_TEXTDOMAIN); ?></label>
-            <select id="pr_only_hot_selectbox" name="sf_select_sp_hot">
-                <option value="-1"><?php echo __('Any', WPL_TEXTDOMAIN); ?></option>
-                <option value="0"><?php echo __('No', WPL_TEXTDOMAIN); ?></option>
-                <option value="1"><?php echo __('Yes', WPL_TEXTDOMAIN); ?></option>
-            </select>
-        </div>
+        <?php endforeach; ?>
         
         <div class="plugin-row wpl_shortcode_parameter pr_property_listing pr_profile_show">
             <?php $wpl_users = wpl_users::get_wpl_users(); ?>

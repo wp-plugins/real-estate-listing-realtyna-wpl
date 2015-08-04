@@ -173,6 +173,24 @@
                     wplj(".wpl_property_listing_list_view_container").fadeTo(300, 1);
                     
                     if(typeof wpl_fix_no_image_size == 'function') setTimeout(function(){wpl_fix_no_image_size();}, 50);
+                    if(typeof wpl_scroll_pagination == 'function' && wpl_current_property_css_class == 'map_box')
+                    {
+                        setTimeout(function()
+                        {
+                            /** Remove previous scroll listener **/
+                            wplj(wpl_sp_selector_div).off('scroll', wpl_scroll_pagination_listener);
+
+                            wpl_sp_selector_div = '.wpl_property_listing_listings_container';
+                            wpl_sp_append_div = '.wpl_property_listing_listings_container';
+
+                            /** Add new scroll listener **/
+                            var wpl_scroll_pagination_listener = wplj(wpl_sp_selector_div).on('scroll', function()
+                            {
+                                wpl_scroll_pagination();
+                            });
+                        }, 50);
+                    }
+                    
                     wpl_listing_last_search_time = new Date().getTime();
 
                     var callbacks = wpl_get_callback_search<?php echo $widget_id; ?>();

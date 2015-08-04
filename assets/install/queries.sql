@@ -375,9 +375,9 @@ INSERT INTO `#__wpl_listing_types` (`id`, `parent`, `enabled`, `editable`, `inde
 (1, 0, 0, 1, 1.00, '', '', 'Sale'),
 (2, 0, 0, 1, 2.00, '', '', 'Rental'),
 (3, 0, 0, 1, 3.00, '', '', 'Vacational'),
-(9, 1, 1, 2, 0.00, 'blue.png', '', 'For sale'),
-(10, 2, 1, 2, 12.00, 'green.png', '', 'For Rent'),
-(12, 3, 1, 2, 19.00, 'orange.png', '', 'Vacation Rental');
+(9, 1, 1, 2, 0.00, 'dot-blue.png', '', 'For sale'),
+(10, 2, 1, 2, 12.00, 'dot-green.png', '', 'For Rent'),
+(12, 3, 1, 2, 19.00, 'dot-orange.png', '', 'Vacation Rental');
 
 CREATE TABLE IF NOT EXISTS `#__wpl_location1` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,

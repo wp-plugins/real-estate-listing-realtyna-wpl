@@ -63,6 +63,7 @@ class wpl_sef
                 {
                     if($ex[1] == 'members') $view = 'addon_membership';
                     elseif($ex[1] == 'manager') $view = 'property_manager';
+                    elseif($ex[1] == 'booking') $view = 'addon_booking';
                     else $view = $ex[1];
                 }
                 elseif($ex[0] == 'search' and wpl_global::check_addon('save_searches'))

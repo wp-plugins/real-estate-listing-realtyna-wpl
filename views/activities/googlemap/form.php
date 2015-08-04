@@ -15,11 +15,11 @@ defined('_WPLEXEC') or die('Restricted access');
         <div class="wpl-gen-accordion-row fanc-row">
             <label for="wpl_o_googlemap_view"><?php echo __('Map View', WPL_TEXTDOMAIN); ?></label>
             <select class="text_box" name="option[googlemap_view]" id="wpl_o_googlemap_view">
-                <option value="WPL" <?php if(isset($this->options->googlemap_view) and $this->options->googlemap_view == 'WPL') echo 'selected="selected"'; ?>><?php echo __('WPL Style', WPL_TEXTDOMAIN); ?></option>
                 <option value="ROADMAP" <?php if(isset($this->options->googlemap_view) and $this->options->googlemap_view == 'ROADMAP') echo 'selected="selected"'; ?>><?php echo __('Roadmap', WPL_TEXTDOMAIN); ?></option>
                 <option value="SATELLITE" <?php if(isset($this->options->googlemap_view) and $this->options->googlemap_view == 'SATELLITE') echo 'selected="selected"'; ?>><?php echo __('Satellite', WPL_TEXTDOMAIN); ?></option>
                 <option value="HYBRID" <?php if(isset($this->options->googlemap_view) and $this->options->googlemap_view == 'HYBRID') echo 'selected="selected"'; ?>><?php echo __('Hybrid', WPL_TEXTDOMAIN); ?></option>
                 <option value="TERRAIN" <?php if(isset($this->options->googlemap_view) and $this->options->googlemap_view == 'TERRAIN') echo 'selected="selected"'; ?>><?php echo __('Terrain', WPL_TEXTDOMAIN); ?></option>
+                <option value="WPL" <?php if(isset($this->options->googlemap_view) and $this->options->googlemap_view == 'WPL') echo 'selected="selected"'; ?>><?php echo __('WPL Style', WPL_TEXTDOMAIN); ?></option>
             </select>
         </div>
         <div class="wpl-gen-accordion-row fanc-row">

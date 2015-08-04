@@ -127,7 +127,7 @@ elseif($type == 'feature' and !$done_this)
 	
 	$done_this = true;
 }
-elseif($type == 'checkbox' and !$done_this)
+elseif(($type == 'checkbox' or $type == 'tag') and !$done_this)
 {
 	switch($field['type'])
 	{
@@ -366,6 +366,10 @@ elseif($type == 'number' and !$done_this)
 		
 		case 'minmax_selectbox_plus':
 			$show = 'minmax_selectbox_plus';
+        break;
+        
+        case 'minmax_selectbox_minus':
+			$show = 'minmax_selectbox_minus';
 		break;
 	}
 	
@@ -482,11 +486,42 @@ elseif($type == 'number' and !$done_this)
         
 		while($i < $max_value)
 		{
+            if($i == '0')
+			{
+				$i += $division;
+				continue;
+			}
+            
 			$html .= '<option value="'.$i.'" '.(($current_min_value == $i and !$selected_printed) ? 'selected="selected"' : '').'>'.$i.'+</option>';
 			$i += $division;
 		}
 		
 		$html .= '<option value="'.$max_value.'">'.$max_value.'+</option>';
+        $html .= '</select>';
+    }
+    elseif($show == 'minmax_selectbox_minus')
+	{
+        $i = $min_value;
+        
+		$html .= '<select name="sf'.$widget_id.'_tmax_'.$field_data['table_column'].'" id="sf'.$widget_id.'_tmax_'.$field_data['table_column'].'">';
+		$html .= '<option value="-1" '.($current_max_value == $i ? 'selected="selected"' : '').'>'.__($field['name'], WPL_TEXTDOMAIN).'</option>';
+		
+        $selected_printed = false;
+        if($current_max_value == $i) $selected_printed = true;
+        
+		while($i < $max_value)
+		{
+            if($i == '0')
+			{
+				$i += $division;
+				continue;
+			}
+            
+			$html .= '<option value="'.$i.'" '.(($current_max_value == $i and !$selected_printed) ? 'selected="selected"' : '').'>-'.$i.'</option>';
+			$i += $division;
+		}
+		
+		$html .= '<option value="'.$max_value.'">-'.$max_value.'</option>';
         $html .= '</select>';
     }
 	
@@ -837,9 +872,6 @@ elseif($type == 'textarea' and !$done_this)
 }
 elseif(($type == 'area' or $type == 'price' or $type == 'volume' or $type == 'length') and !$done_this)
 {
-	/** importing library **/
-	_wpl_import('libraries.units');
-	
 	$default_min_value = 0;
 	
 	if($type == 'price')
@@ -897,7 +929,10 @@ elseif(($type == 'area' or $type == 'price' or $type == 'volume' or $type == 'le
 		
 		case 'minmax_selectbox_plus':
 			$show = 'minmax_selectbox_plus';
-			$input_type = 'hidden';
+		break;
+    
+        case 'minmax_selectbox_minus':
+			$show = 'minmax_selectbox_minus';
 		break;
 	}
 	
@@ -1043,6 +1078,31 @@ elseif(($type == 'area' or $type == 'price' or $type == 'volume' or $type == 'le
 		}
 		
 		$html .= '<option value="'.$max_value.'" '.($current_min_value == $i ? 'selected="selected"' : '').'>'.number_format($max_value, 0, '.', ',').'+</option>';
+        $html .= '</select>';
+	}
+    elseif($show == 'minmax_selectbox_minus')
+	{
+        $i = $min_value;
+        
+		$html .= '<select name="sf'.$widget_id.'_max_'.$field_data['table_column'].'" id="sf'.$widget_id.'_max_'.$field_data['table_column'].'">';
+		$html .= '<option value="-1" '.($current_max_value == $i ? 'selected="selected"' : '').'>'.__($field['name'], WPL_TEXTDOMAIN).'</option>';
+        
+        $selected_printed = false;
+        if($current_max_value == $i) $selected_printed = true;
+        
+		while($i < $max_value)
+		{
+            if($i == '0')
+			{
+				$i += $division;
+				continue;
+			}
+            
+			$html .= '<option value="'.$i.'" '.(($current_max_value == $i and !$selected_printed) ? 'selected="selected"' : '').'>-'.number_format($i, 0, '.', ',').'</option>';
+			$i += $division;
+		}
+		
+		$html .= '<option value="'.$max_value.'" '.($current_max_value == $i ? 'selected="selected"' : '').'>-'.number_format($max_value, 0, '.', ',').'</option>';
         $html .= '</select>';
 	}
 	

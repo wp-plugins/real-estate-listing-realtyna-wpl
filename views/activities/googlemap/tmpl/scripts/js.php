@@ -37,65 +37,7 @@ function wpl_initialize<?php echo $this->activity_id; ?>()
 	wpl_load_markers<?php echo $this->activity_id; ?>(markers<?php echo $this->activity_id; ?>);
 	
     <?php if(isset($this->googlemap_view) and $this->googlemap_view == 'WPL'): ?>
-    var styles =
-    [
-        {
-            "featureType": "water",
-            "stylers": [
-                {
-                    "color": "#46bcec"
-                },
-                {
-                    "visibility": "on"
-                }
-            ]
-        },
-        {
-            "featureType": "landscape",
-            "stylers": [
-                {
-                    "color": "#f2f2f2"
-                }
-            ]
-        },
-        {
-            "featureType": "road",
-            "stylers": [
-                {
-                    "saturation": -100
-                },
-                {
-                    "lightness": 45
-                }
-            ]
-        },
-        {
-            "featureType": "road.highway",
-            "stylers": [
-                {
-                    "visibility": "simplified"
-                }
-            ]
-        },
-        {
-            "featureType": "administrative",
-            "elementType": "labels.text.fill",
-            "stylers": [
-                {
-                    "color": "#444444"
-                }
-            ]
-        },
-        {
-            "featureType": "poi",
-            "stylers": [
-                {
-                    "visibility": "off"
-                }
-            ]
-        }
-    ];
-
+    var styles = [{"featureType": "water", "stylers": [{"color": "#46bcec"},{"visibility": "on"}]},{"featureType": "landscape","stylers": [{"color": "#f2f2f2"}]},{"featureType": "road","stylers": [{"saturation": -100},{"lightness": 45}]},{"featureType": "road.highway","stylers": [{"visibility": "simplified"}]},{"featureType": "administrative","elementType": "labels.text.fill","stylers": [{"color": "#444444"}]},{"featureType": "poi","stylers": [{"visibility": "off"}]}];
     var styledMap = new google.maps.StyledMapType(styles, {name: "WPL Map"});
 
     wpl_map<?php echo $this->activity_id; ?>.mapTypes.set('map_style', styledMap);
@@ -116,8 +58,14 @@ function wpl_initialize<?php echo $this->activity_id; ?>()
     
     if(typeof wpl_dmgfc_init != 'undefined')
     {
-        setTimeout('wpl_dmgfc_init()', 1000);
-        jQuery('.wpl_map_canvas').append('<div class="wpl_dmgfc_container"></div>');
+        var wpl_dmgfc_init_listener = google.maps.event.addListener(wpl_map<?php echo $this->activity_id; ?>, 'idle', function()
+        {
+            wpl_dmgfc_init();
+            jQuery('.wpl_map_canvas').append('<div class="wpl_dmgfc_container"></div>');
+
+            /** Remove listener **/
+            google.maps.event.removeListener(wpl_dmgfc_init_listener);
+        });
     }
 }
 
@@ -167,7 +115,11 @@ function wpl_marker<?php echo $this->activity_id; ?>(dataMarker)
 
 function wpl_load_markers<?php echo $this->activity_id; ?>(markers, delete_markers)
 {
-	if(delete_markers) delete_markers<?php echo $this->activity_id; ?>();
+	if(delete_markers)
+    {
+        delete_markers<?php echo $this->activity_id; ?>();
+        bounds<?php echo $this->activity_id; ?> = new google.maps.LatLngBounds();
+    }
 	
 	for(var i = 0; i < markers.length; i++)
 	{

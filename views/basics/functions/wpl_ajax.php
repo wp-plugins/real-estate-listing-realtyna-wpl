@@ -19,6 +19,10 @@ class wpl_functions_controller extends wpl_controller
 		elseif($function == 'shortcode_wizard') $this->shortcode_wizard();
         elseif($function == 'report_abuse_form') $this->report_abuse_form();
         elseif($function == 'report_abuse_submit') $this->report_abuse_submit();
+        elseif($function == 'send_to_friend_form') $this->send_to_friend_form();
+        elseif($function == 'send_to_friend_submit') $this->send_to_friend_submit();
+        elseif($function == 'request_a_visit_form') $this->request_a_visit_form();
+        elseif($function == 'request_a_visit_submit') $this->request_a_visit_submit();
 	}
 	
 	private function infowindow()
@@ -105,4 +109,131 @@ class wpl_functions_controller extends wpl_controller
         echo json_encode($returnData);
         exit;
 	}
+
+    private function send_to_friend_form()
+    {
+        $this->property_id = wpl_request::getVar('pid', 0);
+        $this->form_id = wpl_request::getVar('form_id', 0);
+
+        if(!$this->form_id) $HTML = parent::render($this->tpl_path, 'send_to_friend_form', false, true);
+        else
+        {
+            /**
+             * @todo Generate form via Form Builder addon
+             */
+        }
+
+        echo $HTML;
+        exit;
+    }
+
+    private function send_to_friend_submit()
+    {
+        $parameters = wpl_request::getVar('wplfdata', array());
+        $property_id = isset($parameters['property_id']) ? $parameters['property_id'] : 0;
+
+        $returnData = array();
+        if(!$property_id)
+        {
+            $returnData['success'] = 0;
+            $returnData['message'] = __('Invalid Property!', WPL_TEXTDOMAIN);
+        }
+        elseif(isset($parameters['your_email']) == false || !filter_var($parameters['your_email'], FILTER_VALIDATE_EMAIL))
+        {
+            $returnData['success'] = 0;
+            $returnData['message'] = __('Your email is not valid!', WPL_TEXTDOMAIN);
+        }
+        elseif(isset($parameters['friends_email']) == false || !filter_var($parameters['friends_email'], FILTER_VALIDATE_EMAIL))
+        {
+            $returnData['success'] = 0;
+            $returnData['message'] = __('Friends email is not valid!', WPL_TEXTDOMAIN);
+        }
+        elseif(isset($parameters['email_subject']) == false || $parameters['email_subject'] == '')
+        {
+            $returnData['success'] = 0;
+            $returnData['message'] = __('Email subject  is not valid!', WPL_TEXTDOMAIN);
+        }
+        elseif(isset($parameters['your_name']) == false || $parameters['your_name'] == '')
+        {
+            $returnData['success'] = 0;
+            $returnData['message'] = __('Your name is not valid!', WPL_TEXTDOMAIN);
+        }
+        else
+        {
+            if(wpl_global::send_to_friend($parameters))
+            {
+                $returnData['success'] = 1;
+                $returnData['message'] = __('Send to friend message sent successfully.', WPL_TEXTDOMAIN);
+            }
+            else
+            {
+                $returnData['success'] = 0;
+                $returnData['message'] = __('Error sending!', WPL_TEXTDOMAIN);
+            }
+        }
+
+        echo json_encode($returnData);
+        exit;
+    }
+
+    private function request_a_visit_form()
+    {
+        $this->property_id = wpl_request::getVar('pid', 0);
+        $this->form_id = wpl_request::getVar('form_id', 0);
+
+        if(!$this->form_id) $HTML = parent::render($this->tpl_path, 'request_a_visit_form', false, true);
+        else
+        {
+            /**
+             * @todo Generate form via Form Builder addon
+             */
+        }
+
+        echo $HTML;
+        exit;
+    }
+
+    private function request_a_visit_submit()
+    {
+        $parameters = wpl_request::getVar('wplfdata', array());
+        $property_id = isset($parameters['property_id']) ? $parameters['property_id'] : 0;
+
+        $returnData = array();
+        if(!$property_id)
+        {
+            $returnData['success'] = 0;
+            $returnData['message'] = __('Invalid Property!', WPL_TEXTDOMAIN);
+        }
+        elseif(isset($parameters['email']) == false || !filter_var($parameters['email'], FILTER_VALIDATE_EMAIL))
+        {
+            $returnData['success'] = 0;
+            $returnData['message'] = __('Your email is not valid!', WPL_TEXTDOMAIN);
+        }
+        elseif(isset($parameters['name']) == false || $parameters['name'] == '')
+        {
+            $returnData['success'] = 0;
+            $returnData['message'] = __('Your name is not valid!', WPL_TEXTDOMAIN);
+        }
+        elseif(isset($parameters['contact_phone_number']) == false || $parameters['contact_phone_number'] == '')
+        {
+            $returnData['success'] = 0;
+            $returnData['message'] = __('Contact phone number is not valid!', WPL_TEXTDOMAIN);
+        }
+        else
+        {
+            if(wpl_global::request_a_visit_send($parameters))
+            {
+                $returnData['success'] = 1;
+                $returnData['message'] = __('Request a visit sent successfully.', WPL_TEXTDOMAIN);
+            }
+            else
+            {
+                $returnData['success'] = 0;
+                $returnData['message'] = __('Error sending!', WPL_TEXTDOMAIN);
+            }
+        }
+
+        echo json_encode($returnData);
+        exit;
+    }
 }

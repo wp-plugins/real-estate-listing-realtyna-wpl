@@ -2,7 +2,7 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 
-include _wpl_import("widgets.agents.scripts.js", true, true);
+include _wpl_import('widgets.agents.scripts.js', true, true);
 ?>
 <ul class="wpl_agents_widget_container list <?php echo $this->css_class; ?>">
     <?php

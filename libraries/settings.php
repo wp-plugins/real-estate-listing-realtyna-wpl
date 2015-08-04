@@ -349,6 +349,10 @@ class wpl_settings
                 $thumbnails = wpl_folder::files($path, 'th.*\.('.implode('|', $ext_array).')$', 3, true);
                 
                 foreach($thumbnails as $thumbnail) wpl_file::delete($thumbnail);
+                
+                /** delete email images **/
+                if(wpl_file::exists($path.'main_email.png')) wpl_file::delete($path.'main_email.png');
+                if(wpl_file::exists($path.'second_email.png')) wpl_file::delete($path.'second_email.png');
             }
 		}
 		

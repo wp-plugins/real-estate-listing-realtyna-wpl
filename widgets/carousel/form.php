@@ -157,37 +157,20 @@ function wpl_carousel_toggle<?php echo $this->widget_id; ?>(element_id)
     	<label for="<?php echo $this->get_field_id('data_random'); ?>"><?php echo __('Random', WPL_TEXTDOMAIN); ?></label>
     </div>
     
+    <?php
+    $tags = wpl_flex::get_fields(NULL, NULL, NULL, NULL, NULL, "AND `type`='tag' AND `enabled`>='1' GROUP BY `table_column`");
+    foreach($tags as $tag)
+    {
+        $tagkey = 'only_'.ltrim($tag->table_column, 'sp_');
+    ?>
     <div class="wpl-widget-row">
-    	<label for="<?php echo $this->get_field_id('data_only_featured'); ?>"><?php echo __('Only Featured', WPL_TEXTDOMAIN); ?></label>
-        <select id="<?php echo $this->get_field_id('data_only_featured'); ?>" name="<?php echo $this->get_field_name('data'); ?>[only_featured]">
-        	<option value="0" <?php if(isset($instance['data']['only_featured']) and $instance['data']['only_featured'] == 0) echo 'selected="selected"'; ?>><?php echo __('No', WPL_TEXTDOMAIN); ?></option>
-            <option value="1" <?php if(isset($instance['data']['only_featured']) and $instance['data']['only_featured'] == 1) echo 'selected="selected"'; ?>><?php echo __('Yes', WPL_TEXTDOMAIN); ?></option>
+    	<label for="<?php echo $this->get_field_id('data_'.$tagkey); ?>"><?php echo sprintf(__('Only %s', WPL_TEXTDOMAIN), $tag->name); ?></label>
+        <select id="<?php echo $this->get_field_id('data_'.$tagkey); ?>" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $tagkey; ?>]">
+        	<option value="0" <?php if(isset($instance['data'][$tagkey]) and $instance['data'][$tagkey] == 0) echo 'selected="selected"'; ?>><?php echo __('No', WPL_TEXTDOMAIN); ?></option>
+            <option value="1" <?php if(isset($instance['data'][$tagkey]) and $instance['data'][$tagkey] == 1) echo 'selected="selected"'; ?>><?php echo __('Yes', WPL_TEXTDOMAIN); ?></option>
         </select>
     </div>
-    
-    <div class="wpl-widget-row">
-    	<label for="<?php echo $this->get_field_id('data_only_hot'); ?>"><?php echo __('Only Hot', WPL_TEXTDOMAIN); ?></label>
-        <select id="<?php echo $this->get_field_id('data_only_hot'); ?>" name="<?php echo $this->get_field_name('data'); ?>[only_hot]">
-        	<option value="0" <?php if(isset($instance['data']['only_hot']) and $instance['data']['only_hot'] == 0) echo 'selected="selected"'; ?>><?php echo __('No', WPL_TEXTDOMAIN); ?></option>
-            <option value="1" <?php if(isset($instance['data']['only_hot']) and $instance['data']['only_hot'] == 1) echo 'selected="selected"'; ?>><?php echo __('Yes', WPL_TEXTDOMAIN); ?></option>
-        </select>
-    </div>
-    
-    <div class="wpl-widget-row">
-    	<label for="<?php echo $this->get_field_id('data_only_openhouses'); ?>"><?php echo __('Only OpenHouses', WPL_TEXTDOMAIN); ?></label>
-        <select id="<?php echo $this->get_field_id('data_only_openhouses'); ?>" name="<?php echo $this->get_field_name('data'); ?>[only_openhouse]">
-        	<option value="0" <?php if(isset($instance['data']['only_openhouse']) and $instance['data']['only_openhouse'] == 0) echo 'selected="selected"'; ?>><?php echo __('No', WPL_TEXTDOMAIN); ?></option>
-            <option value="1" <?php if(isset($instance['data']['only_openhouse']) and $instance['data']['only_openhouse'] == 1) echo 'selected="selected"'; ?>><?php echo __('Yes', WPL_TEXTDOMAIN); ?></option>
-        </select>
-    </div>
-    
-    <div class="wpl-widget-row">
-    	<label for="<?php echo $this->get_field_id('data_only_forclosures'); ?>"><?php echo __('Only Forclosures', WPL_TEXTDOMAIN); ?></label>
-        <select id="<?php echo $this->get_field_id('data_only_forclosures'); ?>" name="<?php echo $this->get_field_name('data'); ?>[only_forclosure]">
-        	<option value="0" <?php if(isset($instance['data']['only_forclosure']) and $instance['data']['only_forclosure'] == 0) echo 'selected="selected"'; ?>><?php echo __('No', WPL_TEXTDOMAIN); ?></option>
-            <option value="1" <?php if(isset($instance['data']['only_forclosure']) and $instance['data']['only_forclosure'] == 1) echo 'selected="selected"'; ?>><?php echo __('Yes', WPL_TEXTDOMAIN); ?></option>
-        </select>
-    </div>
+    <?php } ?>
     
     <h4><?php echo __('Similar Properties', WPL_TEXTDOMAIN); ?></h4>
     <div class="wpl-widget-row">

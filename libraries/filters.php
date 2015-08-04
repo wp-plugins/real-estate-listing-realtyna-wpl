@@ -12,6 +12,13 @@ defined('_WPLEXEC') or die('Restricted access');
 class wpl_filters
 {
     /**
+     * Used for caching in get_filters function
+     * @static
+     * @var array
+     */
+    public static $wpl_filters = NULL;
+    
+    /**
      * Use this function for applying any filter
      * @author Howard <howard@realtyna.com>
      * @param string $trigger
@@ -55,7 +62,22 @@ class wpl_filters
      */
 	public static function get_filters($trigger, $enabled = 1)
 	{
-		$query = "SELECT * FROM `#__wpl_filters` WHERE `trigger`='$trigger' AND `enabled`>='$enabled'";
-		return wpl_db::select($query);
+        /** return from cache if exists **/
+        if(is_array(self::$wpl_filters) and isset(self::$wpl_filters[$trigger])) return self::$wpl_filters[$trigger];
+        elseif(is_array(self::$wpl_filters)) return array();
+        
+		$query = "SELECT * FROM `#__wpl_filters` WHERE `enabled`>='$enabled'";
+		$results = wpl_db::select($query);
+        
+        $filters = array();
+        foreach($results as $result)
+        {
+            if(!isset($filters[$result->trigger])) $filters[$result->trigger] = array();
+            $filters[$result->trigger][] = $result;
+        }
+        
+        /** add to cache **/
+		self::$wpl_filters = $filters;
+        return isset(self::$wpl_filters[$trigger]) ? self::$wpl_filters[$trigger] : array();
 	}
 }

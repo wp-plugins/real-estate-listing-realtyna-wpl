@@ -13,7 +13,7 @@ wplj(document).ready(function()
         captions: false,
         controls: true,
         adaptiveHeight: true,
-        pagerCustom: '#bx-pager'
+        pagerCustom: '#bx-pager-<?php echo $this->activity_id; ?>'
     });
 });
 </script>

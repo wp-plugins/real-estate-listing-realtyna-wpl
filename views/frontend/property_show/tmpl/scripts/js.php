@@ -18,12 +18,14 @@ wplj(document).ready(function()
 		wplj('.wpl_prp_show_tabs .tabs_container div.tabs_contents').hide();
 		wplj(currentTab).show();
 		
+        <?php if(isset($this->pshow_googlemap_activity_id)): ?>
         var init_google_map = wplj(this).attr('data-init-googlemap');
-		if(init_google_map && typeof wpl_pshow_map_init == 'function')
+		if(init_google_map && typeof wpl_pshow_map_init<?php echo $this->pshow_googlemap_activity_id; ?> == 'function')
 		{
-			wpl_pshow_map_init();
+			wpl_pshow_map_init<?php echo $this->pshow_googlemap_activity_id; ?>();
 		}
-		
+		<?php endif; ?>
+        
 		return false;
 	});
 });

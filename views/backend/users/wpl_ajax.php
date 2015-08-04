@@ -2,11 +2,6 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 
-_wpl_import('libraries.items');
-_wpl_import('libraries.units');
-_wpl_import('libraries.listing_types');
-_wpl_import('libraries.property_types');
-
 class wpl_users_controller extends wpl_controller
 {
 	public $tpl_path = 'views.backend.users.tmpl';

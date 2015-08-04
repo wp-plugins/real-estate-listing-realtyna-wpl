@@ -92,6 +92,9 @@ class wpl_wpl_controller extends wpl_controller
         /** Trigger Event **/
         wpl_global::event_handler('package_updated', array('package_id'=>(isset($wpl_installer->addon_id) ? $wpl_installer->addon_id : 0)));
         
+        /** Check All Addon update **/
+        wpl_global::check_all_update();
+        
 		$message = $wpl_installer->message ? $wpl_installer->message : __('Addon Updated.', WPL_TEXTDOMAIN);
 		$this->response(array('error'=>'', 'message'=>$message));
 	}

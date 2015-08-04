@@ -8,6 +8,8 @@ _wpl_import('libraries.events');
 _wpl_import('libraries.render');
 _wpl_import('libraries.items');
 _wpl_import('libraries.locations');
+_wpl_import('libraries.property_types');
+_wpl_import('libraries.listing_types');
 
 /**
  * Property Library
@@ -58,6 +60,20 @@ class wpl_property
 	public static function get_pshow_fields($category = '', $kind = 0, $enabled = 1)
 	{
 		return wpl_flex::get_fields($category, $enabled, $kind, 'pshow', '1');
+	}
+    
+    /**
+     * Returns property PDF fields
+     * @author Howard R <howard@realtyna.com>
+     * @static
+     * @param int|string $category
+     * @param int $kind
+     * @param int $enabled
+     * @return array of objects
+     */
+    public static function get_pdf_fields($category = '', $kind = 0, $enabled = 1)
+	{
+		return wpl_flex::get_fields($category, $enabled, $kind, 'pdf', '1');
 	}
     
     /**
@@ -497,6 +513,7 @@ class wpl_property
         $listings = wpl_global::return_in_id_array(wpl_global::get_listings());
         $markers = array();
         $geo_points = array();
+        $rendered = array();
         
         $i = 0;
         foreach($wpl_properties as $key=>$property)
@@ -505,6 +522,10 @@ class wpl_property
             
             /** skip to next if address is hidden **/
             if(!$property['raw']['show_address']) continue;
+            
+            /** if property already rendered **/
+            if(in_array($property['raw']['id'], $rendered)) continue;
+            array_push($rendered, $property['raw']['id']);
             
             /** Fetch latitude and longitude if it's not set **/
             if(!$property['raw']['googlemap_lt'] or !$property['raw']['googlemap_ln'])
@@ -537,6 +558,10 @@ class wpl_property
             
             $i++;
         }
+        
+        /** apply filters **/
+        _wpl_import('libraries.filters');
+		@extract(wpl_filters::apply('render_property_markers', array('wpl_properties'=>$wpl_properties, 'markers'=>$markers)));
         
         return $markers;
     }
@@ -878,7 +903,7 @@ class wpl_property
             $url = wpl_global::add_qs_var('pid', $property_id, wpl_sef::get_page_link($target_id));
             $url = wpl_global::add_qs_var('alias', $alias, $url);
             
-            if($home_type == 'page' and $home_id == $target_id) $url = wpl_global::add_qs_var('wplview', 'property_show', $url);
+            $url = wpl_global::add_qs_var('wplview', 'property_show', $url);
         }
 		else
         {
@@ -1012,19 +1037,21 @@ class wpl_property
         $location_pattern = wpl_global::get_setting('property_location_pattern');
         if(trim($location_pattern) == '') $location_pattern = '[street_no] [street][glue] [location4_name][glue] [location3_name][glue] [location2_name][glue] [location1_name] [zip_name]';
         
-		$location_text = '';
-		$location_text = isset($locations['street_no']) ? str_replace('[street_no]', $locations['street_no'], $location_pattern) : str_replace('[street_no]', '', $location_pattern);
-        $location_text = isset($locations['street']) ? str_replace('[street]', $locations['street'], $location_text) : str_replace('[street]', '', $location_text);
-        
-        $location_text = isset($locations['location7_name']) ? str_replace('[location7_name]', $locations['location7_name'], $location_text) : str_replace('[location7_name]', '', $location_text);
-        $location_text = isset($locations['location6_name']) ? str_replace('[location6_name]', $locations['location6_name'], $location_text) : str_replace('[location6_name]', '', $location_text);
-        $location_text = isset($locations['location5_name']) ? str_replace('[location5_name]', $locations['location5_name'], $location_text) : str_replace('[location5_name]', '', $location_text);
-        $location_text = isset($locations['location4_name']) ? str_replace('[location4_name]', $locations['location4_name'], $location_text) : str_replace('[location4_name]', '', $location_text);
-        $location_text = isset($locations['location3_name']) ? str_replace('[location3_name]', $locations['location3_name'], $location_text) : str_replace('[location3_name]', '', $location_text);
-        $location_text = isset($locations['location2_name']) ? str_replace('[location2_name]', $locations['location2_name'], $location_text) : str_replace('[location2_name]', '', $location_text);
-        $location_text = isset($locations['zip_name']) ? str_replace('[zip_name]', $locations['zip_name'], $location_text) : str_replace('[zip_name]', '', $location_text);
-        $location_text = isset($locations['location1_name']) ? str_replace('[location1_name]', $locations['location1_name'], $location_text) : str_replace('[location1_name]', '', $location_text);
+		$location_text = $location_pattern;
         $location_text = str_replace('[glue]', $glue, $location_text);
+        
+        preg_match_all('/\[([^\]]*)\]/', $location_pattern, $matches_pattern);
+        foreach($matches_pattern[1] as $pattern)
+        {
+            if(isset($locations[$pattern])) $location_text = str_replace('[' . $pattern . ']', $locations[$pattern], $location_text);
+            elseif(isset($property_data[$pattern]))
+            {
+                if(wpl_global::check_multilingual_status() and wpl_addon_pro::get_multiligual_status_by_column($pattern, $property_data['kind'])) $pattern = wpl_addon_pro::get_column_lang_name($pattern, wpl_global::get_current_language(), false);
+                $location_text = str_replace('[' . $pattern . ']', $property_data[$pattern], $location_text);
+            }
+        }
+        
+        $location_text = preg_replace('/\[[^\]]*\]/', '', $location_text);
         
         /** apply filters **/
 		_wpl_import('libraries.filters');
@@ -1040,7 +1067,7 @@ class wpl_property
         }
         
         $location_text = trim($final, $glue.' ');
-        
+
         /** update **/
 		$query = "UPDATE `#__wpl_properties` SET `$column`='".$location_text."' WHERE `id`='".$property_id."'";
 		wpl_db::q($query, 'update');
@@ -1050,7 +1077,6 @@ class wpl_property
             $query = "UPDATE `#__wpl_properties` SET `$base_column`='".$location_text."' WHERE `id`='".$property_id."'";
             wpl_db::q($query, 'update');
         }
-		
 		return $location_text;
     }
 	
@@ -1108,33 +1134,30 @@ class wpl_property
         
         $alias_pattern = wpl_global::get_setting('property_alias_pattern');
         if(trim($alias_pattern) == '') $alias_pattern = '[property_type][glue][listing_type][glue][location][glue][rooms][glue][bedrooms][glue][bathrooms][glue][price]';
-        
-        $alias_str = '';
-		$alias_str = isset($alias['property_type']) ? str_replace('[property_type]', $alias['property_type'], $alias_pattern) : str_replace('[property_type]', '', $alias_pattern);
-        $alias_str = isset($alias['listing']) ? str_replace('[listing_type]', $alias['listing'], $alias_str) : str_replace('[listing_type]', '', $alias_str);
-        
-        $alias_str = isset($alias['location1']) ? str_replace('[location1]', $alias['location1'], $alias_str) : str_replace('[location1]', '', $alias_str);
-        $alias_str = isset($alias['location2']) ? str_replace('[location2]', $alias['location2'], $alias_str) : str_replace('[location2]', '', $alias_str);
-        $alias_str = isset($alias['location3']) ? str_replace('[location3]', $alias['location3'], $alias_str) : str_replace('[location3]', '', $alias_str);
-        $alias_str = isset($alias['location4']) ? str_replace('[location4]', $alias['location4'], $alias_str) : str_replace('[location4]', '', $alias_str);
-        $alias_str = isset($alias['location5']) ? str_replace('[location5]', $alias['location5'], $alias_str) : str_replace('[location5]', '', $alias_str);
-        $alias_str = isset($alias['zipcode']) ? str_replace('[zipcode]', $alias['zipcode'], $alias_str) : str_replace('[zipcode]', '', $alias_str);
-        
-        $alias_str = isset($alias['location']) ? str_replace('[location]', $alias['location'], $alias_str) : str_replace('[location]', '', $alias_str);
-        $alias_str = isset($alias['rooms']) ? str_replace('[rooms]', $alias['rooms'], $alias_str) : str_replace('[rooms]', '', $alias_str);
-        $alias_str = isset($alias['bedrooms']) ? str_replace('[bedrooms]', $alias['bedrooms'], $alias_str) : str_replace('[bedrooms]', '', $alias_str);
-        $alias_str = isset($alias['bathrooms']) ? str_replace('[bathrooms]', $alias['bathrooms'], $alias_str) : str_replace('[bathrooms]', '', $alias_str);
-        $alias_str = isset($alias['price']) ? str_replace('[price]', $alias['price'], $alias_str) : str_replace('[price]', '', $alias_str);
-        $alias_str = isset($alias['listing_id']) ? str_replace('[listing_id]', $alias['listing_id'], $alias_str) : str_replace('[listing_id]', '', $alias_str);
+
+        $alias_str = $alias_pattern;
         $alias_str = str_replace('[glue]', $glue, $alias_str);
         
+        preg_match_all('/\[([^\]]*)\]/', $alias_pattern, $matches_pattern);
+        foreach($matches_pattern[1] as $pattern)
+        {
+            if(isset($alias[$pattern])) $alias_str = str_replace('[' . $pattern . ']', $alias[$pattern], $alias_str);
+            elseif(isset($property_data[$pattern]))
+            {
+                if(wpl_global::check_multilingual_status() and wpl_addon_pro::get_multiligual_status_by_column($pattern, $property_data['kind'])) $pattern_multilingual = wpl_addon_pro::get_column_lang_name($pattern, wpl_global::get_current_language(), false);
+                $alias_str = str_replace('[' . $pattern . ']', $property_data[isset($pattern_multilingual) ? $pattern_multilingual : $pattern], $alias_str);
+            }
+        }
+        
+        $alias_str = preg_replace('/\[[^\]]*\]/', '', $alias_str);
+
         /** apply filters **/
 		_wpl_import('libraries.filters');
 		@extract(wpl_filters::apply('generate_property_alias', array('alias'=>$alias, 'alias_str'=>$alias_str)));
         
 		/** escape **/
 		$alias_str = wpl_db::escape(wpl_global::url_encode($alias_str));
-		
+        
 		/** update **/
 		$query = "UPDATE `#__wpl_properties` SET `$column`='".$alias_str."' WHERE `id`='".$property_id."'";
 		wpl_db::q($query, 'update');
@@ -1786,8 +1809,8 @@ class wpl_property
         
         _wpl_import('libraries.settings');
         
-        $q = " `location_text`='', `rendered`=''";
-        if(wpl_global::check_multilingual_status()) $q = wpl_settings::get_multilingual_query(array('location_text', 'rendered'));
+        $q = " `location_text`='', `rendered`='', `alias`=''";
+        if(wpl_global::check_multilingual_status()) $q = wpl_settings::get_multilingual_query(array('location_text', 'rendered', 'alias'));
             
         $query = "UPDATE `#__wpl_properties` SET ".$q." WHERE `id`='$property_id'";
         return wpl_db::q($query, 'UPDATE');

@@ -3,7 +3,6 @@
 defined('_WPLEXEC') or die('Restricted access');
 
 _wpl_import('libraries.pagination');
-_wpl_import('libraries.listing_types');
 
 class wpl_data_structure_controller extends wpl_controller
 {

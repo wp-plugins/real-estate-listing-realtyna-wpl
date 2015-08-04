@@ -4,11 +4,39 @@ defined('_WPLEXEC') or die('Restricted access');
 
 if($format == 'select' and !$done_this)
 {
-	if($value != '-1' and trim($value) != '')
+	if($value != '-1' and trim($value) != '') $query .= " AND `".$table_column."` = '".$value."'";
+	$done_this = true;
+}
+elseif($format == 'tmin' and !$done_this)
+{
+	if($value != '-1' and trim($value) != '') $query .= " AND `".$table_column."` >= ".$value."";
+	$done_this = true;
+}
+elseif($format == 'tmax' and !$done_this)
+{
+	if($value != '-1' and trim($value) != '') $query .= " AND `".$table_column."` <= ".$value."";
+	$done_this = true;
+}
+elseif($format == 'multiple' and !$done_this)
+{
+	if(!($value == '' or $value == '-1' or $value == ','))
 	{
-		$query .= " AND `".$table_column."` = '".$value."'";
+		$value = rtrim($value, ',');
+		if($value != '')
+        {
+            $values_ex = explode(',', $value);
+            $value_str = '';
+            foreach($values_ex as $value_ex) $value_str .= "'$value_ex',";
+            
+            $query .= " AND `".$table_column."` IN (".trim($value_str, ', ').")";
+        }
 	}
 	
+	$done_this = true;
+}
+elseif($format == 'text' and !$done_this)
+{
+	if(trim($value) != '') $query .= " AND `".$table_column."` LIKE '%".$value."%'";
 	$done_this = true;
 }
 elseif($format == 'ptcategory' and !$done_this)
@@ -85,49 +113,12 @@ elseif($format == 'rawdatemax' and !$done_this)
 }
 elseif($format == 'gallery' and !$done_this)
 {
-	if($value != '-1' and trim($value) != '')
-	{
-		$query .= " AND (`pic_numb`>0)";
-	}
-	
-	$done_this = true;
-}
-elseif($format == 'tmin' and !$done_this)
-{
-	if($value != '-1' and trim($value) != '')
-	{
-		$min = $value;
-		$max = isset($vars['sf_tmax_'.$table_column]) ? $vars['sf_tmax_'.$table_column] : 999999999999;
-		
-		$query .= " AND `".$table_column."` >= ".$min." AND `".$table_column."` <= ".$max."";
-	}
-	
-	$done_this = true;
-}
-elseif($format == 'multiple' and !$done_this)
-{
-	if(!($value == '' or $value == '-1' or $value == ','))
-	{
-		$value = rtrim($value, ',');
-		if($value != '')
-        {
-            $values_ex = explode(',', $value);
-            $value_str = '';
-            foreach($values_ex as $value_ex) $value_str .= "'$value_ex',";
-            
-            $query .= " AND `".$table_column."` IN (".trim($value_str, ', ').")";
-        }
-	}
-	
+	if($value != '-1' and trim($value) != '') $query .= " AND (`pic_numb`>0)";
 	$done_this = true;
 }
 elseif($format == 'notselect' and !$done_this)
 {
-	if($value != '-1' and trim($value) != '')
-	{
-		$query .= " AND `".$table_column."` != '".$value."'";
-	}
-	
+	if($value != '-1' and trim($value) != '') $query .= " AND `".$table_column."` != '".$value."'";
 	$done_this = true;
 }
 elseif($format == 'parent' and !$done_this)
@@ -149,25 +140,22 @@ elseif($format == 'textsearch' and !$done_this)
         /** If the field is multilingual or it is textsearch field **/
         if(wpl_global::check_multilingual_status() and (wpl_addon_pro::get_multiligual_status_by_column($table_column, wpl_request::getVar('kind', 0)) or $table_column == 'textsearch')) $table_column = wpl_addon_pro::get_column_lang_name($table_column, wpl_global::get_current_language(), false);
         
-		$query .= " AND `".$table_column."` LIKE '%".$value."%'";
-	}
-	
-	$done_this = true;
-}
-elseif($format == 'text' and !$done_this)
-{
-	if(trim($value) != '')
-	{
-		$query .= " AND `".$table_column."` LIKE '%".$value."%'";
+        $values_ex = explode(',', $value);
+        $qq = array();
+        
+        foreach($values_ex as $value_ex)
+        {
+            if(trim($value_ex) == '') continue;
+            $qq[] = "`".$table_column."` LIKE '%".trim($value_ex, ', ')."%'";
+        }
+        
+        $query .= " AND (".implode(' OR ', $qq).")";
 	}
 	
 	$done_this = true;
 }
 elseif($format == 'unit' and !$done_this)
 {
-	/** importing library **/
-	_wpl_import('libraries.units');
-	
 	if($value != '-1' and trim($value) != '')
 	{
 		$unit_data = wpl_units::get_unit($value);

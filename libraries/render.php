@@ -2,8 +2,6 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 
-_wpl_import('libraries.units');
-
 /**
  * Render Library
  * @author Howard <howard@realtyna.com>

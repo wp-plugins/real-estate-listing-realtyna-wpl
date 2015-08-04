@@ -230,7 +230,7 @@ class wpl_db
 		if(trim($table) == '' or trim($where_value) == '' or trim($key) == '' or trim($where_key) == '') return false;
 		
 		$query = "UPDATE `#__$table` SET `$key`='$value' WHERE `$where_key`='$where_value'";
-		return wpl_db::q($query);
+		return wpl_db::q($query, 'update');
 	}
 	
     /**
@@ -364,11 +364,16 @@ class wpl_db
         {
             $sqlParser = wpl_sql_parser::getInstance();
             if($sqlParser->enabled) $query = $sqlParser->parse($query);
+            
+            $query = str_replace('#__users', $database->base_prefix.'users', $query);
+            $query = str_replace('#__blogs', $database->base_prefix.'blogs', $query);
+            $query = str_replace('#__wpl', $database->base_prefix.'wpl', $query);
+            $query = str_replace('#__', $database->prefix, $query);
         }
-        
-		$query = str_replace('#__users', $database->base_prefix.'users', $query);
-		$query = str_replace('#__blogs', $database->base_prefix.'blogs', $query);
-		$query = str_replace('#__', $database->prefix, $query);
+        else
+        {
+            $query = str_replace('#__', $database->prefix, $query);
+        }
         
 		return $query;
 	}

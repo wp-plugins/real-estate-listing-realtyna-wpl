@@ -3,8 +3,8 @@ Contributors: realtyna
 Donate link: http://wpl.realtyna.com/
 Tags: Real estate, Listing, Vertical Market, MLS, Property listing, RETS, Listings, Broker, Realtor, Property, IDX, Multiple Listing Service, Property Management, Properties
 Requires at least: 3.0.1
-Tested up to: 4.2.3
-Stable tag: 2.6.1
+Tested up to: 4.2.4
+Stable tag: 2.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -68,6 +68,16 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 6. External Responsive Template: Agent listing
 
 == Changelog ==
+
+= 2.7.0 =
+* [PRO] Added "PDF Flyer" option to WPL fields and WPL data categories.
+* Added new marker icon-set.
+* Added request a visit from in links activity.
+* Added send to friend from in links activity.
+* Added linkedin share feature in links activity.
+* Added new gallery layout for single property page named "pshow_modern".
+* Fixed shortcode wizard issue on some websites.
+* Fixed conditional images URL issue.
 
 = 2.6.1 =
 * Fixed WPL UI customizer SCSS issue.

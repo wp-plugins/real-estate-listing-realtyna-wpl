@@ -2,7 +2,7 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 
-include _wpl_import("widgets.agents.scripts.js", true, true);
+include _wpl_import('widgets.agents.scripts.js', true, true);
 ?>
 <div class="wpl_agents_widget_container <?php echo ((isset($instance['data']['style']) and $instance['data']['style'] == '2') ? 'vertical' : '') ?> <?php echo $this->css_class; ?>">
     <?php
@@ -36,8 +36,8 @@ include _wpl_import("widgets.agents.scripts.js", true, true);
 
             <div class="wpl_profile_container_title">
                 <?php
-                    
-                    echo '<h2 class="title" itemprop="name">'.$agent_name.' '.$agent_l_name.'</h2>';
+
+                    echo '<a href='.$profile['profile_link'].'><h2 class="title" itemprop="name">'.$agent_name.' '.$agent_l_name.'</h2></a>';
                     if(isset($profile['main_email_url'])) echo '<img src="'.$profile["main_email_url"].'" alt="'.$agent_name.' '.$agent_l_name.'" />';
                 ?>
             </div>

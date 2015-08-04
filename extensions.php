@@ -264,13 +264,13 @@ class wpl_extensions
      */
 	public function import_sidebar($extension)
 	{
-        $name = isset($extension->title) ? $extension->title : 'WPL sidebar';
-        $id = isset($extension->param1) ? $extension->param1 : 'wpl-sidebar-id';
-        $description = isset($extension->description) ? $extension->description : 'WPL sidebar description';
-        $before_widget = isset($extension->param2) ? $extension->param2 : '<aside id="%1$s" class="widget %2$s">';
-        $after_widget = isset($extension->param3) ? $extension->param3 : '</aside>';
-        $before_title = isset($extension->param4) ? $extension->param4 : '<h3 class="widget-title">';
-        $after_title = isset($extension->param5) ? $extension->param5 : '</h3>';
+        $name = (isset($extension->title) and trim($extension->title)) ? $extension->title : 'WPL sidebar';
+        $id = (isset($extension->param1) and trim($extension->param1)) ? $extension->param1 : 'wpl-sidebar-id';
+        $description = (isset($extension->description) and trim($extension->description)) ? $extension->description : 'WPL sidebar description';
+        $before_widget = (isset($extension->param2) and trim($extension->param2)) ? $extension->param2 : '<aside id="%1$s" class="widget %2$s">';
+        $after_widget = (isset($extension->param3) and trim($extension->param3)) ? $extension->param3 : '</aside>';
+        $before_title = (isset($extension->param4) and trim($extension->param4)) ? $extension->param4 : '<h3 class="widget-title">';
+        $after_title = (isset($extension->param5) and trim($extension->param5)) ? $extension->param5 : '</h3>';
         
 		register_sidebar(array(
 			'name'          => __($name, WPL_TEXTDOMAIN),
@@ -385,9 +385,10 @@ class wpl_extensions
     /**
      * Running installation queries and initializing WPL
      * @author Howard <howard@realtyna.com>
+     * @param boolean $network_activate
      * @return void
      */
-	public function activate_wpl()
+	public function activate_wpl($network_activate = false)
 	{
 		if(wpl_folder::exists(WPL_ABSPATH. 'assets' .DS. 'install' .DS. 'files'))
 		{
@@ -408,38 +409,13 @@ class wpl_extensions
 			$queries = str_replace(";\n", "-=++=-", $queries);
 			$sqls = explode("-=++=-", $queries);
 			
-			if(function_exists('is_multisite') and is_multisite() and wpl_global::check_addon('franchise'))
-			{
-				$original_blog_id = wpl_global::get_current_blog_id();
-				
-				// Get all blogs
-				$blogs = wpl_db::select("SELECT `blog_id` FROM `#__blogs`", 'loadColumn');
-				
-				foreach($blogs as $blog)
-				{
-                    if(!isset($blog->blog_id)) continue;
-                    
-					switch_to_blog($blog->blog_id);
-					foreach($sqls as $sql)
-					{
-						try{wpl_db::q($sql);} catch (Exception $e){}
-					}
-				}
-				
-				/** delete query file **/
-				wpl_file::delete($query_file);
-				switch_to_blog($original_blog_id);
-			}
-			else
-			{
-				foreach($sqls as $sql)
-				{
-					try{wpl_db::q($sql);} catch (Exception $e){}
-				}
-				
-				/** delete query file **/
-				wpl_file::delete($query_file);
-			}
+            foreach($sqls as $sql)
+            {
+                try{wpl_db::q($sql);} catch (Exception $e){}
+            }
+
+            /** delete query file **/
+            wpl_file::delete($query_file);
 		}
 		
 		/** run script **/
@@ -452,61 +428,27 @@ class wpl_extensions
 			wpl_file::delete($script_file);
 		}
 		
-		if(function_exists('is_multisite') and is_multisite() and wpl_global::check_addon('franchise'))
-		{
-			$original_blog_id = wpl_global::get_current_blog_id();
-			
-			// Get all blogs
-			$blogs = wpl_db::select("SELECT `blog_id` FROM `#__blogs`", 'loadColumn');
-			foreach($blogs as $blog)
-			{
-                if(!isset($blog->blog_id)) continue;
-                
-				switch_to_blog($blog->blog_id);
-				
-				/** create propertylisting page **/
-				$pages = array('Properties'=>'[WPL]', 'For Sale'=>'[WPL sf_select_listing="9"]', 'For Rent'=>'[WPL sf_select_listing="10"]', 'Vacation Rental'=>'[WPL sf_select_listing="12"]');
-				foreach($pages as $title=>$content)
-				{
-					if(wpl_db::select("SELECT COUNT(post_content) FROM `#__posts` WHERE `post_content` LIKE '%$content%' AND `post_status` IN ('publish', 'private')", 'loadResult') != 0) continue;
-					
-					$post = array('post_title'=>$title, 'post_content'=>$content, 'post_type'=>'page', 'post_status'=>'publish', 'comment_status'=>'closed', 'ping_status'=>'closed', 'post_author'=>1);
-					$post_id = wp_insert_post($post);
-                    
-                    if($content == '[WPL]')
-                    {
-                        _wpl_import('libraries.settings');
-                        wpl_settings::save_setting('main_permalink', $post_id);
-                    }
-				}
-				
-				/** Add admin user to WPL **/
-				wpl_users::add_user_to_wpl(1);
-			}
-			
-			switch_to_blog($original_blog_id);
-		}
-		else
-		{
-			/** create propertylisting page **/
-			$pages = array('Properties'=>'[WPL]', 'For Sale'=>'[WPL sf_select_listing="9"]', 'For Rent'=>'[WPL sf_select_listing="10"]', 'Vacation Rental'=>'[WPL sf_select_listing="12"]');
-			foreach($pages as $title=>$content)
-			{
-				if(wpl_db::select("SELECT COUNT(post_content) FROM `#__posts` WHERE `post_content` LIKE '%$content%' AND `post_status` IN ('publish', 'private')", 'loadResult') != 0) continue;
-				
-				$post = array('post_title'=>$title, 'post_content'=>$content, 'post_type'=>'page', 'post_status'=>'publish', 'comment_status'=>'closed', 'ping_status'=>'closed', 'post_author'=>1);
-                $post_id = wp_insert_post($post);
-                
-                if($content == '[WPL]')
-                {
-                    _wpl_import('libraries.settings');
-                    wpl_settings::save_setting('main_permalink', $post_id);
-                }
-			}
-			
-			/** Add admin user to WPL **/
-			wpl_users::add_user_to_wpl(1);
-		}
+		/** create propertylisting page **/
+        $pages = array('Properties'=>'[WPL]', 'For Sale'=>'[WPL sf_select_listing="9"]', 'For Rent'=>'[WPL sf_select_listing="10"]', 'Vacation Rental'=>'[WPL sf_select_listing="12"]');
+        foreach($pages as $title=>$content)
+        {
+            if(wpl_db::select("SELECT COUNT(post_content) FROM `#__posts` WHERE `post_content` LIKE '%$content%' AND `post_status` IN ('publish', 'private')", 'loadResult') != 0) continue;
+
+            $post = array('post_title'=>$title, 'post_content'=>$content, 'post_type'=>'page', 'post_status'=>'publish', 'comment_status'=>'closed', 'ping_status'=>'closed', 'post_author'=>1);
+            $post_id = wp_insert_post($post);
+
+            if($content == '[WPL]')
+            {
+                _wpl_import('libraries.settings');
+                wpl_settings::save_setting('main_permalink', $post_id);
+            }
+        }
+
+        /** Add admin user to WPL **/
+        wpl_users::add_user_to_wpl(wpl_users::get_blog_admin_id());
+        
+        /** Call Franchise activate function **/
+        if(wpl_global::is_multisite()) wpl_addon_franchise::wpl_activate($network_activate);
         
         /** upgrade WPL **/
 		self::upgrade_wpl();
@@ -538,38 +480,13 @@ class wpl_extensions
 			$queries = str_replace(";\n", "-=++=-", $queries);
 			$sqls = explode("-=++=-", $queries);
 			
-			if(function_exists('is_multisite') and is_multisite() and wpl_global::check_addon('franchise'))
-			{
-				$original_blog_id = wpl_global::get_current_blog_id();
-				
-				// Get all blogs
-				$blogs = wpl_db::select("SELECT `blog_id` FROM `#__blogs`", 'loadColumn');
-				
-				foreach($blogs as $blog)
-				{
-                    if(!isset($blog->blog_id)) continue;
-                    
-                    switch_to_blog($blog->blog_id);
-                    foreach($sqls as $sql)
-                    {
-                        try{wpl_db::q($sql);} catch (Exception $e){}
-                    }
-				}
-				
-				/** delete query file **/
-				wpl_file::delete($query_file);
-				switch_to_blog($original_blog_id);
-			}
-			else
-			{
-				foreach($sqls as $sql)
-				{
-					try{wpl_db::q($sql);} catch (Exception $e){}
-				}
-				
-				/** delete query file **/
-				wpl_file::delete($query_file);
-			}
+			foreach($sqls as $sql)
+            {
+                try{wpl_db::q($sql);} catch (Exception $e){}
+            }
+
+            /** delete query file **/
+            wpl_file::delete($query_file);
 		}
 		
 		/** run script **/
@@ -589,9 +506,12 @@ class wpl_extensions
     /**
      * Deactivating WPL
      * @author Howard <howard@realtyna.com>
+     * @param boolean $network_deactivate
      */
-	public function deactivate_wpl()
+	public function deactivate_wpl($network_deactivate = false)
 	{
+        /** Call Franchise deactivate function **/
+        if(wpl_global::is_multisite()) wpl_addon_franchise::wpl_deactivate($network_deactivate);
 	}
 	
     /**
@@ -599,7 +519,7 @@ class wpl_extensions
      * @author Howard <howard@realtyna.com>
      * @return boolean
      */
-	public function uninstall_wpl()
+	public static function uninstall_wpl()
 	{
         $tables = wpl_db::select('SHOW TABLES');
 		$database = wpl_db::get_DBO();
@@ -617,11 +537,11 @@ class wpl_extensions
         wpl_db::q("DELETE FROM `#__options` WHERE `option_name` LIKE 'wpl_%' AND `option_name` NOT LIKE 'wpl_theme%'", 'delete');
         
         /** remove WPL upload directory **/
-        if(function_exists('is_multisite') and is_multisite() and wpl_global::check_addon('franchise'))
+        if(wpl_global::is_multisite())
         {
             $original_blog_id = wpl_global::get_current_blog_id();
 
-            // Get all blogs
+            /** Get all blogs **/
             $blogs = wpl_db::select("SELECT `blog_id` FROM `#__blogs`", 'loadColumn');
 
             foreach($blogs as $blog)
@@ -642,6 +562,9 @@ class wpl_extensions
             if(wpl_file::exists($upload_path)) wpl_file::delete($upload_path);
         }
         
+        /** Call Franchise uninstall function **/
+        if(wpl_global::is_multisite()) wpl_addon_franchise::wpl_uninstall();
+        
         return true;
 	}
 	
@@ -653,7 +576,7 @@ class wpl_extensions
 	public function import_dynamic_js()
 	{
 		echo '<script type="text/javascript">';
-		echo 'wpl_baseUrl="'.wpl_global::get_wp_site_url().'";';
+		echo 'wpl_baseUrl="'.wpl_global::get_wordpress_url().'";';
 		echo 'wpl_baseName="'.WPL_BASENAME.'";';
 		echo '</script>';
 	}
@@ -719,7 +642,7 @@ class wpl_extensions
 			/** add sub menus **/
 			foreach($submenus as $submenu)
 			{
-                if(!wpl_users::has_menu_access($submenu->menu_slug)) continue;
+                if(!wpl_users::has_menu_access($submenu->menu_slug, $cur_user_id)) continue;
                 
 				$role = $submenu->capability == 'current' ? $cur_role : $wpl_roles[$submenu->capability];
 				$menu_title = $submenu->separator ? $controller->wpl_add_separator().__($submenu->menu_title, WPL_TEXTDOMAIN) : __($submenu->menu_title, WPL_TEXTDOMAIN);
@@ -849,14 +772,11 @@ $wpl_extensions = new wpl_extensions();
 /** active deactive functions **/
 $wpl_extensions->wpl_active_deactive();
 
-/** include addon libraries if WPL installed completely **/
-if(wpl_global::get_wp_option('wpl_version', NULL))
-{
-    if(wpl_global::check_addon('pro')) _wpl_import('libraries.addon_pro');
-    if(wpl_global::check_addon('franchise')) _wpl_import('libraries.addon_franchise');
-}
+/** include some addon libraries **/
+_wpl_import('libraries.addon_pro');
+_wpl_import('libraries.addon_franchise');
 
-if(!($GLOBALS['pagenow'] == 'plugins.php' and wpl_request::getVar('action') == 'activate') and !(wpl_request::getVar('tgmpa-activate') == 'activate-plugin'))
+if(!(isset($GLOBALS['pagenow']) and $GLOBALS['pagenow'] == 'plugins.php' and wpl_request::getVar('action') == 'activate') and !(wpl_request::getVar('tgmpa-activate') == 'activate-plugin'))
 {
 	$wpl_extensions->get_extensions(1, '', wpl_global::get_client());
 	$wpl_extensions->import_extensions();

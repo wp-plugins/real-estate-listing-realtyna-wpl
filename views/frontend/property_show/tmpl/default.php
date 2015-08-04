@@ -2,8 +2,6 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 
-$this->_wpl_import($this->tpl_path.'.scripts.js', true, true);
-
 $prp_type           = isset($this->wpl_properties['current']['materials']['property_type']['value']) ? $this->wpl_properties['current']['materials']['property_type']['value'] : '';
 $prp_listings       = isset($this->wpl_properties['current']['materials']['listing']['value']) ? $this->wpl_properties['current']['materials']['listing']['value'] : '';
 $build_up_area      = isset($this->wpl_properties['current']['materials']['living_area']['value']) ? $this->wpl_properties['current']['materials']['living_area']['value'] : (isset($this->wpl_properties['current']['materials']['lot_area']['value']) ? $this->wpl_properties['current']['materials']['lot_area']['value'] : '');
@@ -16,13 +14,18 @@ $price_type         = isset($this->wpl_properties['current']['materials']['price
 $location_string 	= isset($this->wpl_properties['current']['location_text']) ? $this->wpl_properties['current']['location_text'] : '';
 $prp_title          = isset($this->wpl_properties['current']['property_title']) ? $this->wpl_properties['current']['property_title'] : '';
 
-$pshow_gallery_activities = count(wpl_activity::get_activities('pshow_gallery', 1));
-$pshow_googlemap_activities = count(wpl_activity::get_activities('pshow_googlemap', 1));
-$pshow_walkscore_activities = count(wpl_activity::get_activities('pshow_walkscore', 1));
+$pshow_gallery_activities = wpl_activity::get_activities('pshow_gallery', 1);
+$pshow_googlemap_activities = wpl_activity::get_activities('pshow_googlemap', 1, '', 'loadObject');
+$pshow_walkscore_activities = wpl_activity::get_activities('pshow_walkscore', 1);
+
+$this->pshow_googlemap_activity_id = $pshow_googlemap_activities->id;
 
 /** video tab for showing videos **/
 $pshow_video_activities = count(wpl_activity::get_activities('pshow_video', 1));
 if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->wpl_properties['current']['items']['video']) and !count($this->wpl_properties['current']['items']['video']))) $pshow_video_activities = 0;
+
+/** Import JS file **/
+$this->_wpl_import($this->tpl_path.'.scripts.js', true, true);
 ?>
 <div class="wpl_prp_show_container" id="wpl_prp_show_container">
     <div class="wpl_prp_container" id="wpl_prp_container<?php echo $this->pid; ?>" itemscope itemtype="https://schema.org/TradeAction">
@@ -74,7 +77,7 @@ if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->w
                     if($this->wpl_properties['current']['data'][$description_column]):
                 ?>
                 <div class="wpl_prp_show_detail_boxes">
-                    <div class="wpl_prp_show_detail_boxes_title"><?php echo __('Property Description', WPL_TEXTDOMAIN) ?></div>
+                    <div class="wpl_prp_show_detail_boxes_title"><?php echo __(wpl_flex::get_dbst_key('name', wpl_flex::get_dbst_id('field_308', $this->kind)), WPL_TEXTDOMAIN) ?></div>
                     <div class="wpl_prp_show_detail_boxes_cont" itemprop="description">
                         <?php echo apply_filters('the_content', stripslashes($this->wpl_properties['current']['data'][$description_column])); ?>
                     </div>
@@ -99,7 +102,7 @@ if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->w
 
                     foreach($values['data'] as $key => $value)
 					{
-                        if(!isset($value['type']) or $value['type'] == 'separator') continue;
+                        if(!isset($value['type'])) continue;
                         
                         elseif($value['type'] == 'neighborhood')
                         {
@@ -116,7 +119,7 @@ if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->w
                             {
                                 $html = '';
                                 echo ' : <span>';
-                                foreach ($value['values'] as $val) $html .= __($val, WPL_TEXTDOMAIN).', ';
+                                foreach($value['values'] as $val) $html .= __($val, WPL_TEXTDOMAIN).', ';
                                 $html = rtrim($html, ', ');
                                 echo $html;
                                 echo '</span>';
@@ -126,12 +129,16 @@ if(!isset($this->wpl_properties['current']['items']['video']) or (isset($this->w
                         }
                         elseif($value['type'] == 'locations' and isset($value['locations']) and is_array($value['locations']))
                         {
-                            foreach ($value['locations'] as $ii=>$lvalue)
+                            foreach($value['locations'] as $ii=>$lvalue)
                             {
                                 echo '<div id="wpl-dbst-show'.$value['field_id'].'" class="rows location" itemprop="address">'.__($value['keywords'][$ii], WPL_TEXTDOMAIN).' : ';
                                 echo '<span>'.$lvalue.'</span>';
                                 echo '</div>';
                             }
+                        }
+                        elseif($value['type'] == 'separator')
+                        {
+                            echo '<div id="wpl-dbst-show'.$value['field_id'].'" class="rows separator">' .__($value['name'], WPL_TEXTDOMAIN). '</div>';
                         }
                         else
                             echo '<div id="wpl-dbst-show'.$value['field_id'].'" class="rows other">' .__($value['name'], WPL_TEXTDOMAIN). ' : <span>'. __((isset($value['value']) ? $value['value'] : ''), WPL_TEXTDOMAIN) .'</span></div>';

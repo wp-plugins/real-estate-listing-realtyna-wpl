@@ -5,6 +5,7 @@ defined('_WPLEXEC') or die('Restricted access');
 /** set params **/
 $wpl_properties = isset($params['wpl_properties']) ? $params['wpl_properties'] : array();
 $this->property_id = isset($wpl_properties['current']['data']['id']) ? $wpl_properties['current']['data']['id'] : NULL;
+$this->current_property = $wpl_properties['current'];
 
 /** get image params **/
 $this->image_width = isset($params['image_width']) ? $params['image_width'] : 285;
@@ -32,6 +33,7 @@ $gallery = wpl_items::render_gallery($raw_gallery);
     {
         $pimage = $gallery[0];
         $image_url = $pimage['url'];
+        
         if(isset($image['item_extra2'])) $image_alt = $image['item_extra2'];
         else $image_alt = $wpl_properties['current']['raw']['meta_keywords'];
 

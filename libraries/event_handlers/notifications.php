@@ -100,4 +100,73 @@ class wpl_events_notifications
         
         return true;
     }
+
+
+    public static function send_to_friend($params)
+    {
+        $replacements = $params[0];
+        $notification = new wpl_notifications('email');
+        $notification->prepare(6, $replacements);
+
+        /** Disabled **/
+        if(!$notification->notification_data['enabled']) return false;
+
+        $property_id = $replacements['property_id'];
+        $property = wpl_property::get_property_raw_data($property_id);
+
+        $property_title = wpl_property::update_property_title($property);
+        $replacements['listing_id'] = '<a href="'.wpl_property::get_property_link(NULL, $property_id).'">'.$property['mls_id'] .' ('.$property_title.')</a>';
+
+        $details = '';
+        foreach($replacements as $key=>$value)
+        {
+            if(in_array($key, array('property_id', 'listing_id')) or trim($value) == '') continue;
+            $details .= '<strong>'.__($key, WPL_TEXTDOMAIN).': </strong><span>'.$value.'</span><br />';
+        }
+
+        $replacements['details'] = $details;
+
+        $notification->replacements = $notification->set_replacements($replacements);
+        $notification->rendered_content = $notification->render_notification_content();
+        $notification->recipients = $notification->set_recipients(array($replacements['friends_email'], wpl_global::get_admin_id()));
+
+        $notification->send();
+
+        return true;
+    }
+
+    public static function request_a_visit($params)
+    {
+        $replacements = $params[0];
+
+        $notification = new wpl_notifications('email');
+        $notification->prepare(7, $replacements);
+
+        /** Disabled **/
+        if(!$notification->notification_data['enabled']) return false;
+
+        $property_id = $replacements['property_id'];
+        $property = wpl_property::get_property_raw_data($property_id);
+        $user = wpl_users::get_user($property['user_id']);
+
+        $property_title = wpl_property::update_property_title($property);
+        $replacements['listing_id'] = '<a href="'.wpl_property::get_property_link(NULL, $property_id).'">'.$property['mls_id'] .' ('.$property_title.')</a>';
+
+        $details = '';
+        foreach($replacements as $key=>$value)
+        {
+            if(in_array($key, array('property_id', 'listing_id')) or trim($value) == '') continue;
+            $details .= '<strong>'.__($key, WPL_TEXTDOMAIN).': </strong><span>'.$value.'</span><br />';
+        }
+
+        $replacements['details'] = $details;
+
+        $notification->replacements = $notification->set_replacements($replacements);
+        $notification->rendered_content = $notification->render_notification_content();
+        $notification->recipients = $notification->set_recipients(array($user->data->user_email, wpl_global::get_admin_id()));
+
+        $notification->send();
+
+        return true;
+    }
 }

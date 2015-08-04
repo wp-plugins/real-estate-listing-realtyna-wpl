@@ -2,8 +2,6 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 
-_wpl_import('libraries.property_types');
-_wpl_import('libraries.listing_types');
 _wpl_import('libraries.units');
 _wpl_import('libraries.sort_options');
 _wpl_import('libraries.room_types');

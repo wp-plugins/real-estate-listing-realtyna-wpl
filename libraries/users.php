@@ -175,10 +175,12 @@ class wpl_users
 		
 		/** fetch user data **/
 		$user_data = get_userdata($user_id);
+
         
         /** Invalid or Guest User **/
 		if(!is_object($user_data)) $user_data = new stdClass();
         
+
 		$user_data->meta = self::get_user_meta($user_id);
 		$user_data->wpl_data = self::get_wpl_data($user_id);
 		
@@ -342,7 +344,7 @@ class wpl_users
 	public static function get_role($user_id = '', $superadmin_role = true)
 	{
 		$user_data = self::get_user($user_id);
-		$role = $user_data->roles[0];
+		$role = isset($user_data->roles[0]) ? $user_data->roles[0] : NULL;
         
         /** check network admin **/
         if($superadmin_role and wpl_users::is_super_admin($user_id)) $role = 'superadmin';
@@ -1098,8 +1100,12 @@ class wpl_users
         if(wpl_file::exists($path.'main_email.png')) wpl_file::delete($path.'main_email.png');
         if(wpl_file::exists($path.'second_email.png')) wpl_file::delete($path.'second_email.png');
         
-		if(is_object($user_data['data']) and trim($user_data['data']->wpl_data->main_email) != '') wpl_images::text_to_image($user_data['data']->wpl_data->main_email, '000000', $path.'main_email.png');
-		if(is_object($user_data['data']) and trim($user_data['data']->wpl_data->secondary_email) != '') wpl_images::text_to_image($user_data['data']->wpl_data->secondary_email, '000000', $path.'second_email.png');
+        /** Get text color **/
+        $text_color = wpl_global::get_setting('txtimg_color1');
+        if(!trim($text_color) or strlen($text_color) != 6) $text_color = '000000';
+        
+		if(is_object($user_data['data']) and trim($user_data['data']->wpl_data->main_email) != '') wpl_images::text_to_image($user_data['data']->wpl_data->main_email, $text_color, $path.'main_email.png');
+		if(is_object($user_data['data']) and trim($user_data['data']->wpl_data->secondary_email) != '') wpl_images::text_to_image($user_data['data']->wpl_data->secondary_email, $text_color, $path.'second_email.png');
     }
 	
     /**
@@ -1163,18 +1169,23 @@ class wpl_users
         
         $location_pattern = wpl_global::get_setting('user_location_pattern');
         if(trim($location_pattern) == '') $location_pattern = '[location5_name][glue][location4_name][glue][location3_name][glue][location2_name][glue][location1_name] [zip_name]';
-        
-		$location_text = '';
-        $location_text = isset($locations['location7_name']) ? str_replace('[location7_name]', $locations['location7_name'], $location_pattern) : str_replace('[location7_name]', '', $location_pattern);
-        $location_text = isset($locations['location6_name']) ? str_replace('[location6_name]', $locations['location6_name'], $location_pattern) : str_replace('[location6_name]', '', $location_pattern);
-        $location_text = isset($locations['location5_name']) ? str_replace('[location5_name]', $locations['location5_name'], $location_pattern) : str_replace('[location5_name]', '', $location_pattern);
-        $location_text = isset($locations['location4_name']) ? str_replace('[location4_name]', $locations['location4_name'], $location_text) : str_replace('[location4_name]', '', $location_text);
-        $location_text = isset($locations['location3_name']) ? str_replace('[location3_name]', $locations['location3_name'], $location_text) : str_replace('[location3_name]', '', $location_text);
-        $location_text = isset($locations['location2_name']) ? str_replace('[location2_name]', $locations['location2_name'], $location_text) : str_replace('[location2_name]', '', $location_text);
-        $location_text = isset($locations['zip_name']) ? str_replace('[zip_name]', $locations['zip_name'], $location_text) : str_replace('[zip_name]', '', $location_text);
-        $location_text = isset($locations['location1_name']) ? str_replace('[location1_name]', $locations['location1_name'], $location_text) : str_replace('[location1_name]', '', $location_text);
+
+        $location_text = $location_pattern;
         $location_text = str_replace('[glue]', $glue, $location_text);
         
+        preg_match_all('/\[([^\]]*)\]/', $location_pattern, $matches_pattern);
+        foreach($matches_pattern[1] as $pattern)
+        {
+            if(isset($locations[$pattern])) $location_text = str_replace('[' . $pattern . ']', $locations[$pattern], $location_text);
+            elseif(isset($user_data[$pattern]))
+            {
+                if(wpl_global::check_multilingual_status() and wpl_addon_pro::get_multiligual_status_by_column($pattern, 2)) $pattern = wpl_addon_pro::get_column_lang_name($pattern, wpl_global::get_current_language(), false);
+                $location_text = str_replace('[' . $pattern . ']', $user_data[$pattern], $location_text);
+            }
+        }
+        
+        $location_text = preg_replace('/\[[^\]]*\]/', '', $location_text);
+
         /** apply filters **/
 		_wpl_import('libraries.filters');
 		@extract(wpl_filters::apply('generate_user_location_text', array('location_text'=>$location_text, 'glue'=>$glue, 'user_data'=>$user_data)));
@@ -1256,12 +1267,15 @@ class wpl_users
         $target_id = isset($params['wpltarget']) ? $params['wpltarget'] : 0;
 		$result['profile_link'] = self::get_profile_link($profile->id, $target_id);
 		
+        $path = wpl_items::get_path($profile->id, 2);
+        $folder = wpl_items::get_folder($profile->id, 2);
+        
 		/** profile picture **/
 		if(trim($raw_data['profile_picture']) != '')
 		{
 			$result['profile_picture'] = array(
-				'url'=>wpl_items::get_folder($profile->id, 2).$raw_data['profile_picture'],
-				'path'=>wpl_items::get_path($profile->id, 2).$raw_data['profile_picture'],
+				'url'=>$folder.$raw_data['profile_picture'],
+				'path'=>$path.$raw_data['profile_picture'],
 				'name'=>$raw_data['profile_picture']
 			);
 		}
@@ -1270,18 +1284,18 @@ class wpl_users
 		if(trim($raw_data['company_logo']) != '')
 		{
 			$result['company_logo'] = array(
-				'url'=>wpl_items::get_folder($profile->id, 2).$raw_data['company_logo'],
-				'path'=>wpl_items::get_path($profile->id, 2).$raw_data['company_logo'],
+				'url'=>$folder.$raw_data['company_logo'],
+				'path'=>$path.$raw_data['company_logo'],
 				'name'=>$raw_data['company_logo']
 			);
 		}
 		
+        /** Generate Email Files **/
+        if((trim($raw_data['main_email']) and !wpl_file::exists($path.'main_email.png')) or (trim($raw_data['secondary_email']) and !wpl_file::exists($path.'second_email.png'))) wpl_users::generate_email_files($user_id);
+        
 		/** Emails url **/
-		if(wpl_file::exists(wpl_items::get_path($profile->id, 2).'main_email.png'))
-			$result['main_email_url'] = wpl_items::get_folder($profile->id, 2).'main_email.png';
-		
-		if(wpl_file::exists(wpl_items::get_path($profile->id, 2).'second_email.png'))
-			$result['second_email_url'] = wpl_items::get_folder($profile->id, 2).'second_email.png';
+		if(wpl_file::exists($path.'main_email.png')) $result['main_email_url'] = $folder.'main_email.png';
+		if(wpl_file::exists($path.'second_email.png')) $result['second_email_url'] = $folder.'second_email.png';
 		
 		return $result;
 	}
@@ -1579,7 +1593,7 @@ class wpl_users
     }
     
     /**
-     * 
+     * Returns user type tpl for users view such as profile listing and profile show
      * @author Howard R. <howard@realtyna.com>
      * @param string $wplpath
      * @param string $tpl
@@ -1600,4 +1614,41 @@ class wpl_users
         if(wpl_file::exists($path)) return $user_type_tpl;
         else return $tpl;
 	}
+    
+    /**
+     * Returns current blog main admin (Owner) id by caring about multisite feature
+     * @author Howard R. <howard@realtyna.com>
+     * @static
+     * @return int
+     */
+    public static function get_blog_admin_id()
+    {
+        if(wpl_global::is_multisite()) $email = wpl_global::get_blog_option(wpl_global::get_current_blog_id(), 'admin_email');
+        else $email = wpl_global::get_wp_option('admin_email');
+        
+        return wpl_users::get_id_by_email($email);
+    }
+    
+    /**
+     * Wrapper for wp_login_url function
+     * @author Howard R. <howard@realtyna.com>
+     * @static
+     * @param atring $redirect
+     * @return string
+     */
+    public static function wp_login_url($redirect = '')
+    {
+        return wp_login_url($redirect);
+    }
+    
+    /**
+     * Wrapper for wp_registration_url function
+     * @author Howard R. <howard@realtyna.com>
+     * @static
+     * @return string
+     */
+    public static function wp_registration_url()
+    {
+        return wp_registration_url();
+    }
 }

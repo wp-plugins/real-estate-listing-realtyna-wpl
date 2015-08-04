@@ -20,7 +20,7 @@ if($this->wplraw == 2)
 $this->_wpl_import($this->tpl_path.'.scripts.js', true, true);
 if($this->wplpagination == 'scroll' and $this->property_listview and wpl_global::check_addon('pro')) $this->_wpl_import($this->tpl_path.'.scripts.js_scroll', true, true);
 ?>
-<div id="wpl_profile_listing_main_container">
+<div class="wpl-profile-listing-wp" id="wpl_profile_listing_main_container">
     
     <?php if(is_active_sidebar('wpl-profile-listing-top')): ?>
     <div class="wpl_plisting_top_sidebar_container">

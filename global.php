@@ -376,11 +376,12 @@ class wpl_global
 		
 		if(in_array($type, array('frontend','site'))) $url = rtrim(home_url(), '/').'/';
 		elseif(in_array($type, array('backend','admin'))) $url = admin_url();
+        elseif($type == 'wordpress') $url = rtrim(get_site_url(), '/').'/';
+        elseif($type == 'wpl') $url = rtrim(plugins_url(), '/').'/'.WPL_BASENAME.'/';
+        elseif($type == 'upload') $url = rtrim(get_site_url(), '/').'/wp-content/uploads/WPL/';
 		elseif($type == 'content') $url = rtrim(content_url(), '/').'/';
 		elseif($type == 'plugin') $url = rtrim(plugins_url(), '/').'/';
 		elseif($type == 'include') $url = includes_url();
-		elseif($type == 'wpl') $url = rtrim(plugins_url(), '/').'/'.WPL_BASENAME.'/';
-		elseif($type == 'upload') $url = rtrim(get_site_url(), '/').'/wp-content/uploads/WPL/';
 		
 		return $url;
 	}
@@ -438,6 +439,17 @@ class wpl_global
 	public static function get_wpl_url()
 	{
 		return self::get_wp_url('WPL');
+	}
+    
+    /**
+     * Returns WordPress installation URL
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @return string
+     */
+    public static function get_wordpress_url()
+	{
+		return self::get_wp_url('wordpress');
 	}
 	
     /**
@@ -1169,6 +1181,7 @@ class wpl_global
 		
 		$io_handler = 'http://billing.realtyna.com/io/io.php';
 		$result = wpl_global::get_web_page($io_handler, $POST);
+        
 		$answer = json_decode($result, true);
 		
 		/** saving status **/
@@ -1354,13 +1367,13 @@ class wpl_global
 		
         $ABSPATH = WPL_UP_ABSPATH;
         
-		if(!$blog_id or $blog_id == 1) return wpl_global::get_wp_site_url().'wp-content/uploads/WPL/';
+		if(!$blog_id or $blog_id == 1) return wpl_global::get_wordpress_url().'wp-content/uploads/WPL/';
 		else
 		{
 			$path = rtrim($ABSPATH, DS).$blog_id. DS;
 			if(!wpl_folder::exists($path)) wpl_folder::create($path);
             
-			return wpl_global::get_wp_site_url().'wp-content/uploads/WPL'.$blog_id.'/';
+			return wpl_global::get_wordpress_url().'wp-content/uploads/WPL'.$blog_id.'/';
 		}
 	}
     
@@ -1853,4 +1866,49 @@ class wpl_global
 		
 		return $output;
 	}
+    
+    /**
+     * Check WP Network installation or not
+     * @author Howard <howard@realtyna.com>
+     * @return boolean
+     */
+    public static function is_multisite()
+    {
+        return (function_exists('is_multisite') and is_multisite() and wpl_global::check_addon('franchise'));
+    }
+    
+    /**
+     * Returns blog option
+     * @author Howard <howard@realtyna.com>
+     * @param int $blog_id
+     * @param string $setting
+     * @param mixed $default
+     * @return mixed
+     */
+    public static function get_blog_option($blog_id, $setting, $default = NULL)
+    {
+        return get_blog_option($blog_id, $setting, $default);
+    }
+
+    /** To triggering request_a_visit_send event
+     * @author Chris <chris@realtyna.com>
+     * @param $parameters
+     * @return bool
+     */
+    public static function request_a_visit_send($parameters)
+    {
+        wpl_events::trigger('request_a_visit_send', $parameters);
+        return true;
+    }
+    
+    /** To triggering send_to_friend event
+     * @author Chris <chris@realtyna.com>
+     * @param $parameters
+     * @return bool
+     */
+    public static function send_to_friend($parameters)
+    {
+        wpl_events::trigger('send_to_friend', $parameters);
+        return true;
+    }
 }

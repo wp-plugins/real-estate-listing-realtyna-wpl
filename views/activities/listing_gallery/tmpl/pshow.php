@@ -5,6 +5,7 @@ defined('_WPLEXEC') or die('Restricted access');
 /** set params **/
 $wpl_properties = isset($params['wpl_properties']) ? $params['wpl_properties'] : array();
 $this->property_id = isset($wpl_properties['current']['data']['id']) ? $wpl_properties['current']['data']['id'] : NULL;
+$this->current_property = $wpl_properties['current'];
 
 /** get image params **/
 $this->image_width = isset($params['image_width']) ? $params['image_width'] : 360;
@@ -67,8 +68,8 @@ $this->_wpl_import($this->tpl_path.'.scripts.pshow', true, true);
 		
         echo '</ul>';
     ?>
-    <div id="bx-pager">
-        <?php echo '<div id="img_count">'.count($this->gallery).'</div>'.$pager_box; ?>
+    <div class="wpl-slider-bx-pager-wp" id="bx-pager-<?php echo $this->activity_id; ?>">
+        <?php echo '<div class="wpl-slider-bx-img-count" id="img-count-<?php echo $this->activity_id; ?>">'.count($this->gallery).'</div>'.$pager_box; ?>
     </div>
     <?php } ?>
     

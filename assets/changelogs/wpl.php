@@ -4,6 +4,16 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL2.7.0 (<span class="wpl_log_date">08/04/2015</span> <span class="wpl_log_revision">revision 1723</span>)</h4>
+        -- <strong>[PRO]</strong> Added "PDF Flyer" option to WPL fields and WPL data categories.<br />
+        -- Added new marker icon-set.<br />
+        -- Added request a visit from in links activity.<br />
+        -- Added send to friend from in links activity.<br />
+        -- Added linkedin share feature in links activity.<br />
+        -- Added new gallery layout for single property page named "pshow_modern".<br />
+        -- Fixed shortcode wizard issue on some websites.<br />
+        -- Fixed conditional images URL issue.
+        
         <h4>WPL2.6.1 (<span class="wpl_log_date">06/30/2015</span> <span class="wpl_log_revision">revision 1639</span>)</h4>
         -- Fixed WPL UI customizer SCSS issue.<br />
         -- Fixed property images issue on listings pages.<br />
@@ -220,7 +230,6 @@ defined('_WPLEXEC') or die('Restricted access');
         -- Fixed some issues on user manager menu.
         
         <h4>WPL1.4.8 (<span class="wpl_log_date">6/03/2014</span> <span class="wpl_log_revision">revision 669</span>)</h4>
-        -- <strong>[PRO]</strong> Added user auto add feature.<br />
         -- Hide currency field when there is just one active currency on search widget.<br />
         -- <strong>[PRO]</strong> Added User Flex menu for managing user fields.<br />
         -- Added a feature for editing agents profile by admin.<br />

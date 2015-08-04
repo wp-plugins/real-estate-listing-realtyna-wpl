@@ -12,6 +12,13 @@ defined('_WPLEXEC') or die('Restricted access');
 class wpl_events
 {
     /**
+     * Used for caching in get_events function
+     * @static
+     * @var array
+     */
+    public static $wpl_events = NULL;
+    
+    /**
      * Triggers a event
      * @author Howard <howard@realtyna.com>
      * @param string $trigger
@@ -55,8 +62,23 @@ class wpl_events
      */
 	public static function get_events($trigger, $enabled = 1)
 	{
-		$query = "SELECT * FROM `#__wpl_events` WHERE `trigger`='$trigger' AND `enabled`>='$enabled'";
-		return wpl_db::select($query);
+        /** return from cache if exists **/
+		if(is_array(self::$wpl_events) and isset(self::$wpl_events[$trigger])) return self::$wpl_events[$trigger];
+        elseif(is_array(self::$wpl_events)) return array();
+        
+		$query = "SELECT * FROM `#__wpl_events` WHERE `enabled`>='$enabled'";
+		$results = wpl_db::select($query);
+        
+        $events = array();
+        foreach($results as $result)
+        {
+            if(!isset($events[$result->trigger])) $events[$result->trigger] = array();
+            $events[$result->trigger][] = $result;
+        }
+        
+        /** add to cache **/
+		self::$wpl_events = $events;
+        return isset(self::$wpl_events[$trigger]) ? self::$wpl_events[$trigger] : array();
 	}
     
     /**

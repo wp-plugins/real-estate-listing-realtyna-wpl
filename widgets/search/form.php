@@ -2,8 +2,8 @@
 /** no direct access * */
 defined('_WPLEXEC') or die('Restricted access');
 
-include _wpl_import("widgets.search.scripts.css_backend", true, true);
-include _wpl_import("widgets.search.scripts.js_backend", true, true);
+include _wpl_import('widgets.search.scripts.css_backend', true, true);
+include _wpl_import('widgets.search.scripts.js_backend', true, true);
 
 wpl_extensions::import_javascript((object) array('param1'=>'wpl-sly-scrollbar', 'param2'=>'js/libraries/wpl.slyscrollbar.min.js'));
 ?>

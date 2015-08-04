@@ -334,9 +334,6 @@ class wpl_flex
 		
 		$__prefix = 'wpl_flex_modify';
 		
-		_wpl_import('libraries.listing_types');
-		_wpl_import('libraries.property_types');
-		
 		$dbcats = self::get_categories(0, $kind);
 		$listings = wpl_listing_types::get_listing_types();
 		$property_types = wpl_property_types::get_property_types();
@@ -712,4 +709,16 @@ class wpl_flex
         
 		return $rendered;
 	}
+    
+    /**
+     * Returns WPL tag fields
+     * @author Howard. <howard@realtyna.com>
+     * @static
+     * @param int $kind
+     * @return array of objects
+     */
+    public static function get_tag_fields($kind = 0)
+    {
+        return wpl_flex::get_fields(NULL, NULL, NULL, NULL, NULL, "AND `type`='tag' AND `enabled`>='1' AND `kind`='$kind'");
+    }
 }

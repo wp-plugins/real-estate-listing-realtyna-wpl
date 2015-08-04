@@ -11,17 +11,17 @@ var google_place_radius = <?php echo $this->google_place_radius; ?>
 var default_lt = '<?php echo $this->default_lt; ?>';
 var default_ln = '<?php echo $this->default_ln; ?>';
 var default_zoom = <?php echo $this->default_zoom; ?>;
-var wpl_map_initialized = false;
+var wpl_map_initialized<?php echo $this->activity_id; ?> = false;
 var wpl_pshow_bounds_extended = false;
 
 wplj(document).ready(function()
 {
-    if(wplj('#wpl_map_canvas<?php echo $this->activity_id; ?>').is(':visible')) wpl_pshow_map_init();
+    if(wplj('#wpl_map_canvas<?php echo $this->activity_id; ?>').is(':visible')) wpl_pshow_map_init<?php echo $this->activity_id; ?>();
 });
 
-function wpl_pshow_map_init()
+function wpl_pshow_map_init<?php echo $this->activity_id; ?>()
 {
-	if(wpl_map_initialized) return;
+	if(wpl_map_initialized<?php echo $this->activity_id; ?>) return;
 	
 	wpl_initialize<?php echo $this->activity_id; ?>();
     
@@ -97,6 +97,6 @@ function wpl_pshow_map_init()
     ?>
     
 	/** set true **/
-	wpl_map_initialized = true;
+	wpl_map_initialized<?php echo $this->activity_id; ?> = true;
 }
 </script>

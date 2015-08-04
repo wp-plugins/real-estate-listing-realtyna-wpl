@@ -1,7 +1,6 @@
 <?php
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
-_wpl_import('libraries.units');
 
 class wpl_data_structure_controller extends wpl_controller
 {

@@ -6,7 +6,7 @@ defined('_WPLEXEC') or die('Restricted access');
     <label for="<?php echo $__prefix; ?>category"><?php echo __('Data category', WPL_TEXTDOMAIN); ?></label>
     <select id="<?php echo $__prefix; ?>category" name="<?php echo $__prefix; ?>data_category">
         <?php foreach ($dbcats as $dbcat): ?>
-            <option value="<?php echo $dbcat->id; ?>" <?php if (isset($values->category) and $dbcat->id == $values->category) echo 'selected="selected"'; ?>><?php echo $dbcat->name; ?></option>
+        <option value="<?php echo $dbcat->id; ?>" <?php if (isset($values->category) and $dbcat->id == $values->category) echo 'selected="selected"'; ?>><?php echo $dbcat->name; ?></option>
         <?php endforeach; ?>
     </select>
     <!-- hidden fields -->
@@ -48,3 +48,12 @@ defined('_WPLEXEC') or die('Restricted access');
         <option value="0" <?php if (isset($values->searchmod) and $values->searchmod == '0') echo 'selected="selected"'; ?>><?php echo __('Hide', WPL_TEXTDOMAIN); ?></option>
     </select>
 </div>
+<?php if(wpl_global::check_addon('pro')): ?>
+<div class="fanc-row">
+    <label for="<?php echo $__prefix; ?>pdf"><?php echo __('PDF Flyer', WPL_TEXTDOMAIN); ?></label>
+    <select name="<?php echo $__prefix; ?>pdf" id="<?php echo $__prefix; ?>pdf">
+        <option value="1" <?php if (isset($values->pdf) and $values->pdf == '1') echo 'selected="selected"'; ?>><?php echo __('Show', WPL_TEXTDOMAIN); ?></option>
+        <option value="0" <?php if (isset($values->pdf) and $values->pdf == '0') echo 'selected="selected"'; ?>><?php echo __('Hide', WPL_TEXTDOMAIN); ?></option>
+    </select>
+</div>
+<?php endif; ?>

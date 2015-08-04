@@ -10,7 +10,7 @@ var wpl_listing_current_page = <?php echo $this->page_number; ?>;
 var wpl_listing_last_search_time = 0;
 
 /** CSS Class **/
-var wpl_current_property_css_class;
+var wpl_current_property_css_class = '<?php echo $this->property_css_class; ?>';
 
 wplj(document).ready(function()
 {
@@ -107,7 +107,7 @@ function wpl_set_property_css_class(pcc)
         wpl_sp_append_div = '#wpl_property_listing_container';
         
         /** Add new scroll listener **/
-        var wpl_scroll_pagination_listener = wplj(wpl_sp_selector_div).scroll(function()
+        var wpl_scroll_pagination_listener = wplj(wpl_sp_selector_div).on('scroll', function()
         {
             wpl_scroll_pagination();
         });
@@ -121,7 +121,7 @@ function wpl_set_property_css_class(pcc)
         wpl_sp_append_div = '.wpl_property_listing_listings_container';
         
         /** Add new scroll listener **/
-        var wpl_scroll_pagination_listener = wplj(wpl_sp_selector_div).scroll(function()
+        var wpl_scroll_pagination_listener = wplj(wpl_sp_selector_div).on('scroll', function()
         {
             wpl_scroll_pagination();
         });

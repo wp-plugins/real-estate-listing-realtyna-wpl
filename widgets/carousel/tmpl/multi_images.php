@@ -2,7 +2,7 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 
-include _wpl_import("widgets.carousel.scripts.js", true, true);
+include _wpl_import('widgets.carousel.scripts.js', true, true);
 
 $image_width = isset($this->instance['data']['image_width']) ? $this->instance['data']['image_width'] : 310;
 $image_height = isset($this->instance['data']['image_height']) ? $this->instance['data']['image_height'] : 220;

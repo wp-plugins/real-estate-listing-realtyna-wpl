@@ -9,7 +9,7 @@ $wpl_properties = isset($params['wpl_properties']) ? $params['wpl_properties'] :
 $this->params = $params;
 
 /** get params **/
-$this->googlemap_view = isset($params['googlemap_view']) ? $params['googlemap_view'] : 'WPL';
+$this->googlemap_view = isset($params['googlemap_view']) ? $params['googlemap_view'] : 'ROADMAP';
 $this->map_width = isset($params['map_width']) ? $params['map_width'] : 980;
 $this->map_height = isset($params['map_height']) ? $params['map_height'] : 480;
 $this->default_lt = isset($params['default_lt']) ? $params['default_lt'] : '38.685516';

@@ -38,7 +38,7 @@ elseif($type == 'date' and !$done_this)
 			</select>
 		</div>
 		<div class="erow">
-            <input type="text" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][extoption]" value="<?php echo (isset($value['extoption']) ? $value['extoption'] : ''); ?>" placeholder="<?php echo __('Min,Max,Icon like 1999-01-01,2020-01-01,0', WPL_TEXTDOMAIN); ?>" title="<?php echo __('Min,Max,Icon like 1999-01-01,2020-01-01,0', WPL_TEXTDOMAIN); ?>" />
+            <input type="text" name="<?php echo $this->get_field_name('data'); ?>[<?php echo $field->id; ?>][extoption]" value="<?php echo (isset($value['extoption']) ? $value['extoption'] : ''); ?>" placeholder="<?php echo __('Min,Max,Icon like 1999-01-01,2020-01-01,0', WPL_TEXTDOMAIN); ?>" title="<?php echo __('Min,Max like 1999-01-01,2020-01-01', WPL_TEXTDOMAIN); ?>" />
 		</div>
 	</div>
 </div>
@@ -68,7 +68,7 @@ elseif($type == 'feature' and !$done_this)
 <?php
     $done_this = true;
 }
-elseif($type == 'checkbox' and !$done_this)
+elseif(($type == 'checkbox' or $type == 'tag') and !$done_this)
 {
 ?>
 <div class="search-field-wp search-field-checkbox <?php echo (isset($value['enable']) ? $value['enable'] : ''); ?>" data-field-id="<?php echo $field->id; ?>" data-status="<?php echo (isset($value['enable']) ? $value['enable'] : ''); ?>" data-field-name="<?php echo __($field->name, WPL_TEXTDOMAIN); ?>">
@@ -198,6 +198,7 @@ elseif($type == 'number' and !$done_this)
 				<option value="minmax_slider" <?php if(isset($value['type']) and $value['type'] == 'minmax_slider') echo 'selected="selected"'; ?>><?php echo __('Min/Max Slider', WPL_TEXTDOMAIN); ?></option>
 				<option value="minmax_selectbox" <?php if(isset($value['type']) and $value['type'] == 'minmax_selectbox') echo 'selected="selected"'; ?>><?php echo __('Min/Max SelectBox', WPL_TEXTDOMAIN); ?></option>
 				<option value="minmax_selectbox_plus" <?php if(isset($value['type']) and $value['type'] == 'minmax_selectbox_plus') echo 'selected="selected"'; ?>><?php echo __('SelectBox+', WPL_TEXTDOMAIN); ?></option>
+                <option value="minmax_selectbox_minus" <?php if(isset($value['type']) and $value['type'] == 'minmax_selectbox_minus') echo 'selected="selected"'; ?>><?php echo __('SelectBox-', WPL_TEXTDOMAIN); ?></option>
 			</select>
 		</div>
 		<div class="erow wpl_extoptions_span <?php echo (isset($value['type']) ? $value['type'] : ''); ?>">
@@ -368,6 +369,7 @@ elseif(($type == 'area' or $type == 'price' or $type == 'length' or $type == 'vo
 				<option value="minmax_slider" <?php if(isset($value['type']) and $value['type'] == 'minmax_slider') echo 'selected="selected"' ?>><?php echo __('Min/Max Slider', WPL_TEXTDOMAIN); ?></option>
 				<option value="minmax_selectbox" <?php if(isset($value['type']) and $value['type'] == 'minmax_selectbox') echo 'selected="selected"' ?>><?php echo __('Min/Max SelectBox', WPL_TEXTDOMAIN); ?></option>
 				<option value="minmax_selectbox_plus" <?php if(isset($value['type']) and $value['type'] == 'minmax_selectbox_plus') echo 'selected="selected"' ?>><?php echo __('SelectBox+', WPL_TEXTDOMAIN); ?></option>
+                <option value="minmax_selectbox_minus" <?php if(isset($value['type']) and $value['type'] == 'minmax_selectbox_minus') echo 'selected="selected"'; ?>><?php echo __('SelectBox-', WPL_TEXTDOMAIN); ?></option>
 			</select>
 		</div>
 		<div class="erow wpl_extoptions_span <?php echo (isset($value['type']) ? $value['type'] : ''); ?>">

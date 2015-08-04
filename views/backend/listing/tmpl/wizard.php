@@ -225,9 +225,11 @@ function wpl_get_tinymce_content(html_element_id)
 function wpl_finalize(slide_id, item_id)
 {
     /** validate form **/
-    if (!wpl_validation_check()) return;
+    if(!wpl_validation_check()) return;
 
-    //wpl_go_slide(slide_id);
+    /** Hide Discard Button **/
+    wplj(".wpl-listing-discard-btn").hide();
+    
     rta.internal.slides.open(slide_id, '.side-tabs-wp', '.wpl_slide_container', 'currentTab');
 
     wplj("#wpl_slide_container_id10000_befor_save").show();

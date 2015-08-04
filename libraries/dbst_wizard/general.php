@@ -73,11 +73,11 @@ elseif($type == 'date' and !$done_this)
 
     $done_this = true;
 }
-elseif($type == 'checkbox' and !$done_this)
+elseif(($type == 'checkbox' or $type == 'tag') and !$done_this)
 {
 ?>
 <div class="checkbox-wp">
-    <input type="checkbox" class="wpl_c_<?php echo $field->table_column; ?>" id="wpl_c_<?php echo $field->id; ?>" name="<?php echo $field->table_column; ?>" value="1" <?php if($value) echo 'checked="checked"'; ?> onchange="if(this.checked) value = 1; else value = 0; ajax_save('<?php echo $field->table_name; ?>', '<?php echo $field->table_column; ?>', value, '<?php echo $item_id; ?>', '<?php echo $field->id; ?>');" <?php echo ($options['readonly'] == 1 ? 'disabled="disabled"' : ''); ?> />
+    <input type="checkbox" class="wpl_c_<?php echo $field->table_column; ?>" id="wpl_c_<?php echo $field->id; ?>" name="<?php echo $field->table_column; ?>" value="1" <?php if($value) echo 'checked="checked"'; ?> onchange="if(this.checked) value = 1; else value = 0; ajax_save('<?php echo $field->table_name; ?>', '<?php echo $field->table_column; ?>', value, '<?php echo $item_id; ?>', '<?php echo $field->id; ?>');" <?php echo ((isset($options['readonly']) and $options['readonly'] == 1) ? 'disabled="disabled"' : ''); ?> />
 	<label class="checkbox-label" for="wpl_c_<?php echo $field->id; ?>"><?php echo __($label, WPL_TEXTDOMAIN); ?><?php if(in_array($mandatory, array(1, 2))): ?><span class="required-star">*</span><?php endif; ?></label>
 	<span id="wpl_listing_saved_span_<?php echo $field->id; ?>" class="ajax-inline-save"></span>
 </div>
@@ -256,8 +256,6 @@ elseif($type == 'separator' and !$done_this)
 }
 elseif(in_array($type, array('price', 'volume', 'area', 'length')) and !$done_this)
 {
-	_wpl_import('libraries.units');
-	
 	if($type == 'price') $units = wpl_units::get_units(4);
 	if($type == 'volume') $units = wpl_units::get_units(3);
 	if($type == 'area') $units = wpl_units::get_units(2);
@@ -280,8 +278,6 @@ elseif(in_array($type, array('price', 'volume', 'area', 'length')) and !$done_th
 }
 elseif(in_array($type, array('mmprice', 'mmvolume', 'mmarea', 'mmlength')) and !$done_this)
 {
-	_wpl_import('libraries.units');
-	
 	if($type == 'mmprice') $units = wpl_units::get_units(4);
 	if($type == 'mmvolume') $units = wpl_units::get_units(3);
 	if($type == 'mmarea') $units = wpl_units::get_units(2);

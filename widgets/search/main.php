@@ -2,12 +2,8 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 
-_wpl_import("libraries.widgets");
-_wpl_import("libraries.flex");
-_wpl_import("libraries.locations");
-_wpl_import("libraries.property");
-_wpl_import("libraries.property_types");
-_wpl_import("libraries.listing_types");
+_wpl_import('libraries.widgets');
+_wpl_import('libraries.locations');
 
 /**
  * WPL Search Widget
@@ -49,7 +45,11 @@ class wpl_search_widget extends wpl_widget
 		wp_enqueue_script('jquery-ui-slider');
 		wp_enqueue_script('jquery-ui-button');
 		wp_enqueue_script('jquery-ui-datepicker');
-				
+		
+        /** add Layout js **/
+        $js[] = (object) array('param1'=>'jquery.checkbox', 'param2'=>'packages/jquery.ui/checkbox/jquery.checkbox.js');
+        foreach($js as $javascript) wpl_extensions::import_javascript($javascript);
+
 		echo $args['before_widget'];
 
 		$title = apply_filters('widget_title', (isset($instance['title']) ? $instance['title'] : ''));

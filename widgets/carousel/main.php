@@ -107,10 +107,10 @@ class wpl_carousel_widget extends wpl_widget
 		/* Set up some default widget settings. */
 		if(!isset($instance['layout']))
 		{
-			$instance = array('title'=>__('Featured Properties', WPL_TEXTDOMAIN), 'layout'=>'default.php', 'data'=>array('limit'=>'8', 'orderby'=>'p.add_date', 'order'=>'DESC', 'image_width'=>'1920', 'image_height'=>'558', 'thumbnail_width'=>'150', 'thumbnail_height'=>'60'));
+			$instance = array('title'=>__('Featured Properties', WPL_TEXTDOMAIN), 'layout'=>'default.php', 'data'=>array('kind'=>'0', 'limit'=>'8', 'orderby'=>'p.add_date', 'order'=>'DESC', 'image_width'=>'1920', 'image_height'=>'558', 'thumbnail_width'=>'150', 'thumbnail_height'=>'60'));
 			$instance = wp_parse_args((array) $instance, NULL);
 		}
-		
+        
 		$path = _wpl_import($this->wpl_backend_form, true, true);
 		
 		ob_start();
@@ -138,10 +138,14 @@ class wpl_carousel_widget extends wpl_widget
         if(trim($data['listing']) and $data['listing'] != '-1') $where['sf_select_listing'] = $data['listing'];
 		if(trim($data['property_type']) and $data['property_type'] != '-1') $where['sf_select_property_type'] = $data['property_type'];
 		if(isset($data['listing_ids']) and trim($data['listing_ids'])) $where['sf_multiple_mls_id'] = trim($data['listing_ids'], ', ');
-		if(trim($data['only_featured'])) $where['sf_select_sp_featured'] = 1;
-		if(trim($data['only_hot'])) $where['sf_select_sp_hot'] = 1;
-		if(trim($data['only_openhouse'])) $where['sf_select_sp_openhouse'] = 1;
-		if(trim($data['only_forclosure'])) $where['sf_select_sp_forclosure'] = 1;
+        
+        /** Tags **/
+        $tags = wpl_flex::get_fields(NULL, NULL, NULL, NULL, NULL, "AND `type`='tag' AND `enabled`>='1' GROUP BY `table_column`");
+        foreach($tags as $tag)
+        {
+            $tagkey = 'only_'.ltrim($tag->table_column, 'sp_');
+            if(isset($data[$tagkey]) and trim($data[$tagkey])) $where['sf_select_'.$tag->table_column] = 1;
+        }
         
         /** Parent **/
         if(isset($data['parent']) and trim($data['parent'])) $where['sf_parent'] = $data['parent'];

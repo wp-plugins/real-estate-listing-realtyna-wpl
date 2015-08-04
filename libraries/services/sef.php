@@ -113,7 +113,10 @@ class wpl_service_sef
         
         if(isset($field->multilingual) and $field->multilingual and wpl_global::check_multilingual_status()) $column = wpl_addon_pro::get_column_lang_name($column, wpl_global::get_current_language(), false);
         
-		$property_alias = $proeprty_id.'-'.urldecode(wpl_db::get($column, 'wpl_properties', 'id', $proeprty_id));
+        $alias = wpl_db::get($column, 'wpl_properties', 'id', $proeprty_id);
+        if(trim($alias) == '') $alias = wpl_property::update_alias(NULL, $proeprty_id);
+        
+		$property_alias = $proeprty_id.'-'.urldecode($alias);
 		
 		if(trim($property_alias) != '' and $called_alias != $property_alias)
 		{
