@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+	<!ENTITY ns_extend "http://ns.adobe.com/Extensibility/1.0/">
+	<!ENTITY ns_ai "http://ns.adobe.com/AdobeIllustrator/10.0/">
+	<!ENTITY ns_graphs "http://ns.adobe.com/Graphs/1.0/">
+	<!ENTITY ns_vars "http://ns.adobe.com/Variables/1.0/">
+	<!ENTITY ns_imrep "http://ns.adobe.com/ImageReplacement/1.0/">
+	<!ENTITY ns_sfw "http://ns.adobe.com/SaveForWeb/1.0/">
+	<!ENTITY ns_custom "http://ns.adobe.com/GenericCustomNamespace/1.0/">
+	<!ENTITY ns_adobe_xpath "http://ns.adobe.com/XPath/1.0/">
+]>
+<svg version="1.1" id="Layer_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="18px" height="18px"
+	 viewBox="0 0 18 18" enable-background="new 0 0 18 18" xml:space="preserve">
+<metadata>
+	<sfw  xmlns="&ns_sfw;">
+		<slices></slices>
+		<sliceSourceBounds  height="16" width="16" x="5.5" y="6.5" bottomLeftOrigin="true"></sliceSourceBounds>
+	</sfw>
+</metadata>
+<g>
+	<g>
+		
+			<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="292.6006" y1="-404.9897" x2="292.6006" y2="-388.9902" gradientTransform="matrix(1 0 0 -1 -283.5996 -387.9902)">
+			<stop  offset="0" style="stop-color:#2582AA"/>
+			<stop  offset="1" style="stop-color:#57BDE8"/>
+		</linearGradient>
+		<path fill="url(#SVGID_1_)" d="M13,12H8c-0.553,0-1,0.447-1,1s0.447,1,1,1h5c0.553,0,1-0.447,1-1S13.553,12,13,12z M5,8
+			C4.447,8,4,8.448,4,9c0,0.553,0.447,1,1,1s1-0.447,1-1C6,8.448,5.553,8,5,8z M5,4C4.447,4,4,4.448,4,5s0.447,1,1,1s1-0.448,1-1
+			S5.553,4,5,4z M15,1H3C1.896,1,1,1.896,1,3v12c0,1.104,0.896,2,2,2h12c1.104,0,2-0.896,2-2V3C17,1.896,16.104,1,15,1z M16,15
+			c0,0.553-0.447,1-1,1H3c-0.553,0-1-0.447-1-1V3c0-0.552,0.447-1,1-1h12c0.553,0,1,0.448,1,1V15z M13,4H8C7.447,4,7,4.448,7,5
+			s0.447,1,1,1h5c0.553,0,1-0.448,1-1S13.553,4,13,4z M13,8H8C7.447,8,7,8.448,7,9c0,0.553,0.447,1,1,1h5c0.553,0,1-0.447,1-1
+			C14,8.448,13.553,8,13,8z M5,12c-0.553,0-1,0.447-1,1s0.447,1,1,1s1-0.447,1-1S5.553,12,5,12z"/>
+	</g>
+</g>
+</svg>
