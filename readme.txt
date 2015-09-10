@@ -3,7 +3,7 @@ Contributors: realtyna
 Donate link: http://wpl.realtyna.com/
 Tags: Real estate, Listing, Vertical Market, MLS, Property listing, RETS, Listings, Broker, Realtor, Property, IDX, Multiple Listing Service, Property Management, Properties
 Requires at least: 3.0.1
-Tested up to: 4.2.4
+Tested up to: 4.3
 Stable tag: 2.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
