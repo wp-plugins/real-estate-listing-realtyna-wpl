@@ -127,13 +127,22 @@ class wpl_request_controller
 	{
 		return 'views.'.$this->_wpl_client.'.'.$this->_wpl_folder.'.'.$this->_wpl_file;
 	}
+    
+    public function start_process_service()
+    {
+        /** Run WPL Proccess service **/
+        _wpl_import('libraries.services.process');
+        
+        $wpl_service_process = new wpl_service_process();
+        $wpl_service_process->run();
+    }
 }
 
 $wpl_format = wpl_request::getVar('wpl_format');
 
 if(trim($wpl_format) != '')
 {
-	_wpl_import('libraries.activities');
+    _wpl_import('libraries.activities');
 	$wpl_request_controller = new wpl_request_controller($wpl_format);
 	
 	/** actiob fur triggering request **/
@@ -142,5 +151,6 @@ if(trim($wpl_format) != '')
     if($client == 1) $hook = 'wp_loaded'; # WordPress Backend
     elseif($client == 0) $hook = 'wp'; # WordPress Frontend
     
-	add_action($hook, array($wpl_request_controller, 'run'), 1);
+    add_action($hook, array($wpl_request_controller, 'start_process_service'), 1);
+	add_action($hook, array($wpl_request_controller, 'run'), 2);
 }

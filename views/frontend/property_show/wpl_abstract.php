@@ -51,7 +51,7 @@ abstract class wpl_property_show_controller_abstract extends wpl_controller
 		if(!$property or $property['finalized'] == 0 or $property['confirmed'] == 0 or $property['deleted'] == 1 or $property['expired'] >= 1)
 		{
 			/** import message tpl **/
-			$this->message = __("No property found or it's not available now!", WPL_TEXTDOMAIN);
+			$this->message = __("Sorry! Either the url is incorrect or the listing is not available anymore.", WPL_TEXTDOMAIN);
 			return parent::render($this->tpl_path, 'message', false, true);
 		}
 		
@@ -74,6 +74,33 @@ abstract class wpl_property_show_controller_abstract extends wpl_controller
 		
 		foreach($this->pshow_categories as $pshow_category)
 		{
+			if(trim($pshow_category->listing_specific) != '')
+            {
+                if(substr($pshow_category->listing_specific, 0, 5) == 'type=')
+                {
+                    $specified_listings = wpl_global::get_listing_types_by_parent(substr($pshow_category->listing_specific, 5));
+
+                    $array_specified_listing = array();
+
+                    foreach ($specified_listings as $specified_listing) $array_specified_listing[] = $specified_listing['id'];
+
+                    if(!in_array($wpl_properties['current']['data']['listing'], $array_specified_listing)) continue;
+                }
+            }
+            elseif(trim($pshow_category->property_type_specific) != '')
+            {
+            	if(substr($pshow_category->property_type_specific, 0, 5) == 'type=')
+                {
+                    $specified_property_types = wpl_global::get_property_types_by_parent(substr($pshow_category->property_type_specific, 5));
+
+                    $array_specified_property_types = array();
+
+                    foreach ($specified_property_types as $specified_property_type) $array_specified_property_types[] = $specified_property_type['id'];
+
+                    if(!in_array($wpl_properties['current']['data']['property_type'], $array_specified_property_types)) continue;
+                }
+            }
+
 			$pshow_cat_fields = $this->model->get_pshow_fields($pshow_category->id, $property['kind']);
 			$wpl_properties['current']['rendered'][$pshow_category->id]['self'] = (array) $pshow_category;
 			$wpl_properties['current']['rendered'][$pshow_category->id]['data'] = $this->model->render_property($property, $pshow_cat_fields);

@@ -19,12 +19,9 @@ if($type == 'googlemap' and !$done_this)
     $ln_table_col = 'googlemap_ln';
     $lt_table_col = 'googlemap_lt';
     
-    /** Add it on backend only **/
-    if(wpl_global::get_client())
-    {
-        $javascript = (object) array('param1'=>'wpl-googlemap-api3', 'param2'=>'http'.(stristr(wpl_global::get_full_url(), 'https://') != '' ? 's' : '').'://maps.google.com/maps/api/js?libraries=places,drawing&sensor=false', 'external'=>true);
-        wpl_extensions::import_javascript($javascript);
-    }
+    // Load Google Maps API
+    $javascript = (object) array('param1'=>'google-maps', 'param2'=>'http'.(stristr(wpl_global::get_full_url(), 'https://') != '' ? 's' : '').'://maps.google.com/maps/api/js?libraries=places,drawing&sensor=true', 'external'=>true);
+    wpl_extensions::import_javascript($javascript);
 ?>
 <script type="text/javascript">
 wplj(document).ready(function()

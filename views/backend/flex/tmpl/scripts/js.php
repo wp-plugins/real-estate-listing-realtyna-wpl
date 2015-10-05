@@ -384,4 +384,24 @@ function wpl_flex_change_accesses(value, prefix)
     if(value == '1') wplj("#"+prefix+"accesses_cnt").slideDown();
     else wplj("#"+prefix+"accesses_cnt").slideUp();
 }
+
+function convert_dbst(prefix, dbst_id, new_type)
+{
+	if(!dbst_id) dbst_id = 0;
+	
+	ajax_loader_element = "#wpl_dbst_modify_ajax_loader";
+	wplj(ajax_loader_element).html('<img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader3.gif'); ?>" />');
+	
+	request_str = 'wpl_format=b:flex:ajax&wpl_function=convert_dbst&dbst_id='+dbst_id+'&type='+new_type;
+	
+	/** run ajax query **/
+	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str, ajax_loader_element);
+	
+	ajax.success(function(data)
+	{
+		wplj(ajax_loader_element).html('');
+		wplj("#wpl_dbst_submit_button").removeAttr("disabled");
+		wplj._realtyna.lightbox.close();
+	});
+}
 </script>

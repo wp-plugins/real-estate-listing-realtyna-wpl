@@ -27,7 +27,7 @@ defined('_WPLEXEC') or die('Restricted access');
 #option_container>div, #pricing_container>div{padding: 5px; clear: both;}
 .maccess_reddiv{border: 0;}
 #wpl_edit_user .chosen-choices .default{height: 25px;}
-.wpl_manager_td{text-align: left; width: 110px;}
+.wpl_manager_td{text-align: left; width: 130px;}
 .wpl_manager_td .action-btn{margin-left: 0px;}
 #pricing_container select.short_selectbox{height: 25px; max-width: 80px !important; min-width: 80px;}
 #description_container .maccess_short_name{padding: 10px 0 0 10px;}

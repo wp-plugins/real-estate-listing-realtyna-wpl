@@ -19,7 +19,9 @@ foreach($this->wpl_properties as $key=>$property)
     if((!isset($property['materials']['bedrooms']) or (isset($property['materials']['bedrooms']) and $property['materials']['bedrooms']['value'] == 0)) and (isset($property['materials']['rooms']) and $property['materials']['rooms']['value'] != 0)) $room = '<div class="room">'.$property['materials']['rooms']['value'].'</div>';
 
     $bathroom   = isset($property['materials']['bathrooms']) ? '<div class="bathroom">'.$property['materials']['bathrooms']['value'].'</div>' : '';
-    $parking    = (isset($property['raw']['f_150']) and trim($property['raw']['f_150_options'])) ? '<div class="parking">'.$property['raw']['f_150_options'].'</div>' : '';
+    $parking_number = explode(',',$property['raw']['f_150_options']);
+    $parking_number = $parking_number[1];
+    $parking    = (isset($property['raw']['f_150']) and trim($property['raw']['f_150_options'])) ? '<div class="parking">'.$parking_number.'</div>' : '';
     $pic_count  = '<div class="pic_count">'.$property['raw']['pic_numb'].'</div>';
     
     $description = stripslashes(strip_tags($property['raw'][$description_column]));

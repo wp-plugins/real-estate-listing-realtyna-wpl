@@ -35,61 +35,51 @@ class wpl_service_io
 		/** if IO is disabled **/
 		if(!$wpl_settings['io_status']) return;
 		
-		$dapikey = wpl_request::getVar('dapikey', '');
-		$dapisecret = wpl_request::getVar('dapisecret', '');
+		$public_key = wpl_request::getVar('public_key', '');
+		$private_key = wpl_request::getVar('private_key', '');
 		
 		/** if API key or API secret is invalid **/
-		if($dapikey != $wpl_settings['api_key'] or $dapisecret != $wpl_settings['api_secret']) exit("ERROR: Signature is invalid.");
+		if($public_key != $wpl_settings['io_public_key'] || $private_key != $wpl_settings['io_private_key'])
+        {
+            die("ERROR: Signature is invalid.");
+        }
 		
 		$cmd = wpl_request::getVar('cmd', '');
 		$io_object = new wpl_io_global();
 		$commands = $io_object->get_commands();
 		
-		if(!in_array($cmd, $commands)) exit("ERROR: Command not found.");
+		if(!in_array($cmd, $commands))
+        {
+            exit("ERROR: Command not found.");
+        }
 		
 		$dformat = wpl_request::getVar('dformat', 'json');
 		$dformats = $io_object->get_formats();
 		
 		if(!in_array($dformat, $dformats)) exit("ERROR: Format not found.");
 		
-		$username = wpl_request::getVar('user');
-		$password = wpl_request::getVar('pass');
-		$dlang = wpl_request::getVar('dlang');
-		
-		$gvars = wpl_request::get('GET');
-		$pvars = wpl_request::get('POST');
-		$vars = array_merge($pvars, $gvars);
+		$username = base64_decode(wpl_request::getVar('user'));
+		$password = base64_decode(wpl_request::getVar('pass'));
+
+		$vars = array_merge(wpl_request::get('GET'), wpl_request::get('POST'));
 
 		$response = $io_object->response($cmd, $username, $password, $vars, $dformat);
 		
-		/** Error **/
-	/*	if(is_string($response))
-		{
-			echo $response;
-			exit;
-		}*/
-		
+
 		$rendered = $io_object->render_format($cmd, $vars, $response, $dformat);
-		
+
 		if(is_array($rendered))
 		{
-			if($rendered['header'] != '') header($rendered['header']);
+			if($rendered['header'] != '')
+            {
+                header($rendered['header']);
+            }
 			echo $rendered['output'];
 		}
-		else echo $rendered;
-		
-		exit;
-	}
-	
-    /**
-     * Response function
-     * @author Howard <howard@realtyna.com>
-     * @static
-     * @param array $response
-     */
-	private static function response($response)
-	{
-		echo json_encode($response);
+		else
+        {
+            echo $rendered;
+        }
 		exit;
 	}
 }

@@ -29,7 +29,7 @@ function wpl_report_abuse_get_form(id)
 	
 	ajax.success(function(html)
 	{
-        wplj("#wpl_pshow_lightbox_content_container").html(html);
+        wplj("<?php echo $this->lightbox_container; ?>").html(html);
 	});
 	
 	return false;
@@ -57,7 +57,7 @@ function wpl_send_to_friend_get_form(id)
 
     ajax.success(function(html)
     {
-        wplj("#wpl_pshow_lightbox_content_container").html(html);
+        wplj("<?php echo $this->lightbox_container; ?>").html(html);
     });
 
     return false;
@@ -85,7 +85,7 @@ function wpl_request_a_visit_get_form(id)
 
     ajax.success(function(html)
     {
-        wplj("#wpl_pshow_lightbox_content_container").html(html);
+        wplj("<?php echo $this->lightbox_container; ?>").html(html);
     });
 
     return false;

@@ -55,12 +55,6 @@ class wpl_listings_controller extends wpl_controller
 		
         $this->model = new wpl_property;
 		
-		/** load user properties **/
-		if(!wpl_users::is_administrator($current_user_id))
-		{
-			$where['sf_select_user_id'] = $current_user_id;
-		}
-		
         /** detect kind **/
         $this->kind = wpl_request::getVar('kind', 0);
         if(!in_array($this->kind, wpl_flex::get_valid_kinds()))
@@ -84,6 +78,19 @@ class wpl_listings_controller extends wpl_controller
 			parent::render($this->tpl_path, 'message');
             
             return false;
+		}
+        
+        /** load user properties **/
+		if(!wpl_users::is_administrator($current_user_id))
+		{
+			$where['sf_select_user_id'] = $current_user_id;
+		}
+        
+        /** Multisite **/
+		if(wpl_global::is_multisite())
+		{
+            $current_blog_id = wpl_global::get_current_blog_id();
+			$where['sf_fschild'] = $current_blog_id;
 		}
         
         $this->kind_label = wpl_flex::get_kind_label($this->kind);
@@ -113,7 +120,6 @@ class wpl_listings_controller extends wpl_controller
 		}
 		
         $this->wpl_properties = $wpl_properties;
-        
         $this->client = wpl_global::get_client();
         
         if($this->client)

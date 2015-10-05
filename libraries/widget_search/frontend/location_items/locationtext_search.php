@@ -16,14 +16,13 @@ if($show == 'locationtextsearch' and !$done_this)
 	$html .= '
 	<script type="text/javascript">
 	var autocomplete_cache = {};
-	
-	wplj(document).ready(function()
-	{
-		wplj("#sf'.$widget_id.'_locationtextsearch").autocomplete(
+	(function($){$(function()
+    {
+		$("#sf'.$widget_id.'_locationtextsearch").autocomplete(
 		{
 			search : function(){},
-			open : function(){wplj(this).removeClass("ui-corner-all").addClass("ui-corner-top");},
-			close : function(){wplj(this).removeClass("ui-corner-top").addClass("ui-corner-all");},
+			open : function(){$(this).removeClass("ui-corner-all").addClass("ui-corner-top");},
+			close : function(){$(this).removeClass("ui-corner-top").addClass("ui-corner-all");},
 			source: function(request, response)
 			{
 				var term = request.term.toUpperCase(), items = [];
@@ -37,15 +36,15 @@ if($show == 'locationtextsearch' and !$done_this)
 					}
 				}
 				
-				wplj.ajax(
+				$.ajax(
 				{
 					type: "GET",
 					url: "'.wpl_global::get_wp_site_url().'?wpl_format=f:property_listing:ajax&wpl_function=locationtextsearch_autocomplete&term="+request.term,
 					contentType: "application/json; charset=utf-8",
 					success: function (msg)
 					{
-					   response(wplj.parseJSON(msg));
-					   autocomplete_cache[request.term.toUpperCase()] = wplj.parseJSON(msg);
+					   response($.parseJSON(msg));
+					   autocomplete_cache[request.term.toUpperCase()] = $.parseJSON(msg);
 					},
 					error: function (msg)
 					{
@@ -57,7 +56,7 @@ if($show == 'locationtextsearch' and !$done_this)
 			minChars: 1,
 			delay: 300
 		});
-	});
+	});})(jQuery);
 	</script>';
 	$html .= '</div>';
 	

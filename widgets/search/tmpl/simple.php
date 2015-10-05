@@ -8,7 +8,7 @@ defined('_WPLEXEC') or die('Restricted access');
 	    	<?php
                 foreach($this->rendered as $data)
                 {
-                    echo '<div class="wpl_search_feilds '.$data['field_data']['type'].'">'.$data['html'].'</div>';
+                    echo '<div class="wpl_search_fields '.$data['field_data']['type'].'">'.$data['html'].'</div>';
                 }
             ?>
 	    	<div class="search_submit_box">

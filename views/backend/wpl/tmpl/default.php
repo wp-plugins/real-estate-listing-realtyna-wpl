@@ -17,7 +17,7 @@ _wpl_import($this->tpl_path . '.scripts.js');
 
     <div id="dashboard-links-wp">
         <ul>
-            <?php foreach ($this->submenus as $submenu): ?>
+            <?php foreach($this->submenus as $submenu): if(!wpl_users::has_menu_access($submenu->menu_slug, wpl_users::get_cur_user_id())) continue; ?>
                 <li class="link-<?php echo $submenu->id; ?>">
                     <a href="<?php echo wpl_global::get_wp_admin_url(); ?>admin.php?page=<?php echo $submenu->menu_slug; ?>">
                         <span class="box"><i></i></span>
@@ -30,10 +30,17 @@ _wpl_import($this->tpl_path . '.scripts.js');
         </ul>
     </div>
 
+    <div class="sidebar-wp banner-side">
+        <div class="side-15">
+            <!-- Banner Position -->
+        </div>
+    </div>
+    
+    <?php if(wpl_users::is_super_admin()): ?>
     <div class="sidebar-wp sidebar-float">
         <div class="side-ni-addons">
             <div class="sidebar-wp sidebar-float">
-
+                
                 <div class="rt-same-height sidebar-float">
                     <!-- Generating optional addons -->
                     <?php $this->not_installed_addons(); ?>
@@ -60,7 +67,7 @@ _wpl_import($this->tpl_path . '.scripts.js');
 
                 <!-- Generating statistic section -->
                 <?php $this->announce(); ?>
-
+                
                 <div class="rt-same-height sidebar-float">
                     <!-- Generating statistic section -->
                     <?php $this->statistic(); ?>
@@ -69,12 +76,7 @@ _wpl_import($this->tpl_path . '.scripts.js');
             </div>
         </div>
     </div>
-
-    <div class="sidebar-wp banner-side">
-        <div class="side-15">
-            <!--Banner Position-->
-        </div>
-    </div>
+    <?php endif; ?>
 
     <footer>
         <div class="logo"></div>

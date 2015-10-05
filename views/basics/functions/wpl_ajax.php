@@ -43,6 +43,10 @@ class wpl_functions_controller extends wpl_controller
 		{
 			$this->wpl_properties[$property->id] = $wpl_property->full_render($property->id, $plisting_fields, $property);
 		}
+        
+        /** apply filters (This filter must place after all proccess) **/
+		_wpl_import('libraries.filters');
+		@extract(wpl_filters::apply('property_listing_after_render', array('wpl_properties'=>$this->wpl_properties)));
 		
 		parent::render($this->tpl_path, 'infowindow');
 		exit;
@@ -214,7 +218,7 @@ class wpl_functions_controller extends wpl_controller
             $returnData['success'] = 0;
             $returnData['message'] = __('Your name is not valid!', WPL_TEXTDOMAIN);
         }
-        elseif(isset($parameters['contact_phone_number']) == false || $parameters['contact_phone_number'] == '')
+        elseif(isset($parameters['tel']) == false || $parameters['tel'] == '')
         {
             $returnData['success'] = 0;
             $returnData['message'] = __('Contact phone number is not valid!', WPL_TEXTDOMAIN);

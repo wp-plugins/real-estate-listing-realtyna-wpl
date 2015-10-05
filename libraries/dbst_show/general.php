@@ -99,9 +99,10 @@ elseif($type == 'feature' and !$done_this) //////////////////////////// Features
 		
 		/** options of property column **/
 		$column_options = $values[$field->table_column.'_options'];
-		$column_values = explode(',', $column_options);
+		$column_values = explode(',', trim($column_options, ', '));
+        if(count($column_values) == 1 and trim($column_values[0]) == '') $column_values = array();
+        
 		$i = 0;
-		
 		if(isset($options['values']))
 		{
 			foreach($options['values'] as $field_option)

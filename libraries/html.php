@@ -197,10 +197,12 @@ class wpl_html
         /** Printing Custom Tags **/
 		if(isset(self::$custom_strings) and count(self::$custom_strings))
 		{
-            foreach(self::$custom_strings as $key=>$string)
+            $strings = array_unique(self::$custom_strings);
+            foreach($strings as $key=>$string)
             {
                 echo PHP_EOL;
                 echo $string;
+                echo PHP_EOL;
             }
             
             /** make custom string empty **/
@@ -233,7 +235,8 @@ class wpl_html
 		/** printing footer strings **/
 		if(isset(self::$footer_strings) and count(self::$footer_strings))
 		{
-            foreach(self::$footer_strings as $key=>$string)
+            $strings = array_unique(self::$footer_strings);
+            foreach($strings as $key=>$string)
             {
                 echo PHP_EOL;
                 echo $string;

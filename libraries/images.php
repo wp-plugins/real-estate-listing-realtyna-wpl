@@ -25,11 +25,13 @@ class wpl_images
      */
     public static function resize_image($source, $dest, $width, $height, $crop = 0)
     {
-        /** set memory limit **/
+        // Don't execute the function if source file doesn't exists.
+        if(!wpl_file::exists($source)) return $source;
+        
+        // set memory limit
         @ini_set('memory_limit', '-1');
         
         $extension = wpl_file::getExt(strtolower($source));
-		
         switch($extension)
         {
             case 'jpg':
@@ -404,6 +406,8 @@ class wpl_images
         if(trim($height) == '') $height = $settings['default_resize_height'];
         
         $crop = $settings['image_resize_method'];
+        
+        $watermark_options = array();
         $watermark_options['status'] = $settings['watermark_status'];
         $watermark_options['position'] = $settings['watermark_position'];
         $watermark_options['opacity'] = $settings['watermark_opacity'];
@@ -411,7 +415,16 @@ class wpl_images
       
         self::resize_image($source, $dest, $width, $height, $crop);
 
-        if($watermark_options['status'] == 1) self::add_watermark_image($dest, $dest, $watermark_options); 
+        if($watermark_options['status'] == 1) self::add_watermark_image($dest, $dest, $watermark_options);
+    }
+    
+    /**
+     * Use wpl_images::create_gallery_image function instead
+     * @deprecated since version 2.7.0
+     */
+    public static function create_gallary_image($width, $height, $params, $watermark = 0, $rewrite = 0, $crop = '')
+    {
+        return create_gallery_image($width, $height, $params, $watermark, $rewrite, $crop);
     }
     
     /**
@@ -422,15 +435,19 @@ class wpl_images
      * @param array $params
      * @param boolean $watermark
      * @param boolean $rewrite
+     * @param int $crop
      * description: resize and watermark images specially for gallery activity
      */
-    public static function create_gallary_image($width, $height, $params, $watermark = 0, $rewrite = 0, $crop = '')
+    public static function create_gallery_image($width, $height, $params, $watermark = 0, $rewrite = 0, $crop = '')
     {
+        // Get blog ID of property
+        $blog_id = wpl_property::get_blog_id($params['image_parentid']);
+        
         $image_name = wpl_file::stripExt($params['image_name']);
         $image_ext = wpl_file::getExt($params['image_name']);
         $resized_image_name = 'th'.$image_name.'_'.$width.'x'.$height.'.'.$image_ext;
-        $image_dest = wpl_items::get_path($params['image_parentid'], $params['image_parentkind']).$resized_image_name;
-        $image_url = wpl_items::get_folder($params['image_parentid'], $params['image_parentkind']).$resized_image_name;
+        $image_dest = wpl_items::get_path($params['image_parentid'], $params['image_parentkind'], $blog_id).$resized_image_name;
+        $image_url = wpl_items::get_folder($params['image_parentid'], $params['image_parentkind'], $blog_id).$resized_image_name;
 
 		/** check resized files existance and rewrite option **/
 		if($rewrite or !wpl_file::exists($image_dest))
@@ -444,6 +461,7 @@ class wpl_images
 					$settings = wpl_settings::get_settings(2);
 					$crop = $settings['image_resize_method'];
 				}
+                
 			    self::resize_image($params['image_source'], $image_dest, $width, $height, $crop);
 			}
 		}
@@ -479,6 +497,34 @@ class wpl_images
 		{
 		   if($watermark) self::resize_watermark_image($source, $image_dest, $width, $height);
 		   else self::resize_image($source, $image_dest, $width, $height, $crop);
+		}
+		
+		return $image_url;
+    }
+    
+    public static function watermark_original_image($params)
+    {
+        // Get blog ID of property
+        $blog_id = wpl_property::get_blog_id($params['image_parentid']);
+        
+        $image_name = wpl_file::stripExt($params['image_name']);
+        $image_ext = wpl_file::getExt($params['image_name']);
+        $watermarked_image_name = 'wm'.$image_name.'.'.$image_ext;
+        $image_dest = wpl_items::get_path($params['image_parentid'], $params['image_parentkind'], $blog_id).$watermarked_image_name;
+        $image_url = wpl_items::get_folder($params['image_parentid'], $params['image_parentkind'], $blog_id).$watermarked_image_name;
+
+		/** check resized files existance**/
+		if(!wpl_file::exists($image_dest))
+		{
+            $settings = wpl_settings::get_settings(2);
+            
+            $watermark_options = array();
+            $watermark_options['status'] = $settings['watermark_status'];
+            $watermark_options['position'] = $settings['watermark_position'];
+            $watermark_options['opacity'] = $settings['watermark_opacity'];
+            $watermark_options['url'] = $settings['watermark_url'];
+
+            if($watermark_options['status'] == 1) self::add_watermark_image($params['image_source'], $image_dest, $watermark_options);
 		}
 		
 		return $image_url;

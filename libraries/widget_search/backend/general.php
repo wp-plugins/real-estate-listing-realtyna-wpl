@@ -61,6 +61,10 @@ elseif($type == 'feature' and !$done_this)
 				<option value="checkbox" <?php if (isset($value['type']) and $value['type'] == "checkbox") echo 'selected="selected"'; ?>><?php echo __('Check box', WPL_TEXTDOMAIN); ?></option>
 				<option value="yesno" <?php if (isset($value['type']) and $value['type'] == "yesno") echo 'selected="selected"'; ?>><?php echo __('Any/Yes', WPL_TEXTDOMAIN); ?></option>
 				<option value="select" <?php if (isset($value['type']) and $value['type'] == "select") echo 'selected="selected"'; ?>><?php echo __('Select box', WPL_TEXTDOMAIN); ?></option>
+                <?php if(isset($options['values'])): ?>
+                <option value="option_single" <?php if (isset($value['type']) and $value['type'] == "option_single") echo 'selected="selected"'; ?>><?php echo __('Single Option', WPL_TEXTDOMAIN); ?></option>
+                <option value="option_multiple" <?php if (isset($value['type']) and $value['type'] == "option_multiple") echo 'selected="selected"'; ?>><?php echo __('Multiple Options', WPL_TEXTDOMAIN); ?></option>
+                <?php endif; ?>
 			</select>
 		</div>
 	</div>
@@ -199,6 +203,7 @@ elseif($type == 'number' and !$done_this)
 				<option value="minmax_selectbox" <?php if(isset($value['type']) and $value['type'] == 'minmax_selectbox') echo 'selected="selected"'; ?>><?php echo __('Min/Max SelectBox', WPL_TEXTDOMAIN); ?></option>
 				<option value="minmax_selectbox_plus" <?php if(isset($value['type']) and $value['type'] == 'minmax_selectbox_plus') echo 'selected="selected"'; ?>><?php echo __('SelectBox+', WPL_TEXTDOMAIN); ?></option>
                 <option value="minmax_selectbox_minus" <?php if(isset($value['type']) and $value['type'] == 'minmax_selectbox_minus') echo 'selected="selected"'; ?>><?php echo __('SelectBox-', WPL_TEXTDOMAIN); ?></option>
+                <option value="minmax_selectbox_range" <?php if(isset($value['type']) and $value['type'] == 'minmax_selectbox_range') echo 'selected="selected"'; ?>><?php echo __('Range', WPL_TEXTDOMAIN); ?></option>
 			</select>
 		</div>
 		<div class="erow wpl_extoptions_span <?php echo (isset($value['type']) ? $value['type'] : ''); ?>">
@@ -370,6 +375,7 @@ elseif(($type == 'area' or $type == 'price' or $type == 'length' or $type == 'vo
 				<option value="minmax_selectbox" <?php if(isset($value['type']) and $value['type'] == 'minmax_selectbox') echo 'selected="selected"' ?>><?php echo __('Min/Max SelectBox', WPL_TEXTDOMAIN); ?></option>
 				<option value="minmax_selectbox_plus" <?php if(isset($value['type']) and $value['type'] == 'minmax_selectbox_plus') echo 'selected="selected"' ?>><?php echo __('SelectBox+', WPL_TEXTDOMAIN); ?></option>
                 <option value="minmax_selectbox_minus" <?php if(isset($value['type']) and $value['type'] == 'minmax_selectbox_minus') echo 'selected="selected"'; ?>><?php echo __('SelectBox-', WPL_TEXTDOMAIN); ?></option>
+                <option value="minmax_selectbox_range" <?php if(isset($value['type']) and $value['type'] == 'minmax_selectbox_range') echo 'selected="selected"'; ?>><?php echo __('Range', WPL_TEXTDOMAIN); ?></option>
 			</select>
 		</div>
 		<div class="erow wpl_extoptions_span <?php echo (isset($value['type']) ? $value['type'] : ''); ?>">

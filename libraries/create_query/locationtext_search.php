@@ -34,7 +34,10 @@ if($format == 'locationtextsearch' and !$done_this)
         
         foreach($values as $val) $qq[] = " `$column` LIKE '%LOC-".wpl_db::escape($val)."%' ";
         $qqq[] = '('.implode(' AND ', $qq).')';
-
+        
+        /** It might be search by Listing ID **/
+        if(count($values) == 1) $qqq[] = '('.implode(' AND ', array(" `mls_id` LIKE '%".wpl_db::escape($values[0])."%' ")).')';
+        
         $query .= " AND (".implode(' OR ', $qqq).") AND `show_address`='1'";
 	}
 	
@@ -87,7 +90,10 @@ elseif($format == 'multiplelocationtextsearch' and !$done_this)
 
                 foreach($values as $val) $qq[] = " `$column` LIKE '%LOC-".wpl_db::escape($val)."%' ";
                 $qqq[] = '('.implode(' AND ', $qq).')';
-
+                
+                /** It might be search by Listing ID **/
+                if(count($values) == 1) $qqq[] = '('.implode(' AND ', array(" `mls_id` LIKE '%".wpl_db::escape($values[0])."%' ")).')';
+        
                 $qqqq[] = '('.implode(' OR ', $qqq).')';
             }
         }

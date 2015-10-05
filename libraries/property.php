@@ -315,9 +315,9 @@ class wpl_property
      * @static
      * @return int
      */
-	public static function get_new_mls_id() 
+	public static function get_new_mls_id()
 	{
-        $query = "SELECT max(cast(mls_id AS unsigned)) as mlsid FROM #__wpl_properties WHERE mls_id REGEXP '^[0-9]+$' LIMIT 1";
+        $query = "SELECT MAX(cast(mls_id AS unsigned)) as max_id FROM #__wpl_properties WHERE mls_id REGEXP '^[0-9]+$' LIMIT 1";
 		$result = wpl_db::select($query, 'loadResult');
 		
         if(!$result) $mls_id = 1000;
@@ -1046,8 +1046,12 @@ class wpl_property
             if(isset($locations[$pattern])) $location_text = str_replace('[' . $pattern . ']', $locations[$pattern], $location_text);
             elseif(isset($property_data[$pattern]))
             {
-                if(wpl_global::check_multilingual_status() and wpl_addon_pro::get_multiligual_status_by_column($pattern, $property_data['kind'])) $pattern = wpl_addon_pro::get_column_lang_name($pattern, wpl_global::get_current_language(), false);
-                $location_text = str_replace('[' . $pattern . ']', $property_data[$pattern], $location_text);
+                if(wpl_global::check_multilingual_status() and wpl_addon_pro::get_multiligual_status_by_column($pattern, $property_data['kind'])) $pattern_multilingual = wpl_addon_pro::get_column_lang_name($pattern, wpl_global::get_current_language(), false);
+                
+                $value = $property_data[(isset($pattern_multilingual) ? $pattern_multilingual : $pattern)];
+                if(!trim($value)) $value = '';
+                
+                $location_text = str_replace('[' . $pattern . ']', $value, $location_text);
             }
         }
         
@@ -1069,12 +1073,12 @@ class wpl_property
         $location_text = trim($final, $glue.' ');
 
         /** update **/
-		$query = "UPDATE `#__wpl_properties` SET `$column`='".$location_text."' WHERE `id`='".$property_id."'";
+		$query = "UPDATE `#__wpl_properties` SET `$column`='".wpl_db::escape($location_text)."' WHERE `id`='".$property_id."'";
 		wpl_db::q($query, 'update');
         
         if($base_column)
         {
-            $query = "UPDATE `#__wpl_properties` SET `$base_column`='".$location_text."' WHERE `id`='".$property_id."'";
+            $query = "UPDATE `#__wpl_properties` SET `$base_column`='".wpl_db::escape($location_text)."' WHERE `id`='".$property_id."'";
             wpl_db::q($query, 'update');
         }
 		return $location_text;
@@ -1145,7 +1149,11 @@ class wpl_property
             elseif(isset($property_data[$pattern]))
             {
                 if(wpl_global::check_multilingual_status() and wpl_addon_pro::get_multiligual_status_by_column($pattern, $property_data['kind'])) $pattern_multilingual = wpl_addon_pro::get_column_lang_name($pattern, wpl_global::get_current_language(), false);
-                $alias_str = str_replace('[' . $pattern . ']', $property_data[isset($pattern_multilingual) ? $pattern_multilingual : $pattern], $alias_str);
+                
+                $value = $property_data[(isset($pattern_multilingual) ? $pattern_multilingual : $pattern)];
+                if(!trim($value)) $value = '';
+                
+                $alias_str = str_replace('[' . $pattern . ']', $value, $alias_str);
             }
         }
         
@@ -1955,5 +1963,19 @@ class wpl_property
         $size_alias = str_replace('*', '_', $sizes);
         
         return (count($images) ? $images[$size_alias][0]['url'] : '');
+    }
+    
+    /**
+     * Get located blog id of property 
+     * @author Howard <howard@realtyna.com>
+     * @static
+     * @param int $property_id
+     * @return int
+     */
+    public static function get_blog_id($property_id)
+    {
+        if(!wpl_global::is_multisite() or !$property_id) return 1;
+        
+        return wpl_property::get_property_field('blog_id', $property_id);
     }
 }

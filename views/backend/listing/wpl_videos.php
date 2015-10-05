@@ -44,7 +44,11 @@ class wpl_listing_controller extends wpl_controller
 		/** import upload library **/
 		_wpl_import('assets.packages.ajax_uploader.UploadHandler');
 		$kind = wpl_request::getVar('kind', 0);
-		
+		$property_id = wpl_request::getVar('pid');
+        
+        // Get blog ID of property
+        $blog_id = wpl_property::get_blog_id($property_id);
+        
 		$params = array();
 		$params['accept_ext'] = wpl_flex::get_field_options(567);
 		
@@ -57,8 +61,8 @@ class wpl_listing_controller extends wpl_controller
 		$ext_str = substr($ext_str, 0, -1);
 		$ext_str = rtrim($ext_str, ';');
 		$custom_op = array(
-            'upload_dir' => wpl_global::get_upload_base_path(),
-            'upload_url' => wpl_global::get_upload_base_url(),
+            'upload_dir' => wpl_global::get_upload_base_path($blog_id),
+            'upload_url' => wpl_global::get_upload_base_url($blog_id),
             'accept_file_types' => '/\.('.$ext_str.')$/i',
             'max_file_size' => $params['accept_ext']['file_size'] * 1000 ,
             'min_file_size' => 1,
@@ -73,9 +77,9 @@ class wpl_listing_controller extends wpl_controller
 		
 		// get item category with first index
 		$item_cat = reset($attachment_categories)->category_name;
-		$index = floatval(wpl_items::get_maximum_index(wpl_request::getVar('pid'), wpl_request::getVar('type'), $kind, $item_cat))+1.00;
+		$index = floatval(wpl_items::get_maximum_index($property_id, wpl_request::getVar('type'), $kind, $item_cat))+1.00;
 		
-		$item = array('parent_id'=>wpl_request::getVar('pid'),'parent_kind'=>$kind,'item_type'=>wpl_request::getVar('type'),
+		$item = array('parent_id'=>$property_id,'parent_kind'=>$kind,'item_type'=>wpl_request::getVar('type'),
 				'item_cat'=>$item_cat,'item_name'=>$response->files[0]->name,'creation_date'=>date("Y-m-d H:i:s"),'index'=>$index);
 		
 		wpl_items::save($item);

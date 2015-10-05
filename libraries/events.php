@@ -66,7 +66,7 @@ class wpl_events
 		if(is_array(self::$wpl_events) and isset(self::$wpl_events[$trigger])) return self::$wpl_events[$trigger];
         elseif(is_array(self::$wpl_events)) return array();
         
-		$query = "SELECT * FROM `#__wpl_events` WHERE `enabled`>='$enabled'";
+		$query = "SELECT * FROM `#__wpl_events` WHERE `enabled`>='$enabled' ORDER BY `id` ASC";
 		$results = wpl_db::select($query);
         
         $events = array();

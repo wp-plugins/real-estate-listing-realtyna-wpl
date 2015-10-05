@@ -308,8 +308,27 @@ class wpl_flex
 
         /** trigger event **/
 		wpl_global::event_handler('dbst_removed', $dbst_id);
-
+        
+        $table_column = wpl_flex::get_dbst_key('table_column', $dbst_id);
+        
 		wpl_db::delete("wpl_dbst", $dbst_id);
+        
+        // Remove field from all blogs
+        if(wpl_global::is_multisite() and trim($table_column) != '')
+        {
+            $current_blog_id = wpl_global::get_current_blog_id();
+            
+            $blogs = wpl_db::select("SELECT `blog_id` FROM `#__blogs`", 'loadColumn');
+            foreach($blogs as $blog_id)
+            {
+                if($blog_id == $current_blog_id) continue;
+                switch_to_blog($blog_id);
+                
+                wpl_db::q("DELETE FROM `#__wpl_dbst` WHERE `table_column`='$table_column'", "UPDATE");
+            }
+
+            switch_to_blog($current_blog_id);
+        }
 	}
 	
     /**

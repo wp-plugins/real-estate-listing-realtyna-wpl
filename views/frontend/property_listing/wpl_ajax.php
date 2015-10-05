@@ -101,6 +101,9 @@ class wpl_property_listing_controller extends wpl_controller
             'user_id' => wpl_property::get_property_user($property_id)
         );
         
+        // For integrating third party plugins such as captcha plugins
+        apply_filters('preprocess_comment', array());
+        
         $returnData = array();
         if(!filter_var($email, FILTER_VALIDATE_EMAIL))
         {

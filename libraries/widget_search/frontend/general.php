@@ -43,8 +43,8 @@ elseif($type == 'date' and !$done_this)
 		$current_min_value = wpl_request::getVar('sf_datemin_'.$field_data['table_column'], '');
 		$current_max_value = wpl_request::getVar('sf_datemax_'.$field_data['table_column'], '');
 		
-    	$html .= '<div class="wpl_search_widget_from_container"><label for="sf'.$widget_id.'_datemin_'.$field_data['table_column'].'">'.__('Min', WPL_TEXTDOMAIN).'</label><input type="text" name="sf'.$widget_id.'_datemin_'.$field_data['table_column'].'" id="sf'.$widget_id.'_datemin_'.$field_data['table_column'].'" value="'.($current_min_value != '' ? $current_min_value : '').'" /></div>';
-    	$html .= '<div class="wpl_search_widget_to_container"><label for="sf'.$widget_id.'_datemax_'.$field_data['table_column'].'">'.__('Max', WPL_TEXTDOMAIN).'</label><input type="text" name="sf'.$widget_id.'_datemax_'.$field_data['table_column'].'" id="sf'.$widget_id.'_datemax_'.$field_data['table_column'].'" value="'.($current_max_value != '' ? $current_max_value : '').'" /></div>';
+    	$html .= '<div class="wpl_search_widget_from_container"><label for="sf'.$widget_id.'_datemin_'.$field_data['table_column'].'">'.__('Min', WPL_TEXTDOMAIN).'</label><input type="text" placeholder="'.sprintf(__('Min %s', WPL_TEXTDOMAIN), __($field['name'], WPL_TEXTDOMAIN)).'" name="sf'.$widget_id.'_datemin_'.$field_data['table_column'].'" id="sf'.$widget_id.'_datemin_'.$field_data['table_column'].'" value="'.($current_min_value != '' ? $current_min_value : '').'" /></div>';
+    	$html .= '<div class="wpl_search_widget_to_container"><label for="sf'.$widget_id.'_datemax_'.$field_data['table_column'].'">'.__('Max', WPL_TEXTDOMAIN).'</label><input type="text" placeholder="'.sprintf(__('Min %s', WPL_TEXTDOMAIN), __($field['name'], WPL_TEXTDOMAIN)).'" name="sf'.$widget_id.'_datemax_'.$field_data['table_column'].'" id="sf'.$widget_id.'_datemax_'.$field_data['table_column'].'" value="'.($current_max_value != '' ? $current_max_value : '').'" /></div>';
 		
 		$html .= '
 		<script type="text/javascript">
@@ -100,6 +100,20 @@ elseif($type == 'feature' and !$done_this)
 		case 'select':
 			$show = 'select';
 		break;
+    
+        case 'option_single':
+            
+			$show = 'options';
+            $multiple = false;
+            
+		break;
+    
+        case 'option_multiple':
+            
+			$show = 'options';
+            $multiple = true;
+            
+		break;
 	}
 	
 	/** current value **/
@@ -123,6 +137,20 @@ elseif($type == 'feature' and !$done_this)
 				<option value="1" '.($current_value == 1 ? 'selected="selected"' : '').'>'.__('Yes', WPL_TEXTDOMAIN).'</option>
 				<option value="0" '.($current_value == 0 ? 'selected="selected"' : '').'>'.__('No', WPL_TEXTDOMAIN).'</option>
 			</select>';
+	}
+    elseif($show == 'options')
+	{
+        /** current value **/
+        $current_value = explode(',', wpl_request::getVar('sf_feature_'.$field_data['table_column'], ''));
+        if(trim($current_value[0]) == '') $current_value = array();
+        
+		$html .= '<label for="sf'.$widget_id.'_feature_'.$field_data['table_column'].'">'.__($field['name'], WPL_TEXTDOMAIN).'</label>
+			<select name="sf'.$widget_id.'_feature_'.$field_data['table_column'].'" id="sf'.$widget_id.'_feature_'.$field_data['table_column'].'" class="wpl_search_widget_field_'.$field['id'].'_select" '.($multiple ? 'multiple="multiple"' : '').'>';
+        
+		if(!$multiple) $html .= '<option value="">'.__('Any', WPL_TEXTDOMAIN).'</option>';
+        foreach($options['values'] as $option) $html .= '<option value="'.$option['key'].'" '.(in_array($option['key'], $current_value) ? 'selected="selected"' : '').'>'.__($option['value'], WPL_TEXTDOMAIN).'</option>';
+                
+		$html .= '</select>';
 	}
 	
 	$done_this = true;
@@ -371,6 +399,10 @@ elseif($type == 'number' and !$done_this)
         case 'minmax_selectbox_minus':
 			$show = 'minmax_selectbox_minus';
 		break;
+    
+        case 'minmax_selectbox_range':
+			$show = 'minmax_selectbox_range';
+		break;
 	}
 	
 	/** MIN/MAX extoptions **/
@@ -432,7 +464,7 @@ elseif($type == 'number' and !$done_this)
 						{
 							wplj("#sf'.$widget_id.'_tmin_'.$field_data['table_column'].'").val(ui.values[0]);
 							wplj("#sf'.$widget_id.'_tmax_'.$field_data['table_column'].'").val(ui.values[1]);
-							'.((isset($ajax) and $ajax == 2) ? 'wpl_do_search_'.$widget_id.'();' : '').'
+							'.((isset($this->ajax) and $this->ajax == 2) ? 'wpl_do_search_'.$widget_id.'();' : '').'
 						}
 					});
 				});
@@ -451,13 +483,16 @@ elseif($type == 'number' and !$done_this)
 		$i = $min_value;
 		$html .= '<option value="0" '.($current_min_value == $i ? 'selected="selected"' : '').'>'.__('Min '.$field_data['name'], WPL_TEXTDOMAIN).'</option>';
         
+        $selected_printed = false;
+        if($current_min_value == $i) $selected_printed = true;
+
 		while($i < $max_value)
 		{
-			$html .= '<option value="'.$i.'">'.$i.'</option>';
+			$html .= '<option value="'.$i.'" '.(($current_min_value == $i and !$selected_printed) ? 'selected="selected"' : '').'>'.$i.'</option>';
 			$i += $division;
 		}
 		
-		$html .= '<option value="'.$max_value.'">'.$max_value.'</option>';
+		$html .= '<option value="'.$max_value.'" '.(($current_min_value == $i and !$selected_printed) ? 'selected="selected"' : '').'>'.$max_value.'</option>';
         $html .= '</select>';
         
         $html .= '<select name="sf'.$widget_id.'_tmax_'.$field_data['table_column'].'" id="sf'.$widget_id.'_tmax_'.$field_data['table_column'].'">';
@@ -465,9 +500,12 @@ elseif($type == 'number' and !$done_this)
         $i = $min_value;
 		$html .= '<option value="999999999999" '.($current_max_value == $i ? 'selected="selected"' : '').'>'.__('Max '.$field_data['name'], WPL_TEXTDOMAIN).'</option>';
 		
+		$selected_printed = false;
+        if($current_max_value == $i) $selected_printed = true;
+        
 		while($i < $max_value)
 		{
-			$html .= '<option value="'.$i.'">'.$i.'</option>';
+			$html .= '<option value="'.$i.'" '.(($current_max_value == $i and !$selected_printed) ? 'selected="selected"' : '').'>'.$i.'</option>';
 			$i += $division;
 		}
 		
@@ -524,6 +562,25 @@ elseif($type == 'number' and !$done_this)
 		$html .= '<option value="'.$max_value.'">-'.$max_value.'</option>';
         $html .= '</select>';
     }
+    elseif($show == 'minmax_selectbox_range')
+	{
+        $i = $min_value;
+        
+        $current_between_value = stripslashes(wpl_request::getVar('sf_between_'.$field_data['table_column'], ''));
+        
+		$html .= '<select name="sf'.$widget_id.'_between_'.$field_data['table_column'].'" id="sf'.$widget_id.'_between_'.$field_data['table_column'].'">';
+		$html .= '<option value="-1">'.__($field['name'], WPL_TEXTDOMAIN).'</option>';
+        
+		while($i < $max_value)
+		{
+            $range_value = $i.':'.($i+$division);
+			$html .= '<option value="'.$range_value.'" '.($current_between_value == $range_value ? 'selected="selected"' : '').'>'.number_format($i, 0, '.', ',').' - '.number_format(($i+$division), 0, '.', ',').'</option>';
+			$i += $division;
+		}
+        
+		$html .= '<option value="'.$max_value.'" '.($current_between_value == $max_value ? 'selected="selected"' : '').'>'.number_format($max_value, 0, '.', ',').'+</option>';
+        $html .= '</select>';
+	}
 	
 	$done_this = true;
 }
@@ -718,7 +775,8 @@ elseif($type == 'select' and !$done_this)
     {
 		/** current value **/
 		$current_values = explode(',', stripslashes(wpl_request::getVar('sf_multiple_'.$field_data['table_column'])));
-	
+        if(trim($current_values[0]) == '') $current_values = array();
+        
         $html .= '<div class="wpl_searchwid_'.$field_data['table_column'].'_multiselect_container">
 		<select data-placeholder="'.__($field['name'], WPL_TEXTDOMAIN).'" class="wpl_searchmod_'.$field_data['table_column'].'_multiselect" id="sf'.$widget_id.'_multiple_'.$field_data['table_column'].'" name="sf'.$widget_id.'_multiple_'.$field_data['table_column'].'" multiple="multiple">';
 		
@@ -934,6 +992,10 @@ elseif(($type == 'area' or $type == 'price' or $type == 'volume' or $type == 'le
         case 'minmax_selectbox_minus':
 			$show = 'minmax_selectbox_minus';
 		break;
+    
+        case 'minmax_selectbox_range':
+			$show = 'minmax_selectbox_range';
+		break;
 	}
 	
 	$html .= '<label>'.__($field['name'], WPL_TEXTDOMAIN).'</label>';
@@ -985,7 +1047,7 @@ elseif(($type == 'area' or $type == 'price' or $type == 'volume' or $type == 'le
 						{
 							wplj("#sf'.$widget_id.'_min_'.$field_data['table_column'].'").val(ui.values[0]);
 							wplj("#sf'.$widget_id.'_max_'.$field_data['table_column'].'").val(ui.values[1]);
-							'.((isset($ajax) and $ajax == 2) ? 'wpl_do_search_'.$widget_id.'();' : '').'
+							'.((isset($this->ajax) and $this->ajax == 2) ? 'wpl_do_search_'.$widget_id.'();' : '').'
 						}
 					});
 				});
@@ -1103,6 +1165,25 @@ elseif(($type == 'area' or $type == 'price' or $type == 'volume' or $type == 'le
 		}
 		
 		$html .= '<option value="'.$max_value.'" '.($current_max_value == $i ? 'selected="selected"' : '').'>-'.number_format($max_value, 0, '.', ',').'</option>';
+        $html .= '</select>';
+	}
+    elseif($show == 'minmax_selectbox_range')
+	{
+        $i = $min_value;
+        
+        $current_between_value = stripslashes(wpl_request::getVar('sf_betweenunit_'.$field_data['table_column'], ''));
+        
+		$html .= '<select name="sf'.$widget_id.'_betweenunit_'.$field_data['table_column'].'" id="sf'.$widget_id.'_betweenunit_'.$field_data['table_column'].'">';
+		$html .= '<option value="-1">'.__($field['name'], WPL_TEXTDOMAIN).'</option>';
+        
+		while($i < $max_value)
+		{
+            $range_value = $i.':'.($i+$division);
+			$html .= '<option value="'.$range_value.'" '.($current_between_value == $range_value ? 'selected="selected"' : '').'>'.number_format($i, 0, '.', ',').' - '.number_format(($i+$division), 0, '.', ',').'</option>';
+			$i += $division;
+		}
+        
+		$html .= '<option value="'.$max_value.'" '.($current_between_value == $max_value ? 'selected="selected"' : '').'>'.number_format($max_value, 0, '.', ',').'+</option>';
         $html .= '</select>';
 	}
 	

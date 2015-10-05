@@ -8,6 +8,7 @@ if($type == 'text' and !$done_this)
 <div class="fanc-body">
 	<div class="fanc-row fanc-button-row-2">
         <span class="ajax-inline-save" id="wpl_dbst_modify_ajax_loader"></span>
+        <?php if($dbst_id and (wpl_global::check_addon('mls') or wpl_global::check_addon('importer'))): ?><input class="wpl-button button-2" type="button" onclick="convert_dbst('<?php echo $__prefix; ?>', <?php echo $dbst_id; ?>, 'select');" value="<?php echo __('Convert to Select', WPL_TEXTDOMAIN); ?>" id="wpl_dbst_convert_button" /><?php endif; ?>
 		<input class="wpl-button button-1" type="button" onclick="save_dbst('<?php echo $__prefix; ?>', <?php echo $dbst_id; ?>);" value="<?php echo __('Save', WPL_TEXTDOMAIN); ?>" id="wpl_dbst_submit_button" />
 	</div>
 	<div class="col-wp">

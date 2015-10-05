@@ -212,14 +212,15 @@ class wpl_items
      * @param int $kind
      * @return boolean
      */
-	public static function delete_file($file_name, $parent_id, $kind = 0)
+	public static function delete_file($file_name, $parent_id, $kind = 0, $blog_id = NULL)
 	{
 		if(!trim($file_name) or !trim($parent_id)) return false;
 		
 		$query = "DELETE FROM `#__wpl_items` WHERE `parent_kind`='$kind' AND `parent_id`='$parent_id' AND `item_name`='$file_name'";
-		$affected_rows = wpl_db::q($query, 'delete');
+		wpl_db::q($query, 'delete');
 		
-		$folder = wpl_items::get_path($parent_id, $kind);
+        if(is_null($blog_id)) $blog_id = wpl_property::get_blog_id($parent_id);
+		$folder = wpl_items::get_path($parent_id, $kind, $blog_id);
 		
 		if(wpl_file::exists($folder . $file_name))
 		{
@@ -300,13 +301,13 @@ class wpl_items
      * @static
      * @param int $parent_id
      * @param int $kind
+     * @param int $blog_id
      * @return string
      */
-	public static function get_folder($parent_id, $kind = 0)
+	public static function get_folder($parent_id, $kind = 0, $blog_id = NULL)
 	{
-		if($kind == 2) return wpl_global::get_upload_base_url().'users/'.$parent_id.'/';
-		else
-			return wpl_global::get_upload_base_url().$parent_id.'/';
+		if($kind == 2) return wpl_global::get_upload_base_url($blog_id).'users/'.$parent_id.'/';
+		else return wpl_global::get_upload_base_url($blog_id).$parent_id.'/';
 	}
 	
     /**
@@ -315,12 +316,13 @@ class wpl_items
      * @static
      * @param int $parent_id
      * @param int $kind
+     * @param int $blog_id
      * @return string
      */
-	public static function get_path($parent_id, $kind = 0)
+	public static function get_path($parent_id, $kind = 0, $blog_id = NULL)
 	{
-		if($kind == 2) $path = wpl_global::get_upload_base_path(). 'users' .DS. $parent_id .DS;
-		else $path = wpl_global::get_upload_base_path(). $parent_id .DS;
+		if($kind == 2) $path = wpl_global::get_upload_base_path($blog_id). 'users' .DS. $parent_id .DS;
+		else $path = wpl_global::get_upload_base_path($blog_id). $parent_id .DS;
 		
 		if(!wpl_folder::exists($path)) wpl_folder::create($path);
 		
@@ -368,14 +370,18 @@ class wpl_items
      * @param int $parent_kind
      * @param mixed $category
      * @param int $enabled
+     * @param int $blog_id
      * @return array
      */
-	public static function get_gallery($parent_id, $parent_kind = 0, $category = '', $enabled = 1)
+	public static function get_gallery($parent_id, $parent_kind = 0, $category = '', $enabled = 1, $blog_id = NULL)
 	{
 		$items = wpl_items::get_items($parent_id, 'gallery', $parent_kind , $category, $enabled);
 		
+        // Get blog ID of property
+        if(is_null($blog_id)) $blog_id = wpl_property::get_blog_id($parent_id);
+            
 		/** render items **/
-		return wpl_items::render_gallery($items);
+		return wpl_items::render_gallery($items, $blog_id);
 	}
 	
     /**
@@ -383,9 +389,10 @@ class wpl_items
      * @author Howard R <howard@realtyna.com>
      * @static
      * @param array $images
+     * @param int $blog_id
      * @return array
      */
-	public static function render_gallery($images = array())
+	public static function render_gallery($images = array(), $blog_id = NULL)
 	{
 		/** force to array **/
 		$images = (array) $images;
@@ -397,8 +404,11 @@ class wpl_items
 			/** force to array **/
 			$image = (array) $image;
 			
-			$image_path = self::get_path($image['parent_id'], $image['parent_kind']) . $image['item_name'];
-			$image_url = self::get_folder($image['parent_id'], $image['parent_kind']) . $image['item_name'];
+            // Get blog ID of property
+            if(is_null($blog_id)) $blog_id = wpl_property::get_blog_id($image['parent_id']);
+            
+			$image_path = self::get_path($image['parent_id'], $image['parent_kind'], $blog_id) . $image['item_name'];
+			$image_url = self::get_folder($image['parent_id'], $image['parent_kind'], $blog_id) . $image['item_name'];
 			
             /** external images **/
             if(isset($image['item_cat']) and $image['item_cat'] == 'external')
@@ -433,9 +443,10 @@ class wpl_items
      * @author Howard R <howard@realtyna.com>
      * @static
      * @param array $attachments
+     * @param int $blog_id
      * @return array
      */
-	public static function render_attachments($attachments = array())
+	public static function render_attachments($attachments = array(), $blog_id = NULL)
 	{
 		_wpl_import('libraries.render');
 		
@@ -449,8 +460,11 @@ class wpl_items
 			/** force to array **/
 			$attachment = (array) $attachment;
 			
-			$att_path = self::get_path($attachment['parent_id'], $attachment['parent_kind']) . $attachment['item_name'];
-			$att_url = self::get_folder($attachment['parent_id'], $attachment['parent_kind']) . $attachment['item_name'];
+            // Get blog ID of property
+            if(is_null($blog_id)) $blog_id = wpl_property::get_blog_id($attachment['parent_id']);
+            
+			$att_path = self::get_path($attachment['parent_id'], $attachment['parent_kind'], $blog_id) . $attachment['item_name'];
+			$att_url = self::get_folder($attachment['parent_id'], $attachment['parent_kind'], $blog_id) . $attachment['item_name'];
 			
 			/** existance check **/
 			if(!wpl_file::exists($att_path)) continue;
@@ -494,9 +508,10 @@ class wpl_items
      * @author Howard R <howard@realtyna.com>
      * @static
      * @param array $videos
+     * @param int $blog_id
      * @return array
      */
-	public static function render_videos($videos = array())
+	public static function render_videos($videos = array(), $blog_id = NULL)
 	{
 		/** force to array **/
 		$videos = (array) $videos;
@@ -513,8 +528,11 @@ class wpl_items
 				
 			if($video['item_cat'] == 'video')
 			{
-				$video_path = self::get_path($video['parent_id'], $video['parent_kind']) . $video['item_name'];
-				$video_url = self::get_folder($video['parent_id'], $video['parent_kind']) . $video['item_name'];
+                // Get blog ID of property
+                if(is_null($blog_id)) $blog_id = wpl_property::get_blog_id($video['parent_id']);
+            
+				$video_path = self::get_path($video['parent_id'], $video['parent_kind'], $blog_id) . $video['item_name'];
+				$video_url = self::get_folder($video['parent_id'], $video['parent_kind'], $blog_id) . $video['item_name'];
 				
 				/** existance check **/
 				if(!wpl_file::exists($video_path)) continue;
@@ -552,9 +570,10 @@ class wpl_items
      * @param int $property_id
      * @param array $images
      * @param array $custom_sizes
+     * @param int $blog_id
      * @return array
      */
-	public static function render_gallery_custom_sizes($property_id, $images = '', $custom_sizes = array())
+	public static function render_gallery_custom_sizes($property_id, $images = '', $custom_sizes = array(), $blog_id = NULL)
 	{
 		$kind = wpl_property::get_property_kind($property_id);
 		if(!$images) $images = wpl_items::get_items($property_id, 'gallery', $kind);
@@ -562,6 +581,9 @@ class wpl_items
 		/** no image gallery **/
 		if(!count($images)) return array();
 		
+        // Get blog ID of property
+        if(is_null($blog_id)) $blog_id = wpl_property::get_blog_id($property_id);
+            
 		$return = array();
 		foreach($custom_sizes as $custom_size)
 		{
@@ -576,17 +598,17 @@ class wpl_items
 				/** force to array **/
 				$image = (array) $image;
 				
-				$source_path = self::get_path($image['parent_id'], $image['parent_kind']) . $image['item_name'];
-				$source_url = self::get_folder($image['parent_id'], $image['parent_kind']) . $image['item_name'];
+				$source_path = self::get_path($image['parent_id'], $image['parent_kind'], $blog_id) . $image['item_name'];
+				$source_url = self::get_folder($image['parent_id'], $image['parent_kind'], $blog_id) . $image['item_name'];
 				
 				$params = array('image_name'=>$image['item_name'], 'image_source'=>$source_path, 'image_parentid'=>$image['parent_id'], 'image_parentkind'=>$image['parent_kind']);
                 
                 /** taking care for external images **/
 				if($image['item_cat'] != 'external')
                 {
-                    $dest_url = wpl_images::create_gallary_image($x, $y, $params, 0, 0);
+                    $dest_url = wpl_images::create_gallery_image($x, $y, $params, 0, 0);
                     $pathinfo = @pathinfo($dest_url);
-                    $dest_path = self::get_path($image['parent_id'], $image['parent_kind']) . $pathinfo['basename'];
+                    $dest_path = self::get_path($image['parent_id'], $image['parent_kind'], $blog_id) . $pathinfo['basename'];
                 }
                 else
                 {

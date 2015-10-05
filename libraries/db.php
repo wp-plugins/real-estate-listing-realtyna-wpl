@@ -121,6 +121,7 @@ class wpl_db
 		
 		return $query = trim($query, ' ,');
 	}
+    
     /**
      * Use this function for runnig SELECT queries, also you can change type of result if need.
      * @author Howard <howard@realtyna.com>
@@ -365,6 +366,7 @@ class wpl_db
             $sqlParser = wpl_sql_parser::getInstance();
             if($sqlParser->enabled) $query = $sqlParser->parse($query);
             
+            $query = str_replace('#__usermeta', $database->base_prefix.'usermeta', $query);
             $query = str_replace('#__users', $database->base_prefix.'users', $query);
             $query = str_replace('#__blogs', $database->base_prefix.'blogs', $query);
             $query = str_replace('#__wpl', $database->base_prefix.'wpl', $query);

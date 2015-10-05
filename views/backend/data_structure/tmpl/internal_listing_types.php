@@ -79,7 +79,7 @@ $this->_wpl_import($this->tpl_path.'.scripts.internal_listing_types_js');
                 <?php foreach($this->listing_gicons as $index=> $listing_gicon): ?>
                     <div class="gmarker-icon" id="gicon<?php echo $index ?>">
                         <img src="<?php echo wpl_global::get_wpl_asset_url('img/listing_types/gicon/'.$listing_gicon); ?>" alt="" />
-                        <span class="action-btn icon-recycle-3" onclick="wpl_gicon_delete('<?php echo $listing_gicon; ?>', 0, '<?php echo $index; ?>')"></span>
+                        <?php if(wpl_users::is_super_admin()): ?><span class="action-btn icon-recycle-3" onclick="wpl_gicon_delete('<?php echo $listing_gicon; ?>', 0, '<?php echo $index; ?>')"></span><?php endif; ?>
                         <span class="ajax-inline-save" id="wpl_gicon_ajax_loader_<?php echo __($index, WPL_TEXTDOMAIN); ?>"></span>
                     </div>
                 <?php endforeach; ?>

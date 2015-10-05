@@ -22,7 +22,7 @@
                     marginLeft: 0 + 'px',
                     opacity: 1
                 });
-                wplj(this).text("<?php echo __('Less options', WPL_TEXTDOMAIN); ?>");
+                wplj(this).text("<?php echo __('Fewer options', WPL_TEXTDOMAIN); ?>");
             }
         })
 
@@ -35,7 +35,7 @@
         <?php endif; ?>
 
         <?php if($this->ajax == 2): ?>
-        wplj("#wpl_search_form_<?php echo $widget_id; ?> input, #wpl_search_form_<?php echo $widget_id; ?> select").on('change', function () {
+        wplj("#wpl_search_form_<?php echo $widget_id; ?> input, #wpl_search_form_<?php echo $widget_id; ?> select, #wpl_search_form_<?php echo $widget_id; ?> textarea").on('change', function () {
             setTimeout("wpl_do_search_<?php echo $widget_id; ?>()", 300);
         });
         <?php endif; ?>
@@ -83,6 +83,10 @@
             if (name.substring(0, 2) == 'sf') {
                 if (wplj(element).closest('li').css('display') != 'none') {
                     value = wplj(element).val();
+                    
+                    var multiple = wplj(element).attr('multiple');
+                    if(typeof multiple != 'undefined' && value == null) value = '';
+                    
                     if (value != null) request_str += "&" + element.name.replace('sf<?php echo $widget_id; ?>_', 'sf_') + "=" + value;
                 }
             }
@@ -386,17 +390,36 @@
         $this->create_listing_specific_js();
         $this->create_property_type_specific_js();
     ?>
-    wplj(document).ready(function () {
-        wplj("#wpl_searchwidget_<?php echo $widget_id; ?> select").chosen();
-        wplj('#wpl_searchwidget_<?php echo $widget_id; ?> input.yesno[type="checkbox"]').checkbox({
-            cls: 'jquery-safari-checkbox',
-            empty: '<?php echo wpl_global::get_wpl_asset_url('img/empty.png'); ?>'
-        });
-        wplj('#wpl_searchwidget_<?php echo $widget_id; ?> input[type="checkbox"]:not(.yesno)').checkbox({empty: '<?php echo wpl_global::get_wpl_asset_url('img/empty.png'); ?>'});
 
-        /** make the form empty if searched by listing id **/
-        wplj("#sf<?php echo $widget_id; ?>_select_mls_id").on("change", function () {
-            wpl_do_reset<?php echo $widget_id; ?>(new Array("sf<?php echo $widget_id; ?>_select_mls_id"), false);
+    (function($){
+
+        $(function(){
+
+            try{
+
+                if(typeof $.fn.chosen != 'undefined')
+                    $("#wpl_searchwidget_<?php echo $widget_id; ?> select").chosen();
+                else
+                    throw 'WPL::Dependency Missing->Chosen library is not available.';
+
+                $('#wpl_searchwidget_<?php echo $widget_id; ?> input.yesno[type="checkbox"]').checkbox({
+                    cls: 'jquery-safari-checkbox',
+                    empty: '<?php echo wpl_global::get_wpl_asset_url('img/empty.png'); ?>'
+                });
+
+                $('#wpl_searchwidget_<?php echo $widget_id; ?> input[type="checkbox"]:not(.yesno)').checkbox({empty: '<?php echo wpl_global::get_wpl_asset_url('img/empty.png'); ?>'});
+
+                /** make the form empty if searched by listing id **/
+                $("#sf<?php echo $widget_id; ?>_select_mls_id").on("change", function () {
+                    wpl_do_reset<?php echo $widget_id; ?>(new Array("sf<?php echo $widget_id; ?>_select_mls_id"), false);
+                });
+
+            }catch(e){
+                console.log(e);
+            }
+
         });
-    })
+
+    })(jQuery);
+
 </script>

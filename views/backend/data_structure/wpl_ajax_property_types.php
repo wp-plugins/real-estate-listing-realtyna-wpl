@@ -87,7 +87,6 @@ class wpl_data_structure_controller extends wpl_controller
 		$data = NULL;
 		
 		$response = array('success'=>$res, 'message'=>$message, 'data'=>$data);
-		
 		echo json_encode($response);
 		exit;
 	}
@@ -101,7 +100,6 @@ class wpl_data_structure_controller extends wpl_controller
 		$data = NULL;
 		
 		$response = array('success'=>$res, 'message'=>$message, 'data'=>$data);
-		
 		echo json_encode($response);
 		exit;
 	}
@@ -133,6 +131,7 @@ class wpl_data_structure_controller extends wpl_controller
 		$this->property_type_id = wpl_request::getVar('property_type_id');
 		$this->property_type_data = wpl_property_types::get_property_type($this->property_type_id);
 		$this->property_types = wpl_property_types::get_property_types();
+        
 		parent::render($this->tpl_path, 'internal_delete_property_types');
 		exit;
 	}
@@ -144,19 +143,19 @@ class wpl_data_structure_controller extends wpl_controller
 		$res = wpl_property_types::insert_property_type($parent,$name);
 		$res = (int) $res;
 		
-		if($res>0) 
+		if($res>0)
 		{
 			$res = 1;
 		}
 		else
 		{
-			 $res = 0;
+            $res = 0;
 		}
+        
 		$message = $res ? __('Saved.', WPL_TEXTDOMAIN) : __('Error Occured.', WPL_TEXTDOMAIN);
 		$data = NULL;
 		
 		$response = array('success'=>$res, 'message'=>$message, 'data'=>$data);
-		
 		echo json_encode($response);
 		exit;
 	}
@@ -175,7 +174,6 @@ class wpl_data_structure_controller extends wpl_controller
 		$data = NULL;
 		
 		$response = array('success'=>$res, 'message'=>$message, 'data'=>$data);
-		
 		echo json_encode($response);
 		exit;
     }
@@ -208,7 +206,6 @@ class wpl_data_structure_controller extends wpl_controller
 		$select_id = wpl_request::getVar('select_id');
         
 		$j = wpl_property::update_properties('property_type', $property_type_id, $select_id);
-        
 		$this->remove_property_type($property_type_id, 1);
 	}
 }

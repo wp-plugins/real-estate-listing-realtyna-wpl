@@ -17,7 +17,7 @@ $this->watermark = (isset($params['watermark']) and trim($params['watermark']) !
 
 /** render gallery **/
 $raw_gallery = isset($wpl_properties['current']['items']['gallery']) ? $wpl_properties['current']['items']['gallery'] : array();
-$gallery = wpl_items::render_gallery($raw_gallery);
+$gallery = wpl_items::render_gallery($raw_gallery, wpl_property::get_blog_id($this->property_id));
 
 /** import js codes **/
 $this->_wpl_import($this->tpl_path.'.scripts.default', true, true, true);
@@ -49,7 +49,7 @@ $this->_wpl_import($this->tpl_path.'.scripts.default', true, true, true);
                 $params['image_source'] = $image['path'];
                 
                 /** resize image if does not exist **/
-                $image_url = wpl_images::create_gallary_image($this->image_width, $this->image_height, $params, $this->watermark, $this->rewrite);
+                $image_url = wpl_images::create_gallery_image($this->image_width, $this->image_height, $params, $this->watermark, $this->rewrite);
             }
             
             echo '<img itemprop="image" id="wpl_gallery_image'.$this->property_id .'_'.$i.'" src="'.$image_url.'" class="wpl_gallery_image '.$this->image_class.'" onclick="wpl_plisting_slider('.$i.', '.$this->property_id.', '.$images_total.');" alt="'.$image_alt.'" width="'.$this->image_width.'" height="'.$this->image_height.'" style="width: '.$this->image_width.'px; height: '.$this->image_height.'px;" />';

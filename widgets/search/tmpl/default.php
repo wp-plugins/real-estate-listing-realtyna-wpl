@@ -33,7 +33,7 @@ defined('_WPLEXEC') or die('Restricted access');
             if($is_separator or (!$is_separator and in_array($data['id'], $top_array))) $top_div .= $data['html'];
             else
             {
-                if(trim($data['current_value']) and $data['current_value'] != '-1') $bott_div_open = true;
+                if(is_string($data['current_value']) and trim($data['current_value']) and $data['current_value'] != '-1') $bott_div_open = true;
                 $bott_div .= $data['html'];
             }
             

@@ -30,9 +30,9 @@ class wpl_activity_manager_controller extends wpl_controller
     private function set_enabled_activity($activity_id, $enabled_status)
     {
         $res = wpl_activity::update_one($activity_id, 'enabled', $enabled_status);
-		
         $message = $res ? __('Operation was successful.', WPL_TEXTDOMAIN) : __('Error Occured.', WPL_TEXTDOMAIN);
-        $response = array('success' => $res, 'message' => $message);
+        
+        $response = array('success'=>$res, 'message'=>$message);
         echo json_encode($response);
         exit;
     }
@@ -45,7 +45,7 @@ class wpl_activity_manager_controller extends wpl_controller
         $message = $res ? __('Activity removed successfully.', WPL_TEXTDOMAIN) : __('Error Occured.', WPL_TEXTDOMAIN);
         $data = NULL;
 
-        $response = array('success' => $res, 'message' => $message, 'data' => $data);
+        $response = array('success'=>$res, 'message'=>$message, 'data'=>$data);
         echo json_encode($response);
         exit;
     }

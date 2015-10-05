@@ -9,4 +9,5 @@ defined('_WPLEXEC') or die('Restricted access');
 .flex-right-panel .panel-body{padding: 10px 8px !important;}
 .wpl_flex_specificable_cnt{margin-left: 26px;}
 .realtyna-lightbox-wp label.wpl_specific_label{text-align: left; width: 120px;}
+#multisite_modify_status_container{background: #afdef3;}
 </style>

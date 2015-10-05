@@ -36,6 +36,10 @@ class wpl_cache
     {
         $this->path = str_replace('.php', '', _wp_import(self::PATH, true, true));
         
+        /** Check for child websites **/
+        $blog_id = wpl_global::get_current_blog_id();
+        if($blog_id and $blog_id != 1) $this->path = rtrim($this->path, DS).$blog_id;
+        
         /** Create WPL Cache Directory **/
         if(!wpl_folder::exists($this->path)) wpl_folder::create($this->path);
     }
@@ -90,5 +94,10 @@ class wpl_cache
     public function path($file)
     {
         return $this->path.DS.ltrim($file, DS);
+    }
+    
+    public function get_path()
+    {
+        return $this->path;
     }
 }

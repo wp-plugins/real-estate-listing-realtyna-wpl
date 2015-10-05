@@ -27,6 +27,9 @@ class wpl_service_sef
 		/** set vars **/
 		wpl_sef::setVars($this->view, $wpl_qs);
         
+        /** trigger event **/
+		wpl_global::event_handler('wplview_detected', array('wplview'=>$this->view));
+        
 		if($this->view == 'property_show')
 		{
             if(trim($wpl_qs) != '')

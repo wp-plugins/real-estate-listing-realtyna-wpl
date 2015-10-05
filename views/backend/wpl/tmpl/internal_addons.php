@@ -4,7 +4,7 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div class="side-8 side-addons" id="wpl_dashboard_side_addons">
     <div class="panel-wp">
-        <h3><?php echo __('WPL Add Ons', WPL_TEXTDOMAIN); ?></h3>
+        <h3><?php echo __('Purchased Add Ons', WPL_TEXTDOMAIN); ?></h3>
         
         <div class="panel-body">
             <?php if(!wpl_global::check_addon('pro')): ?>
@@ -31,13 +31,17 @@ defined('_WPLEXEC') or die('Restricted access');
                 <?php foreach ($this->addons as $addon): ?>
                     <div class="wpl-addon-row wpl_addon_container" id="wpl_addon_container<?php echo $addon['id']; ?>">
                         <label class="wpl_addon_name"><?php echo $addon['name']; ?></label>
-                        <span title="<?php echo __('Version', WPL_TEXTDOMAIN); ?>"><?php echo $addon['version']; ?></span>
-                        <?php if($addon['updatable']): ?>
-                        <span class="action-btn icon-recycle-2" onclick="<?php echo (trim($addon['message']) != '' ? 'trigger_addon_update('.$addon['id'].');' : 'check_addon_update('.$addon['id'].');'); ?>" title="<?php echo __('Update', WPL_TEXTDOMAIN); ?>"></span>
-                        <?php endif; ?>
-						<?php if(trim($addon['message']) != ''): ?>
-						<span class="wpl_addon_message"><?php echo $addon['message']; ?></span>
-						<?php endif; ?>
+                        <span class="wpl_addon_info">
+							<?php if(trim($addon['message']) != ''): ?>
+							<span class="wpl_addon_message"><?php echo $addon['message']; ?></span>
+							<?php endif; ?>
+                        	<span title="<?php echo __('Version', WPL_TEXTDOMAIN); ?>"><?php echo $addon['version']; ?></span>
+	                        <?php if($addon['updatable']): ?>
+	                        <span class="action-btn icon-recycle-2" onclick="<?php echo (trim($addon['message']) != '' ? 'trigger_addon_update('.$addon['id'].');' : 'check_addon_update('.$addon['id'].');'); ?>" title="<?php echo __('Update', WPL_TEXTDOMAIN); ?>"></span>
+	                        <?php endif; ?>
+	                        <?php /**<span class="wpl_addon_log_btn"><?php echo __('LOG', WPL_TEXTDOMAIN); ?></span>**/ ?>
+                        </span>
+                        <span id="wpl_addon_log_info<?php echo $addon['id']; ?>" class="wpl_addon_log_info" style="display:none">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui. officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusa ntium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architec to beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui. officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusa ntium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architec to beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius.</span>
                     </div>
                 <?php endforeach; ?>
             </div>

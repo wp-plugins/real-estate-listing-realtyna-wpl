@@ -54,6 +54,17 @@ class wpl_wpl_controller extends wpl_controller
 	
 	private function check_addon_update()
 	{
+        /** Client should update WPL Franchise first **/
+        if(wpl_global::is_multisite())
+        {
+            $fs_update = wpl_global::check_addon_update(4);
+            if(isset($fs_update['success']) and $fs_update['success'] == 1)
+            {
+                wpl_db::q("UPDATE `#__wpl_addons` SET `message`='' WHERE `id`!='4'", 'UPDATE');
+                $this->response(array('success'=>1, 'message'=>__("Please update franchise addon first.", WPL_TEXTDOMAIN)));
+            }
+        }
+        
 		$addon_id = wpl_request::getVar('addon_id');
 		$response = wpl_global::check_addon_update($addon_id);
 		

@@ -55,7 +55,7 @@ class wpl_service_helps
             $screen->add_help_tab(array('id'=>$tab['id'], 'title'=>$tab['title'], 'content'=>$tab['content']));
         }
         
-        if(!isset($tabs['sidebar'])) $tabs['sidebar'] = array('content'=>'<a class="wpl_contextual_help_tour" href="'.wpl_global::add_qs_var('wpltour', 1).'">'.__('Introduce Tour', WPL_TEXTDOMAIN).'</a>');
+        if(!isset($tabs['sidebar'])) $tabs['sidebar'] = array('content'=>'<a class="wpl_contextual_help_tour button" href="'.wpl_global::add_qs_var('wpltour', 1).'">'.__('Introduce Tour', WPL_TEXTDOMAIN).'</a>');
         $screen->set_help_sidebar($tabs['sidebar']['content']);
     }
     

@@ -2,6 +2,10 @@
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
 
+// Load Google Maps API
+$javascript = (object) array('param1'=>'google-maps', 'param2'=>'http'.(stristr(wpl_global::get_full_url(), 'https://') != '' ? 's' : '').'://maps.google.com/maps/api/js?libraries=places,drawing&sensor=true', 'external'=>true);
+wpl_extensions::import_javascript($javascript);
+    
 $map_activities = wpl_activity::get_activities('plisting_position1', 1);
 ?>
 <script type="text/javascript">
@@ -90,6 +94,9 @@ function wpl_marker<?php echo $this->activity_id; ?>(dataMarker)
 	
 	google.maps.event.addListener(marker, "<?php echo $this->infowindow_event; ?>", function(event)
 	{
+        /** Don't run APS AJAX search because of boundary change due to opening infowindow **/
+        if(typeof wpl_aps_freeze != 'undefined') wpl_aps_freeze = true;
+                
 		if(this.html)
 		{
 			infowindow<?php echo $this->activity_id; ?>.close();
@@ -99,7 +106,7 @@ function wpl_marker<?php echo $this->activity_id; ?>(dataMarker)
 		else
 		{
             /** AJAX loader **/
-			wplj("#wpl_map_canvas<?php echo $this->activity_id; ?>").append('<div class="map_search_ajax_loader" style="position: absolute; top: 7px; left: 70px; z-index: 200;"><img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader4.gif'); ?>" /></div>');
+			wplj("#wpl_map_canvas<?php echo $this->activity_id; ?>").append('<div class="map_search_ajax_loader"><img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader4.gif'); ?>" /></div>');
 			
 			infowindow_html = get_infowindow_html<?php echo $this->activity_id; ?>(this.property_ids);
 			this.html = infowindow_html;
@@ -234,7 +241,7 @@ function wpl_load_map_markers(request_str, delete_markers)
     if(typeof delete_markers == 'undefined') delete_markers = false;
     
     /** AJAX loader **/
-    wplj("#wpl_map_canvas<?php echo $this->activity_id; ?>").append('<div class="map_search_ajax_loader" style="position: absolute; top: 7px; left: 70px; z-index: 200;"><img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader4.gif'); ?>" /></div>');
+    wplj("#wpl_map_canvas<?php echo $this->activity_id; ?>").append('<div class="map_search_ajax_loader"><img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader4.gif'); ?>" /></div>');
     
     request_str = 'wpl_format=f:property_listing:raw&wplmethod=get_markers&'+request_str;
     var markers;

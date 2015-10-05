@@ -5,6 +5,8 @@ defined('_WPLEXEC') or die('Restricted access');
 <script type="text/javascript">
 function check_addon_update(addon_id)
 {
+    wpl_remove_message('.wpl_addons_message .wpl_show_message');
+    
 	/** run ajax query **/
 	request_str = 'wpl_format=b:wpl:ajax&wpl_function=check_addon_update&addon_id='+addon_id;
 	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str);

@@ -4,11 +4,23 @@ defined('_WPLEXEC') or die('Restricted access');
 ?>
 <div>
 	<div class="wpl_rev_container">
+        <h4>WPL2.8.0 (<span class="wpl_log_date">10/05/2015</span> <span class="wpl_log_revision">revision 1887</span>)</h4>
+        -- <strong>[PRO]</strong> Fixed AJAX search issue for Min/Max slider.<br />
+        -- <strong>[PRO]</strong> Fixed QR barcode issue in PDF flyer.<br />
+        -- <strong>[PRO]</strong> Fixed some issues in walkscore activity.<br />
+        -- Added "between" search type for numeric fields.<br />
+        -- Added single and multiple search type for feature fields.<br />
+        -- Added captcha compatibility for WPL contact forms.<br />
+        -- Improved tablet responsive size in WPL.<br />
+        -- Improved mobile responsive size in WPL.<br />
+        -- Fixed responsive issues on WPL views.<br />
+        -- Fixed some PHP notices and minor issues.
+        
         <h4>WPL2.7.0 (<span class="wpl_log_date">08/04/2015</span> <span class="wpl_log_revision">revision 1723</span>)</h4>
         -- <strong>[PRO]</strong> Added "PDF Flyer" option to WPL fields and WPL data categories.<br />
         -- Added new marker icon-set.<br />
-        -- Added request a visit from in links activity.<br />
-        -- Added send to friend from in links activity.<br />
+        -- Added request a visit form in links activity.<br />
+        -- Added send to friend form in links activity.<br />
         -- Added linkedin share feature in links activity.<br />
         -- Added new gallery layout for single property page named "pshow_modern".<br />
         -- Fixed shortcode wizard issue on some websites.<br />

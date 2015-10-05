@@ -10,34 +10,35 @@ function wpl_setting_save(setting_id, setting_name, setting_value, setting_categ
 {
 	wplj("#wpl_st_form_element"+setting_id).attr("disabled", "disabled");
 	
-	element_type = wplj("#wpl_st_form_element"+setting_id).attr('type');
+	var element_type = wplj("#wpl_st_form_element"+setting_id).attr('type');
+    var tag_name = wplj("#wpl_st_form_element"+setting_id).prop('tagName').toLowerCase();
 	
 	if(element_type == 'checkbox')
 	{
 		if(wplj("#wpl_st_form_element"+setting_id).is(':checked')) setting_value = 1;
 		else setting_value = 0;
 	}
+    
+    var ajax_loader_element = '#wpl_st_form_element'+setting_id;
+    if(tag_name == 'select')
+    {
+        ajax_loader_element = '#wpl_st_form_element'+setting_id+'_chosen';
+    }
 	
-	ajax_loader_element = '#wpl_ajax_loader_'+setting_id;
-	wplj(ajax_loader_element).html('<img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader3.gif'); ?>" />');
+    /** Show AJAX loader **/
+    var wpl_ajax_loader = Realtyna.ajaxLoader.show(ajax_loader_element, 'tiny', 'rightOut');
 	
-	request_str = 'wpl_format=b:settings:ajax&wpl_function=save&setting_name='+setting_name+'&setting_value='+encodeURIComponent(setting_value)+'&setting_category='+setting_category;
+	var request_str = 'wpl_format=b:settings:ajax&wpl_function=save&setting_name='+setting_name+'&setting_value='+encodeURIComponent(setting_value)+'&setting_category='+setting_category;
 	
 	/** run ajax query **/
-	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str, ajax_loader_element);
+	var ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str);
 	
 	ajax.success(function(data)
 	{
 		wplj("#wpl_st_form_element"+setting_id).removeAttr("disabled");
 		
-		if(data.success == 1)
-		{
-			wplj(ajax_loader_element).html('');
-		}
-		else if(data.success != 1)
-		{
-			wplj(ajax_loader_element).html('');
-		}
+		/** Remove AJAX loader **/
+        Realtyna.ajaxLoader.hide(wpl_ajax_loader);
 	});
 }
 
@@ -58,24 +59,18 @@ function wpl_clear_properties_cached_datas(confirmed)
 	}
 	else if(confirmed) wpl_remove_message();
 	
-	ajax_loader_element = '#wpl_properties_cached_ajax_loader';
-	wplj(ajax_loader_element).html('<img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader3.gif'); ?>" />');
+	/** Show AJAX loader **/
+    var wpl_ajax_loader = Realtyna.ajaxLoader.show('#wpl_maintenance_clear_properties_cached_datas', 'tiny', 'leftOut');
 	
 	request_str = 'wpl_format=b:settings:ajax&wpl_function=clear_cache&cache_type=properties_cached_data';
 	
 	/** run ajax query **/
-	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str, ajax_loader_element);
+	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str);
 	
 	ajax.success(function(data)
 	{
-		if(data.success == 1)
-		{
-			wplj(ajax_loader_element).html('');
-		}
-		else if(data.success != 1)
-		{
-			wplj(ajax_loader_element).html('');
-		}
+		/** Remove AJAX loader **/
+        Realtyna.ajaxLoader.hide(wpl_ajax_loader);
 	});
 }
 
@@ -91,24 +86,18 @@ function wpl_clear_listings_cached_location_texts(confirmed)
 	}
 	else if(confirmed) wpl_remove_message();
 	
-	ajax_loader_element = '#wpl_listings_location_text_cached_ajax_loader';
-	wplj(ajax_loader_element).html('<img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader3.gif'); ?>" />');
+	/** Show AJAX loader **/
+    var wpl_ajax_loader = Realtyna.ajaxLoader.show('#wpl_maintenance_clear_listings_cached_location_texts', 'tiny', 'leftOut');
 	
 	request_str = 'wpl_format=b:settings:ajax&wpl_function=clear_cache&cache_type=location_texts';
 	
 	/** run ajax query **/
-	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str, ajax_loader_element);
+	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str);
 	
 	ajax.success(function(data)
 	{
-		if(data.success == 1)
-		{
-			wplj(ajax_loader_element).html('');
-		}
-		else if(data.success != 1)
-		{
-			wplj(ajax_loader_element).html('');
-		}
+		/** Remove AJAX loader **/
+        Realtyna.ajaxLoader.hide(wpl_ajax_loader);
 	});
 }
 
@@ -124,24 +113,18 @@ function wpl_clear_listings_thumbnails(confirmed)
 	}
 	else if(confirmed) wpl_remove_message();
 	
-	ajax_loader_element = '#wpl_listings_thumbnails_ajax_loader';
-	wplj(ajax_loader_element).html('<img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader3.gif'); ?>" />');
+	/** Show AJAX loader **/
+    var wpl_ajax_loader = Realtyna.ajaxLoader.show('#wpl_maintenance_clear_listings_thumbnails', 'tiny', 'leftOut');
 	
 	request_str = 'wpl_format=b:settings:ajax&wpl_function=clear_cache&cache_type=listings_thumbnails';
 	
 	/** run ajax query **/
-	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str, ajax_loader_element);
+	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str);
 	
 	ajax.success(function(data)
 	{
-		if(data.success == 1)
-		{
-			wplj(ajax_loader_element).html('');
-		}
-		else if(data.success != 1)
-		{
-			wplj(ajax_loader_element).html('');
-		}
+		/** Remove AJAX loader **/
+        Realtyna.ajaxLoader.hide(wpl_ajax_loader);
 	});
 }
 
@@ -157,24 +140,18 @@ function wpl_clear_users_thumbnails(confirmed)
 	}
 	else if(confirmed) wpl_remove_message();
 	
-	ajax_loader_element = '#wpl_users_thumbnails_ajax_loader';
-	wplj(ajax_loader_element).html('<img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader3.gif'); ?>" />');
+	/** Show AJAX loader **/
+    var wpl_ajax_loader = Realtyna.ajaxLoader.show('#wpl_maintenance_clear_users_thumbnails', 'tiny', 'leftOut');
 	
 	request_str = 'wpl_format=b:settings:ajax&wpl_function=clear_cache&cache_type=users_thumbnails';
 	
 	/** run ajax query **/
-	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str, ajax_loader_element);
+	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str);
 	
 	ajax.success(function(data)
 	{
-		if(data.success == 1)
-		{
-			wplj(ajax_loader_element).html('');
-		}
-		else if(data.success != 1)
-		{
-			wplj(ajax_loader_element).html('');
-		}
+		/** Remove AJAX loader **/
+        Realtyna.ajaxLoader.hide(wpl_ajax_loader);
 	});
 }
 
@@ -190,24 +167,18 @@ function wpl_clear_unfinalized_properties(confirmed)
 	}
 	else if(confirmed) wpl_remove_message();
 	
-	ajax_loader_element = '#wpl_unfinalized_properties_loader';
-	wplj(ajax_loader_element).html('<img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader3.gif'); ?>" />');
-	
+    /** Show AJAX loader **/
+    var wpl_ajax_loader = Realtyna.ajaxLoader.show('#wpl_maintenance_clear_unfinalized_properties', 'tiny', 'leftOut');
+    
 	request_str = 'wpl_format=b:settings:ajax&wpl_function=clear_cache&cache_type=unfinalized_properties';
 	
 	/** run ajax query **/
-	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str, ajax_loader_element);
+	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str);
 	
 	ajax.success(function(data)
 	{
-		if(data.success == 1)
-		{
-			wplj(ajax_loader_element).html('');
-		}
-		else if(data.success != 1)
-		{
-			wplj(ajax_loader_element).html('');
-		}
+		/** Remove AJAX loader **/
+        Realtyna.ajaxLoader.hide(wpl_ajax_loader);
 	});
 }
 
@@ -223,24 +194,18 @@ function wpl_clear_users_cached_datas(confirmed)
 	}
 	else if(confirmed) wpl_remove_message();
 	
-	ajax_loader_element = '#wpl_users_cached_ajax_loader';
-	wplj(ajax_loader_element).html('<img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader3.gif'); ?>" />');
+	/** Show AJAX loader **/
+    var wpl_ajax_loader = Realtyna.ajaxLoader.show('#wpl_maintenance_clear_users_cached_datas', 'tiny', 'leftOut');
 	
 	request_str = 'wpl_format=b:settings:ajax&wpl_function=clear_cache&cache_type=users_cached_data';
 	
 	/** run ajax query **/
-	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str, ajax_loader_element);
+	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str);
 	
 	ajax.success(function(data)
 	{
-		if(data.success == 1)
-		{
-			wplj(ajax_loader_element).html('');
-		}
-		else if(data.success != 1)
-		{
-			wplj(ajax_loader_element).html('');
-		}
+		/** Remove AJAX loader **/
+        Realtyna.ajaxLoader.hide(wpl_ajax_loader);
 	});
 }
 
@@ -256,24 +221,45 @@ function wpl_clear_calendar_data(confirmed)
 	}
 	else if(confirmed) wpl_remove_message();
 	
-	ajax_loader_element = '#wpl_calendar_data_ajax_loader';
-	wplj(ajax_loader_element).html('<img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader3.gif'); ?>" />');
+	/** Show AJAX loader **/
+    var wpl_ajax_loader = Realtyna.ajaxLoader.show('#wpl_maintenance_clear_calendar_data', 'tiny', 'leftOut');
 	
 	request_str = 'wpl_format=b:settings:ajax&wpl_function=clear_calendar_data';
 	
 	/** run ajax query **/
-	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str, ajax_loader_element);
+	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str);
 	
 	ajax.success(function(data)
 	{
-		if(data.success == 1)
-		{
-			wplj(ajax_loader_element).html('');
-		}
-		else if(data.success != 1)
-		{
-			wplj(ajax_loader_element).html('');
-		}
+		/** Remove AJAX loader **/
+        Realtyna.ajaxLoader.hide(wpl_ajax_loader);
+	});
+}
+
+function wpl_purge_cache_directory(confirmed)
+{
+    if(!confirmed)
+	{
+		var message = "<?php echo __("Are you sure you would like to purge WPL cache directory?", WPL_TEXTDOMAIN); ?>";
+		message += '&nbsp;<span class="wpl_actions" onclick="wpl_purge_cache_directory(1);"><?php echo __('Yes', WPL_TEXTDOMAIN); ?></span>&nbsp;<span class="wpl_actions" onclick="wpl_remove_message();"><?php echo __('No', WPL_TEXTDOMAIN); ?></span>';
+		
+		wpl_show_messages(message, '.wpl_maintenance .wpl_show_message');
+		return false;
+	}
+	else if(confirmed) wpl_remove_message();
+	
+    /** Show AJAX loader **/
+    var wpl_ajax_loader = Realtyna.ajaxLoader.show('#wpl_maintenance_purge_cache_directory', 'tiny', 'leftOut');
+    
+	var request_str = 'wpl_format=b:settings:ajax&wpl_function=clear_cache&cache_type=wpl_cache_directory';
+	
+	/** run ajax query **/
+	var ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str);
+	
+	ajax.success(function(data)
+	{
+		/** Remove AJAX loader **/
+        Realtyna.ajaxLoader.hide(wpl_ajax_loader);
 	});
 }
 

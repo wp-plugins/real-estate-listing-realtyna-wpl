@@ -22,7 +22,7 @@ class wpl_agents_widget extends wpl_widget
 	
 	public function __construct()
 	{
-		parent::__construct('wpl_agents_widget', '(WPL) Agents', array('description'=>__('Showing specific agents.', WPL_TEXTDOMAIN)));
+		parent::__construct('wpl_agents_widget', __('(WPL) Agents', WPL_TEXTDOMAIN), array('description'=>__('Showing specific agents.', WPL_TEXTDOMAIN)));
 	}
 
 	/**
@@ -147,8 +147,8 @@ class wpl_agents_widget extends wpl_widget
 		
         $where = array('sf_tmin_id'=>1, 'sf_select_access_public_profile'=>1, 'sf_select_expired'=>0);
 		
-		if(trim($data['user_type']) and $data['user_type'] != '-1') $where['sf_select_membership_type'] = $data['user_type'];
-		if(trim($data['membership']) and $data['membership'] != '') $where['sf_select_membership_id'] = $data['membership'];
+		if(isset($data['user_type']) and $data['user_type'] != '-1') $where['sf_select_membership_type'] = $data['user_type'];
+		if(isset($data['membership']) and $data['membership'] != '') $where['sf_select_membership_id'] = $data['membership'];
 		if(trim($data['user_ids'])) $where['sf_multiple_id'] = trim($data['user_ids'], ', ');
 		
         if(isset($data['random']) and trim($data['random']) and trim($data['user_ids']) == '')

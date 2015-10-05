@@ -24,8 +24,7 @@ class wpl_extensions
      */
 	public function get_extension($extension_id)
 	{
-		$results = wpl_db::get('*', 'wpl_extensions', 'id', $extension_id);
-		return $results;
+		return wpl_db::get('*', 'wpl_extensions', 'id', $extension_id);
 	}
 	
     /**
@@ -73,7 +72,7 @@ class wpl_extensions
 	public function get_extensions_types($enabled = 0)
 	{
 		$query = "SELECT `id`, `type` FROM `#__wpl_extensions` WHERE `enabled`>='$enabled' GROUP BY `type` ORDER BY `type` ASC";
-		return $extension_types = wpl_db::select($query);
+		return wpl_db::select($query);
 	}
 	
     /**
@@ -390,6 +389,13 @@ class wpl_extensions
      */
 	public function activate_wpl($network_activate = false)
 	{
+        /** Call Franchise activate function **/
+        if(wpl_global::is_multisite())
+        {
+            $fswpl = new wpl_addon_franchise_wpl();
+            return $fswpl->activate($network_activate);
+        }
+        
 		if(wpl_folder::exists(WPL_ABSPATH. 'assets' .DS. 'install' .DS. 'files'))
 		{
 			/** copy files **/
@@ -447,9 +453,6 @@ class wpl_extensions
         /** Add admin user to WPL **/
         wpl_users::add_user_to_wpl(wpl_users::get_blog_admin_id());
         
-        /** Call Franchise activate function **/
-        if(wpl_global::is_multisite()) wpl_addon_franchise::wpl_activate($network_activate);
-        
         /** upgrade WPL **/
 		self::upgrade_wpl();
     }
@@ -461,6 +464,13 @@ class wpl_extensions
      */
 	public function upgrade_wpl()
 	{
+        /** Call Franchise upgrade function **/
+        if(wpl_global::is_multisite())
+        {
+            $fswpl = new wpl_addon_franchise_wpl();
+            return $fswpl->upgrade();
+        }
+        
 		if(wpl_folder::exists(WPL_ABSPATH. 'assets' .DS. 'upgrade' .DS. 'files'))
 		{
 			/** copy files **/
@@ -511,7 +521,11 @@ class wpl_extensions
 	public function deactivate_wpl($network_deactivate = false)
 	{
         /** Call Franchise deactivate function **/
-        if(wpl_global::is_multisite()) wpl_addon_franchise::wpl_deactivate($network_deactivate);
+        if(wpl_global::is_multisite())
+        {
+            $fswpl = new wpl_addon_franchise_wpl();
+            return $fswpl->deactivate($network_deactivate);
+        }
 	}
 	
     /**
@@ -536,34 +550,15 @@ class wpl_extensions
         /** delete options **/
         wpl_db::q("DELETE FROM `#__options` WHERE `option_name` LIKE 'wpl_%' AND `option_name` NOT LIKE 'wpl_theme%'", 'delete');
         
-        /** remove WPL upload directory **/
-        if(wpl_global::is_multisite())
-        {
-            $original_blog_id = wpl_global::get_current_blog_id();
-
-            /** Get all blogs **/
-            $blogs = wpl_db::select("SELECT `blog_id` FROM `#__blogs`", 'loadColumn');
-
-            foreach($blogs as $blog)
-            {
-                if(!isset($blog->blog_id)) continue;
-                
-                switch_to_blog($blog->blog_id);
-                
-                $upload_path = wpl_global::get_upload_base_path($blog->blog_id);
-                if(wpl_folder::exists($upload_path)) wpl_folder::delete($upload_path);
-            }
-            
-            switch_to_blog($original_blog_id);
-        }
-        else
-        {
-            $upload_path = wpl_global::get_upload_base_path();
-            if(wpl_file::exists($upload_path)) wpl_file::delete($upload_path);
-        }
+        $upload_path = wpl_global::get_upload_base_path();
+        if(wpl_file::exists($upload_path)) wpl_file::delete($upload_path);
         
         /** Call Franchise uninstall function **/
-        if(wpl_global::is_multisite()) wpl_addon_franchise::wpl_uninstall();
+        if(wpl_global::is_multisite())
+        {
+            $fswpl = new wpl_addon_franchise_wpl();
+            $fswpl->uninstall();
+        }
         
         return true;
 	}
@@ -659,6 +654,9 @@ class wpl_extensions
      */
 	public function wpl_admin_bar_menu()
 	{
+        /** Don't show top bar menu on network admin **/
+        if(is_network_admin()) return false;
+        
 		$cur_user_id = wpl_users::get_cur_user_id();
 		$cur_user_data = wpl_users::get_user($cur_user_id);
         
@@ -787,11 +785,6 @@ if(!(isset($GLOBALS['pagenow']) and $GLOBALS['pagenow'] == 'plugins.php' and wpl
 		$wpl_extensions->upgrade_wpl();
 	}
 }
-
-/** Run WPL Proccess service **/
-_wpl_import('libraries.services.process');
-$wpl_service_process = new wpl_service_process();
-$wpl_service_process->run();
 
 /** import TinyMCE buttons **/
 add_action('init', array($wpl_extensions, 'import_mce_buttons'));

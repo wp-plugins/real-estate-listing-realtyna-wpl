@@ -28,6 +28,9 @@ class wpl_profile_listing_controller extends wpl_controller
             'user_id' => $user_id
         );
         
+        // For integrating third party plugins such as captcha plugins
+        apply_filters('preprocess_comment', array());
+        
         $returnData = array();
         if(!filter_var($email, FILTER_VALIDATE_EMAIL))
         {

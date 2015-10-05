@@ -96,12 +96,12 @@ elseif($type == 'feature' and !$done_this)
 	if($options['type'] != 'none')
 	{
 		// setting the current value
-		$value = $values[$field->table_column.'_options'];
+		$value = trim($values[$field->table_column.'_options'], ', ');
 		
 		if($options['type'] == 'single')
 		{
 			echo '<div class="options-wp" id="wpl_span_feature_' . $field->id . '" style="' . $style . '">';
-			echo '<select id="wpl_cf_' . $field->id . '" name="'.$field->table_column.'_options" onchange="ajax_save(\'' . $field->table_name . '\', \''.$field->table_column.'_options\', this.value, \'' . $item_id . '\', \'' . $field->id . '\', \'#wpl_cf_' . $field->id . '\');">';
+			echo '<select id="wpl_cf_' . $field->id . '" name="'.$field->table_column.'_options" onchange="ajax_save(\'' . $field->table_name . '\', \''.$field->table_column.'_options\', \',\'+this.value+\',\', \'' . $item_id . '\', \'' . $field->id . '\', \'#wpl_cf_' . $field->id . '\');">';
 			echo '<option value="0">' . __('Select', WPL_TEXTDOMAIN) . '</option>';
 	
 			foreach($options['values'] as $select)
@@ -118,7 +118,7 @@ elseif($type == 'feature' and !$done_this)
 			$value_array = explode(',', $value);
 		
 			echo '<div class="options-wp" id="wpl_span_feature_' . $field->id . '" style="' . $style . '">';
-			echo '<select multiple="multiple" id="wpl_cf_' . $field->id . '" name="'.$field->table_column.'_options" onchange="ajax_save(\'' . $field->table_name . '\', \''.$field->table_column.'_options\', wplj(this).val(), \'' . $item_id . '\', \'' . $field->id . '\', \'#wpl_cf_' . $field->id . '\');">';
+			echo '<select multiple="multiple" id="wpl_cf_' . $field->id . '" name="'.$field->table_column.'_options" onchange="ajax_save(\'' . $field->table_name . '\', \''.$field->table_column.'_options\', \',\'+wplj(this).val()+\',\', \'' . $item_id . '\', \'' . $field->id . '\', \'#wpl_cf_' . $field->id . '\');">';
 	
 			foreach($options['values'] as $select)
 			{

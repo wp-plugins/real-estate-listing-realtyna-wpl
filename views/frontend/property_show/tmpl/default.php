@@ -74,7 +74,7 @@ $this->_wpl_import($this->tpl_path.'.scripts.js', true, true);
                     $description_column = 'field_308';
                     if(wpl_global::check_multilingual_status()) $description_column = wpl_addon_pro::get_column_lang_name($description_column, wpl_global::get_current_language(), false);
                     
-                    if($this->wpl_properties['current']['data'][$description_column]):
+                    if(isset($this->wpl_properties['current']['data'][$description_column]) and $this->wpl_properties['current']['data'][$description_column]):
                 ?>
                 <div class="wpl_prp_show_detail_boxes">
                     <div class="wpl_prp_show_detail_boxes_title"><?php echo __(wpl_flex::get_dbst_key('name', wpl_flex::get_dbst_id('field_308', $this->kind)), WPL_TEXTDOMAIN) ?></div>

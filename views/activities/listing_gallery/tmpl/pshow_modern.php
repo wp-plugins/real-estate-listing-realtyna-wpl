@@ -17,7 +17,7 @@ $this->watermark = (isset($params['watermark']) and trim($params['watermark']) !
 
 /** render gallery **/
 $raw_gallery = isset($wpl_properties['current']['items']['gallery']) ? $wpl_properties['current']['items']['gallery'] : array();
-$this->gallery = wpl_items::render_gallery($raw_gallery);
+$this->gallery = wpl_items::render_gallery($raw_gallery, wpl_property::get_blog_id($this->property_id));
 
 $js[] = (object) array('param1'=>'lightslider.js', 'param2'=>'packages/light_slider/js/lightslider.min.js');
 $js[] = (object) array('param1'=>'lightGallery.js', 'param2'=>'packages/light_gallery/js/lightGallery.min.js');
@@ -45,6 +45,7 @@ $this->_wpl_import($this->tpl_path.'.scripts.pshow_modern', true, true);
             {
                 $image_url = $image['url'];
                 $image_thumbnail_url = $image['url'];
+                $original_image_url = $image['url'];
 
                 if(isset($image['item_extra2'])) $image_alt = $image['item_extra2'];
                 else $image_alt = $wpl_properties['current']['raw']['meta_keywords'];
@@ -57,14 +58,16 @@ $this->_wpl_import($this->tpl_path.'.scripts.pshow_modern', true, true);
                     $params['image_parentid'] = $image['raw']['parent_id'];
                     $params['image_parentkind'] = $image['raw']['parent_kind'];
                     $params['image_source'] = $image['path'];
-
+                    
                     /** resize image if does not exist and add watermark **/
-                    $image_url = wpl_images::create_gallary_image($this->image_width, $this->image_height, $params, $this->watermark, $this->rewrite);
-                    $image_thumbnail_url = wpl_images::create_gallary_image(100, 80, $params, 0, $this->rewrite);
+                    $image_url = wpl_images::create_gallery_image($this->image_width, $this->image_height, $params, $this->watermark, $this->rewrite);
+                    $image_thumbnail_url = wpl_images::create_gallery_image(100, 80, $params, 0, $this->rewrite);
+                    
+                    /** Watermark original image **/
+                    if($this->watermark) $original_image_url = wpl_images::watermark_original_image($params);
                 }
                 ?>
-                <li id="wpl-gallery-img-<?php echo $image['raw']['id']; ?>" data-thumb="<?php echo $image_thumbnail_url; ?>"
-                    data-src="<?php echo $image['url']; ?>" data-hover-title="<?php echo __('Click to see gallery', WPL_TEXTDOMAIN); ?>">
+                <li id="wpl-gallery-img-<?php echo $image['raw']['id']; ?>" data-thumb="<?php echo $image_thumbnail_url; ?>" data-src="<?php echo $original_image_url; ?>" data-hover-title="<?php echo __('Click to see gallery', WPL_TEXTDOMAIN); ?>">
                     <span>
                         <img src="<?php echo $image_url; ?>" alt="<?php echo $image_alt; ?>" >
                     </span>

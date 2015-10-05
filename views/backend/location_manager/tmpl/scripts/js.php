@@ -204,32 +204,34 @@ function wpl_setting_save(setting_id, setting_name, setting_value, setting_categ
 {
 	wplj("#wpl_st_form_element"+setting_id).attr("disabled", "disabled");
 	
-	element_type = wplj("#wpl_st_form_element"+setting_id).attr('type');
+	var element_type = wplj("#wpl_st_form_element"+setting_id).attr('type');
+    var tag_name = wplj("#wpl_st_form_element"+setting_id).prop('tagName').toLowerCase();
+    
 	if(element_type == 'checkbox')
 	{
 		if(wplj("#wpl_st_form_element"+setting_id).is(':checked')) setting_value = 1;
 		else setting_value = 0;
 	}
+    
+    var ajax_loader_element = '#wpl_st_form_element'+setting_id;
+    if(tag_name == 'select')
+    {
+        ajax_loader_element = '#wpl_st_form_element'+setting_id+'_chosen';
+    }
 	
-	ajax_loader_element = '#wpl_ajax_loader_'+setting_id;
-	wplj(ajax_loader_element).html('<img src="<?php echo wpl_global::get_wpl_asset_url('img/ajax-loader3.gif'); ?>" />');
+    /** Show AJAX loader **/
+    var wpl_ajax_loader = Realtyna.ajaxLoader.show(ajax_loader_element, 'tiny', 'rightOut');
 	
-	request_str = 'wpl_format=b:settings:ajax&wpl_function=save&setting_name='+setting_name+'&setting_value='+setting_value+'&setting_category='+setting_category;
+	var request_str = 'wpl_format=b:settings:ajax&wpl_function=save&setting_name='+setting_name+'&setting_value='+setting_value+'&setting_category='+setting_category;
 	
 	/** run ajax query **/
-	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str, ajax_loader_element);
+	var ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str, ajax_loader_element);
 	ajax.success(function(data)
 	{
 		wplj("#wpl_st_form_element"+setting_id).removeAttr("disabled");
 		
-		if(data.success == 1)
-		{
-			wplj(ajax_loader_element).html('');
-		}
-		else if(data.success != 1)
-		{
-			wplj(ajax_loader_element).html('');
-		}
+		/** Remove AJAX loader **/
+        Realtyna.ajaxLoader.hide(wpl_ajax_loader);
 	});
 }
 </script>

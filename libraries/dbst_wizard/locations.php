@@ -130,7 +130,7 @@ function wpl_load_location_select(field_id, location_level, parent)
 	parent_level = location_level - 1;
     
 	var html = "";
-	request_str = 'wpl_format=b:listing:ajax&wpl_function=get_locations&location_level=' + location_level + '&parent=' + parent;
+	request_str = 'wpl_format=b:listing:ajax&wpl_function=get_locations&location_level=' + location_level + '&parent=' + parent + '&field_id=' + field_id;
 
 	/** run ajax query **/
 	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str);

@@ -1036,7 +1036,7 @@ class wpl_global
     public static function get_addon($addon_id = 0, $addon_name = NULL)
 	{
 		if(trim($addon_id)) return wpl_db::get('*', 'wpl_addons', 'id', $addon_id, false);
-		else return wpl_db::get('*', 'wpl_addons', 'name', $addon_name, false);
+		else return wpl_db::get('*', 'wpl_addons', 'addon_name', $addon_name, false);
 	}
     
     /**
@@ -1142,8 +1142,18 @@ class wpl_global
      */
 	public static function check_all_update()
 	{
-		$addons = wpl_db::select("SELECT * FROM `#__wpl_addons`", 'loadAssocList');
+        /** Client should update WPL Franchise first **/
+        if(wpl_global::is_multisite())
+        {
+            $fs_update = wpl_global::check_addon_update(4);
+            if(isset($fs_update['success']) and $fs_update['success'] == 1)
+            {
+                wpl_db::q("UPDATE `#__wpl_addons` SET `message`='' WHERE `id`!='4'", 'UPDATE');
+                return;
+            }
+        }
         
+		$addons = wpl_db::select("SELECT * FROM `#__wpl_addons`", 'loadAssocList');
         foreach($addons as $addon) self::check_addon_update($addon['id']);
 	}
 	
@@ -1308,11 +1318,24 @@ class wpl_global
     /**
      * Returns current blog ID
      * @author Howard R. <howard@realtyna.com>
+     * @static
      * @return int current blog id, it returns 1 if multisite is off
      */
 	public static function get_current_blog_id()
 	{
 		return get_current_blog_id();
+	}
+    
+    /**
+     * Returns current site ID. Use wpl_global::get_current_blog_id if you want to get blog/child website ID
+     * @author Howard R. <howard@realtyna.com>
+     * @static
+     * @return int current WordPress Site ID
+     */
+    public static function get_current_network_site_id()
+	{
+        $wpdb = wpl_db::get_DBO();
+		return $wpdb->siteid;
 	}
 	
     /**
@@ -1626,7 +1649,7 @@ class wpl_global
      */
     public static function get_property_types_by_parent($parent, $enabled = 1)
 	{
-        $query = "SELECT * FROM `#__wpl_property_types` WHERE `parent` IN ($parent) `enabled`>='$enabled' AND `name`!='' ORDER BY `index` ASC";
+        $query = "SELECT * FROM `#__wpl_property_types` WHERE `parent` IN ($parent) AND `enabled`>='$enabled' AND `name`!='' ORDER BY `index` ASC";
         return wpl_db::select($query, 'loadAssocList');
 	}
     
@@ -1737,8 +1760,8 @@ class wpl_global
         if(wpl_global::check_multilingual_status())
         {
             $valid_columns = wpl_db::columns($table);
-            
             $languages = wpl_addon_pro::get_wpl_languages();
+            
             foreach($columns as $column)
             {
                 foreach($languages as $language)
@@ -1815,6 +1838,7 @@ class wpl_global
     /**
      * Generates request string from an array. Used in Property Listing and Profile Listing etc.
      * @author Howard R <Howard@realtyna.com>
+     * @static
      * @param array $vars
      * @return string
      */
@@ -1836,6 +1860,7 @@ class wpl_global
     /**
      * Returns WPL cache instance
      * @author Howard R <Howard@realtyna.com>
+     * @static
      * @return object
      */
     public static function get_wpl_cache()
@@ -1847,6 +1872,7 @@ class wpl_global
     /**
      * List WP Pages in <option> fields
      * @author Howard <howard@realtyna.com>
+     * @static
      * @param int $selected
      * @return string
      */
@@ -1870,6 +1896,7 @@ class wpl_global
     /**
      * Check WP Network installation or not
      * @author Howard <howard@realtyna.com>
+     * @static
      * @return boolean
      */
     public static function is_multisite()
@@ -1880,6 +1907,7 @@ class wpl_global
     /**
      * Returns blog option
      * @author Howard <howard@realtyna.com>
+     * @static
      * @param int $blog_id
      * @param string $setting
      * @param mixed $default
@@ -1890,8 +1918,10 @@ class wpl_global
         return get_blog_option($blog_id, $setting, $default);
     }
 
-    /** To triggering request_a_visit_send event
+    /**
+     * To triggering request_a_visit_send event
      * @author Chris <chris@realtyna.com>
+     * @static
      * @param $parameters
      * @return bool
      */
@@ -1901,8 +1931,10 @@ class wpl_global
         return true;
     }
     
-    /** To triggering send_to_friend event
+    /**
+     * To triggering send_to_friend event
      * @author Chris <chris@realtyna.com>
+     * @static
      * @param $parameters
      * @return bool
      */

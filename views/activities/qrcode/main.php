@@ -17,7 +17,7 @@ class wpl_activity_main_qrcode extends wpl_activity
 	
 	public function get_qr_image($qrfile_prefix = 'qr_', $size = 4, $outer_margin = 2)
 	{
-		$url = wpl_global::get_full_url();
+		$url = isset($this->url) ? $this->url : wpl_global::get_full_url();
 		$file_name = $qrfile_prefix.md5($url).'.png';
 		
 		$file_path = wpl_global::get_upload_base_path(). 'qrcode' .DS. $file_name;

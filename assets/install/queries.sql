@@ -1121,14 +1121,14 @@ CREATE TABLE IF NOT EXISTS `#__wpl_property_types` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
-INSERT INTO `#__wpl_property_types` (`id`, `parent`, `enabled`, `editable`, `index`, `listing`, `name`, `keyword`) VALUES
-(1, 0, 0, 2, 0.00, 0, 'Residential', 'Residential'),
-(2, 0, 0, 2, 0.00, 0, 'Commercial', 'Commercial'),
-(3, 0, 0, 2, 0.00, 0, 'Land', 'Land'),
-(6, 1, 1, 2, 7.00, 0, 'Apartment', 'Apartment'),
-(7, 1, 1, 2, 32.00, 0, 'Villa', 'Villa'),
-(13, 2, 1, 2, 6.00, 0, 'Office', 'Office'),
-(14, 3, 1, 2, 14.00, 0, 'Land', 'Land');
+INSERT INTO `#__wpl_property_types` (`id`, `parent`, `enabled`, `editable`, `index`, `listing`, `name`) VALUES
+(1, 0, 0, 2, 0.00, 0, 'Residential'),
+(2, 0, 0, 2, 0.00, 0, 'Commercial'),
+(3, 0, 0, 2, 0.00, 0, 'Land'),
+(6, 1, 1, 2, 7.00, 0, 'Apartment'),
+(7, 1, 1, 2, 32.00, 0, 'Villa'),
+(13, 2, 1, 2, 6.00, 0, 'Office'),
+(14, 3, 1, 2, 14.00, 0, 'Land');
 
 CREATE TABLE IF NOT EXISTS `#__wpl_room_types` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

@@ -27,7 +27,6 @@ class wpl_service_process
 			
 			if($wpl_function == 'save')
 			{
-				$table_name = wpl_request::getVar('table_name');
 				$table_column = wpl_request::getVar('table_column');
 				$value = wpl_request::getVar('value');
 				
@@ -37,7 +36,7 @@ class wpl_service_process
 					_wpl_import('libraries.property');
 					$current_user_id = wpl_users::get_cur_user_id();
 					$user_data = wpl_users::get_wpl_user($current_user_id);
-					
+                    
 					$user_limit = $table_column == 'sp_featured' ? $user_data->maccess_num_feat : $user_data->maccess_num_hot;
                     
                     $model = new wpl_property();

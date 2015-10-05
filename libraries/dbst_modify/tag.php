@@ -19,7 +19,6 @@ if($type == 'tag' and !$done_this)
 				/** include main file * */
 				include _wpl_import('libraries.dbst_modify.main.main', true, true);
 			?>
-
 		</div>
 		<div class="col-fanc-right" id="wpl_flex_specific_options">
             <div class="fanc-row fanc-inline-title">
@@ -34,7 +33,16 @@ if($type == 'tag' and !$done_this)
 					<?php echo __('Params', WPL_TEXTDOMAIN); ?>    
 				</span>
 			</div>
-            <?php if(wpl_global::check_addon('tags')): ?>
+            <?php if(wpl_global::check_addon('tags')): $tag_categories = json_decode(wpl_global::get_setting('tags_categories'), true); ?>
+            <div class="fanc-row">
+				<label for="<?php echo $__prefix; ?>opt_category"><?php echo __('Category', WPL_TEXTDOMAIN); ?></label>
+                <select name="<?php echo $__prefix; ?>opt_category" id="<?php echo $__prefix; ?>opt_category">
+                    <option value="">----</option>
+                    <?php foreach($tag_categories as $tag_category): ?>
+                    <option value="<?php echo $tag_category; ?>" <?php echo ((isset($options['category']) and $options['category'] == $tag_category) ? 'selected="selected"' : ''); ?>><?php echo __($tag_category, WPL_TEXTDOMAIN); ?></option>
+                    <?php endforeach; ?>
+                </select>
+			</div>
             <div class="fanc-row">
 				<label for="<?php echo $__prefix; ?>opt_ribbon"><?php echo __('Ribbon', WPL_TEXTDOMAIN); ?></label>
                 <select name="<?php echo $__prefix; ?>opt_ribbon" id="<?php echo $__prefix; ?>opt_ribbon">

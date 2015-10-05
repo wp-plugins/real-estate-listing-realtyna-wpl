@@ -170,7 +170,13 @@ class wpl_settings_controller extends wpl_controller
         $wplscss->set_import_path(WPL_ABSPATH.'assets'.DS.'scss'.DS.'ui_customizer'.DS);
         
         /** Compile **/
-        $wplscss->compile_file(WPL_ABSPATH.'assets'.DS.'scss'.DS.'ui_customizer'.DS.'wpl.scss', WPL_ABSPATH.'assets'.DS.'css'.DS.'ui_customizer'.DS.'wpl.css');
+        $css_path = WPL_ABSPATH.'assets'.DS.'css'.DS.'ui_customizer'.DS.'wpl.css';
+        
+        // Make WPL UI Customizer multisite support
+        $current_blog_id = wpl_global::get_current_blog_id();
+        if($current_blog_id and $current_blog_id != 1) $css_path = WPL_ABSPATH.'assets'.DS.'css'.DS.'ui_customizer'.DS.'wpl'.$current_blog_id.'.css';
+        
+        $wplscss->compile_file(WPL_ABSPATH.'assets'.DS.'scss'.DS.'ui_customizer'.DS.'wpl.scss', $css_path);
         
         /** Save UI Customizer Options in Database **/
         wpl_settings::save_setting('wpl_ui_customizer', json_encode($wplcustomizer));
@@ -204,6 +210,8 @@ class wpl_settings_controller extends wpl_controller
         _wpl_import('libraries.addon_calendar');
         
         $res = wpl_addon_calendar::clear_calendar_data();
+        $message = $res ? __('Calendar Data removed.', WPL_TEXTDOMAIN) : __('Error Occured.', WPL_TEXTDOMAIN);
+        $data = NULL;
         
         $response = array('success'=>$res, 'message'=>$message, 'data'=>$data);
 		echo json_encode($response);

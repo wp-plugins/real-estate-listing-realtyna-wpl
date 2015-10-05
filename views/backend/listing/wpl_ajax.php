@@ -43,8 +43,9 @@ class wpl_listing_controller extends wpl_controller
 			$location_level = wpl_request::getVar('location_level');
 			$parent = wpl_request::getVar('parent');
 			$current_location_id = wpl_request::getVar('current_location_id');
+            $field_id = wpl_request::getVar('field_id', 41);
 			
-			$this->get_locations($location_level, $parent, $current_location_id);
+			$this->get_locations($location_level, $parent, $current_location_id, $field_id);
 		}
 		elseif($function == 'finalize')
 		{
@@ -133,7 +134,7 @@ class wpl_listing_controller extends wpl_controller
 		exit;
 	}
 	
-	private function get_locations($location_level, $parent, $current_location_id = '')
+	private function get_locations($location_level, $parent, $current_location_id = '', $field_id = 41)
 	{
 		$location_data = wpl_locations::get_locations($location_level, $parent, '');
 		$location_settings = wpl_global::get_settings('3'); # location settings
@@ -147,12 +148,12 @@ class wpl_listing_controller extends wpl_controller
 		/** website is configured to use location text **/
 		if($location_settings['location_method'] == 1 and ($location_level >= 3 or $location_level == 'zips'))
 		{
-			$html = '<input type="text" name="location'.$location_level.'_name" id="wpl_listing_location'.$location_level.'_select" onchange="wpl_listing_location_change(\''.$location_level.'\', this.value);" />';
+			$html = '<input type="text" name="location'.$location_level.'_name" id="wpl_listing_location'.$location_level.'_select" onchange="wpl_listing_location_change(\''.$field_id.'\', \''.$location_level.'\', this.value);" />';
 		}
 		/** website is configured to use location database **/
 		elseif($location_settings['location_method'] == 2 or ($location_settings['location_method'] == 1 and $location_level <= 2))
 		{
-			$html = '<select name="location'.$location_level.'_id" id="wpl_listing_location'.$location_level.'_select" onchange="wpl_listing_location_change(\''.$location_level.'\', this.value);" class="'.((is_numeric($location_level) and $location_level <= 2) ? 'wpl_location_indicator_selectbox' : '').'">';
+			$html = '<select name="location'.$location_level.'_id" id="wpl_listing_location'.$location_level.'_select" onchange="wpl_listing_location_change(\''.$field_id.'\', \''.$location_level.'\', this.value);" class="'.((is_numeric($location_level) and $location_level <= 2) ? 'wpl_location_indicator_selectbox' : '').'">';
 			$html .= '<option value="0">'.__('Select', WPL_TEXTDOMAIN).'</option>';
 			
 			foreach($location_data as $location)

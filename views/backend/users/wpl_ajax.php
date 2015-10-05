@@ -90,6 +90,7 @@ class wpl_users_controller extends wpl_controller
 			$this->delete_file($field_id, $user_id);
 		}
         elseif($function == 'save_multilingual') $this->save_multilingual();
+        elseif($function == 'renew_membership') $this->renew_membership();
 	}
 	
 	private function add_user_to_wpl($user_id)
@@ -391,6 +392,26 @@ class wpl_users_controller extends wpl_controller
 		$res = 1;
 		$message = $res ? __('Saved.', WPL_TEXTDOMAIN) : __('Error Occured.', WPL_TEXTDOMAIN);
 		$data = NULL;
+		
+		$response = array('success'=>$res, 'message'=>$message, 'data'=>$data);
+		
+		echo json_encode($response);
+		exit;
+	}
+    
+    private function renew_membership()
+	{
+        $user_id = wpl_request::getVar('id', 0);
+        
+        _wpl_import('libraries.addon_membership');
+        $membership = new wpl_addon_membership();
+        $membership->renew($user_id);
+        
+        $user_data = wpl_users::get_wpl_data($user_id);
+		
+		$res = 1;
+		$message = $res ? __('Operation was successful.', WPL_TEXTDOMAIN) : __('Error Occured.', WPL_TEXTDOMAIN);
+		$data = array('expiry_date'=>date('Y-m-d', strtotime($user_data->expiry_date)));
 		
 		$response = array('success'=>$res, 'message'=>$message, 'data'=>$data);
 		

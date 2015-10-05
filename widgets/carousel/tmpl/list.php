@@ -27,7 +27,7 @@ $image_height = isset($this->instance['data']['image_height']) ? $this->instance
 
             $image_description = $gallery["items"]["gallery"][0]->item_extra2;
 
-            if($gallery["items"]["gallery"][0]->item_cat != 'external') $image_url = wpl_images::create_gallary_image($image_width, $image_height, $params);
+            if($gallery["items"]["gallery"][0]->item_cat != 'external') $image_url = wpl_images::create_gallery_image($image_width, $image_height, $params);
             else $image_url = $gallery["items"]["gallery"][0]->item_extra3;
 
             echo '

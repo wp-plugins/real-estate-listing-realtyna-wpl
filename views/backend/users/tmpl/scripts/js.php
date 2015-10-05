@@ -301,6 +301,29 @@ function wpl_change_membership(id)
 	});
 }
 
+function wpl_renew_user(id)
+{
+	/** Show AJAX loader **/
+    var wpl_ajax_loader = Realtyna.ajaxLoader.show('#wpl_user_renew'+id, 'tiny', 'rightIn');
+	var request_str = 'wpl_format=b:users:ajax&wpl_function=renew_membership&id='+id;
+	
+	/** run ajax query **/
+	ajax = wpl_run_ajax_query('<?php echo wpl_global::get_full_url(); ?>', request_str);
+	ajax.success(function(data)
+	{
+        /** Remove AJAX loader **/
+        Realtyna.ajaxLoader.hide(wpl_ajax_loader);
+        
+		if(data.success == 1)
+		{
+            wplj('#wpl_user_expiry_date'+id).html(data.data.expiry_date);
+		}
+		else if(data.success != 1)
+		{
+		}
+	});
+}
+
 function wpl_get_tinymce_content(html_element_id)
 {
 	if(wplj("#wp-"+html_element_id+"-wrap").hasClass("tmce-active"))

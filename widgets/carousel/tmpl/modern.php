@@ -39,8 +39,8 @@ foreach($wpl_properties as $key=>$gallery)
 
         if($gallery["items"]["gallery"][0]->item_cat != 'external')
         {
-            $image_url 			= wpl_images::create_gallary_image($image_width, $image_height, $params);
-            $thumbnail_url 		= wpl_images::create_gallary_image($thumbnail_width, $thumbnail_height, $params);
+            $image_url 			= wpl_images::create_gallery_image($image_width, $image_height, $params);
+            $thumbnail_url 		= wpl_images::create_gallery_image($thumbnail_width, $thumbnail_height, $params);
         }
         else
         {

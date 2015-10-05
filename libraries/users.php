@@ -59,9 +59,7 @@ class wpl_users
 		wpl_global::event_handler('user_deleted_from_wpl', array('id'=>$user_id));
 
 		$query = "DELETE FROM `#__wpl_users` WHERE `id`='$user_id'";
-		$result = wpl_db::q($query);
-        
-		return $result;
+		return wpl_db::q($query);
 	}
     
     /**
@@ -175,11 +173,9 @@ class wpl_users
 		
 		/** fetch user data **/
 		$user_data = get_userdata($user_id);
-
         
         /** Invalid or Guest User **/
 		if(!is_object($user_data)) $user_data = new stdClass();
-        
 
 		$user_data->meta = self::get_user_meta($user_id);
 		$user_data->wpl_data = self::get_wpl_data($user_id);
@@ -1179,8 +1175,12 @@ class wpl_users
             if(isset($locations[$pattern])) $location_text = str_replace('[' . $pattern . ']', $locations[$pattern], $location_text);
             elseif(isset($user_data[$pattern]))
             {
-                if(wpl_global::check_multilingual_status() and wpl_addon_pro::get_multiligual_status_by_column($pattern, 2)) $pattern = wpl_addon_pro::get_column_lang_name($pattern, wpl_global::get_current_language(), false);
-                $location_text = str_replace('[' . $pattern . ']', $user_data[$pattern], $location_text);
+                if(wpl_global::check_multilingual_status() and wpl_addon_pro::get_multiligual_status_by_column($pattern, 2)) $pattern_multilingual = wpl_addon_pro::get_column_lang_name($pattern, wpl_global::get_current_language(), false);
+                
+                $value = $user_data[(isset($pattern_multilingual) ? $pattern_multilingual : $pattern)];
+                if(!trim($value)) $value = '';
+                
+                $location_text = str_replace('[' . $pattern . ']', $value, $location_text);
             }
         }
         
@@ -1372,10 +1372,9 @@ class wpl_users
      * @author Chris <chris@realtyna.com>
      * @static
      * @param array $user_data
-     * @param boolean $secure_cookie
      * @return \WP_Error
      */
-	public static function login_user($user_data, $secure_cookie = false)
+	public static function login_user($user_data)
 	{
 		$acceptable_fileds = array('user_login', 'user_password', 'remember');
 		$login_data = array();
@@ -1388,7 +1387,7 @@ class wpl_users
                 $login_data[$key] = $value;
 			}
             
-			return wp_signon($login_data, $secure_cookie);
+			return wp_signon($login_data, '');
 		}
 		else
 		{
@@ -1554,6 +1553,17 @@ class wpl_users
      */
     public static function has_menu_access($menu_slug, $user_id = NULL)
     {
+        if(wpl_global::is_multisite() and !wpl_users::is_super_admin($user_id))
+        {
+            $current_blog_id = wpl_global::get_current_blog_id();
+            
+            // Franchise Object
+            $fs = new wpl_addon_franchise();
+            $fs_settings = $fs->fs_settings($current_blog_id);
+            
+            if(isset($fs_settings['menus']) and isset($fs_settings['menus'][$menu_slug])) return (boolean) $fs_settings['menus'][$menu_slug];
+        }
+        
         return true;
     }
 
@@ -1650,5 +1660,18 @@ class wpl_users
     public static function wp_registration_url()
     {
         return wp_registration_url();
+    }
+    
+    /**
+     * Triggers when a user removed from WordPress completely
+     * @author Howard R. <howard@realtyna.com>
+     * @static
+     * @param int $user_id
+     * @return boolean
+     */
+    public static function delete_user($user_id)
+    {
+        wpl_users::delete_user_from_wpl($user_id);
+        return true;
     }
 }

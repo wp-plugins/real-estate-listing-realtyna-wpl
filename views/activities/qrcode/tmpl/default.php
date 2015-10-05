@@ -6,6 +6,9 @@ defined('_WPLEXEC') or die('Restricted access');
 $wpl_properties = isset($params['wpl_properties']) ? $params['wpl_properties'] : array();
 $property_id = isset($wpl_properties['current']['data']['id']) ? $wpl_properties['current']['data']['id'] : NULL;
 
+// Property Link
+$this->url = $wpl_properties['current']['property_link'];
+
 $picture_width = isset($params['picture_width']) ? $params['picture_width'] : 80;
 $picture_height = isset($params['picture_height']) ? $params['picture_height'] : 80;
 $outer_margin = isset($params['outer_margin']) ? $params['outer_margin'] : 2;

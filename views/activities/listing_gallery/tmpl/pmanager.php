@@ -17,7 +17,7 @@ $this->watermark = (isset($params['watermark']) and trim($params['watermark']) !
 
 /** render gallery **/
 $raw_gallery = isset($wpl_properties['current']['items']['gallery']) ? $wpl_properties['current']['items']['gallery'] : array();
-$gallery = wpl_items::render_gallery($raw_gallery);
+$gallery = wpl_items::render_gallery($raw_gallery, wpl_property::get_blog_id($this->property_id));
 ?>
 <div class="wpl_gallery_container" id="wpl_gallery_container<?php echo $this->property_id; ?>" >
     <?php
@@ -47,7 +47,7 @@ $gallery = wpl_items::render_gallery($raw_gallery);
             $params['image_source'] = $pimage['path'];
 
             /** resize image if does not exist **/
-            $image_url = wpl_images::create_gallary_image($this->image_width, $this->image_height, $params, $this->watermark, $this->rewrite);
+            $image_url = wpl_images::create_gallery_image($this->image_width, $this->image_height, $params, $this->watermark, $this->rewrite);
         }
         
         echo '<img itemprop="image" id="wpl_gallery_image'.$this->property_id.'" src="'.$image_url.'" alt="'.$image_alt.'" class="wpl_gallery_image '.$this->image_class.'" width="'.$this->image_width.'" height="'.$this->image_height.'" style="width: '.$this->image_width.'px; height: '.$this->image_height.'px;" />';

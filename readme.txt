@@ -1,10 +1,10 @@
 === WPL Real Estate ===
 Contributors: realtyna
 Donate link: http://wpl.realtyna.com/
-Tags: Real estate, Listing, Vertical Market, MLS, Property listing, RETS, Listings, Broker, Realtor, Property, IDX, Multiple Listing Service, Property Management, Properties
+Tags: Real estate, Listing, Vertical Market, MLS, Property listing, RETS, Listings, Broker, Realtor, Property, IDX, Multiple Listing Service, Property Management, Properties, wp-property, WordPress real estate, realestate
 Requires at least: 3.0.1
-Tested up to: 4.3
-Stable tag: 2.7.0
+Tested up to: 4.3.1
+Stable tag: 2.8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -68,6 +68,18 @@ Submit a support ticket on Realtyna ticketing system: https://support.realtyna.c
 6. External Responsive Template: Agent listing
 
 == Changelog ==
+
+= 2.8.0 =
+* [PRO] Fixed AJAX search issue for Min/Max slider.
+* [PRO] Fixed QR barcode issue in PDF flyer.
+* [PRO] Fixed some issues in walkscore activity.
+* Added "between" search type for numeric fields.
+* Added single and multiple search type for feature fields.
+* Added captcha compatibility for WPL contact forms.
+* Improved tablet responsive size in WPL.
+* Improved mobile responsive size in WPL.
+* Fixed responsive issues on WPL views.
+* Fixed some PHP notices and minor issues.
 
 = 2.7.0 =
 * [PRO] Added "PDF Flyer" option to WPL fields and WPL data categories.

@@ -64,7 +64,13 @@ class wpl_file
 			$src = wpl_path::clean($path . '/' . $src);
 			$dest = wpl_path::clean($path . '/' . $dest);
 		}
-
+        
+        // If the destination directory doesn't exist we need to create it
+		if (!file_exists(dirname($dest)))
+		{
+			wpl_folder::create(dirname($dest));
+		}
+        
 		// Check src path
 		if (!is_readable($src))
 		{
@@ -122,7 +128,13 @@ class wpl_file
 			$src = wpl_path::clean($path . '/' . $src);
 			$dest = wpl_path::clean($path . '/' . $dest);
 		}
-
+        
+        // If the destination directory doesn't exist we need to create it
+		if (!file_exists(dirname($dest)))
+		{
+			wpl_folder::create(dirname($dest));
+		}
+        
 		// Check src path
 		if (!is_readable($src)) return false;
 		if (!@rename($src, $dest)) return false;

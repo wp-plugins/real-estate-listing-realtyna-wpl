@@ -355,6 +355,17 @@ class wpl_settings
                 if(wpl_file::exists($path.'second_email.png')) wpl_file::delete($path.'second_email.png');
             }
 		}
+        
+        if($cache_type == 'wpl_cache_directory' or $cache_type == 'all')
+		{
+            $cache = wpl_global::get_wpl_cache();
+            $directories = wpl_folder::folders($cache->get_path());
+            
+            foreach($directories as $directory)
+            {
+                wpl_folder::delete($cache->get_path().DS.$directory.DS);
+            }
+		}
 		
         /** trigger event **/
         wpl_global::event_handler('cache_cleared', array('cache_type'=>$cache_type));

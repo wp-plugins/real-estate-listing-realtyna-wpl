@@ -9,12 +9,12 @@ if($format == 'select' and !$done_this)
 }
 elseif($format == 'tmin' and !$done_this)
 {
-	if($value != '-1' and trim($value) != '') $query .= " AND `".$table_column."` >= ".$value."";
+	if($value != '-1' and trim($value) != '') $query .= " AND `".$table_column."` >= ".$value;
 	$done_this = true;
 }
 elseif($format == 'tmax' and !$done_this)
 {
-	if($value != '-1' and trim($value) != '') $query .= " AND `".$table_column."` <= ".$value."";
+	if($value != '-1' and trim($value) != '') $query .= " AND `".$table_column."` <= ".$value;
 	$done_this = true;
 }
 elseif($format == 'multiple' and !$done_this)
@@ -26,7 +26,7 @@ elseif($format == 'multiple' and !$done_this)
         {
             $values_ex = explode(',', $value);
             $value_str = '';
-            foreach($values_ex as $value_ex) $value_str .= "'$value_ex',";
+            foreach($values_ex as $value_ex) $value_str .= "'".trim($value_ex)."',";
             
             $query .= " AND `".$table_column."` IN (".trim($value_str, ', ').")";
         }
@@ -37,6 +37,60 @@ elseif($format == 'multiple' and !$done_this)
 elseif($format == 'text' and !$done_this)
 {
 	if(trim($value) != '') $query .= " AND `".$table_column."` LIKE '%".$value."%'";
+	$done_this = true;
+}
+elseif($format == 'between' and !$done_this)
+{
+	if($value != '-1' and trim($value) != '')
+    {
+        $ex = explode(':', $value);
+        $min = isset($ex[0])? $ex[0] : 0;
+        $max = isset($ex[1])? $ex[1] : NULL;
+        
+        $query .= " AND `".$table_column."` >= ".$min;
+        if(!is_null($max)) $query .= " AND `".$table_column."` <= ".$max;
+    }
+    
+	$done_this = true;
+}
+elseif($format == 'betweenunit' and !$done_this)
+{
+	if($value != '-1' and trim($value) != '')
+	{
+		$unit_id = isset($vars['sf_unit_'.$table_column]) ? $vars['sf_unit_'.$table_column] : 0;
+        $unit_data = wpl_units::get_unit($unit_id);
+		
+        $ex = explode(':', $value);
+        $min = isset($ex[0])? $ex[0] : 0;
+        $max = isset($ex[1])? $ex[1] : 0;
+		
+		$si_value_min = $unit_data['tosi'] * $min;
+		$si_value_max = $unit_data['tosi'] * $max;
+		
+        if($si_value_min != 0) $query .= " AND `".$table_column."_si` >= '".$si_value_min."'";
+		if($si_value_max != 0) $query .= " AND `".$table_column."_si` <= '".$si_value_max."'";
+	}
+	
+	$done_this = true;
+}
+elseif($format == 'feature' and !$done_this)
+{
+	if(!($value == '' or $value == '-1' or $value == ','))
+	{
+        $value = trim($value, ',');
+        
+		if($value != '')
+        {
+            $values_ex = explode(',', $value);
+            
+            $q = '';
+            foreach($values_ex as $value_ex) $q .= "`".$table_column."_options` LIKE '%,$value_ex,%' OR ";
+            $q = trim($q, 'OR ');
+            
+            $query .= " AND `".$table_column."`='1' AND (".$q.")";
+        }
+	}
+	
 	$done_this = true;
 }
 elseif($format == 'ptcategory' and !$done_this)

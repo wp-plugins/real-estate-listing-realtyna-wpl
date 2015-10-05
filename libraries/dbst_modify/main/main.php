@@ -57,3 +57,13 @@ defined('_WPLEXEC') or die('Restricted access');
     </select>
 </div>
 <?php endif; ?>
+
+<?php if(wpl_global::is_multisite() and wpl_users::is_super_admin()): ?>
+<div class="fanc-row" id="multisite_modify_status_container">
+    <label for="multisite_modify_status"><?php echo __('Network Apply', WPL_TEXTDOMAIN); ?></label>
+    <select name="multisite_modify_status" id="multisite_modify_status">
+        <option value="0"><?php echo __('No', WPL_TEXTDOMAIN); ?></option>
+        <option value="1"><?php echo __('Yes', WPL_TEXTDOMAIN); ?></option>
+    </select>
+</div>
+<?php endif; ?>

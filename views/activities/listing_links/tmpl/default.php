@@ -19,6 +19,7 @@ $show_crm               = (isset($params['crm']) and $params['crm']) ? 1 : 0;
 $show_request_a_visit   = (isset($params['request_a_visit']) and $params['request_a_visit']) ? 1 : 0;
 $show_send_to_friend    = (isset($params['send_to_friend']) and $params['send_to_friend']) ? 1 : 0;
 
+$this->lightbox_container = '#wpl_plisting_lightbox_content_container';
 $this->_wpl_import($this->tpl_path.'.scripts.js', true, true, true);
 ?>
 <div class="wpl_listing_links_container" id="wpl_listing_links_container<?php echo $property_id; ?>">
@@ -68,19 +69,19 @@ $this->_wpl_import($this->tpl_path.'.scripts.js', true, true, true);
         
         <?php if($show_abuse): ?>
         <li class="report_abuse_link">
-            <a data-realtyna-lightbox data-realtyna-lightbox-opts="title:'<?php echo __('Report Abuse', WPL_TEXTDOMAIN); ?>'" href="#wpl_pshow_lightbox_content_container" onclick="return wpl_report_abuse_get_form(<?php echo $property_id; ?>);" title="<?php echo __('Report Abuse', WPL_TEXTDOMAIN); ?>"></a>
+            <a data-realtyna-lightbox data-realtyna-lightbox-opts="title:'<?php echo __('Report Abuse', WPL_TEXTDOMAIN); ?>'" href="<?php echo $this->lightbox_container; ?>" onclick="return wpl_report_abuse_get_form(<?php echo $property_id; ?>);" title="<?php echo __('Report Abuse', WPL_TEXTDOMAIN); ?>"></a>
 		</li>
         <?php endif; ?>
 
         <?php if($show_send_to_friend): ?>
         <li class="send_to_friend_link">
-            <a data-realtyna-lightbox data-realtyna-lightbox-opts="title:'<?php echo __('Send to Friend', WPL_TEXTDOMAIN); ?>'" href="#wpl_pshow_lightbox_content_container" onclick="return wpl_send_to_friend_get_form(<?php echo $property_id; ?>);" title="<?php echo __('Send to Friend', WPL_TEXTDOMAIN); ?>"></a>
+            <a data-realtyna-lightbox data-realtyna-lightbox-opts="title:'<?php echo __('Send to Friend', WPL_TEXTDOMAIN); ?>'" href="<?php echo $this->lightbox_container; ?>" onclick="return wpl_send_to_friend_get_form(<?php echo $property_id; ?>);" title="<?php echo __('Send to Friend', WPL_TEXTDOMAIN); ?>"></a>
         </li>
         <?php endif; ?>
 
         <?php if($show_request_a_visit): ?>
         <li class="request_a_visit_link">
-            <a data-realtyna-lightbox data-realtyna-lightbox-opts="title:'<?php echo __('Request a Visit', WPL_TEXTDOMAIN); ?>'" href="#wpl_pshow_lightbox_content_container" onclick="return wpl_request_a_visit_get_form(<?php echo $property_id; ?>);" title="<?php echo __('Request a Visit', WPL_TEXTDOMAIN); ?>"></a>
+            <a data-realtyna-lightbox data-realtyna-lightbox-opts="title:'<?php echo __('Request a Visit', WPL_TEXTDOMAIN); ?>'" href="<?php echo $this->lightbox_container; ?>" onclick="return wpl_request_a_visit_get_form(<?php echo $property_id; ?>);" title="<?php echo __('Request a Visit', WPL_TEXTDOMAIN); ?>"></a>
         </li>
         <?php endif; ?>
 

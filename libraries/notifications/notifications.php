@@ -1,6 +1,7 @@
 <?php
 /** no direct access **/
 defined('_WPLEXEC') or die('Restricted access');
+
 _wpl_import('libraries.images');
 
 /**
@@ -200,7 +201,19 @@ class wpl_notifications
         if(!trim($path)) return false;
         
         $path = str_replace('/', DS, $path);
-        return wpl_global::get_wpl_root_path().'libraries'.DS.'notifications'.DS.'templates'.DS.$path.'.html';
+        $tpl = wpl_global::get_wpl_root_path().'libraries'.DS.'notifications'.DS.'templates'.DS.$path.'.html';
+        
+        // Make WPL notification templates multisite support
+        $current_blog_id = wpl_global::get_current_blog_id();
+        if($current_blog_id and $current_blog_id != 1)
+        {
+            $blog_tpl = wpl_global::get_wpl_root_path().'libraries'.DS.'notifications'.DS.'templates'.$current_blog_id.DS.$path.'.html';
+            wpl_file::copy($tpl, $blog_tpl);
+            
+            $tpl = $blog_tpl;
+        }
+        
+        return $tpl;
     }
     
     /**
@@ -244,6 +257,20 @@ class wpl_notifications
         
         $path = wpl_global::get_wpl_root_path().'libraries'.DS.'notifications'.DS.'templates'.DS.'cache'.DS.$image.'.png';
         $url = wpl_global::get_wpl_url().'libraries/notifications/templates/cache/'.$image.'.png';
+        
+        // Make WPL notification templates multisite support
+        $current_blog_id = wpl_global::get_current_blog_id();
+        if($current_blog_id and $current_blog_id != 1)
+        {
+            $path = wpl_global::get_wpl_root_path().'libraries'.DS.'notifications'.DS.'templates'.$current_blog_id.DS.'cache'.DS.$image.'.png';
+            $url = wpl_global::get_wpl_url().'libraries/notifications/templates'.$current_blog_id.'/cache/'.$image.'.png';
+            
+            // If the destination directory doesn't exist we need to create it
+            if(!wpl_file::exists(dirname($path)))
+            {
+                wpl_folder::create(dirname($path));
+            }
+        }
         
         if(!wpl_file::exists($path)) wpl_images::text_to_image($image, '000000', $path);
         

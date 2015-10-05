@@ -24,7 +24,7 @@ class wpl_carousel_widget extends wpl_widget
 	
 	public function __construct()
 	{
-		parent::__construct('wpl_carousel_widget', '(WPL) Carousel', array('description'=>__('Showing specific properties.', WPL_TEXTDOMAIN)));
+		parent::__construct('wpl_carousel_widget', __('(WPL) Carousel', WPL_TEXTDOMAIN), array('description'=>__('Showing specific properties.', WPL_TEXTDOMAIN)));
 	}
 
 	/**
